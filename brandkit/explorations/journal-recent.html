@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Le Magazine du Temps · Brand Page</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TEMPSPOURTEMPS — LE MAGAZINE DU TEMPS
+   Planche d'identité · DA « magazine récent » · Édition Juin 2026
+   ============================================================ */
+
+:root{
+  /* — Couleurs de marque — */
+  --marine:#183e57;        --marine-hover:#0f2f44;
+  --orange:#d65e1c;        --orange-hover:#b84e17;
+  --sable:#fcdb81;         --sable-hover:#f5cb5c;
+  --success:#4a9d5f;       --danger:#c44536;
+  --warning:#d97706;       --info:#183e57;
+  --bg-main:#f7f6f3;       --bg-secondary:#f3f3f5;
+  --bg-hover:#fdf1d7;
+  --text-secondary:#4b5563;--text-tertiary:#717182;
+  --border:#d6dbe2;
+  --gradient:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+
+  /* — Typo — */
+  --display:'Nunito',system-ui,sans-serif;   /* Nunito Rounded */
+  --body:'Inter',system-ui,sans-serif;
+
+  /* — Ombres douces — */
+  --shadow-card:0 1px 2px rgba(24,62,87,.05),0 8px 24px rgba(24,62,87,.07);
+  --shadow-lift:0 2px 4px rgba(24,62,87,.06),0 14px 36px rgba(24,62,87,.12);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--body);
+  font-size:16px;line-height:1.6;
+  color:var(--marine);
+  background:var(--bg-main);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+
+.page{max-width:1120px;margin:0 auto;padding:0 40px}
+
+/* filets fins éditoriaux */
+.rule{border:none;border-top:1px solid var(--border)}
+.rule-thick{border:none;border-top:3px solid var(--marine)}
+
+/* ————————————————————————————————————————
+   1 · BANDEAU KIOSQUE (méta-édition)
+   ———————————————————————————————————————— */
+.kiosque{
+  background:var(--marine);color:#fff;
+  font-size:12px;letter-spacing:.04em;
+}
+.kiosque .page{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:9px;padding-bottom:9px;gap:16px;flex-wrap:wrap;
+}
+.kiosque .left{display:flex;align-items:center;gap:10px;font-weight:500}
+.kiosque .dot{width:7px;height:7px;border-radius:50%;background:var(--success);
+  box-shadow:0 0 0 3px rgba(74,157,95,.3);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(74,157,95,.3)}50%{box-shadow:0 0 0 6px rgba(74,157,95,.12)}}
+.kiosque .right{display:flex;gap:22px;font-variant-numeric:tabular-nums}
+.kiosque strong{color:var(--sable);font-weight:700}
+
+/* ————————————————————————————————————————
+   2 · MANCHETTE / MASTHEAD
+   ———————————————————————————————————————— */
+.masthead{background:var(--bg-main)}
+.masthead .page{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:22px;padding-bottom:20px;gap:24px;flex-wrap:wrap;
+}
+.masthead .brand{display:flex;align-items:center;gap:16px}
+.masthead .brand img{width:58px;height:58px;border-radius:14px;box-shadow:var(--shadow-card)}
+.masthead .titles .surtitre{
+  font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--orange);
+}
+.masthead .titles h1{
+  font-family:var(--display);font-weight:800;font-size:28px;line-height:1.1;
+  letter-spacing:-.01em;
+}
+.masthead .edition{
+  text-align:right;font-size:13px;color:var(--text-secondary);line-height:1.5;
+}
+.masthead .edition .num{
+  font-family:var(--display);font-weight:800;font-size:20px;color:var(--marine);
+}
+.masthead-rules{border-top:3px solid var(--marine);border-bottom:1px solid var(--marine);height:6px}
+
+/* nav rubriques */
+.rubriques{border-bottom:1px solid var(--border);background:var(--bg-main)}
+.rubriques .page{
+  display:flex;gap:4px;padding-top:10px;padding-bottom:10px;
+  font-size:13px;font-weight:600;flex-wrap:wrap;
+}
+.rubriques a{
+  color:var(--text-secondary);text-decoration:none;padding:5px 13px;border-radius:99px;
+  transition:background .15s,color .15s;
+}
+.rubriques a:hover{background:var(--bg-hover);color:var(--marine)}
+.rubriques a.active{background:var(--marine);color:#fff}
+
+/* ————————————————————————————————————————
+   3 · UNE / HERO
+   ———————————————————————————————————————— */
+.hero{background:var(--gradient);overflow:hidden;position:relative}
+.hero .page{
+  display:grid;grid-template-columns:1.4fr 1fr;gap:56px;
+  padding-top:64px;padding-bottom:64px;align-items:center;
+}
+.hero .kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid var(--border);border-radius:99px;
+  padding:6px 16px 6px 8px;font-size:13px;font-weight:600;
+  box-shadow:var(--shadow-card);margin-bottom:26px;
+}
+.hero .kicker .pill{
+  background:var(--sable);color:var(--marine);border-radius:99px;
+  padding:2px 10px;font-family:var(--display);font-weight:800;font-size:12px;
+}
+.hero h2{
+  font-family:var(--display);font-weight:800;
+  font-size:56px;line-height:1.04;letter-spacing:-.025em;
+  margin-bottom:22px;
+}
+.hero h2 .o{color:var(--orange)}
+.hero .standfirst{
+  font-size:18px;color:var(--text-secondary);max-width:46ch;margin-bottom:30px;
+}
+.hero .ctas{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--display);font-weight:800;font-size:16px;
+  padding:13px 26px;border-radius:14px;text-decoration:none;
+  transition:background .15s,transform .15s;cursor:pointer;border:none;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 6px 18px rgba(214,94,28,.28)}
+.btn-primary:hover{background:var(--orange-hover)}
+.btn-ghost{background:#fff;color:var(--marine);border:1.5px solid var(--border)}
+.btn-ghost:hover{background:var(--bg-hover);border-color:var(--sable-hover)}
+
+/* horloge éditoriale */
+.hero-clock{position:relative;display:flex;justify-content:center}
+.clockcard{
+  background:#fff;border-radius:28px;padding:36px 34px 30px;
+  box-shadow:var(--shadow-lift);text-align:center;width:100%;max-width:360px;
+  position:relative;
+}
+.clockcard .clockface{
+  width:168px;height:168px;border-radius:50%;margin:0 auto 22px;
+  background:var(--marine);position:relative;
+  box-shadow:inset 0 0 0 8px var(--marine-hover),0 12px 28px rgba(24,62,87,.25);
+}
+.clockface .tick{position:absolute;left:50%;top:8%;width:3px;height:11px;border-radius:2px;
+  background:rgba(252,219,129,.55);transform-origin:50% 350%}
+.clockface .hand{position:absolute;left:50%;bottom:50%;transform-origin:50% 100%;border-radius:4px}
+.clockface .h-hour{width:6px;height:38px;background:var(--sable);transform:translateX(-50%) rotate(305deg)}
+.clockface .h-min{width:4px;height:56px;background:var(--orange);transform:translateX(-50%) rotate(80deg)}
+.clockface .pin{position:absolute;left:50%;top:50%;width:14px;height:14px;border-radius:50%;
+  background:var(--sable);transform:translate(-50%,-50%);box-shadow:0 0 0 4px var(--marine)}
+.clockcard .principe{
+  font-family:var(--display);font-weight:800;font-size:40px;letter-spacing:-.02em;line-height:1.1;
+}
+.clockcard .principe .eq{color:var(--orange)}
+.clockcard .sub{font-size:14px;color:var(--text-tertiary);margin-top:6px}
+.clockcard .badge-une{
+  position:absolute;top:-14px;right:-10px;transform:rotate(6deg);
+  background:var(--sable);color:var(--marine);font-family:var(--display);font-weight:800;
+  font-size:13px;padding:7px 16px;border-radius:99px;box-shadow:var(--shadow-card);
+}
+
+/* bandeau compteurs vivants */
+.compteurs{background:var(--marine);color:#fff}
+.compteurs .page{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding-top:26px;padding-bottom:26px;gap:24px;
+}
+.compteur{border-left:1px solid rgba(255,255,255,.15);padding-left:22px}
+.compteur:first-child{border-left:none;padding-left:0}
+.compteur .val{
+  font-family:var(--display);font-weight:800;font-size:30px;line-height:1.1;
+  color:var(--sable);font-variant-numeric:tabular-nums;letter-spacing:-.01em;
+}
+.compteur .lab{font-size:13px;color:rgba(255,255,255,.72);margin-top:3px}
+.compteur .up{color:#8fd6a4;font-size:13px;font-weight:600}
+
+/* ————————————————————————————————————————
+   SECTIONS ÉDITORIALES — entêtes numérotées
+   ———————————————————————————————————————— */
+section.rub{padding:64px 0 70px}
+section.rub.alt{background:var(--bg-secondary)}
+.rub-head{
+  display:flex;align-items:baseline;gap:22px;
+  border-top:3px solid var(--marine);padding-top:18px;margin-bottom:36px;
+}
+.rub-head .no{
+  font-family:var(--display);font-weight:800;font-size:56px;line-height:1;
+  color:transparent;-webkit-text-stroke:1.5px var(--orange);letter-spacing:-.02em;
+}
+.rub-head h3{
+  font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.015em;
+}
+.rub-head .desc{margin-left:auto;font-size:14px;color:var(--text-tertiary);max-width:34ch;text-align:right}
+
+/* ————————————————————————————————————————
+   4 · LES ANNONCES DU JOUR — cartes
+   ———————————————————————————————————————— */
+.annonces{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.annonce{
+  background:#fff;border-radius:20px;padding:22px;
+  box-shadow:var(--shadow-card);border:1px solid rgba(214,219,226,.6);
+  display:flex;flex-direction:column;gap:14px;
+  transition:transform .18s,box-shadow .18s;
+}
+.annonce:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.annonce .top{display:flex;align-items:center;gap:12px}
+.avatar{
+  width:44px;height:44px;border-radius:50%;flex:none;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:800;font-size:16px;color:#fff;
+}
+.av-marine{background:var(--marine)}
+.av-orange{background:var(--orange)}
+.av-sable{background:var(--sable);color:var(--marine)}
+.annonce .who{line-height:1.35}
+.annonce .who .name{font-weight:600;font-size:15px}
+.annonce .who .ago{font-size:12px;color:var(--text-tertiary)}
+.annonce h4{font-family:var(--display);font-weight:800;font-size:20px;line-height:1.25;letter-spacing:-.01em}
+.annonce p{font-size:14px;color:var(--text-secondary)}
+.annonce .meta{display:flex;align-items:center;gap:8px;margin-top:auto;flex-wrap:wrap}
+.duree{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--bg-hover);color:var(--marine);
+  font-weight:700;font-size:13px;padding:5px 12px;border-radius:99px;
+  font-variant-numeric:tabular-nums;
+}
+.duree svg{width:13px;height:13px}
+.tag{
+  font-size:12px;font-weight:600;color:var(--text-secondary);
+  border:1px solid var(--border);border-radius:99px;padding:4px 11px;
+}
+.tag.offre{color:var(--success);border-color:rgba(74,157,95,.35);background:rgba(74,157,95,.07)}
+.tag.demande{color:var(--orange);border-color:rgba(214,94,28,.3);background:rgba(214,94,28,.06)}
+.annonces-foot{
+  margin-top:26px;display:flex;justify-content:space-between;align-items:center;
+  font-size:14px;color:var(--text-tertiary);flex-wrap:wrap;gap:12px;
+}
+.annonces-foot a{color:var(--orange);font-weight:600;text-decoration:none}
+.annonces-foot a:hover{color:var(--orange-hover);text-decoration:underline}
+
+/* ————————————————————————————————————————
+   5 · BLOC-MARQUE / OURS — logo
+   ———————————————————————————————————————— */
+.ours{display:grid;grid-template-columns:1.1fr .9fr;gap:26px}
+.logo-stage{
+  background:var(--marine);border-radius:24px;
+  display:flex;align-items:center;justify-content:center;
+  min-height:330px;position:relative;overflow:hidden;
+  box-shadow:var(--shadow-card);
+}
+.logo-stage::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 82% 18%,rgba(252,219,129,.14),transparent 46%),
+    radial-gradient(circle at 12% 88%,rgba(214,94,28,.16),transparent 44%);
+}
+.logo-stage img{width:190px;height:190px;border-radius:38px;position:relative;
+  box-shadow:0 18px 44px rgba(0,0,0,.32)}
+.logo-stage .legend{
+  position:absolute;left:24px;bottom:20px;color:rgba(255,255,255,.78);
+  font-size:12px;letter-spacing:.05em;
+}
+.logo-side{display:grid;grid-template-rows:1fr auto;gap:26px}
+.logo-variants{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.logo-cell{
+  border-radius:24px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);position:relative;min-height:140px;
+  background:#fff;box-shadow:var(--shadow-card);
+}
+.logo-cell.on-cream{background:var(--bg-hover)}
+.logo-cell img{width:88px;height:88px}
+.logo-cell img.rounded{border-radius:20px}
+.logo-cell .legend{
+  position:absolute;left:16px;bottom:12px;font-size:11px;color:var(--text-tertiary);
+  letter-spacing:.04em;
+}
+.logo-note{
+  background:#fff;border-radius:20px;padding:22px 24px;
+  border-left:4px solid var(--orange);box-shadow:var(--shadow-card);
+}
+.logo-note h5{font-family:var(--display);font-weight:800;font-size:16px;margin-bottom:6px}
+.logo-note p{font-size:14px;color:var(--text-secondary)}
+.logo-note strong{color:var(--orange)}
+
+/* ————————————————————————————————————————
+   6 · PALETTE
+   ———————————————————————————————————————— */
+.palette{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.swatch{
+  border-radius:18px;overflow:hidden;background:#fff;
+  border:1px solid var(--border);box-shadow:var(--shadow-card);
+}
+.swatch .chip{height:92px;position:relative}
+.swatch .chip .hover-dot{
+  position:absolute;right:12px;bottom:12px;width:26px;height:26px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.85);
+}
+.swatch .chip.light .hover-dot{border-color:rgba(24,62,87,.35)}
+.swatch .info{padding:12px 16px 14px;font-size:13px;line-height:1.45}
+.swatch .info .nm{font-weight:600}
+.swatch .info .hx{color:var(--text-tertiary);font-variant-numeric:tabular-nums;font-size:12px}
+.swatch .info .role{font-size:11px;color:var(--text-tertiary)}
+.ratio-bar{
+  margin-top:30px;border-radius:14px;overflow:hidden;display:flex;height:46px;
+  box-shadow:var(--shadow-card);font-family:var(--display);font-weight:800;font-size:13px;
+}
+.ratio-bar div{display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.ratio-bar .r-neutre{flex:60;background:#efeada;color:var(--marine)}
+.ratio-bar .r-marine{flex:25;background:var(--marine);color:#fff}
+.ratio-bar .r-sable{flex:10;background:var(--sable);color:var(--marine)}
+.ratio-bar .r-orange{flex:5;background:var(--orange);color:#fff;font-size:12px}
+.ratio-caption{font-size:13px;color:var(--text-tertiary);margin-top:10px;text-align:center}
+.gradient-strip{
+  margin-top:18px;height:54px;border-radius:14px;background:var(--gradient);
+  border:1px solid var(--border);display:flex;align-items:center;padding:0 18px;
+  font-size:12px;color:var(--text-secondary);font-variant-numeric:tabular-nums;
+}
+
+/* ————————————————————————————————————————
+   7 · TYPO — spécimen
+   ———————————————————————————————————————— */
+.typo{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;align-items:stretch}
+.typo-aa{
+  background:#fff;border-radius:24px;padding:34px;box-shadow:var(--shadow-card);
+  border:1px solid rgba(214,219,226,.6);
+  display:flex;flex-direction:column;justify-content:space-between;gap:24px;
+}
+.typo-aa .pair{display:flex;align-items:baseline;gap:18px}
+.typo-aa .aa-d{font-family:var(--display);font-weight:800;font-size:96px;line-height:1;letter-spacing:-.03em}
+.typo-aa .aa-b{font-family:var(--body);font-weight:400;font-size:96px;line-height:1;color:var(--orange)}
+.typo-aa .fontmeta{font-size:14px;color:var(--text-secondary);line-height:1.7}
+.typo-aa .fontmeta b{color:var(--marine)}
+.typo-aa .glyphs{
+  font-size:14px;color:var(--text-tertiary);letter-spacing:.12em;
+  border-top:1px solid var(--border);padding-top:16px;word-break:break-all;
+}
+.typo-scale{
+  background:#fff;border-radius:24px;padding:30px 34px;box-shadow:var(--shadow-card);
+  border:1px solid rgba(214,219,226,.6);
+}
+.typo-row{
+  display:flex;align-items:baseline;gap:20px;
+  padding:11px 0;border-bottom:1px solid var(--bg-secondary);
+}
+.typo-row:last-child{border-bottom:none}
+.typo-row .spec{
+  flex:none;width:118px;font-size:11px;color:var(--text-tertiary);
+  font-variant-numeric:tabular-nums;letter-spacing:.03em;line-height:1.4;
+}
+.typo-row .spec b{display:block;color:var(--text-secondary);font-size:12px}
+.t-dxl{font-family:var(--display);font-weight:800;font-size:56px;line-height:1.05;letter-spacing:-.025em}
+.t-h1{font-family:var(--display);font-weight:800;font-size:40px;line-height:1.1;letter-spacing:-.02em}
+.t-h2{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.2;letter-spacing:-.015em}
+.t-h3{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.3}
+.t-bl{font-size:18px;color:var(--text-secondary)}
+.t-b{font-size:16px;color:var(--text-secondary)}
+.t-bs{font-size:14px;color:var(--text-secondary)}
+.t-cap{font-size:12px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+
+/* ————————————————————————————————————————
+   8 · MOOD — reportage de quartier
+   ———————————————————————————————————————— */
+.mood{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.mood-tile{
+  border-radius:20px;min-height:250px;position:relative;overflow:hidden;
+  box-shadow:var(--shadow-card);display:flex;align-items:flex-end;
+}
+.mood-tile .ph{position:absolute;inset:0}
+.mood-1 .ph{background:
+  radial-gradient(circle at 30% 25%,rgba(252,219,129,.5),transparent 55%),
+  linear-gradient(160deg,#22506e 0%,#183e57 60%,#0f2f44 100%)}
+.mood-2 .ph{background:
+  radial-gradient(circle at 75% 20%,rgba(255,255,255,.55),transparent 50%),
+  linear-gradient(165deg,#fff3d6 0%,#fcdb81 70%,#f5cb5c 100%)}
+.mood-3 .ph{background:
+  radial-gradient(circle at 28% 80%,rgba(252,219,129,.35),transparent 55%),
+  linear-gradient(150deg,#e8762f 0%,#d65e1c 55%,#b84e17 100%)}
+.mood-4 .ph{background:
+  radial-gradient(circle at 70% 30%,rgba(24,62,87,.12),transparent 55%),
+  linear-gradient(165deg,#fff9ec 0%,#fdf1d7 55%,#f3f7fb 100%)}
+.mood-tile .ph::after{ /* grain photo */
+  content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;
+  background-image:radial-gradient(rgba(255,255,255,.16) 1px,transparent 1px);
+  background-size:5px 5px;
+}
+.mood-tile .frame{ /* repère "emplacement image" */
+  position:absolute;inset:12px;border:1.5px dashed rgba(255,255,255,.45);border-radius:14px;
+}
+.mood-2 .frame,.mood-4 .frame{border-color:rgba(24,62,87,.3)}
+.mood-tile .cap{
+  position:relative;margin:0 0 0;width:100%;
+  padding:30px 18px 16px;
+  background:linear-gradient(180deg,transparent,rgba(15,47,68,.55));
+  color:#fff;
+}
+.mood-2 .cap,.mood-4 .cap{
+  background:linear-gradient(180deg,transparent,rgba(253,241,215,.85));color:var(--marine);
+}
+.mood-tile .cap .num{
+  font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.18em;
+  opacity:.75;text-transform:uppercase;
+}
+.mood-tile .cap .lab{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.01em}
+.mood-tile .photo-icon{
+  position:absolute;top:18px;left:18px;width:30px;height:30px;border-radius:9px;
+  background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;
+}
+.mood-2 .photo-icon,.mood-4 .photo-icon{background:rgba(24,62,87,.12)}
+.mood-tile .photo-icon svg{width:15px;height:15px;stroke:#fff}
+.mood-2 .photo-icon svg,.mood-4 .photo-icon svg{stroke:var(--marine)}
+
+/* ————————————————————————————————————————
+   9 · PIED / OURS FINAL
+   ———————————————————————————————————————— */
+footer.ours-final{background:var(--marine);color:#fff}
+footer.ours-final .page{
+  padding-top:46px;padding-bottom:40px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;
+}
+footer .fbrand{display:flex;align-items:center;gap:16px}
+footer .fbrand img{width:54px;height:54px;border-radius:13px}
+footer .fbrand .t1{font-family:var(--display);font-weight:800;font-size:19px;line-height:1.2}
+footer .fbrand .t2{font-size:12px;color:var(--sable);letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+footer .fmid{font-size:13px;color:rgba(255,255,255,.7);line-height:1.8;
+  border-left:1px solid rgba(255,255,255,.16);padding-left:36px}
+footer .fmid b{color:#fff}
+footer .fclock{
+  text-align:right;font-family:var(--display);font-weight:800;
+}
+footer .fclock .eq{font-size:30px;color:var(--sable);letter-spacing:-.01em}
+footer .fclock .ed{font-size:12px;color:rgba(255,255,255,.6);font-family:var(--body);font-weight:500;margin-top:2px}
+
+/* ————————————————————————————————————————
+   RESPONSIVE
+   ———————————————————————————————————————— */
+@media(max-width:920px){
+  .page{padding:0 22px}
+  .hero .page{grid-template-columns:1fr;gap:40px}
+  .hero h2{font-size:40px}
+  .compteurs .page{grid-template-columns:1fr 1fr;row-gap:26px}
+  .compteur:nth-child(3){border-left:none;padding-left:0}
+  .annonces{grid-template-columns:1fr}
+  .ours{grid-template-columns:1fr}
+  .palette{grid-template-columns:1fr 1fr}
+  .typo{grid-template-columns:1fr}
+  .mood{grid-template-columns:1fr 1fr}
+  .rub-head{flex-wrap:wrap}
+  .rub-head .desc{margin-left:0;text-align:left}
+  .t-dxl{font-size:36px}.t-h1{font-size:28px}.t-h2{font-size:22px}.t-h3{font-size:18px}
+  footer.ours-final .page{grid-template-columns:1fr;gap:24px}
+  footer .fmid{border-left:none;padding-left:0}
+  footer .fclock{text-align:left}
+}
+
+/* ————————————————————————————————————————
+   IMPRESSION A4 PORTRAIT
+   ———————————————————————————————————————— */
+@page{size:A4 portrait;margin:10mm}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff;font-size:11px}
+  .page{max-width:none;padding:0 4mm}
+  .kiosque .page,.masthead .page{padding-top:8px;padding-bottom:8px}
+  section.rub{padding:18px 0 20px}
+  .hero .page{padding-top:24px;padding-bottom:24px;gap:24px}
+  .hero h2{font-size:34px}
+  .compteurs .page{padding-top:12px;padding-bottom:12px}
+  .compteur .val{font-size:20px}
+  .annonce,.swatch,.typo-aa,.typo-scale,.mood-tile,.logo-stage,.logo-cell,.logo-note,
+  .clockcard,.ratio-bar{box-shadow:none}
+  .annonce:hover{transform:none}
+  .annonces{break-inside:avoid}
+  section.rub{break-inside:avoid-page}
+  .mood-tile{min-height:160px}
+  .logo-stage{min-height:200px}
+  .rubriques,.hero .ctas{display:none}
+  .rub-head .no{font-size:36px}
+  .t-dxl{font-size:32px}.t-h1{font-size:24px}
+  .typo-aa .aa-d,.typo-aa .aa-b{font-size:60px}
+  footer.ours-final .page{padding-top:18px;padding-bottom:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ 1 · BANDEAU KIOSQUE ═══════════ -->
+<div class="kiosque">
+  <div class="page">
+    <div class="left">
+      <span class="dot"></span>
+      <span>En direct du quartier · <strong>148 annonces actives</strong></span>
+    </div>
+    <div class="right">
+      <span><strong>12 480 h</strong>&nbsp;échangées ce mois</span>
+      <span><strong>+320</strong>&nbsp;voisins actifs</span>
+      <span>Mis à jour il y a <strong>4 min</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 2 · MANCHETTE ═══════════ -->
+<header class="masthead">
+  <div class="page">
+    <div class="brand">
+      <img src="../../assets/logo/icon-pwa-512.png" alt="Monogramme tpt — sable sur marine, horloge dans le p">
+      <div class="titles">
+        <div class="surtitre">Le Magazine du Temps</div>
+        <h1>TempsPourTemps</h1>
+      </div>
+    </div>
+    <div class="edition">
+      <div class="num">Édition de Juin 2026</div>
+      N° 06 · Le journal des petites annonces d'entraide<br>
+      Gratuit — ça ne coûte que du temps
+    </div>
+  </div>
+  <div class="masthead-rules" aria-hidden="true"></div>
+</header>
+
+<nav class="rubriques">
+  <div class="page">
+    <a class="active" href="#annonces">À la une</a>
+    <a href="#annonces">Petites annonces</a>
+    <a href="#marque">La marque</a>
+    <a href="#palette">Couleurs</a>
+    <a href="#typo">Typographie</a>
+    <a href="#mood">Reportage</a>
+  </div>
+</nav>
+
+<!-- ═══════════ 3 · UNE / HERO ═══════════ -->
+<div class="hero">
+  <div class="page">
+    <div>
+      <span class="kicker"><span class="pill">1 h = 1 h</span> Le principe de toute la maison</span>
+      <h2>Échangez du temps,<br>pas de l'<span class="o">argent</span>.</h2>
+      <p class="standfirst">
+        TempsPourTemps reconnecte le voisinage par l'entraide concrète :
+        une heure donnée à réparer un vélo vaut une heure reçue pour garder un chat.
+        Bienveillant comme un voisin, organisé comme un animateur de quartier.
+      </p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#annonces">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          Proposer 1 heure
+        </a>
+        <a class="btn btn-ghost" href="#annonces">Lire les annonces</a>
+      </div>
+    </div>
+    <div class="hero-clock">
+      <div class="clockcard">
+        <span class="badge-une">À la une</span>
+        <div class="clockface" aria-hidden="true">
+          <span class="tick" style="transform:translateX(-50%) rotate(0deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(30deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(60deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(90deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(120deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(150deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(180deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(210deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(240deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(270deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(300deg)"></span>
+          <span class="tick" style="transform:translateX(-50%) rotate(330deg)"></span>
+          <span class="hand h-hour"></span>
+          <span class="hand h-min"></span>
+          <span class="pin"></span>
+        </div>
+        <div class="principe">1 h <span class="eq">=</span> 1 h</div>
+        <div class="sub">La seule monnaie qui circule ici.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- bandeau compteurs -->
+<div class="compteurs">
+  <div class="page">
+    <div class="compteur">
+      <div class="val">12 480 h</div>
+      <div class="lab">échangées ce mois <span class="up">↑ +9 %</span></div>
+    </div>
+    <div class="compteur">
+      <div class="val">+320</div>
+      <div class="lab">voisins actifs en juin</div>
+    </div>
+    <div class="compteur">
+      <div class="val">38 min</div>
+      <div class="lab">délai médian de réponse</div>
+    </div>
+    <div class="compteur">
+      <div class="val">96 %</div>
+      <div class="lab">d'échanges « je recommande »</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 4 · PETITES ANNONCES ═══════════ -->
+<section class="rub" id="annonces">
+  <div class="page">
+    <div class="rub-head">
+      <span class="no">01</span>
+      <h3>Les annonces du jour</h3>
+      <span class="desc">Chaque échange se compte en heures et en minutes — jamais en euros.</span>
+    </div>
+    <div class="annonces">
+      <article class="annonce">
+        <div class="top">
+          <span class="avatar av-marine">M</span>
+          <div class="who">
+            <div class="name">Marc · Rue des Lilas</div>
+            <div class="ago">il y a 2 h</div>
+          </div>
+        </div>
+        <h4>Marc répare ton vélo</h4>
+        <p>Crevaison, freins, dérailleur — atelier dans la cour, café offert pendant l'opération.</p>
+        <div class="meta">
+          <span class="duree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>45 min</span>
+          <span class="tag offre">Offre</span>
+          <span class="tag">Bricolage</span>
+        </div>
+      </article>
+      <article class="annonce">
+        <div class="top">
+          <span class="avatar av-orange">J</span>
+          <div class="who">
+            <div class="name">Jeanne · Place du Marché</div>
+            <div class="ago">il y a 4 h</div>
+          </div>
+        </div>
+        <h4>Jeanne garde ton chat</h4>
+        <p>Ce week-end, croquettes, câlins et photo quotidienne garantie. Habituée des timides.</p>
+        <div class="meta">
+          <span class="duree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>2 h</span>
+          <span class="tag offre">Offre</span>
+          <span class="tag">Animaux</span>
+        </div>
+      </article>
+      <article class="annonce">
+        <div class="top">
+          <span class="avatar av-sable">A</span>
+          <div class="who">
+            <div class="name">Awa · Quartier Gare</div>
+            <div class="ago">il y a 25 min</div>
+          </div>
+        </div>
+        <h4>Cherche coup de main déménagement</h4>
+        <p>Trois cartons et un canapé à descendre samedi matin. Deux paires de bras suffisent !</p>
+        <div class="meta">
+          <span class="duree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>1 h 30</span>
+          <span class="tag demande">Demande</span>
+          <span class="tag">Entraide</span>
+        </div>
+      </article>
+      <article class="annonce">
+        <div class="top">
+          <span class="avatar av-orange">L</span>
+          <div class="who">
+            <div class="name">Lucien · Vieux Bourg</div>
+            <div class="ago">il y a 1 h</div>
+          </div>
+        </div>
+        <h4>Initiation aux échecs, débutants bienvenus</h4>
+        <p>Tous les mercredis au square. Lucien, 72 ans, 50 ans de tournois et une patience infinie.</p>
+        <div class="meta">
+          <span class="duree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>1 h</span>
+          <span class="tag offre">Offre</span>
+          <span class="tag">Transmission</span>
+        </div>
+      </article>
+      <article class="annonce">
+        <div class="top">
+          <span class="avatar av-marine">S</span>
+          <div class="who">
+            <div class="name">Sofia · Les Tilleuls</div>
+            <div class="ago">il y a 3 h</div>
+          </div>
+        </div>
+        <h4>Aide pour démarches en ligne</h4>
+        <p>Impôts, CAF, dossiers administratifs : Sofia débloque ton écran et tes papiers.</p>
+        <div class="meta">
+          <span class="duree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>30 min</span>
+          <span class="tag offre">Offre</span>
+          <span class="tag">Numérique</span>
+        </div>
+      </article>
+      <article class="annonce">
+        <div class="top">
+          <span class="avatar av-sable">N</span>
+          <div class="who">
+            <div class="name">Nadia · Rue Pasteur</div>
+            <div class="ago">il y a 6 h</div>
+          </div>
+        </div>
+        <h4>Cherche arrosage de plantes en juillet</h4>
+        <p>Quinze jours d'absence, un balcon-jungle qui compte sur vous. Consignes simples laissées.</p>
+        <div class="meta">
+          <span class="duree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>20 min</span>
+          <span class="tag demande">Demande</span>
+          <span class="tag">Jardin</span>
+        </div>
+      </article>
+    </div>
+    <div class="annonces-foot">
+      <span>148 annonces actives dans un rayon de 2 km · Édition de Juin 2026</span>
+      <a href="#">Voir toutes les annonces →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 5 · LA MARQUE / OURS ═══════════ -->
+<section class="rub alt" id="marque">
+  <div class="page">
+    <div class="rub-head">
+      <span class="no">02</span>
+      <h3>La marque</h3>
+      <span class="desc">Monogramme « tpt » sable sur carré marine — l'horloge se cache au centre du p.</span>
+    </div>
+    <div class="ours">
+      <div class="logo-stage">
+        <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps — monogramme tpt sable sur fond marine">
+        <span class="legend">Logo principal · fond marine #183e57</span>
+      </div>
+      <div class="logo-side">
+        <div class="logo-variants">
+          <div class="logo-cell on-cream">
+            <img src="../../assets/logo/logo-tpt-transparent.png" alt="Monogramme tpt sable sur fond transparent">
+            <span class="legend">Transparent · fonds clairs</span>
+          </div>
+          <div class="logo-cell">
+            <img class="rounded" src="../../assets/logo/icon-pwa-512.png" alt="Icône PWA 512 px">
+            <span class="legend">Icône app · PWA 512</span>
+          </div>
+        </div>
+        <div class="logo-note">
+          <h5>La signature horlogère</h5>
+          <p>
+            Le cercle marine au centre du « p » est <strong>une petite horloge</strong> :
+            la marque porte son sujet dans sa propre lettre. Monogramme toujours en
+            sable #fcdb81 sur marine #183e57, jamais déformé, jamais recoloré.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 6 · PALETTE ═══════════ -->
+<section class="rub" id="palette">
+  <div class="page">
+    <div class="rub-head">
+      <span class="no">03</span>
+      <h3>La palette</h3>
+      <span class="desc">Beaucoup de crème, du marine assumé, du sable chaleureux, l'orange en exclamation.</span>
+    </div>
+    <div class="palette">
+      <div class="swatch">
+        <div class="chip" style="background:#183e57"><span class="hover-dot" style="background:#0f2f44" title="hover #0f2f44"></span></div>
+        <div class="info"><div class="nm">Marine</div><div class="hx">#183e57 · hover #0f2f44</div><div class="role">Texte, structure, autorité</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#d65e1c"><span class="hover-dot" style="background:#b84e17" title="hover #b84e17"></span></div>
+        <div class="info"><div class="nm">Orange brûlée</div><div class="hx">#d65e1c · hover #b84e17</div><div class="role">Action, accents — 5 %</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip light" style="background:#fcdb81"><span class="hover-dot" style="background:#f5cb5c" title="hover #f5cb5c"></span></div>
+        <div class="info"><div class="nm">Jaune sable</div><div class="hx">#fcdb81 · hover #f5cb5c</div><div class="role">Chaleur, surlignage</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip light" style="background:#fdf1d7"><span class="hover-dot" style="background:#fcdb81"></span></div>
+        <div class="info"><div class="nm">Bg hover</div><div class="hx">#fdf1d7</div><div class="role">États survolés</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#4a9d5f"></div>
+        <div class="info"><div class="nm">Success</div><div class="hx">#4a9d5f</div><div class="role">Échange confirmé</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#c44536"></div>
+        <div class="info"><div class="nm">Danger</div><div class="hx">#c44536</div><div class="role">Erreurs, annulations</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#d97706"></div>
+        <div class="info"><div class="nm">Warning</div><div class="hx">#d97706</div><div class="role">Alertes douces</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#183e57"></div>
+        <div class="info"><div class="nm">Info</div><div class="hx">#183e57</div><div class="role">Messages neutres</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip light" style="background:#f7f6f3;border-bottom:1px solid #d6dbe2"></div>
+        <div class="info"><div class="nm">Bg main</div><div class="hx">#f7f6f3</div><div class="role">Fond principal</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip light" style="background:#f3f3f5;border-bottom:1px solid #d6dbe2"></div>
+        <div class="info"><div class="nm">Bg secondary</div><div class="hx">#f3f3f5</div><div class="role">Sections alternées</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:linear-gradient(90deg,#4b5563 50%,#717182 50%)"></div>
+        <div class="info"><div class="nm">Text secondary / tertiary</div><div class="hx">#4b5563 · #717182</div><div class="role">Corps, légendes</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip light" style="background:repeating-linear-gradient(45deg,#d6dbe2 0 2px,#f7f6f3 2px 10px)"></div>
+        <div class="info"><div class="nm">Border</div><div class="hx">#d6dbe2</div><div class="role">Filets fins, contours</div></div>
+      </div>
+    </div>
+    <div class="ratio-bar" role="img" aria-label="Ratio d'usage des couleurs : 60 % neutres, 25 % marine, 10 % sable, 5 % orange">
+      <div class="r-neutre">60 % neutres</div>
+      <div class="r-marine">25 % marine</div>
+      <div class="r-sable">10 %</div>
+      <div class="r-orange">5 %</div>
+    </div>
+    <div class="ratio-caption">Règle d'or : 60 % neutres · 25 % marine · 10 % sable · 5 % orange — l'orange reste une exclamation, pas une phrase.</div>
+    <div class="gradient-strip">Gradient héro · linear-gradient(180deg, #fff9ec 0%, #fff3e0 32%, #f3f7fb 100%)</div>
+  </div>
+</section>
+
+<!-- ═══════════ 7 · TYPOGRAPHIE ═══════════ -->
+<section class="rub alt" id="typo">
+  <div class="page">
+    <div class="rub-head">
+      <span class="no">04</span>
+      <h3>La typographie</h3>
+      <span class="desc">Des titres ronds qui sourient, un corps qui se lit sans effort.</span>
+    </div>
+    <div class="typo">
+      <div class="typo-aa">
+        <div>
+          <div class="pair">
+            <span class="aa-d">Aa</span>
+            <span class="aa-b">Aa</span>
+          </div>
+          <p class="fontmeta" style="margin-top:18px">
+            <b>Nunito Rounded</b> — titres · graisses 700 &amp; 800<br>
+            La rondeur du voisinage, la voix qui annonce les nouvelles.<br><br>
+            <b>Inter</b> — corps · graisses 400 / 500 / 600 / 700<br>
+            La lisibilité d'un quotidien, au service des annonces.
+          </p>
+        </div>
+        <div class="glyphs">
+          ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 àâçéèêëîïôûù €&nbsp;%&nbsp;@&nbsp;«&nbsp;»&nbsp;— 1&nbsp;h&nbsp;=&nbsp;1&nbsp;h
+        </div>
+      </div>
+      <div class="typo-scale">
+        <div class="typo-row"><span class="spec"><b>Display XL</b>56 / 36 px · 800</span><span class="t-dxl">Le temps</span></div>
+        <div class="typo-row"><span class="spec"><b>H1</b>40 / 28 px · 800</span><span class="t-h1">Édition de Juin</span></div>
+        <div class="typo-row"><span class="spec"><b>H2</b>28 / 22 px · 800</span><span class="t-h2">Les annonces du jour</span></div>
+        <div class="typo-row"><span class="spec"><b>H3</b>20 / 18 px · 700</span><span class="t-h3">Marc répare ton vélo · 45 min</span></div>
+        <div class="typo-row"><span class="spec"><b>Body L</b>18 px · 400</span><span class="t-bl">Une heure donnée vaut une heure reçue.</span></div>
+        <div class="typo-row"><span class="spec"><b>Body</b>16 px · 400</span><span class="t-b">Échangez du temps, pas de l'argent, partout dans le quartier.</span></div>
+        <div class="typo-row"><span class="spec"><b>Body S</b>14 px · 500</span><span class="t-bs">Jeanne garde ton chat · 2 h ce week-end · il y a 4 h</span></div>
+        <div class="typo-row"><span class="spec"><b>Caption</b>12 px · 600</span><span class="t-cap">Édition de juin 2026 · N° 06</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 8 · MOOD / REPORTAGE ═══════════ -->
+<section class="rub" id="mood">
+  <div class="page">
+    <div class="rub-head">
+      <span class="no">05</span>
+      <h3>Le reportage</h3>
+      <span class="desc">Quatre emplacements image, teintés aux couleurs de la maison.</span>
+    </div>
+    <div class="mood">
+      <figure class="mood-tile mood-1">
+        <div class="ph"></div>
+        <div class="frame"></div>
+        <span class="photo-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M9 5l1.2-2h3.6L15 5"/></svg></span>
+        <figcaption class="cap">
+          <div class="num">Photo 01 · Marine</div>
+          <div class="lab">Voisinage</div>
+        </figcaption>
+      </figure>
+      <figure class="mood-tile mood-2">
+        <div class="ph"></div>
+        <div class="frame"></div>
+        <span class="photo-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M9 5l1.2-2h3.6L15 5"/></svg></span>
+        <figcaption class="cap">
+          <div class="num">Photo 02 · Sable</div>
+          <div class="lab">Entraide</div>
+        </figcaption>
+      </figure>
+      <figure class="mood-tile mood-3">
+        <div class="ph"></div>
+        <div class="frame"></div>
+        <span class="photo-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M9 5l1.2-2h3.6L15 5"/></svg></span>
+        <figcaption class="cap">
+          <div class="num">Photo 03 · Orange</div>
+          <div class="lab">Échange de temps</div>
+        </figcaption>
+      </figure>
+      <figure class="mood-tile mood-4">
+        <div class="ph"></div>
+        <div class="frame"></div>
+        <span class="photo-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M9 5l1.2-2h3.6L15 5"/></svg></span>
+        <figcaption class="cap">
+          <div class="num">Photo 04 · Crème</div>
+          <div class="lab">Quartier</div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 9 · OURS FINAL ═══════════ -->
+<footer class="ours-final">
+  <div class="page">
+    <div class="fbrand">
+      <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps">
+      <div>
+        <div class="t1">TempsPourTemps</div>
+        <div class="t2">Le Magazine du Temps</div>
+      </div>
+    </div>
+    <div class="fmid">
+      <b>Ours.</b> Direction de la publication : le quartier tout entier.
+      Rédaction : 320 voisins actifs. Mission : <b>reconnecter le voisinage par l'entraide concrète</b>.
+      Personnalité : voisin·e bienveillant·e, animateur·rice de quartier.
+      Tirage : illimité, ça ne coûte que du temps.
+    </div>
+    <div class="fclock">
+      <div class="eq">1 h = 1 h</div>
+      <div class="ed">Édition de Juin 2026 · N° 06</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

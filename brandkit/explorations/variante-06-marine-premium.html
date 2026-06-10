@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Brand Board · Variante 06 « Marine Premium / Nocturne »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TEMPSPOURTEMPS — BRAND BOARD · VARIANTE 06
+     « Marine Premium / Nocturne »
+     Fond marine dominant · sable = lumière · orange = énergie
+     ============================================================ */
+
+  :root{
+    /* Signature */
+    --marine:        #183e57;
+    --marine-hover:  #0f2f44;
+    --orange:        #d65e1c;
+    --orange-hover:  #b84e17;
+    --sable:         #fcdb81;
+    --sable-hover:   #f5cb5c;
+    /* Sémantique */
+    --success: #4a9d5f;
+    --danger:  #c44536;
+    --warning: #d97706;
+    --info:    #183e57;
+    /* Neutres */
+    --bg-main:       #f7f6f3;
+    --bg-secondary:  #f3f3f5;
+    --bg-hover:      #fdf1d7;
+    --text-secondary:#4b5563;
+    --text-tertiary: #717182;
+    --border:        #d6dbe2;
+    /* Gradient de marque */
+    --gradient-tpt: linear-gradient(180deg, #fff9ec 0%, #fff3e0 32%, #f3f7fb 100%);
+    /* Nocturne — dérivés d'ambiance (transparences des couleurs de marque) */
+    --ink-on-night:   #fdf6e3;
+    --hairline:       rgba(252,219,129,.16);
+    --hairline-soft:  rgba(252,219,129,.09);
+    --night-card:     rgba(15,47,68,.55);
+    --font-display: 'Nunito', 'Nunito Rounded', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  body{
+    font-family:var(--font-body);
+    font-weight:400;
+    background:var(--marine-hover);
+    color:var(--ink-on-night);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ------- atmosphère nocturne : halos + grain ------- */
+  .night{
+    position:relative;
+    background:
+      radial-gradient(1100px 520px at 78% -6%, rgba(252,219,129,.13), transparent 62%),
+      radial-gradient(900px 600px at -10% 38%, rgba(214,94,28,.12), transparent 58%),
+      radial-gradient(760px 520px at 92% 86%, rgba(252,219,129,.07), transparent 60%),
+      linear-gradient(168deg, var(--marine) 0%, var(--marine-hover) 58%, #0b2434 100%);
+    overflow:hidden;
+  }
+  .night::before{ /* grain discret */
+    content:"";
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events:none;
+  }
+  .night > *{ position:relative; }
+
+  .board{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 56px 72px;
+  }
+
+  /* ------- libellés éditoriaux ------- */
+  .kicker{
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:.26em;
+    text-transform:uppercase;
+    color:var(--sable);
+    display:flex; align-items:center; gap:14px;
+  }
+  .kicker::after{
+    content:""; flex:1; height:1px;
+    background:linear-gradient(90deg, var(--hairline), transparent);
+  }
+  .kicker .num{
+    color:rgba(253,246,227,.45);
+    font-variant-numeric:tabular-nums;
+  }
+
+  section{ margin-top:72px; }
+
+  /* ============================================================
+     EN-TÊTE — lockup logo + nom + tagline
+     ============================================================ */
+  header.hero{
+    padding:84px 0 64px;
+    display:grid;
+    grid-template-columns: 200px 1fr;
+    gap:48px;
+    align-items:center;
+    border-bottom:1px solid var(--hairline);
+  }
+  .hero-logo{
+    position:relative;
+    width:200px; height:200px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-logo::before{ /* halo lumière sable derrière le logo */
+    content:"";
+    position:absolute; inset:-34px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(252,219,129,.22) 0%, rgba(252,219,129,.06) 48%, transparent 70%);
+  }
+  .hero-logo img{ position:relative; width:100%; height:auto; display:block; }
+  .hero-logo svg{ position:relative; width:100%; height:auto; display:block; filter:drop-shadow(0 0 26px rgba(252,219,129,.3)); }
+
+  .hero-id .meta{
+    font-size:11px; font-weight:600;
+    letter-spacing:.26em; text-transform:uppercase;
+    color:var(--sable);
+    margin-bottom:18px;
+    display:flex; gap:16px; align-items:center;
+  }
+  .hero-id .meta .dot{ width:5px; height:5px; border-radius:50%; background:var(--orange); }
+  .hero-id .meta .muted{ color:rgba(253,246,227,.45); letter-spacing:.2em; }
+
+  h1.brandname{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:56px;
+    line-height:1.04;
+    letter-spacing:-0.015em;
+    color:#fff;
+  }
+  h1.brandname .sable{ color:var(--sable); }
+
+  .tagline{
+    margin-top:14px;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:22px;
+    color:var(--sable);
+  }
+  .tagline em{ font-style:normal; color:var(--orange); }
+
+  .mission{
+    margin-top:20px;
+    max-width:540px;
+    font-size:15px;
+    color:rgba(253,246,227,.72);
+  }
+  .mission strong{ color:var(--ink-on-night); font-weight:600; }
+
+  .persona{
+    margin-top:22px;
+    display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .persona span{
+    font-size:12px; font-weight:600;
+    padding:7px 16px;
+    border-radius:999px;
+    border:1px solid var(--hairline);
+    color:var(--sable);
+    background:rgba(252,219,129,.06);
+  }
+  .persona span.accent{
+    border-color:rgba(214,94,28,.45);
+    color:#ffb98a;
+    background:rgba(214,94,28,.12);
+  }
+
+  /* ============================================================
+     LOGOS — déclinaisons
+     ============================================================ */
+  .logo-grid{
+    margin-top:28px;
+    display:grid;
+    grid-template-columns:1.25fr 1fr 1fr;
+    gap:18px;
+  }
+  .logo-card{
+    border:1px solid var(--hairline);
+    border-radius:18px;
+    overflow:hidden;
+    background:var(--night-card);
+    display:flex; flex-direction:column;
+  }
+  .logo-stage{
+    flex:1;
+    min-height:190px;
+    display:flex; align-items:center; justify-content:center;
+    padding:28px;
+  }
+  .logo-stage.on-night{
+    background:
+      radial-gradient(420px 240px at 50% 30%, rgba(252,219,129,.14), transparent 70%),
+      linear-gradient(160deg, var(--marine), var(--marine-hover));
+  }
+  .logo-stage.on-light{ background:var(--bg-main); }
+  .logo-stage.on-gradient{ background:var(--gradient-tpt); }
+  .logo-stage img{ max-width:150px; max-height:140px; width:auto; height:auto; }
+  .logo-stage.primary img{ max-width:170px; max-height:160px; border-radius:22px; box-shadow:0 18px 40px rgba(8,24,36,.45); }
+
+  .logo-caption{
+    padding:14px 20px 16px;
+    border-top:1px solid var(--hairline-soft);
+    background:rgba(11,36,52,.6);
+  }
+  .logo-caption b{
+    display:block;
+    font-family:var(--font-display); font-weight:700;
+    font-size:13.5px; color:#fff;
+  }
+  .logo-caption small{
+    display:block; margin-top:3px;
+    font-size:11px; color:rgba(253,246,227,.55);
+  }
+
+  .logo-note{
+    margin-top:16px;
+    font-size:12.5px;
+    color:rgba(253,246,227,.62);
+    max-width:720px;
+  }
+  .logo-note b{ color:var(--sable); font-weight:600; }
+
+  /* ============================================================
+     PALETTE
+     ============================================================ */
+  .palette-signature{
+    margin-top:28px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  .swatch{
+    border-radius:18px;
+    border:1px solid var(--hairline);
+    overflow:hidden;
+    background:var(--night-card);
+  }
+  .swatch .chip{
+    height:118px;
+    position:relative;
+  }
+  .swatch .chip .hover-strip{
+    position:absolute; right:0; top:0; bottom:0; width:26%;
+  }
+  .swatch .chip .hover-strip::after{
+    content:"hover";
+    position:absolute; bottom:8px; left:0; right:0;
+    text-align:center;
+    font-size:9px; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+    color:rgba(255,255,255,.75);
+  }
+  /* halos doux propres à chaque couleur */
+  .swatch.marine .chip{ background:var(--marine); box-shadow:inset 0 0 0 1px rgba(252,219,129,.12); }
+  .swatch.marine{ box-shadow:0 0 34px rgba(24,62,87,.85), 0 0 0 1px rgba(252,219,129,.05); }
+  .swatch.orange .chip{ background:var(--orange); }
+  .swatch.orange{ box-shadow:0 0 34px rgba(214,94,28,.32); }
+  .swatch.sable .chip{ background:var(--sable); }
+  .swatch.sable{ box-shadow:0 0 38px rgba(252,219,129,.30); }
+  .swatch.marine .hover-strip{ background:var(--marine-hover); }
+  .swatch.orange .hover-strip{ background:var(--orange-hover); }
+  .swatch.sable .hover-strip{ background:var(--sable-hover); }
+  .swatch.sable .hover-strip::after{ color:rgba(24,62,87,.7); }
+
+  .swatch-info{
+    padding:14px 18px 15px;
+    background:rgba(11,36,52,.6);
+    border-top:1px solid var(--hairline-soft);
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  }
+  .swatch-info b{
+    font-family:var(--font-display); font-weight:700;
+    font-size:14px; color:#fff;
+  }
+  .swatch-info small{ display:block; font-size:10.5px; color:rgba(253,246,227,.5); margin-top:2px; }
+  .swatch-info code{
+    font-family:var(--font-body); font-weight:600;
+    font-size:12px; color:var(--sable);
+    letter-spacing:.04em;
+  }
+
+  /* sémantique + neutres */
+  .palette-row{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+  }
+  .palette-panel{
+    border:1px solid var(--hairline);
+    border-radius:18px;
+    background:var(--night-card);
+    padding:20px 20px 18px;
+  }
+  .palette-panel h4{
+    font-family:var(--font-body);
+    font-size:10.5px; font-weight:600;
+    letter-spacing:.22em; text-transform:uppercase;
+    color:rgba(253,246,227,.5);
+    margin-bottom:14px;
+  }
+  .mini-swatches{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px 14px; }
+  .mini-swatches.three{ grid-template-columns:repeat(3,1fr); }
+  .mini{
+    display:flex; align-items:center; gap:10px;
+    font-size:11px;
+  }
+  .mini .pastille{
+    width:30px; height:30px; flex:none;
+    border-radius:9px;
+    border:1px solid rgba(252,219,129,.22);
+    box-shadow:0 0 14px rgba(252,219,129,.08);
+  }
+  .mini b{ display:block; font-weight:600; color:rgba(253,246,227,.88); font-size:11.5px; }
+  .mini code{ font-family:var(--font-body); color:rgba(253,246,227,.5); font-size:10.5px; letter-spacing:.03em; }
+
+  .gradient-strip{
+    margin-top:18px;
+    border-radius:18px;
+    border:1px solid var(--hairline);
+    overflow:hidden;
+    box-shadow:0 0 30px rgba(252,219,129,.12);
+  }
+  .gradient-strip .grad{
+    height:64px;
+    background:var(--gradient-tpt);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 22px;
+  }
+  .gradient-strip .grad span{
+    font-size:10.5px; font-weight:600; letter-spacing:.06em;
+    color:var(--marine);
+  }
+  .gradient-strip figcaption{
+    padding:10px 20px 12px;
+    background:rgba(11,36,52,.6);
+    border-top:1px solid var(--hairline-soft);
+    font-size:11px; color:rgba(253,246,227,.55);
+  }
+  .gradient-strip figcaption b{ color:var(--sable); font-weight:600; }
+
+  /* ratio 60/25/10/5 */
+  .ratio{
+    margin-top:18px;
+    border:1px solid var(--hairline);
+    border-radius:18px;
+    background:var(--night-card);
+    padding:20px;
+  }
+  .ratio h4{
+    font-size:10.5px; font-weight:600;
+    letter-spacing:.22em; text-transform:uppercase;
+    color:rgba(253,246,227,.5);
+    margin-bottom:14px;
+  }
+  .ratio-bar{
+    display:flex; height:38px;
+    border-radius:10px; overflow:hidden;
+    border:1px solid rgba(252,219,129,.2);
+  }
+  .ratio-bar div{
+    display:flex; align-items:center; justify-content:center;
+    font-size:10.5px; font-weight:700;
+  }
+  .ratio-bar .r-neutres{ width:60%; background:var(--bg-main); color:var(--text-secondary); }
+  .ratio-bar .r-marine{ width:25%; background:var(--marine); color:var(--sable); }
+  .ratio-bar .r-sable{ width:10%; background:var(--sable); color:var(--marine); }
+  .ratio-bar .r-orange{ width:5%; background:var(--orange); color:#fff; }
+  .ratio-legend{
+    margin-top:10px;
+    display:flex; gap:18px; flex-wrap:wrap;
+    font-size:10.5px; color:rgba(253,246,227,.55);
+  }
+  .ratio-legend b{ color:rgba(253,246,227,.85); font-weight:600; }
+
+  /* ============================================================
+     TYPOGRAPHIE
+     ============================================================ */
+  .typo-intro{
+    margin-top:26px;
+    display:grid; grid-template-columns:1fr 1fr; gap:18px;
+  }
+  .typeface-card{
+    border:1px solid var(--hairline);
+    border-radius:18px;
+    background:var(--night-card);
+    padding:26px 26px 22px;
+  }
+  .typeface-card .glyph{
+    font-size:64px; line-height:1;
+    color:var(--sable);
+    text-shadow:0 0 36px rgba(252,219,129,.35);
+  }
+  .typeface-card.display .glyph{ font-family:var(--font-display); font-weight:800; }
+  .typeface-card.body-face .glyph{ font-family:var(--font-body); font-weight:600; color:#fff; text-shadow:none; }
+  .typeface-card h3{
+    margin-top:16px;
+    font-family:var(--font-display); font-weight:700;
+    font-size:18px; color:#fff;
+  }
+  .typeface-card p{ margin-top:6px; font-size:12px; color:rgba(253,246,227,.6); }
+  .typeface-card .weights{
+    margin-top:12px;
+    display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .typeface-card .weights span{
+    font-size:10.5px; font-weight:600;
+    padding:4px 10px; border-radius:6px;
+    border:1px solid var(--hairline);
+    color:var(--sable);
+  }
+
+  .type-scale{
+    margin-top:18px;
+    border:1px solid var(--hairline);
+    border-radius:18px;
+    background:var(--night-card);
+    overflow:hidden;
+  }
+  .type-row{
+    display:grid;
+    grid-template-columns:148px 1fr;
+    gap:24px;
+    align-items:baseline;
+    padding:16px 26px;
+    border-bottom:1px solid var(--hairline-soft);
+  }
+  .type-row:last-child{ border-bottom:none; }
+  .type-row .spec{
+    font-size:10px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase;
+    color:rgba(253,246,227,.45);
+    line-height:1.6;
+  }
+  .type-row .spec b{ display:block; color:var(--sable); font-size:10.5px; letter-spacing:.18em; }
+  .type-row .sample{ color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .t-display{ font-family:var(--font-display); font-weight:800; font-size:56px; line-height:1.05; letter-spacing:-0.015em; }
+  .t-h1{ font-family:var(--font-display); font-weight:800; font-size:40px; line-height:1.1; }
+  .t-h2{ font-family:var(--font-display); font-weight:700; font-size:28px; line-height:1.18; }
+  .t-h3{ font-family:var(--font-display); font-weight:700; font-size:20px; line-height:1.3; }
+  .t-bodyl{ font-family:var(--font-body); font-weight:400; font-size:18px; color:rgba(253,246,227,.85) !important; }
+  .t-body{ font-family:var(--font-body); font-weight:400; font-size:16px; color:rgba(253,246,227,.78) !important; }
+  .t-bodys{ font-family:var(--font-body); font-weight:500; font-size:14px; color:rgba(253,246,227,.7) !important; }
+  .t-caption{ font-family:var(--font-body); font-weight:600; font-size:12px; letter-spacing:.04em; color:var(--sable) !important; }
+
+  /* ============================================================
+     UNIVERS / MOOD — emplacements image duotone
+     ============================================================ */
+  .mood-grid{
+    margin-top:28px;
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-auto-rows:128px;
+    gap:16px;
+  }
+  .mood{
+    position:relative;
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid var(--hairline);
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:18px 20px;
+  }
+  .mood-1{ grid-column:span 7; grid-row:span 2; }
+  .mood-2{ grid-column:span 5; grid-row:span 1; }
+  .mood-3{ grid-column:span 5; grid-row:span 1; }
+  .mood-4{ grid-column:span 12; grid-row:span 1; }
+
+  /* duotones de marque : la photo viendra se glisser sous ces teintes */
+  .mood-1{ background:
+      radial-gradient(420px 300px at 72% 18%, rgba(252,219,129,.4), transparent 60%),
+      linear-gradient(200deg, rgba(214,94,28,.55), rgba(24,62,87,.92) 70%),
+      repeating-linear-gradient(45deg, rgba(252,219,129,.07) 0 2px, transparent 2px 14px),
+      var(--marine-hover);
+  }
+  .mood-2{ background:
+      radial-gradient(260px 160px at 22% 0%, rgba(252,219,129,.45), transparent 65%),
+      linear-gradient(180deg, rgba(24,62,87,.55), rgba(15,47,68,.95)),
+      repeating-radial-gradient(circle at 80% 110%, rgba(252,219,129,.1) 0 2px, transparent 2px 20px),
+      var(--marine);
+  }
+  .mood-3{ background:
+      linear-gradient(135deg, rgba(214,94,28,.65) 0%, rgba(24,62,87,.9) 62%),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,.05) 0 1px, transparent 1px 12px),
+      var(--marine-hover);
+  }
+  .mood-4{ background:
+      radial-gradient(600px 200px at 85% 120%, rgba(252,219,129,.35), transparent 60%),
+      radial-gradient(420px 180px at 12% -30%, rgba(214,94,28,.4), transparent 65%),
+      linear-gradient(90deg, rgba(15,47,68,.95), rgba(24,62,87,.75)),
+      var(--marine-hover);
+  }
+  .mood::before{ /* repère « image » */
+    content:"";
+    position:absolute; inset:12px;
+    border:1px dashed rgba(252,219,129,.28);
+    border-radius:12px;
+    pointer-events:none;
+  }
+  .mood .tag{
+    position:relative;
+    align-self:flex-start;
+    font-size:10px; font-weight:600;
+    letter-spacing:.2em; text-transform:uppercase;
+    color:var(--marine);
+    background:var(--sable);
+    padding:4px 11px; border-radius:999px;
+    margin-bottom:8px;
+    box-shadow:0 0 18px rgba(252,219,129,.4);
+  }
+  .mood h3{
+    position:relative;
+    font-family:var(--font-display); font-weight:800;
+    font-size:24px; color:#fff;
+    text-shadow:0 2px 14px rgba(8,24,36,.5);
+  }
+  .mood-2 h3, .mood-3 h3{ font-size:19px; }
+  .mood p{
+    position:relative;
+    font-size:11px; color:rgba(253,246,227,.7);
+    margin-top:2px;
+  }
+
+  .mood-note{
+    margin-top:14px;
+    font-size:11.5px;
+    color:rgba(253,246,227,.55);
+  }
+  .mood-note b{ color:var(--sable); font-weight:600; }
+
+  /* ============================================================
+     PIED — contraste & signature
+     ============================================================ */
+  .contrast-line{
+    margin-top:64px;
+    border:1px solid var(--hairline);
+    border-radius:18px;
+    background:var(--night-card);
+    padding:22px 26px;
+    display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:center;
+  }
+  .aaa-chip{
+    font-family:var(--font-display); font-weight:800;
+    font-size:22px;
+    background:var(--sable); color:var(--marine);
+    border-radius:12px;
+    padding:12px 18px;
+    box-shadow:0 0 28px rgba(252,219,129,.35);
+    white-space:nowrap;
+  }
+  .contrast-line p{ font-size:12.5px; color:rgba(253,246,227,.68); }
+  .contrast-line p b{ color:var(--sable); font-weight:600; }
+
+  footer.colophon{
+    margin-top:34px;
+    padding-top:22px;
+    border-top:1px solid var(--hairline);
+    display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap;
+    font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:rgba(253,246,227,.42);
+  }
+  footer.colophon b{ color:var(--sable); font-weight:600; letter-spacing:.2em; }
+
+  /* ============================================================
+     IMPRESSION — A4 portrait, couleurs préservées
+     ============================================================ */
+  @page{ size:A4 portrait; margin:0; }
+
+  @media print{
+    html, body{
+      -webkit-print-color-adjust:exact !important;
+      print-color-adjust:exact !important;
+      background:var(--marine-hover) !important;
+    }
+    body{ font-size:11px; }
+    .night{
+      /* le fond marine doit survivre à l'impression */
+      background:
+        radial-gradient(1100px 520px at 78% -6%, rgba(252,219,129,.13), transparent 62%),
+        radial-gradient(900px 600px at -10% 38%, rgba(214,94,28,.12), transparent 58%),
+        linear-gradient(168deg, var(--marine) 0%, var(--marine-hover) 58%, #0b2434 100%) !important;
+    }
+    .night::before{ display:none; } /* grain inutile sur papier */
+    .board{ max-width:100%; padding:0 30px 28px; }
+    header.hero{ padding:34px 0 26px; grid-template-columns:118px 1fr; gap:26px; }
+    .hero-logo{ width:118px; height:118px; }
+    h1.brandname{ font-size:36px; }
+    .tagline{ font-size:16px; }
+    .mission{ margin-top:12px; font-size:12px; }
+    .persona{ margin-top:14px; }
+    section{ margin-top:24px; }
+    .logo-grid, .palette-signature, .palette-row, .mood-grid{ gap:12px; }
+    .logo-grid, .palette-signature, .palette-row, .typo-intro,
+    .gradient-strip, .ratio, .type-scale, .mood-grid{ margin-top:16px; }
+    .logo-stage{ min-height:108px; padding:18px; }
+    .logo-stage.primary svg{ width:108px !important; height:105px !important; }
+    .logo-caption{ padding:10px 14px 11px; }
+    .swatch .chip{ height:62px; }
+    .swatch-info{ padding:10px 14px 11px; }
+    .palette-panel{ padding:14px 16px 13px; }
+    .gradient-strip .grad{ height:44px; }
+    .ratio{ padding:14px 16px; }
+    .ratio-bar{ height:30px; }
+    .typeface-card{ padding:16px 18px 14px; }
+    .typeface-card .glyph{ font-size:44px; }
+    .type-row{ padding:10px 20px; grid-template-columns:124px 1fr; gap:16px; }
+    .t-display{ font-size:34px; }
+    .t-h1{ font-size:26px; }
+    .t-h2{ font-size:20px; }
+    .t-h3{ font-size:16px; }
+    .t-bodyl{ font-size:14px; }
+    .t-body{ font-size:13px; }
+    .t-bodys{ font-size:12px; }
+    .t-caption{ font-size:10px; }
+    .mood-grid{ grid-auto-rows:84px; }
+    .mood h3{ font-size:18px; }
+    .mood-2 h3, .mood-3 h3{ font-size:15px; }
+    .contrast-line{ margin-top:22px; padding:14px 18px; }
+    .aaa-chip{ font-size:16px; padding:9px 14px; }
+    footer.colophon{ margin-top:18px; padding-top:14px; }
+    /* éviter les coupures disgracieuses (au niveau des cartes, pas des sections) */
+    header.hero, .logo-grid, .palette-signature, .palette-row, .gradient-strip,
+    .logo-card, .swatch, .palette-panel, .typo-intro,
+    .type-scale, .mood-grid, .ratio, .contrast-line{ break-inside:avoid; page-break-inside:avoid; }
+    .kicker{ break-after:avoid; page-break-after:avoid; }
+    /* pas de saut de page forcé : le flux se compacte naturellement */
+  }
+
+  @media (max-width:760px){
+    .board{ padding:0 22px 48px; }
+    header.hero{ grid-template-columns:1fr; gap:28px; padding-top:56px; }
+    .logo-grid, .palette-signature, .palette-row, .typo-intro{ grid-template-columns:1fr; }
+    .mood-grid{ grid-template-columns:1fr; grid-auto-rows:140px; }
+    .mood-1,.mood-2,.mood-3,.mood-4{ grid-column:span 1; grid-row:span 1; }
+    h1.brandname{ font-size:40px; }
+    .type-row{ grid-template-columns:1fr; gap:6px; }
+    .t-display{ font-size:38px; }
+    .contrast-line{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<!-- Monogramme « tpt » version transparente (vectoriel, extrait de logo-tempspourtemps.svg, fond retiré).
+     Glyphes sable, cercle-signature marine au centre du « p ». -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="tpt-mono" viewBox="0 0 2048 1993">
+    <path d="m868 893h35l16 3 10 4 9 7 8 9 3 6 5-2 13-8 19-10 15-5 15-3 11-1h30l17 2 20 5 21 9 23 13 13 10 11 9 15 15 11 14 7 10 12 20 9 20 8 24 4 19 1 10v48l-3 18-4 16-8 21-8 16-8 14-12 17-14 15-10 10-17 13-18 11-19 9-23 7-25 5h-35l-24-5-24-8-17-9-10-7v160l-4 17-6 11-7 6-12 6-10 3-15 2h-20l-17-3-12-5-9-7-6-7-5-14-1-12v-488l2-11 6-11 10-10 10-5z" fill="#fcdb81"/>
+    <path d="m572 758h40l14 3 12 6 7 7 7 14 2 8 1 12 1 88h62l15 1 13 4 6 4 8 7 7 14 3 16 1 8v18l-4 22-6 12-9 9-10 5-15 4-27 1h-45l1 128 3 15 5 10 6 4 11 3 27 1 17 3 12 5 8 8 5 10 2 7 1 8v33l-3 15-6 12-8 8-12 6-20 4-6 1h-20l-12-2-16-1-26-6-17-5-15-7-12-7-13-11-10-12-8-13-7-16-5-16-5-26-1-8v-152h-29l-18-5-11-7-6-9-4-11-2-15v-33l3-12 6-12 8-9 10-6 10-2 32-1 1-100 3-13 6-10 4-5 8-6 14-5z" fill="#fcdb81"/>
+    <path d="m1376 758h41l16 4 10 6 7 7 7 14 2 11 1 96h63l14 1 13 4 9 6 7 8 5 10 4 20 1 17-3 22-5 13-6 9-9 7-10 4-12 3-21 1h-50v122l3 21 5 10 6 4 11 3 27 1 18 3 12 6 8 8 4 8 3 11 1 14v14l-1 15-4 14-7 11-9 7-12 5-25 4h-19l-12-2-15-1-29-7-21-7-15-8-12-9-12-12-10-15-8-17-6-20-5-30-1-21v-134l-6 1h-21l-17-4-10-5-7-7-5-10-3-13-1-28 1-17 4-12 6-10 8-8 9-5 11-2 30-1 1-93 2-14 4-11 7-9 7-6 12-5z" fill="#fcdb81"/>
+    <path d="m1020 1016h13l14 2 13 5 12 7 10 9 8 9 8 14 4 10 4 18-1 17-4 15-6 13-9 13-10 10-13 9-14 6-7 2-16 1-16-2-12-4-14-8-10-9-9-10-8-14-6-18-1-5v-20l4-16 5-12 7-11 11-12 13-9 12-6 10-3z" fill="#183e57"/>
+  </symbol>
+</svg>
+<div class="night">
+  <div class="board">
+
+    <!-- ======================= LOCKUP ======================= -->
+    <header class="hero">
+      <div class="hero-logo">
+        <svg viewBox="0 0 2048 1993" role="img" aria-label="Logo TempsPourTemps — monogramme tpt sable, version transparente sur fond marine"><use href="#tpt-mono"/></svg>
+      </div>
+      <div class="hero-id">
+        <div class="meta">
+          <span>Brand board</span>
+          <span class="dot"></span>
+          <span class="muted">Variante 06 · Marine Premium / Nocturne</span>
+        </div>
+        <h1 class="brandname">Temps<span class="sable">Pour</span>Temps</h1>
+        <p class="tagline">« Échangez du temps, <em>pas de l'argent</em> »</p>
+        <p class="mission">Mission — <strong>reconnecter le voisinage par l'entraide concrète.</strong> Une heure donnée vaut une heure reçue : la plateforme TpT transforme la disponibilité de chacun·e en lien de quartier.</p>
+        <div class="persona">
+          <span>Voisin·e bienveillant·e</span>
+          <span class="accent">Animateur·rice de quartier</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ======================= LOGO ======================= -->
+    <section>
+      <p class="kicker"><span class="num">01</span> Le logo &amp; ses déclinaisons</p>
+      <div class="logo-grid">
+        <article class="logo-card">
+          <div class="logo-stage on-night primary">
+            <svg viewBox="0 0 2048 1993" style="width:170px; height:166px; filter:drop-shadow(0 0 22px rgba(252,219,129,.28));" role="img" aria-label="Monogramme tpt transparent sur fond marine nocturne"><use href="#tpt-mono"/></svg>
+          </div>
+          <div class="logo-caption">
+            <b>Version transparente — usage privilégié</b>
+            <small>Monogramme « tpt » sable sur le marine de la variante nocturne. La lumière vient du logo.</small>
+          </div>
+        </article>
+        <article class="logo-card">
+          <div class="logo-stage on-light">
+            <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo principal avec fond, carré marine sur fond clair" style="border-radius:18px;">
+          </div>
+          <div class="logo-caption">
+            <b>Version principale</b>
+            <small>Carré marine autonome, pour les fonds clairs et supports tiers.</small>
+          </div>
+        </article>
+        <article class="logo-card">
+          <div class="logo-stage on-gradient">
+            <img src="../../assets/logo/icon-pwa-512.png" alt="Icône PWA TempsPourTemps" style="max-width:104px; border-radius:24px; box-shadow:0 14px 30px rgba(24,62,87,.28);">
+          </div>
+          <div class="logo-caption">
+            <b>Icône app / PWA</b>
+            <small>Format compact pour écrans d'accueil, favicons et avatars.</small>
+          </div>
+        </article>
+      </div>
+      <p class="logo-note"><b>Signature du monogramme :</b> le cercle marine logé au centre du « p » — l'horloge discrète qui rappelle que l'unité d'échange, ici, c'est le temps. Sable sur marine, jamais l'inverse.</p>
+    </section>
+
+    <!-- ======================= COULEURS ======================= -->
+    <section>
+      <p class="kicker"><span class="num">02</span> La palette — nuit marine, lumière sable</p>
+
+      <div class="palette-signature">
+        <article class="swatch marine">
+          <div class="chip"><div class="hover-strip"></div></div>
+          <div class="swatch-info">
+            <div><b>Marine</b><small>Couleur socle — la nuit du quartier</small></div>
+            <code>#183e57</code>
+          </div>
+        </article>
+        <article class="swatch orange">
+          <div class="chip"><div class="hover-strip"></div></div>
+          <div class="swatch-info">
+            <div><b>Orange brûlée</b><small>Énergie — l'action, le coup de main</small></div>
+            <code>#d65e1c</code>
+          </div>
+        </article>
+        <article class="swatch sable">
+          <div class="chip"><div class="hover-strip"></div></div>
+          <div class="swatch-info">
+            <div><b>Jaune sable</b><small>Lumière — la fenêtre allumée</small></div>
+            <code>#fcdb81</code>
+          </div>
+        </article>
+      </div>
+
+      <div class="palette-row">
+        <article class="palette-panel">
+          <h4>Couleurs sémantiques</h4>
+          <div class="mini-swatches">
+            <div class="mini"><span class="pastille" style="background:#4a9d5f;"></span><span><b>Success</b><code>#4a9d5f</code></span></div>
+            <div class="mini"><span class="pastille" style="background:#c44536;"></span><span><b>Danger</b><code>#c44536</code></span></div>
+            <div class="mini"><span class="pastille" style="background:#d97706;"></span><span><b>Warning</b><code>#d97706</code></span></div>
+            <div class="mini"><span class="pastille" style="background:#183e57; border-color:rgba(252,219,129,.4);"></span><span><b>Info</b><code>#183e57</code></span></div>
+          </div>
+        </article>
+        <article class="palette-panel">
+          <h4>Neutres</h4>
+          <div class="mini-swatches three">
+            <div class="mini"><span class="pastille" style="background:#f7f6f3;"></span><span><b>Bg main</b><code>#f7f6f3</code></span></div>
+            <div class="mini"><span class="pastille" style="background:#f3f3f5;"></span><span><b>Bg secondary</b><code>#f3f3f5</code></span></div>
+            <div class="mini"><span class="pastille" style="background:#fdf1d7;"></span><span><b>Bg hover</b><code>#fdf1d7</code></span></div>
+            <div class="mini"><span class="pastille" style="background:#4b5563;"></span><span><b>Text secondary</b><code>#4b5563</code></span></div>
+            <div class="mini"><span class="pastille" style="background:#717182;"></span><span><b>Text tertiary</b><code>#717182</code></span></div>
+            <div class="mini"><span class="pastille" style="background:#d6dbe2;"></span><span><b>Border</b><code>#d6dbe2</code></span></div>
+          </div>
+        </article>
+      </div>
+
+      <figure class="gradient-strip">
+        <div class="grad">
+          <span>#fff9ec · 0%</span>
+          <span>#fff3e0 · 32%</span>
+          <span>#f3f7fb · 100%</span>
+        </div>
+        <figcaption><b>Gradient de marque</b> — linear-gradient(180deg) : l'aube douce qui répond à la nuit marine de cette variante.</figcaption>
+      </figure>
+
+      <div class="ratio">
+        <h4>Ratio d'usage — 60 / 25 / 10 / 5</h4>
+        <div class="ratio-bar">
+          <div class="r-neutres">60</div>
+          <div class="r-marine">25</div>
+          <div class="r-sable">10</div>
+          <div class="r-orange">5</div>
+        </div>
+        <div class="ratio-legend">
+          <span><b>60%</b> neutres</span>
+          <span><b>25%</b> marine</span>
+          <span><b>10%</b> jaune sable</span>
+          <span><b>5%</b> orange brûlée</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= TYPOGRAPHIE ======================= -->
+    <section class="print-break">
+      <p class="kicker"><span class="num">03</span> La typographie</p>
+
+      <div class="typo-intro">
+        <article class="typeface-card display">
+          <div class="glyph">Aa</div>
+          <h3>Nunito Rounded</h3>
+          <p>Titres &amp; éléments d'identité. Des formes rondes et franches, comme une voix chaleureuse qui porte dans la rue.</p>
+          <div class="weights"><span>Bold 700</span><span>ExtraBold 800</span></div>
+        </article>
+        <article class="typeface-card body-face">
+          <div class="glyph">Aa</div>
+          <h3>Inter</h3>
+          <p>Corps de texte &amp; interface. Lisible, neutre, fiable — le service rendu sans bruit.</p>
+          <div class="weights"><span>Regular 400</span><span>Medium 500</span><span>SemiBold 600</span><span>Bold 700</span></div>
+        </article>
+      </div>
+
+      <div class="type-scale">
+        <div class="type-row">
+          <span class="spec"><b>Display XL</b>56 / 36 px · 800</span>
+          <span class="sample t-display">Une heure pour une heure</span>
+        </div>
+        <div class="type-row">
+          <span class="spec"><b>H1</b>40 / 28 px · 800</span>
+          <span class="sample t-h1">Le quartier veille tard</span>
+        </div>
+        <div class="type-row">
+          <span class="spec"><b>H2</b>28 / 22 px · 700</span>
+          <span class="sample t-h2">Proposez un coup de main</span>
+        </div>
+        <div class="type-row">
+          <span class="spec"><b>H3</b>20 / 18 px · 700</span>
+          <span class="sample t-h3">Vos voisin·es disponibles ce soir</span>
+        </div>
+        <div class="type-row">
+          <span class="spec"><b>Body L</b>18 px · Inter 400</span>
+          <span class="sample t-bodyl">Marie garde les clés d'Ahmed pendant ses vacances ; il lui réparera son vélo.</span>
+        </div>
+        <div class="type-row">
+          <span class="spec"><b>Body</b>16 px · Inter 400</span>
+          <span class="sample t-body">Chaque service rendu crédite votre compte-temps, à dépenser quand vous voulez.</span>
+        </div>
+        <div class="type-row">
+          <span class="spec"><b>Body S</b>14 px · Inter 500</span>
+          <span class="sample t-bodys">Échange confirmé · 1 h créditée sur votre compte-temps</span>
+        </div>
+        <div class="type-row">
+          <span class="spec"><b>Caption</b>12 px · Inter 600</span>
+          <span class="sample t-caption">RUE DES LILAS · À 4 MINUTES À PIED</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= UNIVERS VISUEL ======================= -->
+    <section>
+      <p class="kicker"><span class="num">04</span> L'univers — une soirée de quartier</p>
+      <div class="mood-grid">
+        <figure class="mood mood-1">
+          <span class="tag">Emplacement image</span>
+          <h3>Voisinage</h3>
+          <p>Fenêtres allumées, silhouettes qui se saluent — duotone marine / orange, halo sable.</p>
+        </figure>
+        <figure class="mood mood-2">
+          <span class="tag">Emplacement image</span>
+          <h3>Entraide</h3>
+          <p>Mains qui passent un outil, un plat, un service.</p>
+        </figure>
+        <figure class="mood mood-3">
+          <span class="tag">Emplacement image</span>
+          <h3>Échange de temps</h3>
+          <p>Le geste rendu, l'heure créditée.</p>
+        </figure>
+        <figure class="mood mood-4">
+          <span class="tag">Emplacement image</span>
+          <h3>Quartier</h3>
+          <p>La rue au crépuscule, panoramique — la nuit marine traversée de chaleur.</p>
+        </figure>
+      </div>
+      <p class="mood-note"><b>Traitement photo :</b> duotone marine #183e57 / orange #d65e1c, hautes lumières tirées vers le sable #fcdb81. Lumière chaude dans un cadre nocturne — jamais de photo froide ou désaturée.</p>
+    </section>
+
+    <!-- ======================= CONTRASTE & COLOPHON ======================= -->
+    <div class="contrast-line">
+      <span class="aaa-chip">Sable / Marine = AAA</span>
+      <p><b>Le contraste signature de la variante :</b> #fcdb81 sur #183e57 dépasse le seuil WCAG AAA. C'est ce choc maîtrisé entre nocturne et chaleur — la fenêtre éclairée dans la nuit — qui rend l'identité mémorable.</p>
+    </div>
+
+    <footer class="colophon">
+      <span><b>TempsPourTemps</b> · TpT</span>
+      <span>Variante 06 — Marine Premium / Nocturne</span>
+      <span>Identité visuelle · 2026</span>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

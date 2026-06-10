@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Brand board · Variante 04 « Organique &amp; chaleureux »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TEMPSPOURTEMPS — BRAND BOARD · VARIANTE 04
+   « Organique & chaleureux » — formes rondes, blobs, lumière
+   ============================================================ */
+
+:root{
+  /* Signature */
+  --marine:#183e57;        --marine-hover:#0f2f44;
+  --orange:#d65e1c;        --orange-hover:#b84e17;
+  --sable:#fcdb81;         --sable-hover:#f5cb5c;
+  /* Sémantique */
+  --success:#4a9d5f; --danger:#c44536; --warning:#d97706; --info:#183e57;
+  /* Neutres */
+  --bg-main:#f7f6f3; --bg-secondary:#f3f3f5; --bg-hover:#fdf1d7;
+  --text-secondary:#4b5563; --text-tertiary:#717182; --border:#d6dbe2;
+  /* Gradient signature */
+  --grad:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+  /* Typo */
+  --font-display:"Nunito",ui-rounded,system-ui,sans-serif;
+  --font-body:"Inter",system-ui,sans-serif;
+  /* Douceur */
+  --r-xl:44px; --r-lg:32px; --r-md:24px;
+  --shadow-soft:0 18px 50px -18px rgba(24,62,87,.18), 0 4px 14px -6px rgba(214,94,28,.10);
+  --shadow-tiny:0 6px 18px -8px rgba(24,62,87,.22);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  font-weight:400;
+  color:var(--marine);
+  background:var(--bg-main);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+
+/* ---------- Cadre planche ---------- */
+.board{max-width:1040px;margin:0 auto;padding:48px 40px 72px}
+
+/* ---------- Décor circulaire récurrent (contre-poinçon du « p ») ---------- */
+.dot{display:inline-block;border-radius:50%;flex:none}
+.dot--marine{background:var(--marine)}
+.dot--orange{background:var(--orange)}
+.dot--sable{background:var(--sable)}
+.dot--ring{background:transparent;border:3px solid var(--marine)}
+
+/* En-tête de section : pastille + filet pointillé */
+.section{margin-top:64px;break-inside:avoid}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.section-head .dot{width:16px;height:16px}
+.section-head h2{
+  font-family:var(--font-display);font-weight:800;font-size:28px;
+  letter-spacing:-.01em;white-space:nowrap;
+}
+.section-head .thread{
+  flex:1;height:0;border-top:3px dotted var(--border);border-radius:99px;
+}
+.section-sub{color:var(--text-tertiary);font-size:14px;margin-bottom:28px;max-width:62ch}
+
+/* ============================================================
+   HERO — grande nappe gradient + blobs + lockup
+   ============================================================ */
+.hero{
+  position:relative;overflow:hidden;
+  background:var(--grad);
+  border-radius:var(--r-xl);
+  padding:72px 64px 88px;
+  box-shadow:var(--shadow-soft);
+  isolation:isolate;
+}
+.hero svg.blob{position:absolute;z-index:-1;pointer-events:none}
+.blob-sable{top:-120px;right:-140px;width:460px;opacity:.85}
+.blob-orange{bottom:-150px;left:-130px;width:380px;opacity:.16}
+.blob-ringfield{top:38px;left:46%;width:230px;opacity:.5}
+
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:999px;padding:7px 18px 7px 12px;
+  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-secondary);
+  box-shadow:var(--shadow-tiny);
+}
+.hero-kicker .dot{width:10px;height:10px}
+
+.lockup{display:flex;align-items:center;gap:36px;margin-top:44px;flex-wrap:wrap}
+.lockup-logo{
+  width:172px;height:172px;flex:none;
+  border-radius:42px;overflow:hidden;
+  box-shadow:0 24px 48px -16px rgba(24,62,87,.35);
+}
+.lockup-logo img{width:100%;height:100%;object-fit:cover}
+.lockup-name{
+  font-family:var(--font-display);font-weight:800;
+  font-size:56px;line-height:1.06;letter-spacing:-.02em;
+}
+.lockup-name em{font-style:normal;color:var(--orange)}
+.lockup-tagline{
+  margin-top:14px;font-size:18px;font-weight:500;color:var(--text-secondary);
+  display:flex;align-items:center;gap:12px;
+}
+.lockup-tagline .dot{width:8px;height:8px}
+
+.hero-mission{
+  margin-top:48px;display:flex;gap:20px;align-items:flex-start;
+  background:rgba(255,255,255,.72);
+  border:1.5px solid rgba(214,219,226,.8);
+  border-radius:var(--r-lg);padding:26px 32px;max-width:640px;
+  backdrop-filter:blur(4px);
+}
+.hero-mission .mark{
+  width:46px;height:46px;flex:none;border-radius:50%;
+  background:var(--marine);display:grid;place-items:center;
+}
+.hero-mission .mark span{width:14px;height:14px;border-radius:50%;background:var(--sable)}
+.hero-mission h3{font-family:var(--font-display);font-weight:800;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:4px}
+.hero-mission p{font-size:18px;font-weight:500;color:var(--marine)}
+
+.hero-persona{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+.chip{
+  display:inline-flex;align-items:center;gap:9px;
+  border-radius:999px;padding:9px 20px 9px 14px;
+  font-size:14px;font-weight:600;
+}
+.chip .dot{width:9px;height:9px}
+.chip--sable{background:var(--sable);color:var(--marine)}
+.chip--blanc{background:#fff;color:var(--text-secondary);border:1.5px solid var(--border)}
+
+/* ============================================================
+   LOGO — déclinaisons
+   ============================================================ */
+.logo-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px}
+.logo-card{
+  border-radius:var(--r-lg);overflow:hidden;
+  background:#fff;border:1.5px solid var(--border);
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow-tiny);
+}
+.logo-stage{
+  flex:1;display:grid;place-items:center;padding:36px;min-height:230px;position:relative;
+}
+.logo-stage--fond{background:var(--grad)}
+.logo-stage--damier{
+  background:
+    repeating-conic-gradient(#eef0f3 0% 25%, #ffffff 0% 50%) 0 0/26px 26px;
+}
+.logo-stage--marine{background:var(--marine)}
+.logo-stage img{width:160px;height:auto;border-radius:28px}
+.logo-stage--marine img{border-radius:36%;box-shadow:0 14px 34px -10px rgba(0,0,0,.45)}
+.logo-meta{
+  padding:16px 22px 18px;border-top:1.5px dotted var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.logo-meta .dot{width:8px;height:8px}
+.logo-meta b{font-family:var(--font-display);font-weight:800;font-size:15px}
+.logo-meta span{color:var(--text-tertiary);font-size:12px;margin-left:auto;font-weight:500}
+
+.logo-note{
+  margin-top:20px;display:flex;align-items:center;gap:16px;
+  background:var(--bg-hover);border-radius:var(--r-md);
+  padding:18px 26px;font-size:14px;color:var(--text-secondary);
+}
+.logo-note .glyph{
+  width:44px;height:44px;flex:none;border-radius:50%;
+  background:var(--marine);display:grid;place-items:center;
+}
+.logo-note .glyph i{width:15px;height:15px;border-radius:50%;background:var(--sable);display:block}
+.logo-note b{color:var(--marine)}
+
+/* ============================================================
+   PALETTE — pastilles rondes
+   ============================================================ */
+.pal-label{
+  font-family:var(--font-display);font-weight:800;font-size:14px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--text-tertiary);
+  display:flex;align-items:center;gap:10px;margin:34px 0 20px;
+}
+.pal-label:first-of-type{margin-top:0}
+.pal-label .dot{width:8px;height:8px}
+
+.pal-row{display:flex;gap:28px;flex-wrap:wrap}
+.swatch{display:flex;flex-direction:column;align-items:center;text-align:center;width:124px}
+.swatch .pebble{
+  width:104px;height:104px;border-radius:50%;
+  box-shadow:var(--shadow-tiny);
+  position:relative;display:grid;place-items:center;
+  border:4px solid #fff;
+}
+.swatch .pebble .hoverdot{
+  width:34px;height:34px;border-radius:50%;
+  border:3px solid rgba(255,255,255,.85);
+}
+.swatch--sm .pebble{width:78px;height:78px}
+.swatch--sm{width:104px}
+.swatch b{font-family:var(--font-display);font-weight:800;font-size:15px;margin-top:14px;line-height:1.25}
+.swatch code{
+  font-family:var(--font-body);font-size:12px;font-weight:600;
+  color:var(--text-tertiary);letter-spacing:.04em;
+  background:#fff;border:1px solid var(--border);border-radius:999px;
+  padding:3px 11px;margin-top:7px;
+}
+.swatch small{font-size:11px;color:var(--text-tertiary);margin-top:6px;font-weight:500}
+
+/* Gradient signature */
+.grad-strip{
+  margin-top:10px;border-radius:999px;height:84px;
+  background:var(--grad);
+  border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 34px;box-shadow:var(--shadow-tiny);
+}
+.grad-strip b{font-family:var(--font-display);font-weight:800;font-size:16px}
+.grad-strip .stops{display:flex;gap:10px;flex-wrap:wrap}
+.grad-strip .stops code{
+  font-size:11px;font-weight:600;background:rgba(255,255,255,.85);
+  border:1px solid var(--border);border-radius:999px;padding:4px 12px;color:var(--text-secondary);
+}
+
+/* Ratio 60/25/10/5 */
+.ratio{margin-top:34px}
+.ratio-bar{
+  display:flex;height:58px;border-radius:999px;overflow:hidden;
+  border:4px solid #fff;box-shadow:var(--shadow-tiny);
+}
+.ratio-bar div{display:grid;place-items:center;font-weight:700;font-size:13px}
+.ratio-bar .r-neutre{flex:60;background:var(--bg-secondary);color:var(--text-secondary)}
+.ratio-bar .r-marine{flex:25;background:var(--marine);color:#fff}
+.ratio-bar .r-sable{flex:10;background:var(--sable);color:var(--marine)}
+.ratio-bar .r-orange{flex:5;background:var(--orange);color:#fff}
+.ratio-legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px;font-size:12.5px;color:var(--text-tertiary);font-weight:500}
+.ratio-legend span{display:inline-flex;align-items:center;gap:8px}
+.ratio-legend .dot{width:9px;height:9px}
+.ratio-legend .dot--neutre{background:var(--bg-secondary);border:1px solid var(--border)}
+
+/* ============================================================
+   TYPOGRAPHIE
+   ============================================================ */
+.type-duo{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:26px}
+.type-card{
+  border-radius:var(--r-lg);padding:34px 38px;
+  position:relative;overflow:hidden;box-shadow:var(--shadow-tiny);
+}
+.type-card--display{background:var(--marine);color:#fff}
+.type-card--body{background:#fff;border:1.5px solid var(--border)}
+.type-card .aa{font-size:96px;line-height:1;letter-spacing:-.02em}
+.type-card--display .aa{font-family:var(--font-display);font-weight:800;color:var(--sable)}
+.type-card--body .aa{font-family:var(--font-body);font-weight:600;color:var(--marine)}
+.type-card .tname{font-family:var(--font-display);font-weight:800;font-size:21px;margin-top:18px}
+.type-card .trole{font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-top:3px}
+.type-card--display .trole{color:#fcdb81;opacity:.85}
+.type-card--body .trole{color:var(--orange)}
+.type-card .tweights{margin-top:14px;font-size:13.5px;line-height:1.8}
+.type-card--display .tweights{color:rgba(255,255,255,.78)}
+.type-card--body .tweights{color:var(--text-secondary)}
+.type-card .abc{
+  margin-top:16px;padding-top:16px;font-size:14px;letter-spacing:.06em;word-break:break-all;
+  border-top:1.5px dotted rgba(214,219,226,.5);
+}
+.type-card--display .abc{font-family:var(--font-display);font-weight:700;color:rgba(255,255,255,.65)}
+.type-card--body .abc{font-family:var(--font-body);color:var(--text-tertiary)}
+.type-card .cp{
+  position:absolute;top:-46px;right:-46px;width:150px;height:150px;border-radius:50%;
+}
+.type-card--display .cp{background:rgba(252,219,129,.14)}
+.type-card--body .cp{background:var(--bg-hover)}
+
+/* Hiérarchie */
+.hier{
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:var(--r-lg);padding:14px 38px;box-shadow:var(--shadow-tiny);
+}
+.hier-row{
+  display:flex;align-items:baseline;gap:28px;
+  padding:19px 0;border-bottom:1.5px dotted var(--border);
+}
+.hier-row:last-child{border-bottom:none}
+.hier-row .meta{flex:none;width:172px}
+.hier-row .meta b{font-family:var(--font-display);font-weight:800;font-size:13px;display:flex;align-items:center;gap:8px}
+.hier-row .meta b .dot{width:7px;height:7px}
+.hier-row .meta span{display:block;font-size:11px;color:var(--text-tertiary);font-weight:500;margin-top:3px;padding-left:15px}
+.hier-row .sample{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.s-displayxl{font-family:var(--font-display);font-weight:800;font-size:56px;line-height:1.05;letter-spacing:-.02em}
+.s-h1{font-family:var(--font-display);font-weight:800;font-size:40px;line-height:1.1;letter-spacing:-.015em}
+.s-h2{font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1.2}
+.s-h3{font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1.3}
+.s-bodyl{font-size:18px;font-weight:400;color:var(--text-secondary)}
+.s-body{font-size:16px;font-weight:400;color:var(--text-secondary)}
+.s-bodys{font-size:14px;font-weight:500;color:var(--text-secondary)}
+.s-caption{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary)}
+
+/* ============================================================
+   APPLICATION / MOOD — blocs teintés
+   ============================================================ */
+.mood-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:128px;gap:22px;
+}
+.mood{
+  border-radius:var(--r-lg);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:26px 28px;box-shadow:var(--shadow-tiny);isolation:isolate;
+}
+.mood-1{grid-column:span 7;grid-row:span 2;background:var(--marine);color:#fff}
+.mood-2{grid-column:span 5;grid-row:span 2;background:var(--sable);color:var(--marine)}
+.mood-3{grid-column:span 5;grid-row:span 2;background:var(--orange);color:#fff}
+.mood-4{grid-column:span 7;grid-row:span 2;background:var(--grad);color:var(--marine);border:1.5px solid var(--border)}
+.mood .icon{
+  width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+  margin-bottom:auto;
+}
+.mood-1 .icon{background:rgba(252,219,129,.18)}
+.mood-2 .icon{background:rgba(24,62,87,.12)}
+.mood-3 .icon{background:rgba(255,255,255,.2)}
+.mood-4 .icon{background:#fff;box-shadow:var(--shadow-tiny)}
+.mood .icon svg{width:26px;height:26px}
+.mood h3{font-family:var(--font-display);font-weight:800;font-size:24px;letter-spacing:-.01em;margin-top:16px}
+.mood p{font-size:13.5px;font-weight:500;opacity:.82;margin-top:4px;max-width:34ch}
+.mood .deco{position:absolute;z-index:-1;border-radius:50%;pointer-events:none}
+.mood-1 .deco{width:300px;height:300px;right:-110px;top:-130px;background:radial-gradient(circle,rgba(252,219,129,.22),transparent 70%)}
+.mood-1 .deco2{position:absolute;z-index:-1;width:120px;height:120px;border-radius:50%;border:3px dotted rgba(252,219,129,.4);right:48px;bottom:-44px}
+.mood-2 .deco{width:240px;height:240px;right:-80px;bottom:-110px;background:rgba(245,203,92,.65)}
+.mood-3 .deco{width:260px;height:260px;left:55%;top:-130px;background:rgba(255,255,255,.12)}
+.mood-3 .deco2{position:absolute;z-index:-1;width:110px;height:110px;border-radius:50%;border:3px dotted rgba(255,255,255,.35);right:30px;bottom:-36px}
+.mood-4 .deco{width:230px;height:230px;right:-70px;top:-90px;background:rgba(252,219,129,.45)}
+.mood .tagdot{position:absolute;top:22px;right:24px;width:13px;height:13px;border-radius:50%}
+.mood-1 .tagdot{background:var(--sable)}
+.mood-2 .tagdot{background:var(--marine)}
+.mood-3 .tagdot{background:var(--sable)}
+.mood-4 .tagdot{background:var(--orange)}
+
+/* Boutons d'application */
+.ui-row{margin-top:26px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  background:#fff;border:1.5px solid var(--border);border-radius:999px;padding:18px 28px;
+  box-shadow:var(--shadow-tiny);
+}
+.ui-row .lbl{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);margin-right:6px}
+.btn{
+  font-family:var(--font-display);font-weight:800;font-size:15px;
+  border-radius:999px;padding:12px 26px;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:9px;transition:background .2s ease,transform .2s ease;
+}
+.btn .dot{width:8px;height:8px}
+.btn:hover{transform:translateY(-1px)}
+.btn--orange{background:var(--orange);color:#fff}
+.btn--orange:hover{background:var(--orange-hover)}
+.btn--marine{background:var(--marine);color:#fff}
+.btn--marine:hover{background:var(--marine-hover)}
+.btn--sable{background:var(--sable);color:var(--marine)}
+.btn--sable:hover{background:var(--sable-hover)}
+.btn--ghost{background:transparent;color:var(--marine);border:2px solid var(--border)}
+.btn--ghost:hover{background:var(--bg-hover)}
+
+/* ============================================================
+   PIED DE PLANCHE
+   ============================================================ */
+.footer{
+  margin-top:72px;display:flex;align-items:center;gap:18px;
+  border-top:3px dotted var(--border);padding-top:28px;
+  color:var(--text-tertiary);font-size:12.5px;font-weight:500;
+}
+.footer .badge{
+  width:42px;height:42px;border-radius:14px;overflow:hidden;flex:none;
+  box-shadow:var(--shadow-tiny);
+}
+.footer .right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.footer .right .dot{width:8px;height:8px}
+
+/* ============================================================
+   ANIMATION D'ENTRÉE (écran uniquement)
+   ============================================================ */
+@media screen{
+  .reveal{opacity:0;transform:translateY(18px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+  .reveal:nth-of-type(2){animation-delay:.08s}
+  .reveal:nth-of-type(3){animation-delay:.16s}
+  .reveal:nth-of-type(4){animation-delay:.24s}
+  .reveal:nth-of-type(5){animation-delay:.32s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .blob-sable{animation:breathe 9s ease-in-out infinite alternate}
+  .blob-orange{animation:breathe 11s ease-in-out infinite alternate-reverse}
+  @keyframes breathe{from{transform:scale(1) rotate(0deg)}to{transform:scale(1.06) rotate(4deg)}}
+}
+
+/* ============================================================
+   IMPRESSION A4 PORTRAIT
+   ============================================================ */
+@page{size:A4 portrait;margin:10mm}
+@media print{
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  body{background:#fff}
+  .board{max-width:none;padding:0}
+  .hero{padding:44px 44px 56px;box-shadow:none}
+  .section{margin-top:34px}
+  .lockup-name{font-size:44px}
+  .lockup-logo{width:128px;height:128px;border-radius:32px}
+  .type-card .aa{font-size:72px}
+  .s-displayxl{font-size:42px}
+  .s-h1{font-size:32px}
+  .mood-grid{grid-auto-rows:102px}
+  .logo-grid,.type-duo,.mood-grid,.hier,.pal-row,.ui-row,.grad-strip,.ratio{break-inside:avoid}
+  .section--typo,.section--mood{break-before:page}
+  .reveal{opacity:1 !important;transform:none !important;animation:none !important}
+  .footer{margin-top:36px}
+}
+@media (max-width:760px){
+  .board{padding:24px 18px 48px}
+  .hero{padding:40px 28px 56px}
+  .lockup-name{font-size:38px}
+  .logo-grid,.type-duo{grid-template-columns:1fr}
+  .mood-grid{grid-template-columns:1fr;grid-auto-rows:auto}
+  .mood{min-height:190px;grid-column:auto !important;grid-row:auto !important}
+  .hier{padding:8px 22px}
+  .hier-row{flex-direction:column;gap:8px}
+  .s-displayxl{font-size:36px}.s-h1{font-size:28px}
+}
+</style>
+</head>
+<body>
+<div class="board">
+
+  <!-- ════════════════ HERO ════════════════ -->
+  <header class="hero reveal">
+    <!-- Blob sable -->
+    <svg class="blob blob-sable" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#fcdb81" d="M44.8,-58.2C59.3,-49.5,72.9,-37.2,77.6,-22.1C82.3,-7,78.1,10.8,70.1,25.8C62.1,40.8,50.3,52.9,36.4,60.7C22.4,68.6,6.4,72.1,-9.7,71.1C-25.8,70.1,-41.9,64.5,-53.6,53.7C-65.3,42.9,-72.5,26.8,-74.3,10.1C-76.1,-6.7,-72.4,-24.2,-62.9,-37.1C-53.4,-50,-38.1,-58.3,-23.2,-66.5C-8.2,-74.7,6.4,-82.7,20.3,-79.6C34.1,-76.6,47.3,-62.4,44.8,-58.2Z" transform="translate(100 100)"/>
+    </svg>
+    <!-- Blob orange -->
+    <svg class="blob blob-orange" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#d65e1c" d="M39.9,-51.3C53.5,-42.6,67.4,-32.4,72.3,-18.7C77.2,-5,73.1,12.3,65.2,27.1C57.3,41.9,45.5,54.3,31.4,61.1C17.2,67.9,0.7,69.2,-15.4,66C-31.6,62.8,-47.5,55.2,-57.8,42.7C-68.2,30.2,-73,12.8,-71.4,-3.7C-69.8,-20.3,-61.8,-36,-50,-45.2C-38.1,-54.5,-22.4,-57.2,-7.4,-58.9C7.7,-60.7,26.4,-60,39.9,-51.3Z" transform="translate(100 100)"/>
+    </svg>
+    <!-- Champ de points : motif contre-poinçon -->
+    <svg class="blob blob-ringfield" viewBox="0 0 230 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="18" cy="22" r="7" fill="#d65e1c" opacity=".55"/>
+      <circle cx="74" cy="14" r="10" fill="none" stroke="#183e57" stroke-width="3" opacity=".35"/>
+      <circle cx="128" cy="34" r="5" fill="#183e57" opacity=".4"/>
+      <circle cx="182" cy="16" r="8" fill="#f5cb5c"/>
+      <circle cx="210" cy="58" r="12" fill="none" stroke="#d65e1c" stroke-width="3" stroke-dasharray="3 5" opacity=".55"/>
+      <circle cx="48" cy="72" r="6" fill="#fcdb81"/>
+      <circle cx="104" cy="86" r="9" fill="none" stroke="#183e57" stroke-width="3" stroke-dasharray="2 5" opacity=".35"/>
+      <circle cx="160" cy="92" r="5" fill="#d65e1c" opacity=".5"/>
+    </svg>
+
+    <span class="hero-kicker"><span class="dot dot--orange"></span>Brand board · Variante 04 — Organique &amp; chaleureux</span>
+
+    <div class="lockup">
+      <div class="lockup-logo">
+        <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps — monogramme tpt sable sur carré marine">
+      </div>
+      <div>
+        <h1 class="lockup-name">Temps<em>Pour</em>Temps</h1>
+        <p class="lockup-tagline"><span class="dot dot--marine"></span>« Échangez du temps, pas de l'argent »<span class="dot dot--sable" style="border:1px solid #f5cb5c"></span></p>
+      </div>
+    </div>
+
+    <div class="hero-mission">
+      <span class="mark"><span></span></span>
+      <div>
+        <h3>Notre mission</h3>
+        <p>Reconnecter le voisinage par l'entraide concrète.</p>
+      </div>
+    </div>
+
+    <div class="hero-persona">
+      <span class="chip chip--sable"><span class="dot dot--marine"></span>Voisin·e bienveillant·e</span>
+      <span class="chip chip--sable"><span class="dot dot--orange"></span>Animateur·rice de quartier</span>
+      <span class="chip chip--blanc"><span class="dot dot--sable" style="border:1px solid #f5cb5c"></span>Chaleureux</span>
+      <span class="chip chip--blanc"><span class="dot dot--sable" style="border:1px solid #f5cb5c"></span>Humain</span>
+    </div>
+  </header>
+
+  <!-- ════════════════ LOGO ════════════════ -->
+  <section class="section reveal">
+    <div class="section-head">
+      <span class="dot dot--orange"></span>
+      <h2>Le logo</h2>
+      <span class="thread"></span>
+    </div>
+    <p class="section-sub">Monogramme « tpt » sable sur carré marine. Sa signature : le cercle marine logé au centre du « p » — un contre-poinçon plein, comme une pendule de quartier.</p>
+
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="logo-stage logo-stage--fond">
+          <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo principal sur fond">
+        </div>
+        <div class="logo-meta"><span class="dot dot--marine"></span><b>Logo principal</b><span>logo-tpt-fond.png</span></div>
+      </div>
+      <div class="logo-card">
+        <div class="logo-stage logo-stage--damier">
+          <img src="../../assets/logo/logo-tpt-transparent.png" alt="Logo sur fond transparent">
+        </div>
+        <div class="logo-meta"><span class="dot dot--orange"></span><b>Transparent</b><span>logo-tpt-transparent.png</span></div>
+      </div>
+      <div class="logo-card">
+        <div class="logo-stage logo-stage--marine">
+          <img src="../../assets/logo/icon-pwa-512.png" alt="Icône application PWA">
+        </div>
+        <div class="logo-meta"><span class="dot dot--sable" style="border:1px solid #f5cb5c"></span><b>Icône app</b><span>icon-pwa-512.png</span></div>
+      </div>
+    </div>
+
+    <div class="logo-note">
+      <span class="glyph"><i></i></span>
+      <p><b>Le motif du cercle</b> — contre-poinçon du « p » — devient l'élément graphique récurrent de l'identité : puces, pastilles, badges, points de ponctuation visuelle. Il relie chaque support au logo.</p>
+    </div>
+  </section>
+
+  <!-- ════════════════ PALETTE ════════════════ -->
+  <section class="section reveal">
+    <div class="section-head">
+      <span class="dot dot--sable" style="border:1px solid #f5cb5c"></span>
+      <h2>La palette</h2>
+      <span class="thread"></span>
+    </div>
+    <p class="section-sub">Trois couleurs signature pleines de soleil, une gamme sémantique sobre, des neutres chauds qui laissent respirer.</p>
+
+    <p class="pal-label"><span class="dot dot--marine"></span>Couleurs signature</p>
+    <div class="pal-row">
+      <div class="swatch">
+        <span class="pebble" style="background:#183e57"><span class="hoverdot" style="background:#0f2f44"></span></span>
+        <b>Marine</b><code>#183e57</code><small>hover #0f2f44</small>
+      </div>
+      <div class="swatch">
+        <span class="pebble" style="background:#d65e1c"><span class="hoverdot" style="background:#b84e17"></span></span>
+        <b>Orange brûlée</b><code>#d65e1c</code><small>hover #b84e17</small>
+      </div>
+      <div class="swatch">
+        <span class="pebble" style="background:#fcdb81"><span class="hoverdot" style="background:#f5cb5c;border-color:rgba(24,62,87,.25)"></span></span>
+        <b>Jaune sable</b><code>#fcdb81</code><small>hover #f5cb5c</small>
+      </div>
+    </div>
+
+    <p class="pal-label"><span class="dot dot--orange"></span>Couleurs sémantiques</p>
+    <div class="pal-row">
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#4a9d5f"></span>
+        <b>Success</b><code>#4a9d5f</code>
+      </div>
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#c44536"></span>
+        <b>Danger</b><code>#c44536</code>
+      </div>
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#d97706"></span>
+        <b>Warning</b><code>#d97706</code>
+      </div>
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#183e57"></span>
+        <b>Info</b><code>#183e57</code>
+      </div>
+    </div>
+
+    <p class="pal-label"><span class="dot dot--sable" style="border:1px solid #f5cb5c"></span>Neutres</p>
+    <div class="pal-row">
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#f7f6f3;border-color:var(--border)"></span>
+        <b>Bg main</b><code>#f7f6f3</code>
+      </div>
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#f3f3f5;border-color:var(--border)"></span>
+        <b>Bg secondary</b><code>#f3f3f5</code>
+      </div>
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#fdf1d7;border-color:var(--border)"></span>
+        <b>Bg hover</b><code>#fdf1d7</code>
+      </div>
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#4b5563"></span>
+        <b>Text secondary</b><code>#4b5563</code>
+      </div>
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#717182"></span>
+        <b>Text tertiary</b><code>#717182</code>
+      </div>
+      <div class="swatch swatch--sm">
+        <span class="pebble" style="background:#d6dbe2"></span>
+        <b>Border</b><code>#d6dbe2</code>
+      </div>
+    </div>
+
+    <p class="pal-label"><span class="dot dot--marine"></span>Gradient signature</p>
+    <div class="grad-strip">
+      <b>Lever de soleil sur le quartier</b>
+      <span class="stops">
+        <code>#fff9ec · 0%</code><code>#fff3e0 · 32%</code><code>#f3f7fb · 100%</code><code>180deg</code>
+      </span>
+    </div>
+
+    <div class="ratio">
+      <p class="pal-label"><span class="dot dot--orange"></span>Équilibre d'usage</p>
+      <div class="ratio-bar">
+        <div class="r-neutre">60&nbsp;%</div>
+        <div class="r-marine">25&nbsp;%</div>
+        <div class="r-sable">10&nbsp;%</div>
+        <div class="r-orange">5%</div>
+      </div>
+      <div class="ratio-legend">
+        <span><span class="dot dot--neutre"></span>60 — Neutres (fonds, respiration)</span>
+        <span><span class="dot dot--marine"></span>25 — Marine (structure, texte)</span>
+        <span><span class="dot dot--sable" style="border:1px solid #f5cb5c"></span>10 — Sable (chaleur, surfaces)</span>
+        <span><span class="dot dot--orange"></span>5 — Orange (action, accent)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ TYPOGRAPHIE ════════════════ -->
+  <section class="section section--typo reveal">
+    <div class="section-head">
+      <span class="dot dot--marine"></span>
+      <h2>La typographie</h2>
+      <span class="thread"></span>
+    </div>
+    <p class="section-sub">Des titres tout en rondeur, un corps de texte limpide. Le duo parle comme la marque : chaleureux dans l'accroche, clair dans l'échange.</p>
+
+    <div class="type-duo">
+      <div class="type-card type-card--display">
+        <span class="cp"></span>
+        <div class="aa">Aa</div>
+        <div class="tname">Nunito Rounded</div>
+        <div class="trole">Titres · 700 &amp; 800</div>
+        <div class="tweights"><strong style="font-family:var(--font-display);font-weight:700">Bold 700 — Sous-titres et relances</strong><br><strong style="font-family:var(--font-display);font-weight:800">ExtraBold 800 — Titres et display</strong></div>
+        <div class="abc">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 àéèêç</div>
+      </div>
+      <div class="type-card type-card--body">
+        <span class="cp"></span>
+        <div class="aa">Aa</div>
+        <div class="tname" style="font-family:var(--font-body);font-weight:700">Inter</div>
+        <div class="trole">Corps · 400 / 500 / 600 / 700</div>
+        <div class="tweights">Regular 400 — paragraphes · <span style="font-weight:500">Medium 500 — libellés</span><br><span style="font-weight:600">SemiBold 600 — emphase</span> · <span style="font-weight:700">Bold 700 — chiffres clés</span></div>
+        <div class="abc">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 àéèêç</div>
+      </div>
+    </div>
+
+    <div class="hier">
+      <div class="hier-row">
+        <div class="meta"><b><span class="dot dot--orange"></span>Display XL</b><span>Nunito Rounded 800 · 56 px / mobile 36</span></div>
+        <div class="sample s-displayxl">Échangez du temps</div>
+      </div>
+      <div class="hier-row">
+        <div class="meta"><b><span class="dot dot--orange"></span>H1</b><span>Nunito Rounded 800 · 40 px / mobile 28</span></div>
+        <div class="sample s-h1">Pas de l'argent</div>
+      </div>
+      <div class="hier-row">
+        <div class="meta"><b><span class="dot dot--orange"></span>H2</b><span>Nunito Rounded 700 · 28 px / mobile 22</span></div>
+        <div class="sample s-h2">Une heure donnée, une heure reçue</div>
+      </div>
+      <div class="hier-row">
+        <div class="meta"><b><span class="dot dot--orange"></span>H3</b><span>Nunito Rounded 700 · 20 px / mobile 18</span></div>
+        <div class="sample s-h3">Vos voisins ont du talent</div>
+      </div>
+      <div class="hier-row">
+        <div class="meta"><b><span class="dot dot--marine"></span>Body L</b><span>Inter 400 · 18 px</span></div>
+        <div class="sample s-bodyl">Camille garde le chat de Yassine, Yassine répare le vélo d'Inès.</div>
+      </div>
+      <div class="hier-row">
+        <div class="meta"><b><span class="dot dot--marine"></span>Body</b><span>Inter 400 · 16 px</span></div>
+        <div class="sample s-body">Chaque service rendu crédite votre compteur de temps, simplement.</div>
+      </div>
+      <div class="hier-row">
+        <div class="meta"><b><span class="dot dot--marine"></span>Body S</b><span>Inter 500 · 14 px</span></div>
+        <div class="sample s-bodys">Proposé à 400 m de chez vous · disponible ce week-end</div>
+      </div>
+      <div class="hier-row">
+        <div class="meta"><b><span class="dot dot--marine"></span>Caption</b><span>Inter 600 · 12 px</span></div>
+        <div class="sample s-caption">Quartier Saint-Michel · il y a 2 h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ APPLICATION / MOOD ════════════════ -->
+  <section class="section section--mood reveal">
+    <div class="section-head">
+      <span class="dot dot--orange"></span>
+      <h2>L'univers en application</h2>
+      <span class="thread"></span>
+    </div>
+    <p class="section-sub">Quatre territoires d'image, teintés aux couleurs de la marque. Photos chaleureuses, lumière dorée, gestes du quotidien — jamais de banque d'images froide.</p>
+
+    <div class="mood-grid">
+      <figure class="mood mood-1">
+        <span class="deco"></span><span class="deco2"></span><span class="tagdot"></span>
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fcdb81" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/><circle cx="12" cy="14.5" r="2.4"/>
+          </svg>
+        </span>
+        <h3>Voisinage</h3>
+        <p>Pas de porte, fenêtres allumées, la vie d'un immeuble qui se parle à nouveau.</p>
+      </figure>
+
+      <figure class="mood mood-2">
+        <span class="deco"></span><span class="tagdot"></span>
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#183e57" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3.2 5 6.4 5c2 0 3.4 1 4.3 2.4l1.3 1.8 1.3-1.8C14.2 6 15.6 5 17.6 5c3.2 0 5.2 3.2 3.6 6.4C19 15.6 12 20 12 20Z"/>
+          </svg>
+        </span>
+        <h3>Entraide</h3>
+        <p>Deux mains, un coup de pouce : bricoler, cuisiner, accompagner.</p>
+      </figure>
+
+      <figure class="mood mood-3">
+        <span class="deco"></span><span class="deco2"></span><span class="tagdot"></span>
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>
+          </svg>
+        </span>
+        <h3>Échange de temps</h3>
+        <p>Une heure pour une heure : le temps comme seule monnaie.</p>
+      </figure>
+
+      <figure class="mood mood-4">
+        <span class="deco"></span><span class="tagdot"></span>
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d65e1c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 21s6.5-5.4 6.5-10.2A6.5 6.5 0 0 0 5.5 10.8C5.5 15.6 12 21 12 21Z"/><circle cx="12" cy="10.5" r="2.3"/>
+          </svg>
+        </span>
+        <h3>Quartier</h3>
+        <p>Marché, square, café du coin : le décor familier où tout commence.</p>
+      </figure>
+    </div>
+
+    <div class="ui-row">
+      <span class="lbl">Boutons</span>
+      <button class="btn btn--orange" type="button">Proposer un service</button>
+      <button class="btn btn--marine" type="button">Découvrir mon quartier</button>
+      <button class="btn btn--sable" type="button"><span class="dot dot--marine"></span>1 h créditée</button>
+      <button class="btn btn--ghost" type="button">En savoir plus</button>
+    </div>
+  </section>
+
+  <!-- ════════════════ PIED ════════════════ -->
+  <footer class="footer">
+    <span class="badge"><img src="../../assets/logo/icon-pwa-512.png" alt="Icône TpT"></span>
+    <span><b style="font-family:var(--font-display);font-weight:800;color:var(--marine)">TempsPourTemps</b> · Brand board — Variante 04 « Organique &amp; chaleureux »</span>
+    <span class="right"><span class="dot dot--orange"></span><span class="dot dot--sable" style="border:1px solid #f5cb5c"></span><span class="dot dot--marine"></span>tempspourtemps · identité visuelle</span>
+  </footer>
+
+</div>
+</body>
+</html>

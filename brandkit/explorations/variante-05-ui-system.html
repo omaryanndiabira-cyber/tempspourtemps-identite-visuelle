@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Brand Board · Variante 05 « Mini Design System »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TEMPSPOURTEMPS — BRAND BOARD · VARIANTE 05
+   « Mini design system / UI showcase » — la marque en action
+   ============================================================ */
+:root{
+  /* Signature */
+  --marine:#183e57;        --marine-hover:#0f2f44;
+  --orange:#d65e1c;        --orange-hover:#b84e17;
+  --sable:#fcdb81;         --sable-hover:#f5cb5c;
+  /* Sémantique */
+  --success:#4a9d5f;  --danger:#c44536;  --warning:#d97706;  --info:#183e57;
+  /* Neutres */
+  --bg-main:#f7f6f3;  --bg-secondary:#f3f3f5;  --bg-hover:#fdf1d7;
+  --text-secondary:#4b5563;  --text-tertiary:#717182;
+  --border:#d6dbe2;  --border-main:#e9ebef;
+  /* Typo */
+  --display:"Nunito","Nunito Rounded",sans-serif;
+  --body:"Inter",sans-serif;
+  /* Effets */
+  --shadow-soft:0 8px 24px rgba(24,62,87,.10);
+  --shadow-card:0 2px 8px rgba(24,62,87,.06);
+  --radius:14px;
+  --grad-hero:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+  --grad-action:linear-gradient(120deg,#d65e1c,#fcdb81);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{
+  font-family:var(--body);
+  color:var(--marine);
+  background:var(--bg-secondary);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+.board{
+  max-width:900px;
+  margin:0 auto;
+  background:var(--bg-main);
+  box-shadow:0 0 60px rgba(24,62,87,.12);
+}
+
+/* ---------- En-tête de planche ---------- */
+.board-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 36px;
+  background:var(--marine);
+  color:var(--sable);
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  font-family:var(--display);font-weight:700;
+}
+.board-meta .dot{color:var(--orange)}
+
+/* ---------- Lockup ---------- */
+.lockup{
+  background:var(--grad-hero);
+  padding:42px 36px 34px;
+  display:flex;align-items:center;gap:28px;
+  border-bottom:1px solid var(--border-main);
+}
+.lockup img.logo{
+  width:108px;height:108px;border-radius:24px;
+  box-shadow:var(--shadow-soft);
+  flex-shrink:0;
+}
+.lockup h1{
+  font-family:var(--display);font-weight:800;
+  font-size:40px;line-height:1.1;letter-spacing:-.01em;
+}
+.lockup .tagline{
+  font-family:var(--display);font-weight:700;
+  font-size:20px;color:var(--orange);margin-top:6px;
+}
+.lockup .mission{
+  font-size:14px;color:var(--text-secondary);margin-top:10px;max-width:460px;
+}
+.lockup .mission strong{color:var(--marine)}
+.lockup .persona{
+  margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;
+}
+.chip{
+  display:inline-block;padding:4px 12px;border-radius:999px;
+  background:#fff;border:1px solid var(--border);
+  font-size:12px;font-weight:500;color:var(--text-secondary);
+}
+.chip::before{content:"●";color:var(--sable-hover);margin-right:6px;font-size:9px;vertical-align:1px}
+
+/* ---------- Titres de sections ---------- */
+.section{padding:30px 36px;border-bottom:1px solid var(--border-main)}
+.section-title{
+  display:flex;align-items:baseline;gap:12px;margin-bottom:18px;
+}
+.section-title .num{
+  font-family:var(--display);font-weight:800;font-size:13px;
+  color:#fff;background:var(--orange);
+  width:26px;height:26px;border-radius:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+  align-self:center;
+}
+.section-title h2{
+  font-family:var(--display);font-weight:800;font-size:22px;
+}
+.section-title .hint{font-size:12px;color:var(--text-tertiary)}
+
+/* ============================================================
+   LE HÉROS : L'UI EN ACTION
+   ============================================================ */
+.app-frame{
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:var(--shadow-soft);
+}
+/* Top bar marine */
+.topbar{
+  background:var(--marine);
+  padding:14px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.wordmark{
+  font-family:var(--display);font-weight:800;
+  color:var(--sable);letter-spacing:.12em;font-size:17px;
+  text-transform:none;
+}
+.topbar nav{display:flex;gap:20px;align-items:center}
+.topbar nav a{
+  color:#fff;opacity:.78;text-decoration:none;font-size:13px;font-weight:500;
+}
+.topbar nav a.active{
+  opacity:1;color:var(--sable);
+  border-bottom:2px solid var(--sable);padding-bottom:2px;
+}
+.topbar .avatar{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--grad-action);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:800;font-size:12px;color:var(--marine);
+}
+/* Corps de l'app simulée */
+.app-body{
+  background:var(--grad-hero);
+  padding:26px 22px;
+  display:grid;grid-template-columns:1fr 1fr;gap:22px;
+}
+.app-col h3{
+  font-family:var(--display);font-weight:800;font-size:13px;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--text-tertiary);
+  margin-bottom:12px;
+}
+
+/* Boutons */
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.btn{
+  font-family:var(--body);font-weight:600;font-size:14px;
+  padding:10px 20px;border-radius:10px;border:none;cursor:pointer;
+  transition:all .18s ease;
+}
+.btn-solid{background:var(--marine);color:var(--sable)}
+.btn-solid:hover,.btn-solid.is-hover{background:var(--marine-hover)}
+.btn-outline{background:transparent;color:var(--marine);border:1.5px solid var(--marine)}
+.btn-outline:hover,.btn-outline.is-hover{background:var(--marine);color:var(--sable)}
+.btn-action{background:var(--grad-action);color:#fff;text-shadow:0 1px 2px rgba(184,78,23,.35)}
+.btn-action:hover,.btn-action.is-hover{filter:brightness(1.06);box-shadow:0 4px 14px rgba(214,94,28,.35)}
+.btn-label{
+  font-size:10px;color:var(--text-tertiary);letter-spacing:.08em;
+  text-transform:uppercase;display:block;margin-bottom:6px;
+}
+.state-tag{
+  font-size:9px;font-weight:600;color:var(--orange);
+  text-transform:uppercase;letter-spacing:.1em;
+  display:block;text-align:center;margin-top:4px;
+}
+
+/* Champ + focus ring */
+.field{margin-top:6px}
+.field label{font-size:12px;font-weight:600;display:block;margin-bottom:6px}
+.input{
+  width:100%;padding:10px 14px;font-family:var(--body);font-size:14px;
+  border:1.5px solid var(--border);border-radius:10px;background:#fff;
+  color:var(--marine);outline:none;transition:box-shadow .15s ease;
+}
+.input::placeholder{color:var(--text-tertiary)}
+.input:focus,.input.is-focus{
+  border-color:var(--sable-hover);
+  box-shadow:0 0 0 4px rgba(252,219,129,.55);
+}
+
+/* Card offre d'entraide */
+.card{
+  background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:18px;box-shadow:var(--shadow-card);
+  transition:all .2s ease;
+}
+.card:hover,.card.is-hover{
+  border-color:var(--sable);
+  box-shadow:0 10px 28px rgba(24,62,87,.14);
+}
+.card .card-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.card .pp{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:var(--marine);color:var(--sable);
+  font-family:var(--display);font-weight:800;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+}
+.card .who strong{font-family:var(--display);font-weight:800;font-size:15px;display:block}
+.card .who span{font-size:12px;color:var(--text-tertiary)}
+.card h4{font-family:var(--display);font-weight:700;font-size:17px;margin-bottom:4px}
+.card p{font-size:13px;color:var(--text-secondary);margin-bottom:12px}
+.card .card-foot{display:flex;justify-content:space-between;align-items:center}
+.time-pill{
+  background:var(--bg-hover);color:var(--orange-hover);
+  font-family:var(--display);font-weight:800;font-size:13px;
+  padding:5px 12px;border-radius:999px;
+}
+.card .card-foot .btn{padding:7px 14px;font-size:13px}
+
+/* Badges sémantiques */
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.badge{
+  font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:999px;color:#fff;
+}
+.badge-success{background:var(--success)}
+.badge-danger{background:var(--danger)}
+.badge-warning{background:var(--warning)}
+.badge-info{background:var(--info);color:var(--sable)}
+
+/* Ratio bar */
+.ratio-bar{
+  display:flex;height:34px;border-radius:10px;overflow:hidden;
+  box-shadow:var(--shadow-card);margin-top:4px;
+}
+.ratio-bar div{
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:800;font-size:12px;
+}
+.ratio-60{flex:60;background:var(--bg-main);color:var(--text-secondary);border:1px solid var(--border);border-right:none;border-radius:10px 0 0 10px}
+.ratio-25{flex:25;background:var(--marine);color:#fff}
+.ratio-10{flex:10;background:var(--sable);color:var(--marine)}
+.ratio-5{flex:5;background:var(--orange);color:#fff}
+.ratio-legend{display:flex;gap:14px;margin-top:8px;font-size:11px;color:var(--text-tertiary);flex-wrap:wrap}
+.ratio-legend b{color:var(--marine);font-weight:600}
+
+/* ============================================================
+   PALETTE
+   ============================================================ */
+.palette-group{margin-bottom:18px}
+.palette-group:last-child{margin-bottom:0}
+.palette-group h3{
+  font-family:var(--display);font-weight:800;font-size:12px;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--text-tertiary);
+  margin-bottom:10px;
+}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px}
+.swatch{
+  border:1px solid var(--border-main);border-radius:12px;overflow:hidden;background:#fff;
+}
+.swatch .color{height:58px;position:relative}
+.swatch .color .hover-chip{
+  position:absolute;right:6px;bottom:6px;
+  width:22px;height:22px;border-radius:6px;
+  border:1.5px solid rgba(255,255,255,.7);
+}
+.swatch .infos{padding:8px 10px}
+.swatch .infos b{font-size:12px;font-weight:600;display:block}
+.swatch .infos span{font-size:11px;color:var(--text-tertiary);font-variant-numeric:tabular-nums}
+.swatch-grad .color{background:var(--grad-hero)}
+.swatch-bordered .color{border-bottom:1px solid var(--border-main)}
+
+/* ============================================================
+   TYPO
+   ============================================================ */
+.typo-grid{display:grid;grid-template-columns:1fr;gap:2px}
+.typo-row{
+  display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:baseline;
+  padding:9px 0;border-bottom:1px dashed var(--border-main);
+}
+.typo-row:last-child{border-bottom:none}
+.typo-row .spec{font-size:11px;color:var(--text-tertiary);font-variant-numeric:tabular-nums}
+.typo-row .spec b{color:var(--marine);font-weight:600;display:block;font-size:12px}
+.t-display{font-family:var(--display);font-weight:800;font-size:56px;line-height:1.05;letter-spacing:-.015em}
+.t-h1{font-family:var(--display);font-weight:800;font-size:40px;line-height:1.1}
+.t-h2{font-family:var(--display);font-weight:700;font-size:28px;line-height:1.15}
+.t-h3{font-family:var(--display);font-weight:700;font-size:20px}
+.t-bodyl{font-size:18px;color:var(--text-secondary)}
+.t-body{font-size:16px;color:var(--text-secondary)}
+.t-bodys{font-size:14px;color:var(--text-secondary)}
+.t-caption{font-size:12px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+.typo-note{
+  margin-top:14px;padding:12px 16px;background:var(--bg-hover);
+  border-radius:10px;font-size:12.5px;color:var(--text-secondary);
+  border-left:3px solid var(--sable-hover);
+}
+.typo-note b{color:var(--marine)}
+
+/* ============================================================
+   LOGOS + APPLICATION
+   ============================================================ */
+.logo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px}
+.logo-tile{
+  border:1px solid var(--border-main);border-radius:12px;overflow:hidden;background:#fff;
+  text-align:center;
+}
+.logo-tile .vis{
+  height:120px;display:flex;align-items:center;justify-content:center;padding:16px;
+}
+.logo-tile .vis.on-marine{background:var(--marine)}
+.logo-tile .vis.on-grad{background:var(--grad-hero)}
+.logo-tile img{max-height:88px;max-width:88px}
+.logo-tile figcaption{
+  padding:8px;font-size:11px;color:var(--text-tertiary);
+  border-top:1px solid var(--border-main);
+}
+.logo-tile figcaption b{color:var(--marine);font-weight:600;display:block;font-size:12px}
+
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.app-slot{
+  border-radius:var(--radius);overflow:hidden;position:relative;
+  height:170px;display:flex;align-items:flex-end;
+  border:1px solid var(--border-main);
+}
+.app-slot .tint{position:absolute;inset:0}
+.slot-1{background:
+  radial-gradient(circle at 78% 18%, rgba(252,219,129,.5) 0 32px, transparent 33px),
+  radial-gradient(circle at 22% 70%, rgba(214,94,28,.22) 0 46px, transparent 47px),
+  linear-gradient(160deg,#1f4a66 0%, #183e57 55%, #0f2f44 100%)}
+.slot-2{background:
+  radial-gradient(circle at 18% 22%, rgba(24,62,87,.16) 0 38px, transparent 39px),
+  radial-gradient(circle at 80% 64%, rgba(255,255,255,.55) 0 30px, transparent 31px),
+  linear-gradient(150deg,#fcdb81 0%, #f5cb5c 60%, #efb83a 100%)}
+.slot-3{background:
+  radial-gradient(circle at 75% 25%, rgba(252,219,129,.55) 0 34px, transparent 35px),
+  radial-gradient(circle at 25% 65%, rgba(24,62,87,.28) 0 42px, transparent 43px),
+  linear-gradient(155deg,#e0732f 0%, #d65e1c 55%, #b84e17 100%)}
+.app-slot .label{
+  position:relative;width:100%;
+  padding:10px 14px;
+  background:rgba(24,62,87,.82);
+  color:var(--sable);
+  font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.04em;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.app-slot .label small{
+  font-family:var(--body);font-weight:500;font-size:10px;
+  color:rgba(255,255,255,.75);letter-spacing:.08em;text-transform:uppercase;
+}
+.slot-2 .label{background:rgba(24,62,87,.88)}
+.apps-note{font-size:11px;color:var(--text-tertiary);margin-top:10px}
+
+/* ---------- Pied ---------- */
+.board-foot{
+  padding:16px 36px;display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--text-tertiary);
+}
+.board-foot .sig{
+  font-family:var(--display);font-weight:800;color:var(--marine);letter-spacing:.12em;
+}
+.board-foot .sig em{font-style:normal;color:var(--orange)}
+
+/* ============================================================
+   IMPRESSION A4
+   ============================================================ */
+@page{size:A4 portrait;margin:8mm}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff}
+  .board{box-shadow:none;max-width:100%}
+  .section{break-inside:avoid;padding:18px 24px}
+  .lockup{padding:24px;break-inside:avoid}
+  .board-meta{padding:10px 24px}
+  .t-display{font-size:44px}
+  .t-h1{font-size:34px}
+  .app-slot{height:130px}
+}
+@media (max-width:760px){
+  .app-body{grid-template-columns:1fr}
+  .lockup{flex-direction:column;align-items:flex-start}
+  .apps,.logo-row{grid-template-columns:1fr}
+  .typo-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="board">
+
+  <!-- Bandeau meta -->
+  <div class="board-meta">
+    <span>Brand board <span class="dot">·</span> Variante 05</span>
+    <span>Mini design system <span class="dot">·</span> UI showcase</span>
+  </div>
+
+  <!-- 0 · Lockup -->
+  <header class="lockup">
+    <img class="logo" src="../../assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps — monogramme tpt sable sur carré marine">
+    <div>
+      <h1>TempsPourTemps</h1>
+      <p class="tagline">« Échangez du temps, pas de l'argent »</p>
+      <p class="mission"><strong>Mission :</strong> reconnecter le voisinage par l'entraide concrète. Le monogramme « tpt » sable sur carré marine porte la signature de la marque : le cercle marine au centre du « p ».</p>
+      <div class="persona">
+        <span class="chip">Voisin·e bienveillant·e</span>
+        <span class="chip">Animateur·rice de quartier</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1 · L'UI EN ACTION (le héros) -->
+  <section class="section">
+    <div class="section-title">
+      <span class="num">1</span>
+      <h2>La marque en action</h2>
+      <span class="hint">composants réels du produit — survolez-les</span>
+    </div>
+
+    <div class="app-frame">
+      <!-- Top bar marine + wordmark sable -->
+      <div class="topbar">
+        <span class="wordmark">TempsPourTemps</span>
+        <nav>
+          <a href="#" class="active">Quartier</a>
+          <a href="#">Échanges</a>
+          <a href="#">Mon temps</a>
+          <span class="avatar">OD</span>
+        </nav>
+      </div>
+
+      <div class="app-body">
+        <!-- Colonne gauche : boutons, champ, badges -->
+        <div class="app-col">
+          <h3>Boutons</h3>
+          <div class="btn-row">
+            <div>
+              <span class="btn-label">Solid</span>
+              <button class="btn btn-solid">Proposer un service</button>
+            </div>
+            <div>
+              <span class="btn-label">Outline</span>
+              <button class="btn btn-outline">Voir le profil</button>
+            </div>
+          </div>
+          <div class="btn-row">
+            <div>
+              <span class="btn-label">Action positive · dégradé orange → sable</span>
+              <button class="btn btn-action">Accepter l'échange</button>
+            </div>
+            <div>
+              <span class="btn-label">&nbsp;</span>
+              <button class="btn btn-action is-hover">Accepter l'échange</button>
+              <span class="state-tag">état hover</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <h3 style="margin-top:14px">Focus ring sable</h3>
+            <label for="demo-input">Que cherchez-vous près de chez vous ?</label>
+            <input id="demo-input" class="input is-focus" type="text" value="Aide pour monter un meuble" aria-describedby="focus-note">
+            <span id="focus-note" class="state-tag" style="text-align:left">état :focus — anneau #fcdb81</span>
+          </div>
+
+          <h3 style="margin-top:16px">Badges sémantiques</h3>
+          <div class="badges">
+            <span class="badge badge-success">Échange confirmé</span>
+            <span class="badge badge-warning">En attente</span>
+            <span class="badge badge-danger">Annulé</span>
+            <span class="badge badge-info">Nouveau voisin</span>
+          </div>
+        </div>
+
+        <!-- Colonne droite : card + ratio -->
+        <div class="app-col">
+          <h3>Card « offre d'entraide » <span style="text-transform:none;letter-spacing:0;font-family:Inter;font-weight:500">(état hover : bordure sable)</span></h3>
+          <div class="card is-hover">
+            <div class="card-top">
+              <span class="pp">MA</span>
+              <div class="who">
+                <strong>Mariam A.</strong>
+                <span>Quartier Saint-Michel · à 400 m</span>
+              </div>
+            </div>
+            <h4>Cours de couture débutant</h4>
+            <p>Je vous apprends les bases : ourlets, boutons, petites retouches. Machine fournie, bonne humeur exigée.</p>
+            <div class="card-foot">
+              <span class="time-pill">⏱ 1 h de temps</span>
+              <button class="btn btn-solid">Échanger</button>
+            </div>
+          </div>
+
+          <h3 style="margin-top:18px">Ratio de présence des couleurs</h3>
+          <div class="ratio-bar" role="img" aria-label="Répartition des couleurs : 60 % neutres, 25 % marine, 10 % sable, 5 % orange">
+            <div class="ratio-60">60</div>
+            <div class="ratio-25">25</div>
+            <div class="ratio-10">10</div>
+            <div class="ratio-5">5</div>
+          </div>
+          <div class="ratio-legend">
+            <span><b>60</b> neutres</span>
+            <span><b>25</b> marine</span>
+            <span><b>10</b> sable</span>
+            <span><b>5</b> orange</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Palette -->
+  <section class="section">
+    <div class="section-title">
+      <span class="num">2</span>
+      <h2>Palette</h2>
+      <span class="hint">le petit carré indique la teinte hover</span>
+    </div>
+
+    <div class="palette-group">
+      <h3>Signature</h3>
+      <div class="swatches">
+        <div class="swatch">
+          <div class="color" style="background:#183e57"><span class="hover-chip" style="background:#0f2f44"></span></div>
+          <div class="infos"><b>Marine</b><span>#183e57 · hover #0f2f44</span></div>
+        </div>
+        <div class="swatch">
+          <div class="color" style="background:#d65e1c"><span class="hover-chip" style="background:#b84e17"></span></div>
+          <div class="infos"><b>Orange brûlée</b><span>#d65e1c · hover #b84e17</span></div>
+        </div>
+        <div class="swatch">
+          <div class="color" style="background:#fcdb81"><span class="hover-chip" style="background:#f5cb5c;border-color:rgba(24,62,87,.25)"></span></div>
+          <div class="infos"><b>Jaune sable</b><span>#fcdb81 · hover #f5cb5c</span></div>
+        </div>
+        <div class="swatch swatch-grad swatch-bordered">
+          <div class="color"></div>
+          <div class="infos"><b>Gradient héro</b><span>#fff9ec → #fff3e0 → #f3f7fb</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-group">
+      <h3>Sémantique</h3>
+      <div class="swatches">
+        <div class="swatch"><div class="color" style="background:#4a9d5f"></div><div class="infos"><b>Success</b><span>#4a9d5f</span></div></div>
+        <div class="swatch"><div class="color" style="background:#c44536"></div><div class="infos"><b>Danger</b><span>#c44536</span></div></div>
+        <div class="swatch"><div class="color" style="background:#d97706"></div><div class="infos"><b>Warning</b><span>#d97706</span></div></div>
+        <div class="swatch"><div class="color" style="background:#183e57"></div><div class="infos"><b>Info</b><span>#183e57</span></div></div>
+      </div>
+    </div>
+
+    <div class="palette-group">
+      <h3>Neutres</h3>
+      <div class="swatches">
+        <div class="swatch swatch-bordered"><div class="color" style="background:#f7f6f3"></div><div class="infos"><b>Bg main</b><span>#f7f6f3</span></div></div>
+        <div class="swatch swatch-bordered"><div class="color" style="background:#f3f3f5"></div><div class="infos"><b>Bg secondary</b><span>#f3f3f5</span></div></div>
+        <div class="swatch swatch-bordered"><div class="color" style="background:#fdf1d7"></div><div class="infos"><b>Bg hover</b><span>#fdf1d7</span></div></div>
+        <div class="swatch"><div class="color" style="background:#4b5563"></div><div class="infos"><b>Text secondary</b><span>#4b5563</span></div></div>
+        <div class="swatch"><div class="color" style="background:#717182"></div><div class="infos"><b>Text tertiary</b><span>#717182</span></div></div>
+        <div class="swatch swatch-bordered"><div class="color" style="background:#d6dbe2"></div><div class="infos"><b>Border</b><span>#d6dbe2</span></div></div>
+        <div class="swatch swatch-bordered"><div class="color" style="background:#e9ebef"></div><div class="infos"><b>Border main</b><span>#e9ebef</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · Typographie -->
+  <section class="section">
+    <div class="section-title">
+      <span class="num">3</span>
+      <h2>Typographie</h2>
+      <span class="hint">Nunito Rounded 700/800 · Inter 400–700</span>
+    </div>
+
+    <div class="typo-grid">
+      <div class="typo-row">
+        <div class="spec"><b>Display XL</b>56 px / mobile 36 px · Nunito Rounded 800</div>
+        <div class="t-display">Du temps donné,<br>du temps reçu</div>
+      </div>
+      <div class="typo-row">
+        <div class="spec"><b>H1</b>40 px / mobile 28 px · Nunito Rounded 800</div>
+        <div class="t-h1">Votre quartier vous attend</div>
+      </div>
+      <div class="typo-row">
+        <div class="spec"><b>H2</b>28 px / mobile 22 px · Nunito Rounded 700</div>
+        <div class="t-h2">Offres d'entraide près de chez vous</div>
+      </div>
+      <div class="typo-row">
+        <div class="spec"><b>H3</b>20 px / mobile 18 px · Nunito Rounded 700</div>
+        <div class="t-h3">Une heure donnée = une heure reçue</div>
+      </div>
+      <div class="typo-row">
+        <div class="spec"><b>Body L</b>18 px · Inter 400</div>
+        <div class="t-bodyl">TempsPourTemps reconnecte le voisinage par l'entraide concrète, sans argent.</div>
+      </div>
+      <div class="typo-row">
+        <div class="spec"><b>Body</b>16 px · Inter 400</div>
+        <div class="t-body">Proposez vos talents, demandez un coup de main : chaque heure compte pareil.</div>
+      </div>
+      <div class="typo-row">
+        <div class="spec"><b>Body S</b>14 px · Inter 400/500</div>
+        <div class="t-bodys">Bricolage, cuisine, jardinage, informatique, garde d'animaux, langues…</div>
+      </div>
+      <div class="typo-row">
+        <div class="spec"><b>Caption</b>12 px · Inter 500</div>
+        <div class="t-caption">Publié il y a 2 h · Quartier Saint-Michel</div>
+      </div>
+    </div>
+    <p class="typo-note"><b>Note d'implémentation :</b> les titres utilisent la graisse arrondie de <b>« Nunito Rounded »</b> — chargée via Google Fonts en <b>Nunito 700 ; 800</b>. Le corps de texte est en <b>Inter 400 / 500 / 600 / 700</b>.</p>
+  </section>
+
+  <!-- 4 · Logo & applications -->
+  <section class="section">
+    <div class="section-title">
+      <span class="num">4</span>
+      <h2>Logo &amp; applications</h2>
+      <span class="hint">emplacements image teintés marque</span>
+    </div>
+
+    <div class="logo-row">
+      <figure class="logo-tile">
+        <div class="vis on-grad"><img src="../../assets/logo/logo-tpt-fond.png" alt="Logo principal sur fond"></div>
+        <figcaption><b>Principal</b>logo-tpt-fond.png</figcaption>
+      </figure>
+      <figure class="logo-tile">
+        <div class="vis on-marine"><img src="../../assets/logo/logo-tpt-transparent.png" alt="Logo transparent sur fond marine"></div>
+        <figcaption><b>Transparent</b>logo-tpt-transparent.png — sur marine</figcaption>
+      </figure>
+      <figure class="logo-tile">
+        <div class="vis"><img src="../../assets/logo/icon-pwa-512.png" alt="Icône PWA" style="border-radius:20px"></div>
+        <figcaption><b>Icône PWA</b>icon-pwa-512.png — 512 × 512</figcaption>
+      </figure>
+    </div>
+
+    <div class="apps">
+      <div class="app-slot slot-1">
+        <div class="label">Voisinage <small>Photo · teinte marine</small></div>
+      </div>
+      <div class="app-slot slot-2">
+        <div class="label">Entraide <small>Photo · teinte sable</small></div>
+      </div>
+      <div class="app-slot slot-3">
+        <div class="label">Échange de temps <small>Photo · teinte orange</small></div>
+      </div>
+    </div>
+    <p class="apps-note">Emplacements destinés aux photographies du quartier : appliquer la teinte de marque correspondante en superposition (multiply ou overlay ≈ 60 %).</p>
+  </section>
+
+  <!-- Pied -->
+  <footer class="board-foot">
+    <span class="sig">Temps<em>Pour</em>Temps</span>
+    <span>Identité visuelle · variante 05 « mini design system » · format A4 portrait</span>
+  </footer>
+
+</div>
+</body>
+</html>

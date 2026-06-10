@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Brand Board · Variante 08 « Géométrique / Bauhaus »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TEMPSPOURTEMPS — BRAND BOARD · VARIANTE 08
+   « GÉOMÉTRIQUE / BAUHAUS » — le cercle comme motif central
+   ============================================================ */
+:root{
+  /* Signature */
+  --marine:#183e57;        --marine-hover:#0f2f44;
+  --orange:#d65e1c;        --orange-hover:#b84e17;
+  --sable:#fcdb81;         --sable-hover:#f5cb5c;
+  /* Sémantique */
+  --success:#4a9d5f; --danger:#c44536; --warning:#d97706; --info:#183e57;
+  /* Neutres */
+  --bg-main:#f7f6f3; --bg-secondary:#f3f3f5; --bg-hover:#fdf1d7;
+  --text-secondary:#4b5563; --text-tertiary:#717182; --border:#d6dbe2;
+  /* Gradient de marque */
+  --gradient-tpt:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+  /* Typo */
+  --display:'Nunito',sans-serif;   /* libellé marque : "Nunito Rounded" */
+  --body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{
+  font-family:var(--body);
+  background:var(--bg-secondary);
+  color:var(--marine);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+.board{
+  max-width:880px;margin:0 auto;background:var(--bg-main);
+  box-shadow:0 24px 80px rgba(24,62,87,.18);
+  overflow:hidden;position:relative;
+}
+
+/* ---------- utilitaires géométriques ---------- */
+.shape{position:absolute;pointer-events:none}
+.circle{border-radius:50%}
+.half-top{border-radius:999px 999px 0 0}
+.half-bottom{border-radius:0 0 999px 999px}
+.half-left{border-radius:999px 0 0 999px}
+.half-right{border-radius:0 999px 999px 0}
+.quarter-tl{border-radius:100% 0 0 0}
+.quarter-tr{border-radius:0 100% 0 0}
+.quarter-bl{border-radius:0 0 0 100%}
+.quarter-br{border-radius:0 0 100% 0}
+
+/* libellés de section façon affiche */
+.kicker{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--body);font-weight:700;font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--marine);
+}
+.kicker .dot{width:14px;height:14px;border-radius:50%;background:var(--orange);flex:none}
+.kicker .rule{flex:1;height:3px;background:var(--marine)}
+.kicker .num{
+  font-family:var(--display);font-weight:800;font-size:13px;
+  background:var(--marine);color:var(--sable);
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+
+/* ============================================================
+   01 · COUVERTURE — composition Bauhaus + lockup
+   ============================================================ */
+.cover{
+  position:relative;background:var(--gradient-tpt);
+  padding:56px 56px 64px;overflow:hidden;
+  border-bottom:6px solid var(--marine);
+}
+/* grand cercle marine traversant — le contre-poinçon du « p » */
+.cover .c1{width:380px;height:380px;background:var(--marine);top:-150px;right:-110px}
+.cover .c2{width:170px;height:170px;background:var(--orange);top:118px;right:118px;mix-blend-mode:normal}
+.cover .c3{width:84px;height:84px;background:var(--sable);top:64px;right:64px}
+/* demi-cercle sable posé au sol */
+.cover .c4{width:230px;height:115px;background:var(--sable);bottom:0;left:300px}
+.cover .c4 .inner{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:96px;height:48px;background:var(--orange);border-radius:999px 999px 0 0}
+/* quart de cercle marine en bas à droite */
+.cover .c5{width:150px;height:150px;background:var(--marine);bottom:0;right:0}
+/* triangle orange */
+.cover .tri{
+  width:0;height:0;bottom:0;left:56px;
+  border-left:70px solid transparent;border-right:70px solid transparent;
+  border-bottom:120px solid var(--orange);
+}
+/* diagonale */
+.cover .diag{
+  width:560px;height:7px;background:var(--marine);
+  top:300px;left:-80px;transform:rotate(-24deg);transform-origin:left center;
+}
+.cover .diag::after{
+  content:"";position:absolute;right:-9px;top:50%;transform:translateY(-50%);
+  width:22px;height:22px;border-radius:50%;background:var(--orange);
+}
+/* petits cercles rythmiques */
+.cover .beads{top:230px;right:60px;display:flex;gap:10px}
+.cover .beads i{width:13px;height:13px;border-radius:50%;display:block}
+.cover .beads i:nth-child(1){background:var(--marine)}
+.cover .beads i:nth-child(2){background:var(--orange)}
+.cover .beads i:nth-child(3){background:var(--sable);border:2px solid var(--marine)}
+
+.cover-meta{
+  position:relative;z-index:2;display:flex;justify-content:space-between;
+  font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-secondary);margin-bottom:64px;
+}
+.cover-meta b{color:var(--orange)}
+.cover-meta .pill{
+  background:var(--sable);color:var(--marine);padding:6px 14px;border-radius:999px;
+  box-shadow:0 2px 0 rgba(24,62,87,.25);
+}
+.lockup{position:relative;z-index:2;display:flex;align-items:center;gap:32px}
+.lockup img{
+  width:148px;height:148px;border-radius:28px;display:block;
+  box-shadow:14px 14px 0 var(--sable), 14px 14px 0 2px var(--sable);
+}
+.lockup-text .surtitre{
+  font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:10px;display:flex;align-items:center;gap:10px;
+}
+.lockup-text .surtitre::before{content:"";width:34px;height:3px;background:var(--orange)}
+.lockup-text h1{
+  font-family:var(--display);font-weight:800;font-size:56px;line-height:1.02;
+  color:var(--marine);letter-spacing:-.01em;
+}
+.lockup-text h1 .o-circle{
+  display:inline-block;width:.62em;height:.62em;border-radius:50%;
+  background:var(--orange);vertical-align:baseline;margin:0 .03em;
+  position:relative;top:.02em;
+}
+.lockup-text .tagline{
+  margin-top:14px;font-family:var(--display);font-weight:700;font-size:20px;
+  color:var(--marine);display:inline-block;background:var(--sable);
+  padding:8px 18px;border-radius:999px;
+}
+.lockup-text .mission{
+  margin-top:12px;font-size:14px;color:var(--text-secondary);max-width:420px;
+}
+.cover-foot{
+  position:relative;z-index:2;margin-top:56px;display:flex;gap:24px;align-items:center;
+  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--marine);
+}
+.cover-foot .chip{display:flex;align-items:center;gap:8px}
+.cover-foot .chip i{width:11px;height:11px;display:inline-block}
+.cover-foot .chip .sq{background:var(--marine)}
+.cover-foot .chip .ci{background:var(--orange);border-radius:50%}
+.cover-foot .chip .tr{width:0;height:0;background:none;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid var(--sable-hover)}
+
+/* ============================================================
+   02 · LE CERCLE — concept
+   ============================================================ */
+.concept{
+  display:grid;grid-template-columns:1fr 1fr;border-bottom:6px solid var(--marine);
+}
+.concept-left{background:var(--marine);color:var(--bg-main);padding:44px 48px;position:relative;overflow:hidden}
+.concept-left .ring{
+  position:absolute;width:260px;height:260px;border-radius:50%;
+  border:26px solid var(--orange);right:-110px;bottom:-110px;
+}
+.concept-left h2{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.15;margin:18px 0 12px;color:#fff}
+.concept-left h2 em{font-style:normal;color:var(--sable)}
+.concept-left p{font-size:14px;color:#cdd9e3;max-width:330px;position:relative;z-index:2}
+.concept-left .kicker{color:var(--sable)}
+.concept-left .kicker .rule{background:var(--sable)}
+.concept-left .kicker .num{background:var(--sable);color:var(--marine)}
+.concept-right{
+  background:var(--bg-hover);display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;min-height:300px;
+}
+/* le « p » géant reconstruit en géométrie */
+.glyph-p{position:relative;width:190px;height:240px}
+.glyph-p .stem{position:absolute;left:0;top:0;width:46px;height:240px;background:var(--marine);border-radius:23px}
+.glyph-p .bowl{
+  position:absolute;left:0;top:0;width:190px;height:190px;border-radius:50%;
+  background:var(--marine);
+}
+.glyph-p .counter{
+  position:absolute;left:60px;top:60px;width:70px;height:70px;border-radius:50%;
+  background:var(--orange);
+  box-shadow:0 0 0 14px var(--bg-hover);
+}
+.concept-right .orbit{
+  position:absolute;width:300px;height:300px;border-radius:50%;
+  border:3px dashed var(--orange);opacity:.55;
+}
+.concept-right .sat{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--sable-hover);border:3px solid var(--marine);top:26px;right:84px}
+
+/* ============================================================
+   03 · PALETTE
+   ============================================================ */
+section.block{padding:44px 56px;border-bottom:6px solid var(--marine)}
+.block-head{margin-bottom:28px}
+.block-head h2{
+  font-family:var(--display);font-weight:800;font-size:40px;line-height:1.05;
+  margin-top:14px;color:var(--marine);
+}
+.palette-signature{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.swatch{
+  position:relative;border-radius:18px;overflow:hidden;min-height:150px;
+  padding:18px;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.swatch .geo{position:absolute;pointer-events:none}
+.swatch .label{position:relative;z-index:2;font-weight:700;font-size:14px}
+.swatch .hex{position:relative;z-index:2;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.swatch .hover-tag{
+  position:absolute;top:14px;right:14px;z-index:2;font-size:10px;font-weight:600;
+  letter-spacing:.08em;padding:4px 10px;border-radius:999px;
+}
+.sw-marine{background:var(--marine);color:#fff}
+.sw-marine .geo{width:120px;height:120px;border-radius:50%;background:var(--orange);top:-46px;right:34px}
+.sw-marine .geo2{position:absolute;width:54px;height:54px;border-radius:50%;background:var(--sable);top:-12px;right:66px}
+.sw-marine .hover-tag{background:var(--marine-hover);color:#cdd9e3}
+.sw-orange{background:var(--orange);color:#fff}
+.sw-orange .geo{width:130px;height:65px;background:var(--sable);border-radius:0 0 999px 999px;top:0;right:18px}
+.sw-orange .hover-tag{background:var(--orange-hover);color:#ffe3cf}
+.sw-sable{background:var(--sable);color:var(--marine)}
+.sw-sable .geo{width:0;height:0;border-left:46px solid transparent;border-right:46px solid transparent;border-bottom:80px solid var(--marine);top:-6px;right:22px}
+.sw-sable .hover-tag{background:var(--sable-hover);color:var(--marine)}
+
+.palette-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.mini{
+  border-radius:14px;border:2px solid var(--border);background:#fff;overflow:hidden;
+}
+.mini .chip{height:58px;position:relative}
+.mini .chip::after{
+  content:"";position:absolute;right:10px;bottom:-14px;width:28px;height:28px;
+  border-radius:50%;background:inherit;border:3px solid #fff;
+}
+.mini .txt{padding:14px 12px 10px;font-size:11px}
+.mini .txt b{display:block;font-size:12px;color:var(--marine)}
+.mini .txt span{color:var(--text-tertiary);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:10px}
+.c-success .chip{background:var(--success)} .c-danger .chip{background:var(--danger)}
+.c-warning .chip{background:var(--warning)} .c-info .chip{background:var(--info)}
+.c-bgmain .chip{background:var(--bg-main);border-bottom:1px solid var(--border)}
+.c-bgsec .chip{background:var(--bg-secondary);border-bottom:1px solid var(--border)}
+.c-bghov .chip{background:var(--bg-hover);border-bottom:1px solid var(--border)}
+.c-txtsec .chip{background:var(--text-secondary)} .c-txtter .chip{background:var(--text-tertiary)}
+.c-border .chip{background:var(--border)}
+.c-grad .chip{background:var(--gradient-tpt);border-bottom:1px solid var(--border)}
+.palette-row.neutres{grid-template-columns:repeat(6,1fr)}
+.palette-row.neutres .mini .chip{height:44px}
+.palette-row.neutres .mini .chip::after{width:20px;height:20px;bottom:-10px}
+
+/* barre de ratio 60/25/10/5 */
+.ratio{margin-top:26px}
+.ratio-bar{
+  display:flex;height:54px;border-radius:999px;overflow:hidden;
+  border:3px solid var(--marine);
+}
+.ratio-bar div{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:15px}
+.ratio-bar .r60{width:60%;background:var(--bg-main);color:var(--marine)}
+.ratio-bar .r25{width:25%;background:var(--marine);color:#fff}
+.ratio-bar .r10{width:10%;background:var(--sable);color:var(--marine)}
+.ratio-bar .r5{width:5%;background:var(--orange);color:#fff}
+.ratio-legend{display:flex;margin-top:10px;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary)}
+.ratio-legend span:nth-child(1){width:60%}
+.ratio-legend span:nth-child(2){width:25%}
+.ratio-legend span:nth-child(3){width:10%}
+.ratio-legend span:nth-child(4){width:5%;white-space:nowrap}
+
+/* ============================================================
+   04 · TYPOGRAPHIE
+   ============================================================ */
+.typo-grid{display:grid;grid-template-columns:300px 1fr;gap:36px;align-items:start}
+.typo-families{display:flex;flex-direction:column;gap:14px}
+.family-card{border-radius:18px;padding:24px;position:relative;overflow:hidden}
+.family-card.display{background:var(--marine);color:#fff}
+.family-card.display .big{font-family:var(--display);font-weight:800;font-size:64px;line-height:1;color:var(--sable)}
+.family-card.body{background:#fff;border:2px solid var(--border);color:var(--marine)}
+.family-card.body .big{font-family:var(--body);font-weight:600;font-size:64px;line-height:1;color:var(--marine)}
+.family-card .name{font-weight:700;font-size:15px;margin-top:10px}
+.family-card .weights{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;font-weight:600}
+.family-card .corner{position:absolute;top:0;right:0;width:54px;height:54px}
+.family-card.display .corner{background:var(--orange);border-radius:0 0 0 100%}
+.family-card.body .corner{background:var(--sable);border-radius:0 0 0 100%}
+.type-scale{display:flex;flex-direction:column}
+.ts-row{
+  display:grid;grid-template-columns:108px 1fr;gap:18px;align-items:baseline;
+  padding:11px 0;border-bottom:2px dotted var(--border);
+}
+.ts-row:last-child{border-bottom:none}
+.ts-meta{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+.ts-meta small{display:block;color:var(--text-tertiary);font-weight:600;letter-spacing:.06em}
+.ts-sample{color:var(--marine);overflow:hidden}
+.ts-sample.nowrap{white-space:nowrap;text-overflow:ellipsis}
+.t-dxl{font-family:var(--display);font-weight:800;font-size:56px;line-height:1.05}
+.t-h1{font-family:var(--display);font-weight:800;font-size:40px;line-height:1.1}
+.t-h2{font-family:var(--display);font-weight:700;font-size:28px;line-height:1.15}
+.t-h3{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.2}
+.t-bl{font-family:var(--body);font-weight:500;font-size:18px}
+.t-b{font-family:var(--body);font-weight:400;font-size:16px}
+.t-bs{font-family:var(--body);font-weight:400;font-size:14px;color:var(--text-secondary)}
+.t-cap{font-family:var(--body);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary)}
+
+/* ============================================================
+   05 · MOOD — emplacements image teintés marque
+   ============================================================ */
+.mood{background:var(--marine);border-bottom:none}
+.mood .kicker{color:var(--sable)}
+.mood .kicker .rule{background:var(--sable)}
+.mood .kicker .num{background:var(--sable);color:var(--marine)}
+.mood .block-head h2{color:#fff}
+.mood .block-head h2 em{font-style:normal;color:var(--orange)}
+.mood-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:96px;gap:14px;
+}
+.mood-card{
+  position:relative;border-radius:18px;overflow:hidden;
+  display:flex;align-items:flex-end;padding:16px;
+}
+.mood-card .ph{position:absolute;inset:0}
+.mood-card .veil{position:absolute;inset:0}
+.mood-card .cap{
+  position:relative;z-index:3;font-family:var(--display);font-weight:800;
+  font-size:19px;color:#fff;line-height:1.1;
+  display:flex;align-items:center;gap:10px;
+}
+.mood-card .cap::before{content:"";width:14px;height:14px;border-radius:50%;flex:none}
+.mood-card .geo{position:absolute;z-index:2;pointer-events:none}
+/* 1 — Voisinage : grand format, teinte marine */
+.m1{grid-column:1/8;grid-row:1/4}
+.m1 .ph{background:
+  radial-gradient(circle at 26% 30%,#5c7e96 0 18%,transparent 18.5%),
+  radial-gradient(circle at 70% 64%,#39607c 0 26%,transparent 26.5%),
+  repeating-linear-gradient(45deg,#2c5170 0 26px,#24486619 0 27px),
+  linear-gradient(160deg,#2c5170,#183e57)}
+.m1 .veil{background:linear-gradient(20deg,rgba(15,47,68,.9) 0%,rgba(24,62,87,.25) 60%)}
+.m1 .cap::before{background:var(--sable)}
+.m1 .geo{width:120px;height:60px;background:var(--sable);border-radius:999px 999px 0 0;right:26px;bottom:0;opacity:.92}
+.m1 .geo2{position:absolute;z-index:2;width:46px;height:46px;border-radius:50%;background:var(--orange);right:63px;bottom:18px}
+/* 2 — Entraide : teinte orange */
+.m2{grid-column:8/13;grid-row:1/3}
+.m2 .ph{background:
+  radial-gradient(circle at 75% 25%,#f0a368 0 22%,transparent 22.5%),
+  repeating-linear-gradient(-30deg,#e07a39 0 20px,#d65e1c 20px 40px)}
+.m2 .veil{background:linear-gradient(200deg,rgba(184,78,23,.85),rgba(214,94,28,.3))}
+.m2 .cap::before{background:#fff}
+.m2 .geo{width:74px;height:74px;border-radius:50%;border:12px solid rgba(255,255,255,.85);top:-22px;left:-22px}
+/* 3 — Échange de temps : teinte sable */
+.m3{grid-column:8/13;grid-row:3/4}
+.m3 .ph{background:
+  radial-gradient(circle at 20% 50%,#f5cb5c 0 30%,transparent 30.5%),
+  linear-gradient(120deg,#fcdb81,#f8d069)}
+.m3 .veil{background:linear-gradient(90deg,rgba(24,62,87,.16),transparent)}
+.m3 .cap{color:var(--marine)}
+.m3 .cap::before{background:var(--orange)}
+.m3 .geo{width:0;height:0;border-left:34px solid transparent;border-right:34px solid transparent;border-bottom:58px solid rgba(24,62,87,.85);right:18px;bottom:-12px}
+/* 4 — Quartier : duo marine/orange */
+.m4{grid-column:1/13;grid-row:4/5}
+.m4 .ph{background:
+  radial-gradient(circle at 12% 120%,#d65e1c 0 16%,transparent 16.5%),
+  radial-gradient(circle at 30% -40%,#fcdb81 0 14%,transparent 14.5%),
+  radial-gradient(circle at 88% 0%,#39607c 0 20%,transparent 20.5%),
+  linear-gradient(90deg,#0f2f44,#2c5170)}
+.m4 .veil{background:linear-gradient(90deg,rgba(15,47,68,.55),rgba(214,94,28,.28))}
+.m4 .cap::before{background:var(--orange)}
+.m4 .geo{right:120px;top:50%;transform:translateY(-50%);display:flex;gap:14px}
+.m4 .geo i{width:30px;height:30px;display:block}
+.m4 .geo i:nth-child(1){background:var(--sable);border-radius:50%}
+.m4 .geo i:nth-child(2){background:var(--orange);border-radius:50% 50% 0 0}
+.m4 .geo i:nth-child(3){background:#fff;border-radius:0 0 50% 50%;opacity:.9}
+.mood-note{
+  margin-top:18px;font-size:11.5px;color:#9fb3c2;display:flex;gap:10px;align-items:center;
+}
+.mood-note::before{content:"";width:26px;height:3px;background:var(--orange);flex:none}
+
+/* ============================================================
+   PIED — versions du logo + colophon
+   ============================================================ */
+.footer{background:var(--bg-main);padding:40px 56px 36px;position:relative;overflow:hidden}
+.footer .fdiag{position:absolute;width:480px;height:5px;background:var(--sable-hover);top:24px;right:-60px;transform:rotate(-14deg)}
+.logo-versions{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:30px;position:relative;z-index:2}
+.lv{
+  border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;
+  border:2px solid var(--border);background:#fff;
+}
+.lv img{width:84px;height:84px;object-fit:contain;border-radius:16px}
+.lv.on-marine{background:var(--marine);border-color:var(--marine)}
+.lv.on-sable{background:var(--sable);border-color:var(--sable)}
+.lv .lv-name{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary)}
+.lv.on-marine .lv-name{color:#9fb3c2}
+.lv.on-sable .lv-name{color:var(--marine)}
+.colophon{
+  position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;
+  padding-top:22px;border-top:3px solid var(--marine);
+  font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--text-tertiary);
+}
+.colophon .mark{display:flex;align-items:center;gap:9px;color:var(--marine)}
+.colophon .mark i{width:16px;height:16px;border-radius:50%;background:var(--orange);display:inline-block;position:relative}
+.colophon .mark i::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--sable)}
+
+/* ============================================================
+   IMPRESSION A4 PORTRAIT
+   ============================================================ */
+@page{size:A4 portrait;margin:0}
+@media print{
+  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .board{max-width:100%;box-shadow:none}
+  section.block{padding:32px 40px;break-inside:avoid}
+  .cover{padding:40px 40px 48px;break-after:avoid}
+  .mood{break-inside:avoid}
+  .footer{padding:30px 40px}
+  .lockup-text h1{font-size:48px}
+}
+@media (max-width:720px){
+  .concept,.typo-grid{grid-template-columns:1fr}
+  .palette-signature{grid-template-columns:1fr 1fr}
+  .palette-row,.palette-row.neutres{grid-template-columns:repeat(3,1fr)}
+  .mood-grid{grid-template-columns:1fr;grid-auto-rows:120px}
+  .m1,.m2,.m3,.m4{grid-column:1/-1;grid-row:auto}
+  .lockup{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="board">
+
+  <!-- ====== 01 · COUVERTURE ====== -->
+  <header class="cover">
+    <span class="shape circle c1"></span>
+    <span class="shape circle c2"></span>
+    <span class="shape circle c3"></span>
+    <span class="shape half-top c4"><span class="inner"></span></span>
+    <span class="shape quarter-tl c5"></span>
+    <span class="shape tri"></span>
+    <span class="shape diag"></span>
+    <span class="shape beads"><i></i><i></i><i></i></span>
+
+    <div class="cover-meta">
+      <span>Brand board · Identité visuelle</span>
+      <span class="pill">Variante <b>08</b> — Géométrique / Bauhaus</span>
+    </div>
+
+    <div class="lockup">
+      <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps — monogramme tpt sable sur carré marine, cercle marine au centre du p">
+      <div class="lockup-text">
+        <div class="surtitre">TempsPourTemps · TpT</div>
+        <h1>Temps<br>p<span class="o-circle" aria-hidden="true"></span>ur Temps</h1>
+        <div class="tagline">« Échangez du temps, pas de l’argent »</div>
+        <p class="mission">Reconnecter le voisinage par l’entraide concrète. Voisin·e bienveillant·e et animateur·rice de quartier.</p>
+      </div>
+    </div>
+
+    <div class="cover-foot">
+      <span class="chip"><i class="sq"></i> Marine</span>
+      <span class="chip"><i class="ci"></i> Orange brûlée</span>
+      <span class="chip"><i class="tr"></i> Jaune sable</span>
+    </div>
+  </header>
+
+  <!-- ====== 02 · CONCEPT : LE CERCLE ====== -->
+  <section class="concept">
+    <div class="concept-left">
+      <div class="kicker"><span class="num">02</span> Concept <span class="rule"></span><span class="dot"></span></div>
+      <h2>Le cercle, <em>cœur du « p »</em>, motif de tout le système.</h2>
+      <p>La signature du logo — un cercle marine au centre du contre-poinçon du « p » — devient la brique géométrique de la marque : pastilles, demi-cercles, quarts de cercle et orbites rythment chaque composition, façon affiche Bauhaus.</p>
+      <span class="ring"></span>
+    </div>
+    <div class="concept-right">
+      <span class="orbit"></span>
+      <span class="sat"></span>
+      <div class="glyph-p" role="img" aria-label="Le p du monogramme reconstruit en formes géométriques">
+        <span class="bowl"></span>
+        <span class="stem"></span>
+        <span class="counter"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 03 · PALETTE ====== -->
+  <section class="block">
+    <div class="block-head">
+      <div class="kicker"><span class="num">03</span> Couleurs <span class="rule"></span><span class="dot"></span></div>
+      <h2>Palette en aplats francs</h2>
+    </div>
+
+    <div class="palette-signature">
+      <div class="swatch sw-marine">
+        <span class="geo"></span><span class="geo2"></span>
+        <span class="hover-tag">hover #0f2f44</span>
+        <span class="label">Marine</span><span class="hex">#183e57</span>
+      </div>
+      <div class="swatch sw-orange">
+        <span class="geo"></span>
+        <span class="hover-tag">hover #b84e17</span>
+        <span class="label">Orange brûlée</span><span class="hex">#d65e1c</span>
+      </div>
+      <div class="swatch sw-sable">
+        <span class="geo"></span>
+        <span class="hover-tag">hover #f5cb5c</span>
+        <span class="label">Jaune sable</span><span class="hex">#fcdb81</span>
+      </div>
+    </div>
+
+    <div class="palette-row">
+      <div class="mini c-success"><div class="chip"></div><div class="txt"><b>Success</b><span>#4a9d5f</span></div></div>
+      <div class="mini c-danger"><div class="chip"></div><div class="txt"><b>Danger</b><span>#c44536</span></div></div>
+      <div class="mini c-warning"><div class="chip"></div><div class="txt"><b>Warning</b><span>#d97706</span></div></div>
+      <div class="mini c-info"><div class="chip"></div><div class="txt"><b>Info</b><span>#183e57</span></div></div>
+    </div>
+
+    <div class="palette-row neutres">
+      <div class="mini c-bgmain"><div class="chip"></div><div class="txt"><b>Bg main</b><span>#f7f6f3</span></div></div>
+      <div class="mini c-bgsec"><div class="chip"></div><div class="txt"><b>Bg secondary</b><span>#f3f3f5</span></div></div>
+      <div class="mini c-bghov"><div class="chip"></div><div class="txt"><b>Bg hover</b><span>#fdf1d7</span></div></div>
+      <div class="mini c-txtsec"><div class="chip"></div><div class="txt"><b>Text secondary</b><span>#4b5563</span></div></div>
+      <div class="mini c-txtter"><div class="chip"></div><div class="txt"><b>Text tertiary</b><span>#717182</span></div></div>
+      <div class="mini c-border"><div class="chip"></div><div class="txt"><b>Border</b><span>#d6dbe2</span></div></div>
+    </div>
+
+    <div class="palette-row" style="grid-template-columns:1fr">
+      <div class="mini c-grad"><div class="chip"></div><div class="txt"><b>Gradient de marque</b><span>180deg · #fff9ec 0% → #fff3e0 32% → #f3f7fb 100%</span></div></div>
+    </div>
+
+    <div class="ratio">
+      <div class="ratio-bar">
+        <div class="r60">60</div><div class="r25">25</div><div class="r10">10</div><div class="r5">5</div>
+      </div>
+      <div class="ratio-legend">
+        <span>Neutres</span><span>Marine</span><span>Sable</span><span>Orange</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 04 · TYPOGRAPHIE ====== -->
+  <section class="block">
+    <div class="block-head">
+      <div class="kicker"><span class="num">04</span> Typographie <span class="rule"></span><span class="dot"></span></div>
+      <h2>Nunito Rounded joue avec les formes</h2>
+    </div>
+
+    <div class="typo-grid">
+      <div class="typo-families">
+        <div class="family-card display">
+          <span class="corner"></span>
+          <div class="big">Aa</div>
+          <div class="name">Nunito Rounded — Titres</div>
+          <div class="weights">Bold 700 · ExtraBold 800</div>
+        </div>
+        <div class="family-card body">
+          <span class="corner"></span>
+          <div class="big">Aa</div>
+          <div class="name">Inter — Corps de texte</div>
+          <div class="weights">400 · 500 · 600 · 700</div>
+        </div>
+      </div>
+
+      <div class="type-scale">
+        <div class="ts-row"><div class="ts-meta">Display XL<small>56 / 36 px</small></div><div class="ts-sample t-dxl">Échangez</div></div>
+        <div class="ts-row"><div class="ts-meta">H1<small>40 / 28 px</small></div><div class="ts-sample t-h1">Entre voisins</div></div>
+        <div class="ts-row"><div class="ts-meta">H2<small>28 / 22 px</small></div><div class="ts-sample t-h2">Une heure = une heure</div></div>
+        <div class="ts-row"><div class="ts-meta">H3<small>20 / 18 px</small></div><div class="ts-sample t-h3">Les services près de chez vous</div></div>
+        <div class="ts-row"><div class="ts-meta">Body L<small>18 px</small></div><div class="ts-sample t-bl">Camille garde le chat de Yacine pendant le week-end.</div></div>
+        <div class="ts-row"><div class="ts-meta">Body<small>16 px</small></div><div class="ts-sample t-b">En échange, Yacine l’aidera à monter son étagère.</div></div>
+        <div class="ts-row"><div class="ts-meta">Body S<small>14 px</small></div><div class="ts-sample t-bs">Chaque échange crédite votre compteur de temps.</div></div>
+        <div class="ts-row"><div class="ts-meta">Caption<small>12 px</small></div><div class="ts-sample t-cap">Quartier Saint-Michel · à 400 m</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 05 · MOOD ====== -->
+  <section class="block mood">
+    <div class="block-head">
+      <div class="kicker"><span class="num">05</span> Univers visuel <span class="rule"></span><span class="dot"></span></div>
+      <h2>Mood — <em>images teintées marque</em></h2>
+    </div>
+
+    <div class="mood-grid">
+      <figure class="mood-card m1">
+        <span class="ph" aria-hidden="true"></span><span class="veil"></span>
+        <span class="geo"></span><span class="geo2"></span>
+        <figcaption class="cap">Voisinage</figcaption>
+      </figure>
+      <figure class="mood-card m2">
+        <span class="ph" aria-hidden="true"></span><span class="veil"></span>
+        <span class="geo"></span>
+        <figcaption class="cap">Entraide</figcaption>
+      </figure>
+      <figure class="mood-card m3">
+        <span class="ph" aria-hidden="true"></span><span class="veil"></span>
+        <span class="geo"></span>
+        <figcaption class="cap">Échange de temps</figcaption>
+      </figure>
+      <figure class="mood-card m4">
+        <span class="ph" aria-hidden="true"></span><span class="veil"></span>
+        <span class="geo"><i></i><i></i><i></i></span>
+        <figcaption class="cap">Quartier</figcaption>
+      </figure>
+    </div>
+
+    <p class="mood-note">Emplacements photo : remplacer chaque fond par une image duotonée dans la teinte indiquée (marine, orange, sable) avec voile de marque conservé.</p>
+  </section>
+
+  <!-- ====== PIED · VERSIONS DU LOGO ====== -->
+  <footer class="footer">
+    <span class="fdiag"></span>
+    <div class="logo-versions">
+      <div class="lv">
+        <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo principal sur fond">
+        <span class="lv-name">Logo principal</span>
+      </div>
+      <div class="lv on-marine">
+        <img src="../../assets/logo/logo-tpt-transparent.png" alt="Logo transparent sur fond marine">
+        <span class="lv-name">Version transparente</span>
+      </div>
+      <div class="lv on-sable">
+        <img src="../../assets/logo/icon-pwa-512.png" alt="Icône PWA 512 sur fond sable">
+        <span class="lv-name">Icône PWA · 512</span>
+      </div>
+    </div>
+    <div class="colophon">
+      <span class="mark"><i></i> TempsPourTemps</span>
+      <span>Variante 08 · Géométrique / Bauhaus · A4 portrait</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

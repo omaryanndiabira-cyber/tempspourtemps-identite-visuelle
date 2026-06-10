@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Gazette du Temps — Planche d'identité · TempsPourTemps</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Nunito:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   LA GAZETTE DU TEMPS — planche d'identité « vieux journal »
+   TempsPourTemps · encre marine sur papier crème · 2 tons d'accent
+   ========================================================================== */
+
+:root{
+  /* — Encres officielles — */
+  --marine:#183e57;        --marine-hover:#0f2f44;
+  --orange:#d65e1c;        --orange-hover:#b84e17;
+  --sable:#fcdb81;         --sable-hover:#f5cb5c;
+  --success:#4a9d5f; --danger:#c44536; --warning:#d97706; --info:#183e57;
+  --bg-main:#f7f6f3; --bg-secondary:#f3f3f5; --bg-hover:#fdf1d7;
+  --text-secondary:#4b5563; --text-tertiary:#717182; --border:#d6dbe2;
+  --grad-marque:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+
+  /* — Papier vieilli (déclinaison patrimoniale du bg marque) — */
+  --papier:#f3ecdb;
+  --papier-fonce:#ebe1c9;
+  --encre:var(--marine);
+  --filet:rgba(24,62,87,.55);
+  --filet-leger:rgba(24,62,87,.28);
+
+  --bl:"UnifrakturCook", cursive;                 /* bandeau-titre */
+  --titre:"Playfair Display", "Times New Roman", serif;
+  --labeur:"Old Standard TT", Georgia, serif;     /* corps journal */
+  --nunito:"Nunito", sans-serif;
+  --inter:"Inter", sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{background:#cfc6b2;}
+
+body{
+  font-family:var(--labeur);
+  color:var(--encre);
+  font-size:13px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- La feuille de journal ---------- */
+.feuille{
+  max-width:980px;
+  margin:28px auto;
+  padding:34px 42px 30px;
+  position:relative;
+  background:
+    /* taches d'âge, parcimonieuses */
+    radial-gradient(ellipse 220px 160px at 88% 4%, rgba(214,94,28,.05), transparent 70%),
+    radial-gradient(ellipse 260px 200px at 4% 96%, rgba(190,150,60,.09), transparent 70%),
+    radial-gradient(ellipse 180px 120px at 12% 30%, rgba(190,160,90,.07), transparent 70%),
+    /* jaunissement des bords */
+    radial-gradient(ellipse 130% 110% at 50% 45%, var(--papier) 55%, var(--papier-fonce) 100%);
+  box-shadow:0 1px 2px rgba(35,28,12,.25), 0 14px 44px rgba(35,28,12,.35);
+}
+/* grain papier */
+.feuille::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+/* pli central discret */
+.feuille::after{
+  content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(35,28,12,.07) 18%,rgba(35,28,12,.07) 82%,transparent);
+}
+
+/* ---------- Filets & ornements ---------- */
+.filet-double{border-top:1px solid var(--filet);border-bottom:3px double var(--filet);height:7px;}
+.filet-triple{border-top:3px double var(--filet);position:relative;margin-top:3px;}
+.filet-triple::before{content:"";display:block;border-top:1px solid var(--filet);margin-top:2px;}
+hr.simple{border:0;border-top:1px solid var(--filet-leger);margin:10px 0;}
+
+.ornement{
+  text-align:center;color:var(--encre);font-size:13px;letter-spacing:.6em;
+  margin:6px 0;user-select:none;
+}
+.ornement::before{content:"❦ ✦ ❦";letter-spacing:.6em;}
+
+/* ---------- Oreilles + bandeau supérieur ---------- */
+.chapeau{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--titre);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  border-top:1px solid var(--filet);border-bottom:1px solid var(--filet);
+  padding:4px 2px;gap:14px;
+}
+.chapeau .prix{
+  font-style:italic;text-transform:none;letter-spacing:.03em;
+  font-family:var(--labeur);font-size:12px;
+}
+.chapeau .prix strong{color:var(--orange-hover);font-style:normal;}
+
+/* ---------- Masthead ---------- */
+.masthead{
+  display:grid;grid-template-columns:128px 1fr 128px;align-items:center;
+  gap:18px;padding:18px 0 10px;text-align:center;
+}
+.embleme{
+  width:104px;height:104px;margin:0 auto;position:relative;
+  border-radius:50%;
+  border:1px solid var(--filet);
+  outline:3px double var(--filet);outline-offset:4px;
+  overflow:hidden;background:var(--marine);
+  box-shadow:inset 0 0 0 4px var(--papier);
+}
+.embleme img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:sepia(.12) contrast(1.02);}
+.embleme-legende{
+  font-family:var(--titre);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  margin-top:8px;color:var(--text-secondary);
+}
+/* médaillon horloge gravée, à droite */
+.medaillon-horloge{width:104px;height:104px;margin:0 auto;}
+.medaillon-horloge svg{width:100%;height:100%;display:block;}
+
+.titre-journal{
+  font-family:var(--bl);font-weight:700;
+  font-size:clamp(44px,7.2vw,72px);
+  line-height:.95;letter-spacing:.01em;color:var(--encre);
+  text-shadow:1px 1px 0 rgba(214,94,28,.18);
+}
+.sous-titre-journal{
+  font-family:var(--titre);font-style:italic;font-size:13.5px;margin-top:8px;
+  color:var(--text-secondary);
+}
+.sous-titre-journal b{color:var(--encre);font-style:normal;letter-spacing:.05em;}
+
+.tagline-bandeau{
+  margin-top:10px;border-top:1px solid var(--filet);border-bottom:1px solid var(--filet);
+  padding:5px 0;font-family:var(--titre);font-weight:700;
+  font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+}
+.tagline-bandeau .tiret{color:var(--orange);}
+
+/* ---------- Exergue 1h = 1h ---------- */
+.exergue{
+  margin:14px 0 18px;padding:13px 18px;text-align:center;position:relative;
+  background:
+    radial-gradient(circle at 6px 6px, rgba(24,62,87,.16) 1px, transparent 1.6px) 0 0/11px 11px,
+    var(--bg-hover);
+  border:1px solid var(--filet);outline:3px double var(--filet);outline-offset:3px;
+}
+.exergue .grand{
+  font-family:var(--titre);font-weight:900;letter-spacing:.12em;
+  font-size:clamp(18px,3vw,27px);
+}
+.exergue .grand .egal{color:var(--orange-hover);padding:0 .25em;}
+.exergue .note{
+  font-family:var(--labeur);font-style:italic;font-size:12px;color:var(--text-secondary);margin-top:3px;
+}
+
+/* ---------- Grille de une ---------- */
+.une{
+  display:grid;grid-template-columns:1.55fr 1fr;gap:0;
+  border-top:1px solid var(--filet);
+}
+.une > .col-gauche{padding:14px 18px 14px 2px;border-right:1px solid var(--filet-leger);}
+.une > .col-droite{padding:14px 2px 14px 18px;}
+
+h2.manchette{
+  font-family:var(--titre);font-weight:900;font-size:27px;line-height:1.08;
+  letter-spacing:-.005em;margin-bottom:4px;
+}
+.surtitre{
+  font-family:var(--titre);font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--orange-hover);margin-bottom:6px;
+}
+.signature-art{
+  font-family:var(--labeur);font-style:italic;font-size:11.5px;color:var(--text-tertiary);
+  margin:4px 0 10px;
+}
+.corps-2col{
+  columns:2;column-gap:18px;column-rule:1px solid var(--filet-leger);
+  text-align:justify;hyphens:auto;font-size:12.5px;
+}
+.corps-2col p{margin-bottom:8px;}
+.corps-2col p:first-of-type::first-letter{
+  font-family:var(--titre);font-weight:900;float:left;
+  font-size:46px;line-height:.82;padding:4px 7px 0 0;color:var(--orange-hover);
+}
+.intertitre{
+  font-family:var(--titre);font-weight:700;font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;text-align:center;margin:10px 0 6px;
+  break-inside:avoid;hyphens:none;
+}
+.intertitre::before,.intertitre::after{content:" — ";color:var(--orange);}
+
+/* compteur d'heures */
+.compteur{
+  margin:14px 0 4px;border:1px solid var(--filet);padding:12px 10px 10px;text-align:center;
+  background:linear-gradient(180deg,#fff9ec, var(--bg-hover));
+  break-inside:avoid;
+}
+.compteur .chiffre{
+  font-family:var(--titre);font-weight:900;font-size:38px;letter-spacing:.04em;line-height:1;
+  color:var(--marine);
+  font-variant-numeric:tabular-nums;
+}
+.compteur .chiffre span{color:var(--orange-hover);}
+.compteur .legende{
+  font-family:var(--titre);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;margin-top:5px;
+}
+.compteur .maj{font-family:var(--labeur);font-style:italic;font-size:10.5px;color:var(--text-tertiary);margin-top:2px;}
+
+/* ---------- Petites annonces ---------- */
+.bloc-rubrique{margin-bottom:14px;}
+.tete-rubrique{
+  font-family:var(--titre);font-weight:900;text-align:center;
+  font-size:15px;letter-spacing:.2em;text-transform:uppercase;
+  border-top:3px double var(--filet);border-bottom:1px solid var(--filet);
+  padding:5px 0 4px;margin-bottom:2px;
+}
+.sous-rubrique{
+  text-align:center;font-style:italic;font-size:11px;color:var(--text-secondary);
+  border-bottom:1px solid var(--filet-leger);padding:2px 0 4px;margin-bottom:8px;
+}
+.annonce{
+  border-bottom:1px dotted var(--filet-leger);
+  padding:7px 2px 8px;font-size:12.5px;
+}
+.annonce:last-child{border-bottom:0;}
+.annonce .verbe{
+  font-family:var(--titre);font-weight:700;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.annonce .verbe.cherche{color:var(--marine);}
+.annonce .verbe.offre{color:var(--orange-hover);}
+.annonce .heures{
+  display:inline-block;background:var(--sable);border:1px solid var(--marine);
+  font-family:var(--titre);font-weight:700;font-size:10.5px;
+  padding:0 5px;border-radius:2px;line-height:1.5;white-space:nowrap;
+}
+.annonce .meta{
+  display:block;margin-top:2px;font-style:italic;font-size:11px;color:var(--text-tertiary);
+}
+.annonce .meta::before{content:"⌚ ";font-style:normal;}
+
+/* ---------- Météo du voisinage ---------- */
+.meteo{
+  border:1px solid var(--filet);padding:10px 12px;margin-top:6px;
+  background:var(--grad-marque);
+}
+.meteo h4{
+  font-family:var(--titre);font-weight:900;font-size:12px;letter-spacing:.22em;
+  text-transform:uppercase;text-align:center;border-bottom:1px solid var(--filet-leger);
+  padding-bottom:5px;margin-bottom:7px;
+}
+.meteo-ligne{
+  display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+  font-size:12px;padding:3px 0;border-bottom:1px dotted var(--filet-leger);
+}
+.meteo-ligne:last-child{border-bottom:0;}
+.meteo-ligne .etat{font-family:var(--titre);font-weight:700;font-size:11px;white-space:nowrap;}
+.etat.beau{color:var(--success);} .etat.chaud{color:var(--warning);}
+.etat.orageux{color:var(--danger);} .etat.calme{color:var(--info);}
+
+/* ==========================================================================
+   PARTIE IDENTITÉ — palette, typo, mood, logo
+   ========================================================================== */
+
+.tete-section{
+  margin-top:18px;text-align:center;
+  border-top:3px double var(--filet);border-bottom:3px double var(--filet);
+  padding:7px 0;
+}
+.tete-section h3{
+  font-family:var(--titre);font-weight:900;font-size:19px;letter-spacing:.24em;text-transform:uppercase;
+}
+.tete-section .st{font-style:italic;font-size:11.5px;color:var(--text-secondary);margin-top:2px;}
+
+/* ---------- L'encre du jour : palette ---------- */
+.palette{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 4px;
+}
+.encrier{border:1px solid var(--filet);background:#fffdf6;break-inside:avoid;}
+.encrier .pastille{
+  height:58px;position:relative;
+  border-bottom:1px solid var(--filet);
+}
+.encrier .pastille::after{ /* trame demi-ton sur l'encre */
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 2px 2px, rgba(255,255,255,.13) .8px, transparent 1.3px) 0 0/7px 7px;
+}
+.encrier .pastille .hover-strip{
+  position:absolute;right:0;top:0;bottom:0;width:22%;
+  border-left:1px dashed rgba(255,255,255,.5);
+}
+.encrier figcaption{padding:6px 8px 7px;}
+.encrier .nom{
+  font-family:var(--titre);font-weight:700;font-size:11.5px;letter-spacing:.04em;display:block;
+}
+.encrier .hex{
+  font-family:var(--inter);font-size:9.5px;letter-spacing:.06em;color:var(--text-tertiary);
+  text-transform:uppercase;
+}
+.encrier .usage{
+  display:block;font-style:italic;font-size:10px;color:var(--text-secondary);margin-top:2px;
+}
+.palette-note{
+  text-align:center;font-style:italic;font-size:11.5px;color:var(--text-secondary);
+  margin:8px 0 2px;
+}
+/* dosage 60/25/10/5 */
+.dosage{
+  display:flex;height:16px;border:1px solid var(--filet);margin:8px auto 3px;max-width:560px;
+  font-family:var(--titre);font-size:8.5px;font-weight:700;letter-spacing:.08em;
+}
+.dosage span{display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap;}
+.dosage .d-neutre{flex:60;background:var(--bg-main);color:var(--text-secondary);}
+.dosage .d-marine{flex:25;background:var(--marine);color:#fff;}
+.dosage .d-sable{flex:10;background:var(--sable);color:var(--marine);}
+.dosage .d-orange{flex:5;background:var(--orange);color:#fff;}
+.dosage-legende{text-align:center;font-size:10px;font-style:italic;color:var(--text-tertiary);max-width:560px;margin:0 auto;}
+
+/* ---------- La voix de la marque : typo ---------- */
+.voix{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:12px;border-top:1px solid var(--filet-leger);}
+.voix .demi{padding:12px 16px 12px 2px;}
+.voix .demi + .demi{border-left:1px solid var(--filet-leger);padding:12px 2px 12px 16px;}
+.etiquette-typo{
+  font-family:var(--titre);font-size:9.5px;font-weight:700;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--orange-hover);margin-bottom:7px;
+}
+.specimen{border:1px dotted var(--filet-leger);padding:10px 12px;background:#fffdf6;margin-bottom:8px;}
+.specimen .grand-spec{display:block;line-height:1.15;}
+.specimen .detail{
+  display:block;margin-top:4px;font-family:var(--inter);font-size:9.5px;color:var(--text-tertiary);
+  letter-spacing:.04em;
+}
+.spec-blackletter{font-family:var(--bl);font-size:30px;}
+.spec-playfair{font-family:var(--titre);font-weight:900;font-size:22px;}
+.spec-labeur{font-family:var(--labeur);font-size:14.5px;}
+.spec-nunito{font-family:var(--nunito);font-weight:800;font-size:21px;color:var(--marine);}
+.spec-inter{font-family:var(--inter);font-weight:400;font-size:12.5px;color:var(--text-secondary);line-height:1.55;}
+.note-moderne{
+  font-style:italic;font-size:11px;color:var(--text-secondary);
+  border-left:3px solid var(--sable-hover);padding-left:9px;margin-top:6px;
+}
+
+/* ---------- Mood : gravures ---------- */
+.gravures{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 2px;}
+.gravure{
+  border:1px solid var(--filet);background:#fffdf6;break-inside:avoid;
+}
+.gravure .image{
+  height:118px;position:relative;overflow:hidden;
+  background:var(--marine);
+}
+.gravure .image svg{position:absolute;inset:0;width:100%;height:100%;}
+.gravure .image::after{ /* trame demi-ton d'impression */
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 1.5px 1.5px, rgba(243,236,219,.16) 1px, transparent 1.5px) 0 0/6px 6px;
+  mix-blend-mode:screen;pointer-events:none;
+}
+.gravure figcaption{
+  text-align:center;font-family:var(--titre);font-weight:700;font-size:10.5px;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:6px 4px;border-top:1px solid var(--filet);
+}
+.gravure .fig-num{
+  display:block;font-family:var(--labeur);font-weight:400;font-style:italic;font-size:9.5px;
+  letter-spacing:.03em;text-transform:none;color:var(--text-tertiary);
+}
+
+/* ---------- L'emblème (logo) ---------- */
+.logos{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;margin-top:14px;align-items:stretch;}
+.cadre-logo{
+  border:1px solid var(--filet);background:#fffdf6;display:flex;flex-direction:column;
+}
+.cadre-logo .visuel{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  min-height:120px;padding:14px;
+}
+.cadre-logo .visuel.sur-marine{background:var(--marine);
+  background-image:radial-gradient(circle at 2px 2px, rgba(252,219,129,.06) 1px, transparent 1.5px);
+  background-size:9px 9px;}
+.cadre-logo .visuel.sur-papier{background:
+  radial-gradient(circle at 2px 2px, rgba(24,62,87,.05) 1px, transparent 1.5px) 0 0/9px 9px,
+  var(--bg-main);}
+.cadre-logo img{max-width:100%;max-height:96px;display:block;}
+.cadre-logo figcaption{
+  border-top:1px solid var(--filet);padding:6px 9px;
+  font-size:10.5px;font-style:italic;color:var(--text-secondary);text-align:center;
+}
+.encart-signature{
+  margin-top:10px;border:1px solid var(--filet);outline:3px double var(--filet);outline-offset:3px;
+  padding:10px 14px;display:flex;gap:14px;align-items:center;background:var(--bg-hover);
+}
+.encart-signature .main-pointee{font-size:22px;line-height:1;}
+.encart-signature p{font-size:12px;font-style:italic;}
+.encart-signature b{font-style:normal;font-family:var(--titre);letter-spacing:.04em;}
+
+/* ---------- Pied de page ---------- */
+.ours{
+  margin-top:18px;border-top:3px double var(--filet);padding-top:8px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-size:10px;font-style:italic;color:var(--text-tertiary);
+}
+.ours .tpt{font-family:var(--nunito);font-weight:800;font-style:normal;color:var(--marine);letter-spacing:.02em;}
+
+/* ---------- Impression A4 ---------- */
+@page{size:A4 portrait;margin:8mm;}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  html{background:#fff;}
+  body{font-size:11px;}
+  .feuille{margin:0;max-width:none;box-shadow:none;padding:18px 20px;}
+  .gravure .image{height:96px;}
+  .compteur .chiffre{font-size:30px;}
+  .tete-section{break-after:avoid;}
+  .palette,.gravures,.logos,.voix,.exergue,.encart-signature{break-inside:avoid;}
+}
+
+@media (max-width:760px){
+  .feuille{padding:20px 16px;}
+  .masthead{grid-template-columns:1fr;gap:10px;}
+  .medaillon-horloge{display:none;}
+  .une{grid-template-columns:1fr;}
+  .une > .col-gauche{border-right:0;padding-right:2px;}
+  .une > .col-droite{padding-left:2px;border-top:1px solid var(--filet-leger);}
+  .corps-2col{columns:1;}
+  .palette{grid-template-columns:1fr 1fr;}
+  .gravures{grid-template-columns:1fr 1fr;}
+  .logos{grid-template-columns:1fr;}
+  .voix{grid-template-columns:1fr;}
+  .voix .demi + .demi{border-left:0;border-top:1px solid var(--filet-leger);padding-left:2px;}
+}
+</style>
+</head>
+<body>
+
+<main class="feuille">
+
+  <!-- ======================= OREILLES ======================= -->
+  <header>
+    <div class="chapeau">
+      <span>Édition du Juin 2026 · N°1</span>
+      <span>Fondé par le voisinage, pour le voisinage</span>
+      <span class="prix">Prix : <strong>1 heure de votre temps</strong></span>
+    </div>
+
+    <!-- ======================= MASTHEAD ======================= -->
+    <div class="masthead">
+      <figure>
+        <div class="embleme">
+          <img src="../../assets/logo/logo-tpt-fond.png" alt="Monogramme tpt, sable sur fond marine">
+        </div>
+        <figcaption class="embleme-legende">Notre emblème</figcaption>
+      </figure>
+
+      <div>
+        <h1 class="titre-journal">La Gazette du Temps</h1>
+        <p class="sous-titre-journal">le journal des petites annonces d'échange de temps · publié par <b>TempsPourTemps</b></p>
+        <p class="tagline-bandeau">Échangez du temps<span class="tiret"> — </span>pas de l'argent</p>
+      </div>
+
+      <figure>
+        <div class="medaillon-horloge" aria-hidden="true">
+          <!-- Horloge gravée -->
+          <svg viewBox="0 0 104 104">
+            <circle cx="52" cy="52" r="50" fill="none" stroke="#183e57" stroke-width="1.5"/>
+            <circle cx="52" cy="52" r="46" fill="none" stroke="#183e57" stroke-width=".75"/>
+            <circle cx="52" cy="52" r="41" fill="#fcdb81" opacity=".45"/>
+            <g stroke="#183e57" stroke-width="1.4">
+              <line x1="52" y1="13" x2="52" y2="20"/><line x1="52" y1="84" x2="52" y2="91"/>
+              <line x1="13" y1="52" x2="20" y2="52"/><line x1="84" y1="52" x2="91" y2="52"/>
+            </g>
+            <g stroke="#183e57" stroke-width=".8">
+              <line x1="71.5" y1="18.2" x2="68" y2="24.3"/><line x1="85.8" y1="32.5" x2="79.7" y2="36"/>
+              <line x1="85.8" y1="71.5" x2="79.7" y2="68"/><line x1="71.5" y1="85.8" x2="68" y2="79.7"/>
+              <line x1="32.5" y1="85.8" x2="36" y2="79.7"/><line x1="18.2" y1="71.5" x2="24.3" y2="68"/>
+              <line x1="18.2" y1="32.5" x2="24.3" y2="36"/><line x1="32.5" y1="18.2" x2="36" y2="24.3"/>
+            </g>
+            <line x1="52" y1="52" x2="52" y2="28" stroke="#183e57" stroke-width="2.6" stroke-linecap="round"/>
+            <line x1="52" y1="52" x2="69" y2="60" stroke="#d65e1c" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="52" cy="52" r="3.4" fill="#183e57"/>
+          </svg>
+        </div>
+        <figcaption class="embleme-legende">L'heure du quartier</figcaption>
+      </figure>
+    </div>
+
+    <div class="filet-double"></div>
+  </header>
+
+  <!-- ======================= EXERGUE ======================= -->
+  <section class="exergue">
+    <p class="grand">1 HEURE DONNÉE <span class="egal">=</span> 1 HEURE REÇUE</p>
+    <p class="note">Telle est la devise de notre maison : ici, le temps est la seule monnaie qui ait cours.</p>
+  </section>
+
+  <!-- ======================= LA UNE ======================= -->
+  <section class="une">
+
+    <!-- Colonne gauche : l'article de mission -->
+    <article class="col-gauche">
+      <p class="surtitre">Notre raison d'être</p>
+      <h2 class="manchette">Le voisinage se reconnecte, une heure à la fois</h2>
+      <p class="signature-art">De notre correspondante au coin de la rue — édition spéciale</p>
+
+      <div class="corps-2col">
+        <p>Dans nos rues, on se croisait sans se voir. TempsPourTemps remet au goût du jour
+        une pratique aussi vieille que le village : <em>le coup de main</em>. La plateforme, qui se présente
+        elle-même comme « le journal des petites annonces d'échange de temps », permet à chacun de
+        publier ce qu'il offre et ce qu'il cherche — non point contre espèces sonnantes, mais contre
+        des heures, comptées à la loyale.</p>
+        <p>La règle tient en une ligne, et chacun la connaît par cœur : une heure donnée vaut une heure
+        reçue, qu'il s'agisse de plomberie savante ou de lecture à voix haute. Point de tarifs, point
+        de factures : un carnet d'heures, tenu en commun, et la parole donnée.</p>
+
+        <h3 class="intertitre">La personnalité de la maison</h3>
+        <p>Si la marque était une personne, ce serait ce <em>voisin bienveillant</em> qui garde vos clefs et
+        arrose vos plantes, doublé d'une <em>animatrice de quartier</em> qui connaît tout le monde par son
+        prénom et n'oublie jamais un anniversaire. Le ton est chaleureux sans mièvrerie, concret sans
+        froideur ; on s'y tutoie volontiers, on s'y rend service surtout.</p>
+        <p>La mission, imprimée en tête de tous nos registres : <strong>reconnecter le voisinage par
+        l'entraide concrète</strong>. Pas de grands discours — des courses portées, des fuites colmatées,
+        des gâteaux partagés.</p>
+      </div>
+
+      <aside class="compteur">
+        <p class="chiffre">12&nbsp;480 <span>heures</span></p>
+        <p class="legende">déjà échangées dans le quartier</p>
+        <p class="maj">relevé du compteur ce matin, à l'heure du café</p>
+      </aside>
+    </article>
+
+    <!-- Colonne droite : petites annonces + météo -->
+    <aside class="col-droite">
+      <div class="bloc-rubrique">
+        <h3 class="tete-rubrique">Petites annonces</h3>
+        <p class="sous-rubrique">offres &amp; demandes du jour — toutes en heures, jamais en euros</p>
+
+        <div class="annonce">
+          <span class="verbe cherche">Cherche</span> <span class="heures">2 h</span> de jardinage —
+          <span class="verbe offre">Offre</span> <span class="heures">2 h</span> de cuisine maison.
+          <span class="meta">Mme Léa, rue des Lilas, il y a 3 h</span>
+        </div>
+        <div class="annonce">
+          <span class="verbe cherche">Cherche</span> <span class="heures">1 h</span> de dépannage d'ordinateur —
+          <span class="verbe offre">Offre</span> <span class="heures">1 h</span> de couture &amp; ourlets.
+          <span class="meta">M. Bachir, place du Marché, il y a 5 h</span>
+        </div>
+        <div class="annonce">
+          <span class="verbe cherche">Cherche</span> <span class="heures">3 h</span> de garde d'enfants samedi —
+          <span class="verbe offre">Offre</span> <span class="heures">3 h</span> de cours de guitare.
+          <span class="meta">Camille, impasse de l'Horloge, hier à 18 h</span>
+        </div>
+        <div class="annonce">
+          <span class="verbe offre">Offre</span> <span class="heures">2 h</span> de lecture à voix haute aux anciens —
+          <span class="verbe cherche">Cherche</span> <span class="heures">2 h</span> de bricolage d'étagères.
+          <span class="meta">Jeanne &amp; Marius, quai du Cadran, il y a 1 h</span>
+        </div>
+      </div>
+
+      <div class="meteo">
+        <h4>Météo du voisinage</h4>
+        <div class="meteo-ligne">
+          <span>Entraide générale</span>
+          <span class="etat beau">Grand beau — 14 coups de main</span>
+        </div>
+        <div class="meteo-ligne">
+          <span>Rue des Lilas</span>
+          <span class="etat chaud">Chaleureuse, gâteaux signalés</span>
+        </div>
+        <div class="meteo-ligne">
+          <span>Place du Marché</span>
+          <span class="etat orageux">Perceuse en panne, avis aux bricoleurs</span>
+        </div>
+        <div class="meteo-ligne">
+          <span>Quai du Cadran</span>
+          <span class="etat calme">Calme, idéal pour proposer ses heures</span>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <p class="ornement" aria-hidden="true"></p>
+
+  <!-- ======================= PALETTE ======================= -->
+  <section>
+    <header class="tete-section">
+      <h3>L'encre du jour</h3>
+      <p class="st">la palette officielle de la maison TempsPourTemps — noms, teintes &amp; usages</p>
+    </header>
+
+    <div class="palette">
+      <figure class="encrier">
+        <div class="pastille" style="background:#183e57"><span class="hover-strip" style="background:#0f2f44"></span></div>
+        <figcaption>
+          <span class="nom">Marine</span>
+          <span class="hex">#183e57 · hover #0f2f44</span>
+          <span class="usage">l'encre principale du journal</span>
+        </figcaption>
+      </figure>
+      <figure class="encrier">
+        <div class="pastille" style="background:#d65e1c"><span class="hover-strip" style="background:#b84e17"></span></div>
+        <figcaption>
+          <span class="nom">Orange brûlée</span>
+          <span class="hex">#d65e1c · hover #b84e17</span>
+          <span class="usage">le tampon de l'urgence, 5 % à peine</span>
+        </figcaption>
+      </figure>
+      <figure class="encrier">
+        <div class="pastille" style="background:#fcdb81"><span class="hover-strip" style="background:#f5cb5c"></span></div>
+        <figcaption>
+          <span class="nom">Jaune sable</span>
+          <span class="hex">#fcdb81 · hover #f5cb5c</span>
+          <span class="usage">le surligneur du crieur public</span>
+        </figcaption>
+      </figure>
+      <figure class="encrier">
+        <div class="pastille" style="background:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%)"></div>
+        <figcaption>
+          <span class="nom">Gradient de marque</span>
+          <span class="hex">#fff9ec → #fff3e0 → #f3f7fb</span>
+          <span class="usage">le ciel du quartier au petit matin</span>
+        </figcaption>
+      </figure>
+
+      <figure class="encrier">
+        <div class="pastille" style="background:#4a9d5f"></div>
+        <figcaption>
+          <span class="nom">Success</span>
+          <span class="hex">#4a9d5f</span>
+          <span class="usage">échange conclu, mains serrées</span>
+        </figcaption>
+      </figure>
+      <figure class="encrier">
+        <div class="pastille" style="background:#c44536"></div>
+        <figcaption>
+          <span class="nom">Danger</span>
+          <span class="hex">#c44536</span>
+          <span class="usage">alerte du garde champêtre</span>
+        </figcaption>
+      </figure>
+      <figure class="encrier">
+        <div class="pastille" style="background:#d97706"></div>
+        <figcaption>
+          <span class="nom">Warning</span>
+          <span class="hex">#d97706</span>
+          <span class="usage">avis à la population</span>
+        </figcaption>
+      </figure>
+      <figure class="encrier">
+        <div class="pastille" style="background:#183e57"></div>
+        <figcaption>
+          <span class="nom">Info</span>
+          <span class="hex">#183e57</span>
+          <span class="usage">le communiqué officiel (même encre que Marine)</span>
+        </figcaption>
+      </figure>
+
+      <figure class="encrier">
+        <div class="pastille" style="background:#f7f6f3;border-bottom:1px solid var(--filet)"></div>
+        <figcaption>
+          <span class="nom">Fond principal</span>
+          <span class="hex">#f7f6f3</span>
+          <span class="usage">le papier du quotidien</span>
+        </figcaption>
+      </figure>
+      <figure class="encrier">
+        <div class="pastille" style="background:#f3f3f5"></div>
+        <figcaption>
+          <span class="nom">Fond secondaire</span>
+          <span class="hex">#f3f3f5</span>
+          <span class="usage">les pages intérieures</span>
+        </figcaption>
+      </figure>
+      <figure class="encrier">
+        <div class="pastille" style="background:#fdf1d7"></div>
+        <figcaption>
+          <span class="nom">Fond hover</span>
+          <span class="hex">#fdf1d7</span>
+          <span class="usage">la page cornée du lecteur attentif</span>
+        </figcaption>
+      </figure>
+      <figure class="encrier">
+        <div class="pastille" style="background:linear-gradient(90deg,#4b5563 33%,#717182 33%,#717182 66%,#d6dbe2 66%)"></div>
+        <figcaption>
+          <span class="nom">Textes &amp; filets</span>
+          <span class="hex">#4b5563 · #717182 · #d6dbe2</span>
+          <span class="usage">secondaire, tertiaire, bordures</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p class="palette-note">« On n'imprime jamais tout en couleurs : c'est l'économie d'encre qui fait l'élégance. »</p>
+    <div class="dosage" role="img" aria-label="Dosage des couleurs : 60 % neutres, 25 % marine, 10 % sable, 5 % orange">
+      <span class="d-neutre">60 % neutres</span>
+      <span class="d-marine">25 % marine</span>
+      <span class="d-sable">10 %</span>
+      <span class="d-orange">5</span>
+    </div>
+    <p class="dosage-legende">le dosage réglementaire : 60 % neutres · 25 % marine · 10 % sable · 5 % orange brûlée</p>
+  </section>
+
+  <!-- ======================= TYPOGRAPHIE ======================= -->
+  <section>
+    <header class="tete-section">
+      <h3>La voix de la marque</h3>
+      <p class="st">spécimen typographique — les caractères d'époque &amp; le duo moderne</p>
+    </header>
+
+    <div class="voix">
+      <div class="demi">
+        <p class="etiquette-typo">Les caractères d'époque — pour vendre le territoire</p>
+        <div class="specimen">
+          <span class="grand-spec spec-blackletter">La Gazette du Temps</span>
+          <span class="detail">UnifrakturCook 700 — le bandeau-titre, et lui seul</span>
+        </div>
+        <div class="specimen">
+          <span class="grand-spec spec-playfair">Manchettes &amp; Rubriques — 1 h = 1 h</span>
+          <span class="detail">Playfair Display 500 / 700 / 900 — titres à fort contraste</span>
+        </div>
+        <div class="specimen">
+          <span class="grand-spec spec-labeur">Le corps de labeur compose les colonnes serrées du journal, les petites annonces et les chiffres en heures : 1 h, 2 h, 12 480 heures.</span>
+          <span class="detail">Old Standard TT 400 / 400i / 700 — corps « journal »</span>
+        </div>
+      </div>
+
+      <div class="demi">
+        <p class="etiquette-typo">La version moderne — le vrai duo de la marque</p>
+        <div class="specimen">
+          <span class="grand-spec spec-nunito">Échangez du temps, pas de l'argent</span>
+          <span class="detail">Nunito Rounded 700 / 800 — titres &amp; boutons de la plateforme</span>
+        </div>
+        <div class="specimen">
+          <span class="grand-spec spec-inter">Inter compose les corps de texte de l'application : annonces, profils, messages entre voisins. Lisible à toute taille, discret et serviable — comme un bon voisin. 0123456789 h.</span>
+          <span class="detail">Inter 400 / 500 / 600 — corps &amp; interface</span>
+        </div>
+        <p class="note-moderne">Au quotidien, la marque parle en <b style="font-family:var(--nunito);font-weight:800;">Nunito Rounded</b> + <b style="font-family:var(--inter);font-weight:600;">Inter</b>.
+        Les caractères d'époque ne sortent de la casse que pour les éditions spéciales, affiches de quartier et clins d'œil patrimoniaux.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= MOOD / GRAVURES ======================= -->
+  <section>
+    <header class="tete-section">
+      <h3>Le cabinet d'estampes</h3>
+      <p class="st">l'imaginaire de la marque, gravé en deux encres — marine &amp; sable, pointe d'orange</p>
+    </header>
+
+    <div class="gravures">
+      <!-- Gravure 1 : Voisinage -->
+      <figure class="gravure">
+        <div class="image">
+          <svg viewBox="0 0 200 118" preserveAspectRatio="xMidYMid slice" aria-label="Gravure : toits du voisinage">
+            <rect width="200" height="118" fill="#183e57"/>
+            <circle cx="160" cy="26" r="14" fill="#fcdb81"/>
+            <circle cx="160" cy="26" r="18" fill="none" stroke="#fcdb81" stroke-width=".7" opacity=".5"/>
+            <!-- toits -->
+            <g fill="#0f2f44" stroke="#fcdb81" stroke-width="1.2">
+              <path d="M8 118 V72 L34 50 L60 72 V118 Z"/>
+              <path d="M62 118 V62 L92 38 L122 62 V118 Z"/>
+              <path d="M124 118 V78 L148 58 L172 78 V118 Z"/>
+            </g>
+            <!-- fenêtres éclairées -->
+            <g fill="#fcdb81">
+              <rect x="26" y="76" width="9" height="11"/>
+              <rect x="84" y="66" width="9" height="11"/><rect x="100" y="66" width="9" height="11"/>
+              <rect x="92" y="88" width="10" height="14"/>
+              <rect x="142" y="82" width="8" height="10"/>
+            </g>
+            <!-- cheminée + fumée -->
+            <rect x="104" y="40" width="7" height="14" fill="#0f2f44" stroke="#fcdb81" stroke-width="1"/>
+            <path d="M107 36 q5 -5 1 -10 q-4 -5 2 -9" fill="none" stroke="#fcdb81" stroke-width="1" opacity=".7"/>
+            <!-- linge tendu, accent orange -->
+            <path d="M14 64 Q 60 74 118 56" fill="none" stroke="#fcdb81" stroke-width=".8"/>
+            <rect x="46" y="66" width="7" height="9" fill="#d65e1c"/>
+            <rect x="72" y="63" width="7" height="9" fill="#fcdb81"/>
+          </svg>
+        </div>
+        <figcaption>Voisinage<span class="fig-num">fig. 1 — les toits que tout relie</span></figcaption>
+      </figure>
+
+      <!-- Gravure 2 : Entraide -->
+      <figure class="gravure">
+        <div class="image">
+          <svg viewBox="0 0 200 118" preserveAspectRatio="xMidYMid slice" aria-label="Gravure : poignée de mains">
+            <rect width="200" height="118" fill="#183e57"/>
+            <!-- rayons -->
+            <g stroke="#fcdb81" stroke-width=".8" opacity=".55">
+              <line x1="100" y1="59" x2="100" y2="6"/><line x1="100" y1="59" x2="148" y2="14"/>
+              <line x1="100" y1="59" x2="52" y2="14"/><line x1="100" y1="59" x2="170" y2="40"/>
+              <line x1="100" y1="59" x2="30" y2="40"/><line x1="100" y1="59" x2="184" y2="70"/>
+              <line x1="100" y1="59" x2="16" y2="70"/>
+            </g>
+            <circle cx="100" cy="60" r="34" fill="#0f2f44" stroke="#fcdb81" stroke-width="1.2"/>
+            <!-- deux manches + poignée de main stylisée -->
+            <path d="M66 60 h22 l8 -7 8 7 h-14 l-4 4 z" fill="#fcdb81"/>
+            <path d="M134 60 h-22 l-8 7 -8 -7 h14 l4 -4 z" fill="#fcdb81"/>
+            <rect x="58" y="54" width="12" height="12" fill="#d65e1c"/>
+            <rect x="130" y="54" width="12" height="12" fill="#d65e1c"/>
+            <text x="100" y="104" text-anchor="middle" font-family="Old Standard TT, serif" font-style="italic" font-size="11" fill="#fcdb81">le coup de main</text>
+          </svg>
+        </div>
+        <figcaption>Entraide<span class="fig-num">fig. 2 — la poignée de main franche</span></figcaption>
+      </figure>
+
+      <!-- Gravure 3 : Échange de temps -->
+      <figure class="gravure">
+        <div class="image">
+          <svg viewBox="0 0 200 118" preserveAspectRatio="xMidYMid slice" aria-label="Gravure : sablier de l'échange">
+            <rect width="200" height="118" fill="#183e57"/>
+            <!-- sablier -->
+            <g stroke="#fcdb81" stroke-width="1.4" fill="none">
+              <line x1="74" y1="18" x2="126" y2="18"/>
+              <line x1="74" y1="100" x2="126" y2="100"/>
+              <path d="M80 18 C80 44 96 50 100 59 C104 50 120 44 120 18"/>
+              <path d="M80 100 C80 74 96 68 100 59 C104 68 120 74 120 100"/>
+            </g>
+            <!-- sable -->
+            <path d="M88 30 C92 38 108 38 112 30 L100 52 Z" fill="#fcdb81"/>
+            <path d="M86 100 L100 76 L114 100 Z" fill="#fcdb81"/>
+            <line x1="100" y1="56" x2="100" y2="78" stroke="#fcdb81" stroke-width="1.2" stroke-dasharray="1.5 2.5"/>
+            <!-- flèches d'échange, accent orange -->
+            <path d="M52 44 a52 52 0 0 1 18 -22 l-3 9 m3 -9 l-10 1" fill="none" stroke="#d65e1c" stroke-width="1.6"/>
+            <path d="M148 74 a52 52 0 0 1 -18 22 l3 -9 m-3 9 l10 -1" fill="none" stroke="#d65e1c" stroke-width="1.6"/>
+            <text x="38" y="66" text-anchor="middle" font-family="Playfair Display, serif" font-weight="700" font-size="13" fill="#fcdb81">1 h</text>
+            <text x="162" y="58" text-anchor="middle" font-family="Playfair Display, serif" font-weight="700" font-size="13" fill="#fcdb81">1 h</text>
+          </svg>
+        </div>
+        <figcaption>Échange de temps<span class="fig-num">fig. 3 — le sablier toujours retourné</span></figcaption>
+      </figure>
+
+      <!-- Gravure 4 : Quartier -->
+      <figure class="gravure">
+        <div class="image">
+          <svg viewBox="0 0 200 118" preserveAspectRatio="xMidYMid slice" aria-label="Gravure : la place du quartier">
+            <rect width="200" height="118" fill="#183e57"/>
+            <!-- clocher-horloge -->
+            <g stroke="#fcdb81" stroke-width="1.2" fill="#0f2f44">
+              <path d="M86 118 V44 h28 v74 Z"/>
+              <path d="M84 44 L100 26 L116 44 Z"/>
+            </g>
+            <circle cx="100" cy="56" r="9" fill="#fcdb81"/>
+            <line x1="100" y1="56" x2="100" y2="50" stroke="#183e57" stroke-width="1.6"/>
+            <line x1="100" y1="56" x2="105" y2="58" stroke="#d65e1c" stroke-width="1.4"/>
+            <!-- réverbères -->
+            <g stroke="#fcdb81" stroke-width="1.1">
+              <line x1="38" y1="118" x2="38" y2="74"/><line x1="162" y1="118" x2="162" y2="74"/>
+            </g>
+            <circle cx="38" cy="71" r="4" fill="#fcdb81"/>
+            <circle cx="162" cy="71" r="4" fill="#fcdb81"/>
+            <!-- silhouettes voisines -->
+            <g fill="#fcdb81">
+              <circle cx="64" cy="96" r="4"/><path d="M59 118 v-14 q5 -4 10 0 v14 Z"/>
+              <circle cx="136" cy="96" r="4"/><path d="M131 118 v-14 q5 -4 10 0 v14 Z"/>
+            </g>
+            <!-- panier échangé, accent orange -->
+            <path d="M96 108 h10 l-2 8 h-6 Z" fill="#d65e1c"/>
+            <path d="M97 108 q4 -6 8 0" fill="none" stroke="#d65e1c" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <figcaption>Quartier<span class="fig-num">fig. 4 — la place, sous l'horloge</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ======================= LOGO ======================= -->
+  <section>
+    <header class="tete-section">
+      <h3>L'emblème de la maison</h3>
+      <p class="st">le monogramme « tpt » — sable sur carré marine, dans toutes ses éditions</p>
+    </header>
+
+    <div class="logos">
+      <figure class="cadre-logo">
+        <div class="visuel sur-marine">
+          <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps, monogramme tpt sable sur fond marine">
+        </div>
+        <figcaption>Édition de tête — sur fond marine, pour le masthead et les façades</figcaption>
+      </figure>
+      <figure class="cadre-logo">
+        <div class="visuel sur-papier">
+          <img src="../../assets/logo/logo-tpt-transparent.png" alt="Monogramme tpt sable sur fond transparent">
+        </div>
+        <figcaption>Édition courante — monogramme sable sur le papier du jour</figcaption>
+      </figure>
+      <figure class="cadre-logo">
+        <div class="visuel sur-papier">
+          <img src="../../assets/logo/icon-pwa-512.png" alt="Icône d'application TempsPourTemps" style="max-height:84px;border:1px solid var(--border);">
+        </div>
+        <figcaption>Édition de poche — l'icône, pour les écrans &amp; les vitrines</figcaption>
+      </figure>
+    </div>
+
+    <aside class="encart-signature">
+      <span class="main-pointee" aria-hidden="true">☞</span>
+      <p>Avis au lecteur attentif : la signature de la maison se niche au centre du « p » —
+      un <b>cercle marine</b> qui n'est autre qu'une <b>petite horloge</b>. Le temps est dans la lettre,
+      comme il est dans chaque échange.</p>
+    </aside>
+  </section>
+
+  <!-- ======================= OURS ======================= -->
+  <footer class="ours">
+    <span><span class="tpt">TempsPourTemps</span> — imprimerie de l'entraide, quartier général : chez vous</span>
+    <span>Tirage : autant d'exemplaires que de voisins · Abonnement : une heure offerte à qui en a besoin</span>
+    <span>Gazette n°1 · Juin 2026 · imprimée en deux encres, marine &amp; sable, pointe d'orange brûlée</span>
+  </footer>
+
+</main>
+
+</body>
+</html>

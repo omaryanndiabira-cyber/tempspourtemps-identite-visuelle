@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Brand Board · Variante 07 « Bento modulaire »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TEMPSPOURTEMPS — BRAND BOARD · VARIANTE 07 « BENTO MODULAIRE »
+     Grille bento asymétrique — chaque élément de marque a sa tuile.
+     ============================================================ */
+
+  :root {
+    /* Signature */
+    --marine: #183e57;
+    --marine-hover: #0f2f44;
+    --orange: #d65e1c;
+    --orange-hover: #b84e17;
+    --sable: #fcdb81;
+    --sable-hover: #f5cb5c;
+    /* Sémantique */
+    --success: #4a9d5f;
+    --danger: #c44536;
+    --warning: #d97706;
+    --info: #183e57;
+    /* Neutres */
+    --bg-main: #f7f6f3;
+    --bg-secondary: #f3f3f5;
+    --bg-hover: #fdf1d7;
+    --text-secondary: #4b5563;
+    --text-tertiary: #717182;
+    --border: #d6dbe2;
+    /* Système bento */
+    --r: 20px;
+    --r-s: 12px;
+    --shadow: 0 1px 2px rgba(24, 62, 87, .04), 0 6px 18px rgba(24, 62, 87, .07);
+    --display: "Nunito", "Nunito Rounded", sans-serif;
+    --body: "Inter", sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: var(--body);
+    color: var(--marine);
+    background:
+      linear-gradient(180deg, #fff9ec 0%, #fff3e0 32%, #f3f7fb 100%) no-repeat,
+      var(--bg-main);
+    background-size: 100% 560px, auto;
+    padding: 44px 24px 56px;
+  }
+
+  .board {
+    width: 1060px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  /* ---- En-tête de planche ---- */
+  .board-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 6px 18px;
+  }
+  .board-head .kicker {
+    font: 700 11px/1 var(--body);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+  .board-head h1 {
+    font: 800 22px/1.2 var(--display);
+    color: var(--marine);
+    margin-top: 6px;
+  }
+  .board-head .meta {
+    font: 500 11px/1.6 var(--body);
+    color: var(--text-tertiary);
+    text-align: right;
+  }
+
+  /* ---- Grille bento ---- */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(64px, auto);
+    gap: 14px;
+    grid-template-areas:
+      "logo    logo    logo    logo    tag     tag"
+      "logo    logo    logo    logo    mission mission"
+      "marine  marine  orange  orange  sable   sable"
+      "typo    typo    typo    typo    ratio   ratio"
+      "typo    typo    typo    typo    grad    grad"
+      "sem     sem     sem     neutres neutres neutres"
+      "mood1   mood1   mood2   mood2   mood3   mood3"
+      "variant variant variant mood4   mood4   mood4";
+  }
+
+  .cell {
+    background: #fffdf9;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  @media screen {
+    .cell:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 2px 4px rgba(24, 62, 87, .05), 0 14px 30px rgba(24, 62, 87, .12);
+    }
+  }
+
+  .cell-label {
+    font: 700 10px/1 var(--body);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cell-label::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--sable);
+    border: 2px solid var(--marine);
+    flex: none;
+  }
+
+  /* ============ TUILE LOGO (lockup) ============ */
+  .cell--logo {
+    grid-area: logo;
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(circle at 86% 12%, rgba(252, 219, 129, .35), transparent 42%),
+      #fffdf9;
+  }
+  .lockup {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    flex: 1;
+    padding: 8px 4px;
+  }
+  .lockup img {
+    width: 168px;
+    height: 168px;
+    border-radius: 28px;
+    box-shadow: 0 8px 24px rgba(24, 62, 87, .18);
+    flex: none;
+  }
+  .lockup-name {
+    font: 800 44px/1.05 var(--display);
+    color: var(--marine);
+    letter-spacing: -0.01em;
+  }
+  .lockup-name em {
+    font-style: normal;
+    color: var(--orange);
+  }
+  .lockup-sub {
+    margin-top: 10px;
+    font: 600 14px/1.45 var(--body);
+    color: var(--text-secondary);
+  }
+  .lockup-note {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--bg-hover);
+    border-radius: var(--r-s);
+    font: 500 11.5px/1.55 var(--body);
+    color: var(--text-secondary);
+  }
+  .lockup-note strong { color: var(--marine); font-weight: 700; }
+
+  /* ============ TUILE TAGLINE ============ */
+  .cell--tag {
+    grid-area: tag;
+    background: var(--marine);
+    border-color: var(--marine-hover);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cell--tag .cell-label { color: rgba(252, 219, 129, .85); }
+  .cell--tag .cell-label::before { background: var(--orange); border-color: var(--sable); }
+  .tagline {
+    font: 800 25px/1.22 var(--display);
+    color: #fffdf9;
+  }
+  .tagline em {
+    font-style: normal;
+    color: var(--sable);
+  }
+
+  /* ============ TUILE MISSION ============ */
+  .cell--mission {
+    grid-area: mission;
+    background: var(--bg-hover);
+    border-color: #f0dcae;
+  }
+  .mission-txt {
+    font: 600 14.5px/1.5 var(--body);
+    color: var(--marine);
+  }
+  .mission-perso {
+    margin-top: 10px;
+    font: 500 11.5px/1.55 var(--body);
+    color: var(--text-secondary);
+  }
+  .mission-perso strong { color: var(--orange); font-weight: 700; }
+
+  /* ============ TUILES COULEURS SIGNATURE ============ */
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 158px;
+    border: none;
+  }
+  .swatch .cell-label { margin-bottom: 0; }
+  .swatch--marine { grid-area: marine; background: var(--marine); }
+  .swatch--orange { grid-area: orange; background: var(--orange); }
+  .swatch--sable  { grid-area: sable;  background: var(--sable); }
+
+  .swatch--marine .cell-label,
+  .swatch--orange .cell-label { color: rgba(255, 253, 249, .75); }
+  .swatch--marine .cell-label::before,
+  .swatch--orange .cell-label::before { border-color: rgba(255,253,249,.9); }
+  .swatch--sable .cell-label { color: rgba(24, 62, 87, .65); }
+
+  .swatch-name {
+    font: 800 21px/1.1 var(--display);
+  }
+  .swatch-hex {
+    font: 600 13px/1 var(--body);
+    letter-spacing: .04em;
+    margin-top: 6px;
+    opacity: .9;
+  }
+  .swatch--marine .swatch-name, .swatch--marine .swatch-hex,
+  .swatch--orange .swatch-name, .swatch--orange .swatch-hex { color: #fffdf9; }
+  .swatch--sable .swatch-name, .swatch--sable .swatch-hex { color: var(--marine); }
+
+  .swatch-hover {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 10.5px/1 var(--body);
+  }
+  .swatch-hover .chip {
+    width: 26px; height: 26px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 253, 249, .55);
+    flex: none;
+  }
+  .swatch--marine .swatch-hover { color: rgba(255,253,249,.85); }
+  .swatch--orange .swatch-hover { color: rgba(255,253,249,.85); }
+  .swatch--sable  .swatch-hover { color: rgba(24,62,87,.8); }
+  .swatch--sable .swatch-hover .chip { border-color: rgba(24,62,87,.35); }
+
+  /* ============ TUILE TYPOGRAPHIE ============ */
+  .cell--typo { grid-area: typo; }
+  .typo-pair {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 16px;
+  }
+  .typo-face {
+    flex: 1;
+    background: var(--bg-secondary);
+    border-radius: var(--r-s);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .typo-face .aa { font-size: 38px; line-height: 1; color: var(--marine); }
+  .typo-face--display .aa { font-family: var(--display); font-weight: 800; }
+  .typo-face--body .aa { font-family: var(--body); font-weight: 600; }
+  .typo-face .who { font: 700 13px/1.3 var(--body); color: var(--marine); }
+  .typo-face .role { font: 500 10.5px/1.4 var(--body); color: var(--text-tertiary); }
+
+  .type-scale { list-style: none; }
+  .type-scale li {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 7px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .type-scale li:last-child { border-bottom: none; }
+  .type-scale .spec {
+    flex: none;
+    width: 108px;
+    font: 600 10px/1.4 var(--body);
+    color: var(--text-tertiary);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .t-display { font: 800 42px/1.05 var(--display); color: var(--marine); letter-spacing: -.01em; }
+  .t-h1 { font: 800 30px/1.1 var(--display); color: var(--marine); }
+  .t-h2 { font: 700 22px/1.2 var(--display); color: var(--marine); }
+  .t-h3 { font: 700 17px/1.25 var(--display); color: var(--marine); }
+  .t-bodyl { font: 500 15px/1.4 var(--body); color: var(--text-secondary); }
+  .t-body { font: 400 13px/1.4 var(--body); color: var(--text-secondary); }
+  .t-caption { font: 600 11px/1.4 var(--body); color: var(--text-tertiary); letter-spacing: .04em; }
+
+  /* ============ TUILE RATIO ============ */
+  .cell--ratio { grid-area: ratio; }
+  .ratio-bar {
+    display: flex;
+    height: 30px;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .ratio-bar span { display: block; height: 100%; }
+  .ratio-legend { list-style: none; font: 500 10.5px/1.7 var(--body); color: var(--text-secondary); }
+  .ratio-legend li { display: flex; align-items: center; gap: 8px; }
+  .ratio-legend .dot { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+  .ratio-legend b { font-weight: 700; color: var(--marine); margin-left: auto; }
+
+  /* ============ TUILE GRADIENT ============ */
+  .cell--grad {
+    grid-area: grad;
+    background: linear-gradient(180deg, #fff9ec 0%, #fff3e0 32%, #f3f7fb 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 120px;
+  }
+  .grad-code {
+    font: 600 9.5px/1.6 ui-monospace, "SF Mono", Menlo, monospace;
+    color: var(--text-secondary);
+    background: rgba(255, 253, 249, .7);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+
+  /* ============ TUILE SÉMANTIQUE ============ */
+  .cell--sem { grid-area: sem; }
+  .sem-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .sem-item {
+    border-radius: var(--r-s);
+    padding: 12px 10px 10px;
+    color: #fffdf9;
+  }
+  .sem-item .nm { font: 700 11.5px/1 var(--body); display: block; }
+  .sem-item .hx { font: 500 10px/1 var(--body); opacity: .85; display: block; margin-top: 5px; letter-spacing: .04em; }
+  .sem--success { background: var(--success); }
+  .sem--danger  { background: var(--danger); }
+  .sem--warning { background: var(--warning); }
+  .sem--info    { background: var(--info); }
+
+  /* ============ TUILE NEUTRES ============ */
+  .cell--neutres { grid-area: neutres; }
+  .neutres-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .neutre {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .neutre .pad { height: 34px; }
+  .neutre .lbl {
+    padding: 6px 7px;
+    background: #fffdf9;
+    border-top: 1px solid var(--border);
+    font: 600 8.5px/1.35 var(--body);
+    color: var(--text-secondary);
+  }
+  .neutre .lbl small { display: block; color: var(--text-tertiary); font-weight: 500; letter-spacing: .03em; }
+
+  /* ============ TUILES MOOD ============ */
+  .mood {
+    border: none;
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+  }
+  .mood--1 { grid-area: mood1; }
+  .mood--2 { grid-area: mood2; }
+  .mood--3 { grid-area: mood3; }
+  .mood--4 { grid-area: mood4; min-height: 150px; }
+
+  /* Emplacements image teintés marque : duotone marine/sable/orange */
+  .mood--1 {
+    background:
+      repeating-linear-gradient(-45deg, rgba(252,219,129,.16) 0 14px, transparent 14px 28px),
+      radial-gradient(circle at 28% 22%, rgba(252, 219, 129, .5), transparent 55%),
+      linear-gradient(160deg, #1d4a67 0%, var(--marine) 70%);
+  }
+  .mood--2 {
+    background:
+      repeating-linear-gradient(45deg, rgba(255,253,249,.1) 0 14px, transparent 14px 28px),
+      radial-gradient(circle at 75% 18%, rgba(252, 219, 129, .55), transparent 50%),
+      linear-gradient(150deg, #e57a35 0%, var(--orange) 65%);
+  }
+  .mood--3 {
+    background:
+      repeating-linear-gradient(-45deg, rgba(24,62,87,.07) 0 14px, transparent 14px 28px),
+      radial-gradient(circle at 24% 80%, rgba(214, 94, 28, .28), transparent 55%),
+      linear-gradient(160deg, #fde6a4 0%, var(--sable) 70%);
+  }
+  .mood--4 {
+    background:
+      repeating-linear-gradient(45deg, rgba(252,219,129,.12) 0 14px, transparent 14px 28px),
+      radial-gradient(circle at 80% 75%, rgba(214, 94, 28, .45), transparent 55%),
+      linear-gradient(200deg, #2a5878 0%, var(--marine-hover) 75%);
+  }
+
+  .mood-frame {
+    position: absolute;
+    inset: 10px;
+    border: 1.5px dashed rgba(255, 253, 249, .5);
+    border-radius: calc(var(--r) - 8px);
+    pointer-events: none;
+  }
+  .mood--3 .mood-frame { border-color: rgba(24, 62, 87, .35); }
+
+  .mood-pin {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    font: 700 9px/1 var(--body);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    background: rgba(255, 253, 249, .92);
+    color: var(--marine);
+    padding: 6px 9px;
+    border-radius: 999px;
+  }
+  .mood-title {
+    font: 800 21px/1.1 var(--display);
+    color: #fffdf9;
+    position: relative;
+  }
+  .mood-cap {
+    font: 500 10.5px/1.45 var(--body);
+    color: rgba(255, 253, 249, .85);
+    margin-top: 5px;
+    position: relative;
+  }
+  .mood--3 .mood-title { color: var(--marine); }
+  .mood--3 .mood-cap { color: rgba(24, 62, 87, .75); }
+
+  /* ============ TUILE VARIANTES LOGO ============ */
+  .cell--variant { grid-area: variant; }
+  .variant-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .variant-slot {
+    border-radius: var(--r-s);
+    border: 1px solid var(--border);
+    padding: 12px 10px 10px;
+    text-align: center;
+  }
+  .variant-slot img { width: 64px; height: 64px; border-radius: 14px; }
+  .variant-slot--fond { background: var(--bg-secondary); }
+  .variant-slot--transparent {
+    background:
+      conic-gradient(#e9e7e1 25%, transparent 0 50%, #e9e7e1 0 75%, transparent 0) 0 0 / 16px 16px,
+      #fffdf9;
+  }
+  .variant-slot--icon { background: var(--marine); border-color: var(--marine-hover); }
+  .variant-slot .vn {
+    display: block;
+    margin-top: 8px;
+    font: 600 9.5px/1.4 var(--body);
+    color: var(--text-secondary);
+  }
+  .variant-slot--icon .vn { color: rgba(255, 253, 249, .85); }
+
+  /* ---- Pied de planche ---- */
+  .board-foot {
+    margin-top: 18px;
+    padding: 0 6px;
+    display: flex;
+    justify-content: space-between;
+    font: 500 10.5px/1.6 var(--body);
+    color: var(--text-tertiary);
+  }
+
+  /* ============ IMPRESSION A4 PORTRAIT ============ */
+  @page { size: A4 portrait; margin: 9mm; }
+
+  @media print {
+    html, body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      padding: 0;
+      background:
+        linear-gradient(180deg, #fff9ec 0%, #fff3e0 32%, #f3f7fb 100%) no-repeat,
+        var(--bg-main);
+      background-size: 100% 380px, auto;
+    }
+    .board { zoom: 0.655; }
+    .cell { box-shadow: none; break-inside: avoid; }
+    .bento { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="board">
+
+  <header class="board-head">
+    <div>
+      <div class="kicker">Identité visuelle · Variante 07</div>
+      <h1>Brand board — Bento modulaire</h1>
+    </div>
+    <div class="meta">
+      TempsPourTemps · TpT<br>
+      Planche de référence · juin 2026
+    </div>
+  </header>
+
+  <main class="bento">
+
+    <!-- LOCKUP LOGO -->
+    <section class="cell cell--logo">
+      <div class="cell-label">Lockup principal</div>
+      <div class="lockup">
+        <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps — monogramme tpt sable sur carré marine">
+        <div>
+          <div class="lockup-name">Temps<em>Pour</em>Temps</div>
+          <div class="lockup-sub">« Échangez du temps, pas de l’argent »</div>
+        </div>
+      </div>
+      <div class="lockup-note">
+        <strong>Construction.</strong> Monogramme « tpt » en jaune sable sur carré marine.
+        La signature de la marque : le <strong>cercle marine au centre du « p »</strong>,
+        clin d’œil au cadran d’horloge et au point de rencontre.
+      </div>
+    </section>
+
+    <!-- TAGLINE -->
+    <section class="cell cell--tag">
+      <div class="cell-label">Tagline</div>
+      <p class="tagline">Échangez du <em>temps</em>, pas de l’argent.</p>
+    </section>
+
+    <!-- MISSION -->
+    <section class="cell cell--mission">
+      <div class="cell-label">Mission &amp; ton</div>
+      <p class="mission-txt">Reconnecter le voisinage par l’entraide concrète.</p>
+      <p class="mission-perso">Personnalité : <strong>voisin·e bienveillant·e</strong> + <strong>animateur·rice de quartier</strong>. Chaleureux, direct, jamais corporate.</p>
+    </section>
+
+    <!-- COULEURS SIGNATURE -->
+    <section class="cell swatch swatch--marine">
+      <div class="cell-label">Signature 1</div>
+      <div>
+        <div class="swatch-name">Marine</div>
+        <div class="swatch-hex">#183E57</div>
+        <div class="swatch-hover"><span class="chip" style="background:#0f2f44"></span>hover #0F2F44</div>
+      </div>
+    </section>
+
+    <section class="cell swatch swatch--orange">
+      <div class="cell-label">Signature 2</div>
+      <div>
+        <div class="swatch-name">Orange brûlée</div>
+        <div class="swatch-hex">#D65E1C</div>
+        <div class="swatch-hover"><span class="chip" style="background:#b84e17"></span>hover #B84E17</div>
+      </div>
+    </section>
+
+    <section class="cell swatch swatch--sable">
+      <div class="cell-label">Signature 3</div>
+      <div>
+        <div class="swatch-name">Jaune sable</div>
+        <div class="swatch-hex">#FCDB81</div>
+        <div class="swatch-hover"><span class="chip" style="background:#f5cb5c"></span>hover #F5CB5C</div>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHIE -->
+    <section class="cell cell--typo">
+      <div class="cell-label">Typographie</div>
+      <div class="typo-pair">
+        <div class="typo-face typo-face--display">
+          <span class="aa">Aa</span>
+          <span><span class="who">Nunito Rounded</span><br><span class="role">Titres · 700 / 800</span></span>
+        </div>
+        <div class="typo-face typo-face--body">
+          <span class="aa">Aa</span>
+          <span><span class="who">Inter</span><br><span class="role">Corps · 400 / 500 / 600 / 700</span></span>
+        </div>
+      </div>
+      <ul class="type-scale">
+        <li><span class="spec">Display XL · 56/36</span><span class="t-display">Bonjour voisin·e !</span></li>
+        <li><span class="spec">H1 · 40/28</span><span class="t-h1">Une heure donnée, une heure reçue</span></li>
+        <li><span class="spec">H2 · 28/22</span><span class="t-h2">Les services près de chez vous</span></li>
+        <li><span class="spec">H3 · 20/18</span><span class="t-h3">Jardinage, bricolage, garde d’animaux</span></li>
+        <li><span class="spec">Body L · 18</span><span class="t-bodyl">Camille a proposé 2 heures de cours de couture à Malik.</span></li>
+        <li><span class="spec">Body · 16</span><span class="t-body">Chaque échange crédite votre compte-temps, sans argent ni commission.</span></li>
+        <li><span class="spec">Caption · 12</span><span class="t-caption">DERNIER ÉCHANGE IL Y A 12 MIN · QUARTIER SAINT-LEU</span></li>
+      </ul>
+    </section>
+
+    <!-- RATIO -->
+    <section class="cell cell--ratio">
+      <div class="cell-label">Ratio d’usage</div>
+      <div class="ratio-bar">
+        <span style="width:60%; background:#f7f6f3; border-right:1px solid var(--border)"></span>
+        <span style="width:25%; background:var(--marine)"></span>
+        <span style="width:10%; background:var(--sable)"></span>
+        <span style="width:5%;  background:var(--orange)"></span>
+      </div>
+      <ul class="ratio-legend">
+        <li><span class="dot" style="background:#f7f6f3; border:1px solid var(--border)"></span>Neutres — fonds, surfaces<b>60&nbsp;%</b></li>
+        <li><span class="dot" style="background:var(--marine)"></span>Marine — texte, structure<b>25&nbsp;%</b></li>
+        <li><span class="dot" style="background:var(--sable)"></span>Sable — accents chaleureux<b>10&nbsp;%</b></li>
+        <li><span class="dot" style="background:var(--orange)"></span>Orange — actions clés<b>5&nbsp;%</b></li>
+      </ul>
+    </section>
+
+    <!-- GRADIENT -->
+    <section class="cell cell--grad">
+      <div class="cell-label">Gradient de marque</div>
+      <div class="grad-code">linear-gradient(180deg,<br>&nbsp;&nbsp;#FFF9EC 0%, #FFF3E0 32%, #F3F7FB 100%)</div>
+    </section>
+
+    <!-- SÉMANTIQUE -->
+    <section class="cell cell--sem">
+      <div class="cell-label">Couleurs sémantiques</div>
+      <div class="sem-row">
+        <div class="sem-item sem--success"><span class="nm">Success</span><span class="hx">#4A9D5F</span></div>
+        <div class="sem-item sem--danger"><span class="nm">Danger</span><span class="hx">#C44536</span></div>
+        <div class="sem-item sem--warning"><span class="nm">Warning</span><span class="hx">#D97706</span></div>
+        <div class="sem-item sem--info"><span class="nm">Info</span><span class="hx">#183E57</span></div>
+      </div>
+    </section>
+
+    <!-- NEUTRES -->
+    <section class="cell cell--neutres">
+      <div class="cell-label">Neutres</div>
+      <div class="neutres-row">
+        <div class="neutre"><div class="pad" style="background:#f7f6f3"></div><div class="lbl">Bg main<small>#F7F6F3</small></div></div>
+        <div class="neutre"><div class="pad" style="background:#f3f3f5"></div><div class="lbl">Bg second.<small>#F3F3F5</small></div></div>
+        <div class="neutre"><div class="pad" style="background:#fdf1d7"></div><div class="lbl">Bg hover<small>#FDF1D7</small></div></div>
+        <div class="neutre"><div class="pad" style="background:#4b5563"></div><div class="lbl">Text sec.<small>#4B5563</small></div></div>
+        <div class="neutre"><div class="pad" style="background:#717182"></div><div class="lbl">Text tert.<small>#717182</small></div></div>
+        <div class="neutre"><div class="pad" style="background:#d6dbe2"></div><div class="lbl">Border<small>#D6DBE2</small></div></div>
+      </div>
+    </section>
+
+    <!-- MOOD / APPLICATIONS -->
+    <section class="cell mood mood--1">
+      <div class="mood-frame"></div>
+      <span class="mood-pin">Photo · duotone marine</span>
+      <div class="mood-title">Voisinage</div>
+      <div class="mood-cap">Portraits de voisin·es, pas de banque d’images froide.</div>
+    </section>
+
+    <section class="cell mood mood--2">
+      <div class="mood-frame"></div>
+      <span class="mood-pin">Photo · teinte orange</span>
+      <div class="mood-title">Entraide</div>
+      <div class="mood-cap">Mains qui aident : bricolage, courses, coup de main.</div>
+    </section>
+
+    <section class="cell mood mood--3">
+      <div class="mood-frame"></div>
+      <span class="mood-pin">Photo · lumière sable</span>
+      <div class="mood-title">Échange de temps</div>
+      <div class="mood-cap">Une heure donnée = une heure reçue, en pleine lumière.</div>
+    </section>
+
+    <!-- VARIANTES LOGO -->
+    <section class="cell cell--variant">
+      <div class="cell-label">Déclinaisons du logo</div>
+      <div class="variant-row">
+        <div class="variant-slot variant-slot--fond">
+          <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo principal sur fond marine">
+          <span class="vn">Principal<br>logo-tpt-fond.png</span>
+        </div>
+        <div class="variant-slot variant-slot--transparent">
+          <img src="../../assets/logo/logo-tpt-transparent.png" alt="Logo sur fond transparent">
+          <span class="vn">Transparent<br>logo-tpt-transparent.png</span>
+        </div>
+        <div class="variant-slot variant-slot--icon">
+          <img src="../../assets/logo/icon-pwa-512.png" alt="Icône PWA 512 pixels">
+          <span class="vn">Icône PWA<br>icon-pwa-512.png</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell mood mood--4">
+      <div class="mood-frame"></div>
+      <span class="mood-pin">Photo · marine profond</span>
+      <div class="mood-title">Quartier</div>
+      <div class="mood-cap">Rues vivantes, marchés, places — le terrain de jeu de TpT.</div>
+    </section>
+
+  </main>
+
+  <footer class="board-foot">
+    <span>TempsPourTemps — plateforme d’échange de temps et d’entraide entre voisins</span>
+    <span>variante-07-bento · ratio 60 / 25 / 10 / 5</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

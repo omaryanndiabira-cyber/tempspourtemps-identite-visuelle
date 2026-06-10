@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Identité visuelle · Variante 03 · Swiss / Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TEMPSPOURTEMPS — BRAND BOARD · VARIANTE 03
+   Style international suisse · grille 12 colonnes · fiche technique
+   ============================================================ */
+
+:root{
+  /* — Signature — */
+  --marine:#183e57;
+  --marine-hover:#0f2f44;
+  --orange:#d65e1c;
+  --orange-hover:#b84e17;
+  --sable:#fcdb81;
+  --sable-hover:#f5cb5c;
+  /* — Sémantique — */
+  --success:#4a9d5f;
+  --danger:#c44536;
+  --warning:#d97706;
+  --info:#183e57;
+  /* — Neutres — */
+  --bg-main:#f7f6f3;
+  --bg-secondary:#f3f3f5;
+  --bg-hover:#fdf1d7;
+  --text-secondary:#4b5563;
+  --text-tertiary:#717182;
+  --border:#d6dbe2;
+  /* — Gradient — */
+  --grad-marque:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+  /* — Système — */
+  --ink:var(--marine);
+  --hairline:1px solid var(--marine);
+  --hairline-soft:1px solid var(--border);
+  --font-display:"Nunito",ui-rounded,sans-serif;   /* libellé marque : Nunito Rounded */
+  --font-body:"Inter",sans-serif;
+  --font-mono:"JetBrains Mono",monospace;
+  --col-gap:16px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{background:#e8e6e0;}
+
+body{
+  font-family:var(--font-body);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.5;
+  color:var(--ink);
+  background:#e8e6e0;
+  -webkit-font-smoothing:antialiased;
+}
+
+.page{
+  max-width:1040px;
+  margin:0 auto;
+  background:var(--bg-main);
+  position:relative;
+  padding:56px 56px 40px;
+  box-shadow:0 0 0 1px rgba(24,62,87,.08),0 24px 64px rgba(24,62,87,.10);
+}
+
+/* Grille de construction visible — 12 colonnes, repère documentaire */
+.page::before{
+  content:"";
+  position:absolute;
+  inset:0 56px;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(24,62,87,.045) 0,
+      rgba(24,62,87,.045) 1px,
+      transparent 1px,
+      transparent calc((100% + var(--col-gap)) / 12)
+    );
+  background-clip:content-box;
+  z-index:0;
+}
+.page > *{position:relative;z-index:1;}
+
+/* ---------- primitives grille ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:0 var(--col-gap);
+}
+.mono{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.02em;
+  font-weight:400;
+}
+.mono-s{font-family:var(--font-mono);font-size:10px;letter-spacing:.02em;}
+.rule{border:0;border-top:var(--hairline);margin:0;}
+.rule-soft{border:0;border-top:var(--hairline-soft);margin:0;}
+
+/* ---------- en-tête de section ---------- */
+.section{margin-top:44px;}
+.section-head{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:0 var(--col-gap);
+  align-items:baseline;
+  border-top:2px solid var(--marine);
+  padding-top:8px;
+  margin-bottom:24px;
+}
+.section-head .no{grid-column:1 / span 1;}
+.section-head .ttl{
+  grid-column:2 / span 7;
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:15px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.section-head .ref{grid-column:9 / span 4;text-align:right;color:var(--text-tertiary);}
+
+/* ============================================================
+   00 · CARTOUCHE
+   ============================================================ */
+.cartouche{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:0 var(--col-gap);
+  align-items:baseline;
+  border-bottom:var(--hairline);
+  padding-bottom:12px;
+}
+.cartouche .doc{grid-column:1 / span 5;}
+.cartouche .meta{grid-column:6 / span 7;display:flex;justify-content:flex-end;gap:28px;color:var(--text-tertiary);}
+.cartouche .meta span b{color:var(--marine);font-weight:500;}
+
+/* ============================================================
+   01 · LOCKUP
+   ============================================================ */
+.lockup{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:0 var(--col-gap);
+  align-items:end;
+  padding:48px 0 44px;
+  border-bottom:var(--hairline);
+}
+.lockup .mark{grid-column:1 / span 3;}
+.lockup .mark img{
+  display:block;
+  width:100%;
+  max-width:200px;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:24px;
+}
+.lockup .name{grid-column:4 / span 9;padding-left:8px;}
+.lockup .surtitre{
+  display:flex;align-items:center;gap:12px;
+  color:var(--text-tertiary);margin-bottom:14px;
+}
+.lockup .surtitre::after{content:"";flex:1;border-top:var(--hairline-soft);}
+.lockup h1{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:56px;
+  line-height:1.02;
+  letter-spacing:-0.015em;
+}
+.lockup h1 .pour{color:var(--orange);}
+.lockup .tagline{
+  margin-top:14px;
+  font-size:18px;
+  font-weight:500;
+  color:var(--text-secondary);
+}
+.lockup .tagline mark{
+  background:var(--sable);
+  color:var(--marine);
+  padding:1px 6px;
+}
+.mission-row{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:0 var(--col-gap);
+  padding:14px 0;border-bottom:var(--hairline);
+}
+.mission-row .k{grid-column:1 / span 3;color:var(--text-tertiary);}
+.mission-row .v{grid-column:4 / span 9;font-size:14px;color:var(--text-secondary);padding-left:8px;}
+.mission-row .v strong{color:var(--marine);font-weight:600;}
+
+/* ============================================================
+   02 · LOGO
+   ============================================================ */
+.logo-table{display:grid;grid-template-columns:repeat(12,1fr);gap:0 var(--col-gap);}
+.logo-cell{
+  grid-column:span 4;
+  border-top:var(--hairline-soft);
+  padding-top:12px;
+}
+.logo-cell .frame{
+  height:170px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:12px;
+}
+.logo-cell .frame.f-plain{background:#fff;border:var(--hairline-soft);}
+.logo-cell .frame.f-check{
+  border:var(--hairline-soft);
+  background:
+    conic-gradient(rgba(24,62,87,.07) 90deg,transparent 90deg 180deg,rgba(24,62,87,.07) 180deg 270deg,transparent 270deg) 0 0/20px 20px,
+    #fff;
+}
+.logo-cell .frame.f-marine{background:var(--marine);}
+.logo-cell .frame img{max-height:118px;max-width:70%;display:block;}
+.logo-cell .frame img.sq{border-radius:18px;}
+.logo-cell dl{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;}
+.logo-cell dt{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;}
+.logo-cell dd{font-family:var(--font-mono);font-size:10px;color:var(--marine);text-align:right;}
+.logo-note{
+  margin-top:20px;
+  display:grid;grid-template-columns:repeat(12,1fr);gap:0 var(--col-gap);
+  border-top:var(--hairline-soft);padding-top:10px;
+}
+.logo-note .k{grid-column:1 / span 3;color:var(--text-tertiary);}
+.logo-note .v{grid-column:4 / span 9;font-size:13px;color:var(--text-secondary);padding-left:8px;}
+
+/* ============================================================
+   03 · COULEURS
+   ============================================================ */
+.swatch-group{margin-bottom:26px;}
+.swatch-group-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:10px;color:var(--text-tertiary);
+}
+.swatches{display:grid;grid-template-columns:repeat(12,1fr);gap:14px var(--col-gap);}
+.sw{grid-column:span 4;}
+.sw-n{grid-column:span 3;}
+.sw .chip{
+  height:72px;
+  border:1px solid rgba(24,62,87,.14);
+  position:relative;
+}
+.sw-n .chip{height:52px;}
+.sw .chip .hover-dot{
+  position:absolute;right:8px;bottom:8px;
+  width:16px;height:16px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.55);
+}
+.sw .spec{
+  display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:var(--hairline-soft);
+  padding:7px 0 5px;
+}
+.sw .spec .nm{font-size:12px;font-weight:600;}
+.sw .spec .hx{font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);text-transform:uppercase;}
+.sw .sub{
+  display:flex;justify-content:space-between;
+  padding-top:5px;
+  font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);
+}
+/* ratio 60-25-10-5 */
+.ratio{margin-top:6px;}
+.ratio-bar{
+  display:flex;height:34px;
+  border:1px solid rgba(24,62,87,.18);
+}
+.ratio-bar i{display:block;height:100%;}
+.ratio-legend{
+  display:flex;margin-top:8px;
+  font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);
+}
+.ratio-legend span{display:flex;align-items:center;gap:6px;}
+.ratio-legend b{color:var(--marine);font-weight:500;}
+/* gradient */
+.grad-row{display:grid;grid-template-columns:repeat(12,1fr);gap:0 var(--col-gap);margin-top:26px;}
+.grad-row .chip{
+  grid-column:1 / span 8;
+  height:64px;
+  border:1px solid rgba(24,62,87,.14);
+  background:var(--grad-marque);
+}
+.grad-row .spec{
+  grid-column:9 / span 4;
+  font-family:var(--font-mono);font-size:10px;line-height:1.7;
+  color:var(--text-secondary);
+  border-top:var(--hairline-soft);padding-top:6px;
+}
+.grad-row .spec em{font-style:normal;color:var(--text-tertiary);}
+
+/* ============================================================
+   04 · TYPOGRAPHIE
+   ============================================================ */
+.type-families{display:grid;grid-template-columns:repeat(12,1fr);gap:0 var(--col-gap);margin-bottom:30px;}
+.type-fam{grid-column:span 4;border-top:var(--hairline-soft);padding-top:14px;}
+.type-fam .aa{
+  font-size:64px;line-height:1;
+  margin:6px 0 14px;
+}
+.type-fam.f-display .aa{font-family:var(--font-display);font-weight:800;}
+.type-fam.f-body .aa{font-family:var(--font-body);font-weight:600;}
+.type-fam.f-mono .aa{font-family:var(--font-mono);font-weight:500;font-size:56px;padding-top:8px;}
+.type-fam .fam-name{font-size:13px;font-weight:600;}
+.type-fam .fam-use{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+.type-fam .fam-weights{margin-top:8px;color:var(--text-tertiary);}
+.type-fam .abc{
+  margin-top:12px;border-top:var(--hairline-soft);padding-top:8px;
+  font-size:12px;color:var(--text-tertiary);
+  letter-spacing:.04em;word-break:break-all;line-height:1.6;
+}
+.type-fam.f-mono .abc{font-family:var(--font-mono);font-size:11px;}
+
+/* hiérarchie */
+.type-scale-head,
+.type-row{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:0 var(--col-gap);
+  align-items:baseline;
+}
+.type-scale-head{
+  border-bottom:var(--hairline);
+  padding-bottom:6px;
+  color:var(--text-tertiary);
+  text-transform:uppercase;
+}
+.type-scale-head .c1,.type-row .c1{grid-column:1 / span 2;}
+.type-scale-head .c2,.type-row .c2{grid-column:3 / span 7;}
+.type-scale-head .c3,.type-row .c3{grid-column:10 / span 2;text-align:right;}
+.type-scale-head .c4,.type-row .c4{grid-column:12 / span 1;text-align:right;}
+.type-row{border-bottom:var(--hairline-soft);padding:12px 0;}
+.type-row .c1{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);}
+.type-row .c1 b{display:block;font-weight:500;color:var(--marine);font-size:11px;}
+.type-row .c2{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.type-row .c3,.type-row .c4{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);}
+.t-dxl{font-family:var(--font-display);font-weight:800;font-size:56px;line-height:1.05;letter-spacing:-0.015em;}
+.t-h1 {font-family:var(--font-display);font-weight:800;font-size:40px;line-height:1.1;letter-spacing:-0.01em;}
+.t-h2 {font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1.15;}
+.t-h3 {font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1.25;}
+.t-bl {font-size:18px;font-weight:400;}
+.t-b  {font-size:16px;font-weight:400;}
+.t-bs {font-size:14px;font-weight:400;color:var(--text-secondary);}
+.t-cap{font-size:12px;font-weight:500;color:var(--text-tertiary);letter-spacing:.05em;text-transform:uppercase;}
+
+/* ============================================================
+   05 · SPÉCIFICATIONS
+   ============================================================ */
+.specs{display:grid;grid-template-columns:repeat(12,1fr);gap:0 var(--col-gap);}
+.spec-col{grid-column:span 6;}
+.spec-col h4{
+  font-family:var(--font-mono);font-weight:500;font-size:11px;
+  text-transform:uppercase;letter-spacing:.08em;
+  border-bottom:var(--hairline);padding-bottom:6px;margin-bottom:12px;
+}
+.space-row{
+  display:grid;grid-template-columns:64px 1fr 44px;gap:0 12px;
+  align-items:center;padding:4px 0;
+}
+.space-row .tok{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);}
+.space-row .bar{height:12px;background:var(--marine);}
+.space-row:nth-child(odd) .bar{background:var(--orange);}
+.space-row .px{font-family:var(--font-mono);font-size:10px;color:var(--marine);text-align:right;}
+.kv{display:grid;grid-template-columns:1fr auto;gap:0 16px;}
+.kv > div{
+  display:contents;
+}
+.kv .k{font-size:12px;color:var(--text-secondary);padding:6px 0;border-bottom:var(--hairline-soft);}
+.kv .v{font-family:var(--font-mono);font-size:10.5px;color:var(--marine);padding:8px 0 6px;border-bottom:var(--hairline-soft);text-align:right;}
+
+/* ============================================================
+   06 · APPLICATION / UNIVERS
+   ============================================================ */
+.mood{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--col-gap);}
+.mood-card{
+  grid-column:span 3;
+  height:236px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:14px;
+  border:1px solid rgba(24,62,87,.16);
+  position:relative;
+}
+.mood-card .idx{font-family:var(--font-mono);font-size:10px;opacity:.65;}
+.mood-card svg{width:44px;height:44px;display:block;}
+.mood-card .lbl{
+  font-family:var(--font-display);font-weight:800;font-size:17px;line-height:1.2;
+}
+.mood-card .cap{font-family:var(--font-mono);font-size:9.5px;margin-top:4px;opacity:.7;}
+.mc-marine{background:var(--marine);color:var(--bg-main);}
+.mc-marine .idx{color:var(--sable);opacity:1;}
+.mc-sable{background:var(--sable);color:var(--marine);}
+.mc-grad{background:var(--grad-marque);color:var(--marine);}
+.mc-hover{background:var(--bg-hover);color:var(--marine);}
+.mc-hover .lbl em{font-style:normal;color:var(--orange);}
+/* points de trame en coin — clin d'œil grille */
+.mood-card::after{
+  content:"";
+  position:absolute;top:14px;right:14px;
+  width:18px;height:18px;
+  background:radial-gradient(circle 1.5px,currentColor 1.4px,transparent 1.6px) 0 0/6px 6px;
+  opacity:.5;
+}
+.voice-row{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:0 var(--col-gap);
+  margin-top:24px;border-top:var(--hairline-soft);padding-top:12px;
+}
+.voice-row .k{grid-column:1 / span 3;color:var(--text-tertiary);}
+.voice-row .v{grid-column:4 / span 9;font-size:13px;color:var(--text-secondary);padding-left:8px;}
+.voice-row .v strong{color:var(--marine);font-weight:600;}
+
+/* ============================================================
+   PIED DE PLANCHE
+   ============================================================ */
+.colophon{
+  margin-top:48px;
+  border-top:2px solid var(--marine);
+  padding-top:10px;
+  display:grid;grid-template-columns:repeat(12,1fr);gap:0 var(--col-gap);
+  color:var(--text-tertiary);
+}
+.colophon .l{grid-column:1 / span 6;}
+.colophon .r{grid-column:7 / span 6;text-align:right;}
+
+/* ============================================================
+   IMPRESSION — A4 PORTRAIT
+   ============================================================ */
+@page{size:A4 portrait;margin:10mm;}
+@media print{
+  html,body{background:#fff;}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .page{
+    max-width:none;width:100%;
+    box-shadow:none;
+    padding:8mm 6mm;
+  }
+  .page::before{inset:0 6mm;}
+  .section{break-inside:avoid;margin-top:26px;}
+  .lockup{padding:24px 0;}
+  .lockup h1{font-size:44px;}
+  .t-dxl{font-size:44px;}
+  .mood-card{height:200px;}
+  .colophon{margin-top:24px;}
+}
+
+@media (max-width:760px){
+  .page{padding:28px 20px;}
+  .page::before{display:none;}
+  .sw,.sw-n,.logo-cell,.type-fam,.spec-col{grid-column:span 12;}
+  .mood-card{grid-column:span 6;}
+  .lockup .mark{grid-column:1 / span 12;margin-bottom:20px;}
+  .lockup .name{grid-column:1 / span 12;padding-left:0;}
+  .lockup h1{font-size:38px;}
+  .t-dxl{font-size:36px;}
+  .cartouche .meta{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ════════ CARTOUCHE ════════ -->
+  <header class="cartouche">
+    <div class="doc mono">TPT–IDV–03 · PLANCHE D'IDENTITÉ · SWISS / GRID</div>
+    <div class="meta mono">
+      <span>FORMAT <b>A4 PORTRAIT</b></span>
+      <span>GRILLE <b>12 COL / 16PX</b></span>
+      <span>VERSION <b>1.0 — 06.2026</b></span>
+    </div>
+  </header>
+
+  <!-- ════════ 01 · LOCKUP ════════ -->
+  <div class="lockup">
+    <div class="mark">
+      <img src="../../assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps — monogramme tpt sable sur carré marine">
+    </div>
+    <div class="name">
+      <div class="surtitre mono">PLATEFORME D'ÉCHANGE DE TEMPS ENTRE VOISINS</div>
+      <h1>Temps<span class="pour">Pour</span>Temps</h1>
+      <p class="tagline">« Échangez <mark>du temps</mark>, pas de l'argent »</p>
+    </div>
+  </div>
+  <div class="mission-row">
+    <div class="k mono">MISSION</div>
+    <div class="v">Reconnecter le voisinage par <strong>l'entraide concrète</strong>.</div>
+  </div>
+  <div class="mission-row">
+    <div class="k mono">PERSONNALITÉ</div>
+    <div class="v"><strong>Voisin·e bienveillant·e</strong> + <strong>animateur·rice de quartier</strong> — chaleureux, direct, jamais corporate.</div>
+  </div>
+
+  <!-- ════════ 02 · LOGO ════════ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="no mono">02</span>
+      <span class="ttl">Logo &amp; déclinaisons</span>
+      <span class="ref mono">RÉF. /assets/logo/</span>
+    </div>
+    <div class="logo-table">
+      <div class="logo-cell">
+        <div class="frame f-plain"><img class="sq" src="../../assets/logo/logo-tpt-fond.png" alt="Logo principal sur fond marine"></div>
+        <dl>
+          <dt>Usage</dt><dd>PRINCIPAL</dd>
+          <dt>Fichier</dt><dd>logo-tpt-fond.png</dd>
+          <dt>Fond</dt><dd>CARRÉ MARINE #183E57</dd>
+        </dl>
+      </div>
+      <div class="logo-cell">
+        <div class="frame f-check"><img src="../../assets/logo/logo-tpt-transparent.png" alt="Logo transparent sur fond quadrillé"></div>
+        <dl>
+          <dt>Usage</dt><dd>FONDS CLAIRS / PHOTO</dd>
+          <dt>Fichier</dt><dd>logo-tpt-transparent.png</dd>
+          <dt>Fond</dt><dd>TRANSPARENT (ALPHA)</dd>
+        </dl>
+      </div>
+      <div class="logo-cell">
+        <div class="frame f-marine"><img class="sq" src="../../assets/logo/icon-pwa-512.png" alt="Icône PWA 512 pixels"></div>
+        <dl>
+          <dt>Usage</dt><dd>ICÔNE APP / PWA</dd>
+          <dt>Fichier</dt><dd>icon-pwa-512.png</dd>
+          <dt>Taille</dt><dd>512 × 512 PX</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="logo-note">
+      <div class="k mono">CONSTRUCTION</div>
+      <div class="v">Monogramme « tpt » <strong>sable sur carré marine</strong>. Signature : un <strong>cercle marine au centre du « p »</strong> — le cadran d'une horloge, le point de rencontre du quartier.</div>
+    </div>
+  </section>
+
+  <!-- ════════ 03 · COULEURS ════════ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="no mono">03</span>
+      <span class="ttl">Palette chromatique</span>
+      <span class="ref mono">ESPACE sRGB / HEX</span>
+    </div>
+
+    <!-- Signature -->
+    <div class="swatch-group">
+      <div class="swatch-group-head">
+        <span class="mono">03.1 — COULEURS SIGNATURE</span>
+        <span class="mono-s">PASTILLE = ÉTAT HOVER</span>
+      </div>
+      <div class="swatches">
+        <div class="sw">
+          <div class="chip" style="background:#183e57;"><span class="hover-dot" style="background:#0f2f44;"></span></div>
+          <div class="spec"><span class="nm">Marine</span><span class="hx">#183E57</span></div>
+          <div class="sub"><span>hover #0F2F44</span><span>R24 G62 B87</span></div>
+        </div>
+        <div class="sw">
+          <div class="chip" style="background:#d65e1c;"><span class="hover-dot" style="background:#b84e17;"></span></div>
+          <div class="spec"><span class="nm">Orange brûlée</span><span class="hx">#D65E1C</span></div>
+          <div class="sub"><span>hover #B84E17</span><span>R214 G94 B28</span></div>
+        </div>
+        <div class="sw">
+          <div class="chip" style="background:#fcdb81;"><span class="hover-dot" style="background:#f5cb5c;border-color:rgba(24,62,87,.3);"></span></div>
+          <div class="spec"><span class="nm">Jaune sable</span><span class="hx">#FCDB81</span></div>
+          <div class="sub"><span>hover #F5CB5C</span><span>R252 G219 B129</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sémantique -->
+    <div class="swatch-group">
+      <div class="swatch-group-head">
+        <span class="mono">03.2 — COULEURS SÉMANTIQUES</span>
+        <span class="mono-s">FEEDBACK UI</span>
+      </div>
+      <div class="swatches">
+        <div class="sw sw-n">
+          <div class="chip" style="background:#4a9d5f;"></div>
+          <div class="spec"><span class="nm">Success</span><span class="hx">#4A9D5F</span></div>
+        </div>
+        <div class="sw sw-n">
+          <div class="chip" style="background:#c44536;"></div>
+          <div class="spec"><span class="nm">Danger</span><span class="hx">#C44536</span></div>
+        </div>
+        <div class="sw sw-n">
+          <div class="chip" style="background:#d97706;"></div>
+          <div class="spec"><span class="nm">Warning</span><span class="hx">#D97706</span></div>
+        </div>
+        <div class="sw sw-n">
+          <div class="chip" style="background:#183e57;"></div>
+          <div class="spec"><span class="nm">Info</span><span class="hx">#183E57</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Neutres -->
+    <div class="swatch-group">
+      <div class="swatch-group-head">
+        <span class="mono">03.3 — NEUTRES</span>
+        <span class="mono-s">FONDS · TEXTES · FILETS</span>
+      </div>
+      <div class="swatches">
+        <div class="sw sw-n">
+          <div class="chip" style="background:#f7f6f3;"></div>
+          <div class="spec"><span class="nm">Bg main</span><span class="hx">#F7F6F3</span></div>
+        </div>
+        <div class="sw sw-n">
+          <div class="chip" style="background:#f3f3f5;"></div>
+          <div class="spec"><span class="nm">Bg secondary</span><span class="hx">#F3F3F5</span></div>
+        </div>
+        <div class="sw sw-n">
+          <div class="chip" style="background:#fdf1d7;"></div>
+          <div class="spec"><span class="nm">Bg hover</span><span class="hx">#FDF1D7</span></div>
+        </div>
+        <div class="sw sw-n">
+          <div class="chip" style="background:#d6dbe2;"></div>
+          <div class="spec"><span class="nm">Border</span><span class="hx">#D6DBE2</span></div>
+        </div>
+        <div class="sw sw-n">
+          <div class="chip" style="background:#4b5563;"></div>
+          <div class="spec"><span class="nm">Text secondary</span><span class="hx">#4B5563</span></div>
+        </div>
+        <div class="sw sw-n">
+          <div class="chip" style="background:#717182;"></div>
+          <div class="spec"><span class="nm">Text tertiary</span><span class="hx">#717182</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ratio -->
+    <div class="swatch-group ratio">
+      <div class="swatch-group-head">
+        <span class="mono">03.4 — RÉPARTITION D'USAGE</span>
+        <span class="mono-s">60 / 25 / 10 / 5</span>
+      </div>
+      <div class="ratio-bar">
+        <i style="width:60%;background:#f7f6f3;"></i>
+        <i style="width:25%;background:#183e57;"></i>
+        <i style="width:10%;background:#fcdb81;"></i>
+        <i style="width:5%;background:#d65e1c;"></i>
+      </div>
+      <div class="ratio-legend">
+        <span style="width:60%;"><b>60</b> NEUTRES</span>
+        <span style="width:25%;"><b>25</b> MARINE</span>
+        <span style="width:10%;"><b>10</b> SABLE</span>
+        <span style="width:5%;"><b>5</b> ORANGE</span>
+      </div>
+    </div>
+
+    <!-- Gradient -->
+    <div class="grad-row">
+      <div class="chip"></div>
+      <div class="spec mono">
+        <em>03.5 — GRADIENT DE MARQUE</em><br>
+        linear-gradient(180deg,<br>
+        &nbsp;&nbsp;#FFF9EC 0%,<br>
+        &nbsp;&nbsp;#FFF3E0 32%,<br>
+        &nbsp;&nbsp;#F3F7FB 100%)
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 04 · TYPOGRAPHIE ════════ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="no mono">04</span>
+      <span class="ttl">Système typographique</span>
+      <span class="ref mono">3 FAMILLES / 8 NIVEAUX</span>
+    </div>
+
+    <div class="type-families">
+      <div class="type-fam f-display">
+        <div class="mono-s" style="color:var(--text-tertiary);">04.1 — TITRAGE</div>
+        <div class="aa">Aa</div>
+        <div class="fam-name">Nunito Rounded</div>
+        <div class="fam-use">Titres, lockup, boutons forts</div>
+        <div class="fam-weights mono">BOLD 700 · EXTRABOLD 800</div>
+        <div class="abc" style="font-family:var(--font-display);font-weight:700;">ABCDEFGHIJKLM abcdefghijklm 0123456789 éàçœ</div>
+      </div>
+      <div class="type-fam f-body">
+        <div class="mono-s" style="color:var(--text-tertiary);">04.2 — TEXTE COURANT</div>
+        <div class="aa">Aa</div>
+        <div class="fam-name">Inter</div>
+        <div class="fam-use">Corps, interface, formulaires</div>
+        <div class="fam-weights mono">400 · 500 · 600 · 700</div>
+        <div class="abc">ABCDEFGHIJKLM abcdefghijklm 0123456789 éàçœ</div>
+      </div>
+      <div class="type-fam f-mono">
+        <div class="mono-s" style="color:var(--text-tertiary);">04.3 — DONNÉES TECHNIQUES</div>
+        <div class="aa">Aa</div>
+        <div class="fam-name">JetBrains Mono</div>
+        <div class="fam-use">Hex, tokens, spécifications</div>
+        <div class="fam-weights mono">400 · 500 · 700</div>
+        <div class="abc">ABCDEFGHIJKLM abcdefghijklm 0123456789 #=&gt;{}</div>
+      </div>
+    </div>
+
+    <div class="type-scale-head mono-s">
+      <span class="c1">NIVEAU</span>
+      <span class="c2">SPÉCIMEN</span>
+      <span class="c3">DESKTOP/MOBILE</span>
+      <span class="c4">GRAISSE</span>
+    </div>
+    <div class="type-row">
+      <span class="c1"><b>Display XL</b>Nunito Rounded</span>
+      <span class="c2 t-dxl">Une heure donnée</span>
+      <span class="c3">56 / 36</span><span class="c4">800</span>
+    </div>
+    <div class="type-row">
+      <span class="c1"><b>H1</b>Nunito Rounded</span>
+      <span class="c2 t-h1">Une heure rendue</span>
+      <span class="c3">40 / 28</span><span class="c4">800</span>
+    </div>
+    <div class="type-row">
+      <span class="c1"><b>H2</b>Nunito Rounded</span>
+      <span class="c2 t-h2">Le quartier comme terrain de jeu</span>
+      <span class="c3">28 / 22</span><span class="c4">700</span>
+    </div>
+    <div class="type-row">
+      <span class="c1"><b>H3</b>Nunito Rounded</span>
+      <span class="c2 t-h3">Proposer un coup de main</span>
+      <span class="c3">20 / 18</span><span class="c4">700</span>
+    </div>
+    <div class="type-row">
+      <span class="c1"><b>Body L</b>Inter</span>
+      <span class="c2 t-bl">Camille garde le chat de Malik, Malik répare le vélo d'Ana.</span>
+      <span class="c3">18</span><span class="c4">400</span>
+    </div>
+    <div class="type-row">
+      <span class="c1"><b>Body</b>Inter</span>
+      <span class="c2 t-b">Chaque service rendu crédite votre compteur de temps.</span>
+      <span class="c3">16</span><span class="c4">400</span>
+    </div>
+    <div class="type-row">
+      <span class="c1"><b>Body S</b>Inter</span>
+      <span class="c2 t-bs">Disponible à moins de 10 minutes à pied de chez vous.</span>
+      <span class="c3">14</span><span class="c4">400</span>
+    </div>
+    <div class="type-row" style="border-bottom:var(--hairline);">
+      <span class="c1"><b>Caption</b>Inter</span>
+      <span class="c2 t-cap">Publié il y a 2 h · Quartier Saint-Leu</span>
+      <span class="c3">12</span><span class="c4">500</span>
+    </div>
+  </section>
+
+  <!-- ════════ 05 · SPÉCIFICATIONS ════════ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="no mono">05</span>
+      <span class="ttl">Spécifications système</span>
+      <span class="ref mono">TOKENS DE BASE</span>
+    </div>
+    <div class="specs">
+      <div class="spec-col">
+        <h4>05.1 — Échelle de spacing <span style="color:var(--text-tertiary);">(base 4px)</span></h4>
+        <div class="space-row"><span class="tok">space-1</span><span class="bar" style="width:4px;"></span><span class="px">4</span></div>
+        <div class="space-row"><span class="tok">space-2</span><span class="bar" style="width:8px;"></span><span class="px">8</span></div>
+        <div class="space-row"><span class="tok">space-3</span><span class="bar" style="width:12px;"></span><span class="px">12</span></div>
+        <div class="space-row"><span class="tok">space-4</span><span class="bar" style="width:16px;"></span><span class="px">16</span></div>
+        <div class="space-row"><span class="tok">space-6</span><span class="bar" style="width:24px;"></span><span class="px">24</span></div>
+        <div class="space-row"><span class="tok">space-8</span><span class="bar" style="width:32px;"></span><span class="px">32</span></div>
+        <div class="space-row"><span class="tok">space-12</span><span class="bar" style="width:48px;"></span><span class="px">48</span></div>
+        <div class="space-row"><span class="tok">space-16</span><span class="bar" style="width:64px;"></span><span class="px">64</span></div>
+      </div>
+      <div class="spec-col">
+        <h4>05.2 — Constantes</h4>
+        <div class="kv">
+          <div><span class="k">Grille de composition</span><span class="v">12 col / gouttière 16px</span></div>
+          <div><span class="k">Rayon — cartes</span><span class="v">radius-lg = 16px</span></div>
+          <div><span class="k">Rayon — boutons, champs</span><span class="v">radius-md = 12px</span></div>
+          <div><span class="k">Rayon — puces, tags</span><span class="v">radius-full = 999px</span></div>
+          <div><span class="k">Filet standard</span><span class="v">1px solid #D6DBE2</span></div>
+          <div><span class="k">Interlignage corps</span><span class="v">line-height: 1.5</span></div>
+          <div><span class="k">Interlignage titres</span><span class="v">line-height: 1.1</span></div>
+          <div><span class="k">Unité d'échange</span><span class="v">1h donnée = 1h reçue</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 06 · APPLICATION ════════ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="no mono">06</span>
+      <span class="ttl">Univers d'application</span>
+      <span class="ref mono">4 TERRITOIRES D'IMAGE</span>
+    </div>
+    <div class="mood">
+      <div class="mood-card mc-marine">
+        <span class="idx">IMG–01</span>
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 22 24 8l16 14"/>
+          <path d="M12 20v18h9v-10h6v10h9V20"/>
+          <circle cx="24" cy="16" r="1.6" fill="currentColor" stroke="none"/>
+        </svg>
+        <div>
+          <div class="lbl">Voisinage</div>
+          <div class="cap">PHOTOS DE PALIERS, CAGES D'ESCALIER, RUES VIVANTES · TEINTE MARINE</div>
+        </div>
+      </div>
+      <div class="mood-card mc-sable">
+        <span class="idx">IMG–02</span>
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10 30c0-5 4-8 8-8 3 0 5 1 6 3 1-2 3-3 6-3 4 0 8 3 8 8"/>
+          <path d="M10 30v8h28v-8"/>
+          <circle cx="18" cy="14" r="4"/>
+          <circle cx="30" cy="14" r="4"/>
+        </svg>
+        <div>
+          <div class="lbl">Entraide</div>
+          <div class="cap">MAINS, OUTILS, GESTES CONCRETS DU QUOTIDIEN · TEINTE SABLE</div>
+        </div>
+      </div>
+      <div class="mood-card mc-grad">
+        <span class="idx">IMG–03</span>
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="24" cy="24" r="16"/>
+          <path d="M24 14v10l7 5"/>
+          <path d="M4 24h4M40 24h4"/>
+        </svg>
+        <div>
+          <div class="lbl">Échange de temps</div>
+          <div class="cap">HORLOGES, COMPTEURS, FLUX 1H = 1H · GRADIENT DE MARQUE</div>
+        </div>
+      </div>
+      <div class="mood-card mc-hover">
+        <span class="idx">IMG–04</span>
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M24 40s-13-9.6-13-19a13 13 0 0 1 26 0c0 9.4-13 19-13 19Z"/>
+          <circle cx="24" cy="21" r="4.5"/>
+        </svg>
+        <div>
+          <div class="lbl">Quar<em>tier</em></div>
+          <div class="cap">PLANS, REPÈRES, COMMERCES, BANCS PUBLICS · TEINTE BG-HOVER</div>
+        </div>
+      </div>
+    </div>
+    <div class="voice-row">
+      <div class="k mono">TON D'IMAGE</div>
+      <div class="v">Lumière naturelle, gens réels, gestes simples. <strong>Jamais de banque d'images corporate</strong> — la marque photographie le quartier tel qu'il est, puis le teinte dans ses couleurs.</div>
+    </div>
+  </section>
+
+  <!-- ════════ COLOPHON ════════ -->
+  <footer class="colophon">
+    <div class="l mono">TEMPSPOURTEMPS — IDENTITÉ VISUELLE · VARIANTE 03 « SWISS / GRID TYPOGRAPHIQUE »</div>
+    <div class="r mono">NUNITO ROUNDED · INTER · JETBRAINS MONO — 1H = 1H</div>
+  </footer>
+
+</div>
+</body>
+</html>

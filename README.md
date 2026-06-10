@@ -1,10 +1,10 @@
-# Identité visuelle — Temps pour Temps
+# Identité visuelle — TempsPourTemps
 
 <p align="center">
-  <img src="./assets/logo/logo-tpt-fond.png" alt="Logo Temps pour Temps" width="160" />
+  <img src="./assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps" width="160" />
 </p>
 
-> **Espace documentaire centralisé** de l'identité visuelle de Temps pour Temps (TpT), plateforme d'échange de temps et d'entraide entre voisins.
+> **Espace documentaire centralisé** de l'identité visuelle de TempsPourTemps (TpT), plateforme d'échange de temps et d'entraide entre voisins.
 > Rédigé le 2026-06-10. À considérer comme la **source de vérité** pour toute production visuelle (app, landing, emails, print, réseaux sociaux).
 
 ---
@@ -13,7 +13,7 @@
 
 | | |
 |---|---|
-| **Nom** | Temps pour Temps (TpT) |
+| **Nom** | TempsPourTemps (TpT) |
 | **Promesse** | « Échangez du temps, pas de l'argent » |
 | **Mission** | Reconnecter le voisinage par l'entraide concrète |
 | **Personnalité** | Voisin·e bienveillant·e + animateur·rice de quartier |

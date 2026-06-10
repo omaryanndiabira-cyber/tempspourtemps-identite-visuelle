@@ -11,7 +11,7 @@
 
 | | |
 |---|---|
-| **Nom officiel** | Temps pour Temps |
+| **Nom officiel** | TempsPourTemps |
 | **Acronyme** | TpT |
 | **Wordmark** | écrit `TempsPourTemps` (sans espace, casse mixte) dans les emails — incohérence à arbitrer, voir [audit 07](../07-audit-critique/audit-critique-roadmap.md) |
 | **Promesse principale** | « Échangez du temps, pas de l'argent » |
@@ -138,7 +138,7 @@ Voir le détail dans [07 · Audit](../07-audit-critique/audit-critique-roadmap.m
 
 | Décision | Échéance suggérée | Coût/Impact |
 |---|---|---|
-| Choisir le nom canonique (« Temps pour Temps » vs « TempsPourTemps ») | Avant essaimage hors St-Sébastien | Faible |
+| Choisir le nom canonique (« TempsPourTemps » vs « TempsPourTemps ») | Avant essaimage hors St-Sébastien | Faible |
 | Trancher : 2 typos (app) ou 3 typos (landing) ? | Avant prochain audit doc | Faible |
 | Faire un logo « pro » (vs le monogramme actuel) ? | Avant levée de fonds / dépôt marque | 500€-5000€ freelance |
 | Déposer la marque à l'INPI | Avant essaimage ou couverture presse | ~250€ + suivi |

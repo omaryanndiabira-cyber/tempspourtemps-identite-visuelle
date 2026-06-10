@@ -1,7 +1,7 @@
 # 07 · Audit critique & roadmap stratégique
 
 > **Document stratégique** : état des lieux honnête, benchmark concurrentiel, alternatives, roadmap chiffrée.
-> Rédigé pour servir de **base de décision** sur l'évolution de l'identité visuelle de Temps pour Temps.
+> Rédigé pour servir de **base de décision** sur l'évolution de l'identité visuelle de TempsPourTemps.
 
 [← Retour au sommaire](../README.md)
 
@@ -45,12 +45,12 @@
 | **Couleurs du SVG logo ≠ tokens CSS** | `#28445D` vs `#183e57` ; `#F9DA8F` vs `#fcdb81`. Petite mais réelle dette. |
 | **Polices d'email** | Georgia (serif) dans les emails communautaires, totalement détachée du design system. |
 | **« Nunito Rounded » potentiellement invalide** | L'import Google Fonts pour « Nunito Rounded » ne renverra peut-être qu'un fallback silencieux. À vérifier en prod. |
-| **Pas de wordmark vectoriel séparé** | Si on veut écrire « Temps pour Temps » en grand, on n'a pas de SVG dédié, juste du texte CSS. |
+| **Pas de wordmark vectoriel séparé** | Si on veut écrire « TempsPourTemps » en grand, on n'a pas de SVG dédié, juste du texte CSS. |
 | **Aucune variante monochrome du logo** | Pas de version pour photocopies, tampons, gravures, fonds très chargés. |
 | **Pas de templates print** | Flyers, affiches, cartes de visite à faire from scratch à chaque besoin. |
 | **Pas de templates RS** | Instagram/Facebook/LinkedIn = page blanche à chaque post. |
 | **Pas d'illustrations propres** | États vides, onboarding, sections explicatives = libre de droits génériques (unDraw, etc.) ou rien. |
-| **Nom écrit différemment** | « Temps pour Temps » (officiel) vs « TempsPourTemps » (email + code) vs « TpT » (acronyme). |
+| **Nom écrit différemment** | « TempsPourTemps » (officiel) vs « TempsPourTemps » (email + code) vs « TpT » (acronyme). |
 | **Pas de dépôt INPI** | La marque n'est pas protégée. Risque si essaimage hors St-Sébastien. |
 | **Pas de mode sombre** | Les utilisateurs OS sombre voient l'app forcée en clair. |
 | **`texture.png` (946 Ko) dans `public/`** | Asset énorme dont l'usage actuel n'est pas clair. Dette de bundle. |
@@ -120,14 +120,14 @@
 | Block highlight bg | `bg-hover #fdf1d7` | n/a | `#fdf6e3` | ⚠️ Variations sable | 🟢 Faible |
 | Radius cards | `1.5rem` (24px)¹ | `1.5rem` (24px) | `12px` (header), `10px` (blocks) | ⚠️ Différents | 🟢 Faible |
 | Radius bouton | (variable) | `9999px` (pill) | `9999px` (recommandé) | ⚠️ Pas explicite app | 🟡 Moyenne |
-| Wordmark | « TempsPourTemps » | « Temps pour Temps » | « TempsPourTemps » | ❌ Casse incohérente | 🔴 Haute |
+| Wordmark | « TempsPourTemps » | « TempsPourTemps » | « TempsPourTemps » | ❌ Casse incohérente | 🔴 Haute |
 
 ¹ Pas explicite dans le CSS de l'app — à vérifier composant par composant.
 
 ### Recommandations de correction
 
 #### 🔴 Priorité haute (à faire avant tout essaimage / dossier presse)
-1. **Trancher l'orthographe officielle du nom** : « Temps pour Temps » (officiel) ou « TempsPourTemps » (compact) ? Décision et application partout.
+1. **Trancher l'orthographe officielle du nom** : « TempsPourTemps » (officiel) ou « TempsPourTemps » (compact) ? Décision et application partout.
 2. **Reconstruire le système d'emails** pour utiliser Inter (+ éventuelle Nunito Rounded pour titres). Industrialiser via template engine.
 3. **Vérifier en production** que « Nunito Rounded » se charge bien. Sinon, basculer sur Nunito standard ou Quicksand.
 
@@ -242,7 +242,7 @@ Marine #183e57 │ Sable #fcdb81 │ Orange #d65e1c │ + Teal #2a8c8c
 **Budget estimé** : 600-1500€ (freelance illustrateur typo).
 
 #### Direction 2 · Wordmark long + symbole simple
-> « Temps pour Temps » écrit en plein + un petit symbole minimaliste à côté (cercle qui s'ouvre, deux flèches qui s'échangent, sablier stylisé).
+> « TempsPourTemps » écrit en plein + un petit symbole minimaliste à côté (cercle qui s'ouvre, deux flèches qui s'échangent, sablier stylisé).
 
 **Budget estimé** : 1000-2500€ (freelance designer).
 

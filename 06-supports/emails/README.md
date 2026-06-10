@@ -235,7 +235,7 @@ Le template actuel a deux défauts majeurs :
               color:#717182;
               line-height:1.5;
               text-align:center;">
-      Vous recevez cet email parce que vous êtes inscrit·e à Temps pour Temps.<br>
+      Vous recevez cet email parce que vous êtes inscrit·e à TempsPourTemps.<br>
       <a href="{{URL_PREFS}}"
          style="color:#717182; text-decoration:underline;">
         Gérer vos préférences

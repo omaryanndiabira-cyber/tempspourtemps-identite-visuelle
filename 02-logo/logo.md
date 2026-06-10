@@ -55,7 +55,7 @@ Toutes dans [`../assets/logo/`](../assets/logo/) :
 ### Variantes manquantes (à produire)
 - ❌ **Version monochrome noire** (pour photocopies, fax administratifs, tampons)
 - ❌ **Version monochrome blanche** (pour fonds très foncés ou colorés)
-- ❌ **Wordmark seul** « Temps pour Temps » en SVG, indépendant du monogramme
+- ❌ **Wordmark seul** « TempsPourTemps » en SVG, indépendant du monogramme
 - ❌ **Combinaison wordmark + monogramme** en SVG (lockup horizontal et vertical)
 - ❌ **Version « long format »** pour bandeaux RS (LinkedIn cover, FB header)
 

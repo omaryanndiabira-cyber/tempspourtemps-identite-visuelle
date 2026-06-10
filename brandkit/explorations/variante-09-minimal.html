@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Brand Board · Variante 09 Minimal Luxe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ————— Variante 09 · Minimal Luxe / Whitespace ————— */
+  :root {
+    --marine: #183e57;
+    --marine-hover: #0f2f44;
+    --orange: #d65e1c;
+    --orange-hover: #b84e17;
+    --sable: #fcdb81;
+    --sable-hover: #f5cb5c;
+    --success: #4a9d5f;
+    --danger: #c44536;
+    --warning: #d97706;
+    --info: #183e57;
+    --bg-main: #f7f6f3;
+    --bg-secondary: #f3f3f5;
+    --bg-hover: #fdf1d7;
+    --text-secondary: #4b5563;
+    --text-tertiary: #717182;
+    --border: #d6dbe2;
+    --gradient: linear-gradient(180deg, #fff9ec 0%, #fff3e0 32%, #f3f7fb 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-main);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--marine);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .board {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 96px 72px 80px;
+    background: var(--bg-main);
+  }
+
+  /* ——— Micro-étiquettes de section ——— */
+  .label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 40px;
+  }
+
+  .rule {
+    border: none;
+    border-top: 1px solid var(--sable);
+    margin: 88px 0 56px;
+  }
+
+  /* ——— Lockup ——— */
+  .lockup {
+    text-align: center;
+    padding: 24px 0 8px;
+  }
+  .lockup img.logo-main {
+    width: 116px;
+    height: 116px;
+    border-radius: 26px;
+    display: block;
+    margin: 0 auto 48px;
+    box-shadow: 0 1px 2px rgba(24, 62, 87, 0.06);
+  }
+  .lockup h1 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--marine);
+    margin-bottom: 20px;
+  }
+  .lockup .tagline {
+    font-size: 18px;
+    line-height: 1.7;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+  .lockup .mission {
+    margin-top: 36px;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    font-weight: 500;
+  }
+  .lockup .dot-sep {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--orange);
+    vertical-align: middle;
+    margin: 0 14px 2px;
+  }
+
+  /* ——— Variantes du logo ——— */
+  .logo-row {
+    display: flex;
+    justify-content: center;
+    gap: 56px;
+    margin-top: 64px;
+  }
+  .logo-cell { text-align: center; }
+  .logo-cell .frame {
+    width: 84px;
+    height: 84px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    overflow: hidden;
+  }
+  .logo-cell .frame.on-cream { background: var(--bg-hover); border-color: var(--sable); }
+  .logo-cell .frame img { width: 100%; height: 100%; object-fit: contain; }
+  .logo-cell .frame.padded img { width: 72%; height: 72%; }
+  .logo-cell figcaption {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+  .logo-note {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-tertiary);
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ——— Palette ——— */
+  .palette-group { margin-bottom: 48px; }
+  .palette-group:last-child { margin-bottom: 0; }
+  .palette-group h3 {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+  .swatch-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+  .swatch { width: 116px; }
+  .swatch .chip {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-bottom: 14px;
+    border: 1px solid rgba(24, 62, 87, 0.08);
+  }
+  .swatch .chip.small {
+    width: 24px;
+    height: 24px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+  .swatch .name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--marine);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .swatch .hex {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+  .swatch .hover-hex {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    margin-top: 3px;
+    letter-spacing: 0.03em;
+  }
+
+  .gradient-strip {
+    margin-top: 48px;
+  }
+  .gradient-strip .bar {
+    height: 56px;
+    border-radius: 12px;
+    background: var(--gradient);
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .gradient-strip .name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--marine);
+    margin-bottom: 4px;
+  }
+  .gradient-strip .hex {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+  }
+
+  /* ——— Ratio d'usage ——— */
+  .ratio {
+    margin-top: 56px;
+  }
+  .ratio .bar {
+    display: flex;
+    height: 8px;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .ratio .seg-neutral { flex: 60; background: #e9e7e1; }
+  .ratio .seg-marine  { flex: 25; background: var(--marine); }
+  .ratio .seg-sable   { flex: 10; background: var(--sable); }
+  .ratio .seg-orange  { flex: 5;  background: var(--orange); }
+  .ratio .legend {
+    display: flex;
+    gap: 28px;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+  }
+  .ratio .legend strong { color: var(--marine); font-weight: 600; }
+
+  /* ——— Typographie ——— */
+  .type-family {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .type-family .fam-name {
+    font-size: 26px;
+    line-height: 1.4;
+  }
+  .type-family .fam-name.heading { font-family: 'Nunito', sans-serif; font-weight: 800; }
+  .type-family .fam-name.body { font-family: 'Inter', sans-serif; font-weight: 500; }
+  .type-family .fam-meta {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.06em;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  .spec-line {
+    display: flex;
+    align-items: baseline;
+    gap: 36px;
+    margin-bottom: 36px;
+  }
+  .spec-line:last-child { margin-bottom: 0; }
+  .spec-meta {
+    width: 132px;
+    flex-shrink: 0;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    line-height: 1.7;
+  }
+  .spec-sample { color: var(--marine); }
+  .s-display { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 56px; line-height: 1.1; letter-spacing: -0.015em; }
+  .s-h1      { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.15; letter-spacing: -0.01em; }
+  .s-h2      { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.25; }
+  .s-h3      { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.35; }
+  .s-bodyl   { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 18px; line-height: 1.75; color: var(--text-secondary); }
+  .s-body    { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.75; color: var(--text-secondary); }
+  .s-bodys   { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
+  .s-caption { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; line-height: 1.6; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); }
+
+  /* ——— Mood ——— */
+  .mood-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 28px;
+  }
+  .mood-cell .ph {
+    height: 230px;
+    border-radius: 14px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .mood-cell .ph .tint-label {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .ph-1 { background: linear-gradient(180deg, rgba(24,62,87,0.92) 0%, rgba(15,47,68,0.96) 100%); }
+  .ph-1 .tint-label { color: var(--sable); }
+  .ph-2 { background: linear-gradient(180deg, #fff9ec 0%, #fdf1d7 100%); border-color: var(--sable); }
+  .ph-2 .tint-label { color: var(--marine); }
+  .ph-3 { background: linear-gradient(180deg, rgba(214,94,28,0.10) 0%, rgba(214,94,28,0.22) 100%); border-color: rgba(214,94,28,0.25); }
+  .ph-3 .tint-label { color: var(--orange-hover); }
+  .mood-cell .ph .corner {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .ph-1 .corner { background: var(--sable); }
+  .ph-2 .corner { background: var(--marine); }
+  .ph-3 .corner { background: var(--orange); }
+  .mood-cell figcaption {
+    margin-top: 16px;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+  .mood-note {
+    margin-top: 48px;
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--text-tertiary);
+    max-width: 520px;
+  }
+
+  /* ——— Pied de planche ——— */
+  .footer {
+    margin-top: 96px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    font-weight: 500;
+  }
+
+  /* ——— Impression A4 ——— */
+  @page { size: A4; margin: 0; }
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: var(--bg-main); }
+    .board { max-width: 100%; padding: 56px 48px 40px; }
+    .rule { margin: 48px 0 32px; }
+    .label { margin-bottom: 24px; }
+    .lockup img.logo-main { width: 92px; height: 92px; margin-bottom: 32px; }
+    .logo-row { margin-top: 36px; }
+    .logo-note { margin-top: 24px; }
+    .palette-group { margin-bottom: 28px; }
+    .swatch-row { gap: 24px; }
+    .gradient-strip { margin-top: 28px; }
+    .ratio { margin-top: 32px; }
+    .type-family { margin-bottom: 32px; padding-bottom: 20px; }
+    .spec-line { margin-bottom: 20px; }
+    .s-display { font-size: 36px; }
+    .s-h1 { font-size: 28px; }
+    .s-h2 { font-size: 22px; }
+    .s-h3 { font-size: 18px; }
+    .mood-cell .ph { height: 160px; }
+    .mood-note { margin-top: 28px; }
+    .footer { margin-top: 48px; }
+    section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<main class="board">
+
+  <!-- ———————————— Lockup ———————————— -->
+  <section class="lockup">
+    <img class="logo-main" src="../../assets/logo/logo-tpt-fond.png" alt="Logo TempsPourTemps — monogramme tpt sable sur carré marine, cercle marine au centre du p">
+    <h1>TempsPourTemps</h1>
+    <p class="tagline">«&nbsp;Échangez du temps, pas de l'argent&nbsp;»</p>
+    <p class="mission">Reconnecter le voisinage<span class="dot-sep"></span>par l'entraide concrète</p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ———————————— Logo ———————————— -->
+  <section>
+    <p class="label">01 — Logotype</p>
+    <div class="logo-row">
+      <figure class="logo-cell">
+        <div class="frame"><img src="../../assets/logo/logo-tpt-fond.png" alt="Logo principal sur fond marine"></div>
+        <figcaption>Principal</figcaption>
+      </figure>
+      <figure class="logo-cell">
+        <div class="frame on-cream padded"><img src="../../assets/logo/logo-tpt-transparent.png" alt="Logo en version transparente"></div>
+        <figcaption>Transparent</figcaption>
+      </figure>
+      <figure class="logo-cell">
+        <div class="frame"><img src="../../assets/logo/icon-pwa-512.png" alt="Icône d'application PWA"></div>
+        <figcaption>Icône</figcaption>
+      </figure>
+    </div>
+    <p class="logo-note">Monogramme «&nbsp;tpt&nbsp;» en jaune sable sur carré marine.
+    La signature&nbsp;: un cercle marine logé au centre du «&nbsp;p&nbsp;», comme une horloge discrète.</p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ———————————— Palette ———————————— -->
+  <section>
+    <p class="label">02 — Palette</p>
+
+    <div class="palette-group">
+      <h3>Signature</h3>
+      <div class="swatch-row">
+        <div class="swatch">
+          <div class="chip" style="background:#183e57"></div>
+          <div class="name">Marine</div>
+          <div class="hex">#183e57</div>
+          <div class="hover-hex">hover #0f2f44</div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#d65e1c"></div>
+          <div class="name">Orange brûlée</div>
+          <div class="hex">#d65e1c</div>
+          <div class="hover-hex">hover #b84e17</div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#fcdb81"></div>
+          <div class="name">Jaune sable</div>
+          <div class="hex">#fcdb81</div>
+          <div class="hover-hex">hover #f5cb5c</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-group">
+      <h3>Sémantique</h3>
+      <div class="swatch-row">
+        <div class="swatch">
+          <div class="chip small" style="background:#4a9d5f"></div>
+          <div class="name">Success</div>
+          <div class="hex">#4a9d5f</div>
+        </div>
+        <div class="swatch">
+          <div class="chip small" style="background:#c44536"></div>
+          <div class="name">Danger</div>
+          <div class="hex">#c44536</div>
+        </div>
+        <div class="swatch">
+          <div class="chip small" style="background:#d97706"></div>
+          <div class="name">Warning</div>
+          <div class="hex">#d97706</div>
+        </div>
+        <div class="swatch">
+          <div class="chip small" style="background:#183e57"></div>
+          <div class="name">Info</div>
+          <div class="hex">#183e57</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-group">
+      <h3>Neutres</h3>
+      <div class="swatch-row">
+        <div class="swatch">
+          <div class="chip small" style="background:#f7f6f3"></div>
+          <div class="name">Bg main</div>
+          <div class="hex">#f7f6f3</div>
+        </div>
+        <div class="swatch">
+          <div class="chip small" style="background:#f3f3f5"></div>
+          <div class="name">Bg secondary</div>
+          <div class="hex">#f3f3f5</div>
+        </div>
+        <div class="swatch">
+          <div class="chip small" style="background:#fdf1d7"></div>
+          <div class="name">Bg hover</div>
+          <div class="hex">#fdf1d7</div>
+        </div>
+        <div class="swatch">
+          <div class="chip small" style="background:#4b5563"></div>
+          <div class="name">Text secondary</div>
+          <div class="hex">#4b5563</div>
+        </div>
+        <div class="swatch">
+          <div class="chip small" style="background:#717182"></div>
+          <div class="name">Text tertiary</div>
+          <div class="hex">#717182</div>
+        </div>
+        <div class="swatch">
+          <div class="chip small" style="background:#d6dbe2"></div>
+          <div class="name">Border</div>
+          <div class="hex">#d6dbe2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gradient-strip">
+      <div class="bar"></div>
+      <div class="name">Gradient d'ambiance</div>
+      <div class="hex">linear-gradient(180deg, #fff9ec 0% · #fff3e0 32% · #f3f7fb 100%)</div>
+    </div>
+
+    <div class="ratio">
+      <div class="bar">
+        <div class="seg-neutral"></div>
+        <div class="seg-marine"></div>
+        <div class="seg-sable"></div>
+        <div class="seg-orange"></div>
+      </div>
+      <div class="legend">
+        <span><strong>60</strong> neutres</span>
+        <span><strong>25</strong> marine</span>
+        <span><strong>10</strong> sable</span>
+        <span><strong>5</strong> orange</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ———————————— Typographie ———————————— -->
+  <section>
+    <p class="label">03 — Typographie</p>
+
+    <div class="type-family">
+      <div>
+        <div class="fam-name heading">Nunito Rounded</div>
+        <div class="fam-name body">Inter</div>
+      </div>
+      <div class="fam-meta">
+        Titres · 700 / 800<br>
+        Corps · 400 / 500 / 600 / 700
+      </div>
+    </div>
+
+    <div class="spec-line">
+      <div class="spec-meta">Display XL<br>56 / 36</div>
+      <div class="spec-sample s-display">Une heure donnée</div>
+    </div>
+    <div class="spec-line">
+      <div class="spec-meta">H1<br>40 / 28</div>
+      <div class="spec-sample s-h1">vaut une heure reçue</div>
+    </div>
+    <div class="spec-line">
+      <div class="spec-meta">H2<br>28 / 22</div>
+      <div class="spec-sample s-h2">Le quartier comme terrain d'entraide</div>
+    </div>
+    <div class="spec-line">
+      <div class="spec-meta">H3<br>20 / 18</div>
+      <div class="spec-sample s-h3">Proposer un service, demander un coup de main</div>
+    </div>
+    <div class="spec-line">
+      <div class="spec-meta">Body L · 18</div>
+      <div class="spec-sample s-bodyl">TempsPourTemps relie les voisin·es autour d'une monnaie simple&nbsp;: le temps.</div>
+    </div>
+    <div class="spec-line">
+      <div class="spec-meta">Body · 16</div>
+      <div class="spec-sample s-body">Chacun·e offre ce qu'il sait faire — bricolage, garde, cours, jardinage — et reçoit en retour le temps des autres.</div>
+    </div>
+    <div class="spec-line">
+      <div class="spec-meta">Body S · 14</div>
+      <div class="spec-sample s-bodys">L'échange est confirmé lorsque les deux voisin·es valident l'heure passée ensemble.</div>
+    </div>
+    <div class="spec-line">
+      <div class="spec-meta">Caption · 12</div>
+      <div class="spec-sample s-caption">Échange validé · il y a 2 heures</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ———————————— Mood ———————————— -->
+  <section>
+    <p class="label">04 — Univers visuel</p>
+    <div class="mood-grid">
+      <figure class="mood-cell">
+        <div class="ph ph-1">
+          <span class="corner"></span>
+          <span class="tint-label">Voisinage</span>
+        </div>
+        <figcaption>Teinte marine — photographie de quartier</figcaption>
+      </figure>
+      <figure class="mood-cell">
+        <div class="ph ph-2">
+          <span class="corner"></span>
+          <span class="tint-label">Entraide</span>
+        </div>
+        <figcaption>Teinte sable — gestes du quotidien</figcaption>
+      </figure>
+      <figure class="mood-cell">
+        <div class="ph ph-3">
+          <span class="corner"></span>
+          <span class="tint-label">Échange de temps</span>
+        </div>
+        <figcaption>Teinte orange — moments partagés</figcaption>
+      </figure>
+    </div>
+    <p class="mood-note">L'imagerie privilégie la lumière naturelle, les mains, les seuils de porte,
+    les objets prêtés. Personnalité de marque&nbsp;: voisin·e bienveillant·e, animateur·rice de quartier —
+    chaleur sans excès, confiance sans démonstration.</p>
+  </section>
+
+  <!-- ———————————— Pied ———————————— -->
+  <footer class="footer">
+    <span>TempsPourTemps · Identité visuelle</span>
+    <span>Variante 09 · Minimal Luxe</span>
+  </footer>
+
+</main>
+</body>
+</html>
