@@ -49,9 +49,44 @@
     align-items:center;
     justify-content:center;
     min-height:100vh;
-    padding:24px 12px;
+    padding:32px 16px;
     color:var(--marine);
     -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Deux planches côte à côte ---------- */
+  .planches{
+    display:flex;
+    flex-wrap:wrap;
+    gap:48px;
+    justify-content:center;
+    align-items:flex-start;
+  }
+  .planche{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+  }
+  .planche-label{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--titres);
+    font-weight:800;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    color:var(--text-secondary);
+  }
+  .planche-label::before,
+  .planche-label::after{
+    content:"";
+    width:26px;
+    height:4px;
+    border-top:1px solid var(--marine);
+    border-bottom:1px solid var(--marine);
+    opacity:.45;
   }
 
   /* ---------- Cadre téléphone ---------- */
@@ -457,18 +492,23 @@
   .carte-rdv--apercu{width:200px;}
   .carte-rdv--apercu .cadre{height:100%;display:flex;flex-direction:column;justify-content:flex-start;}
 
-  /* ---------- Carte annonce = petite annonce ---------- */
-  .carte-annonce{
-    width:300px;
+  /* ---------- Fil du quartier : posts façon colonnes de gazette ---------- */
+  .fil{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:4px 18px 14px;
+  }
+  .post{
     background:var(--paper);
     border:1px solid var(--border);
     border-radius:14px;
-    padding:14px 14px 12px;
+    padding:13px 14px 11px;
     position:relative;
     box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -14px rgba(24,62,87,.28);
   }
   /* colonne de gazette : filet vertical à gauche */
-  .carte-annonce::before{
+  .post::before{
     content:"";
     position:absolute;
     left:0;top:14px;bottom:14px;
@@ -477,12 +517,51 @@
     border-radius:0 3px 3px 0;
     opacity:.85;
   }
-  .carte-annonce .tags{
+  .post-head{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:8px;
+  }
+  .post .avatar{width:30px;height:30px;font-size:10.5px;}
+  .post-qui{flex:1;min-width:0;line-height:1.25;}
+  .post-nom{
+    display:block;
+    font-family:var(--titres);
+    font-weight:800;
+    font-size:13.5px;
+    color:var(--marine);
+  }
+  .post-meta{
+    display:block;
+    font-size:10.5px;
+    color:var(--text-tertiary);
+  }
+  .badge-type{
+    font-family:var(--titres);
+    font-weight:800;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.10em;
+    padding:3px 8px;
+    border-radius:4px;
+    flex:none;
+  }
+  .badge-type--demande{background:var(--orange);color:#fff9ec;}
+  .badge-type--proposition{background:var(--marine);color:#fff9ec;}
+  .badge-type--atelier{background:var(--sable);color:var(--marine);}
+  .badge-type--idee{background:var(--success);color:#f2f9f4;}
+  .post-texte{
+    font-size:12.5px;
+    color:var(--text-secondary);
+    line-height:1.5;
+    margin-bottom:9px;
+  }
+  .post-tags{
     display:flex;
     gap:6px;
     flex-wrap:wrap;
-    margin-bottom:8px;
-    padding-right:30px;
+    margin-bottom:9px;
   }
   .tag{
     font-size:10px;
@@ -492,117 +571,45 @@
     padding:3px 8px;
     border-radius:4px;
   }
-  .tag--offre{background:rgba(74,157,95,.14);color:#36744a;border:1px solid rgba(74,157,95,.35);}
   .tag--theme{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border);}
-  .coeur{
-    position:absolute;
-    top:12px;right:12px;
-    width:28px;height:28px;
-    border:1px solid var(--border);
-    border-radius:50%;
-    background:var(--paper);
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--text-tertiary);
-    font-size:13px;
-    cursor:pointer;
-    transition:color .12s ease, border-color .12s ease, background .12s ease;
-  }
-  .coeur:hover{color:var(--danger);border-color:var(--danger);background:var(--bg-hover);}
-  .carte-annonce h3{
-    font-family:var(--titres);
-    font-weight:800;
-    font-size:17px;
-    color:var(--marine);
-    line-height:1.2;
-    margin-bottom:5px;
-  }
-  .carte-annonce .desc{
-    font-size:12.5px;
-    color:var(--text-secondary);
-    line-height:1.5;
-    margin-bottom:10px;
-  }
-  .carte-annonce .maj{
-    font-size:10.5px;
-    color:var(--text-tertiary);
-    font-style:italic;
-    margin-bottom:9px;
-  }
-  .carte-annonce .signature{
+  .post-actions{
     display:flex;
     align-items:center;
     gap:8px;
-    padding-top:9px;
+    padding-top:8px;
     border-top:1px dashed var(--border);
-    font-size:11.5px;
-    color:var(--text-secondary);
   }
-  .avatar--ma{background:var(--bg-hover);color:var(--orange-hover);border:1.5px solid #f1ddae;width:26px;height:26px;font-size:9px;}
-  .carte-annonce .signature .par{flex:1;line-height:1.35;min-width:0;}
-  .carte-annonce .signature .par b{color:var(--marine);font-weight:600;}
-  .quartier{
-    display:inline-flex;
-    align-items:center;
-    gap:3px;
-    font-size:10.5px;
-    font-weight:600;
-    color:var(--marine);
-    background:var(--bg-secondary);
+  .action{
     border:1px solid var(--border);
+    background:var(--paper);
     border-radius:999px;
-    padding:2px 8px;
+    padding:4px 11px;
+    font-family:var(--corps);
+    font-size:11px;
+    font-weight:700;
+    color:var(--marine);
+    cursor:pointer;
+    transition:background .12s ease, border-color .12s ease;
+  }
+  .action:hover{background:var(--bg-hover);}
+  .action--fort{
+    background:var(--bg-hover);
+    border-color:#f1ddae;
+    color:var(--orange-hover);
+  }
+  .action--fort:hover{border-color:var(--orange);}
+  .post-compteurs{
+    margin-left:auto;
+    font-size:10.5px;
+    color:var(--text-tertiary);
+    font-style:italic;
     white-space:nowrap;
   }
-  .carte-annonce--apercu{width:170px;overflow:hidden;}
-
-  /* ---------- Cartes voisins ---------- */
-  .carte-voisin{
-    width:218px;
-    background:var(--paper);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:13px 14px;
-    box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 22px -14px rgba(24,62,87,.26);
-    transition:background .12s ease;
-  }
-  .carte-voisin:hover{background:var(--bg-hover);}
-  .carte-voisin .qui{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    margin-bottom:10px;
-  }
+  /* couleurs d'avatars du fil */
   .avatar--an{background:var(--marine);color:var(--sable);}
   .avatar--lg{background:var(--orange);color:#fff9ec;}
+  .avatar--ma{background:var(--bg-hover);color:var(--orange-hover);border:1.5px solid #f1ddae;}
   .avatar--xx{background:#e8eef4;color:var(--marine);border:1.5px solid var(--border);}
-  .carte-voisin .nom{
-    font-family:var(--titres);
-    font-weight:800;
-    font-size:14px;
-    color:var(--marine);
-    line-height:1.2;
-  }
-  .carte-voisin .role{
-    font-size:10px;
-    color:var(--text-tertiary);
-    text-transform:uppercase;
-    letter-spacing:.10em;
-    margin-top:1px;
-  }
-  .carte-voisin .tags{display:flex;flex-wrap:wrap;gap:5px;}
-  .tag--service{
-    background:var(--bg-secondary);
-    color:var(--text-secondary);
-    border:1px solid var(--border);
-    text-transform:none;
-    letter-spacing:0;
-    font-size:11px;
-    font-weight:500;
-    border-radius:999px;
-    padding:3px 9px;
-  }
 
   /* ---------- Pied de gazette ---------- */
   .ours{
@@ -682,6 +689,12 @@
 </style>
 </head>
 <body>
+
+<div class="planches">
+
+<!-- ════════════════ Planche 1 : haut de page ════════════════ -->
+<div class="planche">
+<div class="planche-label">Haut de page</div>
 
 <div class="phone">
 
@@ -766,121 +779,206 @@
       </article>
     </div>
 
-    <!-- ===== Rubrique : Annonces ===== -->
+    <!-- ===== Rubrique : Le fil du quartier ===== -->
     <div class="rubrique">
       <div class="ligne">
-        <span class="tape"><h2>Annonces</h2><span class="badge-compte">34</span></span>
+        <span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span>
         <span class="filet" aria-hidden="true"></span>
       </div>
       <div class="sous-rub">
-        <span>Les petites annonces du quartier</span>
-        <button class="filtre" type="button">Récentes <span class="chev">▾</span></button>
+        <span>Demandes, propositions, ateliers &amp; idées</span>
+        <button class="filtre" type="button">Tout <span class="chev">▾</span></button>
       </div>
     </div>
 
-    <div class="rangee">
-      <!-- Petite annonce -->
-      <article class="carte-annonce">
-        <button class="coeur" type="button" aria-label="Ajouter aux favoris">♥</button>
-        <div class="tags">
-          <span class="tag tag--offre">Offre</span>
-          <span class="tag tag--theme">Espagnol</span>
-        </div>
-        <h3>Espagnol. Cours</h3>
-        <p class="desc">Native. Tous niveaux. Possibilité de cours en visio.</p>
-        <p class="maj">Mise à jour&nbsp;: il y a 5&nbsp;j</p>
-        <div class="signature">
-          <span class="avatar avatar--ma">ML</span>
-          <span class="par">Par <b>Marta Lopez</b></span>
-          <span class="quartier">⌖ Baugerie</span>
-        </div>
-      </article>
-
-      <!-- Aperçu coupé -->
-      <article class="carte-annonce carte-annonce--apercu" aria-hidden="true">
-        <button class="coeur" type="button" tabindex="-1">♥</button>
-        <div class="tags">
-          <span class="tag tag--offre">Offre</span>
-        </div>
-        <h3>Bricolage &amp; petits trav…</h3>
-        <p class="desc">Étagères, perçage, montage de meubles…</p>
-        <p class="maj">Mise à jour&nbsp;: il y a 2&nbsp;j</p>
-      </article>
-    </div>
-
-    <!-- ===== Rubrique : Vous pouvez les aider ===== -->
-    <div class="rubrique">
-      <div class="ligne">
-        <span class="tape"><h2>Vous pouvez les aider</h2><span class="badge-compte">60</span></span>
-        <span class="filet" aria-hidden="true"></span>
-      </div>
-    </div>
-
-    <div class="rangee">
-      <article class="carte-voisin">
-        <div class="qui">
+    <div class="fil">
+      <!-- Post 1 : demande (coupé en bas du téléphone) -->
+      <article class="post">
+        <div class="post-head">
           <span class="avatar avatar--an">AN</span>
-          <div>
-            <div class="nom">Alice Noël</div>
-            <div class="role">Voisine · recherche</div>
+          <div class="post-qui">
+            <span class="post-nom">Alice Noël</span>
+            <span class="post-meta">⌖ Centre · il y a 2&nbsp;h</span>
           </div>
+          <span class="badge-type badge-type--demande">Demande</span>
         </div>
-        <div class="tags">
-          <span class="tag tag--service">Nourrissage / visites</span>
-          <span class="tag tag--service">Arrosage</span>
-        </div>
-      </article>
-
-      <article class="carte-voisin" aria-hidden="true">
-        <div class="qui">
-          <span class="avatar avatar--xx">PB</span>
-          <div>
-            <div class="nom">Pierre Blanchard</div>
-            <div class="role">Voisin · recherche</div>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag tag--service">Courses</span>
-          <span class="tag tag--service">Aide informatique</span>
+        <p class="post-texte">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
+        <div class="post-tags"><span class="tag tag--theme">Bricolage</span></div>
+        <div class="post-actions">
+          <button class="action action--fort" type="button">🤝 Je peux aider</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="post-compteurs">2 réponses</span>
         </div>
       </article>
     </div>
 
-    <!-- ===== Rubrique : Ils·elles peuvent vous aider ===== -->
+  </main>
+
+  <!-- ===== Tab bar ===== -->
+  <nav class="tabbar" aria-label="Navigation principale">
+    <a class="tab tab--actif" href="#" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      Accueil
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      Rechercher
+    </a>
+    <a class="tab tab--plus" href="#">
+      <span class="rond">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </span>
+      Proposer
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+      Services
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
+      Messages
+    </a>
+  </nav>
+
+</div>
+</div>
+
+<!-- ════════════════ Planche 2 : fil d'actualité (état scrollé) ════════════════ -->
+<div class="planche">
+<div class="planche-label">Fil d'actualité</div>
+
+<div class="phone">
+
+  <!-- ===== Barre du haut ===== -->
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
+    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+  </header>
+
+  <!-- ===== Contenu scrollable : le fil, état scrollé ===== -->
+  <main class="feed">
+
+    <!-- ===== Rubrique : Le fil du quartier ===== -->
     <div class="rubrique">
       <div class="ligne">
-        <span class="tape"><h2>Ils·elles peuvent vous aider</h2><span class="badge-compte">57</span></span>
+        <span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span>
         <span class="filet" aria-hidden="true"></span>
+      </div>
+      <div class="sous-rub">
+        <span>Demandes, propositions, ateliers &amp; idées</span>
+        <button class="filtre" type="button">Tout <span class="chev">▾</span></button>
       </div>
     </div>
 
-    <div class="rangee">
-      <article class="carte-voisin">
-        <div class="qui">
-          <span class="avatar avatar--lg">LG</span>
-          <div>
-            <div class="nom">Lucie Garnier</div>
-            <div class="role">Voisine · propose</div>
+    <div class="fil">
+      <!-- Post 1 : demande -->
+      <article class="post">
+        <div class="post-head">
+          <span class="avatar avatar--an">AN</span>
+          <div class="post-qui">
+            <span class="post-nom">Alice Noël</span>
+            <span class="post-meta">⌖ Centre · il y a 2&nbsp;h</span>
           </div>
+          <span class="badge-type badge-type--demande">Demande</span>
         </div>
-        <div class="tags">
-          <span class="tag tag--service">Garde chat</span>
-          <span class="tag tag--service">Massages bien-être</span>
-          <span class="tag tag--service">Arrosage</span>
+        <p class="post-texte">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
+        <div class="post-tags"><span class="tag tag--theme">Bricolage</span></div>
+        <div class="post-actions">
+          <button class="action action--fort" type="button">🤝 Je peux aider</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="post-compteurs">2 réponses</span>
         </div>
       </article>
 
-      <article class="carte-voisin" aria-hidden="true">
-        <div class="qui">
-          <span class="avatar avatar--xx">SK</span>
-          <div>
-            <div class="nom">Sonia Klein</div>
-            <div class="role">Voisine · propose</div>
+      <!-- Post 2 : proposition -->
+      <article class="post">
+        <div class="post-head">
+          <span class="avatar avatar--ma">ML</span>
+          <div class="post-qui">
+            <span class="post-nom">Marta Lopez</span>
+            <span class="post-meta">⌖ Baugerie · il y a 5&nbsp;h</span>
           </div>
+          <span class="badge-type badge-type--proposition">Proposition</span>
         </div>
-        <div class="tags">
-          <span class="tag tag--service">Couture</span>
-          <span class="tag tag--service">Repassage</span>
+        <p class="post-texte">Cours d’espagnol conversationnel, tous niveaux. Native, patiente, chez moi ou en visio. 1&nbsp;h&nbsp;=&nbsp;1&nbsp;h.</p>
+        <div class="post-tags"><span class="tag tag--theme">Cours</span></div>
+        <div class="post-actions">
+          <button class="action action--fort" type="button">✋ Ça m’intéresse</button>
+          <button class="action" type="button">Répondre</button>
+        </div>
+      </article>
+
+      <!-- Post 3 : atelier -->
+      <article class="post">
+        <div class="post-head">
+          <span class="avatar avatar--xx">PB</span>
+          <div class="post-qui">
+            <span class="post-nom">Pierre Blanchard</span>
+            <span class="post-meta">⌖ Vieux Bourg · hier</span>
+          </div>
+          <span class="badge-type badge-type--atelier">Atelier</span>
+        </div>
+        <p class="post-texte">Atelier réparation vélo dimanche 10&nbsp;h au local associatif. Amenez votre monture, on regarde freins et dérailleurs ensemble.</p>
+        <div class="post-actions">
+          <button class="action action--fort" type="button">🔧 Je m’inscris</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="post-compteurs">3/5 inscrits</span>
+        </div>
+      </article>
+
+      <!-- Post 4 : idée -->
+      <article class="post">
+        <div class="post-head">
+          <span class="avatar avatar--mm">MM</span>
+          <div class="post-qui">
+            <span class="post-nom">Marie Morel</span>
+            <span class="post-meta">⌖ Centre · hier</span>
+          </div>
+          <span class="badge-type badge-type--idee">Idée</span>
+        </div>
+        <p class="post-texte">Et si on lançait un café des voisins un samedi par mois au square de la Baugerie&nbsp;? Qui serait partant&nbsp;?</p>
+        <div class="post-actions">
+          <button class="action action--fort" type="button">☕ Je suis partant·e</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="post-compteurs">12 partants · 8 réponses</span>
+        </div>
+      </article>
+
+      <!-- Post 5 : demande -->
+      <article class="post">
+        <div class="post-head">
+          <span class="avatar avatar--xx">SK</span>
+          <div class="post-qui">
+            <span class="post-nom">Sonia Klein</span>
+            <span class="post-meta">⌖ Baugerie · il y a 3&nbsp;j</span>
+          </div>
+          <span class="badge-type badge-type--demande">Demande</span>
+        </div>
+        <p class="post-texte">Je cherche quelqu’un pour nourrir mon chat le week-end du 20. Câlins inclus dans l’échange.</p>
+        <div class="post-tags"><span class="tag tag--theme">Animaux</span></div>
+        <div class="post-actions">
+          <button class="action action--fort" type="button">🤝 Je peux aider</button>
+          <button class="action" type="button">Répondre</button>
+        </div>
+      </article>
+
+      <!-- Post 6 : proposition -->
+      <article class="post">
+        <div class="post-head">
+          <span class="avatar avatar--lg">LG</span>
+          <div class="post-qui">
+            <span class="post-nom">Lucie Garnier</span>
+            <span class="post-meta">⌖ Centre · il y a 3&nbsp;j</span>
+          </div>
+          <span class="badge-type badge-type--proposition">Proposition</span>
+        </div>
+        <p class="post-texte">Retouches couture&nbsp;: ourlets, fermetures éclair, boutons. Ma machine ronronne, profitez-en.</p>
+        <div class="post-tags"><span class="tag tag--theme">Couture</span></div>
+        <div class="post-actions">
+          <button class="action action--fort" type="button">✋ Ça m’intéresse</button>
+          <button class="action" type="button">Répondre</button>
         </div>
       </article>
     </div>
@@ -918,6 +1016,9 @@
       Messages
     </a>
   </nav>
+
+</div>
+</div>
 
 </div>
 

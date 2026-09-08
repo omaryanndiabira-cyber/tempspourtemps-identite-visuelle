@@ -55,7 +55,7 @@
 
   .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(min(460px,100%),1fr));
     gap:28px;
   }
   .card{
@@ -83,16 +83,16 @@
 
   .preview{
     position:relative;
-    height:460px;
+    height:480px;
     overflow:hidden;
     background:#e7e4dc;
   }
   .preview iframe{
-    width:430px;height:960px;
+    width:940px;height:1040px;
     border:0;
-    transform:scale(.478);
+    transform:scale(.47);
     transform-origin:top center;
-    position:absolute;left:50%;margin-left:-215px;top:6px;
+    position:absolute;left:50%;margin-left:-470px;top:4px;
     pointer-events:none;
   }
   .preview a.overlay{
@@ -134,7 +134,7 @@
   <header>
     <img src="assets/logo/logo-tpt-transparent.png" alt="Logo TempsPourTemps">
     <h1>Propositions — page d'accueil <span class="accent">TempsPourTemps</span></h1>
-    <p class="sub">Sept pistes visuelles pour l'écran d'accueil de l'application. Chaque maquette est interactive : survolez une carte pour l'ouvrir en plein écran. Les personnes et annonces affichées sont fictives.</p>
+    <p class="sub">Sept pistes visuelles pour l'écran d'accueil de l'application. Chaque piste montre deux écrans : le haut de page et le fil d'actualité (posts de demandes, propositions, ateliers et idées de voisinage). Les personnes et annonces affichées sont fictives.</p>
     <a class="brandkit-link" href="brandkit/index.html">Voir le brandkit complet →</a>
   </header>
 

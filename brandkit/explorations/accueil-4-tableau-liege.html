@@ -10,8 +10,8 @@
 <style>
   /* ============================================================
      TempsPourTemps — Accueil V4 « Tableau de liège »
-     Annonces = notes papier épinglées avec punaises sur un panneau
-     de liège. Aéré, une colonne, peu de rubriques.
+     Fil vertical de posts = notes papier épinglées avec punaises
+     sur un panneau de liège. Deux écrans : haut de page + fil.
      ============================================================ */
   :root{
     --marine:#183e57;
@@ -35,21 +35,31 @@
     --radius-app:34px;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{height:100%;}
   body{
     font-family:var(--corps);
     background:#e7e4dc;
     background-image:
       radial-gradient(circle at 18% 12%, rgba(252,219,129,.20), transparent 42%),
       radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
-    display:flex;align-items:center;justify-content:center;
-    min-height:100vh;padding:24px 12px;color:var(--marine);
+    display:flex;align-items:flex-start;justify-content:center;
+    min-height:100vh;padding:32px 12px 48px;color:var(--marine);
     -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Planche : deux écrans côte à côte ---------- */
+  .planche{
+    display:flex;flex-wrap:wrap;gap:48px;
+    justify-content:center;align-items:flex-start;
+  }
+  .ecran{display:flex;flex-direction:column;align-items:center;gap:16px;}
+  .ecran .label{
+    font-family:var(--titres);font-weight:800;font-size:11px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--text-tertiary);
   }
 
   .phone{
     width:390px;max-width:100%;
-    height:min(844px, calc(100vh - 48px));min-height:640px;
+    height:min(844px, calc(100vh - 120px));min-height:640px;
     background:var(--bg-main);border-radius:var(--radius-app);
     box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),
       0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
@@ -92,11 +102,6 @@
     background-size:90px 90px, 110px 110px, 70px 70px, 130px 130px, 100% 100%;
   }
   .feed::-webkit-scrollbar{display:none;}
-
-  /* cadre bois autour du liège */
-  .feed::before{
-    content:"";position:sticky;top:0;display:block;height:0;z-index:5;
-  }
 
   /* ---------- En-tête ---------- */
   .hero{padding:20px 20px 6px;text-align:center;}
@@ -157,8 +162,8 @@
     content:"";position:absolute;right:8px;bottom:5px;width:38px;height:14px;
     background:rgba(0,0,0,.16);filter:blur(5px);border-radius:50%;z-index:-1;
   }
-  .note--gauche{transform:rotate(-1.6deg);}
-  .note--droite{transform:rotate(1.4deg);}
+  .note--gauche{transform:rotate(-1.2deg);}
+  .note--droite{transform:rotate(1.1deg);}
 
   /* punaise */
   .punaise{
@@ -174,33 +179,56 @@
   }
   .punaise--marine{background:radial-gradient(circle at 35% 30%, #4a7da3, var(--marine) 60%, #0c2436);}
   .punaise--sable{background:radial-gradient(circle at 35% 30%, #ffeeb8, var(--sable) 55%, #c9a23f);}
+  .punaise--vert{background:radial-gradient(circle at 35% 30%, #7fc492, var(--success) 60%, #2c5e39);}
 
-  .note .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
   .tag{
     font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
     padding:3px 8px;border-radius:4px;
   }
-  .tag--offre{background:rgba(74,157,95,.16);color:#36744a;border:1px solid rgba(74,157,95,.4);}
-  .tag--recherche{background:rgba(214,94,28,.14);color:var(--orange-hover);border:1px solid rgba(214,94,28,.38);}
   .tag--theme{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border);}
 
-  .note h3{
-    font-family:var(--titres);font-weight:800;font-size:18px;color:var(--marine);
-    line-height:1.2;margin-bottom:6px;
+  /* ---------- Post du fil ---------- */
+  .post-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .avatar--sm{width:36px;height:36px;font-size:11px;}
+  .avatar--t-orange{background:var(--bg-hover);color:var(--orange-hover);border:1.5px solid #f1ddae;}
+  .avatar--t-marine{background:#e8eef4;color:var(--marine);border:1.5px solid var(--border);}
+  .avatar--t-vert{background:#e6f2e9;color:#36744a;border:1.5px solid #cfe5d5;}
+  .avatar--t-sable{background:#fdf4d8;color:#8a6b1f;border:1.5px solid #f1ddae;}
+  .post-who{flex:1;min-width:0;line-height:1.25;}
+  .post-who b{
+    display:block;font-family:var(--titres);font-weight:800;font-size:14px;
+    color:var(--marine);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  .note .desc{font-size:13px;color:var(--text-secondary);line-height:1.5;margin-bottom:12px;}
-  .note .signature{
-    display:flex;align-items:center;gap:8px;padding-top:11px;
-    border-top:1px dashed var(--border);font-size:12px;color:var(--text-secondary);
+  .post-who .meta{font-size:11px;color:var(--text-tertiary);}
+  .badge-type{
+    font-family:var(--titres);font-weight:800;font-size:9.5px;text-transform:uppercase;
+    letter-spacing:.08em;padding:4px 9px;border-radius:5px;flex:none;
+    box-shadow:0 1px 0 rgba(0,0,0,.12);
   }
-  .avatar--ma{background:var(--bg-hover);color:var(--orange-hover);border:1.5px solid #f1ddae;width:28px;height:28px;font-size:9px;}
-  .note .signature .par{flex:1;line-height:1.3;min-width:0;}
-  .note .signature .par b{color:var(--marine);font-weight:600;}
-  .quartier{
-    display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:600;
-    color:var(--marine);background:var(--bg-secondary);border:1px solid var(--border);
-    border-radius:999px;padding:2px 8px;white-space:nowrap;
+  .badge-type--demande{background:var(--orange);color:#fff9ec;}
+  .badge-type--proposition{background:var(--marine);color:#fff9ec;}
+  .badge-type--atelier{background:var(--sable);color:var(--marine);}
+  .badge-type--idee{background:var(--success);color:#fff9ec;}
+
+  .post-text{font-size:13.5px;color:var(--marine);line-height:1.55;margin-bottom:10px;}
+  .post-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+
+  .post-actions{
+    display:flex;align-items:center;gap:12px;
+    padding-top:11px;border-top:1px dashed var(--border);
   }
+  .action-cta{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--titres);font-weight:800;font-size:11.5px;
+    padding:6px 12px;border-radius:999px;text-decoration:none;white-space:nowrap;
+  }
+  .action-cta--demande{background:rgba(214,94,28,.12);color:var(--orange-hover);border:1px solid rgba(214,94,28,.35);}
+  .action-cta--proposition{background:rgba(24,62,87,.08);color:var(--marine);border:1px solid rgba(24,62,87,.25);}
+  .action-cta--atelier{background:rgba(252,219,129,.35);color:#8a6b1f;border:1px solid #ecd48e;}
+  .action-cta--idee{background:rgba(74,157,95,.12);color:#36744a;border:1px solid rgba(74,157,95,.35);}
+  .action-lien{font-size:11.5px;font-weight:700;color:var(--text-tertiary);text-decoration:none;}
+  .action-lien:hover{color:var(--marine);}
+  .compteur{margin-left:auto;font-size:10.5px;color:var(--text-tertiary);white-space:nowrap;}
 
   /* Note RDV = faire-part épinglé */
   .note--rdv .quand{
@@ -221,6 +249,10 @@
   .lien-cal{
     font-size:11px;font-weight:700;color:var(--orange);text-decoration:none;
     border-bottom:1px dashed var(--orange);padding-bottom:1px;white-space:nowrap;
+  }
+  .note--rdv h3{
+    font-family:var(--titres);font-weight:800;font-size:18px;color:var(--marine);
+    line-height:1.2;margin-bottom:6px;
   }
   .note--rdv .avec{display:flex;align-items:center;gap:8px;}
   .avatar--mm{background:#e8eef4;color:var(--marine);border:1.5px solid var(--border);width:28px;height:28px;font-size:10px;}
@@ -259,140 +291,292 @@
   .tab--plus .rond svg{width:20px;height:20px;}
 
   @media (max-width: 430px){
-    body{padding:0;}
-    .phone{width:100%;height:100vh;height:100dvh;min-height:0;border-radius:0;box-shadow:none;}
+    body{padding:20px 8px 40px;}
+    .planche{gap:36px;}
+    .phone{height:min(760px, 92vh);}
   }
 </style>
 </head>
 <body>
-<div class="phone">
+<div class="planche">
 
-  <header class="topbar">
-    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-    <div class="spacer"></div>
-    <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
-    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
-  </header>
+  <!-- ================= ÉCRAN 1 : HAUT DE PAGE ================= -->
+  <div class="ecran">
+    <span class="label">Haut de page</span>
+    <div class="phone">
 
-  <main class="feed">
+      <header class="topbar">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
+        <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+      </header>
 
-    <section class="hero">
-      <span class="plaque">Le tableau du quartier</span>
-      <h1>Le quartier <span class="souligne">a besoin de vous.</span></h1>
-      <p>Échangez du temps, pas de l’argent.</p>
-    </section>
+      <main class="feed">
 
-    <div class="cta-wrap">
-      <button class="btn-cta" type="button"><span>✍︎</span> Épingler une annonce</button>
+        <section class="hero">
+          <span class="plaque">Le tableau du quartier</span>
+          <h1>Le quartier <span class="souligne">a besoin de vous.</span></h1>
+          <p>Échangez du temps, pas de l’argent.</p>
+        </section>
+
+        <div class="cta-wrap">
+          <button class="btn-cta" type="button"><span>✍︎</span> Épingler un post</button>
+        </div>
+
+        <!-- ===== Vos rendez-vous ===== -->
+        <div class="rubrique">
+          <h2>Vos rendez-vous</h2>
+          <span class="badge-compte">4</span>
+          <span class="filet" aria-hidden="true"></span>
+        </div>
+
+        <div class="colonne">
+          <article class="note note--rdv note--gauche">
+            <span class="punaise punaise--marine" aria-hidden="true"></span>
+            <div class="statut-confirme">RDV confirmé</div>
+            <h3>Rencontre physique</h3>
+            <div class="quand">
+              <div class="date">11 juin 2026</div>
+              <div class="meta">12:30<span class="sep">·</span>durée 15&nbsp;min</div>
+            </div>
+            <div class="avec">
+              <span class="avatar avatar--mm">MM</span>
+              <span class="nom">Marie Morel</span>
+              <a class="lien-cal" href="#">+ Calendrier</a>
+            </div>
+          </article>
+        </div>
+
+        <a class="voir-tout" href="#"><span>Voir les 4 rendez-vous →</span></a>
+
+        <!-- ===== Début du fil ===== -->
+        <div class="rubrique">
+          <h2>Sur le tableau</h2>
+          <span class="badge-compte">34</span>
+          <span class="filet" aria-hidden="true"></span>
+        </div>
+
+        <div class="colonne">
+          <article class="note note--droite">
+            <span class="punaise" aria-hidden="true"></span>
+            <div class="post-head">
+              <span class="avatar avatar--sm avatar--t-orange">AN</span>
+              <div class="post-who">
+                <b>Alice Noël</b>
+                <span class="meta">⌖ Centre · il y a 2 h</span>
+              </div>
+              <span class="badge-type badge-type--demande">Demande</span>
+            </div>
+            <p class="post-text">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
+            <div class="post-tags"><span class="tag tag--theme">Bricolage</span></div>
+            <div class="post-actions">
+              <a class="action-cta action-cta--demande" href="#">🤝 Je peux aider</a>
+              <a class="action-lien" href="#">Répondre</a>
+              <span class="compteur">3 réponses</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="pied"></div>
+      </main>
+
+      <nav class="tabbar" aria-label="Navigation principale">
+        <a class="tab tab--actif" href="#" aria-current="page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+          Accueil
+        </a>
+        <a class="tab" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+          Rechercher
+        </a>
+        <a class="tab tab--plus" href="#">
+          <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          Proposer
+        </a>
+        <a class="tab" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+          Services
+        </a>
+        <a class="tab" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
+          Messages
+        </a>
+      </nav>
+
     </div>
+  </div>
 
-    <!-- ===== Vos rendez-vous ===== -->
-    <div class="rubrique">
-      <h2>Vos rendez-vous</h2>
-      <span class="badge-compte">4</span>
-      <span class="filet" aria-hidden="true"></span>
+  <!-- ================= ÉCRAN 2 : FIL D'ACTUALITÉ ================= -->
+  <div class="ecran">
+    <span class="label">Fil d’actualité</span>
+    <div class="phone">
+
+      <header class="topbar">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
+        <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+      </header>
+
+      <main class="feed">
+
+        <div class="rubrique">
+          <h2>Sur le tableau</h2>
+          <span class="badge-compte">34</span>
+          <span class="filet" aria-hidden="true"></span>
+        </div>
+
+        <div class="colonne">
+
+          <!-- 1. Demande -->
+          <article class="note note--droite">
+            <span class="punaise" aria-hidden="true"></span>
+            <div class="post-head">
+              <span class="avatar avatar--sm avatar--t-orange">AN</span>
+              <div class="post-who">
+                <b>Alice Noël</b>
+                <span class="meta">⌖ Centre · il y a 2 h</span>
+              </div>
+              <span class="badge-type badge-type--demande">Demande</span>
+            </div>
+            <p class="post-text">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
+            <div class="post-tags"><span class="tag tag--theme">Bricolage</span></div>
+            <div class="post-actions">
+              <a class="action-cta action-cta--demande" href="#">🤝 Je peux aider</a>
+              <a class="action-lien" href="#">Répondre</a>
+              <span class="compteur">3 réponses</span>
+            </div>
+          </article>
+
+          <!-- 2. Proposition -->
+          <article class="note note--gauche">
+            <span class="punaise punaise--marine" aria-hidden="true"></span>
+            <div class="post-head">
+              <span class="avatar avatar--sm avatar--t-marine">ML</span>
+              <div class="post-who">
+                <b>Marta Lopez</b>
+                <span class="meta">⌖ Baugerie · il y a 5 h</span>
+              </div>
+              <span class="badge-type badge-type--proposition">Proposition</span>
+            </div>
+            <p class="post-text">Cours d’espagnol conversationnel, tous niveaux. Native, patiente, chez moi ou en visio. 1&nbsp;h = 1&nbsp;h.</p>
+            <div class="post-tags"><span class="tag tag--theme">Cours</span></div>
+            <div class="post-actions">
+              <a class="action-cta action-cta--proposition" href="#">✋ Ça m’intéresse</a>
+              <a class="action-lien" href="#">Répondre</a>
+              <span class="compteur">5 intéressés</span>
+            </div>
+          </article>
+
+          <!-- 3. Atelier -->
+          <article class="note note--droite">
+            <span class="punaise punaise--sable" aria-hidden="true"></span>
+            <div class="post-head">
+              <span class="avatar avatar--sm avatar--t-sable">PB</span>
+              <div class="post-who">
+                <b>Pierre Blanchard</b>
+                <span class="meta">⌖ Vieux Bourg · hier</span>
+              </div>
+              <span class="badge-type badge-type--atelier">Atelier</span>
+            </div>
+            <p class="post-text">Atelier réparation vélo dimanche 10&nbsp;h au local associatif. Amenez votre monture, on regarde freins et dérailleurs ensemble.</p>
+            <div class="post-actions">
+              <a class="action-cta action-cta--atelier" href="#">🔧 Je m’inscris</a>
+              <a class="action-lien" href="#">Répondre</a>
+              <span class="compteur">3/5 inscrits</span>
+            </div>
+          </article>
+
+          <!-- 4. Idée -->
+          <article class="note note--gauche">
+            <span class="punaise punaise--vert" aria-hidden="true"></span>
+            <div class="post-head">
+              <span class="avatar avatar--sm avatar--t-vert">MM</span>
+              <div class="post-who">
+                <b>Marie Morel</b>
+                <span class="meta">⌖ Centre · hier</span>
+              </div>
+              <span class="badge-type badge-type--idee">Idée</span>
+            </div>
+            <p class="post-text">Et si on lançait un café des voisins un samedi par mois au square de la Baugerie&nbsp;? Qui serait partant&nbsp;?</p>
+            <div class="post-actions">
+              <a class="action-cta action-cta--idee" href="#">☕ Je suis partant·e</a>
+              <a class="action-lien" href="#">Répondre</a>
+              <span class="compteur">12 partants · 8 réponses</span>
+            </div>
+          </article>
+
+          <!-- 5. Demande -->
+          <article class="note note--droite">
+            <span class="punaise" aria-hidden="true"></span>
+            <div class="post-head">
+              <span class="avatar avatar--sm avatar--t-orange">SK</span>
+              <div class="post-who">
+                <b>Sonia Klein</b>
+                <span class="meta">⌖ Baugerie · il y a 3 j</span>
+              </div>
+              <span class="badge-type badge-type--demande">Demande</span>
+            </div>
+            <p class="post-text">Je cherche quelqu’un pour nourrir mon chat le week-end du 20. Câlins inclus dans l’échange.</p>
+            <div class="post-tags"><span class="tag tag--theme">Animaux</span></div>
+            <div class="post-actions">
+              <a class="action-cta action-cta--demande" href="#">🤝 Je peux aider</a>
+              <a class="action-lien" href="#">Répondre</a>
+              <span class="compteur">1 réponse</span>
+            </div>
+          </article>
+
+          <!-- 6. Proposition -->
+          <article class="note note--gauche">
+            <span class="punaise punaise--marine" aria-hidden="true"></span>
+            <div class="post-head">
+              <span class="avatar avatar--sm avatar--t-marine">LG</span>
+              <div class="post-who">
+                <b>Lucie Garnier</b>
+                <span class="meta">⌖ Centre · il y a 3 j</span>
+              </div>
+              <span class="badge-type badge-type--proposition">Proposition</span>
+            </div>
+            <p class="post-text">Retouches couture&nbsp;: ourlets, fermetures éclair, boutons. Ma machine ronronne, profitez-en.</p>
+            <div class="post-tags"><span class="tag tag--theme">Couture</span></div>
+            <div class="post-actions">
+              <a class="action-cta action-cta--proposition" href="#">✋ Ça m’intéresse</a>
+              <a class="action-lien" href="#">Répondre</a>
+              <span class="compteur">4 intéressés</span>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="pied"></div>
+      </main>
+
+      <nav class="tabbar" aria-label="Navigation principale">
+        <a class="tab tab--actif" href="#" aria-current="page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+          Accueil
+        </a>
+        <a class="tab" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+          Rechercher
+        </a>
+        <a class="tab tab--plus" href="#">
+          <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          Proposer
+        </a>
+        <a class="tab" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+          Services
+        </a>
+        <a class="tab" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
+          Messages
+        </a>
+      </nav>
+
     </div>
-
-    <div class="colonne">
-      <article class="note note--rdv note--gauche">
-        <span class="punaise punaise--marine" aria-hidden="true"></span>
-        <div class="statut-confirme">RDV confirmé</div>
-        <h3>Rencontre physique</h3>
-        <div class="quand">
-          <div class="date">11 juin 2026</div>
-          <div class="meta">12:30<span class="sep">·</span>durée 15&nbsp;min</div>
-        </div>
-        <div class="avec">
-          <span class="avatar avatar--mm">MM</span>
-          <span class="nom">Marie Morel</span>
-          <a class="lien-cal" href="#">+ Calendrier</a>
-        </div>
-      </article>
-    </div>
-
-    <a class="voir-tout" href="#"><span>Voir les 4 rendez-vous →</span></a>
-
-    <!-- ===== Annonces épinglées ===== -->
-    <div class="rubrique">
-      <h2>Sur le tableau</h2>
-      <span class="badge-compte">34</span>
-      <span class="filet" aria-hidden="true"></span>
-    </div>
-
-    <div class="colonne">
-      <article class="note note--droite">
-        <span class="punaise" aria-hidden="true"></span>
-        <div class="tags">
-          <span class="tag tag--offre">Offre</span>
-          <span class="tag tag--theme">Espagnol</span>
-        </div>
-        <h3>Cours d’espagnol</h3>
-        <p class="desc">Native, tous niveaux. Possibilité de cours en visio comme en présentiel.</p>
-        <div class="signature">
-          <span class="avatar avatar--ma">ML</span>
-          <span class="par">Par <b>Marta Lopez</b></span>
-          <span class="quartier">⌖ Baugerie</span>
-        </div>
-      </article>
-
-      <article class="note note--gauche">
-        <span class="punaise punaise--sable" aria-hidden="true"></span>
-        <div class="tags">
-          <span class="tag tag--offre">Offre</span>
-          <span class="tag tag--theme">Bricolage</span>
-        </div>
-        <h3>Bricolage &amp; petits travaux</h3>
-        <p class="desc">Étagères, perçage, montage de meubles… Je passe avec ma caisse à outils.</p>
-        <div class="signature">
-          <span class="avatar avatar--ma">PB</span>
-          <span class="par">Par <b>Pierre Blanchard</b></span>
-          <span class="quartier">⌖ Centre</span>
-        </div>
-      </article>
-
-      <article class="note note--droite">
-        <span class="punaise punaise--marine" aria-hidden="true"></span>
-        <div class="tags">
-          <span class="tag tag--recherche">Recherche</span>
-          <span class="tag tag--theme">Animaux</span>
-        </div>
-        <h3>Nourrir mon chat ce week-end</h3>
-        <p class="desc">Absente sam. et dim. Une visite matin et soir, croquettes + un câlin.</p>
-        <div class="signature">
-          <span class="avatar avatar--ma">AN</span>
-          <span class="par">Par <b>Alice Noël</b></span>
-          <span class="quartier">⌖ Baugerie</span>
-        </div>
-      </article>
-    </div>
-
-    <a class="voir-tout" href="#"><span>Parcourir les 34 annonces →</span></a>
-
-    <div class="pied"></div>
-  </main>
-
-  <nav class="tabbar" aria-label="Navigation principale">
-    <a class="tab tab--actif" href="#" aria-current="page">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-      Accueil
-    </a>
-    <a class="tab" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-      Rechercher
-    </a>
-    <a class="tab tab--plus" href="#">
-      <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-      Proposer
-    </a>
-    <a class="tab" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-      Services
-    </a>
-    <a class="tab" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
-      Messages
-    </a>
-  </nav>
+  </div>
 
 </div>
 </body>

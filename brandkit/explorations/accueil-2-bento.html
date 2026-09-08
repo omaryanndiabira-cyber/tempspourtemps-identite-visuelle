@@ -48,6 +48,25 @@
     color:var(--marine);
   }
 
+  /* ============ STAGE — deux téléphones côte à côte ============ */
+  .stage{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:flex-start;
+    gap:48px;
+  }
+  .device{display:flex;flex-direction:column;align-items:center;}
+  .device-label{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--text-tertiary);
+    margin-bottom:12px;
+  }
+
   /* ============ PHONE FRAME ============ */
   .phone{
     width:390px;
@@ -473,135 +492,105 @@
     font-weight:700;
   }
 
-  /* ============ ANNONCE CARD ============ */
-  .annonce{
-    background:#fff;
-    border-radius:var(--r-lg);
-    box-shadow:var(--shadow-soft);
-    border:1px solid rgba(214,219,226,.55);
-    padding:15px 16px 14px;
-    margin-bottom:24px;
-    position:relative;
-  }
-  .annonce .tags{display:flex;gap:6px;margin-bottom:9px;}
+  /* ============ FIL DU QUARTIER — posts ============ */
   .tag{
     font-size:10.5px;
     font-weight:700;
     border-radius:999px;
     padding:3.5px 10px;
   }
-  .tag.offre{background:var(--marine);color:var(--sable);}
-  .tag.theme{background:var(--bg-hover);color:var(--orange-hover);border:1px solid #f3ddb0;}
   .tag.skill{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border);}
-  .annonce h3{
-    font-family:var(--font-title);
-    font-weight:800;
-    font-size:16px;
-    color:var(--marine);
-    padding-right:34px;
+  .feed{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
   }
-  .annonce .desc{
-    font-size:13px;
-    color:var(--text-secondary);
-    line-height:1.45;
-    margin-top:4px;
+  .post{
+    background:#fff;
+    border-radius:var(--r-lg);
+    box-shadow:var(--shadow-soft);
+    border:1px solid rgba(214,219,226,.55);
+    padding:14px 16px 13px;
   }
-  .annonce .when{
-    font-size:11.5px;
-    color:var(--text-tertiary);
-    font-weight:500;
-    margin-top:7px;
-  }
-  .annonce-foot{
+  .post-head{
     display:flex;
     align-items:center;
     gap:9px;
-    margin-top:11px;
-    padding-top:11px;
-    border-top:1px dashed var(--border);
   }
-  .annonce-foot .who{flex:1;min-width:0;}
-  .annonce-foot .who b{
+  .post-who{flex:1;min-width:0;}
+  .post-who b{
     display:block;
-    font-size:12.5px;
+    font-size:13px;
     font-weight:700;
     color:var(--marine);
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
   }
-  .annonce-foot .who span{
-    display:flex;
-    align-items:center;
-    gap:3px;
+  .post-who span{
+    display:block;
     font-size:11px;
     color:var(--text-tertiary);
     font-weight:500;
     margin-top:1px;
   }
-  .heart{
-    position:absolute;
-    top:14px;right:14px;
-    width:32px;height:32px;
-    border-radius:50%;
-    background:var(--bg-secondary);
-    border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;
-    color:var(--danger);
-    transition:background .15s ease;
-  }
-  .heart:hover{background:#fbeae7;}
-
-  /* ============ BENTO ENTRAIDE ============ */
-  .bento-duo{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-bottom:8px;
-  }
-  .helper-card{
-    background:#fff;
-    border-radius:var(--r-lg);
-    box-shadow:var(--shadow-soft);
-    border:1px solid rgba(214,219,226,.55);
-    padding:14px;
-    display:flex;
-    flex-direction:column;
-  }
-  .helper-card .hc-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:6px;
-    margin-bottom:11px;
-  }
-  .helper-card .hc-head h3{
+  .ptag{
+    flex:none;
     font-family:var(--font-title);
     font-weight:800;
-    font-size:12.5px;
-    line-height:1.25;
-    color:var(--marine);
+    font-size:10.5px;
+    border-radius:999px;
+    padding:4.5px 11px;
   }
-  .helper-card .hc-head .count{flex:none;}
-  .helper-card.help-them{background:linear-gradient(165deg,#fffdf6 0%,var(--bg-hover) 100%);}
-  .helper-card .person{
+  .ptag.t-demande{background:var(--orange);color:#fff;}
+  .ptag.t-proposition{background:var(--marine);color:var(--sable);}
+  .ptag.t-atelier{background:var(--sable);color:var(--marine);}
+  .ptag.t-idee{background:var(--success);color:#fff;}
+  .post-text{
+    font-size:13.5px;
+    color:var(--marine);
+    line-height:1.5;
+    margin-top:10px;
+  }
+  .post-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;}
+  .post-actions{
     display:flex;
     align-items:center;
     gap:8px;
-    margin-bottom:10px;
+    margin-top:11px;
+    padding-top:11px;
+    border-top:1px dashed var(--border);
   }
-  .helper-card .person b{
-    font-size:12.5px;
-    font-weight:700;
-    color:var(--marine);
-    line-height:1.25;
-  }
-  .helper-card .skills{
-    display:flex;
-    flex-wrap:wrap;
+  .pact{
+    display:inline-flex;
+    align-items:center;
     gap:5px;
-    margin-top:auto;
+    font-family:var(--font-body);
+    font-size:12px;
+    font-weight:600;
+    border-radius:999px;
+    padding:7px 13px;
+    border:1px solid var(--border);
+    background:var(--bg-secondary);
+    color:var(--text-secondary);
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .pact:hover{background:var(--bg-hover);}
+  .pact svg{display:block;}
+  .pact.primary{
+    background:var(--orange);
+    border-color:var(--orange);
+    color:#fff;
+    font-weight:700;
+  }
+  .pact.primary:hover{background:var(--orange-hover);border-color:var(--orange-hover);}
+  .post-note{
+    margin-left:auto;
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--text-tertiary);
+    white-space:nowrap;
   }
 
   /* ============ TAB BAR ============ */
@@ -657,6 +646,13 @@
 </head>
 <body>
 
+<div class="stage">
+
+<!-- ============================================================
+     TÉLÉPHONE 1 — Haut de page
+     ============================================================ -->
+<div class="device">
+  <div class="device-label">Haut de page</div>
 <div class="phone">
 
   <!-- ===== TOP BAR ===== -->
@@ -751,69 +747,36 @@
         </article>
       </div>
 
-      <!-- ===== ANNONCES ===== -->
+      <!-- ===== LE FIL DU QUARTIER (début, coupé par le cadre) ===== -->
       <div class="section-head">
-        <h2>Annonces <span class="count">34</span></h2>
+        <h2>Le fil du quartier <span class="count">34</span></h2>
         <a class="see-all" href="#">Tout voir</a>
       </div>
       <div class="filters">
-        <button class="filter active">Récentes</button>
-        <button class="filter">Offres</button>
+        <button class="filter active">Récents</button>
         <button class="filter">Demandes</button>
-        <button class="filter">Près de moi</button>
+        <button class="filter">Propositions</button>
+        <button class="filter">Ateliers</button>
+        <button class="filter">Idées</button>
       </div>
-      <article class="annonce">
-        <button class="heart" aria-label="Ajouter aux favoris">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.8-9.3-9.1C1.3 8 3.5 4.5 7 4.5c2.2 0 3.9 1.3 5 3 1.1-1.7 2.8-3 5-3 3.5 0 5.7 3.5 4.3 6.9-1.8 4.3-9.3 9.1-9.3 9.1z"/></svg>
-        </button>
-        <div class="tags">
-          <span class="tag offre">Offre</span>
-          <span class="tag theme">Espagnol</span>
-        </div>
-        <h3>Espagnol. Cours</h3>
-        <p class="desc">Native. Tous niveaux. Cours en visio possible.</p>
-        <p class="when">il y a 5 j</p>
-        <div class="annonce-foot">
-          <div class="mini-avatar av-orange">ML</div>
-          <div class="who">
-            <b>Marta Lopez</b>
-            <span>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
-              Baugerie
-            </span>
-          </div>
-        </div>
-      </article>
-
-      <!-- ===== BENTO ENTRAIDE ===== -->
-      <div class="bento-duo">
-        <article class="helper-card">
-          <div class="hc-head">
-            <h3>Vous pouvez les&nbsp;aider</h3>
-            <span class="count">60</span>
-          </div>
-          <div class="person">
+      <div class="feed">
+        <article class="post">
+          <div class="post-head">
             <div class="mini-avatar av-green">AN</div>
-            <b>Alice Noël</b>
+            <div class="post-who">
+              <b>Alice Noël</b>
+              <span>Centre · il y a 2 h</span>
+            </div>
+            <span class="ptag t-demande">Demande</span>
           </div>
-          <div class="skills">
-            <span class="tag skill">Nourrissage / visites</span>
-            <span class="tag skill">Arrosage</span>
-          </div>
-        </article>
-        <article class="helper-card help-them">
-          <div class="hc-head">
-            <h3>Ils·elles peuvent vous&nbsp;aider</h3>
-            <span class="count">57</span>
-          </div>
-          <div class="person">
-            <div class="mini-avatar av-sable">LG</div>
-            <b>Lucie Garnier</b>
-          </div>
-          <div class="skills">
-            <span class="tag skill">Garde chat</span>
-            <span class="tag skill">Massages bien-être</span>
-            <span class="tag skill">Arrosage</span>
+          <p class="post-text">Quelqu'un pour m'aider à monter une étagère samedi matin ? Une petite heure, je fournis les outils (et le café).</p>
+          <div class="post-tags"><span class="tag skill">Bricolage</span></div>
+          <div class="post-actions">
+            <button class="pact primary">Je peux aider</button>
+            <button class="pact">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.7-3.4A8 8 0 1 1 21 12z"/></svg>
+              2
+            </button>
           </div>
         </article>
       </div>
@@ -846,6 +809,191 @@
       Messages
     </a>
   </nav>
+
+</div>
+</div>
+
+<!-- ============================================================
+     TÉLÉPHONE 2 — Fil d'actualité (état scrollé)
+     ============================================================ -->
+<div class="device">
+  <div class="device-label">Fil d'actualité</div>
+<div class="phone">
+
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <span class="pill-solde">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      8 h 30
+    </span>
+    <div class="avatar">OD</div>
+  </header>
+
+  <!-- ===== SCROLLABLE CONTENT — le fil ===== -->
+  <main class="scroll">
+    <div class="content">
+
+      <div class="section-head">
+        <h2>Le fil du quartier <span class="count">34</span></h2>
+        <a class="see-all" href="#">Tout voir</a>
+      </div>
+      <div class="filters">
+        <button class="filter active">Récents</button>
+        <button class="filter">Demandes</button>
+        <button class="filter">Propositions</button>
+        <button class="filter">Ateliers</button>
+        <button class="filter">Idées</button>
+      </div>
+
+      <div class="feed">
+
+        <article class="post">
+          <div class="post-head">
+            <div class="mini-avatar av-green">AN</div>
+            <div class="post-who">
+              <b>Alice Noël</b>
+              <span>Centre · il y a 2 h</span>
+            </div>
+            <span class="ptag t-demande">Demande</span>
+          </div>
+          <p class="post-text">Quelqu'un pour m'aider à monter une étagère samedi matin ? Une petite heure, je fournis les outils (et le café).</p>
+          <div class="post-tags"><span class="tag skill">Bricolage</span></div>
+          <div class="post-actions">
+            <button class="pact primary">Je peux aider</button>
+            <button class="pact">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.7-3.4A8 8 0 1 1 21 12z"/></svg>
+              2
+            </button>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-head">
+            <div class="mini-avatar av-orange">ML</div>
+            <div class="post-who">
+              <b>Marta Lopez</b>
+              <span>Baugerie · il y a 5 h</span>
+            </div>
+            <span class="ptag t-proposition">Proposition</span>
+          </div>
+          <p class="post-text">Cours d'espagnol conversationnel, tous niveaux. Native, patiente, chez moi ou en visio. 1 h = 1 h.</p>
+          <div class="post-tags"><span class="tag skill">Cours</span></div>
+          <div class="post-actions">
+            <button class="pact primary">Ça m'intéresse</button>
+            <button class="pact">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.8-9.3-9.1C1.3 8 3.5 4.5 7 4.5c2.2 0 3.9 1.3 5 3 1.1-1.7 2.8-3 5-3 3.5 0 5.7 3.5 4.3 6.9-1.8 4.3-9.3 9.1-9.3 9.1z"/></svg>
+              6
+            </button>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-head">
+            <div class="mini-avatar av-marine">PB</div>
+            <div class="post-who">
+              <b>Pierre Blanchard</b>
+              <span>Vieux Bourg · hier</span>
+            </div>
+            <span class="ptag t-atelier">Atelier</span>
+          </div>
+          <p class="post-text">Atelier réparation vélo dimanche 10 h au local associatif. Amenez votre monture, on regarde freins et dérailleurs ensemble.</p>
+          <div class="post-actions">
+            <button class="pact primary">Je m'inscris</button>
+            <span class="post-note">3/5 inscrits</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-head">
+            <div class="mini-avatar av-sable">MM</div>
+            <div class="post-who">
+              <b>Marie Morel</b>
+              <span>Centre · hier</span>
+            </div>
+            <span class="ptag t-idee">Idée</span>
+          </div>
+          <p class="post-text">Et si on lançait un café des voisins un samedi par mois au square de la Baugerie ? Qui serait partant ?</p>
+          <div class="post-actions">
+            <button class="pact primary">Je suis partant·e</button>
+            <span class="post-note">12 partants · 8 réponses</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-head">
+            <div class="mini-avatar av-green">SK</div>
+            <div class="post-who">
+              <b>Sonia Klein</b>
+              <span>Baugerie · il y a 3 j</span>
+            </div>
+            <span class="ptag t-demande">Demande</span>
+          </div>
+          <p class="post-text">Je cherche quelqu'un pour nourrir mon chat le week-end du 20. Câlins inclus dans l'échange.</p>
+          <div class="post-tags"><span class="tag skill">Animaux</span></div>
+          <div class="post-actions">
+            <button class="pact primary">Je peux aider</button>
+            <button class="pact">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.7-3.4A8 8 0 1 1 21 12z"/></svg>
+              1
+            </button>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-head">
+            <div class="mini-avatar av-orange">LG</div>
+            <div class="post-who">
+              <b>Lucie Garnier</b>
+              <span>Centre · il y a 3 j</span>
+            </div>
+            <span class="ptag t-proposition">Proposition</span>
+          </div>
+          <p class="post-text">Retouches couture : ourlets, fermetures éclair, boutons. Ma machine ronronne, profitez-en.</p>
+          <div class="post-tags"><span class="tag skill">Couture</span></div>
+          <div class="post-actions">
+            <button class="pact primary">Ça m'intéresse</button>
+            <button class="pact">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.8-9.3-9.1C1.3 8 3.5 4.5 7 4.5c2.2 0 3.9 1.3 5 3 1.1-1.7 2.8-3 5-3 3.5 0 5.7 3.5 4.3 6.9-1.8 4.3-9.3 9.1-9.3 9.1z"/></svg>
+              3
+            </button>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== TAB BAR ===== -->
+  <nav class="tabbar">
+    <a class="tab active" href="#">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7.5L21 11M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      Accueil
+    </a>
+    <a class="tab" href="#">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg>
+      Rechercher
+    </a>
+    <a class="tab-plus" href="#">
+      <span class="plus-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </span>
+      Proposer
+    </a>
+    <a class="tab" href="#">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="1.4" fill="currentColor" stroke="none"/></svg>
+      Services
+    </a>
+    <a class="tab" href="#">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.7-3.4A8 8 0 1 1 21 12z"/></svg>
+      Messages
+    </a>
+  </nav>
+
+</div>
+</div>
 
 </div>
 
