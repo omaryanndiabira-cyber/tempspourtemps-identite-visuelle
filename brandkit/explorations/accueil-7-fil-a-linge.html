@@ -12,7 +12,7 @@
      TempsPourTemps — Accueil V7 « Fil à linge »
      Les posts du quartier sont suspendus à des fils avec des
      épingles à linge, empilés en un fil d'actualité vertical.
-     Deux téléphones : haut de page + fil d'actualité (état scrollé).
+     Un seul téléphone : le contenu défile (topbar et tabbar fixes).
      ============================================================ */
   :root{
     --marine:#183e57;--marine-hover:#0f2f44;
@@ -31,21 +31,12 @@
     background-image:
       radial-gradient(circle at 18% 12%, rgba(252,219,129,.20), transparent 42%),
       radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
-    min-height:100vh;padding:36px 16px 48px;
+    min-height:100vh;padding:24px 16px;
+    display:flex;align-items:center;justify-content:center;
     color:var(--marine);-webkit-font-smoothing:antialiased;
   }
-  /* ---------- Scène : deux téléphones côte à côte ---------- */
-  .scene{
-    display:flex;flex-wrap:wrap;gap:48px;justify-content:center;align-items:flex-start;
-    max-width:980px;margin:0 auto;
-  }
-  .device{display:flex;flex-direction:column;align-items:center;}
-  .device-label{
-    font-family:var(--titres);font-weight:800;font-size:11px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--text-tertiary);margin-bottom:14px;
-  }
   .phone{
-    width:390px;max-width:100%;height:844px;
+    width:390px;max-width:100%;height:min(844px, calc(100vh - 48px));min-height:640px;
     background:var(--bg-main);border-radius:var(--radius-app);
     box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),
       0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
@@ -94,8 +85,7 @@
   .btn-cta:active{transform:translateY(2px);}
 
   /* ---------- Rubrique ---------- */
-  .rubrique{margin:26px 22px 0;display:flex;align-items:center;gap:9px;}
-  .rubrique--compacte{margin-top:18px;}
+  .rubrique{margin:26px 22px 0;display:flex;align-items:center;gap:9px;scroll-margin-top:8px;}
   .rubrique h2{font-family:var(--titres);font-weight:800;font-size:15px;color:var(--marine);}
   .rubrique .badge-compte{
     display:inline-flex;align-items:center;justify-content:center;min-width:21px;height:21px;padding:0 6px;
@@ -189,19 +179,13 @@
   .tab--plus .rond svg{width:20px;height:20px;}
 
   @media (max-width: 430px){
-    body{padding:24px 0 40px;}
-    .scene{gap:36px;}
-    .phone{width:100%;border-radius:0;box-shadow:none;}
+    body{padding:0;}
+    .phone{width:100%;height:100vh;min-height:100vh;border-radius:0;box-shadow:none;}
   }
 </style>
 </head>
 <body>
-<div class="scene">
-
-  <!-- ============ Téléphone 1 : haut de page ============ -->
-  <div class="device">
-    <div class="device-label">Haut de page</div>
-    <div class="phone">
+  <div class="phone">
 
       <header class="topbar">
         <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
@@ -221,107 +205,10 @@
           <button class="btn-cta" type="button"><span>✍︎</span> Suspendre un post</button>
         </div>
 
-        <div class="rubrique">
+        <div class="rubrique" id="fil">
           <h2>Au fil du quartier</h2>
           <span class="badge-compte">34</span>
           <span class="hint">faites défiler ↓</span>
-        </div>
-
-        <div class="fil-actu">
-          <!-- Post 1 (début, coupé par le bas du téléphone) -->
-          <article class="post">
-            <svg class="fil" viewBox="0 0 354 26" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M 0,5 Q 177,24 354,5" fill="none" stroke="#5b6b78" stroke-width="2.4" stroke-linecap="round"/>
-              <path d="M 0,4 Q 177,23 354,4" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="0.8" stroke-linecap="round"/>
-            </svg>
-            <div class="carte">
-              <span class="epingle epingle--g" aria-hidden="true"></span>
-              <span class="epingle epingle--d" aria-hidden="true"></span>
-              <div class="entete">
-                <span class="avatar av-marine">AN</span>
-                <div class="qui"><b>Alice Noël</b><span class="meta">⌖ Centre · il y a 2 h</span></div>
-                <span class="badge badge--demande">Demande</span>
-              </div>
-              <p class="texte">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
-              <div class="tags"><span class="tag tag--theme">Bricolage</span></div>
-              <div class="actions">
-                <span class="action action--cta">🤝 Je peux aider</span>
-                <span class="action">💬 Répondre</span>
-                <span class="compteur">3 réponses</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Post 2 (n'apparaît que partiellement, coupé) -->
-          <article class="post">
-            <svg class="fil" viewBox="0 0 354 26" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M 0,5 Q 177,24 354,5" fill="none" stroke="#5b6b78" stroke-width="2.4" stroke-linecap="round"/>
-              <path d="M 0,4 Q 177,23 354,4" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="0.8" stroke-linecap="round"/>
-            </svg>
-            <div class="carte">
-              <span class="epingle epingle--g" aria-hidden="true"></span>
-              <span class="epingle epingle--d" aria-hidden="true"></span>
-              <div class="entete">
-                <span class="avatar av-orange">ML</span>
-                <div class="qui"><b>Marta Lopez</b><span class="meta">⌖ Baugerie · il y a 5 h</span></div>
-                <span class="badge badge--proposition">Proposition</span>
-              </div>
-              <p class="texte">Cours d’espagnol conversationnel, tous niveaux. Native, patiente, chez moi ou en visio. 1&nbsp;h = 1&nbsp;h.</p>
-              <div class="tags"><span class="tag tag--theme">Cours</span></div>
-              <div class="actions">
-                <span class="action action--cta">✋ Ça m’intéresse</span>
-                <span class="action">💬 Répondre</span>
-                <span class="compteur">5 intéressé·es</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-      </main>
-
-      <nav class="tabbar" aria-label="Navigation principale">
-        <a class="tab tab--actif" href="#" aria-current="page">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-          Accueil
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-          Rechercher
-        </a>
-        <a class="tab tab--plus" href="#">
-          <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          Proposer
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-          Services
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
-          Messages
-        </a>
-      </nav>
-
-    </div>
-  </div>
-
-  <!-- ============ Téléphone 2 : fil d'actualité (état scrollé) ============ -->
-  <div class="device">
-    <div class="device-label">Fil d’actualité</div>
-    <div class="phone">
-
-      <header class="topbar">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <div class="spacer"></div>
-        <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
-        <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
-      </header>
-
-      <main class="feed">
-
-        <div class="rubrique rubrique--compacte">
-          <h2>Au fil du quartier</h2>
-          <span class="badge-compte">34</span>
         </div>
 
         <div class="fil-actu">
@@ -498,9 +385,6 @@
         </a>
       </nav>
 
-    </div>
   </div>
-
-</div>
 </body>
 </html>

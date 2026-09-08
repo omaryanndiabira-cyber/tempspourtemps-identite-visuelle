@@ -12,7 +12,7 @@
      TempsPourTemps — Accueil V5 « Carnet washi »
      L'esprit gazette, mais ALLÉGÉ : papier crème, une colonne,
      beaucoup d'air, cartes scotchées au washi tape (ruban masking).
-     Deux écrans : haut de page + fil d'actualité vertical.
+     Un seul écran qui défile : haut de page puis fil d'actualité.
      ============================================================ */
   :root{
     --marine:#183e57;
@@ -40,24 +40,14 @@
     background-image:
       radial-gradient(circle at 18% 12%, rgba(252,219,129,.20), transparent 42%),
       radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
-    display:flex;align-items:flex-start;justify-content:center;
-    min-height:100vh;padding:32px 12px;color:var(--marine);
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;padding:24px 12px;color:var(--marine);
     -webkit-font-smoothing:antialiased;
-  }
-
-  /* ---------- Scène : deux téléphones côte à côte ---------- */
-  .scene{
-    display:flex;flex-wrap:wrap;gap:48px;justify-content:center;align-items:flex-start;
-  }
-  .device{display:flex;flex-direction:column;align-items:center;gap:14px;}
-  .device .label{
-    font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;
-    color:var(--text-tertiary);
   }
 
   .phone{
     width:390px;max-width:100%;
-    height:min(844px, calc(100vh - 110px));min-height:640px;
+    height:min(844px, calc(100vh - 48px));min-height:640px;
     background:var(--bg-main);border-radius:var(--radius-app);
     box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),
       0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
@@ -72,25 +62,18 @@
   }
   .topbar .logo{height:34px;width:auto;display:block;}
   .topbar .spacer{flex:1;}
-  .topbar--compacte{padding:9px 16px 8px;}
-  .topbar--compacte .logo{height:26px;}
-  .topbar--compacte .titre-fil{
-    font-family:var(--titres);font-weight:800;font-size:13px;color:#fff9ec;letter-spacing:.2px;
-  }
   .credit-pill{
     display:inline-flex;align-items:center;gap:6px;background:var(--sable);color:var(--marine);
     border-radius:999px;padding:6px 12px 6px 9px;font-family:var(--titres);font-weight:800;
     font-size:14px;letter-spacing:.2px;
     box-shadow:inset 0 -2px 0 rgba(24,62,87,.18), 0 1px 0 rgba(0,0,0,.15);white-space:nowrap;
   }
-  .topbar--compacte .credit-pill{padding:4px 10px 4px 8px;font-size:12px;}
   .credit-pill .ico{font-size:13px;line-height:1;}
   .avatar{
     width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;
     justify-content:center;font-family:var(--titres);font-weight:800;font-size:12px;flex:none;letter-spacing:.3px;
   }
   .avatar--me{background:var(--sable);color:var(--marine);border:2px solid rgba(255,255,255,.55);}
-  .topbar--compacte .avatar--me{width:28px;height:28px;font-size:10px;}
 
   /* feed : papier crème uni, très aéré */
   .feed{
@@ -133,6 +116,7 @@
     margin:30px 22px 0;display:flex;align-items:center;gap:9px;
   }
   .rubrique--haut{margin-top:20px;}
+  #fil{scroll-margin-top:10px;}
   .rubrique h2{
     font-family:var(--titres);font-weight:800;font-size:15px;color:var(--marine);
   }
@@ -273,12 +257,9 @@
 </style>
 </head>
 <body>
-<div class="scene">
 
-  <!-- ================= Téléphone 1 : haut de page ================= -->
-  <div class="device">
-    <span class="label">Haut de page</span>
-    <div class="phone">
+  <!-- ================= Téléphone unique : la page défile ================= -->
+  <div class="phone">
 
       <header class="topbar">
         <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
@@ -326,8 +307,8 @@
           </article>
         </div>
 
-        <!-- ===== Début du fil (coupé par le bas de l'écran) ===== -->
-        <div class="rubrique">
+        <!-- ===== Le fil du quartier ===== -->
+        <div class="rubrique" id="fil">
           <h2>Le fil du quartier</h2>
           <span class="badge-compte">34</span>
           <span class="filet" aria-hidden="true"></span>
@@ -335,71 +316,6 @@
         </div>
 
         <div class="colonne">
-          <article class="carte post">
-            <span class="washi washi--orange" aria-hidden="true"></span>
-            <div class="post-head">
-              <span class="avatar avatar--fil av-creme">AN</span>
-              <div class="qui">
-                <b>Alice Noël</b>
-                <span>Centre · il y a 2 h</span>
-              </div>
-              <span class="badge-type badge--demande">Demande</span>
-            </div>
-            <p class="post-texte">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
-            <div class="post-tags"><span class="tag tag--theme">Bricolage</span></div>
-            <div class="post-actions">
-              <a class="action action--fort" href="#">🤝 Je peux aider</a>
-              <a class="action" href="#">Répondre</a>
-              <span class="compteur">2 réponses</span>
-            </div>
-          </article>
-        </div>
-
-      </main>
-
-      <nav class="tabbar" aria-label="Navigation principale">
-        <a class="tab tab--actif" href="#" aria-current="page">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-          Accueil
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-          Rechercher
-        </a>
-        <a class="tab tab--plus" href="#">
-          <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          Proposer
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-          Services
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
-          Messages
-        </a>
-      </nav>
-
-    </div>
-  </div>
-
-  <!-- ================= Téléphone 2 : fil d'actualité (état scrollé) ================= -->
-  <div class="device">
-    <span class="label">Fil d’actualité</span>
-    <div class="phone">
-
-      <header class="topbar topbar--compacte">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <span class="titre-fil">Le fil du quartier</span>
-        <div class="spacer"></div>
-        <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
-        <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
-      </header>
-
-      <main class="feed">
-
-        <div class="colonne">
-
           <article class="carte post">
             <span class="washi washi--orange" aria-hidden="true"></span>
             <div class="post-head">
@@ -476,7 +392,7 @@
           </article>
 
           <article class="carte post">
-            <span class="washi washi--orange washi--right" aria-hidden="true"></span>
+            <span class="washi washi--orange" aria-hidden="true"></span>
             <div class="post-head">
               <span class="avatar avatar--fil av-creme">SK</span>
               <div class="qui">
@@ -495,7 +411,7 @@
           </article>
 
           <article class="carte post">
-            <span class="washi washi--marine" aria-hidden="true"></span>
+            <span class="washi washi--marine washi--right" aria-hidden="true"></span>
             <div class="post-head">
               <span class="avatar avatar--fil av-bleu">LG</span>
               <div class="qui">
@@ -545,9 +461,7 @@
         </a>
       </nav>
 
-    </div>
   </div>
 
-</div>
 </body>
 </html>

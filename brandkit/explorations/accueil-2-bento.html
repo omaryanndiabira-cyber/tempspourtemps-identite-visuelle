@@ -48,31 +48,11 @@
     color:var(--marine);
   }
 
-  /* ============ STAGE — deux téléphones côte à côte ============ */
-  .stage{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    align-items:flex-start;
-    gap:48px;
-  }
-  .device{display:flex;flex-direction:column;align-items:center;}
-  .device-label{
-    font-family:var(--font-title);
-    font-weight:800;
-    font-size:11px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--text-tertiary);
-    margin-bottom:12px;
-  }
-
   /* ============ PHONE FRAME ============ */
   .phone{
     width:390px;
     max-width:100%;
-    height:844px;
-    max-height:calc(100vh - 48px);
+    height:min(844px, calc(100vh - 48px));
     background:var(--bg-main);
     border-radius:42px;
     box-shadow:0 30px 80px rgba(15,47,68,.28),0 4px 16px rgba(15,47,68,.14),0 0 0 1px rgba(24,62,87,.06);
@@ -341,6 +321,7 @@
     color:var(--orange);
     text-decoration:none;
   }
+  #fil{scroll-margin-top:14px;}
 
   /* ============ HORIZONTAL SCROLL ROWS ============ */
   .row-scroll{
@@ -646,13 +627,6 @@
 </head>
 <body>
 
-<div class="stage">
-
-<!-- ============================================================
-     TÉLÉPHONE 1 — Haut de page
-     ============================================================ -->
-<div class="device">
-  <div class="device-label">Haut de page</div>
 <div class="phone">
 
   <!-- ===== TOP BAR ===== -->
@@ -747,95 +721,8 @@
         </article>
       </div>
 
-      <!-- ===== LE FIL DU QUARTIER (début, coupé par le cadre) ===== -->
-      <div class="section-head">
-        <h2>Le fil du quartier <span class="count">34</span></h2>
-        <a class="see-all" href="#">Tout voir</a>
-      </div>
-      <div class="filters">
-        <button class="filter active">Récents</button>
-        <button class="filter">Demandes</button>
-        <button class="filter">Propositions</button>
-        <button class="filter">Ateliers</button>
-        <button class="filter">Idées</button>
-      </div>
-      <div class="feed">
-        <article class="post">
-          <div class="post-head">
-            <div class="mini-avatar av-green">AN</div>
-            <div class="post-who">
-              <b>Alice Noël</b>
-              <span>Centre · il y a 2 h</span>
-            </div>
-            <span class="ptag t-demande">Demande</span>
-          </div>
-          <p class="post-text">Quelqu'un pour m'aider à monter une étagère samedi matin ? Une petite heure, je fournis les outils (et le café).</p>
-          <div class="post-tags"><span class="tag skill">Bricolage</span></div>
-          <div class="post-actions">
-            <button class="pact primary">Je peux aider</button>
-            <button class="pact">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.7-3.4A8 8 0 1 1 21 12z"/></svg>
-              2
-            </button>
-          </div>
-        </article>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- ===== TAB BAR ===== -->
-  <nav class="tabbar">
-    <a class="tab active" href="#">
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7.5L21 11M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-      Accueil
-    </a>
-    <a class="tab" href="#">
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg>
-      Rechercher
-    </a>
-    <a class="tab-plus" href="#">
-      <span class="plus-btn">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-      </span>
-      Proposer
-    </a>
-    <a class="tab" href="#">
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="1.4" fill="currentColor" stroke="none"/></svg>
-      Services
-    </a>
-    <a class="tab" href="#">
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.7-3.4A8 8 0 1 1 21 12z"/></svg>
-      Messages
-    </a>
-  </nav>
-
-</div>
-</div>
-
-<!-- ============================================================
-     TÉLÉPHONE 2 — Fil d'actualité (état scrollé)
-     ============================================================ -->
-<div class="device">
-  <div class="device-label">Fil d'actualité</div>
-<div class="phone">
-
-  <!-- ===== TOP BAR ===== -->
-  <header class="topbar">
-    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-    <div class="spacer"></div>
-    <span class="pill-solde">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      8 h 30
-    </span>
-    <div class="avatar">OD</div>
-  </header>
-
-  <!-- ===== SCROLLABLE CONTENT — le fil ===== -->
-  <main class="scroll">
-    <div class="content">
-
-      <div class="section-head">
+      <!-- ===== LE FIL DU QUARTIER ===== -->
+      <div class="section-head" id="fil">
         <h2>Le fil du quartier <span class="count">34</span></h2>
         <a class="see-all" href="#">Tout voir</a>
       </div>
@@ -991,9 +878,6 @@
       Messages
     </a>
   </nav>
-
-</div>
-</div>
 
 </div>
 

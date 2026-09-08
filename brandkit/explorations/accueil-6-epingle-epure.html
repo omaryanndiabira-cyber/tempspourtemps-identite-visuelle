@@ -12,7 +12,7 @@
      TempsPourTemps — Accueil V6 « Épinglé épuré »
      Le plus minimal : beaucoup de blanc, un fil vertical de posts
      épinglés — chaque post est une carte blanche à punaise discrète.
-     Deux téléphones : haut de page, puis fil d'actualité (scrollé).
+     Un seul téléphone : le contenu défile à l'intérieur du cadre.
      ============================================================ */
   :root{
     --marine:#183e57;--marine-hover:#0f2f44;
@@ -30,24 +30,18 @@
     background-image:
       radial-gradient(circle at 18% 12%, rgba(252,219,129,.20), transparent 42%),
       radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
-    display:flex;align-items:flex-start;justify-content:center;min-height:100vh;
-    padding:32px 12px 48px;color:var(--marine);-webkit-font-smoothing:antialiased;
-  }
-  .stage{display:flex;gap:48px;flex-wrap:wrap;justify-content:center;align-items:flex-start;}
-  .frame{display:flex;flex-direction:column;align-items:center;gap:14px;}
-  .frame-label{
-    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
-    color:var(--text-secondary);opacity:.75;
+    display:flex;align-items:center;justify-content:center;min-height:100vh;
+    padding:24px 12px;color:var(--marine);-webkit-font-smoothing:antialiased;
   }
   .phone{
-    width:390px;max-width:100%;height:min(844px, calc(100vh - 110px));min-height:640px;
+    width:390px;max-width:100%;height:min(844px, calc(100vh - 48px));min-height:640px;
     background:var(--bg-main);border-radius:var(--radius-app);
     box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),
       0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
     overflow:hidden;display:flex;flex-direction:column;position:relative;
   }
   .topbar{
-    position:sticky;top:0;z-index:40;background:var(--marine);
+    flex:none;z-index:40;background:var(--marine);
     background-image:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.08));
     padding:14px 16px 12px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(15,47,68,.30);
   }
@@ -65,7 +59,12 @@
   }
   .avatar--me{background:var(--sable);color:var(--marine);border:2px solid rgba(255,255,255,.55);}
 
-  .feed{flex:1;overflow:hidden;background:var(--bg-main);}
+  /* zone centrale : c'est elle qui défile */
+  .feed{
+    flex:1;overflow-y:auto;background:var(--bg-main);
+    scrollbar-width:none;
+  }
+  .feed::-webkit-scrollbar{display:none;}
 
   /* ---------- En-tête sobre ---------- */
   .hero{padding:26px 24px 4px;}
@@ -74,8 +73,7 @@
   .hero p{font-size:14px;color:var(--text-secondary);line-height:1.45;margin-top:8px;}
 
   /* ---------- Tête de fil ---------- */
-  .rubrique{margin:26px 24px 2px;display:flex;align-items:baseline;gap:8px;}
-  .rubrique--compacte{margin-top:18px;}
+  .rubrique{margin:26px 24px 2px;display:flex;align-items:baseline;gap:8px;scroll-margin-top:8px;}
   .rubrique h2{font-family:var(--titres);font-weight:800;font-size:16px;color:var(--marine);}
   .rubrique .compte{font-size:12px;color:var(--text-tertiary);font-weight:600;}
   .rubrique .lien{margin-left:auto;font-size:12px;font-weight:700;color:var(--orange);text-decoration:none;}
@@ -138,7 +136,7 @@
   .ours .filet-fin{width:54px;margin:0 auto 10px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);height:4px;opacity:.4;}
 
   .tabbar{
-    position:sticky;bottom:0;z-index:40;background:var(--paper);border-top:1px solid var(--border-2);
+    flex:none;z-index:40;background:var(--paper);border-top:1px solid var(--border-2);
     display:flex;align-items:flex-end;justify-content:space-around;
     padding:8px 6px calc(10px + env(safe-area-inset-bottom, 8px));box-shadow:0 -6px 18px -10px rgba(24,62,87,.25);
   }
@@ -157,256 +155,165 @@
   .tab--plus .rond svg{width:20px;height:20px;}
 
   @media (max-width: 430px){
-    body{padding:16px 8px 32px;}
-    .stage{gap:32px;}
+    body{padding:12px 8px;}
     .phone{width:100%;min-height:0;}
   }
 </style>
 </head>
 <body>
-<div class="stage">
 
-  <!-- ================= Téléphone 1 : haut de page ================= -->
-  <div class="frame">
-    <span class="frame-label">Haut de page</span>
-    <div class="phone">
+<div class="phone">
 
-      <header class="topbar">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <div class="spacer"></div>
-        <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
-        <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
-      </header>
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
+    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+  </header>
 
-      <main class="feed">
+  <main class="feed">
 
-        <section class="hero">
-          <h1>Le quartier <span class="souligne">a besoin de vous.</span></h1>
-          <p>Échangez du temps, pas de l’argent.</p>
-        </section>
+    <section class="hero">
+      <h1>Le quartier <span class="souligne">a besoin de vous.</span></h1>
+      <p>Échangez du temps, pas de l’argent.</p>
+    </section>
 
-        <div class="rubrique">
-          <h2>Le fil du quartier</h2>
-          <span class="compte">· 34 posts cette semaine</span>
-          <a class="lien" href="#">Filtrer</a>
-        </div>
-
-        <div class="fil">
-
-          <article class="post">
-            <span class="punaise" aria-hidden="true"></span>
-            <header class="post-head">
-              <span class="ava ava--c">AN</span>
-              <span class="qui"><b>Alice Noël</b><span class="meta">Centre · il y a 2 h</span></span>
-              <span class="badge badge--demande">Demande</span>
-            </header>
-            <p class="post-txt">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
-            <div class="post-tags"><span class="tag">Bricolage</span></div>
-            <footer class="post-actions">
-              <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 12H3l9-9 9 9h-8v9h-2v-9Z"/></svg>Je peux aider</a>
-              <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
-              <span class="compteur">2 réponses</span>
-            </footer>
-          </article>
-
-          <article class="post">
-            <span class="punaise" aria-hidden="true"></span>
-            <header class="post-head">
-              <span class="ava ava--a">ML</span>
-              <span class="qui"><b>Marta Lopez</b><span class="meta">Baugerie · il y a 5 h</span></span>
-              <span class="badge badge--proposition">Proposition</span>
-            </header>
-            <p class="post-txt">Cours d’espagnol conversationnel, tous niveaux. Native, patiente, chez moi ou en visio. <b>1&nbsp;h = 1&nbsp;h.</b></p>
-            <div class="post-tags"><span class="tag">Cours</span></div>
-            <footer class="post-actions">
-              <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5.5 5.5 0 0 0-9.8-3.4A5.5 5.5 0 0 0 3.2 8.6c-1 5 7.8 10.4 7.8 10.4s8.8-5.4 7.8-10.4Z"/></svg>Ça m’intéresse</a>
-              <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
-              <span class="compteur">5 intéressé·es</span>
-            </footer>
-          </article>
-
-        </div>
-
-      </main>
-
-      <nav class="tabbar" aria-label="Navigation principale">
-        <a class="tab tab--actif" href="#" aria-current="page">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-          Accueil
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-          Rechercher
-        </a>
-        <a class="tab tab--plus" href="#">
-          <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          Proposer
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-          Services
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
-          Messages
-        </a>
-      </nav>
-
+    <div class="rubrique" id="fil">
+      <h2>Le fil du quartier</h2>
+      <span class="compte">· 34 posts cette semaine</span>
+      <a class="lien" href="#">Filtrer</a>
     </div>
-  </div>
 
-  <!-- ================= Téléphone 2 : fil d'actualité (scrollé) ================= -->
-  <div class="frame">
-    <span class="frame-label">Fil d’actualité</span>
-    <div class="phone">
+    <div class="fil">
 
-      <header class="topbar">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <div class="spacer"></div>
-        <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
-        <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
-      </header>
-
-      <main class="feed">
-
-        <div class="rubrique rubrique--compacte">
-          <h2>Le fil du quartier</h2>
-          <span class="compte">· 34 posts cette semaine</span>
-          <a class="lien" href="#">Filtrer</a>
-        </div>
-
-        <div class="fil">
-
-          <article class="post">
-            <span class="punaise" aria-hidden="true"></span>
-            <header class="post-head">
-              <span class="ava ava--a">PB</span>
-              <span class="qui"><b>Pierre Blanchard</b><span class="meta">Vieux Bourg · hier</span></span>
-              <span class="badge badge--atelier">Atelier</span>
-            </header>
-            <p class="post-txt">Atelier réparation vélo dimanche 10&nbsp;h au local associatif. Amenez votre monture, on regarde freins et dérailleurs ensemble.</p>
-            <div class="post-tags"><span class="tag">3/5 inscrits</span></div>
-            <footer class="post-actions">
-              <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Je m’inscris</a>
-              <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
-              <span class="compteur">3/5 inscrits</span>
-            </footer>
-          </article>
-
-          <article class="post">
-            <span class="punaise" aria-hidden="true"></span>
-            <header class="post-head">
-              <span class="ava ava--b">MM</span>
-              <span class="qui"><b>Marie Morel</b><span class="meta">Centre · hier</span></span>
-              <span class="badge badge--idee">Idée</span>
-            </header>
-            <p class="post-txt">Et si on lançait un <b>café des voisins</b> un samedi par mois au square de la Baugerie&nbsp;? Qui serait partant&nbsp;?</p>
-            <footer class="post-actions">
-              <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3Zm0 0 4.5-8a2.4 2.4 0 0 1 2.3 3l-.8 3h5.5a2 2 0 0 1 2 2.4l-1.2 6a2 2 0 0 1-2 1.6H7"/></svg>Je suis partant·e</a>
-              <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
-              <span class="compteur">12 partants · 8 réponses</span>
-            </footer>
-          </article>
-
-          <article class="post">
-            <span class="punaise" aria-hidden="true"></span>
-            <header class="post-head">
-              <span class="ava ava--c">SK</span>
-              <span class="qui"><b>Sonia Klein</b><span class="meta">Baugerie · il y a 3 j</span></span>
-              <span class="badge badge--demande">Demande</span>
-            </header>
-            <p class="post-txt">Je cherche quelqu’un pour nourrir mon chat le week-end du 20. Câlins inclus dans l’échange.</p>
-            <div class="post-tags"><span class="tag">Animaux</span></div>
-            <footer class="post-actions">
-              <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 12H3l9-9 9 9h-8v9h-2v-9Z"/></svg>Je peux aider</a>
-              <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
-              <span class="compteur">1 réponse</span>
-            </footer>
-          </article>
-
-          <article class="post">
-            <span class="punaise" aria-hidden="true"></span>
-            <header class="post-head">
-              <span class="ava ava--b">LG</span>
-              <span class="qui"><b>Lucie Garnier</b><span class="meta">Centre · il y a 3 j</span></span>
-              <span class="badge badge--proposition">Proposition</span>
-            </header>
-            <p class="post-txt">Retouches couture&nbsp;: ourlets, fermetures éclair, boutons. Ma machine ronronne, profitez-en.</p>
-            <div class="post-tags"><span class="tag">Couture</span></div>
-            <footer class="post-actions">
-              <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5.5 5.5 0 0 0-9.8-3.4A5.5 5.5 0 0 0 3.2 8.6c-1 5 7.8 10.4 7.8 10.4s8.8-5.4 7.8-10.4Z"/></svg>Ça m’intéresse</a>
-              <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
-              <span class="compteur">3 intéressé·es</span>
-            </footer>
-          </article>
-
-          <article class="post">
-            <span class="punaise" aria-hidden="true"></span>
-            <header class="post-head">
-              <span class="ava ava--c">AN</span>
-              <span class="qui"><b>Alice Noël</b><span class="meta">Centre · il y a 2 h</span></span>
-              <span class="badge badge--demande">Demande</span>
-            </header>
-            <p class="post-txt">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
-            <div class="post-tags"><span class="tag">Bricolage</span></div>
-            <footer class="post-actions">
-              <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 12H3l9-9 9 9h-8v9h-2v-9Z"/></svg>Je peux aider</a>
-              <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
-              <span class="compteur">2 réponses</span>
-            </footer>
-          </article>
-
-          <article class="post">
-            <span class="punaise" aria-hidden="true"></span>
-            <header class="post-head">
-              <span class="ava ava--a">ML</span>
-              <span class="qui"><b>Marta Lopez</b><span class="meta">Baugerie · il y a 5 h</span></span>
-              <span class="badge badge--proposition">Proposition</span>
-            </header>
-            <p class="post-txt">Cours d’espagnol conversationnel, tous niveaux. Native, patiente, chez moi ou en visio. <b>1&nbsp;h = 1&nbsp;h.</b></p>
-            <div class="post-tags"><span class="tag">Cours</span></div>
-            <footer class="post-actions">
-              <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5.5 5.5 0 0 0-9.8-3.4A5.5 5.5 0 0 0 3.2 8.6c-1 5 7.8 10.4 7.8 10.4s8.8-5.4 7.8-10.4Z"/></svg>Ça m’intéresse</a>
-              <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
-              <span class="compteur">5 intéressé·es</span>
-            </footer>
-          </article>
-
-        </div>
-
-        <footer class="ours">
-          <div class="filet-fin"></div>
-          TempsPourTemps · Échangez du temps, pas de l’argent
+      <article class="post">
+        <span class="punaise" aria-hidden="true"></span>
+        <header class="post-head">
+          <span class="ava ava--c">AN</span>
+          <span class="qui"><b>Alice Noël</b><span class="meta">Centre · il y a 2 h</span></span>
+          <span class="badge badge--demande">Demande</span>
+        </header>
+        <p class="post-txt">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
+        <div class="post-tags"><span class="tag">Bricolage</span></div>
+        <footer class="post-actions">
+          <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 12H3l9-9 9 9h-8v9h-2v-9Z"/></svg>Je peux aider</a>
+          <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
+          <span class="compteur">2 réponses</span>
         </footer>
+      </article>
 
-      </main>
+      <article class="post">
+        <span class="punaise" aria-hidden="true"></span>
+        <header class="post-head">
+          <span class="ava ava--a">ML</span>
+          <span class="qui"><b>Marta Lopez</b><span class="meta">Baugerie · il y a 5 h</span></span>
+          <span class="badge badge--proposition">Proposition</span>
+        </header>
+        <p class="post-txt">Cours d’espagnol conversationnel, tous niveaux. Native, patiente, chez moi ou en visio. <b>1&nbsp;h = 1&nbsp;h.</b></p>
+        <div class="post-tags"><span class="tag">Cours</span></div>
+        <footer class="post-actions">
+          <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5.5 5.5 0 0 0-9.8-3.4A5.5 5.5 0 0 0 3.2 8.6c-1 5 7.8 10.4 7.8 10.4s8.8-5.4 7.8-10.4Z"/></svg>Ça m’intéresse</a>
+          <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
+          <span class="compteur">5 intéressé·es</span>
+        </footer>
+      </article>
 
-      <nav class="tabbar" aria-label="Navigation principale">
-        <a class="tab tab--actif" href="#" aria-current="page">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-          Accueil
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-          Rechercher
-        </a>
-        <a class="tab tab--plus" href="#">
-          <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          Proposer
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-          Services
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
-          Messages
-        </a>
-      </nav>
+      <article class="post">
+        <span class="punaise" aria-hidden="true"></span>
+        <header class="post-head">
+          <span class="ava ava--a">PB</span>
+          <span class="qui"><b>Pierre Blanchard</b><span class="meta">Vieux Bourg · hier</span></span>
+          <span class="badge badge--atelier">Atelier</span>
+        </header>
+        <p class="post-txt">Atelier réparation vélo dimanche 10&nbsp;h au local associatif. Amenez votre monture, on regarde freins et dérailleurs ensemble.</p>
+        <div class="post-tags"><span class="tag">3/5 inscrits</span></div>
+        <footer class="post-actions">
+          <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Je m’inscris</a>
+          <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
+          <span class="compteur">3/5 inscrits</span>
+        </footer>
+      </article>
+
+      <article class="post">
+        <span class="punaise" aria-hidden="true"></span>
+        <header class="post-head">
+          <span class="ava ava--b">MM</span>
+          <span class="qui"><b>Marie Morel</b><span class="meta">Centre · hier</span></span>
+          <span class="badge badge--idee">Idée</span>
+        </header>
+        <p class="post-txt">Et si on lançait un <b>café des voisins</b> un samedi par mois au square de la Baugerie&nbsp;? Qui serait partant&nbsp;?</p>
+        <footer class="post-actions">
+          <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3Zm0 0 4.5-8a2.4 2.4 0 0 1 2.3 3l-.8 3h5.5a2 2 0 0 1 2 2.4l-1.2 6a2 2 0 0 1-2 1.6H7"/></svg>Je suis partant·e</a>
+          <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
+          <span class="compteur">12 partants · 8 réponses</span>
+        </footer>
+      </article>
+
+      <article class="post">
+        <span class="punaise" aria-hidden="true"></span>
+        <header class="post-head">
+          <span class="ava ava--c">SK</span>
+          <span class="qui"><b>Sonia Klein</b><span class="meta">Baugerie · il y a 3 j</span></span>
+          <span class="badge badge--demande">Demande</span>
+        </header>
+        <p class="post-txt">Je cherche quelqu’un pour nourrir mon chat le week-end du 20. Câlins inclus dans l’échange.</p>
+        <div class="post-tags"><span class="tag">Animaux</span></div>
+        <footer class="post-actions">
+          <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 12H3l9-9 9 9h-8v9h-2v-9Z"/></svg>Je peux aider</a>
+          <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
+          <span class="compteur">1 réponse</span>
+        </footer>
+      </article>
+
+      <article class="post">
+        <span class="punaise" aria-hidden="true"></span>
+        <header class="post-head">
+          <span class="ava ava--b">LG</span>
+          <span class="qui"><b>Lucie Garnier</b><span class="meta">Centre · il y a 3 j</span></span>
+          <span class="badge badge--proposition">Proposition</span>
+        </header>
+        <p class="post-txt">Retouches couture&nbsp;: ourlets, fermetures éclair, boutons. Ma machine ronronne, profitez-en.</p>
+        <div class="post-tags"><span class="tag">Couture</span></div>
+        <footer class="post-actions">
+          <a class="act act--main" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5.5 5.5 0 0 0-9.8-3.4A5.5 5.5 0 0 0 3.2 8.6c-1 5 7.8 10.4 7.8 10.4s8.8-5.4 7.8-10.4Z"/></svg>Ça m’intéresse</a>
+          <a class="act" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Répondre</a>
+          <span class="compteur">3 intéressé·es</span>
+        </footer>
+      </article>
 
     </div>
-  </div>
+
+    <footer class="ours">
+      <div class="filet-fin"></div>
+      TempsPourTemps · Échangez du temps, pas de l’argent
+    </footer>
+
+  </main>
+
+  <nav class="tabbar" aria-label="Navigation principale">
+    <a class="tab tab--actif" href="#" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      Accueil
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      Rechercher
+    </a>
+    <a class="tab tab--plus" href="#">
+      <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      Proposer
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+      Services
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
+      Messages
+    </a>
+  </nav>
 
 </div>
+
 </body>
 </html>

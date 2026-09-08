@@ -11,7 +11,7 @@
   /* ============================================================
      TempsPourTemps — Accueil V4 « Tableau de liège »
      Fil vertical de posts = notes papier épinglées avec punaises
-     sur un panneau de liège. Deux écrans : haut de page + fil.
+     sur un panneau de liège. Un seul écran, qui défile.
      ============================================================ */
   :root{
     --marine:#183e57;
@@ -41,25 +41,14 @@
     background-image:
       radial-gradient(circle at 18% 12%, rgba(252,219,129,.20), transparent 42%),
       radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
-    display:flex;align-items:flex-start;justify-content:center;
-    min-height:100vh;padding:32px 12px 48px;color:var(--marine);
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;padding:24px 12px;color:var(--marine);
     -webkit-font-smoothing:antialiased;
-  }
-
-  /* ---------- Planche : deux écrans côte à côte ---------- */
-  .planche{
-    display:flex;flex-wrap:wrap;gap:48px;
-    justify-content:center;align-items:flex-start;
-  }
-  .ecran{display:flex;flex-direction:column;align-items:center;gap:16px;}
-  .ecran .label{
-    font-family:var(--titres);font-weight:800;font-size:11px;
-    letter-spacing:.16em;text-transform:uppercase;color:var(--text-tertiary);
   }
 
   .phone{
     width:390px;max-width:100%;
-    height:min(844px, calc(100vh - 120px));min-height:640px;
+    height:min(844px, calc(100vh - 48px));min-height:640px;
     background:var(--bg-main);border-radius:var(--radius-app);
     box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),
       0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
@@ -149,6 +138,7 @@
     font-family:var(--titres);font-weight:800;font-size:11px;flex:none;
   }
   .rubrique .filet{flex:1;height:0;border-top:2px dotted rgba(255,253,246,.5);}
+  #fil{scroll-margin-top:12px;}
 
   /* ---------- Note épinglée ---------- */
   .colonne{display:flex;flex-direction:column;gap:22px;padding:18px 22px 6px;}
@@ -291,19 +281,13 @@
   .tab--plus .rond svg{width:20px;height:20px;}
 
   @media (max-width: 430px){
-    body{padding:20px 8px 40px;}
-    .planche{gap:36px;}
+    body{padding:20px 8px;}
     .phone{height:min(760px, 92vh);}
   }
 </style>
 </head>
 <body>
-<div class="planche">
-
-  <!-- ================= ÉCRAN 1 : HAUT DE PAGE ================= -->
-  <div class="ecran">
-    <span class="label">Haut de page</span>
-    <div class="phone">
+<div class="phone">
 
       <header class="topbar">
         <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
@@ -350,78 +334,8 @@
 
         <a class="voir-tout" href="#"><span>Voir les 4 rendez-vous →</span></a>
 
-        <!-- ===== Début du fil ===== -->
-        <div class="rubrique">
-          <h2>Sur le tableau</h2>
-          <span class="badge-compte">34</span>
-          <span class="filet" aria-hidden="true"></span>
-        </div>
-
-        <div class="colonne">
-          <article class="note note--droite">
-            <span class="punaise" aria-hidden="true"></span>
-            <div class="post-head">
-              <span class="avatar avatar--sm avatar--t-orange">AN</span>
-              <div class="post-who">
-                <b>Alice Noël</b>
-                <span class="meta">⌖ Centre · il y a 2 h</span>
-              </div>
-              <span class="badge-type badge-type--demande">Demande</span>
-            </div>
-            <p class="post-text">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
-            <div class="post-tags"><span class="tag tag--theme">Bricolage</span></div>
-            <div class="post-actions">
-              <a class="action-cta action-cta--demande" href="#">🤝 Je peux aider</a>
-              <a class="action-lien" href="#">Répondre</a>
-              <span class="compteur">3 réponses</span>
-            </div>
-          </article>
-        </div>
-
-        <div class="pied"></div>
-      </main>
-
-      <nav class="tabbar" aria-label="Navigation principale">
-        <a class="tab tab--actif" href="#" aria-current="page">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-          Accueil
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-          Rechercher
-        </a>
-        <a class="tab tab--plus" href="#">
-          <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          Proposer
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-          Services
-        </a>
-        <a class="tab" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
-          Messages
-        </a>
-      </nav>
-
-    </div>
-  </div>
-
-  <!-- ================= ÉCRAN 2 : FIL D'ACTUALITÉ ================= -->
-  <div class="ecran">
-    <span class="label">Fil d’actualité</span>
-    <div class="phone">
-
-      <header class="topbar">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <div class="spacer"></div>
-        <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
-        <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
-      </header>
-
-      <main class="feed">
-
-        <div class="rubrique">
+        <!-- ===== Le fil ===== -->
+        <div class="rubrique" id="fil">
           <h2>Sur le tableau</h2>
           <span class="badge-compte">34</span>
           <span class="filet" aria-hidden="true"></span>
@@ -574,9 +488,6 @@
           Messages
         </a>
       </nav>
-
-    </div>
-  </div>
 
 </div>
 </body>

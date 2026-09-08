@@ -39,7 +39,7 @@
   header img{width:72px;height:auto;margin-bottom:14px;}
   h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.5px;}
   h1 .accent{color:var(--orange);}
-  .sub{color:var(--text-secondary);font-size:1rem;max-width:640px;margin:12px auto 0;line-height:1.55;}
+  .sub{color:var(--text-secondary);font-size:1rem;max-width:660px;margin:12px auto 0;line-height:1.55;}
   .brandkit-link{
     display:inline-flex;align-items:center;gap:8px;
     margin-top:20px;padding:10px 20px;border-radius:999px;
@@ -83,23 +83,34 @@
 
   .preview{
     position:relative;
-    height:480px;
+    height:500px;
     overflow:hidden;
     background:#e7e4dc;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    padding:10px 8px 0;
   }
-  .preview iframe{
-    width:940px;height:1040px;
+  .shot{
+    width:212px;
+    flex-shrink:0;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .shot-label{
+    font-size:.66rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--text-tertiary);margin-bottom:7px;
+  }
+  .shot iframe{
+    width:424px;height:940px;
     border:0;
-    transform:scale(.47);
+    transform:scale(.5);
     transform-origin:top center;
-    position:absolute;left:50%;margin-left:-470px;top:4px;
     pointer-events:none;
   }
   .preview a.overlay{
     position:absolute;inset:0;z-index:2;
     display:flex;align-items:flex-end;justify-content:center;
     text-decoration:none;
-    background:linear-gradient(180deg,transparent 70%,rgba(24,62,87,.0) 100%);
   }
   .preview a.overlay span{
     margin-bottom:14px;
@@ -134,21 +145,22 @@
   <header>
     <img src="assets/logo/logo-tpt-transparent.png" alt="Logo TempsPourTemps">
     <h1>Propositions — page d'accueil <span class="accent">TempsPourTemps</span></h1>
-    <p class="sub">Sept pistes visuelles pour l'écran d'accueil de l'application. Chaque piste montre deux écrans : le haut de page et le fil d'actualité (posts de demandes, propositions, ateliers et idées de voisinage). Les personnes et annonces affichées sont fictives.</p>
+    <p class="sub">Sept pistes visuelles pour l'écran d'accueil de l'application, avec un fil d'actualité de posts (demandes, propositions, ateliers, idées de voisinage). Les aperçus montrent le haut de page et le fil ; en ouvrant une piste, vous naviguez dans un seul écran qui défile. Les personnes et annonces affichées sont fictives.</p>
     <a class="brandkit-link" href="brandkit/index.html">Voir le brandkit complet →</a>
   </header>
 
-  <p class="hint">Aperçus live — cliquez sur une maquette pour la voir en taille réelle.</p>
+  <p class="hint">Cliquez sur une maquette pour l'ouvrir en taille réelle et la faire défiler.</p>
 
   <div class="grid">
     <article class="card">
       <div class="card-head"><span class="num">V1</span><h2>Éditorial « Gazette du quartier »</h2></div>
       <div class="preview">
-        <iframe src="brandkit/explorations/accueil-1-editorial.html" loading="lazy" title="Aperçu V1 Éditorial" tabindex="-1"></iframe>
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-1-editorial.html" loading="lazy" title="Aperçu V1 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-1-editorial.html#fil" loading="lazy" title="Aperçu V1 fil d'actualité" tabindex="-1"></iframe></div>
         <a class="overlay" href="brandkit/explorations/accueil-1-editorial.html" aria-label="Ouvrir la proposition V1 Éditorial en plein écran"><span>Ouvrir en plein écran</span></a>
       </div>
       <div class="card-foot">
-        <p class="desc">Papier crème, rubriques de journal, petites annonces du quartier.</p>
+        <p class="desc">Papier crème, rubriques de journal, fil du quartier en entrefilets.</p>
         <a class="open" href="brandkit/explorations/accueil-1-editorial.html">Ouvrir →</a>
       </div>
     </article>
@@ -156,11 +168,12 @@
     <article class="card">
       <div class="card-head"><span class="num">V2</span><h2>Bento</h2></div>
       <div class="preview">
-        <iframe src="brandkit/explorations/accueil-2-bento.html" loading="lazy" title="Aperçu V2 Bento" tabindex="-1"></iframe>
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-2-bento.html" loading="lazy" title="Aperçu V2 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-2-bento.html#fil" loading="lazy" title="Aperçu V2 fil d'actualité" tabindex="-1"></iframe></div>
         <a class="overlay" href="brandkit/explorations/accueil-2-bento.html" aria-label="Ouvrir la proposition V2 Bento en plein écran"><span>Ouvrir en plein écran</span></a>
       </div>
       <div class="card-foot">
-        <p class="desc">Grille de tuiles compactes, tout visible d'un coup d'œil.</p>
+        <p class="desc">Tuiles compactes, solde de temps en vedette, fil en cartes arrondies.</p>
         <a class="open" href="brandkit/explorations/accueil-2-bento.html">Ouvrir →</a>
       </div>
     </article>
@@ -168,11 +181,12 @@
     <article class="card">
       <div class="card-head"><span class="num">V3</span><h2>Social — le quartier en direct</h2></div>
       <div class="preview">
-        <iframe src="brandkit/explorations/accueil-3-social.html" loading="lazy" title="Aperçu V3 Social" tabindex="-1"></iframe>
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-3-social.html" loading="lazy" title="Aperçu V3 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-3-social.html#fil" loading="lazy" title="Aperçu V3 fil d'actualité" tabindex="-1"></iframe></div>
         <a class="overlay" href="brandkit/explorations/accueil-3-social.html" aria-label="Ouvrir la proposition V3 Social en plein écran"><span>Ouvrir en plein écran</span></a>
       </div>
       <div class="card-foot">
-        <p class="desc">Les voisins d'abord : visages, fil d'activité, vie du quartier.</p>
+        <p class="desc">Les voisins d'abord : visages, ton chaleureux, fil de vie du quartier.</p>
         <a class="open" href="brandkit/explorations/accueil-3-social.html">Ouvrir →</a>
       </div>
     </article>
@@ -180,11 +194,12 @@
     <article class="card">
       <div class="card-head"><span class="num">V4</span><h2>« Tableau de liège »</h2></div>
       <div class="preview">
-        <iframe src="brandkit/explorations/accueil-4-tableau-liege.html" loading="lazy" title="Aperçu V4 Tableau de liège" tabindex="-1"></iframe>
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-4-tableau-liege.html" loading="lazy" title="Aperçu V4 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-4-tableau-liege.html#fil" loading="lazy" title="Aperçu V4 fil d'actualité" tabindex="-1"></iframe></div>
         <a class="overlay" href="brandkit/explorations/accueil-4-tableau-liege.html" aria-label="Ouvrir la proposition V4 Tableau de liège en plein écran"><span>Ouvrir en plein écran</span></a>
       </div>
       <div class="card-foot">
-        <p class="desc">Annonces punaisées comme au panneau d'affichage de la maison de quartier.</p>
+        <p class="desc">Posts punaisés comme au panneau de la maison de quartier.</p>
         <a class="open" href="brandkit/explorations/accueil-4-tableau-liege.html">Ouvrir →</a>
       </div>
     </article>
@@ -192,11 +207,12 @@
     <article class="card">
       <div class="card-head"><span class="num">V5</span><h2>« Carnet washi »</h2></div>
       <div class="preview">
-        <iframe src="brandkit/explorations/accueil-5-carnet-washi.html" loading="lazy" title="Aperçu V5 Carnet washi" tabindex="-1"></iframe>
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-5-carnet-washi.html" loading="lazy" title="Aperçu V5 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-5-carnet-washi.html#fil" loading="lazy" title="Aperçu V5 fil d'actualité" tabindex="-1"></iframe></div>
         <a class="overlay" href="brandkit/explorations/accueil-5-carnet-washi.html" aria-label="Ouvrir la proposition V5 Carnet washi en plein écran"><span>Ouvrir en plein écran</span></a>
       </div>
       <div class="card-foot">
-        <p class="desc">Carnet personnel, ruban adhésif, notes manuscrites.</p>
+        <p class="desc">Carnet personnel, posts scotchés au ruban washi coloré par type.</p>
         <a class="open" href="brandkit/explorations/accueil-5-carnet-washi.html">Ouvrir →</a>
       </div>
     </article>
@@ -204,7 +220,8 @@
     <article class="card">
       <div class="card-head"><span class="num">V6</span><h2>« Épinglé épuré »</h2></div>
       <div class="preview">
-        <iframe src="brandkit/explorations/accueil-6-epingle-epure.html" loading="lazy" title="Aperçu V6 Épinglé épuré" tabindex="-1"></iframe>
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-6-epingle-epure.html" loading="lazy" title="Aperçu V6 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-6-epingle-epure.html#fil" loading="lazy" title="Aperçu V6 fil d'actualité" tabindex="-1"></iframe></div>
         <a class="overlay" href="brandkit/explorations/accueil-6-epingle-epure.html" aria-label="Ouvrir la proposition V6 Épinglé épuré en plein écran"><span>Ouvrir en plein écran</span></a>
       </div>
       <div class="card-foot">
@@ -216,11 +233,12 @@
     <article class="card">
       <div class="card-head"><span class="num">V7</span><h2>« Fil à linge »</h2></div>
       <div class="preview">
-        <iframe src="brandkit/explorations/accueil-7-fil-a-linge.html" loading="lazy" title="Aperçu V7 Fil à linge" tabindex="-1"></iframe>
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-7-fil-a-linge.html" loading="lazy" title="Aperçu V7 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-7-fil-a-linge.html#fil" loading="lazy" title="Aperçu V7 fil d'actualité" tabindex="-1"></iframe></div>
         <a class="overlay" href="brandkit/explorations/accueil-7-fil-a-linge.html" aria-label="Ouvrir la proposition V7 Fil à linge en plein écran"><span>Ouvrir en plein écran</span></a>
       </div>
       <div class="card-foot">
-        <p class="desc">Les annonces suspendues au fil, comme entre deux balcons.</p>
+        <p class="desc">Les posts suspendus au fil, comme entre deux balcons.</p>
         <a class="open" href="brandkit/explorations/accueil-7-fil-a-linge.html">Ouvrir →</a>
       </div>
     </article>

@@ -54,41 +54,6 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* ---------- Deux planches côte à côte ---------- */
-  .planches{
-    display:flex;
-    flex-wrap:wrap;
-    gap:48px;
-    justify-content:center;
-    align-items:flex-start;
-  }
-  .planche{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
-  }
-  .planche-label{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-family:var(--titres);
-    font-weight:800;
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.16em;
-    color:var(--text-secondary);
-  }
-  .planche-label::before,
-  .planche-label::after{
-    content:"";
-    width:26px;
-    height:4px;
-    border-top:1px solid var(--marine);
-    border-bottom:1px solid var(--marine);
-    opacity:.45;
-  }
-
   /* ---------- Cadre téléphone ---------- */
   .phone{
     width:390px;
@@ -268,6 +233,7 @@
     margin:26px 18px 12px;
     position:relative;
   }
+  #fil{scroll-margin-top:10px;}
   .rubrique .ligne{
     display:flex;
     align-items:center;
@@ -690,12 +656,6 @@
 </head>
 <body>
 
-<div class="planches">
-
-<!-- ════════════════ Planche 1 : haut de page ════════════════ -->
-<div class="planche">
-<div class="planche-label">Haut de page</div>
-
 <div class="phone">
 
   <!-- ===== Barre du haut ===== -->
@@ -780,88 +740,7 @@
     </div>
 
     <!-- ===== Rubrique : Le fil du quartier ===== -->
-    <div class="rubrique">
-      <div class="ligne">
-        <span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span>
-        <span class="filet" aria-hidden="true"></span>
-      </div>
-      <div class="sous-rub">
-        <span>Demandes, propositions, ateliers &amp; idées</span>
-        <button class="filtre" type="button">Tout <span class="chev">▾</span></button>
-      </div>
-    </div>
-
-    <div class="fil">
-      <!-- Post 1 : demande (coupé en bas du téléphone) -->
-      <article class="post">
-        <div class="post-head">
-          <span class="avatar avatar--an">AN</span>
-          <div class="post-qui">
-            <span class="post-nom">Alice Noël</span>
-            <span class="post-meta">⌖ Centre · il y a 2&nbsp;h</span>
-          </div>
-          <span class="badge-type badge-type--demande">Demande</span>
-        </div>
-        <p class="post-texte">Quelqu’un pour m’aider à monter une étagère samedi matin&nbsp;? Une petite heure, je fournis les outils (et le café).</p>
-        <div class="post-tags"><span class="tag tag--theme">Bricolage</span></div>
-        <div class="post-actions">
-          <button class="action action--fort" type="button">🤝 Je peux aider</button>
-          <button class="action" type="button">Répondre</button>
-          <span class="post-compteurs">2 réponses</span>
-        </div>
-      </article>
-    </div>
-
-  </main>
-
-  <!-- ===== Tab bar ===== -->
-  <nav class="tabbar" aria-label="Navigation principale">
-    <a class="tab tab--actif" href="#" aria-current="page">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
-      Accueil
-    </a>
-    <a class="tab" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-      Rechercher
-    </a>
-    <a class="tab tab--plus" href="#">
-      <span class="rond">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-      </span>
-      Proposer
-    </a>
-    <a class="tab" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-      Services
-    </a>
-    <a class="tab" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
-      Messages
-    </a>
-  </nav>
-
-</div>
-</div>
-
-<!-- ════════════════ Planche 2 : fil d'actualité (état scrollé) ════════════════ -->
-<div class="planche">
-<div class="planche-label">Fil d'actualité</div>
-
-<div class="phone">
-
-  <!-- ===== Barre du haut ===== -->
-  <header class="topbar">
-    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-    <div class="spacer"></div>
-    <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
-    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
-  </header>
-
-  <!-- ===== Contenu scrollable : le fil, état scrollé ===== -->
-  <main class="feed">
-
-    <!-- ===== Rubrique : Le fil du quartier ===== -->
-    <div class="rubrique">
+    <div class="rubrique" id="fil">
       <div class="ligne">
         <span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span>
         <span class="filet" aria-hidden="true"></span>
@@ -1016,9 +895,6 @@
       Messages
     </a>
   </nav>
-
-</div>
-</div>
 
 </div>
 
