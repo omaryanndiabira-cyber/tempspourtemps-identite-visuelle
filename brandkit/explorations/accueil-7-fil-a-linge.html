@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · V7 « Fil à linge »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TempsPourTemps — Accueil V7 « Fil à linge »
+     Les annonces sont suspendues à un fil avec des épingles à
+     linge. Le fil ET les annonces défilent ensemble à l'horizontale
+     — comme si on déplaçait l'objectif le long de la corde.
+     ============================================================ */
+  :root{
+    --marine:#183e57;--marine-hover:#0f2f44;
+    --orange:#d65e1c;--orange-hover:#b84e17;
+    --sable:#fcdb81;--success:#4a9d5f;--danger:#c44536;
+    --bg-main:#f7f6f3;--bg-secondary:#f3f3f5;--bg-hover:#fdf1d7;
+    --text-secondary:#4b5563;--text-tertiary:#717182;
+    --border:#e9ebef;--border-2:#d6dbe2;--paper:#fffdf6;
+    --bois:#c79a5e;--bois-fonce:#a87f49;
+    --ciel:linear-gradient(180deg,#eaf3fa 0%, #f3f7fb 40%, var(--bg-main) 100%);
+    --titres:'Nunito',sans-serif;--corps:'Inter',sans-serif;--radius-app:34px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--corps);background:#e7e4dc;
+    background-image:
+      radial-gradient(circle at 18% 12%, rgba(252,219,129,.20), transparent 42%),
+      radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
+    display:flex;align-items:center;justify-content:center;min-height:100vh;
+    padding:24px 12px;color:var(--marine);-webkit-font-smoothing:antialiased;
+  }
+  .phone{
+    width:390px;max-width:100%;height:min(844px, calc(100vh - 48px));min-height:640px;
+    background:var(--bg-main);border-radius:var(--radius-app);
+    box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),
+      0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
+    overflow:hidden;display:flex;flex-direction:column;position:relative;
+  }
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--marine);
+    background-image:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.08));
+    padding:14px 16px 12px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(15,47,68,.30);
+  }
+  .topbar .logo{height:34px;width:auto;display:block;}
+  .topbar .spacer{flex:1;}
+  .credit-pill{
+    display:inline-flex;align-items:center;gap:6px;background:var(--sable);color:var(--marine);
+    border-radius:999px;padding:6px 12px 6px 9px;font-family:var(--titres);font-weight:800;font-size:14px;
+    letter-spacing:.2px;box-shadow:inset 0 -2px 0 rgba(24,62,87,.18), 0 1px 0 rgba(0,0,0,.15);white-space:nowrap;
+  }
+  .credit-pill .ico{font-size:13px;line-height:1;}
+  .avatar{
+    width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--titres);font-weight:800;font-size:12px;flex:none;letter-spacing:.3px;
+  }
+  .avatar--me{background:var(--sable);color:var(--marine);border:2px solid rgba(255,255,255,.55);}
+
+  .feed{flex:1;overflow-y:auto;scrollbar-width:none;background:var(--ciel);}
+  .feed::-webkit-scrollbar{display:none;}
+
+  .hero{padding:22px 22px 4px;}
+  .hero h1{font-family:var(--titres);font-weight:800;font-size:26px;line-height:1.15;color:var(--marine);}
+  .hero h1 .souligne{background-image:linear-gradient(transparent 60%, var(--sable) 60%, var(--sable) 92%, transparent 92%);}
+  .hero p{font-size:13.5px;color:var(--text-secondary);line-height:1.45;margin-top:7px;}
+
+  .cta-wrap{padding:16px 22px 4px;}
+  .btn-cta{
+    display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    background:var(--orange);color:#fff9ec;border:none;border-radius:14px;padding:14px 18px;
+    font-family:var(--titres);font-weight:800;font-size:15px;letter-spacing:.2px;cursor:pointer;
+    box-shadow:0 3px 0 var(--orange-hover), 0 10px 22px -8px rgba(214,94,28,.55);
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .btn-cta:hover{background:var(--orange-hover);}
+  .btn-cta:active{transform:translateY(2px);}
+
+  /* ---------- Rubrique fil ---------- */
+  .rubrique{margin:26px 22px 0;display:flex;align-items:center;gap:9px;}
+  .rubrique h2{font-family:var(--titres);font-weight:800;font-size:15px;color:var(--marine);}
+  .rubrique .badge-compte{
+    display:inline-flex;align-items:center;justify-content:center;min-width:21px;height:21px;padding:0 6px;
+    border-radius:999px;background:var(--marine);color:var(--sable);font-family:var(--titres);font-weight:800;font-size:11px;flex:none;
+  }
+  .rubrique .hint{margin-left:auto;font-size:11px;color:var(--text-tertiary);font-weight:600;display:inline-flex;align-items:center;gap:4px;}
+
+  /* ===================================================
+     LE FIL À LINGE — bande à défilement horizontal
+     =================================================== */
+  .corde{
+    overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
+    padding:0;margin-top:8px;
+    -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;
+  }
+  .corde::-webkit-scrollbar{display:none;}
+
+  .track{
+    position:relative;width:1268px;height:288px;
+  }
+  /* le fil (SVG) couvre tout le track : il défile AVEC les annonces */
+  .track .wire{position:absolute;top:0;left:0;width:1268px;height:120px;pointer-events:none;z-index:1;}
+
+  /* poteaux aux extrémités */
+  .poteau{position:absolute;top:30px;width:7px;height:96px;border-radius:4px;z-index:0;
+    background:linear-gradient(90deg,#9c7b4a,#c79a5e 45%,#8a6a3d);
+    box-shadow:0 6px 10px -6px rgba(0,0,0,.4);}
+  .poteau--g{left:6px;}
+  .poteau--d{left:1255px;}
+
+  /* annonce suspendue */
+  .linge{
+    position:absolute;top:52px;width:218px;z-index:2;
+    transform-origin:50% -6px;
+    animation:balance 5.5s ease-in-out infinite;
+    scroll-snap-align:center;
+  }
+  .linge .carte{
+    background:var(--paper);border:1px solid var(--border-2);border-radius:12px;
+    padding:30px 15px 14px;position:relative;
+    box-shadow:0 1px 2px rgba(24,62,87,.06), 0 14px 26px -14px rgba(24,62,87,.40);
+  }
+  /* deux épingles à linge en haut */
+  .epingle{
+    position:absolute;top:-15px;width:13px;height:30px;border-radius:4px 4px 3px 3px;z-index:5;
+    background:linear-gradient(180deg,#e0bd84 0%, var(--bois) 50%, var(--bois-fonce) 100%);
+    box-shadow:0 2px 4px rgba(0,0,0,.32), inset -1px 0 0 rgba(0,0,0,.12), inset 1px 0 0 rgba(255,255,255,.35);
+  }
+  .epingle::before{ /* fente centrale du pince */
+    content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);
+    width:1.5px;height:18px;background:rgba(90,60,25,.55);border-radius:2px;
+  }
+  .epingle::after{ /* ressort métal */
+    content:"";position:absolute;top:13px;left:50%;transform:translateX(-50%);
+    width:9px;height:3px;border-radius:2px;background:#9aa3ab;box-shadow:0 1px 0 rgba(0,0,0,.2);
+  }
+  .epingle--g{left:18px;}
+  .epingle--d{left:auto;right:18px;}
+
+  .linge .tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+  .tag{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 7px;border-radius:4px;}
+  .tag--offre{background:rgba(74,157,95,.16);color:#36744a;border:1px solid rgba(74,157,95,.4);}
+  .tag--recherche{background:rgba(214,94,28,.14);color:var(--orange-hover);border:1px solid rgba(214,94,28,.38);}
+  .tag--theme{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border-2);}
+  .linge h3{font-family:var(--titres);font-weight:800;font-size:16px;color:var(--marine);line-height:1.2;margin-bottom:5px;}
+  .linge .desc{font-size:12px;color:var(--text-secondary);line-height:1.45;margin-bottom:11px;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .linge .signature{display:flex;align-items:center;gap:7px;padding-top:10px;border-top:1px dashed var(--border-2);font-size:11px;color:var(--text-secondary);}
+  .avatar--ma{background:var(--bg-hover);color:var(--orange-hover);border:1.5px solid #f1ddae;width:26px;height:26px;font-size:9px;}
+  .linge .signature .par{flex:1;line-height:1.25;min-width:0;}
+  .linge .signature .par b{color:var(--marine);font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .linge .signature .lieu{font-size:10px;color:var(--text-tertiary);}
+
+  /* léger balancement, décalé par position */
+  @keyframes balance{
+    0%,100%{transform:rotate(-1.4deg);}
+    50%{transform:rotate(1.4deg);}
+  }
+  .linge:nth-child(odd){animation-delay:-2.4s;}
+  .linge:nth-child(3n){animation-duration:6.4s;}
+  @media (prefers-reduced-motion: reduce){.linge{animation:none;transform:rotate(-1deg);}}
+
+  /* ---------- reste de la page (léger) ---------- */
+  .rubrique.second{margin-top:30px;}
+  .rangee{display:flex;gap:12px;overflow-x:auto;padding:12px 22px 6px;scrollbar-width:none;}
+  .rangee::-webkit-scrollbar{display:none;}
+  .carte-voisin{
+    width:210px;flex:none;background:var(--paper);border:1px solid var(--border-2);border-radius:14px;
+    padding:13px 14px;box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 22px -14px rgba(24,62,87,.26);
+  }
+  .carte-voisin .qui{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+  .avatar--an{background:var(--marine);color:var(--sable);}
+  .avatar--lg{background:var(--orange);color:#fff9ec;}
+  .carte-voisin .nom{font-family:var(--titres);font-weight:800;font-size:14px;color:var(--marine);line-height:1.2;}
+  .carte-voisin .role{font-size:10px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.10em;margin-top:1px;}
+  .carte-voisin .tags{display:flex;flex-wrap:wrap;gap:5px;}
+  .tag--service{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border-2);
+    text-transform:none;letter-spacing:0;font-size:11px;font-weight:500;border-radius:999px;padding:3px 9px;}
+
+  .ours{text-align:center;padding:16px 24px 26px;font-size:10px;color:var(--text-tertiary);letter-spacing:.12em;text-transform:uppercase;}
+  .ours .filet-fin{width:54px;margin:0 auto 9px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);height:4px;opacity:.4;}
+
+  .tabbar{
+    position:sticky;bottom:0;z-index:40;background:var(--paper);border-top:1px solid var(--border-2);
+    display:flex;align-items:flex-end;justify-content:space-around;
+    padding:8px 6px calc(10px + env(safe-area-inset-bottom, 8px));box-shadow:0 -6px 18px -10px rgba(24,62,87,.25);
+  }
+  .tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;
+    color:var(--text-tertiary);text-decoration:none;min-width:58px;padding:2px 0;transition:color .12s ease;}
+  .tab svg{width:22px;height:22px;display:block;}
+  .tab:hover{color:var(--marine);}
+  .tab--actif{color:var(--orange);font-weight:700;}
+  .tab--plus .rond{
+    width:44px;height:44px;border-radius:50%;background:var(--marine);color:var(--sable);
+    display:flex;align-items:center;justify-content:center;margin-top:-22px;border:3px solid var(--paper);
+    box-shadow:0 6px 14px -4px rgba(24,62,87,.5);}
+  .tab--plus .rond svg{width:20px;height:20px;}
+
+  @media (max-width: 430px){
+    body{padding:0;}
+    .phone{width:100%;height:100vh;height:100dvh;min-height:0;border-radius:0;box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
+    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+  </header>
+
+  <main class="feed">
+
+    <section class="hero">
+      <h1>Le quartier <span class="souligne">a besoin de vous.</span></h1>
+      <p>Les annonces sèchent au fil. Faites glisser pour les parcourir.</p>
+    </section>
+
+    <div class="cta-wrap">
+      <button class="btn-cta" type="button"><span>✍︎</span> Suspendre une annonce</button>
+    </div>
+
+    <!-- ===== LE FIL À LINGE ===== -->
+    <div class="rubrique">
+      <h2>Au fil du quartier</h2>
+      <span class="badge-compte">34</span>
+      <span class="hint">glissez&nbsp;→</span>
+    </div>
+
+    <div class="corde">
+      <div class="track">
+        <!-- le fil : passe au-dessus des annonces et sague entre elles -->
+        <svg class="wire" viewBox="0 0 1268 120" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 0,58 L 22,46 L 240,46 Q 256,68 272,46 L 490,46 Q 506,68 522,46 L 740,46 Q 756,68 772,46 L 990,46 Q 1006,68 1022,46 L 1240,46 L 1268,58"
+                fill="none" stroke="#5b6b78" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M 0,58 L 22,46 L 240,46 Q 256,68 272,46 L 490,46 Q 506,68 522,46 L 740,46 Q 756,68 772,46 L 990,46 Q 1006,68 1022,46 L 1240,46 L 1268,58"
+                fill="none" stroke="rgba(255,255,255,.5)" stroke-width="0.8" stroke-linecap="round" transform="translate(0,-1.3)"/>
+        </svg>
+
+        <span class="poteau poteau--g" aria-hidden="true"></span>
+        <span class="poteau poteau--d" aria-hidden="true"></span>
+
+        <!-- Annonce 1 -->
+        <article class="linge" style="left:24px;">
+          <span class="epingle epingle--g" aria-hidden="true"></span>
+          <span class="epingle epingle--d" aria-hidden="true"></span>
+          <div class="carte">
+            <div class="tags"><span class="tag tag--offre">Offre</span><span class="tag tag--theme">Espagnol</span></div>
+            <h3>Cours d’espagnol</h3>
+            <p class="desc">Native, tous niveaux. Possibilité de cours en visio comme en présentiel.</p>
+            <div class="signature">
+              <span class="avatar avatar--ma">ML</span>
+              <span class="par"><b>Marta Lopez</b><span class="lieu">⌖ Baugerie</span></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Annonce 2 -->
+        <article class="linge" style="left:274px;">
+          <span class="epingle epingle--g" aria-hidden="true"></span>
+          <span class="epingle epingle--d" aria-hidden="true"></span>
+          <div class="carte">
+            <div class="tags"><span class="tag tag--recherche">Recherche</span><span class="tag tag--theme">Animaux</span></div>
+            <h3>Nourrir mon chat</h3>
+            <p class="desc">Absente ce week-end. Une visite matin et soir&nbsp;: croquettes, eau fraîche et un câlin.</p>
+            <div class="signature">
+              <span class="avatar avatar--ma">AN</span>
+              <span class="par"><b>Alice Noël</b><span class="lieu">⌖ Baugerie</span></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Annonce 3 -->
+        <article class="linge" style="left:524px;">
+          <span class="epingle epingle--g" aria-hidden="true"></span>
+          <span class="epingle epingle--d" aria-hidden="true"></span>
+          <div class="carte">
+            <div class="tags"><span class="tag tag--offre">Offre</span><span class="tag tag--theme">Bricolage</span></div>
+            <h3>Petits travaux</h3>
+            <p class="desc">Étagères, perçage, montage de meubles… Je passe avec ma caisse à outils.</p>
+            <div class="signature">
+              <span class="avatar avatar--ma">PB</span>
+              <span class="par"><b>Pierre Blanchard</b><span class="lieu">⌖ Centre</span></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Annonce 4 -->
+        <article class="linge" style="left:774px;">
+          <span class="epingle epingle--g" aria-hidden="true"></span>
+          <span class="epingle epingle--d" aria-hidden="true"></span>
+          <div class="carte">
+            <div class="tags"><span class="tag tag--offre">Offre</span><span class="tag tag--theme">Couture</span></div>
+            <h3>Retouches &amp; couture</h3>
+            <p class="desc">Ourlets, boutons, petites réparations. Apportez, je m’occupe du reste.</p>
+            <div class="signature">
+              <span class="avatar avatar--ma">SK</span>
+              <span class="par"><b>Sonia Klein</b><span class="lieu">⌖ Baugerie</span></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Annonce 5 -->
+        <article class="linge" style="left:1024px;">
+          <span class="epingle epingle--g" aria-hidden="true"></span>
+          <span class="epingle epingle--d" aria-hidden="true"></span>
+          <div class="carte">
+            <div class="tags"><span class="tag tag--recherche">Recherche</span><span class="tag tag--theme">Courses</span></div>
+            <h3>Aide pour les courses</h3>
+            <p class="desc">Une fois par semaine, accompagner ou faire mes courses au marché du centre.</p>
+            <div class="signature">
+              <span class="avatar avatar--ma">JB</span>
+              <span class="par"><b>Jeanne Berton</b><span class="lieu">⌖ Centre</span></span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ===== Voisins (léger) ===== -->
+    <div class="rubrique second">
+      <h2>Ils peuvent vous aider</h2>
+      <span class="badge-compte">57</span>
+    </div>
+    <div class="rangee">
+      <article class="carte-voisin">
+        <div class="qui">
+          <span class="avatar avatar--lg">LG</span>
+          <div><div class="nom">Lucie Garnier</div><div class="role">Voisine · propose</div></div>
+        </div>
+        <div class="tags">
+          <span class="tag tag--service">Garde chat</span>
+          <span class="tag tag--service">Arrosage</span>
+        </div>
+      </article>
+      <article class="carte-voisin">
+        <div class="qui">
+          <span class="avatar avatar--an">AN</span>
+          <div><div class="nom">Alice Noël</div><div class="role">Voisine · recherche</div></div>
+        </div>
+        <div class="tags">
+          <span class="tag tag--service">Nourrissage</span>
+          <span class="tag tag--service">Visites</span>
+        </div>
+      </article>
+    </div>
+
+    <footer class="ours">
+      <div class="filet-fin"></div>
+      TempsPourTemps · Échangez du temps, pas de l’argent
+    </footer>
+
+  </main>
+
+  <nav class="tabbar" aria-label="Navigation principale">
+    <a class="tab tab--actif" href="#" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      Accueil
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      Rechercher
+    </a>
+    <a class="tab tab--plus" href="#">
+      <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      Proposer
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+      Services
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
+      Messages
+    </a>
+  </nav>
+
+</div>
+</body>
+</html>

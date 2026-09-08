@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · V6 « Épinglé épuré »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TempsPourTemps — Accueil V6 « Épinglé épuré »
+     Le plus minimal : beaucoup de blanc, UNE annonce épinglée en
+     vedette (post pinné), puis une liste légère. Le scotch n'est
+     qu'un accent, jamais une surcharge.
+     ============================================================ */
+  :root{
+    --marine:#183e57;--marine-hover:#0f2f44;
+    --orange:#d65e1c;--orange-hover:#b84e17;
+    --sable:#fcdb81;--success:#4a9d5f;--danger:#c44536;
+    --bg-main:#f7f6f3;--bg-secondary:#f3f3f5;--bg-hover:#fdf1d7;
+    --text-secondary:#4b5563;--text-tertiary:#717182;
+    --border:#e9ebef;--border-2:#d6dbe2;--paper:#ffffff;
+    --titres:'Nunito',sans-serif;--corps:'Inter',sans-serif;--radius-app:34px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--corps);background:#e7e4dc;
+    background-image:
+      radial-gradient(circle at 18% 12%, rgba(252,219,129,.20), transparent 42%),
+      radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
+    display:flex;align-items:center;justify-content:center;min-height:100vh;
+    padding:24px 12px;color:var(--marine);-webkit-font-smoothing:antialiased;
+  }
+  .phone{
+    width:390px;max-width:100%;height:min(844px, calc(100vh - 48px));min-height:640px;
+    background:var(--bg-main);border-radius:var(--radius-app);
+    box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),
+      0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
+    overflow:hidden;display:flex;flex-direction:column;position:relative;
+  }
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--marine);
+    background-image:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.08));
+    padding:14px 16px 12px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(15,47,68,.30);
+  }
+  .topbar .logo{height:34px;width:auto;display:block;}
+  .topbar .spacer{flex:1;}
+  .credit-pill{
+    display:inline-flex;align-items:center;gap:6px;background:var(--sable);color:var(--marine);
+    border-radius:999px;padding:6px 12px 6px 9px;font-family:var(--titres);font-weight:800;font-size:14px;
+    letter-spacing:.2px;box-shadow:inset 0 -2px 0 rgba(24,62,87,.18), 0 1px 0 rgba(0,0,0,.15);white-space:nowrap;
+  }
+  .credit-pill .ico{font-size:13px;line-height:1;}
+  .avatar{
+    width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--titres);font-weight:800;font-size:12px;flex:none;letter-spacing:.3px;
+  }
+  .avatar--me{background:var(--sable);color:var(--marine);border:2px solid rgba(255,255,255,.55);}
+
+  .feed{flex:1;overflow-y:auto;scrollbar-width:none;background:var(--bg-main);}
+  .feed::-webkit-scrollbar{display:none;}
+
+  /* ---------- En-tête sobre ---------- */
+  .hero{padding:26px 24px 4px;}
+  .hero h1{font-family:var(--titres);font-weight:800;font-size:28px;line-height:1.14;color:var(--marine);}
+  .hero h1 .souligne{background-image:linear-gradient(transparent 60%, var(--sable) 60%, var(--sable) 92%, transparent 92%);}
+  .hero p{font-size:14px;color:var(--text-secondary);line-height:1.45;margin-top:8px;}
+
+  /* ---------- Annonce vedette épinglée ---------- */
+  .pin-label{
+    display:inline-flex;align-items:center;gap:6px;margin:26px 24px 0;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.10em;color:var(--orange-hover);
+  }
+  .pin-label svg{width:14px;height:14px;}
+
+  .vedette-wrap{padding:14px 24px 4px;}
+  .vedette{
+    position:relative;background:var(--paper);border:1px solid var(--border);border-radius:18px;
+    padding:22px 20px 18px;box-shadow:0 1px 2px rgba(24,62,87,.05), 0 16px 30px -18px rgba(24,62,87,.32);
+  }
+  /* punaise centrée discrète */
+  .vedette .punaise{
+    position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ff7a5c, var(--danger) 60%, #8f2a1e);
+    box-shadow:0 3px 5px rgba(0,0,0,.30), inset 0 1px 2px rgba(255,255,255,.5);
+  }
+  .vedette .punaise::after{content:"";position:absolute;top:5px;left:6px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.7);}
+  .vedette .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px;}
+  .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:3px 8px;border-radius:4px;}
+  .tag--offre{background:rgba(74,157,95,.16);color:#36744a;border:1px solid rgba(74,157,95,.4);}
+  .tag--recherche{background:rgba(214,94,28,.14);color:var(--orange-hover);border:1px solid rgba(214,94,28,.38);}
+  .tag--theme{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border-2);}
+  .vedette h3{font-family:var(--titres);font-weight:800;font-size:21px;color:var(--marine);line-height:1.18;margin-bottom:8px;}
+  .vedette .desc{font-size:14px;color:var(--text-secondary);line-height:1.55;margin-bottom:16px;}
+  .vedette .signature{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-secondary);}
+  .avatar--ma{background:var(--bg-hover);color:var(--orange-hover);border:1.5px solid #f1ddae;width:32px;height:32px;font-size:11px;}
+  .vedette .signature .par{flex:1;line-height:1.3;min-width:0;}
+  .vedette .signature .par b{color:var(--marine);font-weight:600;}
+  .quartier{
+    display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:600;color:var(--marine);
+    background:var(--bg-secondary);border:1px solid var(--border-2);border-radius:999px;padding:2px 8px;white-space:nowrap;
+  }
+
+  /* ---------- Liste légère ---------- */
+  .rubrique{margin:34px 24px 2px;display:flex;align-items:baseline;gap:8px;}
+  .rubrique h2{font-family:var(--titres);font-weight:800;font-size:16px;color:var(--marine);}
+  .rubrique .compte{font-size:12px;color:var(--text-tertiary);font-weight:600;}
+  .rubrique .lien{margin-left:auto;font-size:12px;font-weight:700;color:var(--orange);text-decoration:none;}
+
+  .liste{padding:12px 24px 6px;display:flex;flex-direction:column;}
+  .item{
+    display:flex;align-items:center;gap:14px;padding:15px 4px;
+    border-bottom:1px solid var(--border);text-decoration:none;transition:background .12s ease;
+  }
+  .item:last-child{border-bottom:none;}
+  .item:hover{background:var(--paper);}
+  .item .ava{
+    width:44px;height:44px;border-radius:13px;flex:none;display:flex;align-items:center;justify-content:center;
+    font-family:var(--titres);font-weight:800;font-size:14px;
+  }
+  .ava--a{background:var(--marine);color:var(--sable);}
+  .ava--b{background:var(--orange);color:#fff9ec;}
+  .ava--c{background:var(--bg-hover);color:var(--orange-hover);border:1.5px solid #f1ddae;}
+  .item .corps{flex:1;min-width:0;}
+  .item .titre{font-family:var(--titres);font-weight:800;font-size:15px;color:var(--marine);line-height:1.2;}
+  .item .sous{font-size:12.5px;color:var(--text-tertiary);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .item .pastille{
+    font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:999px;flex:none;
+  }
+  .pastille--offre{background:rgba(74,157,95,.14);color:#36744a;}
+  .pastille--recherche{background:rgba(214,94,28,.13);color:var(--orange-hover);}
+  .item .chev{color:var(--text-tertiary);flex:none;}
+
+  .ours{text-align:center;padding:18px 24px 28px;font-size:10px;color:var(--text-tertiary);letter-spacing:.12em;text-transform:uppercase;}
+  .ours .filet-fin{width:54px;margin:0 auto 10px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);height:4px;opacity:.4;}
+
+  .tabbar{
+    position:sticky;bottom:0;z-index:40;background:var(--paper);border-top:1px solid var(--border-2);
+    display:flex;align-items:flex-end;justify-content:space-around;
+    padding:8px 6px calc(10px + env(safe-area-inset-bottom, 8px));box-shadow:0 -6px 18px -10px rgba(24,62,87,.25);
+  }
+  .tab{
+    display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;
+    color:var(--text-tertiary);text-decoration:none;min-width:58px;padding:2px 0;transition:color .12s ease;
+  }
+  .tab svg{width:22px;height:22px;display:block;}
+  .tab:hover{color:var(--marine);}
+  .tab--actif{color:var(--orange);font-weight:700;}
+  .tab--plus .rond{
+    width:44px;height:44px;border-radius:50%;background:var(--marine);color:var(--sable);
+    display:flex;align-items:center;justify-content:center;margin-top:-22px;border:3px solid var(--paper);
+    box-shadow:0 6px 14px -4px rgba(24,62,87,.5);
+  }
+  .tab--plus .rond svg{width:20px;height:20px;}
+
+  @media (max-width: 430px){
+    body{padding:0;}
+    .phone{width:100%;height:100vh;height:100dvh;min-height:0;border-radius:0;box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
+    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+  </header>
+
+  <main class="feed">
+
+    <section class="hero">
+      <h1>Le quartier <span class="souligne">a besoin de vous.</span></h1>
+      <p>Échangez du temps, pas de l’argent.</p>
+    </section>
+
+    <!-- ===== Annonce épinglée en vedette ===== -->
+    <span class="pin-label">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 4l6 6-3 1-3 5-2-2-4 4-1-1 4-4-2-2 5-3 1-3z"/></svg>
+      Épinglée par l’équipe
+    </span>
+    <div class="vedette-wrap">
+      <article class="vedette">
+        <span class="punaise" aria-hidden="true"></span>
+        <div class="tags">
+          <span class="tag tag--recherche">Recherche</span>
+          <span class="tag tag--theme">Animaux</span>
+        </div>
+        <h3>Nourrir mon chat ce week-end</h3>
+        <p class="desc">Absente samedi et dimanche. Une visite matin et soir suffit&nbsp;: croquettes, eau fraîche, et un câlin si le cœur vous en dit.</p>
+        <div class="signature">
+          <span class="avatar avatar--ma">AN</span>
+          <span class="par">Par <b>Alice Noël</b></span>
+          <span class="quartier">⌖ Baugerie</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- ===== Liste légère ===== -->
+    <div class="rubrique">
+      <h2>Annonces</h2>
+      <span class="compte">· 34 dans le quartier</span>
+      <a class="lien" href="#">Tout voir</a>
+    </div>
+
+    <div class="liste">
+      <a class="item" href="#">
+        <span class="ava ava--c">ML</span>
+        <span class="corps">
+          <span class="titre">Cours d’espagnol</span>
+          <span class="sous">Marta Lopez · Baugerie · il y a 5 j</span>
+        </span>
+        <span class="pastille pastille--offre">Offre</span>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a class="item" href="#">
+        <span class="ava ava--a">PB</span>
+        <span class="corps">
+          <span class="titre">Bricolage &amp; petits travaux</span>
+          <span class="sous">Pierre Blanchard · Centre · il y a 2 j</span>
+        </span>
+        <span class="pastille pastille--offre">Offre</span>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a class="item" href="#">
+        <span class="ava ava--b">LG</span>
+        <span class="corps">
+          <span class="titre">Garde de chat &amp; arrosage</span>
+          <span class="sous">Lucie Garnier · Centre · il y a 1 j</span>
+        </span>
+        <span class="pastille pastille--offre">Offre</span>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a class="item" href="#">
+        <span class="ava ava--c">SK</span>
+        <span class="corps">
+          <span class="titre">Courses &amp; aide informatique</span>
+          <span class="sous">Sonia Klein · Baugerie · il y a 3 j</span>
+        </span>
+        <span class="pastille pastille--recherche">Recherche</span>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+
+    <footer class="ours">
+      <div class="filet-fin"></div>
+      TempsPourTemps · Échangez du temps, pas de l’argent
+    </footer>
+
+  </main>
+
+  <nav class="tabbar" aria-label="Navigation principale">
+    <a class="tab tab--actif" href="#" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      Accueil
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      Rechercher
+    </a>
+    <a class="tab tab--plus" href="#">
+      <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      Proposer
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+      Services
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
+      Messages
+    </a>
+  </nav>
+
+</div>
+</body>
+</html>

@@ -198,7 +198,7 @@ Sable    #fcdb81   →  C0  M15 J55 N0
 
 ### 📎 Assets bruts
 - **[`assets/logo/`](./assets/logo/)** — PNG (avec / sans fond), SVG, favicon, icône PWA
-- **[`assets/references/`](./assets/references/)** — framework PDF d'identité visuelle (source : AELF), références externes
+- **`assets/references/`** — références externes locales (non versionnées)
 
 ---
 
@@ -224,7 +224,7 @@ Ce dossier est **vivant**. Il sera enrichi à chaque grande étape :
 
 ## Méthode et sources
 
-Ce document s'appuie sur le framework présenté dans `assets/references/framework-identite-visuelle-aelf.pdf` (les 6 éléments constitutifs, les 6 étapes de création, les 3 critères de pérennité : multiplateforme / déclinable / évolutif).
+Ce document s'appuie sur le framework « identité visuelle » d'un support de formation tiers (non versionné dans ce dépôt pour raisons de droits) (les 6 éléments constitutifs, les 6 étapes de création, les 3 critères de pérennité : multiplateforme / déclinable / évolutif).
 
 Les analyses techniques de l'existant se basent sur :
 - `app/assets/css/main.css` du repo `tempspourtemps-stseb` (design system app)

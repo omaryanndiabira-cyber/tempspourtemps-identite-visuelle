@@ -5,3 +5,6 @@
 *.swo
 Thumbs.db
 node_modules/
+
+# Document de formation tiers (copyright) — jamais versionné
+assets/references/

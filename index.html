@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Propositions page d'accueil</title>
+<link rel="icon" href="assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --marine:#183e57;
+    --marine-hover:#0f2f44;
+    --orange:#d65e1c;
+    --sable:#fcdb81;
+    --bg-main:#f7f6f3;
+    --text-secondary:#4b5563;
+    --text-tertiary:#717182;
+    --border:#e9ebef;
+    --titres:'Nunito',sans-serif;
+    --corps:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:var(--corps);
+    background:var(--bg-main);
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(252,219,129,.22), transparent 40%),
+      radial-gradient(circle at 88% 92%, rgba(24,62,87,.08), transparent 45%);
+    color:var(--marine);
+    min-height:100vh;
+    padding:40px 20px 80px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1240px;margin:0 auto;}
+
+  header{text-align:center;margin-bottom:14px;}
+  header img{width:72px;height:auto;margin-bottom:14px;}
+  h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.5px;}
+  h1 .accent{color:var(--orange);}
+  .sub{color:var(--text-secondary);font-size:1rem;max-width:640px;margin:12px auto 0;line-height:1.55;}
+  .brandkit-link{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-top:20px;padding:10px 20px;border-radius:999px;
+    background:var(--marine);color:#fff;text-decoration:none;
+    font-weight:600;font-size:.9rem;transition:background .15s;
+  }
+  .brandkit-link:hover{background:var(--marine-hover);}
+
+  .hint{
+    text-align:center;color:var(--text-tertiary);font-size:.85rem;
+    margin:34px 0 26px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:28px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 2px 6px rgba(24,62,87,.06), 0 18px 40px -22px rgba(24,62,87,.25);
+    display:flex;flex-direction:column;
+    transition:transform .18s, box-shadow .18s;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(24,62,87,.08), 0 26px 52px -22px rgba(24,62,87,.35);}
+
+  .card-head{
+    padding:16px 18px 12px;
+    display:flex;align-items:baseline;gap:10px;
+    border-bottom:1px solid var(--border);
+  }
+  .num{
+    font-family:var(--titres);font-weight:800;
+    background:var(--sable);color:var(--marine);
+    border-radius:8px;padding:2px 9px;font-size:.85rem;flex-shrink:0;
+  }
+  .card-head h2{font-family:var(--titres);font-weight:800;font-size:1.02rem;line-height:1.3;}
+
+  .preview{
+    position:relative;
+    height:460px;
+    overflow:hidden;
+    background:#e7e4dc;
+  }
+  .preview iframe{
+    width:430px;height:960px;
+    border:0;
+    transform:scale(.478);
+    transform-origin:top center;
+    position:absolute;left:50%;margin-left:-215px;top:6px;
+    pointer-events:none;
+  }
+  .preview a.overlay{
+    position:absolute;inset:0;z-index:2;
+    display:flex;align-items:flex-end;justify-content:center;
+    text-decoration:none;
+    background:linear-gradient(180deg,transparent 70%,rgba(24,62,87,.0) 100%);
+  }
+  .preview a.overlay span{
+    margin-bottom:14px;
+    background:rgba(24,62,87,.92);color:#fff;
+    font-size:.82rem;font-weight:600;
+    padding:8px 16px;border-radius:999px;
+    opacity:0;transform:translateY(6px);
+    transition:opacity .18s, transform .18s;
+  }
+  .card:hover .preview a.overlay span{opacity:1;transform:translateY(0);}
+
+  .card-foot{
+    padding:12px 18px 16px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+  }
+  .desc{color:var(--text-secondary);font-size:.85rem;line-height:1.45;}
+  .open{
+    flex-shrink:0;
+    color:var(--orange);font-weight:700;font-size:.85rem;text-decoration:none;
+    white-space:nowrap;
+  }
+  .open:hover{text-decoration:underline;}
+
+  footer{
+    margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.82rem;line-height:1.6;
+  }
+  footer a{color:var(--marine);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="assets/logo/logo-tpt-transparent.png" alt="Logo TempsPourTemps">
+    <h1>Propositions — page d'accueil <span class="accent">TempsPourTemps</span></h1>
+    <p class="sub">Sept pistes visuelles pour l'écran d'accueil de l'application. Chaque maquette est interactive : survolez une carte pour l'ouvrir en plein écran. Les personnes et annonces affichées sont fictives.</p>
+    <a class="brandkit-link" href="brandkit/index.html">Voir le brandkit complet →</a>
+  </header>
+
+  <p class="hint">Aperçus live — cliquez sur une maquette pour la voir en taille réelle.</p>
+
+  <div class="grid">
+    <article class="card">
+      <div class="card-head"><span class="num">V1</span><h2>Éditorial « Gazette du quartier »</h2></div>
+      <div class="preview">
+        <iframe src="brandkit/explorations/accueil-1-editorial.html" loading="lazy" title="Aperçu V1 Éditorial" tabindex="-1"></iframe>
+        <a class="overlay" href="brandkit/explorations/accueil-1-editorial.html" aria-label="Ouvrir la proposition V1 Éditorial en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Papier crème, rubriques de journal, petites annonces du quartier.</p>
+        <a class="open" href="brandkit/explorations/accueil-1-editorial.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">V2</span><h2>Bento</h2></div>
+      <div class="preview">
+        <iframe src="brandkit/explorations/accueil-2-bento.html" loading="lazy" title="Aperçu V2 Bento" tabindex="-1"></iframe>
+        <a class="overlay" href="brandkit/explorations/accueil-2-bento.html" aria-label="Ouvrir la proposition V2 Bento en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Grille de tuiles compactes, tout visible d'un coup d'œil.</p>
+        <a class="open" href="brandkit/explorations/accueil-2-bento.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">V3</span><h2>Social — le quartier en direct</h2></div>
+      <div class="preview">
+        <iframe src="brandkit/explorations/accueil-3-social.html" loading="lazy" title="Aperçu V3 Social" tabindex="-1"></iframe>
+        <a class="overlay" href="brandkit/explorations/accueil-3-social.html" aria-label="Ouvrir la proposition V3 Social en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Les voisins d'abord : visages, fil d'activité, vie du quartier.</p>
+        <a class="open" href="brandkit/explorations/accueil-3-social.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">V4</span><h2>« Tableau de liège »</h2></div>
+      <div class="preview">
+        <iframe src="brandkit/explorations/accueil-4-tableau-liege.html" loading="lazy" title="Aperçu V4 Tableau de liège" tabindex="-1"></iframe>
+        <a class="overlay" href="brandkit/explorations/accueil-4-tableau-liege.html" aria-label="Ouvrir la proposition V4 Tableau de liège en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Annonces punaisées comme au panneau d'affichage de la maison de quartier.</p>
+        <a class="open" href="brandkit/explorations/accueil-4-tableau-liege.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">V5</span><h2>« Carnet washi »</h2></div>
+      <div class="preview">
+        <iframe src="brandkit/explorations/accueil-5-carnet-washi.html" loading="lazy" title="Aperçu V5 Carnet washi" tabindex="-1"></iframe>
+        <a class="overlay" href="brandkit/explorations/accueil-5-carnet-washi.html" aria-label="Ouvrir la proposition V5 Carnet washi en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Carnet personnel, ruban adhésif, notes manuscrites.</p>
+        <a class="open" href="brandkit/explorations/accueil-5-carnet-washi.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">V6</span><h2>« Épinglé épuré »</h2></div>
+      <div class="preview">
+        <iframe src="brandkit/explorations/accueil-6-epingle-epure.html" loading="lazy" title="Aperçu V6 Épinglé épuré" tabindex="-1"></iframe>
+        <a class="overlay" href="brandkit/explorations/accueil-6-epingle-epure.html" aria-label="Ouvrir la proposition V6 Épinglé épuré en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Le même esprit épinglé, en version minimale et aérée.</p>
+        <a class="open" href="brandkit/explorations/accueil-6-epingle-epure.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">V7</span><h2>« Fil à linge »</h2></div>
+      <div class="preview">
+        <iframe src="brandkit/explorations/accueil-7-fil-a-linge.html" loading="lazy" title="Aperçu V7 Fil à linge" tabindex="-1"></iframe>
+        <a class="overlay" href="brandkit/explorations/accueil-7-fil-a-linge.html" aria-label="Ouvrir la proposition V7 Fil à linge en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Les annonces suspendues au fil, comme entre deux balcons.</p>
+        <a class="open" href="brandkit/explorations/accueil-7-fil-a-linge.html">Ouvrir →</a>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    TempsPourTemps — identité visuelle · Les prénoms, annonces et adresses affichés dans les maquettes sont fictifs.<br>
+    <a href="brandkit/index.html">Brandkit</a> · <a href="README.md">Documentation du dépôt</a>
+  </footer>
+</div>
+</body>
+</html>

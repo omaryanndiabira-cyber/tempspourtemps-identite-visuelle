@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · V3 « Social / Humain — le quartier en direct »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TEMPSPOURTEMPS — ÉCRAN D'ACCUEIL · V3 SOCIAL / HUMAIN
+   « Le quartier en direct » — les visages d'abord
+   ============================================================ */
+:root{
+  --marine:#183e57;        --marine-hover:#0f2f44;
+  --orange:#d65e1c;        --orange-hover:#b84e17;
+  --sable:#fcdb81;         --sable-hover:#f5cb5c;
+  --success:#4a9d5f;  --danger:#c44536;  --warning:#d97706;
+  --bg-main:#f7f6f3;  --bg-secondary:#f3f3f5;  --bg-hover:#fdf1d7;
+  --text-secondary:#4b5563;  --text-tertiary:#717182;
+  --border:#d6dbe2;  --border-soft:#e9ebef;
+  --display:"Nunito","Nunito Rounded",sans-serif;
+  --body:"Inter",sans-serif;
+  --shadow-card:0 2px 10px rgba(24,62,87,.07);
+  --shadow-pop:0 10px 28px rgba(24,62,87,.16);
+  --grad-hero:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{
+  font-family:var(--body);
+  color:var(--marine);
+  background:#e7e6e1;
+  background-image:radial-gradient(circle at 18% 12%, rgba(252,219,129,.22), transparent 42%),
+                   radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:28px 12px;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.45;
+}
+
+/* ---------- Le téléphone ---------- */
+.phone{
+  width:390px;
+  max-width:100%;
+  height:844px;
+  background:var(--bg-main);
+  border-radius:34px;
+  box-shadow:0 24px 70px rgba(24,62,87,.28), 0 0 0 10px #10283a, 0 0 0 12px #2c4a63;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+
+/* ---------- Barre du haut (marine) ---------- */
+.topbar{
+  background:var(--marine);
+  color:#fff;
+  padding:14px 18px 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-shrink:0;
+  position:relative;
+  z-index:20;
+}
+.topbar .logo{
+  height:34px;
+  width:auto;
+  display:block;
+}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.solde{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.8rem;
+  color:var(--sable);
+  background:rgba(252,219,129,.13);
+  border:1px solid rgba(252,219,129,.35);
+  border-radius:999px;
+  padding:5px 11px;
+  letter-spacing:.01em;
+  white-space:nowrap;
+}
+.solde svg{width:13px;height:13px;flex-shrink:0}
+.avatar-me{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:var(--sable);
+  color:var(--marine);
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.85rem;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid rgba(255,255,255,.55);
+  flex-shrink:0;
+}
+
+/* ---------- Zone scrollable ---------- */
+.scroll{
+  flex:1;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  background:var(--grad-hero);
+  scrollbar-width:none;
+}
+.scroll::-webkit-scrollbar{display:none}
+
+/* ---------- Salutation ---------- */
+.hello{
+  padding:22px 18px 4px;
+}
+.hello h1{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:1.5rem;
+  line-height:1.2;
+  letter-spacing:-.01em;
+}
+.hello h1 .wave{display:inline-block;transform-origin:70% 70%;animation:wave 2.4s ease-in-out 1 .6s}
+@keyframes wave{
+  0%,100%{transform:rotate(0)}
+  15%{transform:rotate(16deg)} 30%{transform:rotate(-8deg)}
+  45%{transform:rotate(14deg)} 60%{transform:rotate(-4deg)} 75%{transform:rotate(8deg)}
+}
+.hello p{
+  margin-top:3px;
+  font-size:.83rem;
+  color:var(--text-secondary);
+}
+
+/* Bulle « voisins près de chez vous » */
+.bulle-voisins{
+  margin:14px 18px 0;
+  background:#fff;
+  border:1px solid var(--border-soft);
+  border-radius:18px 18px 18px 5px;
+  box-shadow:var(--shadow-card);
+  padding:11px 14px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  position:relative;
+}
+.face-stack{display:flex;flex-shrink:0}
+.face-stack .mini{
+  width:30px;height:30px;
+  border-radius:50%;
+  border:2px solid #fff;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.62rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.face-stack .mini + .mini{margin-left:-9px}
+.bulle-voisins .txt{font-size:.8rem;line-height:1.35}
+.bulle-voisins .txt strong{font-family:var(--display);font-weight:800}
+.dot-live{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--success);
+  display:inline-block;
+  margin-right:5px;
+  animation:pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(74,157,95,.45)}55%{box-shadow:0 0 0 5px rgba(74,157,95,0)}}
+
+/* ---------- Têtes de section ---------- */
+.section{margin-top:24px}
+.section-head{
+  padding:0 18px;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:11px;
+}
+.section-head h2{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:1.06rem;
+  letter-spacing:-.005em;
+  display:flex;align-items:baseline;gap:7px;
+}
+.count{
+  font-family:var(--body);
+  font-weight:700;
+  font-size:.68rem;
+  color:var(--marine);
+  background:var(--sable);
+  border-radius:999px;
+  padding:2px 8px;
+  position:relative;
+  top:-2px;
+}
+.see-all{
+  font-size:.75rem;
+  font-weight:600;
+  color:var(--orange);
+  text-decoration:none;
+  white-space:nowrap;
+}
+.see-all:hover{color:var(--orange-hover)}
+.section-sub{
+  padding:0 18px;
+  margin-top:-7px;
+  margin-bottom:11px;
+  font-size:.76rem;
+  color:var(--text-tertiary);
+}
+
+/* ---------- Rangées horizontales ---------- */
+.row{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:4px 18px 14px;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+}
+.row::-webkit-scrollbar{display:none}
+.row > *{scroll-snap-align:start;flex-shrink:0}
+
+/* ---------- Cartes voisins (cœur de l'écran) ---------- */
+.voisin{
+  width:158px;
+  background:#fff;
+  border:1px solid var(--border-soft);
+  border-radius:20px;
+  box-shadow:var(--shadow-card);
+  padding:18px 13px 14px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.voisin:hover{transform:translateY(-3px);box-shadow:var(--shadow-pop)}
+.big-avatar{
+  width:66px;height:66px;
+  border-radius:50%;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:1.3rem;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:10px;
+  box-shadow:inset 0 -3px 0 rgba(24,62,87,.12);
+  position:relative;
+}
+.big-avatar .ok{
+  position:absolute;
+  right:-2px;bottom:-2px;
+  width:20px;height:20px;
+  border-radius:50%;
+  background:var(--success);
+  border:2.5px solid #fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.big-avatar .ok svg{width:9px;height:9px}
+.av-marine{background:var(--marine);color:var(--sable)}
+.av-orange{background:var(--orange);color:#fff}
+.av-sable{background:var(--sable);color:var(--marine)}
+.av-creme{background:var(--bg-hover);color:var(--orange)}
+.av-vert{background:#e4f0e7;color:var(--success)}
+.voisin h3{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.86rem;
+  line-height:1.25;
+  margin-bottom:2px;
+}
+.voisin .dist{
+  font-size:.68rem;
+  color:var(--text-tertiary);
+  margin-bottom:9px;
+}
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  justify-content:center;
+}
+.tag{
+  font-size:.64rem;
+  font-weight:600;
+  padding:3px 9px;
+  border-radius:999px;
+  background:var(--bg-secondary);
+  color:var(--text-secondary);
+  border:1px solid var(--border-soft);
+  white-space:nowrap;
+}
+.tag.sable{background:var(--bg-hover);border-color:#f7e1ad;color:var(--marine)}
+
+/* ---------- Fil d'activité du quartier ---------- */
+.feed{
+  margin:0 18px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+.feed-item{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.feed-item .mini-av{
+  width:38px;height:38px;
+  border-radius:50%;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.74rem;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  margin-top:2px;
+}
+.speech{
+  background:#fff;
+  border:1px solid var(--border-soft);
+  border-radius:4px 16px 16px 16px;
+  box-shadow:var(--shadow-card);
+  padding:9px 13px;
+  font-size:.78rem;
+  line-height:1.4;
+  color:var(--text-secondary);
+  flex:1;
+}
+.speech strong{color:var(--marine);font-weight:700}
+.speech .when{
+  display:block;
+  font-size:.66rem;
+  color:var(--text-tertiary);
+  margin-top:2px;
+}
+.speech.accent{background:var(--bg-hover);border-color:#f7e1ad}
+
+/* ---------- Carte rendez-vous ---------- */
+.rdv{
+  width:282px;
+  background:#fff;
+  border:1px solid var(--border-soft);
+  border-radius:20px;
+  box-shadow:var(--shadow-card);
+  padding:15px 16px 14px;
+}
+.rdv-top{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.rdv h3{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.92rem;
+  flex:1;
+  min-width:0;
+}
+.badge{
+  font-size:.62rem;
+  font-weight:700;
+  padding:3px 8px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+.badge.admin{background:var(--marine);color:var(--sable)}
+.badge.confirme{background:#e4f0e7;color:var(--success);display:inline-flex;align-items:center;gap:4px}
+.badge.confirme svg{width:9px;height:9px}
+.rdv-meta{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  font-size:.75rem;
+  color:var(--text-secondary);
+  margin-bottom:11px;
+}
+.rdv-meta .line{display:flex;align-items:center;gap:7px}
+.rdv-meta svg{width:13px;height:13px;flex-shrink:0;color:var(--text-tertiary)}
+.rdv-meta .line strong{color:var(--marine);font-weight:600}
+.rdv-with{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 10px;
+  background:var(--bg-main);
+  border-radius:12px;
+  margin-bottom:11px;
+}
+.rdv-with .mini-av{
+  width:32px;height:32px;
+  border-radius:50%;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.66rem;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.rdv-with .who{font-size:.76rem;font-weight:600}
+.rdv-with .who span{display:block;font-size:.64rem;font-weight:400;color:var(--text-tertiary)}
+.btn-cal{
+  width:100%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.78rem;
+  color:var(--marine);
+  background:var(--sable);
+  border:none;
+  border-radius:999px;
+  padding:9px 14px;
+  cursor:pointer;
+  transition:background .15s ease;
+}
+.btn-cal:hover{background:var(--sable-hover)}
+.btn-cal svg{width:13px;height:13px}
+.rdv.ghost{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:8px;
+  background:rgba(255,255,255,.6);
+  border-style:dashed;
+  border-color:var(--border);
+}
+.rdv.ghost h3{font-size:.9rem}
+.rdv.ghost p{font-size:.74rem;color:var(--text-tertiary)}
+
+/* ---------- Carte annonce ---------- */
+.annonce{
+  width:268px;
+  background:#fff;
+  border:1px solid var(--border-soft);
+  border-radius:20px;
+  box-shadow:var(--shadow-card);
+  padding:15px 16px 14px;
+  position:relative;
+}
+.annonce .fav{
+  position:absolute;
+  top:13px;right:13px;
+  width:30px;height:30px;
+  border-radius:50%;
+  border:1px solid var(--border-soft);
+  background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  color:var(--danger);
+  transition:background .15s ease;
+}
+.annonce .fav:hover{background:var(--bg-hover)}
+.annonce .fav svg{width:14px;height:14px}
+.annonce .tags{justify-content:flex-start;margin-bottom:9px;padding-right:34px}
+.tag.offre{background:var(--marine);color:var(--sable);border-color:var(--marine)}
+.annonce h3{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.96rem;
+  margin-bottom:4px;
+}
+.annonce .desc{
+  font-size:.76rem;
+  color:var(--text-secondary);
+  line-height:1.45;
+  margin-bottom:11px;
+}
+.annonce-foot{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  border-top:1px solid var(--border-soft);
+  padding-top:10px;
+}
+.annonce-foot .mini-av{
+  width:34px;height:34px;
+  border-radius:50%;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.66rem;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.annonce-foot .who{font-size:.72rem;font-weight:600;line-height:1.3;flex:1;min-width:0}
+.annonce-foot .who span{display:block;font-size:.64rem;font-weight:400;color:var(--text-tertiary)}
+.annonce-foot .ago{font-size:.64rem;color:var(--text-tertiary);white-space:nowrap}
+
+/* Pilule filtre */
+.filtre{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:.7rem;
+  font-weight:600;
+  color:var(--marine);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:4px 11px;
+  white-space:nowrap;
+}
+.filtre svg{width:10px;height:10px}
+
+/* ---------- FAB ---------- */
+.fab{
+  position:absolute;
+  right:16px;
+  bottom:86px;
+  z-index:30;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.84rem;
+  color:#fff;
+  background:var(--orange);
+  border:none;
+  border-radius:999px;
+  padding:13px 18px;
+  cursor:pointer;
+  box-shadow:0 8px 22px rgba(214,94,28,.42);
+  transition:background .15s ease, transform .15s ease;
+}
+.fab:hover{background:var(--orange-hover);transform:translateY(-2px)}
+.fab svg{width:16px;height:16px}
+
+/* ---------- Tab bar ---------- */
+.tabbar{
+  flex-shrink:0;
+  background:#fff;
+  border-top:1px solid var(--border-soft);
+  display:flex;
+  align-items:stretch;
+  padding:7px 6px calc(7px + 14px);
+  position:relative;
+  z-index:20;
+}
+.tab{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  font-size:.6rem;
+  font-weight:600;
+  color:var(--text-tertiary);
+  text-decoration:none;
+  padding:4px 0 2px;
+}
+.tab svg{width:21px;height:21px}
+.tab.active{color:var(--orange)}
+.tab.plus .plus-disc{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:var(--marine);
+  color:var(--sable);
+  display:flex;align-items:center;justify-content:center;
+  margin-top:-16px;
+  box-shadow:0 6px 14px rgba(24,62,87,.3);
+  border:3px solid #fff;
+}
+.tab.plus .plus-disc svg{width:18px;height:18px}
+.tab.plus span{margin-top:1px}
+/* barre home iOS */
+.home-indicator{
+  position:absolute;
+  left:50%;bottom:6px;
+  transform:translateX(-50%);
+  width:120px;height:4px;
+  border-radius:999px;
+  background:var(--marine);
+  opacity:.25;
+}
+.tail{height:96px}
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- ===== Barre du haut ===== -->
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps — monogramme tpt">
+    <div class="topbar-right">
+      <span class="solde" title="Votre solde de temps">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        8 h 30
+      </span>
+      <span class="avatar-me">OD</span>
+    </div>
+  </header>
+
+  <!-- ===== Contenu scrollable ===== -->
+  <main class="scroll">
+
+    <!-- Salutation -->
+    <div class="hello">
+      <h1>Bonjour Omar <span class="wave">👋</span></h1>
+      <p>Votre quartier est bien réveillé ce matin.</p>
+    </div>
+
+    <!-- Bulle voisins -->
+    <div class="bulle-voisins">
+      <div class="face-stack">
+        <span class="mini av-orange">LG</span>
+        <span class="mini av-sable">AN</span>
+        <span class="mini av-marine">ML</span>
+        <span class="mini av-vert">MM</span>
+      </div>
+      <div class="txt"><span class="dot-live"></span><strong>6 voisins</strong> près de chez vous aujourd'hui — dispo pour un coup de main.</div>
+    </div>
+
+    <!-- ===== Vous pouvez les aider ===== -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Vous pouvez les aider <span class="count">60</span></h2>
+        <a class="see-all" href="#">Tout voir</a>
+      </div>
+      <p class="section-sub">Ils cherchent ce que vous savez faire.</p>
+      <div class="row">
+        <article class="voisin">
+          <div class="big-avatar av-orange">AN</div>
+          <h3>Alice Noël</h3>
+          <p class="dist">Quartier Baugerie</p>
+          <div class="tags">
+            <span class="tag sable">Nourrissage / visites</span>
+            <span class="tag">Arrosage</span>
+          </div>
+        </article>
+        <article class="voisin">
+          <div class="big-avatar av-marine">ML</div>
+          <h3>Marta Lopez</h3>
+          <p class="dist">Baugerie</p>
+          <div class="tags">
+            <span class="tag sable">Espagnol</span>
+            <span class="tag">Cours en visio</span>
+          </div>
+        </article>
+        <article class="voisin">
+          <div class="big-avatar av-vert">MM</div>
+          <h3>Marie Morel</h3>
+          <p class="dist">Saint-Sébastien</p>
+          <div class="tags">
+            <span class="tag sable">Peinture</span>
+            <span class="tag">Bricolage</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Ils·elles peuvent vous aider ===== -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Ils·elles peuvent vous aider <span class="count">57</span></h2>
+        <a class="see-all" href="#">Tout voir</a>
+      </div>
+      <p class="section-sub">Des voisins prêts à donner une heure.</p>
+      <div class="row">
+        <article class="voisin">
+          <div class="big-avatar av-sable">LG
+            <span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l5 5L20 7"/></svg></span>
+          </div>
+          <h3>Lucie Garnier</h3>
+          <p class="dist">À 450 m de chez vous</p>
+          <div class="tags">
+            <span class="tag sable">Garde chat</span>
+            <span class="tag">Massages bien-être</span>
+            <span class="tag">Arrosage</span>
+          </div>
+        </article>
+        <article class="voisin">
+          <div class="big-avatar av-creme">MM
+            <span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l5 5L20 7"/></svg></span>
+          </div>
+          <h3>Marie Morel</h3>
+          <p class="dist">Saint-Sébastien</p>
+          <div class="tags">
+            <span class="tag sable">Rencontre physique</span>
+            <span class="tag">Accueil</span>
+          </div>
+        </article>
+        <article class="voisin">
+          <div class="big-avatar av-marine">ML</div>
+          <h3>Marta Lopez</h3>
+          <p class="dist">Baugerie</p>
+          <div class="tags">
+            <span class="tag sable">Espagnol</span>
+            <span class="tag">Tous niveaux</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Fil d'activité du quartier ===== -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Le quartier en direct</h2>
+        <a class="see-all" href="#">Activité</a>
+      </div>
+      <div class="feed">
+        <div class="feed-item">
+          <span class="mini-av av-vert">MM</span>
+          <div class="speech accent">
+            <strong>Marie</strong> a confirmé votre rencontre du 11 juin à 12:30. 🎉
+            <span class="when">il y a 2 h · Rencontre physique</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="mini-av av-marine">ML</span>
+          <div class="speech">
+            <strong>Marta</strong> a publié un cours d'espagnol — « Native. Tous niveaux. »
+            <span class="when">il y a 5 j · Annonce · Baugerie</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="mini-av av-orange">LG</span>
+          <div class="speech">
+            <strong>Lucie</strong> propose désormais « Massages bien-être » près de chez vous.
+            <span class="when">cette semaine · Nouveau service</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Rendez-vous à venir ===== -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Rendez-vous à venir <span class="count">4</span></h2>
+        <a class="see-all" href="#">Tout voir</a>
+      </div>
+      <div class="row">
+        <article class="rdv">
+          <div class="rdv-top">
+            <h3>Rencontre physique</h3>
+            <span class="badge admin">Admin</span>
+            <span class="badge confirme">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l5 5L20 7"/></svg>
+              RDV confirmé
+            </span>
+          </div>
+          <div class="rdv-meta">
+            <div class="line">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+              <span><strong>11 juin 2026 · 12:30</strong> &nbsp;·&nbsp; 15 min</span>
+            </div>
+            <div class="line">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              <span>12 rue des Lilas</span>
+            </div>
+          </div>
+          <div class="rdv-with">
+            <span class="mini-av av-vert">MM</span>
+            <div class="who">Marie Morel<span>Votre voisine vous accueille</span></div>
+          </div>
+          <button class="btn-cal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>
+            Ajouter au calendrier
+          </button>
+        </article>
+        <article class="rdv ghost">
+          <div class="rdv-top">
+            <h3>Peinture…</h3>
+            <span class="badge confirme">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l5 5L20 7"/></svg>
+              RDV confirmé
+            </span>
+          </div>
+          <p>Avec Marie Morel · à venir cette semaine</p>
+          <div class="rdv-with" style="margin-bottom:0">
+            <span class="mini-av av-creme">MM</span>
+            <div class="who">Marie Morel<span>Saint-Sébastien</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Annonces ===== -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Annonces <span class="count">34</span></h2>
+        <span class="filtre">
+          Récentes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </span>
+      </div>
+      <div class="row">
+        <article class="annonce">
+          <button class="fav" aria-label="Ajouter aux favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.8-9.5-9.3C1.2 8.6 3.2 5 6.8 5c2 0 3.6 1.1 5.2 3 1.6-1.9 3.2-3 5.2-3 3.6 0 5.6 3.6 4.3 6.7C19.5 16.2 12 21 12 21z"/></svg>
+          </button>
+          <div class="tags">
+            <span class="tag offre">Offre</span>
+            <span class="tag sable">Espagnol</span>
+          </div>
+          <h3>Espagnol. Cours</h3>
+          <p class="desc">Native. Tous niveaux. Cours en visio possible.</p>
+          <div class="annonce-foot">
+            <span class="mini-av av-marine">ML</span>
+            <div class="who">Marta Lopez<span>Baugerie</span></div>
+            <span class="ago">il y a 5 j</span>
+          </div>
+        </article>
+        <article class="annonce">
+          <button class="fav" aria-label="Ajouter aux favoris">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.8-9.5-9.3C1.2 8.6 3.2 5 6.8 5c2 0 3.6 1.1 5.2 3 1.6-1.9 3.2-3 5.2-3 3.6 0 5.6 3.6 4.3 6.7C19.5 16.2 12 21 12 21z"/></svg>
+          </button>
+          <div class="tags">
+            <span class="tag offre">Offre</span>
+            <span class="tag sable">Jardinage</span>
+          </div>
+          <h3>Arrosage de plantes</h3>
+          <p class="desc">Pendant vos vacances, je passe arroser et donner des nouvelles.</p>
+          <div class="annonce-foot">
+            <span class="mini-av av-sable">LG</span>
+            <div class="who">Lucie Garnier<span>À 450 m</span></div>
+            <span class="ago">il y a 1 j</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="tail"></div>
+  </main>
+
+  <!-- ===== FAB ===== -->
+  <button class="fab">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    Publier une annonce
+  </button>
+
+  <!-- ===== Tab bar ===== -->
+  <nav class="tabbar">
+    <a class="tab active" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1.5 1.5 0 0 1-1.5 1.5H14v-6h-4v6H4.5A1.5 1.5 0 0 1 3 20z"/></svg>
+      <span>Accueil</span>
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg>
+      <span>Rechercher</span>
+    </a>
+    <a class="tab plus" href="#">
+      <span class="plus-disc">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </span>
+      <span>Proposer</span>
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4z"/></svg>
+      <span>Services</span>
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.5-3A8 8 0 1 1 21 12z"/></svg>
+      <span>Messages</span>
+    </a>
+    <span class="home-indicator"></span>
+  </nav>
+
+</div>
+
+</body>
+</html>

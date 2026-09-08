@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil V2 · Bento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --marine:#183e57;
+    --marine-hover:#0f2f44;
+    --orange:#d65e1c;
+    --orange-hover:#b84e17;
+    --sable:#fcdb81;
+    --sable-hover:#f5cb5c;
+    --success:#4a9d5f;
+    --danger:#c44536;
+    --warning:#d97706;
+    --bg-main:#f7f6f3;
+    --bg-secondary:#f3f3f5;
+    --bg-hover:#fdf1d7;
+    --text-secondary:#4b5563;
+    --text-tertiary:#717182;
+    --border:#d6dbe2;
+    --grad:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+    --font-title:'Nunito',sans-serif;
+    --font-body:'Inter',sans-serif;
+    --r-xl:26px;
+    --r-lg:20px;
+    --r-md:16px;
+    --shadow-soft:0 6px 24px rgba(24,62,87,.07),0 2px 6px rgba(24,62,87,.05);
+    --shadow-card:0 10px 30px rgba(24,62,87,.10),0 3px 8px rgba(24,62,87,.06);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--font-body);
+    background:#e9e7e1;
+    background-image:radial-gradient(circle at 18% 12%, #f2efe7 0%, transparent 55%),
+                     radial-gradient(circle at 85% 90%, #e2e6ea 0%, transparent 50%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:24px 12px;
+    color:var(--marine);
+  }
+
+  /* ============ PHONE FRAME ============ */
+  .phone{
+    width:390px;
+    max-width:100%;
+    height:844px;
+    max-height:calc(100vh - 48px);
+    background:var(--bg-main);
+    border-radius:42px;
+    box-shadow:0 30px 80px rgba(15,47,68,.28),0 4px 16px rgba(15,47,68,.14),0 0 0 1px rgba(24,62,87,.06);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+
+  /* ============ TOP BAR (marine, sticky) ============ */
+  .topbar{
+    flex:none;
+    background:var(--marine);
+    background-image:radial-gradient(circle at 110% -40%, rgba(252,219,129,.14) 0%, transparent 55%);
+    padding:18px 20px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    z-index:20;
+  }
+  .topbar .logo{height:34px;width:auto;display:block;}
+  .topbar .spacer{flex:1;}
+  .pill-solde{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(252,219,129,.16);
+    border:1px solid rgba(252,219,129,.45);
+    color:var(--sable);
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:14px;
+    padding:7px 13px;
+    border-radius:999px;
+    letter-spacing:.01em;
+  }
+  .pill-solde svg{display:block;}
+  .avatar{
+    width:36px;height:36px;
+    border-radius:50%;
+    background:var(--sable);
+    color:var(--marine);
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:13px;
+    display:flex;align-items:center;justify-content:center;
+    border:2px solid rgba(255,255,255,.35);
+    flex:none;
+  }
+
+  /* ============ SCROLL AREA ============ */
+  .scroll{
+    flex:1;
+    overflow-y:auto;
+    overflow-x:hidden;
+    background:var(--grad);
+    scrollbar-width:none;
+  }
+  .scroll::-webkit-scrollbar{display:none;}
+  .content{padding:20px 18px 28px;}
+
+  /* ============ GREETING ============ */
+  .greeting{margin-bottom:14px;padding:0 2px;}
+  .greeting h1{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:24px;
+    color:var(--marine);
+    line-height:1.2;
+  }
+  .greeting p{
+    font-size:13px;
+    color:var(--text-tertiary);
+    margin-top:2px;
+    font-weight:500;
+  }
+
+  /* ============ HERO CARD — SOLDE DE TEMPS ============ */
+  .hero{
+    position:relative;
+    background:linear-gradient(145deg,#1c4a68 0%,var(--marine) 48%,#11314a 100%);
+    border-radius:var(--r-xl);
+    padding:22px 22px 20px;
+    color:#fff;
+    box-shadow:var(--shadow-card);
+    overflow:hidden;
+    margin-bottom:14px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:radial-gradient(rgba(252,219,129,.10) 1.1px, transparent 1.1px);
+    background-size:18px 18px;
+    background-position:-4px -6px;
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-70px;top:-70px;
+    width:210px;height:210px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(252,219,129,.18) 0%, rgba(252,219,129,.05) 55%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:10px;
+    position:relative;z-index:1;
+  }
+  .hero-label{
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.65);
+  }
+  .hero-chip{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:11px;
+    color:var(--marine);
+    background:var(--sable);
+    border-radius:999px;
+    padding:4px 11px;
+  }
+  .hero-main{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    position:relative;z-index:1;
+  }
+  .hero-balance{flex:1;}
+  .hero-balance .amount{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:52px;
+    line-height:1;
+    color:#fff;
+    letter-spacing:-.01em;
+  }
+  .hero-balance .amount .unit{
+    font-size:30px;
+    color:var(--sable);
+  }
+  .hero-balance .sub{
+    margin-top:8px;
+    font-size:12.5px;
+    color:rgba(255,255,255,.72);
+    font-weight:500;
+  }
+  .hero-balance .sub strong{color:#8fd6a3;font-weight:700;}
+  .hero-clock{flex:none;position:relative;width:96px;height:96px;}
+  .hero-clock svg{display:block;}
+  .hero-clock .clock-center{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+  .hero-clock .clock-center span{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:15px;
+    color:var(--sable);
+    line-height:1.1;
+  }
+  .hero-clock .clock-center small{
+    font-size:8.5px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.55);
+    margin-top:2px;
+  }
+  .hero-stats{
+    position:relative;z-index:1;
+    margin-top:18px;
+    display:flex;
+    gap:8px;
+  }
+  .hero-stat{
+    flex:1;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    padding:9px 10px;
+  }
+  .hero-stat b{
+    display:block;
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:15px;
+    color:#fff;
+  }
+  .hero-stat span{
+    display:block;
+    font-size:10px;
+    font-weight:500;
+    color:rgba(255,255,255,.62);
+    margin-top:1px;
+  }
+  .hero-stat.gain b{color:#8fd6a3;}
+  .hero-stat.sable b{color:var(--sable);}
+
+  /* ============ CTA ============ */
+  .cta{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    width:100%;
+    background:var(--orange);
+    color:#fff;
+    border:none;
+    border-radius:18px;
+    padding:15px;
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 8px 22px rgba(214,94,28,.32),0 2px 6px rgba(214,94,28,.22);
+    transition:background .18s ease, transform .12s ease;
+    margin-bottom:24px;
+  }
+  .cta:hover{background:var(--orange-hover);}
+  .cta:active{transform:scale(.985);}
+  .cta svg{display:block;}
+
+  /* ============ SECTION HEADERS ============ */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin:0 2px 12px;
+  }
+  .section-head h2{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:17px;
+    color:var(--marine);
+    display:flex;
+    align-items:baseline;
+    gap:7px;
+  }
+  .count{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:11px;
+    color:var(--marine);
+    background:var(--sable);
+    border-radius:999px;
+    padding:2.5px 8px;
+    position:relative;
+    top:-1px;
+  }
+  .see-all{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--orange);
+    text-decoration:none;
+  }
+
+  /* ============ HORIZONTAL SCROLL ROWS ============ */
+  .row-scroll{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:2px 18px 16px;
+    margin:0 -18px;
+    scrollbar-width:none;
+    scroll-snap-type:x mandatory;
+  }
+  .row-scroll::-webkit-scrollbar{display:none;}
+  .row-scroll > *{scroll-snap-align:start;flex:none;}
+
+  /* ============ RDV CARD ============ */
+  .rdv-card{
+    width:300px;
+    background:#fff;
+    border-radius:var(--r-lg);
+    box-shadow:var(--shadow-soft);
+    border:1px solid rgba(214,219,226,.55);
+    overflow:hidden;
+  }
+  .rdv-card.preview{width:84px;position:relative;}
+  .rdv-head{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    flex-wrap:wrap;
+    padding:14px 16px 0;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:10.5px;
+    font-weight:700;
+    border-radius:999px;
+    padding:3.5px 9px;
+  }
+  .badge.admin{background:var(--bg-hover);color:var(--orange-hover);border:1px solid #f3ddb0;}
+  .badge.confirmed{background:#e6f3ea;color:var(--success);border:1px solid #c4e2cd;}
+  .badge.confirmed::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--success);}
+  .badge.type{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border);}
+  .rdv-title{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:15.5px;
+    color:var(--marine);
+    padding:10px 16px 0;
+  }
+  .rdv-meta{
+    padding:9px 16px 0;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .meta-line{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    color:var(--text-secondary);
+    font-weight:500;
+  }
+  .meta-line svg{flex:none;display:block;}
+  .meta-line b{color:var(--marine);font-weight:700;}
+  .rdv-person{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin:12px 16px 0;
+    padding-top:11px;
+    border-top:1px dashed var(--border);
+  }
+  .mini-avatar{
+    width:30px;height:30px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:11px;
+    flex:none;
+  }
+  .av-marine{background:var(--marine);color:var(--sable);}
+  .av-sable{background:var(--sable);color:var(--marine);}
+  .av-orange{background:#f6dcc9;color:var(--orange-hover);}
+  .av-green{background:#dcefe1;color:#2f7a44;}
+  .rdv-person span{font-size:13px;font-weight:600;color:var(--marine);}
+  .rdv-cal{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    margin:12px 16px 16px;
+    background:var(--bg-secondary);
+    border:1px solid var(--border);
+    color:var(--marine);
+    border-radius:13px;
+    padding:10px;
+    font-size:12.5px;
+    font-weight:700;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .rdv-cal:hover{background:var(--bg-hover);border-color:#f0dcae;}
+  .rdv-preview-label{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .rdv-preview-label span{
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:13px;
+    color:var(--text-tertiary);
+    letter-spacing:.02em;
+  }
+
+  /* ============ FILTER PILLS ============ */
+  .filters{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    margin:0 -18px 12px;
+    padding:2px 18px 4px;
+    scrollbar-width:none;
+  }
+  .filters::-webkit-scrollbar{display:none;}
+  .filter{
+    flex:none;
+    font-size:12.5px;
+    font-weight:600;
+    padding:7px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--text-secondary);
+    cursor:pointer;
+  }
+  .filter.active{
+    background:var(--marine);
+    border-color:var(--marine);
+    color:#fff;
+    font-weight:700;
+  }
+
+  /* ============ ANNONCE CARD ============ */
+  .annonce{
+    background:#fff;
+    border-radius:var(--r-lg);
+    box-shadow:var(--shadow-soft);
+    border:1px solid rgba(214,219,226,.55);
+    padding:15px 16px 14px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .annonce .tags{display:flex;gap:6px;margin-bottom:9px;}
+  .tag{
+    font-size:10.5px;
+    font-weight:700;
+    border-radius:999px;
+    padding:3.5px 10px;
+  }
+  .tag.offre{background:var(--marine);color:var(--sable);}
+  .tag.theme{background:var(--bg-hover);color:var(--orange-hover);border:1px solid #f3ddb0;}
+  .tag.skill{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border);}
+  .annonce h3{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:16px;
+    color:var(--marine);
+    padding-right:34px;
+  }
+  .annonce .desc{
+    font-size:13px;
+    color:var(--text-secondary);
+    line-height:1.45;
+    margin-top:4px;
+  }
+  .annonce .when{
+    font-size:11.5px;
+    color:var(--text-tertiary);
+    font-weight:500;
+    margin-top:7px;
+  }
+  .annonce-foot{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-top:11px;
+    padding-top:11px;
+    border-top:1px dashed var(--border);
+  }
+  .annonce-foot .who{flex:1;min-width:0;}
+  .annonce-foot .who b{
+    display:block;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--marine);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .annonce-foot .who span{
+    display:flex;
+    align-items:center;
+    gap:3px;
+    font-size:11px;
+    color:var(--text-tertiary);
+    font-weight:500;
+    margin-top:1px;
+  }
+  .heart{
+    position:absolute;
+    top:14px;right:14px;
+    width:32px;height:32px;
+    border-radius:50%;
+    background:var(--bg-secondary);
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    color:var(--danger);
+    transition:background .15s ease;
+  }
+  .heart:hover{background:#fbeae7;}
+
+  /* ============ BENTO ENTRAIDE ============ */
+  .bento-duo{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:8px;
+  }
+  .helper-card{
+    background:#fff;
+    border-radius:var(--r-lg);
+    box-shadow:var(--shadow-soft);
+    border:1px solid rgba(214,219,226,.55);
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+  }
+  .helper-card .hc-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:6px;
+    margin-bottom:11px;
+  }
+  .helper-card .hc-head h3{
+    font-family:var(--font-title);
+    font-weight:800;
+    font-size:12.5px;
+    line-height:1.25;
+    color:var(--marine);
+  }
+  .helper-card .hc-head .count{flex:none;}
+  .helper-card.help-them{background:linear-gradient(165deg,#fffdf6 0%,var(--bg-hover) 100%);}
+  .helper-card .person{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .helper-card .person b{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--marine);
+    line-height:1.25;
+  }
+  .helper-card .skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-top:auto;
+  }
+
+  /* ============ TAB BAR ============ */
+  .tabbar{
+    flex:none;
+    background:#fff;
+    border-top:1px solid rgba(214,219,226,.7);
+    box-shadow:0 -8px 24px rgba(24,62,87,.06);
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-around;
+    padding:8px 8px 14px;
+    z-index:20;
+    position:relative;
+  }
+  .tab{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    text-decoration:none;
+    color:var(--text-tertiary);
+    font-size:10px;
+    font-weight:600;
+    padding-top:4px;
+  }
+  .tab svg{display:block;}
+  .tab.active{color:var(--orange);font-weight:700;}
+  .tab-plus{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    text-decoration:none;
+    color:var(--text-tertiary);
+    font-size:10px;
+    font-weight:600;
+    margin-top:-26px;
+  }
+  .tab-plus .plus-btn{
+    width:54px;height:54px;
+    border-radius:50%;
+    background:var(--marine);
+    color:var(--sable);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 22px rgba(24,62,87,.30),0 0 0 5px var(--bg-main);
+    transition:background .15s ease;
+  }
+  .tab-plus:hover .plus-btn{background:var(--marine-hover);}
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <span class="pill-solde">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      8 h 30
+    </span>
+    <div class="avatar">OD</div>
+  </header>
+
+  <!-- ===== SCROLLABLE CONTENT ===== -->
+  <main class="scroll">
+    <div class="content">
+
+      <!-- Greeting -->
+      <div class="greeting">
+        <h1>Bonjour 👋</h1>
+        <p>Votre temps a de la valeur, partagez-le.</p>
+      </div>
+
+      <!-- HERO — Portefeuille de temps -->
+      <section class="hero">
+        <div class="hero-top">
+          <span class="hero-label">Solde de temps</span>
+          <span class="hero-chip">1 h donnée = 1 h reçue</span>
+        </div>
+        <div class="hero-main">
+          <div class="hero-balance">
+            <div class="amount">8<span class="unit"> h </span>30</div>
+            <div class="sub"><strong>+2 h ce mois</strong> · 3 échanges réalisés</div>
+          </div>
+          <div class="hero-clock" aria-hidden="true">
+            <svg width="96" height="96" viewBox="0 0 96 96">
+              <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="7"/>
+              <circle cx="48" cy="48" r="40" fill="none" stroke="#fcdb81" stroke-width="7" stroke-linecap="round"
+                      stroke-dasharray="178 251" transform="rotate(-90 48 48)"/>
+              <circle cx="48" cy="8" r="3" fill="#fcdb81"/>
+            </svg>
+            <div class="clock-center"><span>71 %</span><small>du palier 12 h</small></div>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat gain"><b>+5 h 15</b><span>temps donné</span></div>
+          <div class="hero-stat"><b>3 h 15</b><span>temps reçu</span></div>
+          <div class="hero-stat sable"><b>12</b><span>voisin·es aidé·es</span></div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <button class="cta">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Publier une annonce
+      </button>
+
+      <!-- ===== RENDEZ-VOUS À VENIR ===== -->
+      <div class="section-head">
+        <h2>Rendez-vous à venir <span class="count">4</span></h2>
+        <a class="see-all" href="#">Tout voir</a>
+      </div>
+      <div class="row-scroll">
+        <article class="rdv-card">
+          <div class="rdv-head">
+            <span class="badge type">Rencontre physique</span>
+            <span class="badge admin">Admin</span>
+            <span class="badge confirmed">RDV confirmé</span>
+          </div>
+          <h3 class="rdv-title">Rencontre physique</h3>
+          <div class="rdv-meta">
+            <div class="meta-line">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#717182" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+              <b>11 juin 2026 · 12:30</b>&nbsp;· 15 min
+            </div>
+            <div class="meta-line">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#717182" stroke-width="2" stroke-linecap="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              12 rue des Lilas
+            </div>
+          </div>
+          <div class="rdv-person">
+            <div class="mini-avatar av-marine">MM</div>
+            <span>Marie Morel</span>
+          </div>
+          <div class="rdv-cal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>
+            Ajouter au calendrier
+          </div>
+        </article>
+        <article class="rdv-card preview">
+          <div class="rdv-preview-label"><span>Peinture…</span></div>
+        </article>
+      </div>
+
+      <!-- ===== ANNONCES ===== -->
+      <div class="section-head">
+        <h2>Annonces <span class="count">34</span></h2>
+        <a class="see-all" href="#">Tout voir</a>
+      </div>
+      <div class="filters">
+        <button class="filter active">Récentes</button>
+        <button class="filter">Offres</button>
+        <button class="filter">Demandes</button>
+        <button class="filter">Près de moi</button>
+      </div>
+      <article class="annonce">
+        <button class="heart" aria-label="Ajouter aux favoris">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.8-9.3-9.1C1.3 8 3.5 4.5 7 4.5c2.2 0 3.9 1.3 5 3 1.1-1.7 2.8-3 5-3 3.5 0 5.7 3.5 4.3 6.9-1.8 4.3-9.3 9.1-9.3 9.1z"/></svg>
+        </button>
+        <div class="tags">
+          <span class="tag offre">Offre</span>
+          <span class="tag theme">Espagnol</span>
+        </div>
+        <h3>Espagnol. Cours</h3>
+        <p class="desc">Native. Tous niveaux. Cours en visio possible.</p>
+        <p class="when">il y a 5 j</p>
+        <div class="annonce-foot">
+          <div class="mini-avatar av-orange">ML</div>
+          <div class="who">
+            <b>Marta Lopez</b>
+            <span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              Baugerie
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ===== BENTO ENTRAIDE ===== -->
+      <div class="bento-duo">
+        <article class="helper-card">
+          <div class="hc-head">
+            <h3>Vous pouvez les&nbsp;aider</h3>
+            <span class="count">60</span>
+          </div>
+          <div class="person">
+            <div class="mini-avatar av-green">AN</div>
+            <b>Alice Noël</b>
+          </div>
+          <div class="skills">
+            <span class="tag skill">Nourrissage / visites</span>
+            <span class="tag skill">Arrosage</span>
+          </div>
+        </article>
+        <article class="helper-card help-them">
+          <div class="hc-head">
+            <h3>Ils·elles peuvent vous&nbsp;aider</h3>
+            <span class="count">57</span>
+          </div>
+          <div class="person">
+            <div class="mini-avatar av-sable">LG</div>
+            <b>Lucie Garnier</b>
+          </div>
+          <div class="skills">
+            <span class="tag skill">Garde chat</span>
+            <span class="tag skill">Massages bien-être</span>
+            <span class="tag skill">Arrosage</span>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== TAB BAR ===== -->
+  <nav class="tabbar">
+    <a class="tab active" href="#">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7.5L21 11M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      Accueil
+    </a>
+    <a class="tab" href="#">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg>
+      Rechercher
+    </a>
+    <a class="tab-plus" href="#">
+      <span class="plus-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </span>
+      Proposer
+    </a>
+    <a class="tab" href="#">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="1.4" fill="currentColor" stroke="none"/></svg>
+      Services
+    </a>
+    <a class="tab" href="#">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.7-3.4A8 8 0 1 1 21 12z"/></svg>
+      Messages
+    </a>
+  </nav>
+
+</div>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 # 01 · Stratégie de marque
 
-> **Étape 1 du framework identité visuelle** (cf. `assets/references/framework-identite-visuelle-aelf.pdf`).
+> **Étape 1 du framework identité visuelle** (cf. support de formation « framework identité visuelle » — document tiers non versionné).
 > Ce document est la **fondation** : tout le reste (logo, couleurs, typo, univers visuel) doit en découler.
 
 [← Retour au sommaire](../README.md)
