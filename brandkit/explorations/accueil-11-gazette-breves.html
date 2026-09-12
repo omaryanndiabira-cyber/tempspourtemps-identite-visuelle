@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · Gazette B « Brèves encadrées »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TempsPourTemps — Accueil · Gazette B « Brèves encadrées »
+     Même peau que la V1. Chaque post est une brève de journal :
+     filet de tête coloré par type, chapeau centré entre deux filets,
+     titre, ligne de date, texte. Les cartes restent des cartes,
+     mais avec un vocabulaire de colonne de presse.
+     Zone d'annonce : carte à filet sable, même famille que les posts.
+     ============================================================ */
+  :root{
+    --marine:#183e57;
+    --marine-hover:#0f2f44;
+    --orange:#d65e1c;
+    --orange-hover:#b84e17;
+    --sable:#fcdb81;
+    --sable-hover:#f5cb5c;
+    --success:#4a9d5f;
+    --danger:#c44536;
+    --warning:#d97706;
+    --bg-main:#f7f6f3;
+    --bg-secondary:#f3f3f5;
+    --bg-hover:#fdf1d7;
+    --text-secondary:#4b5563;
+    --text-tertiary:#717182;
+    --border:#d6dbe2;
+    --paper:#fffdf6;
+    --ocre:#8a6b1f;
+    --grad-hero:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+    --titres:'Nunito',sans-serif;
+    --corps:'Inter',sans-serif;
+    --radius-app:34px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--corps);
+    background:#e7e4dc;
+    background-image:
+      radial-gradient(circle at 18% 12%, rgba(252,219,129,.20), transparent 42%),
+      radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;padding:32px 16px;
+    color:var(--marine);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .phone{
+    width:390px;max-width:100%;
+    height:min(844px, calc(100vh - 48px));min-height:640px;
+    background:var(--bg-main);
+    border-radius:var(--radius-app);
+    box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
+    overflow:hidden;display:flex;flex-direction:column;position:relative;
+  }
+  .phone::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:60;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .topbar{
+    position:sticky;top:0;z-index:40;
+    background:var(--marine);
+    background-image:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.08));
+    padding:14px 16px 12px;display:flex;align-items:center;gap:12px;
+    box-shadow:0 2px 10px rgba(15,47,68,.30);
+  }
+  .topbar .logo{height:34px;width:auto;display:block;}
+  .topbar .spacer{flex:1;}
+  .credit-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--sable);color:var(--marine);border-radius:999px;
+    padding:6px 12px 6px 9px;
+    font-family:var(--titres);font-weight:800;font-size:14px;letter-spacing:.2px;
+    box-shadow:inset 0 -2px 0 rgba(24,62,87,.18), 0 1px 0 rgba(0,0,0,.15);white-space:nowrap;
+  }
+  .credit-pill .ico{font-size:13px;line-height:1;}
+  .avatar{
+    width:34px;height:34px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--titres);font-weight:800;font-size:12px;flex:none;letter-spacing:.3px;
+  }
+  .avatar--me{background:var(--sable);color:var(--marine);border:2px solid rgba(255,255,255,.55);}
+
+  .masthead-strip{
+    background:var(--bg-hover);border-bottom:1px solid #efdcae;
+    padding:6px 16px;font-size:11px;color:var(--text-secondary);
+    display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;letter-spacing:.2px;z-index:35;
+  }
+  .masthead-strip strong{font-family:var(--titres);font-weight:800;color:var(--marine);}
+  .masthead-strip .dot{color:var(--orange);font-weight:700;}
+
+  .feed{flex:1;overflow-y:auto;background:var(--grad-hero);scrollbar-width:none;}
+  .feed::-webkit-scrollbar{display:none;}
+
+  .hero{padding:20px 18px 4px;}
+  .hero .edition{
+    display:flex;align-items:baseline;justify-content:space-between;
+    border-top:2px solid var(--marine);border-bottom:1px solid var(--marine);
+    padding:5px 2px;font-size:10px;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--text-secondary);font-weight:600;
+  }
+  .hero .edition b{color:var(--marine);font-weight:700;}
+  .hero h1{font-family:var(--titres);font-weight:800;font-size:26px;line-height:1.15;margin:14px 0 4px;color:var(--marine);}
+  .hero h1 .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+  .hero p{font-size:13px;color:var(--text-secondary);line-height:1.45;}
+
+  .cta-wrap{padding:16px 18px 4px;}
+  .btn-cta{
+    display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    background:var(--orange);color:#fff9ec;border:none;border-radius:14px;padding:15px 18px;
+    font-family:var(--titres);font-weight:800;font-size:16px;letter-spacing:.2px;cursor:pointer;
+    box-shadow:0 3px 0 var(--orange-hover), 0 10px 22px -8px rgba(214,94,28,.55);
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .btn-cta:hover{background:var(--orange-hover);}
+  .btn-cta:active{transform:translateY(2px);box-shadow:0 1px 0 var(--orange-hover), 0 5px 12px -6px rgba(214,94,28,.5);}
+  .btn-cta .plume{font-size:17px;}
+
+  /* ---------- Zone relationnelle : carte à filet sable ---------- */
+  .communique{
+    position:relative;margin:14px 18px 0;
+    background:var(--paper);border:1px solid var(--border);border-radius:14px;
+    padding:12px 36px 12px 14px;
+    box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -14px rgba(24,62,87,.28);
+  }
+  .communique::before{
+    content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;
+    background:var(--sable-hover);border-radius:0 3px 3px 0;
+  }
+  .communique .kicker{
+    display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--orange-hover);margin-bottom:3px;
+  }
+  .communique h3{font-family:var(--titres);font-weight:800;font-size:14px;line-height:1.3;color:var(--marine);}
+  .communique p{font-size:12px;line-height:1.45;color:var(--text-secondary);margin-top:2px;}
+  .communique p a{color:var(--orange);font-weight:700;text-decoration:none;white-space:nowrap;}
+  .communique p a:hover{color:var(--orange-hover);}
+  .communique .fermer{
+    position:absolute;top:9px;right:9px;
+    border:0;background:none;cursor:pointer;line-height:1;
+    font-size:15px;color:var(--text-tertiary);padding:3px 5px;
+  }
+  .communique .fermer:hover{color:var(--marine);}
+
+  /* ---------- Rubriques ---------- */
+  .rubrique{margin:26px 18px 12px;position:relative;}
+  #fil{scroll-margin-top:10px;}
+  .rubrique .ligne{display:flex;align-items:center;gap:10px;}
+  .rubrique .tape{
+    position:relative;display:inline-flex;align-items:center;gap:8px;
+    background:var(--sable);padding:5px 12px;transform:rotate(-1.2deg);
+    box-shadow:0 1px 3px rgba(24,62,87,.18);
+    clip-path:polygon(2% 0, 98% 4%, 100% 30%, 99% 68%, 100% 100%, 3% 97%, 0 70%, 1% 26%);
+  }
+  .rubrique .tape::before{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(115deg, rgba(255,255,255,.22) 0 2px, transparent 2px 6px);pointer-events:none;
+  }
+  .rubrique h2{font-family:var(--titres);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.10em;color:var(--marine);}
+  .badge-compte{
+    display:inline-flex;align-items:center;justify-content:center;min-width:21px;height:21px;padding:0 6px;
+    border-radius:999px;background:var(--marine);color:var(--sable);
+    font-family:var(--titres);font-weight:800;font-size:11px;flex:none;
+  }
+  .rubrique .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.55;min-width:24px;}
+  .rubrique .sous-rub{margin-top:7px;margin-left:2px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-tertiary);}
+  .filtre{
+    display:inline-flex;align-items:center;gap:5px;
+    background:var(--paper);border:1px solid var(--border);border-radius:999px;padding:3px 10px;
+    font-size:11px;font-weight:600;color:var(--marine);cursor:pointer;
+  }
+  .filtre .chev{font-size:9px;color:var(--text-tertiary);}
+
+  .rangee{
+    display:flex;gap:12px;overflow-x:auto;padding:4px 18px 14px;
+    scroll-snap-type:x proximity;scroll-padding-left:18px;scrollbar-width:none;
+  }
+  .rangee::-webkit-scrollbar{display:none;}
+  .rangee > *{scroll-snap-align:start;flex:none;}
+
+  /* ---------- Carte RDV = faire-part (inchangée) ---------- */
+  .carte-rdv{
+    width:296px;background:var(--paper);border:1px solid var(--border);border-radius:16px;padding:7px;
+    box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -14px rgba(24,62,87,.30);
+  }
+  .carte-rdv .cadre{
+    border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.25);outline-offset:2px;
+    border-radius:10px;padding:14px 14px 12px;
+    background:radial-gradient(circle at 100% 0, rgba(252,219,129,.18), transparent 38%), var(--paper);
+  }
+  .carte-rdv .entete{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;}
+  .carte-rdv h3{font-family:var(--titres);font-weight:800;font-size:16px;color:var(--marine);line-height:1.2;}
+  .badge-admin{
+    background:var(--marine);color:#fff9ec;font-family:var(--titres);font-weight:800;font-size:9px;
+    text-transform:uppercase;letter-spacing:.12em;padding:3px 8px;border-radius:4px;flex:none;
+  }
+  .statut-confirme{
+    display:inline-flex;align-items:center;gap:6px;color:var(--success);font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.10em;margin-bottom:10px;
+  }
+  .statut-confirme::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 0 3px rgba(74,157,95,.18);}
+  .carte-rdv .quand{text-align:center;border-top:1px dashed var(--border);border-bottom:1px dashed var(--border);padding:9px 4px;margin-bottom:10px;}
+  .carte-rdv .quand .date{font-family:var(--titres);font-weight:800;font-size:18px;color:var(--marine);}
+  .carte-rdv .quand .meta{font-size:11px;color:var(--text-tertiary);margin-top:2px;}
+  .carte-rdv .meta .sep{margin:0 5px;color:var(--orange);}
+  .carte-rdv .infos{list-style:none;display:grid;gap:5px;font-size:12px;color:var(--text-secondary);margin-bottom:11px;}
+  .carte-rdv .infos li{display:flex;gap:8px;align-items:baseline;}
+  .carte-rdv .infos .pictogramme{flex:none;width:14px;text-align:center;color:var(--orange);font-size:11px;}
+  .carte-rdv .avec{display:flex;align-items:center;gap:8px;padding-top:9px;border-top:1px dashed var(--border);}
+  .avatar--mm{background:#e8eef4;color:var(--marine);border:1.5px solid var(--border);width:28px;height:28px;font-size:10px;}
+  .carte-rdv .avec .nom{font-size:12px;font-weight:600;color:var(--marine);flex:1;}
+  .lien-cal{
+    font-size:11px;font-weight:700;color:var(--orange);text-decoration:none;
+    border-bottom:1px dashed var(--orange);padding-bottom:1px;white-space:nowrap;
+  }
+  .carte-rdv--apercu{width:200px;}
+  .carte-rdv--apercu .cadre{height:100%;display:flex;flex-direction:column;justify-content:flex-start;}
+
+  /* ============================================================
+     LE FIL = DES BRÈVES ENCADRÉES
+     ============================================================ */
+  .fil{display:flex;flex-direction:column;gap:14px;padding:4px 18px 14px;}
+  .breve{
+    position:relative;background:var(--paper);
+    border:1px solid var(--border);border-top:3px solid var(--marine);border-radius:12px;
+    padding:10px 14px 11px;
+    box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -14px rgba(24,62,87,.28);
+  }
+  .breve--demande{border-top-color:var(--orange);}
+  .breve--proposition{border-top-color:var(--marine);}
+  .breve--atelier{border-top-color:var(--sable-hover);}
+  .breve--idee{border-top-color:var(--success);}
+
+  /* chapeau centré entre deux filets */
+  .br-chapeau{
+    display:flex;align-items:center;gap:10px;
+    font-family:var(--titres);font-weight:800;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .br-chapeau::before,.br-chapeau::after{content:"";flex:1;height:1px;background:var(--border);}
+  .br-chapeau .rubr{font-family:var(--corps);font-weight:600;letter-spacing:.08em;color:var(--text-tertiary);}
+  .br-chapeau .rubr::before{content:"· ";}
+  .breve--demande .br-chapeau{color:var(--orange-hover);}
+  .breve--proposition .br-chapeau{color:var(--marine);}
+  .breve--atelier .br-chapeau{color:var(--ocre);}
+  .breve--idee .br-chapeau{color:var(--success);}
+
+  .br-titre{font-family:var(--titres);font-weight:800;font-size:15.5px;line-height:1.25;color:var(--marine);}
+
+  .br-date{
+    display:flex;align-items:center;gap:7px;margin-top:6px;
+    font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-tertiary);font-weight:600;
+  }
+  .br-date .avatar{width:20px;height:20px;font-size:8px;border:1px solid var(--border);}
+  .av-creme{background:var(--bg-hover);color:var(--orange-hover);}
+  .av-bleu{background:#e8eef4;color:var(--marine);}
+  .av-sable{background:var(--sable);color:var(--marine);}
+  .av-vert{background:rgba(74,157,95,.16);color:#36744a;}
+  .br-date b{color:var(--marine);font-weight:700;letter-spacing:.02em;text-transform:none;font-size:11.5px;}
+
+  .br-texte{font-size:12.5px;line-height:1.5;color:var(--text-secondary);margin-top:8px;}
+
+  .br-actions{
+    display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:9px;
+    border-top:1px dashed var(--border);
+  }
+  .action{
+    border:1px solid var(--border);background:var(--paper);border-radius:999px;padding:4px 11px;
+    font-family:var(--corps);font-size:11px;font-weight:700;color:var(--marine);cursor:pointer;
+    transition:background .12s ease, border-color .12s ease;
+  }
+  .action:hover{background:var(--bg-hover);}
+  .action--fort{background:var(--bg-hover);border-color:#f1ddae;color:var(--orange-hover);}
+  .action--fort:hover{border-color:var(--orange);}
+  .br-compteur{margin-left:auto;font-size:10.5px;color:var(--text-tertiary);font-style:italic;white-space:nowrap;}
+
+  .ours{text-align:center;padding:10px 24px 26px;font-size:10px;color:var(--text-tertiary);letter-spacing:.12em;text-transform:uppercase;}
+  .ours .filet-fin{width:54px;margin:0 auto 8px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);height:4px;opacity:.45;}
+
+  .tabbar{
+    position:sticky;bottom:0;z-index:40;background:var(--paper);border-top:1px solid var(--border);
+    display:flex;align-items:flex-end;justify-content:space-around;
+    padding:8px 6px calc(10px + env(safe-area-inset-bottom, 8px));
+    box-shadow:0 -6px 18px -10px rgba(24,62,87,.25);
+  }
+  .tab{
+    display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;
+    color:var(--text-tertiary);text-decoration:none;min-width:58px;padding:2px 0;transition:color .12s ease;
+  }
+  .tab svg{width:22px;height:22px;display:block;}
+  .tab:hover{color:var(--marine);}
+  .tab--actif{color:var(--orange);font-weight:700;}
+  .tab--plus .rond{
+    width:44px;height:44px;border-radius:50%;background:var(--marine);color:var(--sable);
+    display:flex;align-items:center;justify-content:center;margin-top:-22px;border:3px solid var(--paper);
+    box-shadow:0 6px 14px -4px rgba(24,62,87,.5);
+  }
+  .tab--plus .rond svg{width:20px;height:20px;}
+
+  @media (max-width: 430px){
+    body{padding:0;}
+    .phone{width:100%;height:100vh;height:100dvh;min-height:0;border-radius:0;box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <span class="credit-pill" title="Votre solde de temps"><span class="ico">⏰</span>8 h 30</span>
+    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+  </header>
+
+  <div class="masthead-strip">
+    <span>Votre <strong>crédit-temps&nbsp;: 8&nbsp;h&nbsp;30</strong></span>
+    <span class="dot">·</span>
+    <span>1&nbsp;h donnée&nbsp;=&nbsp;1&nbsp;h reçue</span>
+  </div>
+
+  <main class="feed">
+
+    <section class="hero">
+      <div class="edition">
+        <span>La gazette du quartier</span>
+        <span><b>Mercredi 10 juin 2026</b></span>
+      </div>
+      <h1>Bonjour&nbsp;! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+      <p>Échangez du temps, pas de l’argent.</p>
+    </section>
+
+    <div class="cta-wrap">
+      <button class="btn-cta" type="button"><span class="plume">✍︎</span> Publier une annonce</button>
+    </div>
+
+    <!-- ===== Zone relationnelle : le communiqué ===== -->
+    <section class="communique" aria-label="Communiqué de TempsPourTemps">
+      <button class="fermer" type="button" aria-label="Masquer ce communiqué">×</button>
+      <span class="kicker">Communiqué · 1/2</span>
+      <h3>Les ateliers de quartier arrivent</h3>
+      <p>Proposez un atelier à plusieurs voisins et suivez les inscriptions. <a href="#">Découvrir →</a></p>
+    </section>
+
+    <!-- ===== Rendez-vous à venir ===== -->
+    <div class="rubrique">
+      <div class="ligne">
+        <span class="tape"><h2>Rendez-vous à venir</h2><span class="badge-compte">4</span></span>
+        <span class="filet" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <div class="rangee">
+      <article class="carte-rdv">
+        <div class="cadre">
+          <div class="entete">
+            <h3>Rencontre physique</h3>
+            <span class="badge-admin">Admin</span>
+          </div>
+          <div class="statut-confirme">RDV confirmé</div>
+          <div class="quand">
+            <div class="date">11 juin 2026</div>
+            <div class="meta">12:30<span class="sep">·</span>durée 15&nbsp;min</div>
+          </div>
+          <ul class="infos">
+            <li><span class="pictogramme">◉</span><span>Rencontre physique</span></li>
+            <li><span class="pictogramme">⌖</span><span>12 rue des Lilas</span></li>
+          </ul>
+          <div class="avec">
+            <span class="avatar avatar--mm">MM</span>
+            <span class="nom">Marie Morel</span>
+            <a class="lien-cal" href="#">Ajouter au calendrier</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="carte-rdv carte-rdv--apercu" aria-hidden="true">
+        <div class="cadre">
+          <div class="entete"><h3>Peinture…</h3></div>
+          <div class="statut-confirme">RDV confirmé</div>
+          <div class="quand">
+            <div class="date">14 juin 2026</div>
+            <div class="meta">10:00<span class="sep">·</span>durée 2&nbsp;h</div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- ===== Le fil du quartier ===== -->
+    <div class="rubrique" id="fil">
+      <div class="ligne">
+        <span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span>
+        <span class="filet" aria-hidden="true"></span>
+      </div>
+      <div class="sous-rub">
+        <span>Demandes, propositions, ateliers &amp; idées</span>
+        <button class="filtre" type="button">Tout <span class="chev">▾</span></button>
+      </div>
+    </div>
+
+    <div class="fil">
+      <article class="breve breve--demande">
+        <div class="br-chapeau"><span>Demande</span><span class="rubr">Bricolage</span></div>
+        <h3 class="br-titre">Une étagère à monter samedi matin</h3>
+        <div class="br-date"><span class="avatar av-creme">AN</span><b>Alice Noël</b><span>Centre · il y a 2 h</span></div>
+        <p class="br-texte">Une petite heure suffit, je fournis les outils (et le café). Quelqu’un dans le coin&nbsp;?</p>
+        <div class="br-actions">
+          <button class="action action--fort" type="button">🤝 Je peux aider</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="br-compteur">2 réponses</span>
+        </div>
+      </article>
+
+      <article class="breve breve--proposition">
+        <div class="br-chapeau"><span>Proposition</span><span class="rubr">Cours</span></div>
+        <h3 class="br-titre">Espagnol conversationnel, tous niveaux</h3>
+        <div class="br-date"><span class="avatar av-bleu">ML</span><b>Marta Lopez</b><span>Baugerie · il y a 5 h</span></div>
+        <p class="br-texte">Native, patiente, chez moi ou en visio. 1&nbsp;h de cours contre 1&nbsp;h de votre temps.</p>
+        <div class="br-actions">
+          <button class="action action--fort" type="button">✋ Ça m’intéresse</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="br-compteur">5 intéressés</span>
+        </div>
+      </article>
+
+      <article class="breve breve--atelier">
+        <div class="br-chapeau"><span>Atelier</span><span class="rubr">Vélo</span></div>
+        <h3 class="br-titre">Réparation vélo, dimanche 10&nbsp;h</h3>
+        <div class="br-date"><span class="avatar av-sable">PB</span><b>Pierre Blanchard</b><span>Vieux Bourg · hier</span></div>
+        <p class="br-texte">Au local associatif. Amenez votre monture, on regarde freins et dérailleurs ensemble.</p>
+        <div class="br-actions">
+          <button class="action action--fort" type="button">🔧 Je m’inscris</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="br-compteur">3/5 inscrits</span>
+        </div>
+      </article>
+
+      <article class="breve breve--idee">
+        <div class="br-chapeau"><span>Idée</span><span class="rubr">Vie de quartier</span></div>
+        <h3 class="br-titre">Un café des voisins au square&nbsp;?</h3>
+        <div class="br-date"><span class="avatar av-vert">MM</span><b>Marie Morel</b><span>Centre · hier</span></div>
+        <p class="br-texte">Un samedi par mois, square de la Baugerie. Qui serait partant&nbsp;?</p>
+        <div class="br-actions">
+          <button class="action action--fort" type="button">☕ Je suis partant·e</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="br-compteur">12 partants · 8 réponses</span>
+        </div>
+      </article>
+
+      <article class="breve breve--demande">
+        <div class="br-chapeau"><span>Demande</span><span class="rubr">Animaux</span></div>
+        <h3 class="br-titre">Chat à nourrir le week-end du 20</h3>
+        <div class="br-date"><span class="avatar av-creme">SK</span><b>Sonia Klein</b><span>Baugerie · il y a 3 j</span></div>
+        <p class="br-texte">Deux visites par jour, croquettes fournies. Câlins compris dans l’échange.</p>
+        <div class="br-actions">
+          <button class="action action--fort" type="button">🤝 Je peux aider</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="br-compteur">1 réponse</span>
+        </div>
+      </article>
+
+      <article class="breve breve--proposition">
+        <div class="br-chapeau"><span>Proposition</span><span class="rubr">Couture</span></div>
+        <h3 class="br-titre">Retouches, ourlets &amp; boutons</h3>
+        <div class="br-date"><span class="avatar av-bleu">LG</span><b>Lucie Garnier</b><span>Centre · il y a 3 j</span></div>
+        <p class="br-texte">Ma machine ronronne du matin au soir, profitez-en.</p>
+        <div class="br-actions">
+          <button class="action action--fort" type="button">✋ Ça m’intéresse</button>
+          <button class="action" type="button">Répondre</button>
+          <span class="br-compteur">3 intéressés</span>
+        </div>
+      </article>
+    </div>
+
+    <footer class="ours">
+      <div class="filet-fin"></div>
+      TempsPourTemps · Échangez du temps, pas de l’argent
+    </footer>
+
+  </main>
+
+  <nav class="tabbar" aria-label="Navigation principale">
+    <a class="tab tab--actif" href="#" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      Accueil
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      Rechercher
+    </a>
+    <a class="tab tab--plus" href="#">
+      <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      Proposer
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+      Services
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
+      Messages
+    </a>
+  </nav>
+
+</div>
+
+</body>
+</html>
