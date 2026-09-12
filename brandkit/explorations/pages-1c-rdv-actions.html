@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Actions, rendez-vous &amp; affiche · 5 propositions</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+/* ============================================================
+   Pièces propres aux cinq propositions.
+   Le reste vient de gazette.css.
+   ============================================================ */
+
+/* — 2 · l'en-bref — */
+.enbref{
+  margin:0 18px;background:var(--bg-hover);border:1px solid #efdcae;border-radius:13px;padding:4px 14px;
+}
+.enbref .l{display:flex;align-items:baseline;gap:9px;padding:10px 0;border-top:1px solid rgba(24,62,87,.12);}
+.enbref .l:first-child{border-top:0;}
+.enbref .pic{flex:none;width:7px;height:7px;border-radius:2px;background:var(--orange);position:relative;top:4px;}
+.enbref .pic--urgent{background:var(--danger);}
+.enbref .pic--doux{background:var(--success);}
+.enbref .c{flex:1;min-width:0;}
+.enbref .c b{font-family:var(--titres);font-weight:800;font-size:12.5px;}
+.enbref .c span{font-size:11.5px;color:var(--text-secondary);}
+.enbref .lien-filet{flex:none;}
+
+/* — 3 · le bloc à onglets — */
+.bloc{margin:0 18px;background:var(--paper);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+.bloc .tetes{display:flex;border-bottom:2px solid var(--marine);background:var(--bg-main);}
+.bloc .tetes a{
+  flex:1;text-align:center;padding:10px 4px 9px;text-decoration:none;position:relative;
+  font-family:var(--titres);font-weight:800;font-size:11px;color:var(--text-tertiary);
+}
+.bloc .tetes a.on{color:var(--marine);background:var(--paper);}
+.bloc .tetes a.on::after{content:"";position:absolute;left:14%;right:14%;bottom:-2px;height:3px;background:var(--orange);}
+.bloc .tetes .n{display:inline-block;min-width:16px;height:16px;line-height:16px;border-radius:999px;background:var(--marine);color:var(--sable);font-size:9.5px;margin-left:4px;padding:0 4px;}
+.bloc .tetes a.on .n{background:var(--orange);color:#fff;}
+.bloc .corps{padding:4px 0 2px;}
+
+/* — 4 · les deux papiers — */
+.panneau{margin:0 18px;border-radius:14px;padding:2px 14px 10px;}
+.panneau--vous{background:var(--bg-hover);border:1px solid #efdcae;}
+.panneau--quartier{background:var(--paper);border:1px solid var(--border);}
+.panneau .chapeau{
+  display:flex;align-items:baseline;gap:9px;padding:11px 0 9px;border-bottom:2px solid var(--marine);margin-bottom:4px;
+}
+.panneau .chapeau h2{font-family:var(--titres);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.1em;}
+.panneau .chapeau .d{margin-left:auto;font-size:10px;font-style:italic;color:var(--text-tertiary);}
+.panneau .item{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-top:1px solid rgba(24,62,87,.12);}
+.panneau--quartier .item{border-top-color:var(--border);}
+.panneau .item:first-of-type{border-top:0;}
+.panneau .item .marque{
+  flex:none;width:4px;align-self:stretch;border-radius:3px;background:var(--orange);
+}
+.panneau .item .marque--rdv{background:var(--marine);}
+.panneau .item .marque--urgent{background:var(--danger);}
+.panneau .item .c{flex:1;min-width:0;}
+.panneau .item .g{display:flex;align-items:baseline;gap:8px;}
+.panneau .item .g .t{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);}
+.panneau .item .g .q{margin-left:auto;font-size:10px;color:var(--text-tertiary);}
+.panneau .item h3{font-family:var(--titres);font-weight:800;font-size:13.5px;line-height:1.3;margin-top:3px;}
+.panneau .item .m{font-size:11.5px;color:var(--text-secondary);margin-top:3px;}
+.panneau .item .pied{margin-top:7px;}
+
+/* — 5 · le billet à date — */
+.carte-date{
+  width:262px;background:var(--paper);border:1px solid var(--border);border-radius:13px;
+  display:flex;overflow:hidden;
+  box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -16px rgba(24,62,87,.28);
+}
+.carte-date .j{
+  flex:none;width:56px;background:var(--bg-hover);border-right:1px solid #efdcae;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;
+}
+.carte-date .j .n{font-family:var(--titres);font-weight:800;font-size:23px;line-height:1;color:var(--marine);}
+.carte-date .j .m{font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-top:3px;}
+.carte-date .j .h{font-size:9.5px;color:var(--text-tertiary);margin-top:5px;}
+.carte-date--action .j{background:rgba(214,94,28,.12);border-right-color:rgba(214,94,28,.35);}
+.carte-date--action .j .n{color:var(--orange-hover);}
+.carte-date--urgent .j{background:rgba(196,69,54,.10);border-right-color:rgba(196,69,54,.35);}
+.carte-date--urgent .j .n{color:var(--danger);}
+.carte-date .c{flex:1;min-width:0;padding:11px 12px;}
+.carte-date .reg{font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+.carte-date .reg--action{color:var(--danger);}
+.carte-date .reg--rdv{color:var(--marine);}
+.carte-date h3{font-family:var(--titres);font-weight:800;font-size:13.5px;line-height:1.3;margin-top:4px;}
+.carte-date .m2{font-size:11px;color:var(--text-secondary);margin-top:4px;line-height:1.4;}
+.carte-date .pied{margin-top:8px;padding-top:7px;border-top:1px dashed var(--border);}
+
+/* — commun : chapeau de comparaison — */
+.verdict{
+  margin-top:9px;border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:9px 12px;font-size:.76rem;line-height:1.5;color:var(--text-secondary);
+}
+.verdict b{color:var(--marine);}
+.verdict .pour::before{content:"Pour — ";font-weight:700;color:var(--success);}
+.verdict .contre{margin-top:4px;}
+.verdict .contre::before{content:"Contre — ";font-weight:700;color:var(--danger);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Arbitrage</p>
+  <h1>Actions, rendez-vous &amp; affiche</h1>
+  <p>Cinq façons d'articuler les trois registres de l'accueil, chacune montrée <b>dans une page complète</b>. Le problème à résoudre est le même partout : <b>ce qui vous engage</b> (vos rendez-vous), <b>ce qu'on attend de vous</b> (les actions) et <b>ce que le quartier propose</b> (l'affiche, ouverte à tous) doivent se distinguer sans qu'on ait à lire.</p>
+  <div class="traits">
+    <span><b>Trois registres</b> à distinguer</span>
+    <span><b>Pas de fusion</b> actions ≠ rendez-vous</span>
+    <span><b>Pas de classement</b> par urgence calculée</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ================= 1 · LES TROIS FORMATS ================= -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>Les trois formats</h2></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>On attend un mot de vous</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="rangee">
+          <article class="billet-avis billet-avis--urgent">
+            <div class="k"><span>À valider</span><span class="q">2 jours</span></div>
+            <h3>Montage de l'étagère</h3>
+            <p class="d">Samedi 14, chez Alice Noël · 1 h prévue</p>
+            <div class="pied"><button class="lien-filet" type="button">Valider l'échange</button></div>
+          </article>
+          <article class="billet-avis">
+            <div class="k"><span>Invitation</span><span class="q">3 places</span></div>
+            <h3>Atelier réparation vélo</h3>
+            <p class="d">Dimanche 15, de Pierre Blanchard · 2 h</p>
+            <div class="pied"><button class="lien-filet" type="button">Répondre</button></div>
+          </article>
+          <article class="billet-avis billet-avis--doux">
+            <div class="k"><span>Terminé</span><span class="q">facultatif</span></div>
+            <h3>Cours d'espagnol</h3>
+            <p class="d">Lundi 8, avec Marta Lopez · 1 h créditée</p>
+            <div class="pied"><button class="lien-filet" type="button">Donner votre avis</button></div>
+          </article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="rangee">
+          <article class="carte-rdv"><div class="cadre">
+            <div class="entete"><h3>Rencontre physique</h3><span class="badge-admin">Admin</span></div>
+            <div class="statut">Confirmé</div>
+            <div class="quand"><div class="date">11 juin 2026</div><div class="meta">12:30<span class="sep">·</span>15 min</div></div>
+            <div class="avec"><span class="avatar avatar--mm">MM</span><span class="nom">Avec Marie Morel</span><a class="lien-cal" href="#">+ Cal.</a></div>
+          </div></article>
+          <article class="carte-rdv"><div class="cadre">
+            <div class="entete"><h3>Soirée couture</h3></div>
+            <div class="statut">Confirmé</div>
+            <div class="quand"><div class="date">18 juin 2026</div><div class="meta">20:00<span class="sep">·</span>2 h</div></div>
+            <div class="avec"><span class="avatar av-vert">LG</span><span class="nom">Avec Lucie Garnier</span></div>
+          </div></article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">5</span></span>
+          <span class="filet"></span>
+        </div>
+        <p class="sous-rubrique">Ouvert à tous — rien de réservé, vous vous inscrivez si vous voulez</p>
+        <div class="agenda">
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div>
+            <div class="c">
+              <div class="g"><span class="genre genre--coup">Coup de main</span><span class="jauge">2 places</span></div>
+              <h3>Déménager un buffet</h3>
+              <div class="pied"><button class="lien-filet" type="button">Je viens</button><span class="orga">de Sonia Klein</span></div>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Chaque registre a <b>sa forme</b> : les avis en billets courts à filet de tête coloré, les rendez-vous en faire-part encadrés, l'affiche en agenda vertical. On ne peut pas les confondre — un faire-part n'a pas l'air d'un billet.</p>
+    <div class="verdict">
+      <p class="pour">la distinction est immédiate et chaque forme dit son registre.</p>
+      <p class="contre">trois grammaires à tenir, et deux carrousels l'un sous l'autre font beaucoup de défilement horizontal.</p>
+    </div>
+  </figure>
+
+  <!-- ================= 2 · L'EN-BREF ================= -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>L'en-bref</h2></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>En bref</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="enbref">
+          <div class="l">
+            <span class="pic pic--urgent"></span>
+            <div class="c"><b>Montage de l'étagère</b> <span>— à valider sous 2 jours</span></div>
+            <button class="lien-filet" type="button">Valider</button>
+          </div>
+          <div class="l">
+            <span class="pic"></span>
+            <div class="c"><b>Atelier réparation vélo</b> <span>— Pierre vous invite dimanche</span></div>
+            <button class="lien-filet" type="button">Répondre</button>
+          </div>
+          <div class="l">
+            <span class="pic pic--doux"></span>
+            <div class="c"><b>Cours d'espagnol</b> <span>— un avis sur lundi ?</span></div>
+            <button class="lien-filet" type="button">Écrire</button>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="rangee">
+          <article class="carte-rdv"><div class="cadre">
+            <div class="entete"><h3>Rencontre physique</h3><span class="badge-admin">Admin</span></div>
+            <div class="statut">Confirmé</div>
+            <div class="quand"><div class="date">11 juin 2026</div><div class="meta">12:30<span class="sep">·</span>15 min</div></div>
+            <ul class="infos"><li><span class="pic">⌖</span><span>12 rue des Lilas, Centre</span></li></ul>
+            <div class="avec"><span class="avatar avatar--mm">MM</span><span class="nom">Avec Marie Morel</span><a class="lien-cal" href="#">+ Cal.</a></div>
+          </div></article>
+          <article class="carte-rdv"><div class="cadre">
+            <div class="entete"><h3>Soirée couture</h3></div>
+            <div class="statut">Confirmé</div>
+            <div class="quand"><div class="date">18 juin 2026</div><div class="meta">20:00<span class="sep">·</span>2 h</div></div>
+            <ul class="infos"><li><span class="pic">⌖</span><span>Salle des Tilleuls</span></li></ul>
+            <div class="avec"><span class="avatar av-vert">LG</span><span class="nom">Avec Lucie Garnier</span></div>
+          </div></article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">5</span></span>
+          <span class="filet"></span>
+        </div>
+        <p class="sous-rubrique">Ouvert à tous — inscription libre</p>
+        <div class="agenda">
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div>
+            <div class="c">
+              <div class="g"><span class="genre genre--coup">Coup de main</span><span class="jauge">2 places</span></div>
+              <h3>Déménager un buffet</h3>
+              <div class="pied"><button class="lien-filet" type="button">Je viens</button><span class="orga">de Sonia Klein</span></div>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Les actions ne méritent peut-être pas des cartes : ce sont des <b>rappels</b>, pas du contenu. Elles se réduisent ici à trois lignes sur fond sable, avec une puce de couleur et un verbe. Les rendez-vous gardent tout l'espace des faire-part.</p>
+    <div class="verdict">
+      <p class="pour">très compact, et la hiérarchie est juste : le rappel s'efface, le rendez-vous existe.</p>
+      <p class="contre">une action longue ou sans échéance claire tient mal sur une ligne.</p>
+    </div>
+  </figure>
+
+  <!-- ================= 3 · LE BLOC À ONGLETS ================= -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Le bloc à onglets</h2></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Votre semaine</h2></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="bloc">
+          <div class="tetes">
+            <a class="on" href="#">À faire<span class="n">3</span></a>
+            <a href="#">Rendez-vous<span class="n">4</span></a>
+            <a href="#">À l'affiche<span class="n">5</span></a>
+          </div>
+          <div class="corps">
+            <div class="agenda" style="margin:0 14px">
+              <article class="agenda-ligne agenda-ligne--urgent">
+                <div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:00</div></div>
+                <div class="c">
+                  <div class="g"><span class="etat etat--attente">À valider</span><span class="jauge">1 h</span></div>
+                  <h3>Montage de l'étagère</h3>
+                  <p class="lieu">⌖ Chez Alice Noël, Centre</p>
+                  <div class="pied"><button class="lien-filet" type="button">Valider l'échange</button><span class="echeance">2 jours</span></div>
+                </div>
+              </article>
+              <article class="agenda-ligne agenda-ligne--action">
+                <div class="quand"><div class="j">15</div><div class="m">Juin</div><div class="h">10:00</div></div>
+                <div class="c">
+                  <div class="g"><span class="etat etat--marine">Invitation</span><span class="jauge">2 h</span></div>
+                  <h3>Atelier réparation vélo</h3>
+                  <p class="lieu">⌖ Local associatif, Vieux Bourg</p>
+                  <div class="pied"><button class="lien-filet" type="button">Répondre</button><span class="orga">de Pierre Blanchard</span></div>
+                </div>
+              </article>
+              <article class="agenda-ligne agenda-ligne--action">
+                <div class="quand"><div class="j">08</div><div class="m">Juin</div><div class="h">passé</div></div>
+                <div class="c">
+                  <div class="g"><span class="etat etat--neutre">Terminé</span><span class="jauge">1 h créditée</span></div>
+                  <h3>Cours d'espagnol</h3>
+                  <div class="pied"><button class="lien-filet" type="button">Donner votre avis</button><span class="facultatif">facultatif</span></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-wrap"><button class="btn-cta" type="button"><span>✍︎</span> Publier une annonce</button></div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="fil">
+          <article class="annonce">
+            <div class="an-tete"><span class="an-type an-type--demande">Demande</span><span class="an-rubr">Bricolage</span></div>
+            <h3 class="an-titre">Un coup de main pour monter une étagère</h3>
+            <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+          </article>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Un seul bloc « Votre semaine », trois <b>onglets</b> avec leurs compteurs. Les trois registres restent distincts par l'onglet, pas par la forme — ce qui libère énormément de hauteur et fait remonter le fil du quartier très haut dans la page.</p>
+    <div class="verdict">
+      <p class="pour">la page raccourcit d'un tiers, et le compteur d'onglet dit ce qu'il y a sans ouvrir.</p>
+      <p class="contre">ce qui est dans les onglets fermés n'existe pas : on peut ne jamais voir l'affiche.</p>
+    </div>
+  </figure>
+
+  <!-- ================= 4 · LES DEUX PAPIERS ================= -->
+  <figure class="ecran">
+    <figcaption><span class="n">4</span><h2>Les deux papiers</h2></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div style="height:14px"></div>
+
+        <section class="panneau panneau--vous">
+          <div class="chapeau"><h2>Ce qui vous engage</h2><span class="d">7 en cours</span></div>
+          <div class="item">
+            <span class="marque marque--urgent"></span>
+            <div class="c">
+              <div class="g"><span class="t">À valider</span><span class="q">sous 2 jours</span></div>
+              <h3>Montage de l'étagère</h3>
+              <p class="m">Samedi 14, chez Alice Noël · 1 h prévue</p>
+              <div class="pied"><button class="lien-filet" type="button">Valider l'échange</button></div>
+            </div>
+          </div>
+          <div class="item">
+            <span class="marque"></span>
+            <div class="c">
+              <div class="g"><span class="t">Invitation</span><span class="q">3 places</span></div>
+              <h3>Atelier réparation vélo</h3>
+              <p class="m">Dimanche 15, de Pierre Blanchard · 2 h</p>
+              <div class="pied"><button class="lien-filet" type="button">Répondre</button></div>
+            </div>
+          </div>
+          <div class="item">
+            <span class="marque marque--rdv"></span>
+            <div class="c">
+              <div class="g"><span class="t">Rendez-vous confirmé</span><span class="q">demain</span></div>
+              <h3>Rencontre physique</h3>
+              <p class="m">Jeudi 11, 12:30 · avec Marie Morel · 12 rue des Lilas</p>
+              <div class="pied"><button class="lien-filet lien-filet--muet" type="button">Ajouter au calendrier</button></div>
+            </div>
+          </div>
+        </section>
+
+        <div style="height:16px"></div>
+
+        <section class="panneau panneau--quartier">
+          <div class="chapeau"><h2>Ce que propose le quartier</h2><span class="d">ouvert à tous</span></div>
+          <div class="item">
+            <span class="marque" style="background:var(--sable-hover)"></span>
+            <div class="c">
+              <div class="g"><span class="t">Coup de main</span><span class="q">2 places</span></div>
+              <h3>Déménager un buffet</h3>
+              <p class="m">Jeudi 12, 18:00 · Rue Pasteur, Baugerie · 1 h 30</p>
+              <div class="pied"><button class="lien-filet" type="button">Je viens</button></div>
+            </div>
+          </div>
+          <div class="item">
+            <span class="marque" style="background:var(--success)"></span>
+            <div class="c">
+              <div class="g"><span class="t">Moment ouvert</span><span class="q">sans inscription</span></div>
+              <h3>Café solidaire du samedi</h3>
+              <p class="m">Samedi 14, 9:30 → 12:00 · Square de la Baugerie</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">La distinction ne passe plus par la forme mais par <b>le papier</b> : un panneau sable pour ce qui vous engage — actions et rendez-vous mêlés, distingués par un filet de couleur — et un panneau blanc pour ce que le quartier propose. Deux zones, deux statuts.</p>
+    <div class="verdict">
+      <p class="pour">la frontière « moi / le quartier » est celle qui compte vraiment, et elle saute aux yeux.</p>
+      <p class="contre">actions et rendez-vous restent mêlés dans le panneau sable — c'est exactement la fusion que vous avez écartée.</p>
+    </div>
+  </figure>
+
+  <!-- ================= 5 · LES BILLETS À DATE ================= -->
+  <figure class="ecran">
+    <figcaption><span class="n">5</span><h2>Les billets à date</h2></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>On attend un mot de vous</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="rangee">
+          <article class="carte-date carte-date--urgent">
+            <div class="j"><div class="n">14</div><div class="m">Juin</div><div class="h">10:00</div></div>
+            <div class="c">
+              <p class="reg reg--action">À valider · 2 jours</p>
+              <h3>Montage de l'étagère</h3>
+              <p class="m2">Chez Alice Noël · 1 h prévue</p>
+              <div class="pied"><button class="lien-filet" type="button">Valider</button></div>
+            </div>
+          </article>
+          <article class="carte-date carte-date--action">
+            <div class="j"><div class="n">15</div><div class="m">Juin</div><div class="h">10:00</div></div>
+            <div class="c">
+              <p class="reg reg--action">Invitation</p>
+              <h3>Atelier réparation vélo</h3>
+              <p class="m2">De Pierre Blanchard · 2 h</p>
+              <div class="pied"><button class="lien-filet" type="button">Répondre</button></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="rangee">
+          <article class="carte-date">
+            <div class="j"><div class="n">11</div><div class="m">Juin</div><div class="h">12:30</div></div>
+            <div class="c">
+              <p class="reg reg--rdv">Confirmé · demain</p>
+              <h3>Rencontre physique</h3>
+              <p class="m2">Avec Marie Morel · 12 rue des Lilas</p>
+              <div class="pied"><button class="lien-filet lien-filet--muet" type="button">+ Calendrier</button></div>
+            </div>
+          </article>
+          <article class="carte-date">
+            <div class="j"><div class="n">18</div><div class="m">Juin</div><div class="h">20:00</div></div>
+            <div class="c">
+              <p class="reg reg--rdv">Confirmé</p>
+              <h3>Soirée couture</h3>
+              <p class="m2">Avec Lucie Garnier · Salle des Tilleuls</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">5</span></span>
+          <span class="filet"></span>
+        </div>
+        <p class="sous-rubrique">Ouvert à tous — inscription libre</p>
+        <div class="agenda">
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div>
+            <div class="c">
+              <div class="g"><span class="genre genre--coup">Coup de main</span><span class="jauge">2 places</span></div>
+              <h3>Déménager un buffet</h3>
+              <div class="pied"><button class="lien-filet" type="button">Je viens</button><span class="orga">de Sonia Klein</span></div>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Une seule forme de carte horizontale — <b>la date en talon coloré à gauche</b> — pour les actions comme pour les rendez-vous, mais le talon change de couleur : rouge quand il y a urgence, orange quand on attend un geste, crème quand c'est simplement noté. L'affiche garde l'agenda vertical, donc la frontière moi / quartier tient.</p>
+    <div class="verdict">
+      <p class="pour">une seule grammaire de carte à tenir, et le talon coloré se lit de loin.</p>
+      <p class="contre">actions et rendez-vous se ressemblent beaucoup : seule la couleur du talon les sépare.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Arbitrage actions / rendez-vous / affiche · Personnes fictives.<br>
+  <a href="../../index.html">Galerie</a> · <a href="pages-1-decouverte.html">La famille Découverte</a>
+</footer>
+</body>
+</html>
