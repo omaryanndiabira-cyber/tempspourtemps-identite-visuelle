@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Barres du haut &amp; du bas · thème gazette (iOS / Android)</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TempsPourTemps — Barres du haut & du bas, thème gazette
+     20 modèles : 10 top bars, 10 bottom bars. Chaque modèle est
+     rendu en largeur 390 px (iPhone) avec un bout de contenu
+     fantôme pour le contexte, et cite les conventions iOS / Android
+     dont il s'inspire.
+     ============================================================ */
+  :root{
+    --marine:#183e57;--marine-hover:#0f2f44;
+    --orange:#d65e1c;--orange-hover:#b84e17;
+    --sable:#fcdb81;--sable-hover:#f5cb5c;
+    --success:#4a9d5f;--danger:#c44536;--warning:#d97706;
+    --bg-main:#f7f6f3;--bg-secondary:#f3f3f5;--bg-hover:#fdf1d7;
+    --text-secondary:#4b5563;--text-tertiary:#717182;
+    --border:#d6dbe2;--border-soft:#e9ebef;--paper:#fffdf6;
+    --grad-hero:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+    --titres:'Nunito',sans-serif;--corps:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:var(--corps);color:var(--marine);background:var(--bg-main);
+    background-image:radial-gradient(circle at 15% 8%, rgba(252,219,129,.22), transparent 40%),
+                     radial-gradient(circle at 88% 92%, rgba(24,62,87,.08), transparent 45%);
+    min-height:100vh;padding:40px 20px 80px;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1240px;margin:0 auto;}
+
+  /* ---------- En-tête du document ---------- */
+  header.doc{text-align:center;margin-bottom:28px;}
+  header.doc img{width:64px;height:auto;margin-bottom:12px;}
+  h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.5rem,4vw,2.2rem);letter-spacing:-.5px;}
+  h1 .accent{color:var(--orange);}
+  .sub{color:var(--text-secondary);font-size:.95rem;max-width:700px;margin:12px auto 0;line-height:1.55;}
+  .retour{display:inline-block;margin-top:18px;color:var(--marine);font-weight:600;font-size:.88rem;text-decoration:none;}
+  .retour:hover{text-decoration:underline;}
+
+  /* ---------- Rappel des codes plateformes ---------- */
+  .codes{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;
+    margin:26px 0 8px;
+  }
+  .code{
+    background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px 18px;
+    box-shadow:0 2px 6px rgba(24,62,87,.05);
+  }
+  .code h3{font-family:var(--titres);font-weight:800;font-size:.95rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .code h3 .pf{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:2px 8px;}
+  .pf--ios{background:var(--marine);color:var(--sable);}
+  .pf--and{background:var(--sable);color:var(--marine);}
+  .pf--tpt{background:var(--orange);color:#fff;}
+  .code ul{list-style:none;font-size:.8rem;color:var(--text-secondary);line-height:1.5;}
+  .code li{padding-left:14px;position:relative;margin-bottom:3px;}
+  .code li::before{content:"·";position:absolute;left:2px;color:var(--orange);font-weight:800;}
+  .code b{color:var(--marine);font-weight:600;}
+
+  /* ---------- Sections ---------- */
+  .section-title{
+    display:flex;align-items:center;gap:14px;margin:46px 0 20px;scroll-margin-top:16px;
+  }
+  .section-title h2{font-family:var(--titres);font-weight:800;font-size:1.35rem;white-space:nowrap;}
+  .section-title .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
+  .section-title .n{font-family:var(--titres);font-weight:800;font-size:.8rem;background:var(--sable);border-radius:8px;padding:3px 9px;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr));gap:22px;}
+  .card{
+    background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;
+    box-shadow:0 2px 6px rgba(24,62,87,.05),0 16px 36px -24px rgba(24,62,87,.25);
+    display:flex;flex-direction:column;
+  }
+  .card-head{padding:14px 16px 10px;display:flex;align-items:baseline;gap:9px;border-bottom:1px solid var(--border-soft);}
+  .card-head .num{font-family:var(--titres);font-weight:800;background:var(--sable);border-radius:7px;padding:1px 8px;font-size:.78rem;flex-shrink:0;}
+  .card-head h3{font-family:var(--titres);font-weight:800;font-size:.98rem;line-height:1.3;}
+  .stage{background:#e7e4dc;padding:18px 12px;display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .etat{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);align-self:flex-start;margin:-6px 0 -8px 6px;}
+  .card-foot{padding:12px 16px 14px;font-size:.8rem;color:var(--text-secondary);line-height:1.5;}
+  .card-foot .ref{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .card-foot .ref span{font-size:.66rem;font-weight:600;border:1px solid var(--border);border-radius:999px;padding:2px 8px;color:var(--text-secondary);background:var(--bg-main);}
+  .card-foot .ref span b{color:var(--marine);}
+
+  /* ============================================================
+     LE CADRE 390 px
+     ============================================================ */
+  .frame{
+    width:390px;max-width:100%;background:var(--bg-main);border-radius:20px;overflow:hidden;
+    border:1px solid rgba(24,62,87,.12);box-shadow:0 10px 28px -14px rgba(24,62,87,.4);
+    position:relative;
+  }
+  .frame--bas{display:flex;flex-direction:column;}
+  /* barre d'état iOS */
+  .status{
+    height:44px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;
+    font-family:var(--titres);font-weight:800;font-size:15px;color:#fff;background:var(--marine);
+  }
+  .status--clair{background:transparent;color:var(--marine);}
+  .status .ico{display:flex;align-items:center;gap:5px;}
+  .status svg{display:block;height:12px;width:auto;}
+  /* contenu fantôme */
+  .ghost{padding:14px 18px;background:var(--grad-hero);display:flex;flex-direction:column;gap:9px;}
+  .ghost--haut{background:linear-gradient(180deg, var(--bg-main), var(--grad-hero));}
+  .ghost .g{height:10px;border-radius:5px;background:rgba(24,62,87,.10);}
+  .ghost .g.l{width:82%;} .ghost .g.m{width:60%;} .ghost .g.s{width:38%;}
+  .ghost .gc{height:64px;border-radius:12px;background:rgba(255,253,246,.85);border:1px solid var(--border);}
+  .home{height:22px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;}
+  .home::after{content:"";width:118px;height:4px;border-radius:999px;background:var(--marine);opacity:.3;}
+  .home--sombre::after{background:#fff;opacity:.55;}
+
+  /* ---------- Briques communes des barres ---------- */
+  .tb{background:var(--marine);color:#fff;display:flex;align-items:center;gap:12px;padding:8px 16px 12px;}
+  .tb .logo{height:32px;width:auto;display:block;}
+  .tb .spacer{flex:1;}
+  .credit-pill{
+    display:inline-flex;align-items:center;gap:6px;background:var(--sable);color:var(--marine);
+    border-radius:999px;padding:6px 12px 6px 9px;font-family:var(--titres);font-weight:800;font-size:14px;
+    box-shadow:inset 0 -2px 0 rgba(24,62,87,.18);white-space:nowrap;
+  }
+  .avatar{
+    width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--titres);font-weight:800;font-size:12px;flex:none;
+    background:var(--sable);color:var(--marine);border:2px solid rgba(255,255,255,.55);
+  }
+  .ibtn{
+    width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    color:inherit;background:transparent;border:0;cursor:pointer;flex:none;
+  }
+  .ibtn svg{width:22px;height:22px;}
+  .ibtn:hover{background:rgba(255,255,255,.12);}
+  .strip{
+    background:var(--bg-hover);border-bottom:1px solid #efdcae;padding:6px 16px;font-size:11px;color:var(--text-secondary);
+    display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;
+  }
+  .strip strong{font-family:var(--titres);font-weight:800;color:var(--marine);}
+  .strip .dot{color:var(--orange);font-weight:700;}
+  .filet-double{border-top:1px solid var(--marine);border-bottom:3px double var(--marine);height:7px;opacity:.7;}
+  .filet-simple{border-top:1px solid var(--border);}
+
+  /* ---------- TB2 grand titre ---------- */
+  .grand-titre{padding:6px 18px 10px;background:var(--bg-main);}
+  .grand-titre h2{font-family:var(--titres);font-weight:800;font-size:30px;line-height:1.1;letter-spacing:-.02em;}
+  .grand-titre .date{margin-top:4px;font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;font-weight:600;color:var(--text-secondary);}
+  .grand-titre .date b{color:var(--orange-hover);}
+  .grand-titre .regle{margin-top:10px;border-top:2px solid var(--marine);border-bottom:1px solid var(--marine);height:5px;opacity:.75;}
+  .tb--replie .titre-inline{font-family:var(--titres);font-weight:800;font-size:16px;flex:1;text-align:center;}
+
+  /* ---------- TB3 recherche ---------- */
+  .recherche{padding:10px 16px 10px;background:var(--bg-main);border-bottom:1px solid var(--border);}
+  .champ{
+    display:flex;align-items:center;gap:9px;background:var(--paper);border:1px solid var(--border);
+    border-radius:12px;padding:10px 12px;font-size:14px;color:var(--text-tertiary);
+  }
+  .champ svg{width:17px;height:17px;flex:none;color:var(--text-tertiary);}
+  .champ .k{margin-left:auto;font-size:11px;font-weight:600;color:var(--orange);}
+  .chips{display:flex;gap:7px;margin-top:9px;overflow:hidden;}
+  .chip{font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--border);background:var(--paper);color:var(--text-secondary);white-space:nowrap;}
+  .chip.on{background:var(--marine);border-color:var(--marine);color:#fff;font-weight:700;}
+
+  /* ---------- TB4 édition ---------- */
+  .edition-tete{padding:10px 18px 8px;text-align:center;background:var(--bg-main);}
+  .edition-tete .t{font-family:var(--titres);font-weight:800;font-size:13px;letter-spacing:.24em;text-transform:uppercase;}
+  .edition-tete .n{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--text-secondary);margin-top:2px;}
+  .edition-tete .n b{color:var(--orange-hover);}
+  .edition-tete .filet-double{margin-top:8px;}
+  .tb--mince{padding:6px 16px 8px;}
+  .tb--mince .logo{height:26px;}
+  .tb--mince .avatar{width:28px;height:28px;font-size:10px;}
+
+  /* ---------- TB5 onglets ---------- */
+  .onglets{display:flex;background:var(--marine);padding:0 8px;}
+  .onglet{
+    flex:1;text-align:center;padding:9px 4px 11px;font-family:var(--titres);font-weight:700;font-size:13px;
+    color:rgba(255,255,255,.7);position:relative;
+  }
+  .onglet.on{color:var(--sable);font-weight:800;}
+  .onglet.on::after{content:"";position:absolute;left:18%;right:18%;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--sable);}
+  .onglet .b{display:inline-block;min-width:16px;height:16px;line-height:16px;border-radius:999px;background:var(--orange);color:#fff;font-size:10px;font-weight:800;margin-left:4px;padding:0 4px;vertical-align:1px;}
+
+  /* ---------- TB6 retour ---------- */
+  .tb--clair{background:var(--bg-main);color:var(--marine);}
+  .tb--clair .ibtn:hover{background:rgba(24,62,87,.08);}
+  .tb--clair .ibtn svg{color:var(--marine);}
+  .titre-page{flex:1;text-align:center;min-width:0;}
+  .titre-page b{display:block;font-family:var(--titres);font-weight:800;font-size:15px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .titre-page span{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);font-weight:600;margin-top:1px;}
+  .titre-page span em{font-style:normal;color:var(--orange-hover);}
+
+  /* ---------- TB7 sélection ---------- */
+  .tb--select{background:var(--marine-hover);}
+  .tb--select .compte{flex:1;font-family:var(--titres);font-weight:800;font-size:16px;}
+  .tb--select .compte small{display:block;font-family:var(--corps);font-weight:500;font-size:10.5px;color:var(--sable);letter-spacing:.06em;text-transform:uppercase;}
+
+  /* ---------- TB8 papier ---------- */
+  .wordmark{font-family:var(--titres);font-weight:800;font-size:18px;letter-spacing:-.2px;}
+  .wordmark em{font-style:normal;color:var(--orange);}
+  .tb--papier{padding-bottom:8px;}
+  .tb--papier .credit-pill{background:var(--paper);border:1px solid var(--border);box-shadow:none;}
+  .tb--papier .avatar{border-color:var(--sable-hover);}
+
+  /* ---------- TB9 verre sur hero ---------- */
+  .hero-verre{position:relative;height:190px;background:var(--grad-hero);overflow:hidden;}
+  .hero-verre .fond{position:absolute;inset:0;background:radial-gradient(circle at 80% 10%, rgba(252,219,129,.6), transparent 45%),radial-gradient(circle at 15% 90%, rgba(214,94,28,.14), transparent 50%);}
+  .hero-verre .texte{position:absolute;left:18px;right:18px;bottom:16px;}
+  .hero-verre .texte h2{font-family:var(--titres);font-weight:800;font-size:24px;line-height:1.15;}
+  .hero-verre .texte h2 .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+  .hero-verre .texte p{font-size:12.5px;color:var(--text-secondary);margin-top:4px;}
+  .tb--verre{
+    position:absolute;left:0;right:0;top:0;
+    background:rgba(255,253,246,.62);color:var(--marine);
+    -webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);
+    border-bottom:1px solid rgba(24,62,87,.08);
+  }
+  .tb--verre .status{background:transparent;color:var(--marine);}
+  .tb--verre .ligne{display:flex;align-items:center;gap:12px;padding:0 16px 10px;}
+  .tb--verre .credit-pill{box-shadow:0 1px 3px rgba(24,62,87,.18);}
+
+  /* ---------- TB10 alerte ---------- */
+  .alerte{
+    display:flex;align-items:center;gap:10px;padding:8px 14px 8px 12px;
+    background:var(--bg-hover);border-left:4px solid var(--warning);border-bottom:1px solid #efdcae;
+    font-size:12px;color:var(--text-secondary);
+  }
+  .alerte svg{width:16px;height:16px;flex:none;color:var(--warning);}
+  .alerte b{color:var(--marine);}
+  .alerte .x{margin-left:auto;color:var(--text-tertiary);font-size:16px;line-height:1;}
+  .alerte--info{border-left-color:var(--marine);background:#eef3f7;border-bottom-color:#dfe7ee;}
+  .alerte--info svg{color:var(--marine);}
+
+  /* ============================================================
+     BOTTOM BARS
+     ============================================================ */
+  .tabbar{
+    background:var(--paper);border-top:1px solid var(--border);
+    display:flex;align-items:flex-end;justify-content:space-around;
+    padding:8px 6px 6px;box-shadow:0 -6px 18px -10px rgba(24,62,87,.25);position:relative;
+  }
+  .tab{
+    display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;
+    color:var(--text-tertiary);text-decoration:none;min-width:58px;padding:2px 0;position:relative;
+  }
+  .tab svg{width:22px;height:22px;display:block;}
+  .tab.on{color:var(--orange);font-weight:700;}
+  .tab .badge{
+    position:absolute;top:-4px;right:12px;min-width:16px;height:16px;line-height:16px;border-radius:999px;
+    background:var(--orange);color:#fff;font-size:9.5px;font-weight:800;text-align:center;padding:0 4px;
+    box-shadow:0 0 0 2px var(--paper);
+  }
+  .tab--plus .rond{
+    width:46px;height:46px;border-radius:50%;background:var(--marine);color:var(--sable);
+    display:flex;align-items:center;justify-content:center;margin-top:-24px;border:3px solid var(--paper);
+    box-shadow:0 6px 14px -4px rgba(24,62,87,.5);
+  }
+  .tab--plus .rond svg{width:20px;height:20px;}
+
+  /* BB2 material 3 */
+  .navbar-m3{background:var(--paper);border-top:1px solid var(--border-soft);display:flex;justify-content:space-around;padding:10px 4px 8px;}
+  .navbar-m3 .item{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;font-weight:600;color:var(--text-secondary);min-width:64px;}
+  .navbar-m3 .pill{width:60px;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;position:relative;}
+  .navbar-m3 .pill svg{width:22px;height:22px;}
+  .navbar-m3 .item.on .pill{background:var(--sable);}
+  .navbar-m3 .item.on{color:var(--marine);font-weight:700;}
+  .navbar-m3 .pill .badge{position:absolute;top:2px;right:10px;min-width:16px;height:16px;line-height:16px;border-radius:999px;background:var(--orange);color:#fff;font-size:9.5px;font-weight:800;text-align:center;padding:0 4px;}
+
+  /* BB3 flottante iOS */
+  .flot-zone{position:relative;height:118px;background:var(--grad-hero);}
+  .flot-zone .ghost{background:transparent;}
+  .flottante{
+    position:absolute;left:14px;right:14px;bottom:26px;display:flex;align-items:center;gap:8px;
+  }
+  .flottante .pilule{
+    flex:1;display:flex;justify-content:space-around;align-items:center;
+    background:rgba(255,253,246,.78);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
+    border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:8px 8px;
+    box-shadow:0 10px 26px -10px rgba(24,62,87,.45), inset 0 1px 0 rgba(255,255,255,.8);
+  }
+  .flottante .tab{min-width:52px;gap:2px;font-size:9.5px;}
+  .flottante .tab.on{color:var(--marine);}
+  .flottante .tab.on::before{content:"";position:absolute;inset:-4px -8px;border-radius:999px;background:var(--sable);z-index:-1;}
+  .flottante .tab{z-index:0;}
+  .flottante .loupe{
+    width:50px;height:50px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,253,246,.78);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,.7);box-shadow:0 10px 26px -10px rgba(24,62,87,.45);color:var(--marine);
+  }
+  .flottante .loupe svg{width:22px;height:22px;}
+  .flottante--mini{justify-content:flex-start;}
+  .flottante--mini .pilule{flex:none;padding:8px 16px 8px 12px;gap:8px;}
+  .flottante--mini .tab{flex-direction:row;gap:7px;font-size:12px;min-width:0;}
+  .flottante--mini .tab.on::before{display:none;}
+
+  /* BB4 bottom app bar + FAB */
+  .appbar{background:var(--paper);border-top:1px solid var(--border-soft);display:flex;align-items:center;gap:4px;padding:10px 10px 8px 12px;}
+  .appbar .ibtn{color:var(--marine);width:44px;height:44px;}
+  .appbar .ibtn:hover{background:rgba(24,62,87,.08);}
+  .appbar .spacer{flex:1;}
+  .fab{
+    width:56px;height:56px;border-radius:16px;background:var(--orange);color:#fff9ec;border:0;
+    display:flex;align-items:center;justify-content:center;font-size:22px;
+    box-shadow:0 8px 20px -6px rgba(214,94,28,.6), 0 2px 0 var(--orange-hover);
+  }
+  .fab.etendu{width:auto;padding:0 18px 0 14px;gap:8px;font-family:var(--titres);font-weight:800;font-size:15px;}
+  .fab svg{width:22px;height:22px;}
+
+  /* BB6 gazette à filets */
+  .tabbar--filets{border-top:3px double rgba(24,62,87,.6);box-shadow:none;padding-top:9px;}
+  .tabbar--filets .tab{font-family:var(--titres);font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;}
+  .tabbar--filets .tab svg{stroke-width:1.7;}
+  .tabbar--filets .tab.on{color:var(--orange-hover);}
+  .tabbar--filets .tab.on::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--orange);margin-top:1px;}
+
+  /* BB7 action de page */
+  .actionbar{background:var(--paper);border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;padding:10px 14px 8px;}
+  .actionbar .ibtn{color:var(--marine);border:1px solid var(--border);border-radius:14px;width:46px;height:46px;background:var(--bg-main);}
+  .actionbar .cta{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:14px;border:0;
+    background:var(--orange);color:#fff9ec;font-family:var(--titres);font-weight:800;font-size:15px;
+    box-shadow:0 3px 0 var(--orange-hover);
+  }
+  .actionbar .cta small{font-family:var(--corps);font-weight:600;font-size:11px;opacity:.85;}
+
+  /* BB8 composer */
+  .composer{background:var(--paper);border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;padding:8px 10px 8px 8px;}
+  .composer .ibtn{color:var(--marine);}
+  .composer .ibtn:hover{background:rgba(24,62,87,.08);}
+  .composer .champ{flex:1;padding:9px 12px;border-radius:999px;}
+  .composer .send{width:40px;height:40px;border-radius:50%;background:var(--marine);color:var(--sable);border:0;display:flex;align-items:center;justify-content:center;flex:none;}
+  .composer .send svg{width:18px;height:18px;}
+
+  /* BB9 trois onglets larges */
+  .tabbar--3 .tab{flex-direction:row;gap:6px;font-size:11.5px;font-weight:700;min-width:0;flex:1;justify-content:center;padding:9px 0 8px;border-radius:12px;white-space:nowrap;}
+  .tabbar--3 .tab svg{width:20px;height:20px;flex:none;}
+  .tabbar--3 .tab.on{background:var(--bg-hover);color:var(--orange-hover);}
+  .tabbar--3 .tab .badge{position:static;box-shadow:none;}
+  .tabbar--3{padding:8px 8px 6px;gap:6px;}
+
+  /* BB10 crédit + onglets */
+  .credit-strip{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--bg-hover);border-top:1px solid #efdcae;padding:5px 12px;
+    font-size:11px;color:var(--text-secondary);
+  }
+  .credit-strip b{font-family:var(--titres);font-weight:800;color:var(--marine);}
+  .credit-strip .dot{color:var(--orange);font-weight:700;}
+  .credit-strip .plus{margin-left:6px;font-weight:700;color:var(--orange);}
+
+  footer{margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.82rem;line-height:1.6;}
+  footer a{color:var(--marine);font-weight:600;}
+
+  @media (max-width:460px){ body{padding:20px 10px 60px;} .stage{padding:14px 6px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <h1>Barres du haut &amp; du bas <span class="accent">— thème gazette</span></h1>
+    <p class="sub">Dix barres supérieures et dix barres inférieures dans la peau « Gazette du quartier » (V1), rendues en 390&nbsp;px. Chacune indique les conventions iOS et Android récentes dont elle découle, pour choisir en connaissance de cause et implémenter proprement sur les deux plateformes.</p>
+    <a class="retour" href="../../index.html">← Retour à la galerie</a>
+  </header>
+
+  <!-- ===================== RAPPEL DES CODES ===================== -->
+  <div class="codes">
+    <div class="code">
+      <h3><span class="pf pf--ios">iOS</span> iOS 17 → 26</h3>
+      <ul>
+        <li><b>Barre de navigation</b> 44 pt + zone d'état (54 pt avec Dynamic Island). Grand titre 34 pt qui se replie en titre centré 17 pt au défilement.</li>
+        <li><b>Barre d'onglets</b> 49 pt + indicateur d'accueil 34 pt. Depuis iOS 26 : barre <b>flottante</b> en verre (Liquid Glass), <b>onglet Recherche</b> séparé à droite, barre qui se <b>minimise</b> au défilement.</li>
+        <li>Effet <b>scroll-edge</b> : la barre est transparente en haut de page puis se floute quand le contenu passe dessous.</li>
+        <li>Bouton retour = chevron + titre de la page précédente ; glissement depuis le bord gauche.</li>
+      </ul>
+    </div>
+    <div class="code">
+      <h3><span class="pf pf--and">Android</span> Material 3 / Expressive</h3>
+      <ul>
+        <li><b>Top app bar</b> : small 64 dp, medium 112 dp, large 152 dp (titre qui se replie). Actions à droite, navigation à gauche.</li>
+        <li><b>Navigation bar</b> 80 dp, 3 à 5 destinations, <b>indicateur en pilule</b> derrière l'icône active, badges. Labels toujours visibles.</li>
+        <li><b>Bottom app bar</b> 80 dp avec icônes à gauche et <b>FAB</b> à droite (56 dp, angles 16 dp) ; FAB étendu avec libellé.</li>
+        <li>Edge-to-edge obligatoire (API 35+), <b>retour prédictif</b>, cible tactile 48 dp minimum, barre de sélection contextuelle.</li>
+      </ul>
+    </div>
+    <div class="code">
+      <h3><span class="pf pf--tpt">TpT</span> Règles gazette communes</h3>
+      <ul>
+        <li>Haut : <b>marine</b> avec logo sable ; pages intérieures en <b>papier</b> avec filet double. Crédit-temps toujours visible en pilule sable.</li>
+        <li>Bas : <b>papier</b> #fffdf6, filet fin ou double, actif en <b>orange</b>, bouton « Proposer » marine surélevé quand la barre est classique.</li>
+        <li>Typo : Nunito 800 pour titres et libellés forts, Inter pour le reste. Majuscules espacées (.12–.24 em) = signature journal.</li>
+        <li>Une seule barre change de forme à la fois : si le haut est expressif (grand titre), le bas reste classique, et inversement.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== BARRES DU HAUT ===================== -->
+  <div class="section-title" id="haut">
+    <h2>Barres du haut</h2><span class="n">10 modèles</span><span class="filet"></span>
+  </div>
+
+  <div class="grid">
+
+    <!-- TB1 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H1</span><h3>La manchette — barre standard de l'accueil</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 16 12" fill="currentColor"><path d="M8 12 5.6 9.4a3.4 3.4 0 0 1 4.8 0Zm4.2-4.2a6.2 6.2 0 0 0-8.4 0L2 6a8.6 8.6 0 0 1 12 0ZM16 3.8A11.2 11.2 0 0 0 0 3.8l1.8 1.8a8.7 8.7 0 0 1 12.4 0Z"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb">
+            <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+            <div class="spacer"></div>
+            <span class="credit-pill">⏰ 8 h 30</span>
+            <span class="avatar">OD</span>
+          </div>
+          <div class="strip"><span>Votre <strong>crédit-temps : 8 h 30</strong></span><span class="dot">·</span><span>1 h donnée = 1 h reçue</span></div>
+          <div class="ghost"><span class="g l"></span><span class="g m"></span><span class="gc"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Logo à gauche, crédit-temps en pilule sable et avatar à droite, manchette crème dessous. C'est la barre des V1/V10–V12.
+        <div class="ref"><span><b>iOS</b> nav bar inline 44 pt</span><span><b>Android</b> Top app bar small 64 dp</span><span><b>TpT</b> marine + sable</span></div>
+      </div>
+    </article>
+
+    <!-- TB2 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H2</span><h3>Le grand titre — se replie au défilement</h3></div>
+      <div class="stage">
+        <span class="etat">Déployé (haut de page)</span>
+        <div class="frame">
+          <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb tb--mince">
+            <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="">
+            <div class="spacer"></div>
+            <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+            <span class="avatar">OD</span>
+          </div>
+          <div class="grand-titre">
+            <h2>Le fil du quartier</h2>
+            <p class="date">Mercredi 10 juin · <b>34 annonces</b> · 4 rendez-vous</p>
+            <div class="regle"></div>
+          </div>
+          <div class="ghost ghost--haut"><span class="gc"></span><span class="g l"></span></div>
+        </div>
+        <span class="etat">Replié (après défilement)</span>
+        <div class="frame">
+          <div class="tb tb--mince tb--replie">
+            <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="">
+            <span class="titre-inline">Le fil du quartier</span>
+            <span class="avatar">OD</span>
+          </div>
+          <div class="ghost"><span class="g l"></span><span class="g s"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Titre de page en 30 px sur papier, ligne de date en capitales espacées, règle de journal. Au défilement, le titre remonte au centre de la barre marine.
+        <div class="ref"><span><b>iOS</b> Large Title → inline</span><span><b>Android</b> Top app bar medium 112 dp (collapsing)</span></div>
+      </div>
+    </article>
+
+    <!-- TB3 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H3</span><h3>La recherche intégrée — champ + filtres</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb tb--mince">
+            <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="">
+            <div class="spacer"></div>
+            <span class="credit-pill">⏰ 8 h 30</span>
+            <span class="avatar">OD</span>
+          </div>
+          <div class="recherche">
+            <div class="champ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+              Rechercher une annonce, un voisin…
+              <span class="k">Filtres</span>
+            </div>
+            <div class="chips"><span class="chip on">Tout</span><span class="chip">Demandes</span><span class="chip">Propositions</span><span class="chip">Ateliers</span><span class="chip">Idées</span></div>
+          </div>
+          <div class="ghost"><span class="gc"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Le champ de recherche vit sous la barre, sur papier, avec les filtres de type en pastilles. Le champ peut devenir « sticky » et se replier en icône au défilement.
+        <div class="ref"><span><b>iOS</b> UISearchController intégré à la nav bar</span><span><b>Android</b> SearchBar M3 + Filter chips</span></div>
+      </div>
+    </article>
+
+    <!-- TB4 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H4</span><h3>L'édition du jour — en-tête de journal</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb tb--mince">
+            <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="">
+            <div class="spacer"></div>
+            <span class="credit-pill">⏰ 8 h 30</span>
+            <span class="avatar">OD</span>
+          </div>
+          <div class="edition-tete">
+            <p class="t">La gazette du quartier</p>
+            <p class="n">N° 142 · Mercredi 10 juin 2026 · <b>édition du matin</b></p>
+            <div class="filet-double"></div>
+          </div>
+          <div class="ghost ghost--haut"><span class="g l"></span><span class="g m"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        La barre marine reste mince ; sous elle, un en-tête d'édition centré (titre en capitales espacées, numéro et date, filet double). Réservé à l'accueil, il donne le « jour » de la gazette.
+        <div class="ref"><span><b>iOS</b> nav bar + en-tête de section</span><span><b>Android</b> Top app bar small + header</span><span><b>TpT</b> filet double</span></div>
+      </div>
+    </article>
+
+    <!-- TB5 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H5</span><h3>Les onglets — rubriques dans la barre</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb tb--mince">
+            <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="">
+            <div class="spacer"></div>
+            <span class="credit-pill">⏰ 8 h 30</span>
+            <span class="avatar">OD</span>
+          </div>
+          <div class="onglets">
+            <span class="onglet on">Fil</span>
+            <span class="onglet">Rendez-vous<span class="b">4</span></span>
+            <span class="onglet">Ateliers</span>
+            <span class="onglet">Idées</span>
+          </div>
+          <div class="ghost"><span class="gc"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Rubriques de la gazette en onglets sous la barre, indicateur sable sous l'onglet actif, badge orange pour les compteurs. Glissement horizontal entre rubriques.
+        <div class="ref"><span><b>iOS</b> segmented control / page control</span><span><b>Android</b> Primary tabs M3 (fixed)</span></div>
+      </div>
+    </article>
+
+    <!-- TB6 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H6</span><h3>Le retour — page de détail</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb tb--clair" style="padding-top:2px">
+            <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+            <div class="titre-page"><b>Une étagère à monter samedi matin</b><span>Annonce n° 1042 · <em>Demande</em></span></div>
+            <button class="ibtn" aria-label="Plus d'options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+          </div>
+          <div class="filet-double" style="margin:0 18px"></div>
+          <div class="ghost ghost--haut"><span class="g l"></span><span class="g l"></span><span class="g m"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Barre sur papier pour les pages intérieures : chevron, titre centré avec sous-titre en capitales (numéro et type), action à droite, filet double sous la barre.
+        <div class="ref"><span><b>iOS</b> nav bar inline + back chevron</span><span><b>Android</b> Top app bar center-aligned + retour prédictif</span></div>
+      </div>
+    </article>
+
+    <!-- TB7 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H7</span><h3>La sélection — barre contextuelle</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb tb--select">
+            <button class="ibtn" aria-label="Annuler la sélection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            <div class="compte">2 sélectionnées<small>sur 12 conversations</small></div>
+            <button class="ibtn" aria-label="Archiver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M10 13h4"/></svg></button>
+            <button class="ibtn" aria-label="Supprimer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+          </div>
+          <div class="ghost"><span class="gc"></span><span class="gc"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Quand on sélectionne des éléments (messages, annonces), la barre marine passe en marine foncé et affiche le compte et les actions groupées. Disparaît à l'annulation.
+        <div class="ref"><span><b>iOS</b> mode Modifier + toolbar</span><span><b>Android</b> Contextual action bar</span></div>
+      </div>
+    </article>
+
+    <!-- TB8 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H8</span><h3>Le papier — barre claire, pages intérieures</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb tb--clair tb--papier">
+            <span class="wordmark">Temps<em>Pour</em>Temps</span>
+            <div class="spacer"></div>
+            <span class="credit-pill">⏰ 8 h 30</span>
+            <span class="avatar">OD</span>
+          </div>
+          <div class="filet-double" style="margin:0 16px"></div>
+          <div class="ghost ghost--haut"><span class="g l"></span><span class="gc"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Même contenu que H1, mais sur papier : marque en toutes lettres (« Pour » en orange), pilule bordée, filet double. Pour les écrans où le marine plein serait trop lourd (réglages, profil).
+        <div class="ref"><span><b>iOS</b> nav bar claire, status bar sombre</span><span><b>Android</b> Top app bar surface</span></div>
+      </div>
+    </article>
+
+    <!-- TB9 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H9</span><h3>Le verre sur la une — transparent puis flouté</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="hero-verre">
+            <div class="fond"></div>
+            <div class="tb--verre">
+              <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+              <div class="ligne">
+                <img src="../../assets/logo/icon-pwa-512.png" alt="" style="width:32px;height:32px;border-radius:9px">
+                <div class="spacer"></div>
+                <span class="credit-pill">⏰ 8 h 30</span>
+                <span class="avatar" style="border-color:var(--sable-hover)">OD</span>
+              </div>
+            </div>
+            <div class="texte">
+              <h2>Bonjour ! Le quartier <span class="souligne">a besoin de vous.</span></h2>
+              <p>Échangez du temps, pas de l’argent.</p>
+            </div>
+          </div>
+          <div class="ghost"><span class="gc"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        La barre est posée en verre dépoli sur le dégradé de la une : transparente en haut de page, elle se floute dès que le contenu passe dessous. Le logo carré (icône) remplace le monogramme sable, illisible sur crème.
+        <div class="ref"><span><b>iOS 26</b> Liquid Glass + scroll-edge effect</span><span><b>Android</b> Top app bar transparente + scrim au défilement</span></div>
+      </div>
+    </article>
+
+    <!-- TB10 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H10</span><h3>L'avis — barre + bandeau d'état</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb">
+            <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="">
+            <div class="spacer"></div>
+            <span class="credit-pill">⏰ 8 h 30</span>
+            <span class="avatar">OD</span>
+          </div>
+          <div class="alerte">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg>
+            <span><b>Hors connexion.</b> Vos annonces partiront au retour du réseau.</span>
+          </div>
+          <div class="alerte alerte--info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+            <span><b>Rendez-vous dans 45 min</b> avec Marie Morel, rue des Lilas.</span>
+            <span class="x">×</span>
+          </div>
+          <div class="ghost"><span class="g l"></span><span class="g m"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Sous la barre standard, un bandeau d'état système (hors ligne, avertissement) ou d'information contextuelle (RDV imminent), avec filet coloré à gauche. Distinct de la zone d'annonce éditoriale, qui reste dans le flux.
+        <div class="ref"><span><b>iOS</b> bannière inline sous nav bar</span><span><b>Android</b> Banner M3 (persistant, 1–2 actions)</span></div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ===================== BARRES DU BAS ===================== -->
+  <div class="section-title" id="bas">
+    <h2>Barres du bas</h2><span class="n">10 modèles</span><span class="filet"></span>
+  </div>
+
+  <div class="grid">
+
+    <!-- BB1 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B1</span><h3>La classique — 5 onglets, « Proposer » surélevé</h3></div>
+      <div class="stage">
+        <div class="frame frame--bas">
+          <div class="ghost"><span class="gc"></span><span class="g l"></span></div>
+          <nav class="tabbar">
+            <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+            <a class="tab tab--plus" href="#"><span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Proposer</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>Services</a>
+            <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+          </nav>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        La barre des maquettes actuelles : papier, filet fin, actif en orange, bouton central marine qui déborde. Badge orange sur Messages.
+        <div class="ref"><span><b>iOS</b> tab bar 49 pt + home indicator</span><span><b>Android</b> Navigation bar (5 destinations) + FAB central</span></div>
+      </div>
+    </article>
+
+    <!-- BB2 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B2</span><h3>La pilule — indicateur Material 3</h3></div>
+      <div class="stage">
+        <div class="frame frame--bas">
+          <div class="ghost"><span class="gc"></span><span class="g l"></span></div>
+          <nav class="navbar-m3">
+            <span class="item on"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></span>Accueil</span>
+            <span class="item"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></span>Rechercher</span>
+            <span class="item"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Proposer</span>
+            <span class="item"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>Rendez-vous</span>
+            <span class="item"><span class="pill"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg></span>Messages</span>
+          </nav>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Pas de bouton surélevé : la destination active porte une pilule sable derrière son icône, libellé marine. Le plus « natif Android », qui reste très lisible sur iOS.
+        <div class="ref"><span><b>Android</b> Navigation bar M3, active indicator 64×32 dp</span><span><b>iOS</b> tab bar avec tint</span></div>
+      </div>
+    </article>
+
+    <!-- BB3 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B3</span><h3>La flottante — verre et recherche séparée</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="flot-zone">
+            <div class="ghost"><span class="gc"></span><span class="g l"></span><span class="g m"></span></div>
+            <div class="flottante">
+              <div class="pilule">
+                <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+                <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Rendez-vous</a>
+                <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+                <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+              </div>
+              <span class="loupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></span>
+            </div>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Barre détachée du bord, en verre dépoli sur le contenu, actif sur pilule sable ; la recherche devient un bouton rond à part. Le contenu défile dessous, jusqu'à l'indicateur d'accueil.
+        <div class="ref"><span><b>iOS 26</b> tab bar flottante Liquid Glass + Search tab</span><span><b>Android</b> Navigation bar flottante (M3 Expressive)</span></div>
+      </div>
+    </article>
+
+    <!-- BB4 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B4</span><h3>La barre d'app + FAB — actions à gauche, publier à droite</h3></div>
+      <div class="stage">
+        <div class="frame frame--bas">
+          <div class="ghost"><span class="gc"></span><span class="g l"></span></div>
+          <div class="appbar">
+            <button class="ibtn" aria-label="Accueil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></button>
+            <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+            <button class="ibtn" aria-label="Rendez-vous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button>
+            <button class="ibtn" aria-label="Messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg></button>
+            <div class="spacer"></div>
+            <button class="fab etendu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Publier</button>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Icônes sans libellé à gauche, bouton d'action flottant orange étendu (« Publier ») à droite, angles 16 dp. Pertinent si publier est l'action reine ; à réserver aux écrans de liste.
+        <div class="ref"><span><b>Android</b> Bottom app bar 80 dp + Extended FAB</span><span><b>iOS</b> toolbar + bouton proéminent</span></div>
+      </div>
+    </article>
+
+    <!-- BB5 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B5</span><h3>La minimisée — se replie au défilement</h3></div>
+      <div class="stage">
+        <span class="etat">Au repos</span>
+        <div class="frame">
+          <div class="flot-zone" style="height:96px">
+            <div class="ghost"><span class="g l"></span><span class="g m"></span></div>
+            <div class="flottante">
+              <div class="pilule">
+                <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+                <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Rendez-vous</a>
+                <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+                <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+              </div>
+            </div>
+          </div>
+          <div class="home"></div>
+        </div>
+        <span class="etat">En défilement vers le bas</span>
+        <div class="frame">
+          <div class="flot-zone" style="height:96px">
+            <div class="ghost"><span class="g l"></span><span class="g m"></span><span class="g l"></span></div>
+            <div class="flottante flottante--mini">
+              <div class="pilule">
+                <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+              </div>
+            </div>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Variante de B3 : quand on lit le fil, la barre se réduit à l'onglet actif seul, en bas à gauche ; elle se redéploie dès qu'on remonte. Libère l'écran pour les annonces.
+        <div class="ref"><span><b>iOS 26</b> tabBarMinimizeBehavior = onScrollDown</span><span><b>Android</b> hide-on-scroll (à implémenter soi-même)</span></div>
+      </div>
+    </article>
+
+    <!-- BB6 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B6</span><h3>La gazette à filets — capitales espacées</h3></div>
+      <div class="stage">
+        <div class="frame frame--bas">
+          <div class="ghost"><span class="gc"></span><span class="g l"></span></div>
+          <nav class="tabbar tabbar--filets">
+            <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agenda</a>
+            <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
+          </nav>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Même structure que B1, mais filet double en tête, icônes plus fines, libellés en capitales espacées et point orange sous l'onglet actif. Le plus « journal » sans rien changer à la navigation.
+        <div class="ref"><span><b>iOS</b> tab bar standard</span><span><b>Android</b> Navigation bar</span><span><b>TpT</b> filet double + capitales</span></div>
+      </div>
+    </article>
+
+    <!-- BB7 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B7</span><h3>L'action de page — bouton principal collé en bas</h3></div>
+      <div class="stage">
+        <div class="frame frame--bas">
+          <div class="ghost"><span class="g l"></span><span class="g l"></span><span class="g m"></span></div>
+          <div class="actionbar">
+            <button class="ibtn" aria-label="Enregistrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4Z"/></svg></button>
+            <button class="ibtn" aria-label="Écrire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg></button>
+            <button class="cta">🤝 Je peux aider <small>· 1 h</small></button>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Sur une annonce ouverte, la barre du bas devient la barre d'action : enregistrer, écrire, et le grand bouton orange « Je peux aider » avec la durée en heures. Remplace la tab bar le temps de la page.
+        <div class="ref"><span><b>iOS</b> toolbar de page + bouton proéminent</span><span><b>Android</b> bottom sheet d'action / barre sticky</span></div>
+      </div>
+    </article>
+
+    <!-- BB8 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B8</span><h3>Le composer — barre de saisie de message</h3></div>
+      <div class="stage">
+        <div class="frame frame--bas">
+          <div class="ghost"><span class="g m"></span><span class="g l" style="align-self:flex-end;background:rgba(24,62,87,.35)"></span><span class="g s"></span></div>
+          <div class="composer">
+            <button class="ibtn" aria-label="Joindre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+            <div class="champ">Écrire à Alice…</div>
+            <button class="send" aria-label="Envoyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Dans une conversation, la tab bar laisse place au composer : bouton « + » (photo, créneau, adresse), champ arrondi sur papier, envoi en disque marine à flèche sable. Remonte avec le clavier.
+        <div class="ref"><span><b>iOS</b> input accessory view</span><span><b>Android</b> barre de saisie + imePadding</span></div>
+      </div>
+    </article>
+
+    <!-- BB9 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B9</span><h3>Les trois larges — icône et libellé côte à côte</h3></div>
+      <div class="stage">
+        <div class="frame frame--bas">
+          <div class="ghost"><span class="gc"></span><span class="g l"></span></div>
+          <nav class="tabbar tabbar--3">
+            <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Le fil</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Rendez-vous<span class="badge">4</span></a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages<span class="badge">3</span></a>
+          </nav>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Trois destinations seulement, en pastilles larges (icône + libellé), badges inline ; l'onglet actif est surligné crème. « Proposer » et « Rechercher » passent en haut (H3, B4) ou en FAB.
+        <div class="ref"><span><b>Android</b> Navigation bar 3 destinations, labels horizontaux</span><span><b>iOS</b> tab bar 3 items</span></div>
+      </div>
+    </article>
+
+    <!-- BB10 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B10</span><h3>Le crédit — solde de temps au-dessus des onglets</h3></div>
+      <div class="stage">
+        <div class="frame frame--bas">
+          <div class="ghost"><span class="gc"></span><span class="g l"></span></div>
+          <div class="credit-strip"><span>Crédit-temps</span><b>8 h 30</b><span class="dot">·</span><span>1 h donnée = 1 h reçue</span><span class="plus">+ 2 h ce mois</span></div>
+          <nav class="tabbar" style="box-shadow:none">
+            <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Rendez-vous</a>
+            <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+          </nav>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        La manchette crédit-temps descend au-dessus des onglets : le solde reste sous le pouce, la barre du haut s'allège (H2 ou H9 sans pilule). À utiliser avec un haut expressif.
+        <div class="ref"><span><b>iOS</b> tab bar + accessory view (iOS 26)</span><span><b>Android</b> Navigation bar + bandeau</span></div>
+      </div>
+    </article>
+
+  </div>
+
+  <footer>
+    TempsPourTemps — identité visuelle · Les dimensions citées sont celles des guidelines Apple HIG et Material 3 en vigueur ; le thème gazette n'en change que la peau.<br>
+    <a href="../../index.html">Galerie</a> · <a href="../index.html">Brandkit</a>
+  </footer>
+</div>
+</body>
+</html>

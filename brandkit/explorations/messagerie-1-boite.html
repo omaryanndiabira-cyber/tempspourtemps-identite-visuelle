@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Messagerie 1 · La boîte aux lettres (liste des conversations)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TempsPourTemps — Messagerie 1 « La boîte aux lettres »
+     Liste des conversations, peau gazette V1. Haut = grand titre
+     (H2) + recherche (H3). Bas = barre classique (B1).
+     Chaque conversation est rattachée à une annonce ou à un RDV.
+     ============================================================ */
+  :root{
+    --marine:#183e57;--marine-hover:#0f2f44;--orange:#d65e1c;--orange-hover:#b84e17;
+    --sable:#fcdb81;--sable-hover:#f5cb5c;--success:#4a9d5f;--danger:#c44536;--warning:#d97706;
+    --bg-main:#f7f6f3;--bg-secondary:#f3f3f5;--bg-hover:#fdf1d7;
+    --text-secondary:#4b5563;--text-tertiary:#717182;--border:#d6dbe2;--paper:#fffdf6;--ocre:#8a6b1f;
+    --grad-hero:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+    --titres:'Nunito',sans-serif;--corps:'Inter',sans-serif;--radius-app:34px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--corps);background:#e7e4dc;
+    background-image:radial-gradient(circle at 18% 12%, rgba(252,219,129,.20), transparent 42%),radial-gradient(circle at 84% 88%, rgba(24,62,87,.10), transparent 46%);
+    display:flex;align-items:center;justify-content:center;min-height:100vh;padding:32px 16px;color:var(--marine);-webkit-font-smoothing:antialiased;
+  }
+  .phone{
+    width:390px;max-width:100%;height:min(844px, calc(100vh - 48px));min-height:640px;
+    background:var(--bg-main);border-radius:var(--radius-app);
+    box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
+    overflow:hidden;display:flex;flex-direction:column;position:relative;
+  }
+  .phone::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:60;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--marine);
+    background-image:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.08));
+    padding:12px 12px 10px 16px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 10px rgba(15,47,68,.30);color:#fff;
+  }
+  .topbar .logo{height:30px;width:auto;display:block;}
+  .topbar .spacer{flex:1;}
+  .ibtn{width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:inherit;background:transparent;border:0;cursor:pointer;flex:none;}
+  .ibtn svg{width:22px;height:22px;}
+  .ibtn:hover{background:rgba(255,255,255,.12);}
+  .avatar{width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:800;font-size:12px;flex:none;}
+  .avatar--me{background:var(--sable);color:var(--marine);border:2px solid rgba(255,255,255,.55);}
+
+  .feed{flex:1;overflow-y:auto;background:var(--grad-hero);scrollbar-width:none;}
+  .feed::-webkit-scrollbar{display:none;}
+
+  /* ---------- Grand titre + recherche ---------- */
+  .grand-titre{padding:12px 18px 0;}
+  .grand-titre h1{font-family:var(--titres);font-weight:800;font-size:30px;line-height:1.1;letter-spacing:-.02em;}
+  .grand-titre .date{margin-top:4px;font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;font-weight:600;color:var(--text-secondary);}
+  .grand-titre .date b{color:var(--orange-hover);}
+  .grand-titre .regle{margin-top:10px;border-top:2px solid var(--marine);border-bottom:1px solid var(--marine);height:5px;opacity:.75;}
+  .recherche{padding:12px 18px 0;}
+  .champ{display:flex;align-items:center;gap:9px;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:13.5px;color:var(--text-tertiary);}
+  .champ svg{width:16px;height:16px;flex:none;}
+  .chips{display:flex;gap:7px;margin-top:10px;overflow:hidden;}
+  .chip{font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--border);background:var(--paper);color:var(--text-secondary);white-space:nowrap;}
+  .chip.on{background:var(--marine);border-color:var(--marine);color:#fff;font-weight:700;}
+  .chip .n{margin-left:4px;color:var(--orange);font-weight:800;}
+  .chip.on .n{color:var(--sable);}
+
+  /* ---------- Rubriques ---------- */
+  .rubrique{margin:22px 18px 8px;display:flex;align-items:center;gap:10px;scroll-margin-top:8px;}
+  .rubrique h2{font-family:var(--titres);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--marine);}
+  .rubrique .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.4;}
+  .rubrique .lien{font-size:11px;font-weight:700;color:var(--orange);text-decoration:none;}
+
+  /* ---------- La feuille de courrier ---------- */
+  .courrier{
+    margin:0 18px;background:var(--paper);border:1px solid var(--border);border-radius:14px;
+    box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -14px rgba(24,62,87,.28);
+    padding:0 14px;
+  }
+  .conv{display:flex;gap:11px;padding:12px 0;border-top:1px solid var(--border);text-decoration:none;color:inherit;position:relative;}
+  .conv:first-child{border-top:0;}
+  .conv .av{width:44px;height:44px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:800;font-size:13px;position:relative;border:1.5px solid var(--border);}
+  .av-creme{background:var(--bg-hover);color:var(--orange-hover);}
+  .av-bleu{background:#e8eef4;color:var(--marine);}
+  .av-sable{background:var(--sable);color:var(--marine);border-color:#f0d179;}
+  .av-vert{background:rgba(74,157,95,.16);color:#36744a;}
+  .av-marine{background:var(--marine);color:var(--sable);border-color:var(--marine);}
+  /* pastille de type d'annonce sur l'avatar */
+  .av .type{position:absolute;right:-3px;bottom:-3px;width:14px;height:14px;border-radius:4px;border:2px solid var(--paper);}
+  .type--demande{background:var(--orange);} .type--proposition{background:var(--marine);}
+  .type--atelier{background:var(--sable);} .type--idee{background:var(--success);} .type--rdv{background:var(--success);border-radius:50%;}
+  .conv .corps{flex:1;min-width:0;}
+  .conv .l1{display:flex;align-items:baseline;gap:8px;}
+  .conv .nom{font-family:var(--titres);font-weight:800;font-size:14px;color:var(--marine);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .conv .heure{font-size:10.5px;color:var(--text-tertiary);white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .conv.nonlu .heure{color:var(--orange-hover);font-weight:700;}
+  .conv .sujet{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .conv .sujet b{color:var(--orange-hover);font-weight:700;}
+  .conv .sujet.rdv b{color:var(--success);}
+  .conv .extrait{font-size:12.5px;color:var(--text-secondary);line-height:1.4;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .conv .extrait i{font-style:normal;color:var(--text-tertiary);}
+  .conv.nonlu .extrait{color:var(--marine);font-weight:500;}
+  .conv .compte{position:absolute;right:0;top:36px;min-width:20px;height:20px;line-height:20px;border-radius:999px;background:var(--marine);color:var(--sable);font-family:var(--titres);font-weight:800;font-size:11px;text-align:center;padding:0 6px;}
+  .conv.nonlu .corps{padding-right:26px;}
+  .conv .brouillon{color:var(--danger);font-weight:600;}
+
+  .ours{text-align:center;padding:18px 24px 24px;font-size:10px;color:var(--text-tertiary);letter-spacing:.12em;text-transform:uppercase;}
+  .ours .filet-fin{width:54px;margin:0 auto 8px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);height:4px;opacity:.45;}
+
+  /* ---------- Tab bar ---------- */
+  .tabbar{
+    position:sticky;bottom:0;z-index:40;background:var(--paper);border-top:1px solid var(--border);
+    display:flex;align-items:flex-end;justify-content:space-around;
+    padding:8px 6px calc(10px + env(safe-area-inset-bottom, 8px));box-shadow:0 -6px 18px -10px rgba(24,62,87,.25);
+  }
+  .tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--text-tertiary);text-decoration:none;min-width:58px;padding:2px 0;position:relative;}
+  .tab svg{width:22px;height:22px;display:block;}
+  .tab--actif{color:var(--orange);font-weight:700;}
+  .tab .badge{position:absolute;top:-4px;right:12px;min-width:16px;height:16px;line-height:16px;border-radius:999px;background:var(--orange);color:#fff;font-size:9.5px;font-weight:800;text-align:center;padding:0 4px;box-shadow:0 0 0 2px var(--paper);}
+  .tab--plus .rond{width:44px;height:44px;border-radius:50%;background:var(--marine);color:var(--sable);display:flex;align-items:center;justify-content:center;margin-top:-22px;border:3px solid var(--paper);box-shadow:0 6px 14px -4px rgba(24,62,87,.5);}
+  .tab--plus .rond svg{width:20px;height:20px;}
+
+  @media (max-width: 430px){ body{padding:0;} .phone{width:100%;height:100vh;height:100dvh;min-height:0;border-radius:0;box-shadow:none;} }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <button class="ibtn" aria-label="Sélectionner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></button>
+    <button class="ibtn" aria-label="Nouveau message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button>
+    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+  </header>
+
+  <main class="feed">
+
+    <section class="grand-titre">
+      <h1>Messages</h1>
+      <p class="date">Mercredi 10 juin · <b>3 non lus</b> · 12 conversations</p>
+      <div class="regle"></div>
+    </section>
+
+    <div class="recherche">
+      <div class="champ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+        Rechercher un voisin, une annonce…
+      </div>
+      <div class="chips">
+        <span class="chip on">Tous</span>
+        <span class="chip">Non lus<span class="n">3</span></span>
+        <span class="chip">Annonces</span>
+        <span class="chip">Rendez-vous</span>
+        <span class="chip">Archivés</span>
+      </div>
+    </div>
+
+    <!-- ===== Non lus ===== -->
+    <div class="rubrique">
+      <h2>Non lus</h2><span class="filet"></span><a class="lien" href="#">Tout marquer lu</a>
+    </div>
+    <section class="courrier">
+      <a class="conv nonlu" href="#">
+        <span class="av av-creme">AN<span class="type type--demande"></span></span>
+        <div class="corps">
+          <div class="l1"><span class="nom">Alice Noël</span><span class="heure">14:02</span></div>
+          <div class="sujet"><b>Demande</b> · Une étagère à monter samedi matin</div>
+          <p class="extrait">Super, samedi 10 h ça vous irait ? J'ai la perceuse et les chevilles, il ne manque que vos bras 💪</p>
+        </div>
+        <span class="compte">2</span>
+      </a>
+      <a class="conv nonlu" href="#">
+        <span class="av av-vert">MM<span class="type type--rdv"></span></span>
+        <div class="corps">
+          <div class="l1"><span class="nom">Marie Morel</span><span class="heure">11:47</span></div>
+          <div class="sujet rdv"><b>Rendez-vous</b> · Rencontre physique · jeudi 11 juin, 12:30</div>
+          <p class="extrait">Je vous confirme pour demain midi. Sonnez deux coups, je suis au premier.</p>
+        </div>
+        <span class="compte">1</span>
+      </a>
+      <a class="conv nonlu" href="#">
+        <span class="av av-sable">PB<span class="type type--atelier"></span></span>
+        <div class="corps">
+          <div class="l1"><span class="nom">Pierre Blanchard</span><span class="heure">Hier</span></div>
+          <div class="sujet"><b>Atelier</b> · Réparation vélo, dimanche 10 h</div>
+          <p class="extrait">Il reste deux places dimanche. Vous venez avec votre vélo ou vous voulez juste regarder ?</p>
+        </div>
+        <span class="compte">1</span>
+      </a>
+    </section>
+
+    <!-- ===== Plus tôt ===== -->
+    <div class="rubrique" id="suite">
+      <h2>Plus tôt</h2><span class="filet"></span>
+    </div>
+    <section class="courrier">
+      <a class="conv" href="#">
+        <span class="av av-bleu">ML<span class="type type--proposition"></span></span>
+        <div class="corps">
+          <div class="l1"><span class="nom">Marta Lopez</span><span class="heure">Lun.</span></div>
+          <div class="sujet"><b>Proposition</b> · Espagnol conversationnel</div>
+          <p class="extrait"><i>Vous :</i> Merci pour la première leçon ! Je vous ai crédité 1 h. À la semaine prochaine.</p>
+        </div>
+      </a>
+      <a class="conv" href="#">
+        <span class="av av-creme">SK<span class="type type--demande"></span></span>
+        <div class="corps">
+          <div class="l1"><span class="nom">Sonia Klein</span><span class="heure">Dim.</span></div>
+          <div class="sujet"><b>Demande</b> · Chat à nourrir le week-end du 20</div>
+          <p class="extrait"><span class="brouillon">Brouillon :</span> Je peux passer samedi et dimanche matin, vers</p>
+        </div>
+      </a>
+      <a class="conv" href="#">
+        <span class="av av-marine">tpt</span>
+        <div class="corps">
+          <div class="l1"><span class="nom">L'équipe TempsPourTemps</span><span class="heure">5 juin</span></div>
+          <div class="sujet"><b>Communiqué</b> · Les ateliers de quartier arrivent</div>
+          <p class="extrait">Bonjour Omar, vous pouvez désormais proposer un atelier à plusieurs voisins et suivre les inscriptions…</p>
+        </div>
+      </a>
+      <a class="conv" href="#">
+        <span class="av av-vert">MM<span class="type type--idee"></span></span>
+        <div class="corps">
+          <div class="l1"><span class="nom">Café des voisins · 12 partants</span><span class="heure">3 juin</span></div>
+          <div class="sujet"><b>Idée</b> · Un café des voisins au square ?</div>
+          <p class="extrait"><i>Lucie :</i> Je ramène les gobelets et un thermos. Qui a une grande nappe ?</p>
+        </div>
+      </a>
+      <a class="conv" href="#">
+        <span class="av av-bleu">LG<span class="type type--proposition"></span></span>
+        <div class="corps">
+          <div class="l1"><span class="nom">Lucie Garnier</span><span class="heure">28 mai</span></div>
+          <div class="sujet"><b>Proposition</b> · Retouches, ourlets &amp; boutons</div>
+          <p class="extrait">L'ourlet est prêt, vous pouvez passer quand vous voulez. Échange fait : 30 min.</p>
+        </div>
+      </a>
+    </section>
+
+    <footer class="ours">
+      <div class="filet-fin"></div>
+      12 conversations · Courrier fictif
+    </footer>
+  </main>
+
+  <nav class="tabbar" aria-label="Navigation principale">
+    <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+    <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+    <a class="tab tab--plus" href="#"><span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Proposer</a>
+    <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>Services</a>
+    <a class="tab tab--actif" href="#" aria-current="page"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+  </nav>
+
+</div>
+</body>
+</html>

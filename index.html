@@ -138,6 +138,16 @@
     margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.82rem;line-height:1.6;
   }
   footer a{color:var(--marine);font-weight:600;}
+
+  .groupe{
+    display:flex;align-items:center;gap:14px;margin:56px 0 18px;
+  }
+  .groupe h2{font-family:var(--titres);font-weight:800;font-size:1.3rem;white-space:nowrap;}
+  .groupe .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.4;}
+  .groupe-sub{color:var(--text-secondary);font-size:.9rem;margin:-6px 0 22px;max-width:760px;line-height:1.5;}
+  .preview--doc{padding:0;}
+  .preview--doc iframe{width:1320px;height:1000px;border:0;transform:scale(.5);transform-origin:top left;pointer-events:none;}
+  .preview--doc .shot{width:100%;align-items:stretch;}
 </style>
 </head>
 <body>
@@ -305,6 +315,62 @@
       <div class="card-foot">
         <p class="desc">Peau V1. Posts en petits articles : titre serif (seul écart typo), lettrine orange, signature « par … », double filet de pied. Zone d'annonce = mot de la rédaction avec médaillon.</p>
         <a class="open" href="brandkit/explorations/accueil-12-gazette-une.html">Ouvrir →</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="groupe"><h2>Composants &amp; écrans — thème gazette</h2><span class="filet"></span></div>
+  <p class="groupe-sub">Déclinaisons de la peau « Gazette du quartier » (V1) au-delà de l'accueil : un document de référence pour les barres de navigation, et trois écrans de messagerie.</p>
+
+  <div class="grid">
+    <article class="card">
+      <div class="card-head"><span class="num">DOC</span><h2>Barres du haut &amp; du bas — 10 + 10 modèles</h2></div>
+      <div class="preview preview--doc">
+        <div class="shot"><iframe src="brandkit/explorations/barres-gazette.html#haut" loading="lazy" title="Aperçu du document barres" tabindex="-1"></iframe></div>
+        <a class="overlay" href="brandkit/explorations/barres-gazette.html" aria-label="Ouvrir le document des barres en plein écran"><span>Ouvrir le document</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Dix barres supérieures, dix barres inférieures, rendues en 390 px, avec les conventions iOS 17→26 et Material 3 dont chacune découle.</p>
+        <a class="open" href="brandkit/explorations/barres-gazette.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">M1</span><h2>Messagerie · La boîte aux lettres</h2></div>
+      <div class="preview">
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/messagerie-1-boite.html" loading="lazy" title="Aperçu M1 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">Suite de la liste</span><iframe src="brandkit/explorations/messagerie-1-boite.html#suite" loading="lazy" title="Aperçu M1 suite" tabindex="-1"></iframe></div>
+        <a class="overlay" href="brandkit/explorations/messagerie-1-boite.html" aria-label="Ouvrir la messagerie 1 en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Liste des conversations, chacune rattachée à une annonce ou à un rendez-vous ; grand titre, recherche et filtres, sections « Non lus » / « Plus tôt ».</p>
+        <a class="open" href="brandkit/explorations/messagerie-1-boite.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">M2</span><h2>Messagerie · La conversation</h2></div>
+      <div class="preview">
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/messagerie-2-conversation.html" loading="lazy" title="Aperçu M2 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">Proposition de RDV</span><iframe src="brandkit/explorations/messagerie-2-conversation.html#suite" loading="lazy" title="Aperçu M2 proposition de rendez-vous" tabindex="-1"></iframe></div>
+        <a class="overlay" href="brandkit/explorations/messagerie-2-conversation.html" aria-label="Ouvrir la messagerie 2 en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Fil en bulles, entrefilet de l'annonce sous la barre de retour, proposition de rendez-vous en faire-part dans le fil, actions rapides au-dessus du composer.</p>
+        <a class="open" href="brandkit/explorations/messagerie-2-conversation.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">M3</span><h2>Messagerie · La correspondance</h2></div>
+      <div class="preview">
+        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/messagerie-3-correspondance.html" loading="lazy" title="Aperçu M3 haut de page" tabindex="-1"></iframe></div>
+        <div class="shot"><span class="shot-label">RDV confirmé</span><iframe src="brandkit/explorations/messagerie-3-correspondance.html#suite" loading="lazy" title="Aperçu M3 rendez-vous confirmé" tabindex="-1"></iframe></div>
+        <a class="overlay" href="brandkit/explorations/messagerie-3-correspondance.html" aria-label="Ouvrir la messagerie 3 en plein écran"><span>Ouvrir en plein écran</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Variante sans bulles : chaque message est une petite lettre sur papier (en-tête, filet marine ou sable, signature), composer en « réponse » avec filet double.</p>
+        <a class="open" href="brandkit/explorations/messagerie-3-correspondance.html">Ouvrir →</a>
       </div>
     </article>
   </div>
