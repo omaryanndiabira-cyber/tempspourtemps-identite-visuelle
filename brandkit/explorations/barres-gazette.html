@@ -351,6 +351,48 @@
   .credit-strip .dot{color:var(--orange);font-weight:700;}
   .credit-strip .plus{margin-left:6px;font-weight:700;color:var(--orange);}
 
+  /* ============================================================
+     FILETS VERTICAUX — le rappel « colonnes de journal »
+     ============================================================ */
+  .manchette-col{display:flex;background:var(--bg-hover);border-bottom:1px solid #efdcae;}
+  .manchette-col span{
+    flex:1;text-align:center;padding:6px 4px;
+    font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);font-weight:600;
+  }
+  .manchette-col span + span{border-left:1px solid rgba(24,62,87,.28);}
+  .manchette-col b{display:block;font-family:var(--titres);font-weight:800;font-size:13px;letter-spacing:0;text-transform:none;color:var(--marine);}
+
+  /* pilule flottante à colonnes */
+  .pilule--col{border-radius:16px !important;padding:0 !important;overflow:hidden;align-items:stretch !important;}
+  .pilule--col .tab{
+    flex:1;min-width:0;border-radius:0;padding:9px 2px 8px;gap:3px;
+    font-size:8.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;position:relative;
+  }
+  .pilule--col .tab + .tab{border-left:1px solid rgba(24,62,87,.24);}
+  .pilule--col .tab svg{width:21px;height:21px;}
+  .pilule--col .tab.on{color:var(--orange-hover);}
+  .pilule--col .tab.on::before{content:"";position:absolute;top:0;left:20%;right:20%;height:3px;background:var(--orange);border-radius:0 0 3px 3px;}
+  .pilule--col .tab .badge{top:4px;right:8px;box-shadow:none;}
+  .loupe--col{border-radius:14px !important;}
+
+  /* barre ancrée à colonnes */
+  .tabbar--col{border-top:3px double rgba(24,62,87,.55);padding:0 0 6px;box-shadow:none;align-items:stretch;}
+  .tabbar--col .tab{
+    flex:1;min-width:0;padding:9px 2px 6px;gap:3px;border-radius:0;
+    font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .tabbar--col .tab + .tab{border-left:1px solid rgba(24,62,87,.22);}
+  .tabbar--col .tab.on{color:var(--orange-hover);}
+  .tabbar--col .tab.on::before{content:"";position:absolute;top:0;left:20%;right:20%;height:3px;background:var(--orange);}
+  .tabbar--col .tab .badge{top:2px;right:10px;box-shadow:none;}
+
+  .arbitrage{
+    background:var(--bg-hover);border:1px solid #efdcae;border-left:4px solid var(--orange);
+    border-radius:14px;padding:16px 18px;margin:0 0 22px;font-size:.86rem;line-height:1.55;color:var(--text-secondary);
+  }
+  .arbitrage b{color:var(--marine);}
+  .arbitrage strong{color:var(--orange-hover);}
+
   footer{margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.82rem;line-height:1.6;}
   footer a{color:var(--marine);font-weight:600;}
 
@@ -911,6 +953,133 @@
       <div class="card-foot">
         La manchette crédit-temps descend au-dessus des onglets : le solde reste sous le pouce, la barre du haut s'allège (H2 ou H9 sans pilule). À utiliser avec un haut expressif.
         <div class="ref"><span><b>iOS</b> tab bar + accessory view (iOS 26)</span><span><b>Android</b> Navigation bar + bandeau</span></div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ===================== FILETS VERTICAUX ===================== -->
+  <div class="section-title" id="colonnes">
+    <h2>Le rappel « colonnes »</h2><span class="n">3 variantes</span><span class="filet"></span>
+  </div>
+
+  <p class="arbitrage">
+    <b>Où mettre les filets verticaux ?</b> Ce sont les <b>rules de colonnes</b> d'un journal : de fins traits marine qui séparent des cellules de même nature. Ils ne fonctionnent que s'ils restent <strong>une seule bande dans l'écran</strong> — en haut <em>et</em> en bas, ils transforment la page en tableau et écrasent le contenu, qui porte déjà ses propres filets.
+    <br><br>
+    <b>Recommandation :</b> les garder <strong>en bas uniquement</strong>. La barre du bas est permanente, c'est elle qui signe l'app ; le haut se contente d'un filet double horizontal. Les trois propositions complètes suivent cette règle. H11 ci-dessous montre la version haute pour comparaison.
+  </p>
+
+  <div class="grid">
+
+    <!-- H11 -->
+    <article class="card">
+      <div class="card-head"><span class="num">H11</span><h3>La manchette à colonnes — version haute (pour comparaison)</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+          <div class="tb">
+            <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="">
+            <div class="spacer"></div>
+            <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+            <span class="avatar">OD</span>
+          </div>
+          <div class="manchette-col">
+            <span><b>8 h 30</b>crédit-temps</span>
+            <span><b>1 h = 1 h</b>la règle</span>
+            <span><b>34</b>annonces du jour</span>
+          </div>
+          <div class="ghost"><span class="g l"></span><span class="gc"></span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        La manchette crème se divise en trois cellules séparées par des filets : crédit, règle, compteur. Très juste visuellement — mais à n'utiliser que si la barre du bas reste sans filets verticaux.
+        <div class="ref"><span><b>iOS</b> nav bar + bandeau</span><span><b>Android</b> Top app bar + header</span><span><b>TpT</b> rules de colonnes</span></div>
+      </div>
+    </article>
+
+    <!-- B11 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B11</span><h3>La flottante à colonnes — B3 + filets verticaux</h3></div>
+      <div class="stage">
+        <div class="frame">
+          <div class="flot-zone">
+            <div class="ghost"><span class="gc"></span><span class="g l"></span><span class="g m"></span></div>
+            <div class="flottante">
+              <div class="pilule pilule--col">
+                <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+                <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agenda</a>
+                <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+                <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
+              </div>
+              <span class="loupe loupe--col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></span>
+            </div>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        La barre flottante en verre de B3, mais en <b>rectangle à angles doux</b> plutôt qu'en pilule, découpée en colonnes par des filets marine. L'onglet actif porte un <b>filet orange en tête de colonne</b>, comme un titre de rubrique — plus le fond sable, devenu inutile. Libellés en capitales espacées.
+        <div class="ref"><span><b>iOS 26</b> tab bar flottante + Search tab</span><span><b>Android</b> nav bar flottante</span><span><b>TpT</b> rules de colonnes</span></div>
+      </div>
+    </article>
+
+    <!-- B12 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B12</span><h3>La minimisée à colonnes — B5 + filets verticaux</h3></div>
+      <div class="stage">
+        <span class="etat">Au repos</span>
+        <div class="frame">
+          <div class="flot-zone" style="height:96px">
+            <div class="ghost"><span class="g l"></span><span class="g m"></span></div>
+            <div class="flottante">
+              <div class="pilule pilule--col">
+                <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+                <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agenda</a>
+                <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+                <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
+              </div>
+            </div>
+          </div>
+          <div class="home"></div>
+        </div>
+        <span class="etat">En défilement vers le bas</span>
+        <div class="frame">
+          <div class="flot-zone" style="height:96px">
+            <div class="ghost"><span class="g l"></span><span class="g m"></span><span class="g l"></span></div>
+            <div class="flottante flottante--mini">
+              <div class="pilule pilule--col" style="border-radius:14px !important">
+                <a class="tab on" href="#" style="flex-direction:row;gap:7px;padding:8px 14px;font-size:10px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+              </div>
+            </div>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        Même barre que B11, qui se réduit à l'onglet actif quand on descend dans le fil et se redéploie en remontant. Le filet orange de tête disparaît en mode réduit : la colonne est seule, elle n'a plus rien à séparer.
+        <div class="ref"><span><b>iOS 26</b> tabBarMinimizeBehavior</span><span><b>Android</b> hide-on-scroll</span></div>
+      </div>
+    </article>
+
+    <!-- B13 -->
+    <article class="card">
+      <div class="card-head"><span class="num">B13</span><h3>L'ancrée à colonnes — pleine largeur, filet double</h3></div>
+      <div class="stage">
+        <div class="frame frame--bas">
+          <div class="ghost"><span class="gc"></span><span class="g l"></span></div>
+          <nav class="tabbar tabbar--col">
+            <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+            <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agenda</a>
+            <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
+          </nav>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        La version ancrée, pour qui préfère une barre pleine largeur à une barre flottante : filet double en tête, cinq colonnes égales séparées par des filets, filet orange sur la colonne active. C'est la plus « page de journal » des trois.
+        <div class="ref"><span><b>iOS</b> tab bar standard</span><span><b>Android</b> Navigation bar</span><span><b>TpT</b> filet double + colonnes</span></div>
       </div>
     </article>
 

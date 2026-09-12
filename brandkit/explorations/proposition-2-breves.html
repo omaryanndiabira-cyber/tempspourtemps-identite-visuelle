@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Proposition 2 « Brèves » · accueil, messagerie &amp; fils</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PROPOSITION 2 « BRÈVES »
+   Signature : la brève encadrée. Chaque annonce est une carte à
+   filet de tête coloré par type, avec un chapeau centré entre
+   deux filets. Messages en bulles classiques. Haut à grand titre
+   qui se replie, bas flottant qui se minimise au défilement.
+   ============================================================ */
+:root{
+  --marine:#183e57;--marine-hover:#0f2f44;--orange:#d65e1c;--orange-hover:#b84e17;
+  --sable:#fcdb81;--sable-hover:#f5cb5c;--success:#4a9d5f;--danger:#c44536;--warning:#d97706;
+  --bg-main:#f7f6f3;--bg-secondary:#f3f3f5;--bg-hover:#fdf1d7;
+  --text-secondary:#4b5563;--text-tertiary:#717182;--border:#d6dbe2;--paper:#fffdf6;--ocre:#8a6b1f;
+  --grad-hero:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+  --titres:'Nunito',sans-serif;--corps:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:var(--corps);color:var(--marine);background:#e7e4dc;
+  background-image:radial-gradient(circle at 15% 8%, rgba(252,219,129,.22), transparent 40%),
+                   radial-gradient(circle at 88% 92%, rgba(24,62,87,.10), transparent 45%);
+  min-height:100vh;padding:38px 20px 70px;-webkit-font-smoothing:antialiased;
+}
+.doc-head{max-width:880px;margin:0 auto 30px;text-align:center;}
+.doc-head img{width:58px;height:auto;margin-bottom:12px;}
+.doc-head .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.doc-head h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.5rem,4vw,2.1rem);letter-spacing:-.5px;margin-top:6px;}
+.doc-head p{color:var(--text-secondary);font-size:.92rem;line-height:1.55;margin:12px auto 0;max-width:660px;}
+.doc-head .traits{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px;}
+.doc-head .traits span{font-size:.7rem;font-weight:600;background:#fff;border:1px solid var(--border);border-radius:999px;padding:4px 11px;color:var(--text-secondary);}
+.doc-head .traits b{color:var(--marine);}
+.doc-head .retour{display:inline-block;margin-top:18px;color:var(--marine);font-weight:600;font-size:.86rem;text-decoration:none;}
+
+.planche{display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,max-content));gap:30px 26px;justify-content:center;max-width:846px;margin:0 auto;}
+.ecran{display:flex;flex-direction:column;gap:11px;}
+.ecran figcaption{display:flex;align-items:baseline;gap:9px;}
+.ecran .n{font-family:var(--titres);font-weight:800;font-size:.74rem;background:var(--sable);color:var(--marine);border-radius:7px;padding:2px 8px;flex:none;}
+.ecran h2{font-family:var(--titres);font-weight:800;font-size:.98rem;}
+.ecran .note{font-size:.78rem;color:var(--text-secondary);line-height:1.45;}
+
+.phone{
+  width:390px;height:812px;background:var(--bg-main);border-radius:34px;overflow:hidden;
+  display:flex;flex-direction:column;position:relative;
+  box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
+}
+.phone::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:70;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+.status{height:44px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;font-family:var(--titres);font-weight:800;font-size:15px;color:#fff;background:var(--marine);flex:none;}
+.status--clair{background:var(--bg-main);color:var(--marine);}
+.status .ico{display:flex;align-items:center;gap:5px;}
+.status svg{display:block;height:11px;width:auto;}
+
+.tb{background:var(--marine);color:#fff;display:flex;align-items:center;gap:10px;padding:2px 12px 10px 16px;flex:none;}
+.tb .logo{height:28px;width:auto;display:block;}
+.tb .spacer{flex:1;}
+.tb .titre-inline{font-family:var(--titres);font-weight:800;font-size:15.5px;flex:1;text-align:center;}
+.credit-pill{display:inline-flex;align-items:center;gap:6px;background:var(--sable);color:var(--marine);border-radius:999px;padding:5px 11px 5px 8px;font-family:var(--titres);font-weight:800;font-size:13px;box-shadow:inset 0 -2px 0 rgba(24,62,87,.18);white-space:nowrap;}
+.avatar{width:31px;height:31px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:800;font-size:11px;flex:none;}
+.avatar--me{background:var(--sable);color:var(--marine);border:2px solid rgba(255,255,255,.55);}
+.ibtn{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:inherit;background:transparent;border:0;cursor:pointer;flex:none;}
+.ibtn svg{width:21px;height:21px;}
+.tb--clair{background:var(--bg-main);color:var(--marine);padding:2px 8px 8px 6px;}
+.tb--clair .ibtn:hover{background:rgba(24,62,87,.08);}
+.qui{flex:1;min-width:0;display:flex;align-items:center;gap:9px;}
+.qui .nom{font-family:var(--titres);font-weight:800;font-size:14.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.qui .etat{display:flex;align-items:center;gap:5px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);font-weight:600;margin-top:1px;}
+.qui .etat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--success);}
+.filet-double{border-top:1px solid var(--marine);border-bottom:3px double var(--marine);height:7px;opacity:.62;margin:0 14px;flex:none;}
+
+.entrefilet{margin:9px 14px 0;display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--border);border-radius:11px;padding:8px 10px 8px 12px;position:relative;text-decoration:none;color:inherit;flex:none;}
+.entrefilet::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:3px;background:var(--orange);border-radius:0 3px 3px 0;}
+.entrefilet .t{flex:1;min-width:0;}
+.entrefilet .k{font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-hover);}
+.entrefilet .k span{color:var(--text-tertiary);}
+.entrefilet .s{font-family:var(--titres);font-weight:800;font-size:12.5px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.entrefilet .h{font-family:var(--titres);font-weight:800;font-size:10.5px;background:var(--sable);border-radius:6px;padding:3px 7px;white-space:nowrap;}
+.entrefilet .chev{color:var(--text-tertiary);}
+
+.feed{flex:1;overflow-y:auto;background:var(--grad-hero);scrollbar-width:none;}
+.feed::-webkit-scrollbar{display:none;}
+.feed--fil{padding:6px 14px 0;display:flex;flex-direction:column;gap:8px;}
+.feed--avec-barre{padding-bottom:96px;}
+
+/* ---------- Grand titre (haut expressif) ---------- */
+.grand-titre{padding:12px 18px 0;}
+.grand-titre h1{font-family:var(--titres);font-weight:800;font-size:29px;line-height:1.1;letter-spacing:-.02em;}
+.grand-titre h1 .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+.grand-titre .date{margin-top:5px;font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:600;color:var(--text-secondary);}
+.grand-titre .date b{color:var(--orange-hover);}
+.grand-titre .regle{margin-top:10px;border-top:2px solid var(--marine);border-bottom:1px solid var(--marine);height:5px;opacity:.75;}
+
+.cta-wrap{padding:13px 18px 0;}
+.btn-cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--orange);color:#fff9ec;border:none;border-radius:13px;padding:13px 18px;font-family:var(--titres);font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 3px 0 var(--orange-hover), 0 10px 22px -8px rgba(214,94,28,.55);}
+
+.avis{position:relative;margin:12px 18px 0;background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:11px 32px 11px 13px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+.avis::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;background:var(--sable-hover);border-radius:0 3px 3px 0;}
+.avis .k{display:block;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-hover);margin-bottom:2px;}
+.avis h3{font-family:var(--titres);font-weight:800;font-size:13.5px;line-height:1.3;}
+.avis p{font-size:11.5px;line-height:1.45;color:var(--text-secondary);margin-top:2px;}
+.avis p a{color:var(--orange);font-weight:700;text-decoration:none;white-space:nowrap;}
+.avis .x{position:absolute;top:8px;right:8px;border:0;background:none;cursor:pointer;font-size:14px;line-height:1;color:var(--text-tertiary);padding:2px 4px;}
+
+.rubrique{margin:18px 18px 9px;display:flex;align-items:center;gap:10px;}
+.rubrique .tape{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--sable);padding:5px 12px;transform:rotate(-1.2deg);box-shadow:0 1px 3px rgba(24,62,87,.18);clip-path:polygon(2% 0, 98% 4%, 100% 30%, 99% 68%, 100% 100%, 3% 97%, 0 70%, 1% 26%);}
+.rubrique h2{font-family:var(--titres);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.1em;}
+.badge-compte{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--marine);color:var(--sable);font-family:var(--titres);font-weight:800;font-size:10.5px;}
+.rubrique .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.5;}
+
+.rangee{display:flex;gap:11px;overflow-x:auto;padding:2px 18px 10px;scrollbar-width:none;}
+.rangee::-webkit-scrollbar{display:none;}
+.rangee > *{flex:none;}
+.carte-rdv{width:290px;background:var(--paper);border:1px solid var(--border);border-radius:15px;padding:6px;box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -14px rgba(24,62,87,.30);}
+.carte-rdv .cadre{border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.25);outline-offset:2px;border-radius:10px;padding:12px 13px 11px;background:radial-gradient(circle at 100% 0, rgba(252,219,129,.18), transparent 38%), var(--paper);}
+.carte-rdv .entete{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
+.carte-rdv h3{font-family:var(--titres);font-weight:800;font-size:15px;}
+.badge-admin{background:var(--marine);color:#fff9ec;font-family:var(--titres);font-weight:800;font-size:8.5px;text-transform:uppercase;letter-spacing:.12em;padding:3px 8px;border-radius:4px;}
+.statut{display:inline-flex;align-items:center;gap:6px;color:var(--success);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.statut::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 0 3px rgba(74,157,95,.18);}
+.carte-rdv .quand{text-align:center;border-top:1px dashed var(--border);border-bottom:1px dashed var(--border);padding:8px 4px;margin-bottom:9px;}
+.carte-rdv .date{font-family:var(--titres);font-weight:800;font-size:17px;}
+.carte-rdv .meta{font-size:10.5px;color:var(--text-tertiary);margin-top:2px;}
+.carte-rdv .meta .sep{margin:0 5px;color:var(--orange);}
+.carte-rdv .avec{display:flex;align-items:center;gap:8px;padding-top:8px;border-top:1px dashed var(--border);}
+.avatar--mm{background:#e8eef4;color:var(--marine);border:1.5px solid var(--border);width:27px;height:27px;font-size:9.5px;}
+.carte-rdv .avec .nom{font-size:11.5px;font-weight:600;flex:1;}
+.lien-cal{font-size:10.5px;font-weight:700;color:var(--orange);text-decoration:none;border-bottom:1px dashed var(--orange);white-space:nowrap;}
+
+/* ============================================================
+   LA BRÈVE ENCADRÉE
+   ============================================================ */
+.fil{display:flex;flex-direction:column;gap:12px;padding:2px 18px 8px;}
+.breve{
+  position:relative;background:var(--paper);
+  border:1px solid var(--border);border-top:3px solid var(--marine);border-radius:12px;
+  padding:9px 13px 10px;
+  box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -14px rgba(24,62,87,.28);
+}
+.breve--demande{border-top-color:var(--orange);}
+.breve--proposition{border-top-color:var(--marine);}
+.breve--atelier{border-top-color:var(--sable-hover);}
+.breve--idee{border-top-color:var(--success);}
+.br-chapeau{display:flex;align-items:center;gap:9px;font-family:var(--titres);font-weight:800;font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px;}
+.br-chapeau::before,.br-chapeau::after{content:"";flex:1;height:1px;background:var(--border);}
+.br-chapeau .rubr{font-family:var(--corps);font-weight:600;letter-spacing:.08em;color:var(--text-tertiary);}
+.br-chapeau .rubr::before{content:"· ";}
+.breve--demande .br-chapeau{color:var(--orange-hover);}
+.breve--proposition .br-chapeau{color:var(--marine);}
+.breve--atelier .br-chapeau{color:var(--ocre);}
+.breve--idee .br-chapeau{color:var(--success);}
+.br-titre{font-family:var(--titres);font-weight:800;font-size:15px;line-height:1.25;}
+.br-date{display:flex;align-items:center;gap:7px;margin-top:5px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-tertiary);font-weight:600;}
+.br-date .avatar{width:20px;height:20px;font-size:8px;border:1px solid var(--border);}
+.av-creme{background:var(--bg-hover);color:var(--orange-hover);}
+.av-bleu{background:#e8eef4;color:var(--marine);}
+.av-sable{background:var(--sable);color:var(--marine);}
+.av-vert{background:rgba(74,157,95,.16);color:#36744a;}
+.av-marine{background:var(--marine);color:var(--sable);}
+.br-date b{color:var(--marine);font-weight:700;letter-spacing:.02em;text-transform:none;font-size:11.5px;}
+.br-texte{font-size:12.5px;line-height:1.5;color:var(--text-secondary);margin-top:7px;}
+.br-actions{display:flex;align-items:center;gap:8px;margin-top:9px;padding-top:8px;border-top:1px dashed var(--border);}
+.action{border:1px solid var(--border);background:var(--paper);border-radius:999px;padding:4px 11px;font-family:var(--corps);font-size:11px;font-weight:700;color:var(--marine);cursor:pointer;}
+.action--fort{background:var(--bg-hover);border-color:#f1ddae;color:var(--orange-hover);}
+.br-compteur{margin-left:auto;font-size:10px;color:var(--text-tertiary);font-style:italic;white-space:nowrap;}
+
+/* ---------- Messagerie : brèves de courrier ---------- */
+.champ{display:flex;align-items:center;gap:9px;background:var(--paper);border:1px solid var(--border);border-radius:11px;padding:9px 12px;font-size:13px;color:var(--text-tertiary);margin:12px 18px 0;}
+.champ svg{width:16px;height:16px;flex:none;}
+.chips{display:flex;gap:7px;margin:9px 18px 0;overflow:hidden;}
+.chip{font-size:11px;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--border);background:var(--paper);color:var(--text-secondary);white-space:nowrap;}
+.chip.on{background:var(--marine);border-color:var(--marine);color:#fff;font-weight:700;}
+.chip .n{margin-left:4px;color:var(--orange);font-weight:800;}
+.chip.on .n{color:var(--sable);}
+
+.conv{
+  position:relative;display:flex;gap:10px;background:var(--paper);
+  border:1px solid var(--border);border-left:3px solid var(--border);border-radius:12px;
+  padding:10px 12px 10px 11px;text-decoration:none;color:inherit;
+  box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -16px rgba(24,62,87,.26);
+}
+.conv--demande{border-left-color:var(--orange);}
+.conv--proposition{border-left-color:var(--marine);}
+.conv--atelier{border-left-color:var(--sable-hover);}
+.conv--idee{border-left-color:var(--success);}
+.conv--rdv{border-left-color:var(--success);}
+.conv--tpt{border-left-color:var(--marine);background:#fffaf0;}
+.conv .av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:800;font-size:11.5px;border:1.5px solid var(--border);}
+.conv .corps{flex:1;min-width:0;}
+.conv .l1{display:flex;align-items:baseline;gap:8px;}
+.conv .nom{font-family:var(--titres);font-weight:800;font-size:13.5px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.conv .heure{font-size:10px;color:var(--text-tertiary);white-space:nowrap;}
+.conv.nonlu .heure{color:var(--orange-hover);font-weight:700;}
+.conv .sujet{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.conv .sujet b{color:var(--orange-hover);}
+.conv .sujet.rdv b{color:var(--success);}
+.conv .extrait{font-size:12px;color:var(--text-secondary);line-height:1.4;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.conv .extrait i{font-style:normal;color:var(--text-tertiary);}
+.conv.nonlu .extrait{color:var(--marine);}
+.conv .compte{position:absolute;right:10px;bottom:10px;min-width:19px;height:19px;line-height:19px;border-radius:999px;background:var(--marine);color:var(--sable);font-family:var(--titres);font-weight:800;font-size:10.5px;text-align:center;padding:0 6px;}
+
+/* ---------- Fils : les bulles ---------- */
+.jour{display:flex;align-items:center;gap:10px;margin:8px 0 2px;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-tertiary);}
+.jour::before,.jour::after{content:"";flex:1;height:1px;background:rgba(24,62,87,.22);}
+.msg{display:flex;flex-direction:column;max-width:82%;}
+.msg.eux{align-self:flex-start;}
+.msg.moi{align-self:flex-end;align-items:flex-end;}
+.bulle{padding:9px 12px 8px;font-size:13.5px;line-height:1.45;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+.eux .bulle{background:var(--paper);border:1px solid var(--border);border-radius:4px 14px 14px 14px;}
+.moi .bulle{background:var(--marine);color:#fff9ec;border-radius:14px 4px 14px 14px;}
+.moi .bulle b{color:var(--sable);font-weight:700;}
+.msg .h{font-size:9.5px;color:var(--text-tertiary);margin:3px 4px 0;}
+.moi .h .vu{color:var(--success);font-weight:600;}
+.systeme{align-self:center;text-align:center;font-size:10.5px;font-style:italic;color:var(--text-secondary);background:rgba(255,253,246,.7);border:1px dashed var(--border);border-radius:999px;padding:4px 12px;margin:2px 0;}
+.systeme b{font-style:normal;color:var(--orange-hover);}
+
+.fp{align-self:stretch;background:var(--paper);border:1px solid var(--border);border-radius:15px;padding:6px;margin:2px 0;box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -14px rgba(24,62,87,.30);}
+.fp .cadre{border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.25);outline-offset:2px;border-radius:10px;padding:11px 13px;background:radial-gradient(circle at 100% 0, rgba(252,219,129,.18), transparent 38%), var(--paper);text-align:center;}
+.fp .genre{font-size:8.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-secondary);}
+.fp h3{font-family:var(--titres);font-weight:800;font-size:14.5px;margin-top:4px;}
+.fp .quand{border-top:1px dashed var(--border);border-bottom:1px dashed var(--border);padding:7px 4px;margin:8px 0;}
+.fp .date{font-family:var(--titres);font-weight:800;font-size:17px;}
+.fp .meta{font-size:10.5px;color:var(--text-tertiary);margin-top:2px;}
+.fp .meta .sep{margin:0 5px;color:var(--orange);}
+.fp .lieu{font-size:11.5px;color:var(--text-secondary);}
+.fp .actions{display:flex;gap:8px;margin-top:10px;}
+.fp .btn{flex:1;border:0;border-radius:10px;padding:9px 8px;font-family:var(--titres);font-weight:800;font-size:12.5px;cursor:pointer;}
+.fp .btn--ok{background:var(--orange);color:#fff9ec;box-shadow:0 2px 0 var(--orange-hover);}
+.fp .btn--autre{background:var(--paper);color:var(--marine);border:1px solid var(--border);}
+.fp .attente{margin-top:7px;font-size:10px;font-style:italic;color:var(--text-tertiary);}
+
+.bas{flex:none;background:var(--paper);border-top:1px solid var(--border);box-shadow:0 -6px 18px -10px rgba(24,62,87,.25);}
+.bas--annonce{border-top:3px double rgba(24,62,87,.5);}
+.rapides{display:flex;gap:7px;padding:8px 10px 0;overflow:hidden;}
+.rapide{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--marine);background:var(--bg-hover);border:1px solid #f1ddae;border-radius:999px;padding:5px 10px;white-space:nowrap;}
+.rapide svg{width:12px;height:12px;color:var(--orange);}
+.composer{display:flex;align-items:center;gap:8px;padding:8px 10px 14px 6px;}
+.composer .ibtn{color:var(--marine);}
+.composer .zone{flex:1;display:flex;align-items:center;background:var(--bg-main);border:1px solid var(--border);border-radius:999px;padding:9px 14px;font-size:13px;color:var(--text-tertiary);}
+.send{width:39px;height:39px;border-radius:50%;background:var(--marine);color:var(--sable);border:0;display:flex;align-items:center;justify-content:center;flex:none;}
+.send svg{width:17px;height:17px;}
+
+/* ---------- Bas : flottante à colonnes, qui se minimise ---------- */
+.barre-bas{position:absolute;left:14px;right:14px;bottom:24px;display:flex;gap:8px;z-index:50;}
+.barre-bas--mini{right:auto;}
+.pilule{
+  flex:1;display:flex;align-items:stretch;overflow:hidden;
+  background:rgba(255,253,246,.84);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
+  border:1px solid rgba(255,255,255,.75);border-radius:16px;
+  box-shadow:0 10px 26px -10px rgba(24,62,87,.45), inset 0 1px 0 rgba(255,255,255,.85);
+}
+.pilule .tab{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px 8px;font-size:8.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary);text-decoration:none;position:relative;}
+.pilule .tab + .tab{border-left:1px solid rgba(24,62,87,.24);}
+.pilule .tab svg{width:21px;height:21px;}
+.pilule .tab.on{color:var(--orange-hover);}
+.pilule .tab.on::before{content:"";position:absolute;top:0;left:20%;right:20%;height:3px;background:var(--orange);border-radius:0 0 3px 3px;}
+.pilule .tab .badge{position:absolute;top:4px;right:12px;min-width:15px;height:15px;line-height:15px;border-radius:999px;background:var(--orange);color:#fff;font-size:9px;font-weight:800;text-align:center;padding:0 4px;}
+.pilule--mini{flex:none;border-radius:14px;}
+.pilule--mini .tab{flex-direction:row;gap:7px;padding:9px 15px;font-size:10px;}
+.pilule--mini .tab.on::before{display:none;}
+.loupe{width:48px;border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center;color:var(--marine);
+  background:rgba(255,253,246,.84);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.75);box-shadow:0 10px 26px -10px rgba(24,62,87,.45);}
+.loupe svg{width:21px;height:21px;}
+.home{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:118px;height:4px;border-radius:999px;background:var(--marine);opacity:.28;z-index:55;}
+
+footer{margin-top:52px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.6;}
+footer a{color:var(--marine);font-weight:600;}
+@media (max-width:460px){ body{padding:20px 8px 50px;} .phone{width:100%;} }
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Proposition 2</p>
+  <h1>« Brèves » — le journal en encadrés</h1>
+  <p>Chaque annonce est une <b>brève</b> : filet de tête coloré selon le type, chapeau centré entre deux filets, titre, ligne de date avec médaillon. Le courrier reprend le même filet coloré, cette fois à gauche. Messages en bulles classiques, pour rester familier. Le haut porte un <b>grand titre</b> qui se replie ; le bas flotte en colonnes et <b>se minimise</b> quand on descend.</p>
+  <div class="traits">
+    <span><b>Posts</b> brèves encadrées</span>
+    <span><b>Messages</b> bulles</span>
+    <span><b>Bas</b> minimisée à colonnes (B12)</span>
+    <span><b>Haut</b> grand titre repliable</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ==================== 1 · ACCUEIL ==================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>Accueil</h2></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <section class="grand-titre">
+          <h1>Le quartier <span class="souligne">a besoin de vous.</span></h1>
+          <p class="date">Mercredi 10 juin · <b>34 annonces</b> · 4 rendez-vous</p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="cta-wrap"><button class="btn-cta" type="button"><span>✍︎</span> Publier une annonce</button></div>
+
+        <section class="avis">
+          <button class="x" type="button" aria-label="Masquer">×</button>
+          <span class="k">Communiqué · 1/2</span>
+          <h3>Les ateliers de quartier arrivent</h3>
+          <p>Proposez un atelier à plusieurs voisins. <a href="#">Découvrir →</a></p>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Rendez-vous</h2><span class="badge-compte">4</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="rangee">
+          <article class="carte-rdv"><div class="cadre">
+            <div class="entete"><h3>Rencontre physique</h3><span class="badge-admin">Admin</span></div>
+            <div class="statut">RDV confirmé</div>
+            <div class="quand"><div class="date">11 juin 2026</div><div class="meta">12:30<span class="sep">·</span>durée 15 min</div></div>
+            <div class="avec"><span class="avatar avatar--mm">MM</span><span class="nom">Marie Morel</span><a class="lien-cal" href="#">+ Calendrier</a></div>
+          </div></article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="fil">
+          <article class="breve breve--demande">
+            <div class="br-chapeau"><span>Demande</span><span class="rubr">Bricolage</span></div>
+            <h3 class="br-titre">Une étagère à monter samedi matin</h3>
+            <div class="br-date"><span class="avatar av-creme">AN</span><b>Alice Noël</b><span>Centre · il y a 2 h</span></div>
+            <p class="br-texte">Une petite heure suffit, je fournis les outils (et le café). Quelqu’un dans le coin ?</p>
+            <div class="br-actions"><button class="action action--fort">🤝 Je peux aider</button><button class="action">Répondre</button><span class="br-compteur">2 réponses</span></div>
+          </article>
+          <article class="breve breve--proposition">
+            <div class="br-chapeau"><span>Proposition</span><span class="rubr">Cours</span></div>
+            <h3 class="br-titre">Espagnol conversationnel, tous niveaux</h3>
+            <div class="br-date"><span class="avatar av-bleu">ML</span><b>Marta Lopez</b><span>Baugerie · il y a 5 h</span></div>
+            <p class="br-texte">Native, patiente, chez moi ou en visio. 1 h de cours contre 1 h de votre temps.</p>
+            <div class="br-actions"><button class="action action--fort">✋ Ça m’intéresse</button><button class="action">Répondre</button><span class="br-compteur">5 intéressés</span></div>
+          </article>
+          <article class="breve breve--atelier">
+            <div class="br-chapeau"><span>Atelier</span><span class="rubr">Vélo</span></div>
+            <h3 class="br-titre">Réparation vélo, dimanche 10 h</h3>
+            <div class="br-date"><span class="avatar av-sable">PB</span><b>Pierre Blanchard</b><span>Vieux Bourg · hier</span></div>
+            <p class="br-texte">Au local associatif. Amenez votre monture, on regarde freins et dérailleurs ensemble.</p>
+            <div class="br-actions"><button class="action action--fort">🔧 Je m’inscris</button><button class="action">Répondre</button><span class="br-compteur">3/5</span></div>
+          </article>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agenda</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
+        </div>
+        <span class="loupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></span>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Grand titre en tête de page, puis le fil en brèves : le filet supérieur porte la couleur du type, le chapeau annonce la rubrique entre deux filets. Barre du bas déployée, au repos.</p>
+  </figure>
+
+  <!-- ==================== 2 · MESSAGERIE ==================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>Messagerie — barre minimisée</h2></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="">
+        <span class="titre-inline">Le courrier</span>
+        <button class="ibtn" aria-label="Nouveau message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="champ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher un voisin, une annonce…</div>
+        <div class="chips"><span class="chip on">Tous</span><span class="chip">Non lus<span class="n">3</span></span><span class="chip">Annonces</span><span class="chip">Rendez-vous</span></div>
+
+        <div class="rubrique"><span class="tape"><h2>Non lus</h2><span class="badge-compte">3</span></span><span class="filet"></span></div>
+        <div class="fil">
+          <a class="conv conv--demande nonlu" href="#">
+            <span class="av av-creme">AN</span>
+            <div class="corps">
+              <div class="l1"><span class="nom">Alice Noël</span><span class="heure">14:02</span></div>
+              <div class="sujet"><b>Demande</b> · Une étagère à monter samedi</div>
+              <p class="extrait">Super, samedi 10 h ça vous irait ? J'ai la perceuse et les chevilles.</p>
+            </div>
+            <span class="compte">2</span>
+          </a>
+          <a class="conv conv--rdv nonlu" href="#">
+            <span class="av av-vert">MM</span>
+            <div class="corps">
+              <div class="l1"><span class="nom">Marie Morel</span><span class="heure">11:47</span></div>
+              <div class="sujet rdv"><b>Rendez-vous</b> · Jeudi 11 juin, 12:30</div>
+              <p class="extrait">Je vous confirme pour demain midi. Sonnez deux coups, je suis au premier.</p>
+            </div>
+            <span class="compte">1</span>
+          </a>
+          <a class="conv conv--atelier nonlu" href="#">
+            <span class="av av-sable">PB</span>
+            <div class="corps">
+              <div class="l1"><span class="nom">Pierre Blanchard</span><span class="heure">Hier</span></div>
+              <div class="sujet"><b>Atelier</b> · Réparation vélo, dimanche</div>
+              <p class="extrait">Il reste deux places dimanche. Vous venez avec votre vélo ?</p>
+            </div>
+            <span class="compte">1</span>
+          </a>
+        </div>
+
+        <div class="rubrique"><span class="tape"><h2>Plus tôt</h2></span><span class="filet"></span></div>
+        <div class="fil">
+          <a class="conv conv--proposition" href="#">
+            <span class="av av-bleu">ML</span>
+            <div class="corps">
+              <div class="l1"><span class="nom">Marta Lopez</span><span class="heure">Lun.</span></div>
+              <div class="sujet"><b>Proposition</b> · Espagnol conversationnel</div>
+              <p class="extrait"><i>Vous :</i> Merci pour la première leçon ! Je vous ai crédité 1 h.</p>
+            </div>
+          </a>
+          <a class="conv conv--tpt" href="#">
+            <span class="av av-marine">tpt</span>
+            <div class="corps">
+              <div class="l1"><span class="nom">L'équipe TempsPourTemps</span><span class="heure">5 juin</span></div>
+              <div class="sujet"><b>Communiqué</b> · Les ateliers arrivent</div>
+              <p class="extrait">Bonjour Omar, vous pouvez désormais proposer un atelier à plusieurs voisins…</p>
+            </div>
+          </a>
+          <a class="conv conv--idee" href="#">
+            <span class="av av-vert">MM</span>
+            <div class="corps">
+              <div class="l1"><span class="nom">Café des voisins · 12 partants</span><span class="heure">3 juin</span></div>
+              <div class="sujet"><b>Idée</b> · Un café des voisins au square ?</div>
+              <p class="extrait"><i>Lucie :</i> Je ramène les gobelets et un thermos.</p>
+            </div>
+          </a>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Chaque conversation est une brève à filet gauche coloré par le type de l'échange. On a descendu la liste : la barre du bas s'est réduite à l'onglet actif et rend l'écran au contenu.</p>
+  </figure>
+
+  <!-- ==================== 3 · FIL OUVERT ==================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Fil ouvert — conversation simple</h2></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <div class="qui">
+          <span class="avatar av-vert">MM</span>
+          <div><div class="nom">Marie Morel</div><div class="etat">En ligne · Centre</div></div>
+        </div>
+        <button class="ibtn" aria-label="Profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+        <button class="ibtn" aria-label="Options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed feed--fil">
+        <div class="jour">Lundi 8 juin</div>
+        <div class="msg eux"><div class="bulle">Bonsoir Omar ! Je vous ai croisé au marché ce matin mais vous étiez pressé 🙂</div><span class="h">18:12</span></div>
+        <div class="msg moi"><div class="bulle">Bonsoir Marie ! Oui, je courais après le fromager avant la fermeture. Tout va bien chez vous ?</div><span class="h">18:30 · <span class="vu">Lu</span></span></div>
+        <div class="msg eux"><div class="bulle">Très bien ! Je voulais surtout vous remercier pour le coup de main avec les cartons le mois dernier. Sans vous j'y serais encore.</div><span class="h">18:41</span></div>
+
+        <div class="systeme">Marie vous a crédité <b>2 h</b></div>
+
+        <div class="jour">Aujourd'hui</div>
+        <div class="msg moi"><div class="bulle">C'était avec plaisir. Et si un jour vous avez besoin de bras pour le jardin, vous savez où me trouver.</div><span class="h">09:05 · <span class="vu">Lu</span></span></div>
+        <div class="msg eux"><div class="bulle">Justement… les rosiers auraient bien besoin d'une taille. Mais je ne veux pas abuser !</div><span class="h">11:47</span></div>
+        <div class="msg eux"><div class="bulle">Vous me direz si vous avez une heure devant vous un de ces week-ends.</div><span class="h">11:48</span></div>
+      </main>
+
+      <div class="bas">
+        <div class="composer">
+          <button class="ibtn" aria-label="Joindre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="zone">Écrire à Marie…</div>
+          <button class="send" aria-label="Envoyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Conversation de voisinage sans annonce rattachée : barre claire avec la personne seule, filet double, puis des bulles — papier bordé pour elle, marine plein pour vous.</p>
+  </figure>
+
+  <!-- ==================== 4 · FIL LIÉ À UNE ANNONCE ==================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">4</span><h2>Fil ouvert — lié à une annonce</h2></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <div class="qui">
+          <span class="avatar av-creme">AN</span>
+          <div><div class="nom">Alice Noël</div><div class="etat">En ligne · Centre</div></div>
+        </div>
+        <button class="ibtn" aria-label="Options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+      </div>
+      <div class="filet-double"></div>
+      <a class="entrefilet" href="#">
+        <div class="t">
+          <div class="k">Annonce <span>· n° 1042 · Demande</span></div>
+          <div class="s">Une étagère à monter samedi matin</div>
+        </div>
+        <span class="h">1 h</span>
+        <span class="chev">›</span>
+      </a>
+
+      <main class="feed feed--fil">
+        <div class="jour">Mardi 9 juin</div>
+        <div class="msg eux"><div class="bulle">Bonjour Omar, merci d'avoir répondu à mon annonce. Vous êtes bricoleur ?</div><span class="h">14:02</span></div>
+        <div class="msg moi"><div class="bulle">Bonjour Alice ! Disons que je sais tenir une perceuse droite 🙂 Samedi matin, ça me va très bien.</div><span class="h">14:10 · <span class="vu">Lu</span></span></div>
+
+        <div class="systeme">Vous avez proposé <b>1 h</b> pour cette annonce</div>
+
+        <div class="jour">Aujourd'hui</div>
+        <article class="fp" aria-label="Proposition de rendez-vous">
+          <div class="cadre">
+            <p class="genre">Proposition de rendez-vous</p>
+            <h3>Montage de l'étagère</h3>
+            <div class="quand"><div class="date">Samedi 14 juin</div><div class="meta">10:00<span class="sep">·</span>durée 1 h<span class="sep">·</span>chez Alice</div></div>
+            <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+            <div class="actions">
+              <button class="btn btn--ok" type="button">Accepter</button>
+              <button class="btn btn--autre" type="button">Autre créneau</button>
+            </div>
+            <p class="attente">Proposé par Alice à 09:31</p>
+          </div>
+        </article>
+
+        <div class="msg eux"><div class="bulle">Si ça vous va, je prépare le café ☕ Et prenez un niveau à bulle, le mien a disparu…</div><span class="h">09:48</span></div>
+      </main>
+
+      <div class="bas bas--annonce">
+        <div class="rapides">
+          <span class="rapide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Autre créneau</span>
+          <span class="rapide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Mon adresse</span>
+          <span class="rapide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Créditer 1 h</span>
+        </div>
+        <div class="composer">
+          <button class="ibtn" aria-label="Joindre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="zone">Écrire à Alice…</div>
+          <button class="send" aria-label="Envoyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">L'annonce s'invite sous la barre en entrefilet à filet orange, et le faire-part de rendez-vous s'intercale entre les bulles. Le composer gagne une rangée d'actions propres à l'échange.</p>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Proposition 2 sur 3 · Personnes et annonces fictives.<br>
+  <a href="../../index.html">Galerie</a> · <a href="barres-gazette.html">Document des barres</a>
+</footer>
+</body>
+</html>
