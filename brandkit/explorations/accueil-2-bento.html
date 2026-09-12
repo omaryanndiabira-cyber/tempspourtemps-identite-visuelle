@@ -288,6 +288,49 @@
   .cta:active{transform:scale(.985);}
   .cta svg{display:block;}
 
+  /* ============ ZONE RELATIONNELLE — tuile annonce ============ */
+  .avis{
+    position:relative;
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    background:linear-gradient(135deg,#fff6dc 0%, #fffdf6 62%);
+    border:1px solid #f2ddad;
+    border-radius:var(--r-lg);
+    padding:14px 42px 14px 14px;
+    box-shadow:var(--shadow-soft);
+    margin-bottom:24px;
+  }
+  .avis .ico{
+    flex:none;width:38px;height:38px;border-radius:12px;
+    background:var(--sable);color:var(--marine);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .avis .ico svg{display:block;}
+  .avis .txt{min-width:0;}
+  .avis .kicker{
+    display:block;
+    font-family:var(--font-title);font-weight:800;font-size:10px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--orange-hover);
+    margin-bottom:2px;
+  }
+  .avis h3{
+    font-family:var(--font-title);font-weight:800;font-size:14.5px;line-height:1.25;color:var(--marine);
+  }
+  .avis p{font-size:12px;color:var(--text-secondary);line-height:1.45;margin-top:3px;}
+  .avis .lien{
+    display:inline-block;margin-top:8px;
+    font-size:12px;font-weight:700;color:var(--orange);text-decoration:none;
+  }
+  .avis .lien:hover{color:var(--orange-hover);}
+  .avis .fermer{
+    position:absolute;top:10px;right:10px;
+    width:24px;height:24px;border-radius:50%;
+    border:0;background:rgba(24,62,87,.06);color:var(--text-tertiary);
+    font-size:14px;line-height:1;cursor:pointer;
+  }
+  .avis .fermer:hover{background:rgba(24,62,87,.12);color:var(--marine);}
+
   /* ============ SECTION HEADERS ============ */
   .section-head{
     display:flex;
@@ -683,6 +726,20 @@
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         Publier une annonce
       </button>
+
+      <!-- ===== ZONE RELATIONNELLE ===== -->
+      <section class="avis" aria-label="Annonce de TempsPourTemps">
+        <button class="fermer" type="button" aria-label="Masquer cette annonce">×</button>
+        <span class="ico">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2.5L12 18V6L6.5 10H4a1 1 0 0 0-1 1Z"/><path d="M16 9.5a4 4 0 0 1 0 5"/><path d="M19 7a8 8 0 0 1 0 10"/></svg>
+        </span>
+        <div class="txt">
+          <span class="kicker">Nouveau · 1/2</span>
+          <h3>Les ateliers de quartier arrivent</h3>
+          <p>Proposez un atelier à plusieurs voisins et suivez les inscriptions depuis votre fil.</p>
+          <a class="lien" href="#">Découvrir →</a>
+        </div>
+      </section>
 
       <!-- ===== RENDEZ-VOUS À VENIR ===== -->
       <div class="section-head">

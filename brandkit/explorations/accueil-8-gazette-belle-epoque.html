@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · Gazette V2 « Belle Époque » (réclames letterpress)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Rye&family=Inter:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TempsPourTemps — Accueil · Gazette V2 « Belle Époque »
+     Axe : journal 1890, réclames letterpress, filets doubles,
+     faire-part gravés, cachets de cire, lettrines.
+     ============================================================ */
+  :root{
+    --marine:#183e57;
+    --marine-hover:#0f2f44;
+    --orange:#d65e1c;
+    --orange-hover:#b84e17;
+    --sable:#fcdb81;
+    --sable-hover:#f5cb5c;
+    --success:#4a9d5f;
+    --danger:#c44536;
+    --text-secondary:#4b5563;
+    --text-tertiary:#717182;
+    --papier:#f3ecdb;
+    --papier-fonce:#e9dfc6;
+    --papier-clair:#faf5e8;
+    --encre:var(--marine);
+    --filet:rgba(24,62,87,.6);
+    --filet-leger:rgba(24,62,87,.3);
+    --bl:'UnifrakturCook',cursive;
+    --titre:'Playfair Display','Times New Roman',serif;
+    --labeur:'Old Standard TT',Georgia,serif;
+    --bois:'Rye','Playfair Display',serif;
+    --inter:'Inter',sans-serif;
+    --radius-app:34px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--labeur);
+    background:#cfc6b2;
+    background-image:
+      radial-gradient(circle at 18% 12%, rgba(252,219,129,.18), transparent 42%),
+      radial-gradient(circle at 84% 88%, rgba(24,62,87,.12), transparent 46%);
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;padding:32px 16px;
+    color:var(--encre);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Cadre téléphone ---------- */
+  .phone{
+    width:390px;max-width:100%;
+    height:min(844px, calc(100vh - 48px));min-height:640px;
+    background:var(--papier);
+    border-radius:var(--radius-app);
+    box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
+    overflow:hidden;display:flex;flex-direction:column;position:relative;
+  }
+  .phone::after{ /* grain papier */
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:60;opacity:.07;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Barre du haut ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:40;
+    background:var(--marine);
+    background-image:radial-gradient(circle at 2px 2px, rgba(252,219,129,.08) 1px, transparent 1.5px);
+    background-size:8px 8px;
+    padding:12px 16px 10px;display:flex;align-items:center;gap:12px;
+    border-bottom:3px double rgba(252,219,129,.55);
+  }
+  .topbar .logo{height:32px;width:auto;display:block;}
+  .topbar .spacer{flex:1;}
+  .credit-pill{
+    display:inline-flex;align-items:baseline;gap:5px;
+    background:var(--sable);color:var(--marine);
+    border:1px solid var(--marine);outline:1px solid var(--sable);outline-offset:-3px;
+    padding:5px 11px;
+    font-family:var(--titre);font-weight:900;font-size:14px;letter-spacing:.02em;
+    font-variant-numeric:tabular-nums;white-space:nowrap;
+  }
+  .credit-pill small{font-family:var(--labeur);font-style:italic;font-weight:400;font-size:10px;letter-spacing:0;}
+  .avatar{
+    width:34px;height:34px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--titre);font-weight:700;font-size:12px;flex:none;
+  }
+  .avatar--me{background:var(--sable);color:var(--marine);border:1px solid var(--marine);box-shadow:0 0 0 2px var(--sable);}
+
+  /* ---------- Oreilles ---------- */
+  .chapeau{
+    background:var(--papier-clair);
+    border-bottom:1px solid var(--filet);
+    padding:5px 14px;
+    display:flex;justify-content:space-between;align-items:center;gap:8px;
+    font-family:var(--titre);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+    z-index:35;
+  }
+  .chapeau .prix{font-family:var(--labeur);font-style:italic;text-transform:none;letter-spacing:.02em;font-size:10.5px;}
+  .chapeau .prix b{color:var(--orange-hover);font-style:normal;}
+
+  /* ---------- Zone scrollable ---------- */
+  .feed{
+    flex:1;overflow-y:auto;scrollbar-width:none;
+    background:
+      radial-gradient(ellipse 200px 140px at 92% 6%, rgba(214,94,28,.06), transparent 70%),
+      radial-gradient(ellipse 220px 180px at 6% 94%, rgba(190,150,60,.10), transparent 70%),
+      var(--papier);
+  }
+  .feed::-webkit-scrollbar{display:none;}
+
+  /* ---------- Filets & ornements ---------- */
+  .filet-double{border-top:1px solid var(--filet);border-bottom:3px double var(--filet);height:7px;}
+  .ornement{
+    text-align:center;font-size:12px;letter-spacing:.6em;color:var(--encre);
+    margin:6px 0;user-select:none;
+  }
+  .ornement::before{content:"❦ ✦ ❦";}
+
+  /* ---------- Masthead ---------- */
+  .masthead{padding:14px 16px 0;text-align:center;}
+  .masthead .edition{
+    display:flex;justify-content:space-between;
+    border-top:1px solid var(--filet);border-bottom:1px solid var(--filet);
+    padding:3px 2px;
+    font-family:var(--titre);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--text-secondary);
+  }
+  .masthead h1{
+    font-family:var(--bl);font-weight:700;font-size:40px;line-height:1;
+    margin:12px 0 4px;color:var(--encre);
+    text-shadow:1px 1px 0 rgba(214,94,28,.2);
+  }
+  .masthead .sous-titre{
+    font-family:var(--titre);font-style:italic;font-size:11.5px;color:var(--text-secondary);
+  }
+  .masthead .sous-titre b{font-style:normal;letter-spacing:.05em;color:var(--encre);}
+  .masthead .tagline{
+    margin-top:8px;border-top:1px solid var(--filet);border-bottom:1px solid var(--filet);
+    padding:4px 0;font-family:var(--titre);font-weight:700;font-size:10px;
+    letter-spacing:.3em;text-transform:uppercase;
+  }
+  .masthead .tagline .tiret{color:var(--orange);}
+
+  /* ---------- Manchette du jour ---------- */
+  .manchette{padding:14px 18px 4px;text-align:center;}
+  .manchette .surtitre{
+    font-family:var(--titre);font-size:9.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--orange-hover);margin-bottom:6px;
+  }
+  .manchette h2{
+    font-family:var(--titre);font-weight:900;font-size:26px;line-height:1.08;letter-spacing:-.005em;
+  }
+  .manchette h2 .souligne{
+    background-image:linear-gradient(transparent 66%, var(--sable) 66%, var(--sable) 94%, transparent 94%);
+  }
+  .manchette p{
+    font-style:italic;font-size:12.5px;color:var(--text-secondary);margin-top:6px;
+  }
+
+  /* ---------- CTA letterpress ---------- */
+  .cta-wrap{padding:14px 18px 6px;}
+  .btn-cta{
+    display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    background:var(--orange);color:var(--papier-clair);
+    border:1px solid var(--orange-hover);
+    outline:1px solid var(--papier-clair);outline-offset:-4px;
+    padding:13px 16px;
+    font-family:var(--titre);font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+    cursor:pointer;
+    box-shadow:0 3px 0 var(--orange-hover),0 8px 18px -8px rgba(214,94,28,.55);
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .btn-cta:hover{background:var(--orange-hover);}
+  .btn-cta:active{transform:translateY(2px);box-shadow:0 1px 0 var(--orange-hover);}
+  .btn-cta .plume{font-family:var(--labeur);font-size:16px;letter-spacing:0;}
+
+  /* ---------- Zone relationnelle : communiqué de la rédaction ---------- */
+  .avis{
+    position:relative;margin:16px 16px 0;
+    background:var(--papier-clair);
+    border:1px solid var(--encre);
+    outline:3px double var(--filet);outline-offset:3px;
+    padding:11px 32px 12px;text-align:center;
+  }
+  .avis .genre{
+    display:block;
+    font-family:var(--titre);font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--text-secondary);
+  }
+  .avis .genre::before{content:"❦ ";letter-spacing:.2em;color:var(--orange);}
+  .avis .genre::after{content:" ❦";letter-spacing:.2em;color:var(--orange);}
+  .avis h3{
+    font-family:var(--titre);font-weight:900;font-size:15.5px;line-height:1.15;
+    margin:6px 0 4px;
+  }
+  .avis p{font-style:italic;font-size:11.5px;line-height:1.4;color:var(--text-secondary);}
+  .avis .lien{
+    display:inline-block;margin-top:8px;
+    font-family:var(--titre);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-hover);text-decoration:none;border-bottom:1px solid var(--orange);
+  }
+  .avis .fermer{
+    position:absolute;top:4px;right:6px;
+    border:0;background:none;cursor:pointer;line-height:1;
+    font-size:14px;color:var(--text-tertiary);padding:2px 5px;
+  }
+  .avis .fermer:hover{color:var(--encre);}
+
+  /* ---------- Têtes de rubrique ---------- */
+  .rubrique{margin:22px 16px 10px;}
+  #fil{scroll-margin-top:8px;}
+  .tete-rubrique{
+    text-align:center;
+    border-top:3px double var(--filet);border-bottom:1px solid var(--filet);
+    padding:6px 0 5px;
+    font-family:var(--titre);font-weight:900;font-size:14px;letter-spacing:.22em;text-transform:uppercase;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+  }
+  .tete-rubrique .compte{
+    font-family:var(--labeur);font-weight:400;font-size:11px;letter-spacing:0;
+    color:var(--orange-hover);font-style:italic;text-transform:none;
+  }
+  .sous-rubrique{
+    text-align:center;font-style:italic;font-size:11px;color:var(--text-secondary);
+    border-bottom:1px solid var(--filet-leger);padding:3px 0 4px;
+    display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .filtre{
+    font-family:var(--titre);font-style:normal;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+    background:transparent;border:1px solid var(--filet);padding:2px 8px;color:var(--encre);cursor:pointer;
+  }
+  .filtre:hover{background:var(--sable);}
+
+  /* ---------- Rangée scrollable ---------- */
+  .rangee{
+    display:flex;gap:12px;overflow-x:auto;padding:6px 16px 14px;
+    scroll-snap-type:x proximity;scroll-padding-left:16px;scrollbar-width:none;
+  }
+  .rangee::-webkit-scrollbar{display:none;}
+  .rangee > *{scroll-snap-align:start;flex:none;}
+
+  /* ---------- Faire-part de rendez-vous ---------- */
+  .faire-part{
+    width:300px;
+    background:var(--papier-clair);
+    border:1px solid var(--encre);
+    outline:3px double var(--filet);outline-offset:3px;
+    padding:20px 16px 12px;position:relative;text-align:center;
+    margin:4px;
+    box-shadow:0 1px 2px rgba(35,28,12,.15),0 10px 24px -14px rgba(35,28,12,.4);
+  }
+  .faire-part .coin{position:absolute;font-size:11px;color:var(--orange-hover);line-height:1;}
+  .faire-part .coin.hg{top:4px;left:6px;} .faire-part .coin.hd{top:4px;right:6px;}
+  .faire-part .coin.bg{bottom:4px;left:6px;} .faire-part .coin.bd{bottom:4px;right:6px;}
+  .faire-part .genre{
+    font-family:var(--titre);font-size:8.5px;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--text-secondary);
+  }
+  .faire-part .formule{
+    font-style:italic;font-size:11px;color:var(--text-secondary);margin-top:5px;line-height:1.35;
+  }
+  .faire-part h3{
+    font-family:var(--titre);font-weight:900;font-size:19px;line-height:1.1;margin:4px 0 8px;
+  }
+  .faire-part .date-bloc{
+    border-top:1px solid var(--filet);border-bottom:1px solid var(--filet);
+    padding:7px 0 6px;margin-bottom:8px;
+  }
+  .faire-part .date{
+    font-family:var(--titre);font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase;
+  }
+  .faire-part .heure{
+    font-family:var(--titre);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;margin-top:2px;
+  }
+  .faire-part .heure .sep{color:var(--orange);margin:0 6px;}
+  .faire-part .lieu{
+    font-size:12px;line-height:1.4;
+  }
+  .faire-part .lieu b{font-family:var(--titre);font-weight:700;font-style:normal;}
+  .faire-part .avec{
+    margin-top:8px;padding-top:7px;border-top:1px dotted var(--filet-leger);
+    font-style:italic;font-size:11.5px;color:var(--text-secondary);
+  }
+  .faire-part .avec b{font-style:normal;font-family:var(--titre);color:var(--encre);}
+  .faire-part .lien-cal{
+    display:inline-block;margin-top:8px;
+    font-family:var(--titre);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-hover);text-decoration:none;border-bottom:1px solid var(--orange);
+  }
+  .badge-admin{
+    position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+    background:var(--marine);color:var(--sable);
+    font-family:var(--titre);font-size:8px;letter-spacing:.24em;text-transform:uppercase;
+    padding:2px 9px;
+  }
+  /* cachet « confirmé » */
+  .cachet{
+    position:absolute;right:-6px;bottom:6px;
+    width:64px;height:64px;border-radius:50%;
+    border:2px solid var(--success);
+    box-shadow:inset 0 0 0 3px var(--papier-clair), inset 0 0 0 4px var(--success);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-family:var(--titre);font-weight:900;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;
+    line-height:1.15;color:var(--success);
+    transform:rotate(-14deg);opacity:.85;
+    background:rgba(74,157,95,.06);
+  }
+  .cachet.attente{color:var(--orange-hover);border-color:var(--orange-hover);box-shadow:inset 0 0 0 3px var(--papier-clair), inset 0 0 0 4px var(--orange-hover);background:rgba(214,94,28,.06);}
+  .faire-part--apercu{width:210px;}
+
+  /* ---------- Réclames (posts) ---------- */
+  .fil{display:flex;flex-direction:column;gap:14px;padding:6px 16px 14px;}
+  .reclame{
+    background:var(--papier-clair);
+    border:1px solid var(--encre);
+    padding:0 0 10px;position:relative;
+    box-shadow:0 1px 2px rgba(35,28,12,.12),0 8px 22px -14px rgba(35,28,12,.35);
+  }
+  .reclame::before{ /* second filet intérieur */
+    content:"";position:absolute;inset:3px;border:1px solid var(--filet-leger);pointer-events:none;
+  }
+  .reclame .ref{
+    position:absolute;top:8px;right:10px;
+    font-family:var(--titre);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);
+  }
+  .bandeau-type{
+    margin:10px auto 0;width:max-content;max-width:80%;
+    font-family:var(--bois);font-size:14px;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 14px 2px;line-height:1.3;
+    border:1px solid var(--encre);
+    position:relative;
+  }
+  .bandeau-type::before,.bandeau-type::after{
+    content:"◆";position:absolute;top:50%;transform:translateY(-50%);font-size:8px;
+  }
+  .bandeau-type::before{left:-14px;} .bandeau-type::after{right:-14px;}
+  .bandeau-type--demande{background:var(--orange);color:var(--papier-clair);border-color:var(--orange-hover);}
+  .bandeau-type--demande::before,.bandeau-type--demande::after{color:var(--orange-hover);}
+  .bandeau-type--offre{background:var(--marine);color:var(--sable);}
+  .bandeau-type--atelier{background:var(--sable);color:var(--marine);}
+  .bandeau-type--idee{background:var(--success);color:var(--papier-clair);border-color:#3d8450;}
+  .bandeau-type--idee::before,.bandeau-type--idee::after{color:var(--success);}
+
+  .reclame h3{
+    font-family:var(--titre);font-weight:900;font-size:17px;line-height:1.15;
+    text-align:center;padding:9px 18px 0;
+  }
+  .reclame .signature{
+    text-align:center;font-style:italic;font-size:11px;color:var(--text-tertiary);
+    padding:3px 16px 0;
+  }
+  .reclame .signature::before{content:"— ";}
+  .reclame .signature::after{content:" —";}
+  .reclame .texte{
+    padding:8px 16px 0;font-size:12.5px;line-height:1.45;text-align:justify;hyphens:auto;
+    color:var(--text-secondary);
+  }
+  .reclame .texte::first-letter{
+    font-family:var(--titre);font-weight:900;float:left;
+    font-size:34px;line-height:.8;padding:4px 5px 0 0;color:var(--orange-hover);
+  }
+  .reclame .rubr{
+    text-align:center;margin-top:7px;
+    font-family:var(--titre);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-secondary);
+  }
+  .reclame .rubr::before,.reclame .rubr::after{content:" — ";color:var(--orange);}
+  .reclame .actions{
+    margin:9px 14px 0;padding-top:8px;border-top:1px solid var(--filet-leger);
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .btn-plomb{
+    font-family:var(--titre);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    background:var(--papier-clair);color:var(--encre);
+    border:1px solid var(--encre);
+    outline:1px solid var(--encre);outline-offset:2px;
+    padding:6px 10px;cursor:pointer;
+    transition:background .12s ease,color .12s ease;
+  }
+  .btn-plomb:hover{background:var(--sable);}
+  .btn-plomb--fort{background:var(--orange);color:var(--papier-clair);border-color:var(--orange-hover);outline-color:var(--orange-hover);}
+  .btn-plomb--fort:hover{background:var(--orange-hover);}
+  .reclame .compteur{
+    margin-left:auto;font-style:italic;font-size:10.5px;color:var(--text-tertiary);white-space:nowrap;
+  }
+
+  /* ---------- Ours ---------- */
+  .ours{
+    margin:8px 16px 0;padding:10px 0 24px;text-align:center;
+    border-top:3px double var(--filet);
+    font-style:italic;font-size:10px;color:var(--text-tertiary);line-height:1.6;
+  }
+  .ours b{font-family:var(--titre);font-style:normal;color:var(--encre);letter-spacing:.06em;}
+
+  /* ---------- Tab bar ---------- */
+  .tabbar{
+    position:sticky;bottom:0;z-index:40;
+    background:var(--papier-clair);
+    border-top:3px double var(--filet);
+    display:flex;align-items:flex-end;justify-content:space-around;
+    padding:8px 6px calc(10px + env(safe-area-inset-bottom, 8px));
+    box-shadow:0 -6px 18px -10px rgba(35,28,12,.3);
+  }
+  .tab{
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+    font-family:var(--titre);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--text-tertiary);text-decoration:none;min-width:58px;padding:2px 0;
+  }
+  .tab svg{width:22px;height:22px;display:block;}
+  .tab:hover{color:var(--encre);}
+  .tab--actif{color:var(--orange-hover);font-weight:700;}
+  .tab--plus .rond{
+    width:44px;height:44px;border-radius:50%;
+    background:var(--marine);color:var(--sable);
+    display:flex;align-items:center;justify-content:center;
+    margin-top:-22px;
+    border:2px solid var(--papier-clair);outline:1px solid var(--marine);
+    box-shadow:0 6px 14px -4px rgba(24,62,87,.5);
+  }
+  .tab--plus .rond svg{width:20px;height:20px;}
+
+  @media (max-width:430px){
+    body{padding:0;}
+    .phone{width:100%;height:100vh;height:100dvh;min-height:0;border-radius:0;box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <span class="credit-pill" title="Votre crédit-temps">8 h 30 <small>en caisse</small></span>
+    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+  </header>
+
+  <div class="chapeau">
+    <span>N° 142 · 3<sup>e</sup> année</span>
+    <span class="prix">Prix : <b>1 heure de votre temps</b></span>
+  </div>
+
+  <main class="feed">
+
+    <!-- ===== Masthead ===== -->
+    <section class="masthead">
+      <div class="edition">
+        <span>Édition du matin</span>
+        <span>Mercredi 10 juin 2026</span>
+      </div>
+      <h1>La Gazette du Quartier</h1>
+      <p class="sous-titre">journal des petites annonces d'échange de temps · publié par <b>TempsPourTemps</b></p>
+      <p class="tagline">Échangez du temps<span class="tiret"> — </span>pas de l'argent</p>
+    </section>
+
+    <!-- ===== Manchette ===== -->
+    <section class="manchette">
+      <p class="surtitre">Avis à la population</p>
+      <h2>Bonjour ! Le quartier <span class="souligne">a besoin de vous.</span></h2>
+      <p>Une heure donnée vaut une heure reçue — telle est la devise de la maison.</p>
+    </section>
+
+    <div class="cta-wrap">
+      <button class="btn-cta" type="button"><span class="plume">✍</span> Passer une annonce</button>
+    </div>
+
+    <!-- ===== Zone relationnelle : communiqué de la rédaction ===== -->
+    <section class="avis" aria-label="Communiqué de la rédaction">
+      <button class="fermer" type="button" aria-label="Masquer ce communiqué">×</button>
+      <span class="genre">Communiqué de la rédaction · 1/2</span>
+      <h3>Les ateliers font leur entrée</h3>
+      <p>Proposez désormais un atelier à plusieurs voisins, et tenez le registre des inscrits sans quitter ces colonnes.</p>
+      <a class="lien" href="#">Lire l'avis complet</a>
+    </section>
+
+    <p class="ornement" aria-hidden="true"></p>
+
+    <!-- ===== Rendez-vous ===== -->
+    <div class="rubrique">
+      <h2 class="tete-rubrique">Rendez-vous à venir <span class="compte">(quatre)</span></h2>
+      <p class="sous-rubrique">carnet mondain des échanges convenus</p>
+    </div>
+
+    <div class="rangee">
+      <article class="faire-part">
+        <span class="coin hg">✦</span><span class="coin hd">✦</span><span class="coin bg">✦</span><span class="coin bd">✦</span>
+        <span class="badge-admin">Organisé par l'admin</span>
+        <span class="cachet" aria-label="Rendez-vous confirmé">Rendez-vous<br>confirmé</span>
+        <p class="genre">Faire-part</p>
+        <p class="formule">Le voisinage a l'honneur de vous rappeler votre</p>
+        <h3>Rencontre physique</h3>
+        <div class="date-bloc">
+          <p class="date">Jeudi 11 juin 2026</p>
+          <p class="heure">12 h 30<span class="sep">·</span>durée un quart d'heure</p>
+        </div>
+        <p class="lieu">au <b>12, rue des Lilas</b><br>sonner deux coups, monter au premier</p>
+        <p class="avec">en compagnie de <b>Mme Marie Morel</b></p>
+        <a class="lien-cal" href="#">Noter au calendrier</a>
+      </article>
+
+      <article class="faire-part faire-part--apercu" aria-hidden="true">
+        <span class="coin hg">✦</span><span class="coin hd">✦</span><span class="coin bg">✦</span><span class="coin bd">✦</span>
+        <span class="cachet attente">En<br>attente</span>
+        <p class="genre">Faire-part</p>
+        <p class="formule">Le voisinage vous rappelle</p>
+        <h3>Peinture du portail</h3>
+        <div class="date-bloc">
+          <p class="date">Sam. 14 juin</p>
+          <p class="heure">10 h<span class="sep">·</span>deux heures</p>
+        </div>
+        <p class="lieu">chez <b>M. Blanchard</b></p>
+      </article>
+    </div>
+
+    <!-- ===== Petites annonces (fil) ===== -->
+    <div class="rubrique" id="fil">
+      <h2 class="tete-rubrique">Petites annonces <span class="compte">(34)</span></h2>
+      <p class="sous-rubrique">
+        <span>demandes, offres, ateliers &amp; idées — toutes en heures</span>
+        <button class="filtre" type="button">Rubrique : toutes ▾</button>
+      </p>
+    </div>
+
+    <div class="fil">
+      <article class="reclame">
+        <span class="ref">N° 1042</span>
+        <span class="bandeau-type bandeau-type--demande">Demande</span>
+        <h3>On cherche deux bras pour une étagère</h3>
+        <p class="signature">Mme Alice Noël, Centre, il y a deux heures</p>
+        <p class="texte">Quelqu'un pour m'aider à monter une étagère samedi matin ? Une petite heure suffira ; je fournis les outils, et le café.</p>
+        <p class="rubr">Bricolage</p>
+        <div class="actions">
+          <button class="btn-plomb btn-plomb--fort" type="button">Je peux aider</button>
+          <button class="btn-plomb" type="button">Répondre</button>
+          <span class="compteur">2 réponses au journal</span>
+        </div>
+      </article>
+
+      <article class="reclame">
+        <span class="ref">N° 1041</span>
+        <span class="bandeau-type bandeau-type--offre">Offre</span>
+        <h3>Leçons d'espagnol par une native</h3>
+        <p class="signature">Mme Marta Lopez, Baugerie, il y a cinq heures</p>
+        <p class="texte">Conversation, tous niveaux, patience garantie. À domicile ou par visio. Une heure de leçon contre une heure de votre temps.</p>
+        <p class="rubr">Cours</p>
+        <div class="actions">
+          <button class="btn-plomb btn-plomb--fort" type="button">Ça m'intéresse</button>
+          <button class="btn-plomb" type="button">Répondre</button>
+        </div>
+      </article>
+
+      <article class="reclame">
+        <span class="ref">N° 1039</span>
+        <span class="bandeau-type bandeau-type--atelier">Atelier</span>
+        <h3>Réparation de vélocipèdes</h3>
+        <p class="signature">M. Pierre Blanchard, Vieux Bourg, hier</p>
+        <p class="texte">Dimanche à dix heures, au local associatif. Amenez votre monture : on regarde freins et dérailleurs ensemble, et chacun repart en roulant.</p>
+        <p class="rubr">Mécanique</p>
+        <div class="actions">
+          <button class="btn-plomb btn-plomb--fort" type="button">Je m'inscris</button>
+          <button class="btn-plomb" type="button">Répondre</button>
+          <span class="compteur">3 inscrits sur 5</span>
+        </div>
+      </article>
+
+      <article class="reclame">
+        <span class="ref">N° 1037</span>
+        <span class="bandeau-type bandeau-type--idee">Idée</span>
+        <h3>Un café des voisins au square ?</h3>
+        <p class="signature">Mme Marie Morel, Centre, hier</p>
+        <p class="texte">Et si l'on se retrouvait un samedi par mois au square de la Baugerie, autour d'un café ? Qui serait de la partie ?</p>
+        <p class="rubr">Vie de quartier</p>
+        <div class="actions">
+          <button class="btn-plomb btn-plomb--fort" type="button">J'en suis</button>
+          <button class="btn-plomb" type="button">Répondre</button>
+          <span class="compteur">12 partants · 8 réponses</span>
+        </div>
+      </article>
+
+      <article class="reclame">
+        <span class="ref">N° 1031</span>
+        <span class="bandeau-type bandeau-type--demande">Demande</span>
+        <h3>Chat à nourrir le week-end du 20</h3>
+        <p class="signature">Mme Sonia Klein, Baugerie, il y a trois jours</p>
+        <p class="texte">Deux visites par jour, croquettes fournies. Les câlins sont compris dans l'échange, et le chat est fort aimable.</p>
+        <p class="rubr">Animaux</p>
+        <div class="actions">
+          <button class="btn-plomb btn-plomb--fort" type="button">Je peux aider</button>
+          <button class="btn-plomb" type="button">Répondre</button>
+        </div>
+      </article>
+
+      <article class="reclame">
+        <span class="ref">N° 1028</span>
+        <span class="bandeau-type bandeau-type--offre">Offre</span>
+        <h3>Retouches, ourlets &amp; boutons</h3>
+        <p class="signature">Mme Lucie Garnier, Centre, il y a trois jours</p>
+        <p class="texte">Ma machine ronronne du matin au soir : fermetures éclair, ourlets, boutons perdus. Apportez vos habits, repartez recousus.</p>
+        <p class="rubr">Couture</p>
+        <div class="actions">
+          <button class="btn-plomb btn-plomb--fort" type="button">Ça m'intéresse</button>
+          <button class="btn-plomb" type="button">Répondre</button>
+        </div>
+      </article>
+    </div>
+
+    <footer class="ours">
+      <b>TempsPourTemps</b> — imprimerie de l'entraide<br>
+      Tirage : autant d'exemplaires que de voisins · Les personnes citées sont fictives
+    </footer>
+
+  </main>
+
+  <nav class="tabbar" aria-label="Navigation principale">
+    <a class="tab tab--actif" href="#" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      Accueil
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      Chercher
+    </a>
+    <a class="tab tab--plus" href="#">
+      <span class="rond">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </span>
+      Proposer
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+      Services
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
+      Courrier
+    </a>
+  </nav>
+
+</div>
+
+</body>
+</html>

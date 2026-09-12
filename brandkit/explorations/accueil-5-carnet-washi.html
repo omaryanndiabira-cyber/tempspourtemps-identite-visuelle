@@ -111,6 +111,33 @@
   .btn-cta:hover{background:var(--orange-hover);}
   .btn-cta:active{transform:translateY(2px);box-shadow:0 1px 0 var(--orange-hover), 0 5px 12px -6px rgba(214,94,28,.5);}
 
+  /* ---------- Zone relationnelle : la carte annonce ---------- */
+  .avis{
+    position:relative;margin:28px 22px 0;
+    background:linear-gradient(180deg,#fff6dc 0%, var(--paper) 78%);
+    border:1px solid #f1ddae;border-radius:10px;
+    padding:21px 38px 16px 18px;
+    box-shadow:0 1px 2px rgba(24,62,87,.05), 0 12px 26px -16px rgba(24,62,87,.30);
+  }
+  .avis .kicker{
+    display:inline-block;
+    font-family:var(--titres);font-weight:800;font-size:9.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--orange-hover);margin-bottom:6px;
+  }
+  .avis h3{font-family:var(--titres);font-weight:800;font-size:15.5px;line-height:1.25;color:var(--marine);}
+  .avis p{font-size:12.5px;color:var(--text-secondary);line-height:1.5;margin-top:5px;}
+  .avis .lien{
+    display:inline-block;margin-top:10px;
+    font-size:12px;font-weight:700;color:var(--orange);text-decoration:none;
+    border-bottom:1px dashed var(--orange);padding-bottom:1px;
+  }
+  .avis .fermer{
+    position:absolute;top:10px;right:11px;z-index:3;
+    border:0;background:none;cursor:pointer;line-height:1;
+    font-size:16px;color:var(--text-tertiary);padding:2px 5px;
+  }
+  .avis .fermer:hover{color:var(--marine);}
+
   /* ---------- Rubrique : simple titre + compteur ---------- */
   .rubrique{
     margin:30px 22px 0;display:flex;align-items:center;gap:9px;
@@ -282,6 +309,16 @@
         <div class="cta-wrap">
           <button class="btn-cta" type="button"><span>✍︎</span> Publier dans le fil</button>
         </div>
+
+        <!-- ===== Zone relationnelle ===== -->
+        <section class="avis" aria-label="Annonce de TempsPourTemps">
+          <span class="washi washi--sable" aria-hidden="true"></span>
+          <button class="fermer" type="button" aria-label="Masquer cette annonce">×</button>
+          <span class="kicker">Nouveau · 1/2</span>
+          <h3>Les ateliers de quartier arrivent</h3>
+          <p>Proposez un atelier à plusieurs voisins et suivez les inscriptions depuis votre fil.</p>
+          <a class="lien" href="#">Découvrir →</a>
+        </section>
 
         <!-- ===== Prochain rendez-vous (1 seul, mis en avant) ===== -->
         <div class="rubrique">

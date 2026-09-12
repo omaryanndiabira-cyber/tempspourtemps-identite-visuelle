@@ -124,6 +124,36 @@
   .btn-cta:hover{background:var(--orange-hover);}
   .btn-cta:active{transform:translateY(2px);box-shadow:0 1px 0 var(--orange-hover), 0 6px 12px -6px rgba(0,0,0,.45);}
 
+  /* ---------- Zone relationnelle : l'affichette officielle ---------- */
+  .avis{
+    position:relative;margin:22px 22px 0;
+    background:linear-gradient(180deg,#fdf0c4 0%, #fae3a2 100%);
+    border-radius:3px;padding:17px 34px 14px 15px;
+    transform:rotate(.8deg);
+    box-shadow:0 1px 1px rgba(0,0,0,.10), 0 12px 22px -10px rgba(0,0,0,.45);
+  }
+  .avis .punaise{top:-9px;left:24px;transform:none;}
+  .avis .kicker{
+    display:inline-block;
+    font-family:var(--titres);font-weight:800;font-size:9px;
+    letter-spacing:.14em;text-transform:uppercase;
+    background:var(--marine);color:#fff9ec;
+    padding:3px 9px;border-radius:4px;margin-bottom:8px;
+  }
+  .avis h3{font-family:var(--titres);font-weight:800;font-size:15px;line-height:1.25;color:var(--marine);}
+  .avis p{font-size:12px;color:#5a4521;line-height:1.45;margin-top:4px;}
+  .avis .lien{
+    display:inline-block;margin-top:9px;
+    font-size:11.5px;font-weight:800;color:var(--orange-hover);text-decoration:none;
+    border-bottom:1px dashed var(--orange);padding-bottom:1px;
+  }
+  .avis .fermer{
+    position:absolute;top:7px;right:8px;z-index:4;
+    border:0;background:none;cursor:pointer;line-height:1;
+    font-size:16px;color:rgba(24,62,87,.45);padding:2px 5px;
+  }
+  .avis .fermer:hover{color:var(--marine);}
+
   /* ---------- Rubrique (légère) ---------- */
   .rubrique{
     margin:24px 20px 4px;display:flex;align-items:center;gap:10px;
@@ -307,6 +337,16 @@
         <div class="cta-wrap">
           <button class="btn-cta" type="button"><span>✍︎</span> Épingler un post</button>
         </div>
+
+        <!-- ===== Zone relationnelle : l'affichette du quartier ===== -->
+        <section class="avis" aria-label="Avis de TempsPourTemps">
+          <span class="punaise punaise--marine" aria-hidden="true"></span>
+          <button class="fermer" type="button" aria-label="Masquer cet avis">×</button>
+          <span class="kicker">Avis · 1/2</span>
+          <h3>Les ateliers de quartier arrivent</h3>
+          <p>Proposez un atelier à plusieurs voisins et suivez les inscriptions depuis le tableau.</p>
+          <a class="lien" href="#">En savoir plus →</a>
+        </section>
 
         <!-- ===== Vos rendez-vous ===== -->
         <div class="rubrique">

@@ -228,6 +228,45 @@
   .btn-cta:active{transform:translateY(2px);box-shadow:0 1px 0 var(--orange-hover), 0 5px 12px -6px rgba(214,94,28,.5);}
   .btn-cta .plume{font-size:17px;}
 
+  /* ---------- Zone relationnelle : l'encart communiqué ---------- */
+  .avis{
+    position:relative;
+    margin:18px 18px 0;
+    background:var(--bg-hover);
+    border:1px solid var(--marine);
+    padding:12px 34px 12px 14px;
+    box-shadow:0 1px 0 rgba(24,62,87,.10);
+  }
+  .avis::before{
+    content:"";position:absolute;inset:3px;
+    border:1px dotted rgba(24,62,87,.32);pointer-events:none;
+  }
+  .avis > *{position:relative;}
+  .avis .etiquette{
+    display:inline-block;
+    font-family:var(--titres);font-weight:800;font-size:9px;
+    letter-spacing:.16em;text-transform:uppercase;
+    background:var(--marine);color:#fff9ec;
+    padding:3px 8px;margin-bottom:7px;
+  }
+  .avis h3{
+    font-family:var(--titres);font-weight:800;font-size:14.5px;line-height:1.25;color:var(--marine);
+  }
+  .avis p{
+    font-size:11.5px;line-height:1.45;color:var(--text-secondary);margin-top:3px;
+  }
+  .avis .lien{
+    display:inline-block;margin-top:8px;
+    font-size:11.5px;font-weight:700;color:var(--orange-hover);
+    text-decoration:none;border-bottom:1px solid var(--orange);padding-bottom:1px;
+  }
+  .avis .fermer{
+    position:absolute;top:6px;right:7px;z-index:2;
+    border:0;background:none;cursor:pointer;line-height:1;
+    font-size:15px;color:var(--text-tertiary);padding:3px 5px;
+  }
+  .avis .fermer:hover{color:var(--marine);}
+
   /* ---------- Rubriques (titres de section) ---------- */
   .rubrique{
     margin:26px 18px 12px;
@@ -690,6 +729,15 @@
     <div class="cta-wrap">
       <button class="btn-cta" type="button"><span class="plume">✍︎</span> Publier une annonce</button>
     </div>
+
+    <!-- ===== Zone relationnelle : le communiqué ===== -->
+    <section class="avis" aria-label="Communiqué de TempsPourTemps">
+      <button class="fermer" type="button" aria-label="Masquer ce communiqué">×</button>
+      <span class="etiquette">Communiqué · 1/2</span>
+      <h3>Les ateliers de quartier arrivent</h3>
+      <p>Proposez un atelier à plusieurs voisins et suivez les inscriptions depuis votre fil.</p>
+      <a class="lien" href="#">En savoir plus →</a>
+    </section>
 
     <!-- ===== Rubrique : Rendez-vous à venir ===== -->
     <div class="rubrique">

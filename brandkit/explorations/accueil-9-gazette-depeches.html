@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · Gazette V3 « Dépêches » (télégrammes, tampons, billets)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TempsPourTemps — Accueil · Gazette V3 « Dépêches »
+     Axe : quotidien des années 1930, gros titres bois condensés,
+     posts en télégrammes tapés à la machine, RDV en billets
+     perforés, tampons et cachets de la poste.
+     ============================================================ */
+  :root{
+    --marine:#183e57;
+    --marine-hover:#0f2f44;
+    --orange:#d65e1c;
+    --orange-hover:#b84e17;
+    --sable:#fcdb81;
+    --sable-hover:#f5cb5c;
+    --success:#4a9d5f;
+    --danger:#c44536;
+    --text-secondary:#4b5563;
+    --text-tertiary:#717182;
+    --papier:#efe9d8;
+    --papier-clair:#f8f3e6;
+    --papier-telegramme:#fbf6e4;
+    --encre:var(--marine);
+    --filet:rgba(24,62,87,.7);
+    --filet-leger:rgba(24,62,87,.3);
+    --bois:'Anton','Impact',sans-serif;
+    --machine:'Special Elite','Courier New',monospace;
+    --labeur:'Old Standard TT',Georgia,serif;
+    --radius-app:34px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--labeur);
+    background:#c9c1ad;
+    background-image:
+      radial-gradient(circle at 18% 12%, rgba(252,219,129,.18), transparent 42%),
+      radial-gradient(circle at 84% 88%, rgba(24,62,87,.14), transparent 46%);
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;padding:32px 16px;
+    color:var(--encre);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Cadre téléphone ---------- */
+  .phone{
+    width:390px;max-width:100%;
+    height:min(844px, calc(100vh - 48px));min-height:640px;
+    background:var(--papier);
+    border-radius:var(--radius-app);
+    box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
+    overflow:hidden;display:flex;flex-direction:column;position:relative;
+  }
+  .phone::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:60;opacity:.08;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Barre du haut ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:40;
+    background:var(--marine);
+    padding:12px 16px 10px;display:flex;align-items:center;gap:12px;
+    border-bottom:4px solid var(--marine-hover);
+  }
+  .topbar .logo{height:32px;width:auto;display:block;}
+  .topbar .spacer{flex:1;}
+  .credit-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--sable);color:var(--marine);
+    border:1.5px dashed var(--marine);
+    padding:4px 10px;
+    font-family:var(--machine);font-size:13px;letter-spacing:.06em;
+    white-space:nowrap;
+  }
+  .credit-pill .ico{font-size:12px;}
+  .avatar{
+    width:34px;height:34px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--bois);font-size:13px;letter-spacing:.06em;flex:none;
+  }
+  .avatar--me{background:var(--sable);color:var(--marine);border:2px solid rgba(255,255,255,.5);}
+
+  /* ---------- Bandeau dernière heure ---------- */
+  .derniere-heure{
+    background:var(--encre);color:var(--papier-clair);
+    border-top:1px solid rgba(252,219,129,.5);
+    padding:4px 0;overflow:hidden;white-space:nowrap;
+    font-family:var(--machine);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    z-index:35;
+  }
+  .derniere-heure .rail{display:inline-block;padding-left:100%;animation:defile 22s linear infinite;}
+  @keyframes defile{to{transform:translateX(-100%);}}
+  @media (prefers-reduced-motion:reduce){.derniere-heure .rail{animation:none;padding-left:14px;}}
+  .derniere-heure b{color:var(--sable);font-weight:400;}
+  .derniere-heure .stop{color:var(--orange);margin:0 6px;}
+
+  /* ---------- Zone scrollable ---------- */
+  .feed{
+    flex:1;overflow-y:auto;scrollbar-width:none;
+    background:
+      radial-gradient(ellipse 240px 160px at 90% 4%, rgba(214,94,28,.05), transparent 70%),
+      radial-gradient(ellipse 220px 180px at 6% 96%, rgba(190,150,60,.12), transparent 70%),
+      var(--papier);
+  }
+  .feed::-webkit-scrollbar{display:none;}
+
+  /* ---------- Une ---------- */
+  .une{padding:12px 16px 0;}
+  .une .oreilles{
+    display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:1px solid var(--filet);padding-bottom:3px;
+    font-family:var(--machine);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--text-secondary);
+  }
+  .une .oreilles b{color:var(--orange-hover);font-weight:400;}
+  .une h1{
+    font-family:var(--bois);font-size:58px;line-height:.92;letter-spacing:.01em;text-transform:uppercase;
+    text-align:center;margin:8px 0 4px;color:var(--encre);
+    text-shadow:2px 2px 0 rgba(214,94,28,.25);
+  }
+  .une .sous{
+    text-align:center;font-family:var(--machine);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+    border-top:1px solid var(--filet);border-bottom:3px solid var(--encre);padding:4px 0;
+  }
+  .une .sous .tiret{color:var(--orange);}
+
+  /* ---------- Titre du jour ---------- */
+  .gros-titre{padding:14px 16px 2px;position:relative;}
+  .gros-titre .surtitre{
+    display:inline-block;background:var(--orange);color:var(--papier-clair);
+    font-family:var(--bois);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    padding:3px 9px 2px;margin-bottom:8px;
+    transform:rotate(-1.5deg);
+  }
+  .gros-titre h2{
+    font-family:var(--bois);font-size:33px;line-height:.98;text-transform:uppercase;letter-spacing:.01em;
+  }
+  .gros-titre h2 .surligne{
+    background-image:linear-gradient(transparent 20%, var(--sable) 20%, var(--sable) 88%, transparent 88%);
+    padding:0 3px;
+  }
+  .gros-titre p{
+    margin-top:8px;font-family:var(--machine);font-size:11.5px;line-height:1.5;color:var(--text-secondary);
+  }
+  .gros-titre p .stop{color:var(--orange);font-weight:700;}
+
+  /* ---------- CTA ---------- */
+  .cta-wrap{padding:12px 16px 6px;}
+  .btn-cta{
+    display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    background:var(--orange);color:var(--papier-clair);
+    border:2px solid var(--encre);
+    padding:12px 16px;
+    font-family:var(--bois);font-size:17px;letter-spacing:.14em;text-transform:uppercase;
+    cursor:pointer;
+    box-shadow:4px 4px 0 var(--encre);
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .btn-cta:hover{background:var(--orange-hover);}
+  .btn-cta:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--encre);}
+  .btn-cta .ico{font-family:var(--machine);font-size:15px;letter-spacing:0;}
+
+  /* ---------- Zone relationnelle : le communiqué ---------- */
+  .avis{
+    position:relative;margin:16px 16px 0;
+    background:var(--papier-telegramme);
+    border:1.5px solid var(--encre);
+    box-shadow:3px 3px 0 rgba(24,62,87,.14);
+  }
+  .avis .bande{
+    display:flex;align-items:center;gap:8px;
+    background:var(--sable);color:var(--encre);
+    border-bottom:1.5px solid var(--encre);
+    padding:3px 10px;
+  }
+  .avis .bande .mot{
+    font-family:var(--bois);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  }
+  .avis .bande .num{
+    margin-left:auto;
+    font-family:var(--machine);font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .avis .corps{padding:9px 34px 10px 11px;}
+  .avis h3{
+    font-family:var(--bois);font-size:17px;line-height:1;letter-spacing:.02em;text-transform:uppercase;
+  }
+  .avis p{
+    font-family:var(--machine);font-size:11px;line-height:1.5;color:var(--text-secondary);margin-top:6px;
+  }
+  .avis p .stop{color:var(--orange);font-weight:700;letter-spacing:.1em;}
+  .avis .lien{
+    display:inline-block;margin-top:8px;
+    font-family:var(--machine);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--orange-hover);text-decoration:none;border-bottom:1px dashed var(--orange);
+  }
+  .avis .fermer{
+    position:absolute;top:30px;right:8px;
+    border:0;background:none;cursor:pointer;line-height:1;
+    font-family:var(--machine);font-size:14px;color:var(--text-tertiary);padding:2px 5px;
+  }
+  .avis .fermer:hover{color:var(--encre);}
+
+  /* ---------- Têtes de rubrique ---------- */
+  .rubrique{margin:22px 16px 10px;}
+  #fil{scroll-margin-top:8px;}
+  .tete-rubrique{
+    display:flex;align-items:stretch;gap:0;
+    border-top:3px solid var(--encre);border-bottom:1px solid var(--encre);
+  }
+  .tete-rubrique h2{
+    background:var(--encre);color:var(--papier-clair);
+    font-family:var(--bois);font-size:15px;letter-spacing:.14em;text-transform:uppercase;
+    padding:5px 12px 4px;
+  }
+  .tete-rubrique .compte{
+    display:flex;align-items:center;padding:0 10px;
+    font-family:var(--machine);font-size:11px;letter-spacing:.08em;color:var(--orange-hover);
+  }
+  .tete-rubrique .fleche{
+    margin-left:auto;display:flex;align-items:center;padding:0 8px;
+    font-family:var(--machine);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);
+  }
+  .sous-rubrique{
+    margin-top:5px;display:flex;justify-content:space-between;align-items:center;gap:8px;
+    font-family:var(--machine);font-size:10px;letter-spacing:.06em;color:var(--text-secondary);text-transform:uppercase;
+  }
+  .filtre{
+    font-family:var(--machine);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+    background:transparent;border:1px solid var(--encre);padding:2px 8px;color:var(--encre);cursor:pointer;
+  }
+  .filtre:hover{background:var(--sable);}
+
+  /* ---------- Rangée scrollable ---------- */
+  .rangee{
+    display:flex;gap:12px;overflow-x:auto;padding:6px 16px 14px;
+    scroll-snap-type:x proximity;scroll-padding-left:16px;scrollbar-width:none;
+  }
+  .rangee::-webkit-scrollbar{display:none;}
+  .rangee > *{scroll-snap-align:start;flex:none;}
+
+  /* ---------- Billet de rendez-vous ---------- */
+  .billet{
+    width:310px;display:flex;position:relative;
+    background:var(--papier-clair);
+    border:1.5px solid var(--encre);
+    box-shadow:0 1px 2px rgba(35,28,12,.15),0 10px 24px -14px rgba(35,28,12,.45);
+  }
+  .billet .talon{
+    width:44px;flex:none;
+    border-right:2px dashed var(--filet);
+    background:repeating-linear-gradient(-45deg, rgba(24,62,87,.07) 0 4px, transparent 4px 9px), var(--sable);
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .billet .talon span{
+    writing-mode:vertical-rl;transform:rotate(180deg);
+    font-family:var(--machine);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--encre);white-space:nowrap;
+  }
+  /* trous de perforation */
+  .billet .talon::before,.billet .talon::after{
+    content:"";position:absolute;right:-8px;width:14px;height:14px;border-radius:50%;
+    background:var(--papier);border:1.5px solid var(--encre);
+  }
+  .billet .talon::before{top:-8px;} .billet .talon::after{bottom:-8px;}
+  .billet .corps{flex:1;padding:10px 12px 10px;position:relative;min-width:0;}
+  .billet .entete{
+    display:flex;justify-content:space-between;align-items:baseline;gap:6px;
+    border-bottom:1px solid var(--encre);padding-bottom:4px;margin-bottom:6px;
+  }
+  .billet .genre{
+    font-family:var(--bois);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .billet .num{font-family:var(--machine);font-size:9.5px;color:var(--text-tertiary);letter-spacing:.06em;}
+  .billet h3{
+    font-family:var(--bois);font-size:20px;line-height:1;letter-spacing:.02em;text-transform:uppercase;margin-bottom:6px;
+    padding-right:80px;
+  }
+  .billet--apercu h3{padding-right:0;}
+  .billet .ligne{
+    display:flex;gap:8px;align-items:baseline;
+    font-family:var(--machine);font-size:11px;line-height:1.5;color:var(--text-secondary);
+  }
+  .billet .ligne .cle{
+    flex:none;width:52px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);
+  }
+  .billet .ligne .val{color:var(--encre);}
+  .billet .ligne .val b{font-weight:400;color:var(--orange-hover);}
+  .billet .pied{
+    margin-top:7px;padding-top:6px;border-top:1px dotted var(--filet-leger);
+    display:flex;justify-content:space-between;align-items:center;gap:8px;
+  }
+  .billet .avec{font-family:var(--machine);font-size:10.5px;color:var(--text-secondary);}
+  .billet .avec b{font-weight:400;color:var(--encre);}
+  .billet .lien-cal{
+    font-family:var(--machine);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--orange-hover);text-decoration:none;border-bottom:1px dashed var(--orange);white-space:nowrap;
+  }
+  /* tampon caoutchouc */
+  .tampon{
+    position:absolute;right:8px;top:30px;
+    font-family:var(--bois);font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--success);border:2.5px solid var(--success);
+    padding:2px 8px 1px;border-radius:3px;
+    transform:rotate(-12deg);opacity:.8;
+    -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='40'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/><feComponentTransfer><feFuncA type='discrete' tableValues='0 .5 1 1 1 1 1 1'/></feComponentTransfer><feComposite operator='in' in2='SourceGraphic'/></filter><rect width='120' height='40' filter='url(%23r)'/></svg>");
+            mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='40'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/><feComponentTransfer><feFuncA type='discrete' tableValues='0 .5 1 1 1 1 1 1'/></feComponentTransfer><feComposite operator='in' in2='SourceGraphic'/></filter><rect width='120' height='40' filter='url(%23r)'/></svg>");
+    -webkit-mask-size:cover;mask-size:cover;
+    pointer-events:none;
+  }
+  .tampon--attente{color:var(--orange-hover);border-color:var(--orange-hover);}
+  .tampon--admin{
+    position:static;display:inline-block;transform:rotate(0);
+    font-size:9px;padding:1px 5px 0;border-width:1.5px;color:var(--encre);border-color:var(--encre);opacity:.9;
+    margin-left:4px;vertical-align:middle;
+  }
+  .billet--apercu{width:200px;}
+
+  /* ---------- Télégrammes (posts) ---------- */
+  .fil{display:flex;flex-direction:column;gap:14px;padding:6px 16px 14px;}
+  .telegramme{
+    background:var(--papier-telegramme);
+    border:1.5px solid var(--encre);
+    position:relative;
+    box-shadow:0 1px 2px rgba(35,28,12,.12),0 8px 22px -14px rgba(35,28,12,.4);
+  }
+  .telegramme .bande{
+    display:flex;align-items:center;gap:8px;
+    background:var(--encre);color:var(--papier-clair);
+    padding:4px 10px;
+  }
+  .telegramme .bande .mot{
+    font-family:var(--bois);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  }
+  .telegramme .bande .service{
+    font-family:var(--machine);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,243,230,.7);
+  }
+  .telegramme .bande .type{
+    margin-left:auto;
+    font-family:var(--bois);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    padding:2px 8px 1px;
+  }
+  .type--demande{background:var(--orange);color:var(--papier-clair);}
+  .type--offre{background:var(--sable);color:var(--encre);}
+  .type--atelier{background:var(--papier-clair);color:var(--encre);}
+  .type--idee{background:var(--success);color:var(--papier-clair);}
+
+  .telegramme .contenu{
+    padding:9px 12px 8px;
+    font-family:var(--machine);font-size:12px;line-height:1.55;color:var(--encre);
+    background:repeating-linear-gradient(180deg, transparent 0 18px, rgba(24,62,87,.06) 18px 19px);
+  }
+  .telegramme .dateline{
+    text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;color:var(--text-secondary);
+  }
+  .telegramme .dateline b{font-weight:400;color:var(--encre);}
+  .telegramme .texte{margin-top:3px;}
+  .telegramme .texte .stop{color:var(--orange);font-weight:700;letter-spacing:.1em;margin:0 3px;}
+  .telegramme .signe{
+    margin-top:4px;text-align:right;text-transform:uppercase;letter-spacing:.14em;font-size:10.5px;
+  }
+  .telegramme .signe::before{content:"— ";color:var(--orange);}
+  .telegramme .rubr{
+    display:inline-block;margin:6px 12px 0;
+    font-family:var(--machine);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    border:1px solid var(--filet);padding:1px 6px;color:var(--text-secondary);
+  }
+  .telegramme .actions{
+    margin:6px 12px 0;padding:8px 0 9px;border-top:1px dashed var(--filet-leger);
+    display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  }
+  .btn-touche{
+    font-family:var(--machine);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    background:var(--papier-clair);color:var(--encre);
+    border:1.5px solid var(--encre);padding:5px 9px 4px;cursor:pointer;
+    box-shadow:2px 2px 0 var(--encre);
+    transition:transform .1s ease, box-shadow .1s ease, background .12s ease;
+  }
+  .btn-touche:hover{background:var(--sable);}
+  .btn-touche:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--encre);}
+  .btn-touche--fort{background:var(--orange);color:var(--papier-clair);}
+  .btn-touche--fort:hover{background:var(--orange-hover);}
+  .telegramme .compteur{
+    margin-left:auto;font-family:var(--machine);font-size:10px;color:var(--text-tertiary);white-space:nowrap;
+    letter-spacing:.04em;
+  }
+  /* cachet de la poste sur certains télégrammes */
+  .cachet-poste{
+    position:absolute;right:10px;bottom:6px;
+    width:56px;height:56px;border-radius:50%;
+    border:1.5px solid var(--encre);
+    box-shadow:inset 0 0 0 2px var(--papier-telegramme), inset 0 0 0 3px var(--encre);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:var(--machine);font-size:7.5px;letter-spacing:.06em;text-transform:uppercase;line-height:1.2;
+    color:var(--encre);opacity:.45;transform:rotate(9deg);pointer-events:none;text-align:center;
+  }
+  .cachet-poste b{font-weight:400;font-size:9px;}
+
+  /* ---------- Ours ---------- */
+  .ours{
+    margin:8px 16px 0;padding:10px 0 24px;text-align:center;
+    border-top:3px solid var(--encre);
+    font-family:var(--machine);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--text-tertiary);line-height:1.7;
+  }
+  .ours b{font-weight:400;color:var(--encre);}
+
+  /* ---------- Tab bar ---------- */
+  .tabbar{
+    position:sticky;bottom:0;z-index:40;
+    background:var(--papier-clair);
+    border-top:3px solid var(--encre);
+    display:flex;align-items:flex-end;justify-content:space-around;
+    padding:8px 6px calc(10px + env(safe-area-inset-bottom, 8px));
+    box-shadow:0 -6px 18px -10px rgba(35,28,12,.3);
+  }
+  .tab{
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+    font-family:var(--machine);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--text-tertiary);text-decoration:none;min-width:58px;padding:2px 0;
+  }
+  .tab svg{width:22px;height:22px;display:block;}
+  .tab:hover{color:var(--encre);}
+  .tab--actif{color:var(--orange-hover);}
+  .tab--plus .rond{
+    width:44px;height:44px;border-radius:50%;
+    background:var(--marine);color:var(--sable);
+    display:flex;align-items:center;justify-content:center;
+    margin-top:-22px;border:3px solid var(--papier-clair);
+    box-shadow:0 0 0 1.5px var(--encre),0 6px 14px -4px rgba(24,62,87,.5);
+  }
+  .tab--plus .rond svg{width:20px;height:20px;}
+
+  @media (max-width:430px){
+    body{padding:0;}
+    .phone{width:100%;height:100vh;height:100dvh;min-height:0;border-radius:0;box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <header class="topbar">
+    <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+    <div class="spacer"></div>
+    <span class="credit-pill" title="Votre crédit-temps"><span class="ico">⏱</span>8 H 30</span>
+    <span class="avatar avatar--me" aria-label="Votre profil">OD</span>
+  </header>
+
+  <div class="derniere-heure" aria-label="Dernière heure">
+    <span class="rail"><b>Dernière heure</b><span class="stop">STOP</span>34 dépêches<span class="stop">STOP</span>4 rendez-vous<span class="stop">STOP</span>1 h donnée = 1 h reçue</span>
+  </div>
+
+  <main class="feed">
+
+    <!-- ===== Une ===== -->
+    <section class="une">
+      <div class="oreilles">
+        <span>N° 1 042 · Mercredi 10 juin 2026</span>
+        <span>Prix : <b>1 heure</b></span>
+      </div>
+      <h1>Le Quartier</h1>
+      <p class="sous">Édition du soir<span class="tiret"> — </span>par TempsPourTemps</p>
+    </section>
+
+    <!-- ===== Gros titre ===== -->
+    <section class="gros-titre">
+      <span class="surtitre">Édition spéciale</span>
+      <h2>Le quartier <span class="surligne">a besoin</span> de vous</h2>
+      <p>Bonjour<span class="stop"> STOP </span>Échangez du temps, pas de l'argent<span class="stop"> STOP </span>Une heure donnée vaut une heure reçue<span class="stop"> STOP</span></p>
+    </section>
+
+    <div class="cta-wrap">
+      <button class="btn-cta" type="button"><span class="ico">✎</span> Publier une annonce</button>
+    </div>
+
+    <!-- ===== Zone relationnelle : le communiqué ===== -->
+    <section class="avis" aria-label="Communiqué TempsPourTemps">
+      <div class="bande"><span class="mot">Communiqué</span><span class="num">Avis 1/2</span></div>
+      <button class="fermer" type="button" aria-label="Masquer ce communiqué">×</button>
+      <div class="corps">
+        <h3>Les ateliers entrent en service</h3>
+        <p>Proposez un atelier à plusieurs voisins<span class="stop"> STOP </span>Inscriptions suivies depuis le fil<span class="stop"> STOP</span></p>
+        <a class="lien" href="#">Lire le communiqué</a>
+      </div>
+    </section>
+
+    <!-- ===== Rendez-vous ===== -->
+    <div class="rubrique">
+      <div class="tete-rubrique">
+        <h2>Rendez-vous</h2>
+        <span class="compte">4 billets</span>
+        <span class="fleche">à venir ›</span>
+      </div>
+    </div>
+
+    <div class="rangee">
+      <article class="billet">
+        <div class="talon"><span>Billet n° 0411</span></div>
+        <div class="corps">
+          <span class="tampon" aria-label="Rendez-vous confirmé">Confirmé</span>
+          <div class="entete">
+            <span class="genre">Billet de rendez-vous <span class="tampon tampon--admin">Admin</span></span>
+          </div>
+          <h3>Rencontre physique</h3>
+          <div class="ligne"><span class="cle">Date</span><span class="val">Jeudi <b>11 juin 2026</b></span></div>
+          <div class="ligne"><span class="cle">Heure</span><span class="val"><b>12 h 30</b> — durée 15 min</span></div>
+          <div class="ligne"><span class="cle">Lieu</span><span class="val">12, rue des Lilas</span></div>
+          <div class="pied">
+            <span class="avec">avec <b>Marie Morel</b></span>
+            <a class="lien-cal" href="#">+ Calendrier</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="billet billet--apercu" aria-hidden="true">
+        <div class="talon"><span>Billet n° 0412</span></div>
+        <div class="corps">
+          <span class="tampon tampon--attente">Attente</span>
+          <div class="entete"><span class="genre">Billet</span></div>
+          <h3>Peinture</h3>
+          <div class="ligne"><span class="cle">Date</span><span class="val"><b>14 juin</b></span></div>
+          <div class="ligne"><span class="cle">Heure</span><span class="val"><b>10 h</b> — 2 h</span></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- ===== Dépêches (fil) ===== -->
+    <div class="rubrique" id="fil">
+      <div class="tete-rubrique">
+        <h2>Dépêches</h2>
+        <span class="compte">34 reçues</span>
+        <span class="fleche">du quartier</span>
+      </div>
+      <div class="sous-rubrique">
+        <span>Demandes · offres · ateliers · idées</span>
+        <button class="filtre" type="button">Toutes ▾</button>
+      </div>
+    </div>
+
+    <div class="fil">
+      <article class="telegramme">
+        <div class="bande">
+          <span class="mot">Télégramme</span><span class="service">service du quartier</span>
+          <span class="type type--demande">Demande</span>
+        </div>
+        <div class="contenu">
+          <p class="dateline"><b>Centre</b>, 10 juin, 14 h 02 —</p>
+          <p class="texte">Cherche quelqu'un pour monter une étagère samedi matin<span class="stop">STOP</span>Une petite heure<span class="stop">STOP</span>Outils et café fournis<span class="stop">STOP</span></p>
+          <p class="signe">Alice Noël</p>
+        </div>
+        <span class="rubr">Rubr. Bricolage</span>
+        <div class="actions">
+          <button class="btn-touche btn-touche--fort" type="button">Je peux aider</button>
+          <button class="btn-touche" type="button">Répondre</button>
+          <span class="compteur">2 réponses</span>
+        </div>
+      </article>
+
+      <article class="telegramme">
+        <div class="bande">
+          <span class="mot">Télégramme</span><span class="service">service du quartier</span>
+          <span class="type type--offre">Offre</span>
+        </div>
+        <span class="cachet-poste" aria-hidden="true"><span>TpT</span><b>10 juin</b><span>2026</span></span>
+        <div class="contenu">
+          <p class="dateline"><b>Baugerie</b>, 10 juin, 11 h 15 —</p>
+          <p class="texte">Cours d'espagnol conversationnel tous niveaux<span class="stop">STOP</span>Native, patiente, chez moi ou en visio<span class="stop">STOP</span>1 h = 1 h<span class="stop">STOP</span></p>
+          <p class="signe">Marta Lopez</p>
+        </div>
+        <span class="rubr">Rubr. Cours</span>
+        <div class="actions">
+          <button class="btn-touche btn-touche--fort" type="button">Ça m'intéresse</button>
+          <button class="btn-touche" type="button">Répondre</button>
+        </div>
+      </article>
+
+      <article class="telegramme">
+        <div class="bande">
+          <span class="mot">Télégramme</span><span class="service">service du quartier</span>
+          <span class="type type--atelier">Atelier</span>
+        </div>
+        <div class="contenu">
+          <p class="dateline"><b>Vieux Bourg</b>, 9 juin, 18 h 40 —</p>
+          <p class="texte">Atelier réparation vélo dimanche 10 h au local associatif<span class="stop">STOP</span>Amenez votre monture<span class="stop">STOP</span>Freins et dérailleurs revus ensemble<span class="stop">STOP</span></p>
+          <p class="signe">Pierre Blanchard</p>
+        </div>
+        <span class="rubr">Rubr. Mécanique</span>
+        <div class="actions">
+          <button class="btn-touche btn-touche--fort" type="button">Je m'inscris</button>
+          <button class="btn-touche" type="button">Répondre</button>
+          <span class="compteur">3/5 inscrits</span>
+        </div>
+      </article>
+
+      <article class="telegramme">
+        <div class="bande">
+          <span class="mot">Télégramme</span><span class="service">service du quartier</span>
+          <span class="type type--idee">Idée</span>
+        </div>
+        <div class="contenu">
+          <p class="dateline"><b>Centre</b>, 9 juin, 9 h 05 —</p>
+          <p class="texte">Et si on lançait un café des voisins un samedi par mois au square de la Baugerie<span class="stop">STOP</span>Qui serait partant<span class="stop">STOP</span></p>
+          <p class="signe">Marie Morel</p>
+        </div>
+        <span class="rubr">Rubr. Vie de quartier</span>
+        <div class="actions">
+          <button class="btn-touche btn-touche--fort" type="button">Partant·e</button>
+          <button class="btn-touche" type="button">Répondre</button>
+          <span class="compteur">12 partants · 8 rép.</span>
+        </div>
+      </article>
+
+      <article class="telegramme">
+        <div class="bande">
+          <span class="mot">Télégramme</span><span class="service">service du quartier</span>
+          <span class="type type--demande">Demande</span>
+        </div>
+        <span class="cachet-poste" aria-hidden="true"><span>TpT</span><b>7 juin</b><span>2026</span></span>
+        <div class="contenu">
+          <p class="dateline"><b>Baugerie</b>, 7 juin, 20 h 30 —</p>
+          <p class="texte">Cherche personne pour nourrir mon chat le week-end du 20<span class="stop">STOP</span>Câlins inclus dans l'échange<span class="stop">STOP</span></p>
+          <p class="signe">Sonia Klein</p>
+        </div>
+        <span class="rubr">Rubr. Animaux</span>
+        <div class="actions">
+          <button class="btn-touche btn-touche--fort" type="button">Je peux aider</button>
+          <button class="btn-touche" type="button">Répondre</button>
+        </div>
+      </article>
+
+      <article class="telegramme">
+        <div class="bande">
+          <span class="mot">Télégramme</span><span class="service">service du quartier</span>
+          <span class="type type--offre">Offre</span>
+        </div>
+        <div class="contenu">
+          <p class="dateline"><b>Centre</b>, 7 juin, 16 h 12 —</p>
+          <p class="texte">Retouches couture : ourlets, fermetures éclair, boutons<span class="stop">STOP</span>Ma machine ronronne, profitez-en<span class="stop">STOP</span></p>
+          <p class="signe">Lucie Garnier</p>
+        </div>
+        <span class="rubr">Rubr. Couture</span>
+        <div class="actions">
+          <button class="btn-touche btn-touche--fort" type="button">Ça m'intéresse</button>
+          <button class="btn-touche" type="button">Répondre</button>
+        </div>
+      </article>
+    </div>
+
+    <footer class="ours">
+      <b>TempsPourTemps</b> · Échangez du temps, pas de l'argent<br>
+      Personnes et dépêches fictives
+    </footer>
+
+  </main>
+
+  <nav class="tabbar" aria-label="Navigation principale">
+    <a class="tab tab--actif" href="#" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+      Accueil
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      Chercher
+    </a>
+    <a class="tab tab--plus" href="#">
+      <span class="rond">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </span>
+      Proposer
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+      Services
+    </a>
+    <a class="tab" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>
+      Dépêches
+    </a>
+  </nav>
+
+</div>
+
+</body>
+</html>
