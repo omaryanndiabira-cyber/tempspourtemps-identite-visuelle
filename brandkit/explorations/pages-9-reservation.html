@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Pages 9 · Réservation publique</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  .choix{display:flex;flex-direction:column;margin:0 18px;}
+  .choix a{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--border);text-decoration:none;color:inherit;}
+  .choix a:first-child{border-top:0;}
+  .choix .rond{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;}
+  .choix .rond svg{width:19px;height:19px;}
+  .choix .c{flex:1;min-width:0;}
+  .choix b{display:block;font-family:var(--titres);font-weight:800;font-size:14.5px;}
+  .choix .d{font-size:11.5px;color:var(--text-tertiary);margin-top:2px;line-height:1.4;}
+  .choix .duree{font-family:var(--titres);font-weight:800;font-size:11px;background:var(--sable);color:var(--marine);border-radius:5px;padding:3px 7px;white-space:nowrap;}
+
+  .confirmation{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:0 26px;background:var(--grad-hero);
+  }
+  .confirmation .sceau{
+    width:78px;height:78px;border-radius:50%;border:2px solid var(--success);
+    box-shadow:inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--success);
+    display:flex;align-items:center;justify-content:center;color:var(--success);margin-bottom:18px;
+    background:rgba(74,157,95,.06);
+  }
+  .confirmation .sceau svg{width:32px;height:32px;}
+  .confirmation h1{font-family:var(--titres);font-weight:800;font-size:24px;line-height:1.2;}
+  .confirmation .regle{border-top:1px solid var(--marine);border-bottom:3px double var(--marine);height:7px;opacity:.55;width:120px;margin:16px 0;}
+  .confirmation p{font-size:13px;color:var(--text-secondary);line-height:1.55;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Pages · famille 9</p>
+  <h1>Réservation publique</h1>
+  <p>Ces trois écrans sont vus par des gens qui <b>ne connaissent pas encore l'association</b> — ils arrivent par un lien, hors connexion. Le ton doit donc porter la marque plus que l'app : en-tête à wordmark, pas de barre de navigation, un pied qui explique en une phrase ce qu'est TempsPourTemps. La confirmation se clôt par un <b>sceau</b>.</p>
+  <div class="traits">
+    <span><b>Hors connexion</b> en-tête public</span>
+    <span><b>Créneaux</b> grille par jour</span>
+    <span><b>Fin</b> sceau de confirmation</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ========== 1 · LE TYPE DE RENDEZ-VOUS ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>Prendre rendez-vous</h2><span class="route">réservation</span></figcaption>
+    <div class="phone">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tete-public">
+        <img src="../../assets/logo/logo-tpt-fond.png" alt="" style="border-radius:8px">
+        <span class="wordmark">Temps<em>Pour</em>Temps</span>
+      </div>
+
+      <main class="feed feed--uni">
+        <section class="hero" style="padding-top:18px">
+          <div class="edition"><span>Saint-Sébastien-sur-Loire</span><span><b>Juin 2026</b></span></div>
+          <h1>Faisons <span class="souligne">connaissance.</span></h1>
+          <p>Un quart d'heure pour comprendre comment le quartier s'échange du temps, et voir si ça vous parle.</p>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Comment se voir</h2></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="choix">
+          <a href="#">
+            <span class="rond av-bleu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span>
+            <div class="c">
+              <b>Au téléphone</b>
+              <p class="d">On vous rappelle, vous posez vos questions</p>
+            </div>
+            <span class="duree">15 min</span>
+          </a>
+          <a href="#">
+            <span class="rond av-creme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+            <div class="c">
+              <b>Chez vous</b>
+              <p class="d">Un bénévole passe, à l'heure qui vous arrange</p>
+            </div>
+            <span class="duree">45 min</span>
+          </a>
+          <a href="#">
+            <span class="rond av-sable"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8Z"/><path d="M17 9h2.5a2.5 2.5 0 0 1 0 5H17"/><path d="M6 3v2M10 3v2M14 3v2"/></svg></span>
+            <div class="c">
+              <b>Autour d'un café</b>
+              <p class="d">Au café du Centre, sans engagement</p>
+            </div>
+            <span class="duree">30 min</span>
+          </a>
+        </div>
+
+        <div class="encart encart--info" style="margin-top:20px">
+          <b>Aucun engagement.</b> Ce rendez-vous ne crée pas de compte et ne coûte rien. Vous pouvez l'annuler d'un lien à tout moment.
+        </div>
+      </main>
+
+      <div class="pied-public">
+        <p>Échangez des services entre voisins, sans argent.<br>1 h donnée = 1 h reçue.<br>
+        <a href="#">Mentions légales</a> · <a href="#">Confidentialité</a></p>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Écran vu par quelqu'un qui ne connaît pas l'association : l'en-tête porte le <b>wordmark complet</b>, pas le monogramme seul, et le pied explique le principe en une ligne. Les trois formats de rendez-vous sont décrits par ce qu'ils sont pour le visiteur — « chez vous », « autour d'un café » — avec leur durée en pastille.</p>
+  </figure>
+
+  <!-- ========== 2 · LES CRÉNEAUX ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>Choisir un créneau</h2><span class="route">réservation · créneaux</span></figcaption>
+    <div class="phone">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tete-public">
+        <button class="ibtn" aria-label="Retour" style="color:var(--marine);margin-left:-8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="wordmark">Temps<em>Pour</em>Temps</span>
+      </div>
+
+      <main class="feed feed--uni">
+        <section class="manchette" style="padding-top:16px">
+          <p class="sur">Chez vous · 45 minutes</p>
+          <h2>Quand cela vous <span class="souligne">arrange-t-il ?</span></h2>
+        </section>
+
+        <div class="jour-creneaux" style="margin-top:18px">
+          <p class="t">Jeudi 12 juin</p>
+          <div class="creneaux">
+            <span class="creneau">09:00</span>
+            <span class="creneau off">10:30</span>
+            <span class="creneau">14:00</span>
+            <span class="creneau">15:30</span>
+            <span class="creneau off">17:00</span>
+            <span class="creneau">18:30</span>
+          </div>
+        </div>
+
+        <div class="jour-creneaux">
+          <p class="t">Vendredi 13 juin</p>
+          <div class="creneaux">
+            <span class="creneau">09:00</span>
+            <span class="creneau on">10:30</span>
+            <span class="creneau">14:00</span>
+            <span class="creneau off">15:30</span>
+            <span class="creneau">17:00</span>
+            <span class="creneau">18:30</span>
+          </div>
+        </div>
+
+        <div class="jour-creneaux">
+          <p class="t">Samedi 14 juin</p>
+          <div class="creneaux">
+            <span class="creneau">10:00</span>
+            <span class="creneau">11:30</span>
+            <span class="creneau off">14:00</span>
+          </div>
+        </div>
+
+        <div class="signaletique" style="margin:6px 18px 0;background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.22);outline-offset:2px;border-radius:10px;padding:2px 14px">
+          <div style="display:flex;align-items:baseline;gap:10px;padding:10px 0">
+            <span style="flex:none;width:82px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary)">Retenu</span>
+            <span style="flex:1;font-size:12.5px;font-weight:500"><b style="font-family:var(--titres);font-weight:800">Vendredi 13 juin, 10:30</b> · chez vous</span>
+          </div>
+        </div>
+
+        <div style="padding:14px 18px 8px">
+          <button class="btn-plein btn-plein--orange" type="button">Réserver ce créneau</button>
+        </div>
+        <p style="text-align:center;padding-bottom:14px">
+          <button class="lien-filet lien-filet--muet" type="button">Aucun créneau ne me convient</button>
+        </p>
+      </main>
+
+      <div class="pied-public">
+        <p>Échangez des services entre voisins, sans argent.<br>1 h donnée = 1 h reçue.</p>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Les créneaux sont groupés par jour sous un <b>filet de tête</b>, en grille de trois. Les indisponibles sont barrés plutôt que masqués — on voit que l'agenda est réel. Le créneau retenu se rappelle dans l'encadré juste au-dessus du bouton, pour éviter la réservation à l'aveugle. Et l'issue de secours est présente : « aucun créneau ne me convient ».</p>
+  </figure>
+
+  <!-- ========== 3 · LA CONFIRMATION ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>C'est noté</h2><span class="route">réservation · confirmée</span></figcaption>
+    <div class="phone">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tete-public">
+        <img src="../../assets/logo/logo-tpt-fond.png" alt="" style="border-radius:8px">
+        <span class="wordmark">Temps<em>Pour</em>Temps</span>
+      </div>
+
+      <div class="confirmation">
+        <span class="sceau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <h1>C'est noté.</h1>
+        <div class="regle"></div>
+        <p><b style="font-family:var(--titres);font-size:15px;color:var(--marine)">Vendredi 13 juin, 10:30</b><br>Chez vous · 45 minutes<br>avec Camille, bénévole du Centre</p>
+        <p style="margin-top:16px;font-size:12px;color:var(--text-tertiary)">Un courriel de rappel vous parviendra la veille. Vous pouvez annuler d'un lien à tout moment.</p>
+
+        <div style="width:100%;margin-top:22px;display:flex;flex-direction:column;gap:9px">
+          <button class="btn-plein btn-plein--contour" type="button">Ajouter à mon calendrier</button>
+          <button class="lien-filet lien-filet--muet" type="button" style="align-self:center;margin-top:4px">Annuler ce rendez-vous</button>
+        </div>
+      </div>
+
+      <div class="pied-public">
+        <p>Échangez des services entre voisins, sans argent.<br>1 h donnée = 1 h reçue.</p>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">La confirmation se clôt par un <b>sceau</b> vert à double cercle, cousin du cachet des faire-part. Le rendez-vous est répété en toutes lettres avec le prénom du bénévole — on sait qui va sonner. L'annulation reste accessible, en lien discret : la cacher ne ferait qu'engendrer des rendez-vous manqués.</p>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Pages 9/9 · Créneaux et bénévoles fictifs.<br>
+  <a href="../../index.html">Galerie</a>
+</footer>
+</body>
+</html>

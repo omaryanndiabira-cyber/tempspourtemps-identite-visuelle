@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Pages 4 · Le fil du quartier</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  .reactions{display:flex;gap:9px;margin:0 18px 12px;}
+  .reaction{
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+    border:1px solid var(--border);background:var(--paper);border-radius:12px;padding:10px 6px;cursor:pointer;
+  }
+  .reaction .v{font-family:var(--titres);font-weight:800;font-size:16px;color:var(--marine);}
+  .reaction .l{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);}
+  .reaction.on{background:var(--bg-hover);border-color:#f1ddae;}
+  .reaction.on .v,.reaction.on .l{color:var(--orange-hover);}
+
+  .commentaire{display:flex;gap:10px;padding:11px 0;border-top:1px solid var(--border);}
+  .commentaire:first-child{border-top:0;}
+  .commentaire .avatar{width:30px;height:30px;font-size:10px;flex:none;border:1.5px solid var(--border);}
+  .commentaire .c{flex:1;min-width:0;}
+  .commentaire .l1{display:flex;align-items:baseline;gap:8px;}
+  .commentaire b{font-family:var(--titres);font-weight:800;font-size:12.5px;}
+  .commentaire .h{font-size:10px;color:var(--text-tertiary);margin-left:auto;}
+  .commentaire p{font-size:12.5px;line-height:1.5;color:var(--text-secondary);margin-top:3px;}
+
+  .photo-ph{
+    margin:12px 18px 0;height:132px;border-radius:12px;border:1px solid var(--border);
+    background:radial-gradient(circle at 30% 25%, rgba(252,219,129,.5), transparent 58%),
+               linear-gradient(160deg,#e8eef4 0%, #dde6ee 100%);
+    display:flex;align-items:flex-end;padding:10px;
+  }
+  .photo-ph span{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--marine);background:rgba(255,253,246,.85);border-radius:5px;padding:3px 8px;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Pages · famille 4</p>
+  <h1>Le fil du quartier</h1>
+  <p>Le fil, c'est la page des <b>petites annonces sans façon</b> : un mot jeté, pas un service catalogué. Les publications gardent la fiche aérée de la une, avec leurs pastilles de pertinence. Ouverte, une publication montre ses deux réactions en <b>compteurs jumeaux</b> et ses commentaires en carnet. Le formulaire tient en cinq champs.</p>
+  <div class="traits">
+    <span><b>Fil</b> fiches + pastilles</span>
+    <span><b>Ouverte</b> réactions en compteurs</span>
+    <span><b>Écrire</b> cinq champs</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ========== 1 · LE FIL ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>Le fil</h2><span class="route">fil · liste</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <span class="titre">Le fil</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <section class="grand-titre">
+          <h1>Le fil du quartier</h1>
+          <p class="date">Mercredi 10 juin · <b>34 mots</b> · 6 neufs aujourd'hui</p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="filtres-ligne" style="margin-top:12px">
+          <a class="on" href="#">Ce qui vous concerne</a>
+          <a href="#">Les plus récents</a>
+          <a href="#">Les plus anciens</a>
+        </div>
+        <p class="sous-rubrique" style="margin-top:-4px">Votre quartier et vos services d'abord, puis le reste du voisinage.</p>
+
+        <div class="fil">
+          <article class="annonce">
+            <div class="pastilles">
+              <span class="past past--quartier">Votre quartier</span>
+              <span class="past past--aider">Vous pouvez aider</span>
+            </div>
+            <div class="an-tete">
+              <span class="an-type an-type--demande">Demande</span>
+              <span class="an-rubr">Bricolage</span>
+            </div>
+            <h3 class="an-titre">Un coup de main pour monter une étagère</h3>
+            <p class="an-texte">Une petite heure samedi matin, j'ai déjà les outils. Le café est offert.</p>
+            <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+            <div class="an-actions">
+              <button class="action action--fort">Je peux aider</button>
+              <button class="action">Commenter</button>
+              <span class="an-compteur">2 réponses</span>
+            </div>
+          </article>
+
+          <article class="annonce">
+            <div class="an-tete">
+              <span class="an-type an-type--neutre">Sans suite attendue</span>
+              <span class="an-rubr">Vie de quartier</span>
+            </div>
+            <h3 class="an-titre">Quelqu'un a perdu un chat roux rue Pasteur</h3>
+            <p class="an-texte">Il tourne autour du 14 depuis hier soir. Il a un collier bleu mais pas de médaille. Je lui ai mis de l'eau.</p>
+            <p class="an-sign">— Jean Mercier · Ouche Quinet · il y a 4 h</p>
+            <div class="an-actions">
+              <button class="action">Commenter</button>
+              <span class="an-compteur">7 commentaires</span>
+            </div>
+          </article>
+
+          <article class="annonce">
+            <div class="pastilles">
+              <span class="past past--pourvous">Pour vous</span>
+              <span class="past past--pourvue">Pourvue</span>
+            </div>
+            <div class="an-tete">
+              <span class="an-type an-type--proposition">Proposition</span>
+              <span class="an-rubr">Jardinage</span>
+            </div>
+            <h3 class="an-titre">Je taille vos haies ce week-end</h3>
+            <p class="an-texte">J'ai le taille-haie et l'après-midi de libre. Deux personnes maximum.</p>
+            <p class="an-sign">— Pierre Blanchard · Vieux Bourg · hier</p>
+            <div class="an-actions">
+              <button class="action">Ça m'intéresse</button>
+              <button class="action">Commenter</button>
+              <span class="an-compteur">3 intéressés</span>
+            </div>
+          </article>
+        </div>
+
+        <p class="compteurs-note">Encore 31 mots plus anciens</p>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8h13l-3-3M17 16H4l3 3"/></svg>Services</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Le tri passe en ligne de liens, avec une phrase qui explique ce que « ce qui vous concerne » veut dire — sinon personne ne comprend l'ordre. Un mot <b>sans suite attendue</b> (le chat perdu) n'a ni pastille de sens ni bouton d'aide : seulement commenter. C'est ce qui distingue le fil des annonces.</p>
+  </figure>
+
+  <!-- ========== 2 · LA PUBLICATION OUVERTE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>La publication ouverte</h2><span class="route">fil · détail</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour au fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre" style="color:var(--marine)">Le fil</span>
+        <button class="ibtn" aria-label="Options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed feed--avec-barre">
+        <section class="manchette" style="padding-top:12px">
+          <p class="sur">Demande · Bricolage</p>
+          <h2>Un coup de main pour monter une étagère</h2>
+          <p>Une petite heure samedi matin, j'ai déjà les outils et les chevilles. C'est une étagère murale de 1 m 20 — rien de compliqué, mais je n'ai pas de perceuse. Le café est offert.</p>
+        </section>
+
+        <div class="photo-ph"><span>Photo jointe</span></div>
+
+        <div class="auteur" style="margin-top:14px;display:flex;align-items:center;gap:10px;padding:11px 13px;background:var(--paper);border:1px solid var(--border);border-radius:12px">
+          <span class="avatar av-creme" style="width:40px;height:40px;font-size:12.5px;border:1.5px solid var(--sable)">AN</span>
+          <div style="flex:1;min-width:0">
+            <b style="display:block;font-family:var(--titres);font-weight:800;font-size:13.5px">Alice Noël</b>
+            <p style="font-size:10.5px;color:var(--text-tertiary);margin-top:1px">Centre · publié il y a 2 h</p>
+          </div>
+          <button class="lien-filet" type="button">Son profil</button>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Qui répond</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="reactions">
+          <button class="reaction on" type="button"><span class="v">2</span><span class="l">Je peux aider</span></button>
+          <button class="reaction" type="button"><span class="v">5</span><span class="l">Ça m'intéresse</span></button>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Les commentaires</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="carnet">
+          <div class="commentaire">
+            <span class="avatar av-sable">PB</span>
+            <div class="c">
+              <div class="l1"><b>Pierre Blanchard</b><span class="h">il y a 1 h</span></div>
+              <p>J'ai une perceuse et je suis libre samedi matin. Je passe vers 10 h ?</p>
+            </div>
+          </div>
+          <div class="commentaire">
+            <span class="avatar av-creme">AN</span>
+            <div class="c">
+              <div class="l1"><b>Alice Noël</b><span class="h">il y a 55 min</span></div>
+              <p>Parfait ! Je vous envoie l'adresse en message.</p>
+            </div>
+          </div>
+          <div class="commentaire">
+            <span class="avatar av-vert">MM</span>
+            <div class="c">
+              <div class="l1"><b>Marie Morel</b><span class="h">il y a 20 min</span></div>
+              <p>Si besoin d'un second bras, je suis à deux rues.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <div class="bas">
+        <div class="composer">
+          <button class="ibtn" aria-label="Joindre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="zone">Écrire un commentaire…</div>
+          <button class="send" aria-label="Envoyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Les deux réactions deviennent des <b>compteurs jumeaux</b> : on voit d'un coup combien de voisins se sont manifestés, et la sienne est teintée. Les commentaires reprennent le carnet. Le composer en bas remplace la barre de navigation — on est en train de répondre.</p>
+  </figure>
+
+  <!-- ========== 3 · ÉCRIRE UN MOT ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Un mot dans le fil</h2><span class="route">fil · écrire</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <span class="titre">Un mot dans le fil</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <p class="sous-rubrique" style="margin:12px 18px 12px">Dites ce dont vous avez besoin, ou ce que vous pouvez offrir. Quelques lignes suffisent.</p>
+
+        <div class="form" style="padding-top:0">
+          <div class="form-groupe">
+            <label>De quoi s'agit-il ?</label>
+            <div class="bascule">
+              <span class="opt on">Je demande</span>
+              <span class="opt">Je propose</span>
+              <span class="opt">Un mot</span>
+            </div>
+            <p class="aide">« Un mot » n'attend pas de réponse : une information, une trouvaille, un chat perdu.</p>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le titre</label>
+            <div class="saisie saisie--rempli">Un coup de main pour monter une étagère</div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le texte</label>
+            <div class="saisie saisie--zone saisie--rempli">Une petite heure samedi matin, j'ai déjà les outils et les chevilles. Le café est offert.</div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le service <span class="opt">— facultatif</span></label>
+            <div class="select"><b style="font-family:var(--titres)">Bricolage · Montage</b><span class="chev">▾</span></div>
+            <p class="aide">Sert à placer votre mot devant les bons voisins.</p>
+          </div>
+
+          <div class="form-groupe">
+            <label>Une photo <span class="opt">— facultatif</span></label>
+            <div class="saisie" style="display:flex;align-items:center;gap:9px">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M9 5l1.2-2h3.6L15 5"/></svg>
+              Ajouter une photo
+            </div>
+          </div>
+        </div>
+
+        <div class="encart encart--info" style="margin-top:6px">
+          <b>Qui verra ce mot ?</b> Tout le voisinage inscrit. Les voisins de votre quartier et ceux qui proposent le service choisi le verront en premier.
+        </div>
+
+        <div class="form-pied">
+          <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+          <button class="btn-plein btn-plein--orange" type="button">Publier</button>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">Trois sens plutôt que deux : « Je demande », « Je propose » et <b>« Un mot »</b> — le cas neutre, qui n'attend pas de réponse, explicité en une ligne d'aide au lieu du « non précisé » actuel. L'encart du bas répond à la question que tout le monde se pose avant de publier.</p>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Pages 4/9 · Personnes et publications fictives.<br>
+  <a href="../../index.html">Galerie</a>
+</footer>
+</body>
+</html>

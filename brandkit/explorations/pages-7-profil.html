@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Pages 7 · Profil &amp; temps</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  .ours-profil{
+    margin:14px 18px 0;display:flex;align-items:center;gap:13px;
+    background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.22);outline-offset:2px;
+    border-radius:12px;padding:14px 15px;
+  }
+  .ours-profil .avatar{width:58px;height:58px;font-size:18px;border:2px solid var(--sable);}
+  .ours-profil .c{flex:1;min-width:0;}
+  .ours-profil b{display:block;font-family:var(--titres);font-weight:800;font-size:18px;line-height:1.2;}
+  .ours-profil .q{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-top:3px;}
+  .ours-profil .d{font-size:12px;color:var(--text-secondary);margin-top:6px;line-height:1.45;}
+
+  .mouvement{display:flex;align-items:baseline;gap:11px;padding:12px 0;border-top:1px solid var(--border);}
+  .mouvement:first-child{border-top:0;}
+  .mouvement .d{flex:none;width:44px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);line-height:1.3;}
+  .mouvement .c{flex:1;min-width:0;}
+  .mouvement .c b{display:block;font-family:var(--titres);font-weight:800;font-size:13px;}
+  .mouvement .c em{font-style:normal;font-size:11px;color:var(--text-tertiary);}
+  .mouvement .v{flex:none;text-align:right;}
+  .mouvement .v .m{font-family:var(--titres);font-weight:800;font-size:14px;font-variant-numeric:tabular-nums;}
+  .mouvement .v .m--plus{color:var(--success);}
+  .mouvement .v .m--moins{color:var(--orange-hover);}
+  .mouvement .v .s{font-size:9.5px;color:var(--text-tertiary);margin-top:2px;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Pages · famille 7</p>
+  <h1>Profil &amp; temps</h1>
+  <p>Le profil s'ouvre sur un <b>ours</b> — le pavé d'identité d'un journal — puis sur le compteur d'heures et une suite de réglages en lignes à filet, sans accordéons ni sections dépliantes. L'historique du temps devient un <b>relevé de compte</b> : une colonne de dates, un libellé, un montant signé et le solde après opération.</p>
+  <div class="traits">
+    <span><b>Profil</b> ours + réglages</span>
+    <span><b>Voisin</b> fiche publique</span>
+    <span><b>Temps</b> relevé de compte</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ========== 1 · MON PROFIL ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>Mon profil</h2><span class="route">profil</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <span class="titre">Mon profil</span>
+        <button class="ibtn" aria-label="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="ours-profil">
+          <span class="avatar av-sable">OD</span>
+          <div class="c">
+            <b>Omar Diabira</b>
+            <p class="q">Centre · voisin depuis mars 2026</p>
+            <p class="d">Bricoleur du dimanche, patient avec les ordinateurs et les débutants.</p>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Votre temps</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Le relevé</a>
+        </div>
+        <div class="compteurs">
+          <div><div class="v v--donne">5 h 15</div><div class="l">donné</div></div>
+          <div><div class="v v--recu">3 h 15</div><div class="l">reçu</div></div>
+          <div><div class="v v--solde">8 h 30</div><div class="l">compteur</div></div>
+        </div>
+        <p class="compteurs-note">12 échanges depuis votre arrivée · <button class="lien-filet" type="button">Déclarer un échange passé</button></p>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Ce que vous faites</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="reglages">
+          <a class="reglage" href="#">
+            <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v8M7 12l4.5-7.2A1.8 1.8 0 0 1 14.8 6L14 10h5.2a1.6 1.6 0 0 1 1.5 2.1l-1.8 5.6A2 2 0 0 1 17 19H7"/></svg></span>
+            <div class="c">
+              <b>Ce que vous proposez</b>
+              <div class="puces"><span class="sable">Bricolage</span><span class="sable">Informatique</span><span class="sable">Courses</span><span>+1</span></div>
+            </div>
+            <span class="chev">›</span>
+          </a>
+          <a class="reglage" href="#">
+            <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></span>
+            <div class="c">
+              <b>Ce que vous cherchez</b>
+              <div class="puces"><span>Jardinage</span><span>Couture</span></div>
+            </div>
+            <span class="chev">›</span>
+          </a>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Vos publications</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="reglages">
+          <a class="reglage" href="#"><div class="c"><b>Vos annonces</b><p class="d">1 en ligne, 2 retirées</p></div><span class="compte">3</span><span class="chev">›</span></a>
+          <a class="reglage" href="#"><div class="c"><b>Vos mots dans le fil</b><p class="d">Dernier il y a 3 jours</p></div><span class="compte">7</span><span class="chev">›</span></a>
+          <a class="reglage" href="#"><div class="c"><b>Vos ateliers</b><p class="d">Aucun pour le moment</p></div><span class="chev">›</span></a>
+          <a class="reglage" href="#"><div class="c"><b>Mises de côté</b><p class="d">Annonces que vous gardez sous le coude</p></div><span class="compte">4</span><span class="chev">›</span></a>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Votre compte</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="reglages">
+          <a class="reglage" href="#"><div class="c"><b>Notifications</b><p class="d">Messages, rendez-vous, moments ouverts</p></div><span class="chev">›</span></a>
+          <a class="reglage" href="#"><div class="c"><b>La charte</b><p class="d">Acceptée le 12 mars 2026</p></div><span class="etat etat--ok">Signée</span><span class="chev">›</span></a>
+          <a class="reglage" href="#"><div class="c"><b>Votre filleul</b><p class="d">Vous accompagnez Jean Mercier</p></div><span class="chev">›</span></a>
+        </div>
+
+        <div style="padding:16px 18px 10px">
+          <button class="btn-plein btn-plein--danger" type="button">Se déconnecter</button>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">L'<b>ours</b> ouvre la page comme le pavé d'identité d'un journal, encadré d'un double filet. En dessous, plus de sections dépliantes : des <b>lignes de réglage</b> qui montrent déjà leur contenu — les compétences en puces, les compteurs à droite — et mènent à l'édition. Un seul bouton, en bas, et il est en contour rouge parce qu'il ferme la porte.</p>
+  </figure>
+
+  <!-- ========== 2 · LE PROFIL D'UN VOISIN ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>Le profil d'un voisin</h2><span class="route">profil · public</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Voisine</span>
+        <button class="ibtn" aria-label="Options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <div class="ours-profil">
+          <span class="avatar av-creme">AN</span>
+          <div class="c">
+            <b>Alice Noël</b>
+            <p class="q">Centre · à 250 m · depuis mars 2026</p>
+            <p class="d">Couturière du dimanche, pâtissière quand il pleut. Je rends volontiers ce qu'on me prête.</p>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Ce qui vous rapproche</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="carnet">
+          <div class="carnet-ligne">
+            <span class="avatar av-vert" style="border-color:rgba(74,157,95,.5)">↑</span>
+            <div class="c">
+              <b>Vous pouvez l'aider</b>
+              <p class="comp">elle cherche <b>bricolage</b> et <b>informatique</b> — vous proposez les deux</p>
+            </div>
+          </div>
+          <div class="carnet-ligne">
+            <span class="avatar av-creme">↓</span>
+            <div class="c">
+              <b>Elle peut vous aider</b>
+              <p class="comp">elle propose <b>couture</b> — vous la cherchez</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Ses annonces</h2><span class="badge-compte">2</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="fil">
+          <article class="annonce">
+            <div class="an-tete">
+              <span class="an-type an-type--demande">Je recherche</span>
+              <span class="an-rubr">Bricolage</span>
+            </div>
+            <h3 class="an-titre">Une étagère à monter samedi matin</h3>
+            <p class="an-sign">— il y a 2 h · environ 1 h</p>
+            <div class="an-actions">
+              <button class="action action--fort">Proposer un rendez-vous</button>
+            </div>
+          </article>
+          <article class="annonce">
+            <div class="an-tete">
+              <span class="an-type an-type--offre">Je propose</span>
+              <span class="an-rubr">Couture</span>
+            </div>
+            <h3 class="an-titre">Ourlets, boutons et fermetures éclair</h3>
+            <p class="an-sign">— il y a 12 j · environ 30 min</p>
+            <div class="an-actions">
+              <button class="action action--fort">Proposer un rendez-vous</button>
+            </div>
+          </article>
+        </div>
+
+        <div style="padding:8px 18px 16px">
+          <button class="btn-plein btn-plein--marine" type="button">Écrire à Alice</button>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">La section <b>« Ce qui vous rapproche »</b> remplace les quatre blocs de correspondances de l'app par deux lignes lisibles, avec des flèches qui disent le sens de l'aide. Ses annonces sont raccourcies : titre, âge, durée — le texte se lit en ouvrant. Le bouton d'écriture est marine, pas orange : ce n'est pas un engagement, juste une prise de contact.</p>
+  </figure>
+
+  <!-- ========== 3 · LE RELEVÉ ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Le relevé du temps</h2><span class="route">historique</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Le relevé</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <section class="grand-titre">
+          <h1>Votre temps</h1>
+          <p class="date">Depuis le 12 mars 2026 · <b>12 échanges</b></p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="compteurs" style="margin-top:14px">
+          <div><div class="v v--donne">5 h 15</div><div class="l">donné</div></div>
+          <div><div class="v v--recu">3 h 15</div><div class="l">reçu</div></div>
+          <div><div class="v v--solde">8 h 30</div><div class="l">compteur</div></div>
+        </div>
+        <p class="compteurs-note">Vous avez commencé avec 5 heures offertes à l'inscription.</p>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Les mouvements</h2></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="registre">
+          <div class="registre-tete"><span>Juin 2026</span><span>Solde</span></div>
+          <div class="mouvement">
+            <div class="d">08<br>juin</div>
+            <div class="c"><b>Cours d'espagnol</b><em>reçu de Marta Lopez</em></div>
+            <div class="v"><div class="m m--moins">− 1 h</div><div class="s">8 h 30</div></div>
+          </div>
+          <div class="mouvement">
+            <div class="d">02<br>juin</div>
+            <div class="c"><b>Dépannage d'ordinateur</b><em>donné à Jean Mercier</em></div>
+            <div class="v"><div class="m m--plus">+ 1 h 30</div><div class="s">9 h 30</div></div>
+          </div>
+          <div class="mouvement">
+            <div class="d">28<br>mai</div>
+            <div class="c"><b>Prêt de perceuse</b><em>donné à Alice Noël</em></div>
+            <div class="v"><div class="m m--plus">+ 1 h</div><div class="s">8 h 00</div></div>
+          </div>
+          <div class="mouvement">
+            <div class="d">21<br>mai</div>
+            <div class="c"><b>Atelier réparation vélo</b><em>reçu de Pierre Blanchard</em></div>
+            <div class="v"><div class="m m--moins">− 2 h</div><div class="s">7 h 00</div></div>
+          </div>
+          <div class="mouvement">
+            <div class="d">12<br>mars</div>
+            <div class="c"><b>Bienvenue dans le quartier</b><em>crédit d'arrivée</em></div>
+            <div class="v"><div class="m m--plus">+ 5 h</div><div class="s">5 h 00</div></div>
+          </div>
+          <div class="registre-pied">12 mouvements · page 1 sur 3</div>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">Un vrai <b>relevé de compte</b> : la date en colonne, le libellé et la contrepartie, le montant signé et le solde après opération. Le vert monte, l'orange descend — la même règle que les compteurs du haut. Le crédit d'arrivée figure en bas de pile : on comprend d'où viennent les 5 heures initiales.</p>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Pages 7/9 · Personnes et mouvements fictifs.<br>
+  <a href="../../index.html">Galerie</a>
+</footer>
+</body>
+</html>

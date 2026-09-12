@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Pages 5 · Échanges &amp; activités</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  /* le grand livre des transferts de temps */
+  .livre{margin:0 18px;background:var(--paper);border:1px solid var(--marine);border-radius:12px;padding:0 14px;}
+  .livre .tete{display:flex;padding:8px 0 7px;border-bottom:2px solid var(--marine);font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
+  .livre .tete span:first-child{flex:1;}
+  .livre .tete span{width:62px;text-align:right;}
+  .livre .l{display:flex;align-items:baseline;padding:10px 0;border-top:1px dotted var(--border);font-size:12.5px;}
+  .livre .l:first-of-type{border-top:0;}
+  .livre .l .q{flex:1;min-width:0;}
+  .livre .l .q b{font-family:var(--titres);font-weight:800;font-size:13px;display:block;}
+  .livre .l .q em{font-style:normal;font-size:10.5px;color:var(--text-tertiary);}
+  .livre .l .v{width:62px;text-align:right;font-family:var(--titres);font-weight:800;font-variant-numeric:tabular-nums;}
+  .livre .l .v--prevu{color:var(--text-tertiary);}
+  .livre .l .v--reel{color:var(--marine);}
+  .livre .total{display:flex;align-items:baseline;padding:9px 0;border-top:2px solid var(--marine);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+  .livre .total span:first-child{flex:1;}
+  .livre .total .v{width:62px;text-align:right;font-family:var(--titres);font-size:14px;color:var(--success);letter-spacing:0;}
+
+  .participants{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .participants .p{display:flex;align-items:center;gap:6px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:999px;padding:3px 10px 3px 3px;font-size:11.5px;font-weight:600;}
+  .participants .p .avatar{width:22px;height:22px;font-size:8.5px;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Pages · famille 5</p>
+  <h1>Échanges &amp; activités</h1>
+  <p>Vos échanges se lisent comme un <b>carnet de rendez-vous</b>, groupé par échéance plutôt qu'en liste plate. Un échange ouvert révèle son <b>grand livre</b> : les heures prévues face aux heures déclarées, colonne contre colonne, avant validation. Les formulaires d'activité reprennent la grammaire des annonces.</p>
+  <div class="traits">
+    <span><b>Liste</b> groupée par échéance</span>
+    <span><b>Détail</b> grand livre des heures</span>
+    <span><b>Créer</b> atelier &amp; moment ouvert</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ========== 1 · LE CARNET DES ÉCHANGES ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>Le carnet des échanges</h2><span class="route">services</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <span class="titre">Services</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <section class="grand-titre">
+          <h1>Vos échanges</h1>
+          <p class="date">Mercredi 10 juin · <b>4 à venir</b> · 23 depuis mars</p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="filtres-ligne" style="margin-top:12px">
+          <a class="on" href="#">À venir</a>
+          <a href="#">À valider</a>
+          <a href="#">Passés</a>
+          <a href="#">Annulés</a>
+        </div>
+
+        <div class="rubrique" style="margin-top:8px">
+          <span class="tape"><h2>Cette semaine</h2></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="agenda">
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">11</div><div class="m">Juin</div><div class="h">12:30</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--ok">Confirmé</span><span class="jauge">15 min</span></div>
+              <h3>Rencontre physique</h3>
+              <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+              <div class="pied">
+                <button class="lien-filet" type="button">Ajouter au calendrier</button>
+                <span class="orga">vous recevez de Marie Morel</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:00</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--attente">À valider</span><span class="jauge">1 h</span></div>
+              <h3>Montage de l'étagère</h3>
+              <p class="lieu">⌖ Chez Alice Noël, Centre</p>
+              <div class="pied">
+                <button class="lien-filet" type="button">Valider l'échange</button>
+                <span class="orga">vous donnez à Alice Noël</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">15</div><div class="m">Juin</div><div class="h">10:00</div></div>
+            <div class="c">
+              <div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">3/5 inscrits</span></div>
+              <h3>Réparation vélo</h3>
+              <p class="lieu">⌖ Local associatif, Vieux Bourg · 2 h</p>
+              <div class="pied">
+                <span class="orga">animé par Pierre Blanchard</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Plus tard</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="agenda">
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">18</div><div class="m">Juin</div><div class="h">20:00</div></div>
+            <div class="c">
+              <div class="g"><span class="genre genre--collectif">Collectif</span><span class="jauge">6/10</span></div>
+              <h3>Soirée couture &amp; retouches</h3>
+              <p class="lieu">⌖ Salle des Tilleuls, Centre · 2 h</p>
+              <div class="pied"><span class="orga">animé par Lucie Garnier</span></div>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8h13l-3-3M17 16H4l3 3"/></svg>Services</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Plutôt qu'une liste plate à huit filtres d'état, le carnet groupe par <b>échéance</b> — cette semaine, plus tard, passés — et réduit les filtres à quatre intentions réelles. L'état de l'échange se lit en pastille, la relation (« vous donnez à », « vous recevez de ») en italique sous le lieu.</p>
+  </figure>
+
+  <!-- ========== 2 · L'ÉCHANGE OUVERT ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>L'échange ouvert</h2><span class="route">échange · détail</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">L'échange</span>
+        <button class="ibtn" aria-label="Options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <article class="carte-rdv carte-rdv--large" style="margin:14px 18px 0"><div class="cadre">
+          <div class="entete"><h3>Montage de l'étagère</h3></div>
+          <div class="statut statut--attente">En attente de validation</div>
+          <div class="quand"><div class="date">Samedi 14 juin</div><div class="meta">10:00<span class="sep">·</span>prévu 1 h</div></div>
+          <ul class="infos">
+            <li><span class="pic">⌖</span><span>Chez Alice Noël · 12 rue des Lilas, Centre</span></li>
+            <li><span class="pic">◉</span><span>Bricolage · montage de meubles</span></li>
+          </ul>
+          <div class="avec"><span class="avatar av-creme">AN</span><span class="nom">Vous donnez à Alice Noël</span></div>
+        </div></article>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le grand livre</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="livre">
+          <div class="tete"><span>Qui</span><span>Prévu</span><span>Réel</span></div>
+          <div class="l">
+            <div class="q"><b>Vous</b><em>vous donnez</em></div>
+            <div class="v v--prevu">1 h 00</div>
+            <div class="v v--reel">1 h 15</div>
+          </div>
+          <div class="l">
+            <div class="q"><b>Alice Noël</b><em>elle reçoit</em></div>
+            <div class="v v--prevu">1 h 00</div>
+            <div class="v v--reel">1 h 15</div>
+          </div>
+          <div class="total"><span>Votre compteur après validation</span><span class="v">9 h 45</span></div>
+        </div>
+        <p class="compteurs-note">La durée réelle a été corrigée de 15 minutes par Alice.</p>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Comment ça s'est passé</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="form" style="padding-top:0">
+          <div class="form-groupe">
+            <label>La durée réelle</label>
+            <div class="duo">
+              <div class="saisie saisie--rempli">1 h 15</div>
+              <div class="select"><span class="lab">dont</span><b style="font-family:var(--titres)">0 h préparation</b><span class="chev">▾</span></div>
+            </div>
+          </div>
+          <div class="form-groupe">
+            <label>Un mot <span class="opt">— facultatif</span></label>
+            <div class="saisie saisie--zone">Ce qui s'est bien passé, ce qui a pris plus de temps…</div>
+          </div>
+        </div>
+
+        <div class="form-pied">
+          <button class="btn-plein btn-plein--contour" type="button">Signaler un souci</button>
+          <button class="btn-plein btn-plein--orange" type="button">Valider</button>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">Le cœur de l'écran est le <b>grand livre</b> : deux colonnes, prévu contre réel, et la ligne du bas qui annonce l'effet sur votre compteur. C'est la seule chose que l'on veut vérifier avant de valider. La correction apportée par l'autre partie est signalée en clair sous le tableau plutôt qu'en texte barré.</p>
+  </figure>
+
+  <!-- ========== 3 · PROPOSER UN ATELIER ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Proposer un atelier</h2><span class="route">activité · créer</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <span class="titre">Proposer un atelier</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <p class="sous-rubrique" style="margin:12px 18px 12px">Vous animez, plusieurs voisins participent. Chacun reçoit la durée de l'atelier sur son compteur.</p>
+
+        <div class="form" style="padding-top:0">
+          <div class="form-groupe">
+            <label>Le titre</label>
+            <div class="saisie saisie--rempli">Atelier réparation vélo</div>
+          </div>
+          <div class="form-groupe">
+            <label>Le service</label>
+            <div class="select"><b style="font-family:var(--titres)">Mécanique · vélo</b><span class="chev">▾</span></div>
+          </div>
+          <div class="form-groupe">
+            <label>Le texte</label>
+            <div class="saisie saisie--zone saisie--rempli">Amenez votre monture, on regarde freins et dérailleurs ensemble. Prévoyez des vêtements qui ne craignent rien.</div>
+          </div>
+          <div class="form-groupe">
+            <label>Quand</label>
+            <div class="duo">
+              <div class="saisie saisie--rempli">Dim. 15 juin</div>
+              <div class="saisie saisie--rempli">10:00</div>
+            </div>
+          </div>
+          <div class="form-groupe">
+            <label>Combien de temps</label>
+            <div class="duo">
+              <div class="saisie saisie--rempli">2 h 00</div>
+              <div class="saisie">+ préparation</div>
+            </div>
+          </div>
+          <div class="form-groupe">
+            <label>Le lieu</label>
+            <div class="saisie saisie--rempli">Local associatif, Vieux Bourg</div>
+          </div>
+          <div class="form-groupe">
+            <label>Combien de participants</label>
+            <div class="duo">
+              <div class="saisie saisie--rempli">5 places</div>
+              <div class="select"><b style="font-family:var(--titres)">Tout le quartier</b><span class="chev">▾</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="encart encart--info">
+          <b>Ce que ça coûte et rapporte.</b> Vous donnerez 2 h ; chaque participant recevra 2 h. Avec 5 inscrits, 10 heures circuleront dans le quartier.
+        </div>
+
+        <div class="form-pied">
+          <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+          <button class="btn-plein btn-plein--orange" type="button">Annoncer</button>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">Les libellés sont posés en questions simples — « Quand », « Combien de temps », « Le lieu » — plutôt qu'en termes de formulaire. L'encart du bas répond à la question qui bloque le plus souvent : <b>qui donne et qui reçoit combien d'heures</b>.</p>
+  </figure>
+
+  <!-- ========== 4 · UN MOMENT OUVERT ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">4</span><h2>Annoncer un moment ouvert</h2><span class="route">moment · créer</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <span class="titre">Un moment ouvert</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <div class="encart encart--attention" style="margin:14px 18px 12px">
+          <b>Tout le voisinage sera prévenu.</b> Un moment ouvert n'a pas d'inscription : chacun passe s'il le souhaite. Réservez-le aux rassemblements réellement ouverts.
+        </div>
+
+        <div class="form" style="padding-top:0">
+          <div class="form-groupe">
+            <label>Le titre</label>
+            <div class="saisie saisie--rempli">Café solidaire du samedi</div>
+          </div>
+          <div class="form-groupe">
+            <label>Le texte</label>
+            <div class="saisie saisie--zone saisie--rempli">Ce qui se passe, pour qui, ce qu'il faut apporter. Thermos et gobelets fournis, amenez de quoi grignoter si le cœur vous en dit.</div>
+          </div>
+          <div class="form-groupe">
+            <label>Quand</label>
+            <div class="duo">
+              <div class="saisie saisie--rempli">Sam. 14 juin</div>
+              <div class="saisie saisie--rempli">9:30</div>
+            </div>
+          </div>
+          <div class="form-groupe">
+            <label>Jusqu'à quand</label>
+            <div class="saisie saisie--rempli">12:00 · soit 2 h 30</div>
+          </div>
+          <div class="form-groupe">
+            <label>Où</label>
+            <div class="bascule">
+              <span class="opt">Chez moi</span>
+              <span class="opt on">Un autre lieu</span>
+            </div>
+            <div class="saisie saisie--rempli" style="margin-top:2px">Square de la Baugerie, près du kiosque</div>
+          </div>
+        </div>
+
+        <div class="form-pied">
+          <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+          <button class="btn-plein btn-plein--orange" type="button">Prévenir le quartier</button>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">L'avertissement arrive <b>en tête</b>, pas en pied : c'est la condition qui doit faire renoncer si on s'est trompé de format. Le bouton dit ce qu'il fait — « Prévenir le quartier » — plutôt qu'un « Publier » anodin pour une action qui notifie tout le monde.</p>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Pages 5/9 · Personnes et échanges fictifs.<br>
+  <a href="../../index.html">Galerie</a>
+</footer>
+</body>
+</html>

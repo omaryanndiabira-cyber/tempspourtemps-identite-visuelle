@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Pages 3 · Les annonces</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  /* la fiche signalétique : l'encadré de renseignements d'une annonce */
+  .signaletique{
+    margin:14px 18px 0;background:var(--paper);border:1px solid var(--marine);
+    outline:1px solid rgba(24,62,87,.22);outline-offset:2px;border-radius:10px;padding:2px 14px;
+  }
+  .signaletique .l{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-top:1px dotted var(--border);}
+  .signaletique .l:first-child{border-top:0;}
+  .signaletique .k{flex:none;width:82px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);}
+  .signaletique .v{flex:1;font-size:12.5px;color:var(--marine);font-weight:500;}
+  .signaletique .v b{font-family:var(--titres);font-weight:800;}
+
+  .auteur{display:flex;align-items:center;gap:10px;margin:14px 18px 0;padding:11px 13px;background:var(--paper);border:1px solid var(--border);border-radius:12px;}
+  .auteur .avatar{width:40px;height:40px;font-size:12.5px;border:1.5px solid var(--sable);}
+  .auteur .c{flex:1;min-width:0;}
+  .auteur b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;}
+  .auteur .q{font-size:10.5px;color:var(--text-tertiary);margin-top:1px;}
+
+  .actions-fiche{padding:16px 18px 4px;display:flex;flex-direction:column;gap:9px;}
+  .actions-secondaires{display:flex;gap:9px;}
+  .actions-secondaires > *{flex:1;text-align:center;}
+
+  .stat-ligne{display:flex;gap:0;margin:0 18px;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--paper);}
+  .stat-ligne > div{flex:1;text-align:center;padding:10px 4px;border-left:1px solid var(--border);}
+  .stat-ligne > div:first-child{border-left:0;}
+  .stat-ligne .v{font-family:var(--titres);font-weight:800;font-size:17px;color:var(--marine);}
+  .stat-ligne .l{font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-top:3px;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Pages · famille 3</p>
+  <h1>Les annonces</h1>
+  <p>Une annonce ouverte se lit comme un <b>entrefilet de journal</b> : surtitre de genre, titre, corps, puis un <b>encadré de renseignements</b> à double filet — service, durée, lieu — qui rassemble ce qu'on cherche du regard. Le formulaire de publication reprend la même grammaire : des libellés en capitales espacées, un choix de sens en bascule, aucun champ décoratif.</p>
+  <div class="traits">
+    <span><b>Fiche</b> entrefilet + encadré</span>
+    <span><b>Publier</b> bascule de sens</span>
+    <span><b>Auteur</b> vue de suivi</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ========== 1 · LA FICHE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>L'annonce ouverte</h2><span class="route">annonce · détail</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Mettre en favori"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5.5 5.5 0 0 0-9.8-3.4A5.5 5.5 0 0 0 3.2 8.6c-1 5 7.8 10.4 7.8 10.4s8.8-5.4 7.8-10.4Z"/></svg></button>
+        <button class="ibtn" aria-label="Partager"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <section class="manchette" style="padding-top:12px">
+          <p class="sur">Demande · Bricolage</p>
+          <h2>Une étagère à monter samedi matin</h2>
+          <p>Une petite heure suffit, je fournis les outils et les chevilles. C'est une étagère murale de 1 m 20, rien de compliqué, mais je n'ai ni perceuse ni bras assez sûrs. Le café est offert, et il est bon.</p>
+        </section>
+
+        <div class="signaletique">
+          <div class="l"><span class="k">Service</span><span class="v"><b>Montage de meubles</b></span></div>
+          <div class="l"><span class="k">Durée</span><span class="v">environ <b>1 heure</b></span></div>
+          <div class="l"><span class="k">Lieu</span><span class="v">Chez Alice · 12 rue des Lilas, Centre</span></div>
+          <div class="l"><span class="k">Publiée</span><span class="v">le 10 juin, il y a 2 h</span></div>
+        </div>
+
+        <div class="auteur">
+          <span class="avatar av-creme">AN</span>
+          <div class="c">
+            <b>Alice Noël</b>
+            <p class="q">Centre · voisine depuis mars 2026 · 4 échanges</p>
+          </div>
+          <button class="lien-filet" type="button">Son profil</button>
+        </div>
+
+        <div class="actions-fiche">
+          <button class="btn-plein btn-plein--orange" type="button">Proposer un rendez-vous</button>
+          <div class="actions-secondaires">
+            <button class="action" type="button">Écrire à Alice</button>
+            <button class="action" type="button">♡ Mettre de côté</button>
+          </div>
+        </div>
+
+        <p class="compteurs-note" style="margin-top:14px">Vous donnez 1 heure, votre compteur passera à 9 h 30.</p>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">Pas de barre du bas ici : l'écran est une lecture, et son action principale — le seul bouton plein — se trouve au terme du texte, là où la décision se prend. L'<b>encadré de renseignements</b> à double filet rassemble service, durée, lieu et date : c'est le pavé qu'on relit avant de s'engager. La dernière ligne rappelle l'effet sur le compteur.</p>
+  </figure>
+
+  <!-- ========== 2 · PUBLIER ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>Passer une annonce</h2><span class="route">publier</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <span class="titre">Passer une annonce</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <div class="form">
+          <div class="form-groupe">
+            <label>Le sens de l'annonce</label>
+            <div class="bascule">
+              <span class="opt on">Je propose</span>
+              <span class="opt">Je recherche</span>
+            </div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le service</label>
+            <div class="duo">
+              <div class="select"><b style="font-family:var(--titres)">Bricolage</b><span class="chev">▾</span></div>
+              <div class="select"><b style="font-family:var(--titres)">Montage</b><span class="chev">▾</span></div>
+            </div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le titre</label>
+            <div class="saisie saisie--rempli">Petites réparations et montage de meubles</div>
+            <p class="aide">C'est ce qu'on lira dans le fil. Une ligne suffit.</p>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le texte</label>
+            <div class="saisie saisie--zone saisie--rempli">Perceuse, visseuse, niveau : j'ai tout ce qu'il faut. Disponible en soirée et le week-end, plutôt dans le Vieux Bourg.</div>
+          </div>
+
+          <div class="form-groupe">
+            <label>La durée <span class="opt">— facultatif</span></label>
+            <div class="duo">
+              <div class="saisie saisie--rempli">1 h 00</div>
+              <div class="select"><span class="lab">par</span><b style="font-family:var(--titres)">intervention</b><span class="chev">▾</span></div>
+            </div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le lieu</label>
+            <div class="select"><b style="font-family:var(--titres)">Chez la personne aidée</b><span class="chev">▾</span></div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Retirer l'annonce le <span class="opt">— facultatif</span></label>
+            <div class="saisie">jj / mm / aaaa</div>
+          </div>
+        </div>
+
+        <div class="form-pied">
+          <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+          <button class="btn-plein btn-plein--orange" type="button">Publier</button>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">Le sens de l'annonce se choisit en <b>bascule</b>, pas en menu : c'est la décision structurante, elle mérite d'être visible d'emblée. Les libellés sont en capitales espacées comme les têtes de rubrique, et chaque champ porte au plus une ligne d'aide. Deux boutons au pied, un seul plein.</p>
+  </figure>
+
+  <!-- ========== 3 · MON ANNONCE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Mon annonce</h2><span class="route">annonce · vue auteur</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Mon annonce</span>
+        <button class="ibtn" aria-label="Options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed feed--avec-barre">
+        <section class="manchette" style="padding-top:12px">
+          <p class="sur">Offre · Bricolage · en ligne</p>
+          <h2>Petites réparations et montage de meubles</h2>
+          <p>Perceuse, visseuse, niveau : j'ai tout ce qu'il faut. Disponible en soirée et le week-end.</p>
+          <div class="pied">
+            <button class="lien-filet" type="button">Modifier</button>
+            <button class="lien-filet lien-filet--muet" type="button">Retirer</button>
+            <span class="mention">valable jusqu'au 31 juillet</span>
+          </div>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Ce qu'elle a produit</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="stat-ligne">
+          <div><div class="v">142</div><div class="l">lectures</div></div>
+          <div><div class="v">6</div><div class="l">mises de côté</div></div>
+          <div><div class="v">3</div><div class="l">demandes</div></div>
+          <div><div class="v">2 h</div><div class="l">échangées</div></div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Les demandes reçues</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="carnet">
+          <div class="carnet-ligne">
+            <span class="avatar av-rose">SK</span>
+            <div class="c">
+              <b>Sonia Klein</b>
+              <p class="q">Baugerie · il y a 1 h</p>
+              <p class="comp">« Bonjour, mon robinet goutte, seriez-vous dispo jeudi ? »</p>
+            </div>
+            <span class="etat etat--attente">Nouveau</span>
+          </div>
+          <div class="carnet-ligne">
+            <span class="avatar av-vert">MM</span>
+            <div class="c">
+              <b>Marie Morel</b>
+              <p class="q">Centre · hier</p>
+              <p class="comp">Rendez-vous confirmé pour le 14 juin</p>
+            </div>
+            <span class="etat etat--ok">Confirmé</span>
+          </div>
+          <div class="carnet-ligne">
+            <span class="avatar av-bleu">JM</span>
+            <div class="c">
+              <b>Jean Mercier</b>
+              <p class="q">Ouche Quinet · 2 juin</p>
+              <p class="comp">Échange terminé · 1 h créditée</p>
+            </div>
+            <span class="etat etat--neutre">Terminé</span>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Vue par son auteur, l'annonce devient un <b>tableau de bord discret</b> : les actions d'édition passent en liens à filet sous la manchette, un bandeau de chiffres résume ce qu'elle a produit, et les demandes reçues se lisent en carnet avec leur état. Aucun bouton plein — on est chez soi, pas en train de décider.</p>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Pages 3/9 · Personnes et annonces fictives.<br>
+  <a href="../../index.html">Galerie</a>
+</footer>
+</body>
+</html>

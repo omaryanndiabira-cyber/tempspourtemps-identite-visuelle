@@ -503,4 +503,123 @@ footer a{color:var(--marine);font-weight:600;}
 .filtres-ligne a{color:var(--text-tertiary);text-decoration:none;font-weight:600;white-space:nowrap;padding-bottom:3px;flex:none;}
 .filtres-ligne a.on{color:var(--marine);font-weight:800;border-bottom:2px solid var(--orange);}
 
+/* ============================================================
+   ONGLETS
+   ============================================================ */
+.onglets{display:flex;margin:0 18px 12px;border-bottom:2px solid var(--marine);}
+.onglets a{flex:1;text-align:center;padding:9px 4px;font-family:var(--titres);font-weight:800;font-size:11.5px;color:var(--text-tertiary);text-decoration:none;position:relative;white-space:nowrap;}
+.onglets a.on{color:var(--marine);}
+.onglets a.on::after{content:"";position:absolute;left:10%;right:10%;bottom:-2px;height:3px;background:var(--orange);}
+
+/* ============================================================
+   COMPTEURS DE TEMPS
+   ============================================================ */
+.compteurs{display:flex;margin:0 18px;border:1px solid var(--marine);border-radius:14px;overflow:hidden;background:var(--paper);}
+.compteurs > div{flex:1;text-align:center;padding:12px 6px;border-left:1px solid var(--border);}
+.compteurs > div:first-child{border-left:0;}
+.compteurs .v{font-family:var(--titres);font-weight:800;font-size:19px;line-height:1;}
+.compteurs .l{font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);margin-top:5px;}
+.v--donne{color:var(--orange-hover);}
+.v--recu{color:var(--marine);}
+.v--solde{color:var(--success);}
+.compteurs-note{text-align:center;font-size:10.5px;font-style:italic;color:var(--text-tertiary);margin:7px 18px 0;}
+
+/* ============================================================
+   RÉGLAGES / SECTIONS DE PROFIL
+   ============================================================ */
+.reglages{margin:0 18px;background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:0 15px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+.reglage{display:flex;align-items:center;gap:11px;padding:13px 0;border-top:1px solid var(--border);text-decoration:none;color:inherit;}
+.reglage:first-child{border-top:0;}
+.reglage .pic{width:30px;height:30px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--bg-hover);color:var(--orange-hover);}
+.reglage .pic svg{width:16px;height:16px;}
+.reglage .c{flex:1;min-width:0;}
+.reglage b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;}
+.reglage .d{font-size:11.5px;color:var(--text-tertiary);margin-top:2px;line-height:1.4;}
+.reglage .chev{color:var(--text-tertiary);font-size:15px;}
+.reglage .compte{font-family:var(--titres);font-weight:800;font-size:12px;color:var(--orange-hover);}
+
+/* puces de compétences */
+.puces{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;}
+.puces span{font-size:10.5px;font-weight:600;background:var(--bg-secondary);border:1px solid var(--border);border-radius:5px;padding:3px 8px;color:var(--text-secondary);}
+.puces .sable{background:var(--bg-hover);border-color:#f1ddae;color:var(--orange-hover);}
+
+/* ============================================================
+   REGISTRE (listes d'administration)
+   ============================================================ */
+.registre{margin:0 18px;background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:0 14px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+.registre-ligne{display:flex;gap:11px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--border);}
+.registre-ligne:first-child{border-top:0;}
+.registre-ligne .c{flex:1;min-width:0;}
+.registre-ligne b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;}
+.registre-ligne .d{font-size:11.5px;color:var(--text-secondary);margin-top:3px;line-height:1.45;}
+.registre-ligne .m{font-size:10px;color:var(--text-tertiary);margin-top:4px;}
+.registre-tete{display:flex;align-items:baseline;justify-content:space-between;padding:10px 0 8px;border-bottom:2px solid var(--marine);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;}
+.registre-tete span:last-child{color:var(--text-tertiary);letter-spacing:.08em;}
+.registre-pied{text-align:center;padding:10px 0;border-top:2px solid var(--marine);font-size:10.5px;color:var(--text-tertiary);}
+
+/* pastilles d'état génériques */
+.etat{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:4px;padding:3px 7px;white-space:nowrap;}
+.etat--ok{background:rgba(74,157,95,.14);color:#2f7a44;}
+.etat--attente{background:var(--bg-hover);color:var(--orange-hover);}
+.etat--neutre{background:var(--bg-secondary);color:var(--text-tertiary);}
+.etat--alerte{background:rgba(196,69,54,.10);color:var(--danger);}
+.etat--marine{background:#e8eef4;color:var(--marine);}
+
+/* bandeau de compteurs admin */
+.jauges{display:flex;gap:8px;margin:0 18px 12px;overflow-x:auto;scrollbar-width:none;}
+.jauges::-webkit-scrollbar{display:none;}
+.jauge-case{flex:none;min-width:86px;background:var(--paper);border:1px solid var(--border);border-radius:11px;padding:9px 11px;}
+.jauge-case .v{font-family:var(--titres);font-weight:800;font-size:20px;line-height:1;}
+.jauge-case .l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-top:4px;}
+.jauge-case--alerte .v{color:var(--danger);}
+.jauge-case--attente .v{color:var(--orange-hover);}
+
+/* ============================================================
+   PROGRESSION (embarquement)
+   ============================================================ */
+.progression{margin:0 18px 16px;}
+.progression .barre{height:5px;border-radius:999px;background:var(--border);overflow:hidden;}
+.progression .barre i{display:block;height:100%;background:var(--orange);border-radius:999px;}
+.progression .etape{margin-top:8px;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
+.etapes{margin:0 18px;display:flex;flex-direction:column;gap:0;}
+.etape-ligne{display:flex;align-items:center;gap:11px;padding:12px 0;border-top:1px solid var(--border);}
+.etape-ligne:first-child{border-top:0;}
+.etape-ligne .rond{width:26px;height:26px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:800;font-size:11.5px;background:var(--bg-secondary);color:var(--text-tertiary);border:1px solid var(--border);}
+.etape-ligne.faite .rond{background:var(--success);color:#fff;border-color:var(--success);}
+.etape-ligne.encours .rond{background:var(--sable);color:var(--marine);border-color:var(--sable-hover);}
+.etape-ligne b{font-family:var(--titres);font-weight:800;font-size:13.5px;flex:1;}
+.etape-ligne.faite b{color:var(--text-tertiary);}
+.etape-ligne .m{font-size:10.5px;color:var(--text-tertiary);}
+
+/* ============================================================
+   CRÉNEAUX DE RENDEZ-VOUS
+   ============================================================ */
+.jour-creneaux{margin:0 18px 14px;}
+.jour-creneaux .t{font-family:var(--titres);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:6px;border-bottom:1px solid var(--marine);margin-bottom:9px;}
+.creneaux{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.creneau{border:1px solid var(--border);background:var(--paper);border-radius:10px;padding:9px 4px;text-align:center;font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);cursor:pointer;}
+.creneau.on{background:var(--marine);color:var(--sable);border-color:var(--marine);}
+.creneau.off{color:var(--text-tertiary);background:var(--bg-secondary);text-decoration:line-through;cursor:default;}
+
+/* en-tête et pied publics (tunnel de réservation) */
+.tete-public{background:var(--paper);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:10px;flex:none;}
+.tete-public img{height:30px;width:auto;}
+.tete-public .wordmark{font-family:var(--titres);font-weight:800;font-size:15px;}
+.tete-public .wordmark em{font-style:normal;color:var(--orange);}
+.pied-public{padding:14px 18px 20px;text-align:center;border-top:1px solid var(--border);background:var(--paper);flex:none;}
+.pied-public p{font-size:10.5px;color:var(--text-tertiary);line-height:1.55;}
+.pied-public a{color:var(--marine);font-weight:600;text-decoration:none;}
+
+/* ============================================================
+   ENCARTS D'AVERTISSEMENT
+   ============================================================ */
+.encart{margin:0 18px 12px;border-radius:12px;padding:11px 13px;font-size:11.5px;line-height:1.5;border:1px solid;}
+.encart b{font-family:var(--titres);font-weight:800;}
+.encart--info{background:#eef3f7;border-color:#dfe7ee;color:var(--text-secondary);}
+.encart--attention{background:var(--bg-hover);border-color:#efdcae;color:var(--text-secondary);}
+.encart--danger{background:rgba(196,69,54,.06);border-color:rgba(196,69,54,.28);color:var(--text-secondary);}
+.encart--info b{color:var(--marine);}
+.encart--attention b{color:var(--orange-hover);}
+.encart--danger b{color:var(--danger);}
+
 @media (max-width:460px){ body{padding:20px 8px 50px;} .phone{width:100%;} }
