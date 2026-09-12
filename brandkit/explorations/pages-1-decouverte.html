@@ -9,12 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../gazette.css">
-<style>
-  /* filet de gauche : le degré d'urgence d'un avis */
-  .annonce--urgent{border-left:3px solid var(--danger);}
-  .annonce--invitation{border-left:3px solid var(--marine);}
-  .annonce--facultatif{border-left:3px solid var(--success);}
-</style>
 </head>
 <body>
 
@@ -22,12 +16,12 @@
   <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
   <p class="kicker">Pages · famille 1</p>
   <h1>Découverte</h1>
-  <p>L'accueil repensé comme <b>une véritable une de journal</b> : une manchette qui met en avant la seule chose qui vous attend vraiment, un sommaire à points de conduite, puis les rubriques. Les activités deviennent un <b>agenda à date en vedette</b>, les voisins un <b>carnet</b>, les filtres une ligne de liens. Un seul bouton plein par écran — tout le reste passe en pastilles et en liens à filet.</p>
+  <p>L'accueil repensé comme <b>une véritable une de journal</b> : une manchette qui met en avant le rendez-vous le plus pressant, un sommaire à points de conduite, puis les rubriques. Les <b>actions à faire ont fusionné avec les rendez-vous</b> — une action est presque toujours un rendez-vous à valider, une invitation à honorer ou un avis à donner : l'entrée d'agenda porte donc son geste, et sa colonne de date passe à l'orange quand on attend quelque chose de vous. Une section entière disparaît.</p>
   <div class="traits">
     <span><b>La une</b> manchette + sommaire</span>
-    <span><b>Activités</b> agenda à date</span>
+    <span><b>Fusion</b> actions dans les rendez-vous</span>
+    <span><b>Agenda</b> date en vedette</span>
     <span><b>Voisins</b> carnet en liste</span>
-    <span><b>Actions</b> pastilles &amp; liens à filet</span>
   </div>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
 </header>
@@ -54,12 +48,12 @@
         </div>
 
         <section class="manchette">
-          <p class="sur">Ce qui vous attend</p>
-          <h2>Votre échange avec Alice <span class="souligne">attend d'être validé.</span></h2>
-          <p>Vous avez monté l'étagère samedi matin, rue des Lilas. Confirmez la durée réelle pour que l'heure soit créditée de part et d'autre.</p>
+          <p class="sur">Le plus pressant</p>
+          <h2>Chez Alice, samedi : l'étagère <span class="souligne">attend d'être validée.</span></h2>
+          <p>Vous l'avez montée samedi matin, rue des Lilas. Confirmez la durée réelle pour que l'heure soit créditée de part et d'autre.</p>
           <div class="pied">
             <button class="lien-filet" type="button">Valider l'échange</button>
-            <button class="lien-filet lien-filet--muet" type="button">Voir le détail</button>
+            <button class="lien-filet lien-filet--muet" type="button">Corriger la durée</button>
             <span class="mention mention--urgent">sous 2 jours</span>
           </div>
         </section>
@@ -67,10 +61,10 @@
         <nav class="sommaire">
           <p class="t">Au sommaire aujourd'hui</p>
           <ul>
-            <li><span class="lab">Vos rendez-vous</span><span class="pts"></span><span class="n">4</span></li>
+            <li><span class="lab">Vos rendez-vous</span><span class="pts"></span><span class="n">4<em>dont 3 à traiter</em></span></li>
             <li><span class="lab">À l'affiche cette semaine</span><span class="pts"></span><span class="n">5</span></li>
             <li><span class="lab">Petites annonces</span><span class="pts"></span><span class="n">18</span></li>
-            <li><span class="lab">Le fil du quartier</span><span class="pts"></span><span class="n">34<em>dont 6 neuves</em></span></li>
+            <li><span class="lab">Le fil du quartier</span><span class="pts"></span><span class="n">34<em>dont 6 neufs</em></span></li>
           </ul>
         </nav>
 
@@ -81,21 +75,47 @@
           <span class="filet"></span>
           <a class="lien" href="#">Tout voir</a>
         </div>
-        <div class="rangee">
-          <article class="carte-rdv"><div class="cadre">
-            <div class="entete"><h3>Rencontre physique</h3><span class="badge-admin">Admin</span></div>
-            <div class="statut">Confirmé</div>
-            <div class="quand"><div class="date">11 juin 2026</div><div class="meta">12:30<span class="sep">·</span>durée 15 min</div></div>
-            <ul class="infos"><li><span class="pic">⌖</span><span>12 rue des Lilas, Centre</span></li></ul>
-            <div class="avec"><span class="avatar avatar--mm">MM</span><span class="nom">Avec Marie Morel</span><a class="lien-cal" href="#">+ Cal.</a></div>
-          </div></article>
-          <article class="carte-rdv"><div class="cadre">
-            <div class="entete"><h3>Montage de l'étagère</h3></div>
-            <div class="statut statut--attente">À valider</div>
-            <div class="quand"><div class="date">14 juin 2026</div><div class="meta">10:00<span class="sep">·</span>durée 1 h</div></div>
-            <ul class="infos"><li><span class="pic">⌖</span><span>Chez Alice, Centre</span></li></ul>
-            <div class="avec"><span class="avatar av-creme">AN</span><span class="nom">Avec Alice Noël</span></div>
-          </div></article>
+
+        <div class="agenda">
+          <article class="agenda-ligne agenda-ligne--action">
+            <div class="quand"><div class="j">15</div><div class="m">Juin</div><div class="h">10:00</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--marine">Invitation</span><span class="jauge">2 h</span></div>
+              <h3>Atelier réparation vélo</h3>
+              <p class="lieu">⌖ Local associatif, Vieux Bourg</p>
+              <div class="pied">
+                <button class="lien-filet" type="button">J'y serai</button>
+                <button class="lien-filet lien-filet--muet" type="button">Décliner</button>
+                <span class="orga">de Pierre Blanchard</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">11</div><div class="m">Juin</div><div class="h">12:30</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--ok">Confirmé</span><span class="jauge">15 min</span></div>
+              <h3>Rencontre physique</h3>
+              <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+              <div class="pied">
+                <button class="lien-filet lien-filet--muet" type="button">Ajouter au calendrier</button>
+                <span class="orga">avec Marie Morel</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="agenda-ligne agenda-ligne--action">
+            <div class="quand"><div class="j">08</div><div class="m">Juin</div><div class="h">passé</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--neutre">Terminé</span><span class="jauge">1 h créditée</span></div>
+              <h3>Cours d'espagnol conversationnel</h3>
+              <p class="lieu">⌖ Chez Marta Lopez, Baugerie</p>
+              <div class="pied">
+                <button class="lien-filet" type="button">Donner votre avis</button>
+                <span class="facultatif">facultatif</span>
+              </div>
+            </div>
+          </article>
         </div>
       </main>
 
@@ -110,7 +130,7 @@
       </div>
       <span class="home"></span>
     </div>
-    <p class="note">Plus d'empilement de carrousels : une <b>manchette</b> met en avant la seule chose qui vous attend vraiment, avec ses actions en liens à filet. Le <b>sommaire à points de conduite</b> annonce ce qui suit et permet d'y sauter. Les deux faire-part de rendez-vous sont <b>à hauteur égale</b>, quelle que soit leur quantité de texte.</p>
+    <p class="note"><b>Les actions ont fusionné avec les rendez-vous.</b> Plus de carrousel de cartes à traiter : le plus pressant devient la manchette, et les suivants prennent place dans l'agenda, chacun portant son geste en lien à filet. Quand on attend quelque chose de vous, <b>la colonne de date passe à l'orange</b> — on repère d'un coup d'œil ce qui demande une décision. Une section entière disparaît de l'accueil.</p>
   </figure>
 
   <!-- ========== 2 · L'AFFICHE & LES ANNONCES ========== -->
@@ -348,74 +368,107 @@
     <p class="note">Les voisins ne sont plus des cartes à défilement mais <b>un carnet</b> : une liste à filets où chaque ligne tient en trois informations et un lien. C'est plus dense, plus lisible, et ça ne vole pas la vedette au fil.</p>
   </figure>
 
-  <!-- ========== 4 · LES AVIS ========== -->
+  <!-- ========== 4 · VOS RENDEZ-VOUS ========== -->
   <figure class="ecran">
-    <figcaption><span class="n">4</span><h2>Les avis — ce qui vous attend</h2><span class="route">actions</span></figcaption>
+    <figcaption><span class="n">4</span><h2>Vos rendez-vous</h2><span class="route">rendez-vous · tous</span></figcaption>
     <div class="phone">
       <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
       <div class="tb">
         <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <span class="titre">Les avis</span>
+        <span class="titre">Rendez-vous</span>
         <span class="avatar avatar--me">OD</span>
       </div>
 
       <main class="feed feed--avec-barre">
         <section class="grand-titre">
-          <h1>Ce qui vous attend</h1>
-          <p class="date">Mercredi 10 juin · <b>3 avis</b> en attente</p>
+          <h1>Vos rendez-vous</h1>
+          <p class="date">Mercredi 10 juin · <b>3 à traiter</b> · 4 à venir</p>
           <div class="regle"></div>
         </section>
 
-        <div class="fil" style="padding-top:14px">
-          <article class="annonce annonce--urgent">
-            <div class="an-tete">
-              <span class="an-type" style="color:var(--danger)">À valider</span>
-              <span class="an-rubr">Bricolage</span>
-              <span class="an-ref">Échéance proche</span>
-            </div>
-            <h3 class="an-titre">Montage de l'étagère</h3>
-            <p class="an-texte">Samedi 14 juin, 10:00 · durée prévue 1 h · chez Alice Noël, 12 rue des Lilas. Confirmez la durée réelle pour créditer l'heure de part et d'autre.</p>
-            <div class="an-actions">
-              <button class="action action--fort">Valider l'échange</button>
-              <button class="action">Corriger la durée</button>
-              <span class="an-compteur" style="color:var(--danger);font-style:normal;font-weight:700">2 jours</span>
+        <div class="filtres-ligne" style="margin-top:12px">
+          <a class="on" href="#">Tout</a>
+          <a href="#">À traiter</a>
+          <a href="#">À venir</a>
+          <a href="#">Passés</a>
+        </div>
+
+        <div class="rubrique" style="margin-top:6px">
+          <span class="tape"><h2>On attend un mot de vous</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="agenda">
+          <article class="agenda-ligne agenda-ligne--urgent">
+            <div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:00</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--attente">À valider</span><span class="jauge">1 h prévue</span></div>
+              <h3>Montage de l'étagère</h3>
+              <p class="lieu">⌖ Chez Alice Noël, 12 rue des Lilas</p>
+              <div class="pied">
+                <button class="lien-filet" type="button">Valider l'échange</button>
+                <button class="lien-filet lien-filet--muet" type="button">Corriger la durée</button>
+                <span class="echeance">sous 2 jours</span>
+              </div>
             </div>
           </article>
 
-          <article class="annonce annonce--invitation">
-            <div class="an-tete">
-              <span class="an-type an-type--proposition">Invitation</span>
-              <span class="an-rubr">Atelier</span>
-              <span class="an-ref">3 places</span>
-            </div>
-            <h3 class="an-titre">Atelier réparation vélo</h3>
-            <p class="an-texte">Dimanche 15 juin, 10:00 · 2 h · local associatif, Vieux Bourg. Pierre Blanchard vous a invité à le rejoindre.</p>
-            <div class="an-actions">
-              <button class="action action--fort">J'y serai</button>
-              <button class="action">Décliner</button>
-              <span class="an-compteur">dans 5 jours</span>
+          <article class="agenda-ligne agenda-ligne--action">
+            <div class="quand"><div class="j">15</div><div class="m">Juin</div><div class="h">10:00</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--marine">Invitation</span><span class="jauge">2 h · 3 places</span></div>
+              <h3>Atelier réparation vélo</h3>
+              <p class="lieu">⌖ Local associatif, Vieux Bourg</p>
+              <div class="pied">
+                <button class="lien-filet" type="button">J'y serai</button>
+                <button class="lien-filet lien-filet--muet" type="button">Décliner</button>
+                <span class="orga">de Pierre Blanchard</span>
+              </div>
             </div>
           </article>
 
-          <article class="annonce annonce--facultatif">
-            <div class="an-tete">
-              <span class="an-type an-type--idee">Échange terminé</span>
-              <span class="an-rubr">Cours &amp; langues</span>
-              <span class="an-ref">1 h créditée</span>
-            </div>
-            <h3 class="an-titre">Cours d'espagnol conversationnel</h3>
-            <p class="an-texte">Lundi 8 juin, avec Marta Lopez. L'heure a été créditée. Un mot sur ce qui s'est passé aiderait les prochains voisins.</p>
-            <div class="an-actions">
-              <button class="action">Donner votre avis</button>
-              <span class="an-compteur">facultatif</span>
+          <article class="agenda-ligne agenda-ligne--action">
+            <div class="quand"><div class="j">08</div><div class="m">Juin</div><div class="h">passé</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--neutre">Terminé</span><span class="jauge">1 h créditée</span></div>
+              <h3>Cours d'espagnol conversationnel</h3>
+              <p class="lieu">⌖ Chez Marta Lopez, Baugerie</p>
+              <div class="pied">
+                <button class="lien-filet" type="button">Donner votre avis</button>
+                <span class="facultatif">facultatif</span>
+              </div>
             </div>
           </article>
         </div>
 
-        <div class="vide" style="margin-top:8px">
-          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-          <h3>Et c'est tout</h3>
-          <p>Vous êtes à jour sur le reste de vos rendez-vous.</p>
+        <div class="rubrique">
+          <span class="tape"><h2>Rien à faire, juste à venir</h2></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="agenda">
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">11</div><div class="m">Juin</div><div class="h">12:30</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--ok">Confirmé</span><span class="jauge">15 min</span></div>
+              <h3>Rencontre physique</h3>
+              <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+              <div class="pied">
+                <button class="lien-filet lien-filet--muet" type="button">Ajouter au calendrier</button>
+                <span class="orga">avec Marie Morel</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">18</div><div class="m">Juin</div><div class="h">20:00</div></div>
+            <div class="c">
+              <div class="g"><span class="genre genre--collectif">Collectif</span><span class="jauge">6/10</span></div>
+              <h3>Soirée couture &amp; retouches</h3>
+              <p class="lieu">⌖ Salle des Tilleuls, Centre · 2 h</p>
+              <div class="pied"><span class="orga">animé par Lucie Garnier</span></div>
+            </div>
+          </article>
         </div>
       </main>
 
@@ -430,7 +483,7 @@
       </div>
       <span class="home"></span>
     </div>
-    <p class="note">Aucun bouton plein sur cet écran : les fiches gardent la forme des annonces, et l'action se fait en <b>pastilles de contour</b>. Le <b>filet de gauche</b> code le registre — rouge pour une échéance, marine pour une invitation, vert pour un geste facultatif. L'état vide clôt la liste plutôt que de la remplacer.</p>
+    <p class="note">L'ancien écran des actions n'existe plus : il <b>est</b> celui des rendez-vous. Deux rubriques suffisent — « on attend un mot de vous », puis « rien à faire, juste à venir ». La colonne de date vire à l'orange dès qu'un geste est attendu, au rouge quand l'échéance approche. Les passés qui demandent encore un avis restent dans la première rubrique : c'est bien un rendez-vous, simplement derrière soi.</p>
   </figure>
 
   <!-- ========== 5 · LA FEUILLE PROPOSER ========== -->
