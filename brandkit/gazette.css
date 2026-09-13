@@ -867,13 +867,23 @@ footer a{color:var(--marine);font-weight:600;}
 .bureau .zone .filtres-ligne,
 .bureau .zone .jauges,
 .bureau .zone .agenda,
-.bureau .zone .carnet{margin-left:0;margin-right:0;}
+.bureau .zone .carnet,
+.bureau .zone .compteurs,
+.bureau .zone .compteurs-note,
+.bureau .zone .champ,
+.bureau .zone .reglages,
+.bureau .zone .registre,
+.bureau .zone .etapes,
+.bureau .zone .progression,
+.bureau .zone .onglets{margin-left:0;margin-right:0;}
 .bureau .zone .fil,
 .bureau .zone .rangee,
 .bureau .zone .agenda,
 .bureau .zone .carnet,
 .bureau .zone .hero,
-.bureau .zone .manchette{padding-left:0;padding-right:0;}
+.bureau .zone .manchette,
+.bureau .zone .form,
+.bureau .zone .form-pied{padding-left:0;padding-right:0;}
 /* sur un écran large les rangées ne défilent plus : elles s'enroulent */
 .bureau .zone .rangee{flex-wrap:wrap;overflow:visible;}
 
@@ -885,5 +895,105 @@ footer a{color:var(--marine);font-weight:600;}
 
 /* — le filet vertical qui sépare deux colonnes, comme dans un journal — */
 .b-filet-v{flex:none;width:7px;border-left:1px solid rgba(24,62,87,.3);border-right:1px solid rgba(24,62,87,.3);align-self:stretch;}
+
+/* ============================================================
+   D4 BIS — l'ossature retenue pour le grand écran
+   Deux états de chrome : la manchette pleine en une, le titre
+   courant sur toutes les pages intérieures. Trois paliers de
+   colonnes : 3 au-delà de 1180 px, 2 en dessous (la droite se
+   verse dans la gauche), 1 sous 980 px (l'ordre du mobile).
+   ============================================================ */
+.bureau--etroit{width:1024px;}
+.bureau--tablette{width:834px;}
+
+/* — la manchette : réservée à la une — */
+.b-manchette{flex:none;background:var(--paper);border-bottom:3px double var(--marine);padding:11px 30px 0;}
+.b-manchette .haut{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border-bottom:1px solid var(--marine);padding-bottom:8px;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--text-secondary);
+}
+.b-manchette .haut .moi{display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:normal;}
+.b-manchette .titre{display:flex;align-items:center;justify-content:center;gap:15px;padding:11px 0 9px;}
+.b-manchette .titre img{height:38px;width:auto;}
+.b-manchette .titre h1{font-family:var(--titres);font-weight:800;font-size:29px;letter-spacing:-.4px;color:var(--marine);}
+.b-manchette .titre .devise{font-size:10.5px;font-style:italic;color:var(--text-tertiary);border-left:1px solid var(--border);padding-left:15px;}
+.b-manchette .nav{display:flex;justify-content:center;border-top:1px solid var(--marine);}
+.b-manchette .nav a{
+  padding:8px 19px;text-decoration:none;border-bottom:3px solid transparent;
+  font-family:var(--titres);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.b-manchette .nav a.on{color:var(--marine);border-bottom-color:var(--orange);}
+.b-manchette .nav a .cpt{color:var(--orange);margin-left:5px;}
+/* la manchette resserrée, sous 980 px */
+.b-manchette--compact{padding:10px 22px 0;}
+.b-manchette--compact .titre{padding:9px 0 8px;}
+.b-manchette--compact .titre img{height:32px;}
+.b-manchette--compact .titre h1{font-size:24px;}
+.b-manchette--compact .titre .devise{display:none;}
+.b-manchette--compact .nav a{padding:7px 11px;font-size:10px;letter-spacing:.1em;}
+
+/* — le titre courant : la manchette repliée, sur les pages intérieures — */
+.b-courant{
+  height:56px;flex:none;background:var(--paper);border-bottom:3px double var(--marine);
+  display:flex;align-items:center;gap:14px;padding:0 20px;
+}
+.b-courant .marque{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--marine);padding-right:18px;border-right:1px solid var(--border);}
+.b-courant .marque img{height:24px;width:auto;}
+.b-courant .marque b{font-family:var(--titres);font-weight:800;font-size:16px;letter-spacing:-.2px;white-space:nowrap;}
+.b-courant .nav{display:flex;gap:2px;}
+.b-courant .nav a{
+  padding:6px 9px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;
+  font-family:var(--titres);font-weight:800;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.b-courant .nav a.on{color:var(--marine);border-bottom-color:var(--orange);}
+.b-courant .nav a .cpt{color:var(--orange);margin-left:4px;}
+.b-courant .spacer{flex:1;}
+.b-courant .date{white-space:nowrap;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
+.b-courant .moi{display:flex;align-items:center;gap:8px;padding-left:12px;border-left:1px solid var(--border);}
+
+/* — les trois paliers de colonnes — */
+.b-trois{display:flex;padding:22px 34px 34px;}
+.b-trois .gauche{width:300px;flex:none;padding-right:26px;}
+.b-trois .milieu{flex:1;min-width:0;padding:0 28px;}
+.b-trois .droite{width:318px;flex:none;padding-left:26px;}
+.b-deux4{display:flex;padding:20px 30px 34px;}
+.b-deux4 .gauche{width:318px;flex:none;padding-right:26px;}
+.b-deux4 .milieu{flex:1;min-width:0;padding-left:26px;}
+.b-une4{width:648px;margin:0 auto;padding:20px 0 36px;}
+
+/* — les pièces de mise en page communes — */
+.b-salut{margin-bottom:14px;}
+.b-salut h1{font-family:var(--titres);font-weight:800;font-size:25px;line-height:1.15;}
+.b-salut h1 .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+.b-salut p{font-size:13px;color:var(--text-secondary);margin-top:4px;}
+.b-salut .actions{display:flex;align-items:center;gap:14px;margin-top:13px;}
+.b-bloc{margin-top:20px;}
+.b-bloc:first-child{margin-top:0;}
+.b-mini-titre{
+  font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-secondary);padding-bottom:6px;border-bottom:1px solid var(--marine);margin-bottom:10px;
+}
+.b-suite{
+  display:block;text-align:center;margin-top:11px;padding:8px;border:1px dashed var(--border);border-radius:9px;
+  font-size:11.5px;font-weight:700;color:var(--text-secondary);text-decoration:none;background:rgba(255,253,246,.5);
+}
+/* l'entrefilet : un communiqué réduit à deux lignes entre deux filets */
+.entrefilet{
+  margin-top:22px;padding:11px 2px 10px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);
+  font-size:11.5px;line-height:1.55;color:var(--text-secondary);font-style:italic;
+}
+.entrefilet b{font-style:normal;font-family:var(--titres);font-weight:800;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-hover);margin-right:6px;}
+.entrefilet a{color:var(--orange);font-weight:700;text-decoration:none;border-bottom:1px dashed var(--orange);font-style:normal;white-space:nowrap;}
+/* le repère pédagogique des planches de paliers */
+.b-repere{
+  display:inline-flex;align-items:center;gap:6px;margin-bottom:10px;
+  font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--orange-hover);background:var(--bg-hover);border:1px solid #efdcae;
+  border-radius:5px;padding:3px 9px;
+}
+.b-repere::before{content:"⤷";font-size:11px;letter-spacing:0;}
 
 @media (max-width:460px){ body{padding:20px 8px 50px;} .phone{width:100%;} }

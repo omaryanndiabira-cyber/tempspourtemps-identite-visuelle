@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les pages intérieures en D4 bis</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+body{padding:38px 20px 80px;}
+
+/* ————— la colonne de filtres, verticale ————— */
+.b-filtres a{
+  display:flex;align-items:center;gap:8px;padding:7px 0;text-decoration:none;
+  border-top:1px dotted var(--border);font-size:12.5px;color:var(--text-secondary);
+}
+.b-filtres a:first-of-type{border-top:0;}
+.b-filtres a.on{font-family:var(--titres);font-weight:800;color:var(--marine);}
+.b-filtres a .pt{width:8px;height:8px;border-radius:2px;flex:none;background:var(--border);}
+.b-filtres a.on .pt{background:var(--orange);}
+.b-filtres a .n3{margin-left:auto;font-size:10.5px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;}
+.b-filtres a.on .n3{color:var(--orange-hover);font-weight:700;}
+
+/* ————— les jauges : en grille dans une colonne, pas en rangée défilante ————— */
+.b-trois .jauges,
+.b-deux4 .jauges{display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:8px;overflow:visible;}
+.b-trois .jauge-case,
+.b-deux4 .jauge-case{min-width:0;}
+
+/* ————— l'agenda groupé par jour ————— */
+.b-jour{display:flex;align-items:baseline;gap:10px;margin:20px 0 6px;}
+.b-jour:first-child{margin-top:0;}
+.b-jour b{font-family:var(--titres);font-weight:800;font-size:13.5px;white-space:nowrap;}
+.b-jour .d{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);white-space:nowrap;}
+.b-jour .f{flex:1;height:1px;background:var(--border);}
+
+/* ————— la carte d'identité d'un profil ————— */
+.b-identite{text-align:center;padding-bottom:16px;border-bottom:3px double var(--marine);}
+.b-identite .avatar{width:76px;height:76px;font-size:25px;margin:0 auto 11px;border:2px solid var(--sable);}
+.b-identite h1{font-family:var(--titres);font-weight:800;font-size:20px;}
+.b-identite .q{font-size:11.5px;color:var(--text-tertiary);margin-top:3px;}
+.b-identite .liens{display:flex;justify-content:center;gap:14px;margin-top:12px;}
+
+/* ————— la file d'attente de l'administration ————— */
+.b-file a{
+  display:flex;gap:10px;align-items:flex-start;padding:11px 0;text-decoration:none;color:inherit;
+  border-top:1px solid var(--border);position:relative;
+}
+.b-file a:first-of-type{border-top:0;}
+.b-file a.on::after{content:"";position:absolute;left:-14px;top:7px;bottom:7px;width:3px;border-radius:0 3px 3px 0;background:var(--orange);}
+.b-file .c{flex:1;min-width:0;}
+.b-file b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;}
+.b-file .d{font-size:11px;color:var(--text-secondary);margin-top:2px;}
+.b-file .h{font-size:9.5px;color:var(--text-tertiary);white-space:nowrap;}
+
+/* ————— le pavé de renseignements ————— */
+.b-faits{
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:2px;
+  border-radius:10px;padding:2px 13px;
+}
+.b-faits .l{display:flex;gap:11px;padding:9px 0;border-top:1px dotted var(--border);font-size:12.5px;}
+.b-faits .l:first-child{border-top:0;}
+.b-faits .k{width:74px;flex:none;font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);padding-top:3px;}
+.b-faits .v{flex:1;}
+.b-faits .v b{font-family:var(--titres);font-weight:800;}
+
+/* ————— la règle des trois formats, en tête de document ————— */
+.regle-formats{
+  max-width:1000px;margin:0 auto 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:14px;overflow:hidden;
+}
+.regle-formats > div{padding:16px 18px;border-left:1px solid var(--border);}
+.regle-formats > div:first-child{border-left:0;}
+.regle-formats .sch{display:flex;gap:4px;height:38px;margin-bottom:11px;}
+.regle-formats .sch i{border-radius:3px;background:var(--bg-secondary);border:1px solid var(--border);}
+.regle-formats .sch i.plein{background:var(--sable);border-color:var(--sable-hover);}
+.regle-formats h3{font-family:var(--titres);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;}
+.regle-formats p{font-size:12px;line-height:1.55;color:var(--text-secondary);margin-top:6px;}
+.regle-formats p b{color:var(--marine);}
+
+.verdict{
+  border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:11px 15px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);
+  max-width:1000px;
+}
+.verdict p + p{margin-top:4px;}
+.verdict .pour::before{content:"Pour — ";font-weight:800;color:#2f7a44;}
+.verdict .contre::before{content:"Contre — ";font-weight:800;color:var(--danger);}
+
+@media (max-width:760px){ .regle-formats{grid-template-columns:1fr;} .regle-formats > div{border-left:0;border-top:1px solid var(--border);} }
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Grand écran · ossature retenue</p>
+  <h1>Les pages intérieures</h1>
+  <p class="sub">Toutes les pages de l'application alignées sur <b>D4 bis</b> : titre courant en haut, colonnes séparées par des filets, et les composants du mobile repris tels quels. La manchette pleine reste l'exclusivité de la une — partout ailleurs, c'est le titre courant de 56 px.</p>
+  <p class="traits">Fenêtre de <b>1240 × 772</b>. Les paliers de repli (1180 px, 980 px) suivent la même règle que la une : <b>les colonnes d'encadré fusionnent, le contenu garde la sienne</b>.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<section class="regle-formats">
+  <div>
+    <div class="sch"><i style="width:26%"></i><i class="plein" style="flex:1"></i><i style="width:28%"></i></div>
+    <h3>Pages de lecture</h3>
+    <p>Le fil, à l'affiche, les voisins, l'administration. <b>Trois colonnes</b> : de quoi trier à gauche, ce qu'on lit au centre, ce qui éclaire à droite. Le centre est infini, les côtés sont finis.</p>
+  </div>
+  <div>
+    <div class="sch"><i style="width:32%"></i><i class="plein" style="flex:1"></i></div>
+    <h3>Pages personnelles</h3>
+    <p>Votre temps, votre profil. <b>Deux colonnes</b> : votre identité et vos chiffres à gauche, le détail à droite. Pas de troisième colonne — il n'y a rien d'extérieur à vous à mettre à côté.</p>
+  </div>
+  <div>
+    <div class="sch"><i style="width:22%"></i><i class="plein" style="flex:1"></i><i style="width:22%"></i></div>
+    <h3>Pages de tâche</h3>
+    <p>Proposer, les formulaires, les réglages. <b>Une colonne</b> de 648 px, centrée, rien autour. On ne pose pas de distraction à côté de quelqu'un qui remplit un formulaire.</p>
+  </div>
+</section>
+
+<div class="planche-bureau">
+
+  <!-- ============================================================
+       LE FIL DU QUARTIER
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">1</span><h2>Le fil du quartier</h2><span class="tag">Page de lecture · 3 colonnes</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/fil</span></div>
+
+      <header class="b-courant">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <nav class="nav">
+          <a href="#">La une</a><a class="on" href="#">Le fil</a><a href="#">À l'affiche<span class="cpt">5</span></a>
+          <a href="#">Les voisins</a><a href="#">Votre temps</a><a href="#">Le courrier<span class="cpt">3</span></a><a href="#">Proposer</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="date">N° 142 · 10 juin</span>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-trois">
+          <div class="gauche zone">
+            <p class="b-mini-titre">Ce qu'on y trouve</p>
+            <nav class="b-filtres">
+              <a class="on" href="#"><span class="pt"></span>Tout le fil<span class="n3">34</span></a>
+              <a href="#"><span class="pt"></span>Qui m'intéressent<span class="n3">9</span></a>
+              <a href="#"><span class="pt"></span>Les demandes<span class="n3">18</span></a>
+              <a href="#"><span class="pt"></span>Les offres<span class="n3">12</span></a>
+              <a href="#"><span class="pt"></span>Les idées<span class="n3">4</span></a>
+            </nav>
+
+            <p class="b-mini-titre" style="margin-top:24px">Par rubrique</p>
+            <nav class="b-filtres">
+              <a href="#"><span class="pt"></span>Bricolage<span class="n3">11</span></a>
+              <a href="#"><span class="pt"></span>Jardinage<span class="n3">7</span></a>
+              <a href="#"><span class="pt"></span>Informatique<span class="n3">5</span></a>
+              <a href="#"><span class="pt"></span>Transport<span class="n3">4</span></a>
+              <a href="#"><span class="pt"></span>Couture<span class="n3">3</span></a>
+              <a href="#"><span class="pt"></span>Garde d'animaux<span class="n3">2</span></a>
+            </nav>
+
+            <p class="entrefilet"><b>Rappel</b>Une annonce sans réponse depuis dix jours vous est signalée sur la une, pour que vous puissiez la clore. <a href="#">Comprendre</a></p>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="milieu zone">
+            <div class="rubrique"><span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span><span class="filet"></span><a class="lien" href="#">Publier</a></div>
+            <p class="sous-rubrique">Du plus récent au plus ancien — 6 nouvelles depuis votre dernière visite</p>
+            <div class="fil">
+              <article class="annonce">
+                <div class="pastilles"><span class="past past--pourvous">Pour vous</span><span class="past past--quartier">Votre quartier</span></div>
+                <div class="an-tete"><span class="an-type an-type--demande">Demande</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1042</span></div>
+                <h3 class="an-titre">Une étagère à monter samedi matin</h3>
+                <p class="an-texte">Une petite heure suffit, je fournis les outils et le café. Idéalement quelqu'un d'habitué à la perceuse — le mur est en placo et je préfère ne pas m'y risquer seule.</p>
+                <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+                <div class="an-actions"><button class="action action--fort" type="button">Je peux aider</button><button class="action" type="button">Commenter</button><span class="an-compteur">3 réponses</span></div>
+              </article>
+              <article class="annonce">
+                <div class="an-tete"><span class="an-type an-type--offre">Offre</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1041</span></div>
+                <h3 class="an-titre">Je prête ma perceuse et mon escabeau</h3>
+                <p class="an-texte">Disponibles en semaine, à récupérer rue Pasteur. Je peux aussi venir donner un coup de main si le chantier vous impressionne.</p>
+                <p class="an-sign">— Jean Mercier · Vieux Bourg · il y a 5 h</p>
+                <div class="an-actions"><button class="action action--fort" type="button">Ça m'intéresse</button><button class="action" type="button">Commenter</button><span class="an-compteur">1 réponse</span></div>
+              </article>
+              <article class="annonce">
+                <div class="an-tete"><span class="an-type an-type--idee">Idée</span><span class="an-rubr">Vie du quartier</span><span class="an-ref">N° 1039</span></div>
+                <h3 class="an-titre">Et si on faisait un vide-grenier de rue ?</h3>
+                <p class="an-texte">Rien d'organisé pour l'instant, je lance juste l'idée. S'il y a du monde, on pourrait viser septembre.</p>
+                <p class="an-sign">— Lucie Garnier · Centre · hier</p>
+                <div class="an-actions"><button class="action action--fort" type="button">Je suis partant</button><button class="action" type="button">Commenter</button><span class="an-compteur">12 réponses</span></div>
+              </article>
+            </div>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="droite zone">
+            <p class="b-mini-titre">Ce qui se cherche le plus</p>
+            <div class="carnet">
+              <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Montage de meubles</b><p class="q">7 demandes · 2 personnes disponibles</p></div><button class="lien-filet" type="button">Aider</button></div>
+              <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Covoiturage vers Nantes</b><p class="q">5 demandes · personne pour l'instant</p></div><button class="lien-filet" type="button">Aider</button></div>
+              <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Aide informatique</b><p class="q">4 demandes · 6 personnes disponibles</p></div><button class="lien-filet" type="button">Aider</button></div>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:24px">Vos annonces en ligne</p>
+            <div class="rangee" style="flex-direction:column;gap:8px">
+              <article class="billet2 billet2--large">
+                <div class="talon"><span class="n">02</span><span class="m">Juin</span></div>
+                <div class="c"><h3>Cours d'espagnol débutant</h3><p class="m2">4 réponses<span class="sep">·</span>en ligne</p></div>
+              </article>
+              <article class="billet2 billet2--large billet2--action">
+                <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M3 4h18v4H3z"/><path d="M10 12h4"/></svg><span class="verbe">Clore</span></div>
+                <div class="c"><h3>Un coup de main déménagement</h3><p class="m2">Sans activité depuis 10 jours</p></div>
+              </article>
+            </div>
+            <a class="b-suite" href="#">Gérer vos 4 annonces</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Le fil est la page qui profite le plus de la largeur : une annonce se lit enfin sans être tronquée. Les filtres, qui sur mobile étaient une ligne horizontale qu'il fallait faire défiler, <b>se déplient en colonne</b> avec leurs compteurs — on voit d'un coup la composition du fil. À droite, ce qui donne envie d'agir : les besoins non pourvus, et vos propres annonces, avec le billet « Clore » pour celle qui dort.</p>
+    <div class="verdict">
+      <p class="pour">les trois colonnes ont chacune un rôle net : trier, lire, agir. Et vos annonces reviennent sous vos yeux au bon endroit — là où vous lisez celles des autres.</p>
+      <p class="contre">deux listes de filtres l'une sous l'autre, c'est déjà beaucoup ; au-delà d'une dizaine de rubriques il faudra en replier une partie.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       À L'AFFICHE
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">2</span><h2>À l'affiche</h2><span class="tag">Page de lecture · 3 colonnes</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/affiche</span></div>
+
+      <header class="b-courant">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <nav class="nav">
+          <a href="#">La une</a><a href="#">Le fil</a><a class="on" href="#">À l'affiche<span class="cpt">5</span></a>
+          <a href="#">Les voisins</a><a href="#">Votre temps</a><a href="#">Le courrier<span class="cpt">3</span></a><a href="#">Proposer</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="date">N° 142 · 10 juin</span>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-trois">
+          <div class="gauche zone">
+            <p class="b-mini-titre">Le genre</p>
+            <nav class="b-filtres">
+              <a class="on" href="#"><span class="pt"></span>Tout<span class="n3">12</span></a>
+              <a href="#"><span class="pt" style="background:var(--sable)"></span>Ateliers<span class="n3">5</span></a>
+              <a href="#"><span class="pt" style="background:var(--success)"></span>Moments ouverts<span class="n3">4</span></a>
+              <a href="#"><span class="pt" style="background:var(--orange)"></span>Coups de main<span class="n3">3</span></a>
+            </nav>
+
+            <p class="b-mini-titre" style="margin-top:24px">Le quartier</p>
+            <nav class="b-filtres">
+              <a class="on" href="#"><span class="pt"></span>Partout<span class="n3">12</span></a>
+              <a href="#"><span class="pt"></span>Centre<span class="n3">5</span></a>
+              <a href="#"><span class="pt"></span>Vieux Bourg<span class="n3">4</span></a>
+              <a href="#"><span class="pt"></span>Baugerie<span class="n3">3</span></a>
+            </nav>
+
+            <p class="b-mini-titre" style="margin-top:24px">Vous y êtes inscrit</p>
+            <div class="rangee" style="flex-direction:column;gap:8px">
+              <article class="billet2 billet2--large"><div class="talon"><span class="n">12</span><span class="m">Juin</span></div><div class="c"><h3>Réparation de vélos</h3><p class="m2"><span class="quand">18:00</span><span class="sep">·</span>Local associatif</p></div></article>
+              <article class="billet2 billet2--large"><div class="talon"><span class="n">14</span><span class="m">Juin</span></div><div class="c"><h3>Café des voisins</h3><p class="m2"><span class="quand">10:30</span><span class="sep">·</span>Place Vigier</p></div></article>
+            </div>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="milieu zone">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">12</span></span><span class="filet"></span><a class="lien" href="#">Proposer</a></div>
+            <p class="sous-rubrique">Ouvert à tous — inscription libre, dans la limite des places</p>
+
+            <p class="b-jour"><b>Jeudi 12 juin</b><span class="d">Dans 2 jours</span><span class="f"></span></p>
+            <div class="agenda">
+              <article class="agenda-ligne"><div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div><div class="c"><div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">3/5</span></div><h3>Réparation de vélos</h3><p class="lieu">⌖ Local associatif, Vieux Bourg · 2 h</p></div></article>
+              <article class="agenda-ligne"><div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">20:00</div></div><div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span><span class="jauge">2/8</span></div><h3>Atelier couture du soir</h3><p class="lieu">⌖ Chez Lucie, Centre · 1 h 30</p></div></article>
+            </div>
+
+            <p class="b-jour"><b>Samedi 14 juin</b><span class="d">Ce week-end</span><span class="f"></span></p>
+            <div class="agenda">
+              <article class="agenda-ligne"><div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:30</div></div><div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span><span class="jauge">7/12</span></div><h3>Café des voisins</h3><p class="lieu">⌖ Place Jean-Baptiste Vigier · 1 h</p></div></article>
+              <article class="agenda-ligne agenda-ligne--urgent"><div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">14:00</div></div><div class="c"><div class="g"><span class="genre genre--coup">Coup de main</span><span class="jauge">2 places</span></div><h3>Déménager un buffet</h3><p class="lieu">⌖ Rue Pasteur, Baugerie · 1 h 30</p></div></article>
+            </div>
+
+            <p class="b-jour"><b>Lundi 16 juin</b><span class="d">La semaine prochaine</span><span class="f"></span></p>
+            <div class="agenda">
+              <article class="agenda-ligne"><div class="quand"><div class="j">16</div><div class="m">Juin</div><div class="h">09:00</div></div><div class="c"><div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">1/6</span></div><h3>Initiation au tableur</h3><p class="lieu">⌖ Médiathèque, Centre · 2 h</p></div></article>
+            </div>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="droite zone">
+            <p class="b-mini-titre">Cette semaine en bref</p>
+            <div class="jauges">
+              <div class="jauge-case"><div class="v">12</div><div class="l">à l'affiche</div></div>
+              <div class="jauge-case jauge-case--attente"><div class="v">3</div><div class="l">bientôt pleins</div></div>
+              <div class="jauge-case jauge-case--alerte"><div class="v">1</div><div class="l">sans inscrit</div></div>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:24px">Ce qui cherche du monde</p>
+            <div class="agenda">
+              <article class="agenda-ligne agenda-ligne--action"><div class="quand"><div class="j">16</div><div class="m">Juin</div><div class="h">09:00</div></div><div class="c"><div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">1/6</span></div><h3>Initiation au tableur</h3><p class="lieu">⌖ Médiathèque</p></div></article>
+            </div>
+            <p class="aide" style="margin-top:8px">Proposé par Sonia Klein. Sans un deuxième inscrit d'ici jeudi, l'atelier sera retiré.</p>
+
+            <p class="entrefilet"><b>Nouveau</b>Les moments ouverts : un créneau sans destinataire, qui veut s'inscrit. <a href="#">En savoir plus</a></p>
+
+            <div style="margin-top:22px">
+              <button class="btn-plein btn-plein--orange" type="button" style="width:100%;padding:11px 18px">Proposer une activité</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Sur mobile, l'affiche est une liste continue. Sur grand écran elle redevient <b>un calendrier</b> : les lignes d'agenda se groupent par jour sous un intertitre à filet, et la distance (« dans 2 jours », « ce week-end ») est écrite en clair. La colonne de droite sert à équilibrer l'offre — trois chiffres, et ce qui risque d'être annulé faute d'inscrits.</p>
+    <div class="verdict">
+      <p class="pour">le groupement par jour ne coûte rien — c'est le même composant, avec un intertitre entre les paquets — et il rend la semaine lisible d'un coup.</p>
+      <p class="contre">les jours vides disparaissent, ce qui fausse un peu la perception du rythme. Un vrai calendrier les montrerait ; celui-ci ne fait que grouper.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       LES VOISINS
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">3</span><h2>Les voisins</h2><span class="tag">Page de lecture · 3 colonnes</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/voisins</span></div>
+
+      <header class="b-courant">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <nav class="nav">
+          <a href="#">La une</a><a href="#">Le fil</a><a href="#">À l'affiche<span class="cpt">5</span></a>
+          <a class="on" href="#">Les voisins</a><a href="#">Votre temps</a><a href="#">Le courrier<span class="cpt">3</span></a><a href="#">Proposer</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="date">148 membres</span>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-trois">
+          <div class="gauche zone">
+            <div class="champ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+              Un nom, un service…
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:22px">Le service</p>
+            <nav class="b-filtres">
+              <a class="on" href="#"><span class="pt"></span>Tous<span class="n3">148</span></a>
+              <a href="#"><span class="pt"></span>Bricolage<span class="n3">31</span></a>
+              <a href="#"><span class="pt"></span>Jardinage<span class="n3">24</span></a>
+              <a href="#"><span class="pt"></span>Informatique<span class="n3">19</span></a>
+              <a href="#"><span class="pt"></span>Couture<span class="n3">12</span></a>
+              <a href="#"><span class="pt"></span>Transport<span class="n3">9</span></a>
+            </nav>
+
+            <p class="b-mini-titre" style="margin-top:24px">Le quartier</p>
+            <nav class="b-filtres">
+              <a class="on" href="#"><span class="pt"></span>Partout<span class="n3">148</span></a>
+              <a href="#"><span class="pt"></span>Centre<span class="n3">62</span></a>
+              <a href="#"><span class="pt"></span>Vieux Bourg<span class="n3">48</span></a>
+              <a href="#"><span class="pt"></span>Baugerie<span class="n3">38</span></a>
+            </nav>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="milieu zone">
+            <div class="rubrique"><span class="tape"><h2>Les voisins</h2><span class="badge-compte">148</span></span><span class="filet"></span></div>
+            <p class="sous-rubrique">Par proximité — les plus proches de chez vous d'abord</p>
+            <div class="carnet">
+              <div class="carnet-ligne">
+                <span class="avatar av-creme">SK</span>
+                <div class="c"><b>Sonia Klein</b><p class="q">Baugerie · à 300 m</p><p class="comp">propose <b>bricolage</b>, <b>informatique</b> · cherche <b>jardinage</b></p></div>
+                <button class="lien-filet" type="button">Écrire</button>
+              </div>
+              <div class="carnet-ligne">
+                <span class="avatar av-vert">LG</span>
+                <div class="c"><b>Lucie Garnier</b><p class="q">Centre · à 600 m</p><p class="comp">propose <b>couture</b>, <b>garde d'animaux</b></p></div>
+                <button class="lien-filet" type="button">Écrire</button>
+              </div>
+              <div class="carnet-ligne">
+                <span class="avatar av-bleu">JM</span>
+                <div class="c"><b>Jean Mercier</b><p class="q">Vieux Bourg · à 900 m</p><p class="comp">propose <b>bricolage</b>, <b>transport</b> · +2 autres</p></div>
+                <button class="lien-filet" type="button">Écrire</button>
+              </div>
+              <div class="carnet-ligne">
+                <span class="avatar av-rose">SR</span>
+                <div class="c"><b>Sofia Ruiz</b><p class="q">Centre · à 1,1 km</p><p class="comp">propose <b>cours d'espagnol</b>, <b>soutien scolaire</b></p></div>
+                <button class="lien-filet" type="button">Écrire</button>
+              </div>
+              <div class="carnet-ligne">
+                <span class="avatar av-sable">PB</span>
+                <div class="c"><b>Pierre Blanchard</b><p class="q">Baugerie · à 1,3 km</p><p class="comp">propose <b>vélo</b>, <b>informatique</b></p></div>
+                <button class="lien-filet" type="button">Écrire</button>
+              </div>
+            </div>
+            <a class="b-suite" href="#">Voir 143 voisins de plus</a>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="droite zone">
+            <p class="b-mini-titre">Arrivés ce mois-ci</p>
+            <div class="carnet">
+              <div class="carnet-ligne" style="padding-left:0">
+                <span class="avatar av-bleu">MD</span>
+                <div class="c"><b>Marc Dubois</b><p class="q">Centre · arrivé le 3 juin</p></div>
+                <button class="lien-filet" type="button">Accueillir</button>
+              </div>
+              <div class="carnet-ligne" style="padding-left:0">
+                <span class="avatar av-vert">AF</span>
+                <div class="c"><b>Amina Fall</b><p class="q">Baugerie · arrivée le 1<sup>er</sup> juin</p></div>
+                <button class="lien-filet" type="button">Accueillir</button>
+              </div>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:24px">Vos échanges récents</p>
+            <div class="carnet">
+              <div class="carnet-ligne" style="padding-left:0"><span class="avatar av-creme">AN</span><div class="c"><b>Alice Noël</b><p class="q">2 échanges · le dernier le 4 juin</p></div></div>
+              <div class="carnet-ligne" style="padding-left:0"><span class="avatar av-vert">MM</span><div class="c"><b>Marie Morel</b><p class="q">1 échange · le 28 mai</p></div></div>
+            </div>
+
+            <p class="entrefilet"><b>Le saviez-vous</b>Un voisin peut proposer un service sans jamais rien demander en retour — son compteur monte, c'est tout. <a href="#">La charte</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">La recherche et l'annuaire, qui étaient deux écrans sur mobile, <b>deviennent une seule page</b> : le champ et les filtres vivent dans la colonne de gauche, en permanence. À droite, les deux listes qui font vivre le quartier — les nouveaux venus, qu'on peut accueillir d'un lien, et les gens avec qui vous avez déjà échangé.</p>
+    <div class="verdict">
+      <p class="pour">fusionner recherche et annuaire supprime un écran entier et un aller-retour. La distance à pied remplace utilement le tri alphabétique.</p>
+      <p class="contre">« Arrivés ce mois-ci » est un encart sympathique qui risque d'être vide la moitié de l'année. Il faut prévoir ce qu'on affiche alors.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       VOTRE TEMPS
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">4</span><h2>Votre temps</h2><span class="tag">Page personnelle · 2 colonnes</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/votre-temps</span></div>
+
+      <header class="b-courant">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <nav class="nav">
+          <a href="#">La une</a><a href="#">Le fil</a><a href="#">À l'affiche<span class="cpt">5</span></a>
+          <a href="#">Les voisins</a><a class="on" href="#">Votre temps</a><a href="#">Le courrier<span class="cpt">3</span></a><a href="#">Proposer</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="date">Depuis mars 2025</span>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-deux4">
+          <div class="gauche zone">
+            <p class="b-mini-titre">Votre compteur</p>
+            <div class="compteurs">
+              <div><div class="v v--donne">5 h 15</div><div class="l">donné</div></div>
+              <div><div class="v v--recu">3 h 15</div><div class="l">reçu</div></div>
+              <div><div class="v v--solde">8 h 30</div><div class="l">compteur</div></div>
+            </div>
+            <p class="compteurs-note">Vous avez commencé avec 5 heures offertes par l'association.</p>
+
+            <p class="b-mini-titre" style="margin-top:24px">En un coup d'œil</p>
+            <div class="jauges">
+              <div class="jauge-case"><div class="v">14</div><div class="l">échanges</div></div>
+              <div class="jauge-case"><div class="v">9</div><div class="l">voisins</div></div>
+              <div class="jauge-case jauge-case--attente"><div class="v">1</div><div class="l">à valider</div></div>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:24px">Ce qu'on attend de vous</p>
+            <div class="rangee" style="flex-direction:column;gap:8px">
+              <article class="billet2 billet2--large billet2--urgent">
+                <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg><span class="verbe">Valider</span></div>
+                <div class="c"><h3>Montage de l'étagère</h3><p class="m2"><span class="delai">Plus que 2 jours</span><span class="sep">·</span>avec Alice</p></div>
+              </article>
+            </div>
+
+            <p class="entrefilet"><b>La règle</b>Un compteur peut être négatif jusqu'à −5 h. En dessous, il faut rendre avant de redemander. <a href="#">La charte</a></p>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="milieu zone">
+            <div class="rubrique"><span class="tape"><h2>Le relevé</h2><span class="badge-compte">14</span></span><span class="filet"></span><a class="lien" href="#">Exporter</a></div>
+            <div class="onglets" style="margin-top:10px">
+              <a class="on" href="#">Tous</a><a href="#">Donnés</a><a href="#">Reçus</a>
+            </div>
+
+            <div class="registre" style="margin-top:12px">
+              <div class="registre-tete"><span>Juin 2026</span><span>+ 1 h 30</span></div>
+              <div class="registre-ligne">
+                <span class="avatar av-creme">AN</span>
+                <div class="c"><b>Montage de l'étagère</b><p class="d">Donné à Alice Noël · Centre</p><p class="m">Samedi 14 juin · en attente de validation</p></div>
+                <span class="etat etat--attente">À valider</span>
+              </div>
+              <div class="registre-ligne">
+                <span class="avatar av-bleu">JM</span>
+                <div class="c"><b>Prêt d'une perceuse</b><p class="d">Reçu de Jean Mercier · Vieux Bourg</p><p class="m">Mercredi 4 juin · 0 h 30</p></div>
+                <span class="etat etat--ok">Validé</span>
+              </div>
+              <div class="registre-ligne">
+                <span class="avatar av-rose">SR</span>
+                <div class="c"><b>Cours d'espagnol</b><p class="d">Reçu de Sofia Ruiz · Centre</p><p class="m">Dimanche 8 juin · 1 h</p></div>
+                <span class="etat etat--ok">Validé</span>
+              </div>
+              <div class="registre-tete" style="margin-top:6px"><span>Mai 2026</span><span>+ 3 h 00</span></div>
+              <div class="registre-ligne">
+                <span class="avatar av-vert">MM</span>
+                <div class="c"><b>Aide au déménagement</b><p class="d">Donné à Marie Morel · Baugerie</p><p class="m">Dimanche 18 mai · 2 h</p></div>
+                <span class="etat etat--ok">Validé</span>
+              </div>
+              <div class="registre-ligne">
+                <span class="avatar av-sable">LG</span>
+                <div class="c"><b>Retouches de vêtements</b><p class="d">Reçu de Lucie Garnier · Centre</p><p class="m">Jeudi 8 mai · 1 h</p></div>
+                <span class="etat etat--ok">Validé</span>
+              </div>
+              <div class="registre-pied">14 échanges depuis mars 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Deux colonnes, pas trois : il n'y a rien d'extérieur à vous à mettre à côté de votre propre relevé. À gauche, tout ce qui se lit d'un coup d'œil — le compteur, trois chiffres, et l'échange qui attend votre validation. À droite, le registre, <b>groupé par mois avec son solde</b> dans la ligne d'en-tête : c'est un livre de comptes, pas une liste.</p>
+    <div class="verdict">
+      <p class="pour">le solde mensuel en tête de paquet donne au relevé la forme d'un extrait bancaire — c'est exactement ce qu'on vient y chercher.</p>
+      <p class="contre">deux colonnes laissent une marge blanche à droite sur un très grand écran. C'est assumé, mais c'est le format le moins spectaculaire des trois.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       VOTRE PROFIL
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">5</span><h2>Votre profil</h2><span class="tag">Page personnelle · 2 colonnes</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/profil</span></div>
+
+      <header class="b-courant">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <nav class="nav">
+          <a href="#">La une</a><a href="#">Le fil</a><a href="#">À l'affiche<span class="cpt">5</span></a>
+          <a href="#">Les voisins</a><a href="#">Votre temps</a><a href="#">Le courrier<span class="cpt">3</span></a><a href="#">Proposer</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="date">Votre fiche</span>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-deux4">
+          <div class="gauche zone">
+            <div class="b-identite">
+              <span class="avatar av-marine">OD</span>
+              <h1>Omar-Yann Diabira</h1>
+              <p class="q">Centre · voisin depuis mars 2025</p>
+              <div class="liens">
+                <button class="lien-filet" type="button">Modifier</button>
+                <button class="lien-filet lien-filet--muet" type="button">Aperçu public</button>
+              </div>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:22px">Ce que vous proposez</p>
+            <div class="puces">
+              <span class="sable">Bricolage</span><span class="sable">Informatique</span><span class="sable">Montage de meubles</span>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:22px">Ce que vous cherchez</p>
+            <div class="puces">
+              <span>Jardinage</span><span>Couture</span>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:22px">Vos disponibilités</p>
+            <div class="b-faits">
+              <div class="l"><span class="k">En semaine</span><span class="v">le soir, après 18 h</span></div>
+              <div class="l"><span class="k">Week-end</span><span class="v"><b>samedi matin</b> de préférence</span></div>
+              <div class="l"><span class="k">Déplacement</span><span class="v">jusqu'à 2 km à pied</span></div>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:22px">Réglages</p>
+            <div class="reglages">
+              <a class="reglage" href="#">
+                <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
+                <span class="c"><b>Notifications</b><span class="d">Courriel et alertes du navigateur</span></span>
+                <span class="chev">›</span>
+              </a>
+              <a class="reglage" href="#">
+                <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+                <span class="c"><b>Compte et sécurité</b><span class="d">Adresse, mot de passe</span></span>
+                <span class="chev">›</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="milieu zone">
+            <div class="manchette" style="padding-top:0">
+              <p class="sur">À propos</p>
+              <h2>« Je bricole depuis toujours, <span class="souligne">et j'aime apprendre aux autres.</span> »</h2>
+              <p>Installé dans le Centre depuis deux ans. Je monte des meubles, je perce, je visse, et je peux dépanner sur un ordinateur qui rame. En échange je cherche surtout un coup de main au jardin — je n'y connais rien.</p>
+            </div>
+
+            <div class="b-bloc" style="margin-top:22px">
+              <div class="rubrique"><span class="tape"><h2>Ce qu'on dit de vous</h2><span class="badge-compte">6</span></span><span class="filet"></span></div>
+              <div class="fil">
+                <article class="avis" style="margin:0">
+                  <span class="k">Marie Morel · 18 mai</span>
+                  <h3>« Efficace et de bonne humeur »</h3>
+                  <p>Omar est venu m'aider à déménager un buffet, il a tout démonté et remonté en deux heures. Je recommande sans hésiter.</p>
+                </article>
+                <article class="avis" style="margin:0">
+                  <span class="k">Sofia Ruiz · 8 juin</span>
+                  <h3>« Très bon élève »</h3>
+                  <p>Une heure d'espagnol très agréable, il pose de bonnes questions et travaille entre les séances.</p>
+                </article>
+                <article class="avis" style="margin:0">
+                  <span class="k">Jean Mercier · 4 juin</span>
+                  <h3>« Perceuse rendue nickel »</h3>
+                  <p>Matériel rendu propre et à l'heure, rien à dire.</p>
+                </article>
+              </div>
+              <a class="b-suite" href="#">Lire les 6 avis</a>
+            </div>
+
+            <div class="b-bloc">
+              <div class="rubrique"><span class="tape"><h2>Vos annonces</h2><span class="badge-compte">4</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+              <div class="rangee">
+                <article class="billet2"><div class="talon"><span class="n">02</span><span class="m">Juin</span></div><div class="c"><h3>Cours d'espagnol</h3><p class="m2">4 réponses<span class="sep">·</span>en ligne</p></div></article>
+                <article class="billet2 billet2--action">
+                  <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M3 4h18v4H3z"/><path d="M10 12h4"/></svg><span class="verbe">Clore</span></div>
+                  <div class="c"><h3>Coup de main déménagement</h3><p class="m2">Sans activité depuis 10 jours</p></div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">La carte d'identité occupe le haut de la colonne de gauche, sous un filet double — c'est la seule page où l'on reprend la signature de la manchette à l'intérieur du contenu. Les <b>réglages descendent en bas de cette même colonne</b> plutôt que d'occuper une page à part : sur grand écran, un écran entier pour trois lignes de préférences ne se justifie plus.</p>
+    <div class="verdict">
+      <p class="pour">tout le profil tient sur une page, y compris les réglages et les annonces — on ne navigue plus entre quatre écrans pour se tenir à jour.</p>
+      <p class="contre">le « À propos » en manchette est superbe mais suppose que les gens écrivent quelque chose. Il faut un état vide qui ne soit pas gênant.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       PROPOSER
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">6</span><h2>Proposer une annonce</h2><span class="tag">Page de tâche · 1 colonne</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/proposer/annonce</span></div>
+
+      <header class="b-courant">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <nav class="nav">
+          <a href="#">La une</a><a href="#">Le fil</a><a href="#">À l'affiche<span class="cpt">5</span></a>
+          <a href="#">Les voisins</a><a href="#">Votre temps</a><a href="#">Le courrier<span class="cpt">3</span></a><a class="on" href="#">Proposer</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="date">Brouillon</span>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-une4 zone">
+          <div class="manchette" style="padding-top:0">
+            <p class="sur">Publier</p>
+            <h2>Une annonce dans <span class="souligne">le fil du quartier.</span></h2>
+            <p>Elle apparaîtra dans le fil et restera en ligne 30 jours. Vous pourrez la clore dès qu'elle aura trouvé preneur.</p>
+          </div>
+
+          <div class="form" style="margin-top:20px">
+            <div class="form-groupe">
+              <label>Vous…</label>
+              <div class="bascule"><span class="opt on">proposez un service</span><span class="opt">cherchez de l'aide</span></div>
+            </div>
+
+            <div class="form-groupe">
+              <label>Le titre</label>
+              <div class="saisie saisie--rempli">Petites réparations et montage de meubles</div>
+              <p class="aide">C'est la seule chose qu'on lira dans le fil — soyez concret.</p>
+            </div>
+
+            <div class="form-groupe">
+              <label>Le détail <span class="opt">facultatif</span></label>
+              <div class="saisie saisie--zone saisie--rempli">Je viens avec mes outils. Étagères, meubles en kit, fixations murales — le placo ne me fait pas peur. Je suis surtout disponible le samedi matin.</div>
+            </div>
+
+            <div class="duo">
+              <div class="form-groupe">
+                <label>La rubrique</label>
+                <div class="select"><span class="lab">Rubrique</span><span>Bricolage</span><span class="chev">▾</span></div>
+              </div>
+              <div class="form-groupe">
+                <label>Durée estimée</label>
+                <div class="select"><span class="lab">Durée</span><span>Environ 1 heure</span><span class="chev">▾</span></div>
+              </div>
+            </div>
+
+            <div class="form-groupe">
+              <label>Où</label>
+              <div class="bascule"><span class="opt on">Chez la personne</span><span class="opt">Chez moi</span><span class="opt">Ailleurs</span></div>
+            </div>
+
+            <div class="form-groupe">
+              <label>Jusqu'à quand</label>
+              <div class="saisie saisie--rempli">10 juillet 2026 <span style="color:var(--text-tertiary);font-weight:400">— dans 30 jours</span></div>
+              <p class="aide">À cette date l'annonce se retire d'elle-même. Vous pourrez la remettre en ligne d'un geste.</p>
+            </div>
+
+            <div class="encart encart--info" style="margin:4px 0 0">
+              <b>Ce que ça engage.</b> Rien pour l'instant : une annonce n'est pas un rendez-vous. Vous choisirez qui aider parmi ceux qui répondent.
+            </div>
+          </div>
+
+          <div class="form-pied" style="align-items:center;gap:18px">
+            <button class="lien-filet lien-filet--muet" type="button" style="flex:none">Enregistrer en brouillon</button>
+            <button class="btn-plein btn-plein--orange" type="button">Publier dans le fil</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Une seule colonne de 648 px, centrée, <b>et rien autour</b> — ni filtres, ni encadré, ni rappel. C'est la règle des pages de tâche : quand quelqu'un remplit un formulaire, tout ce qui n'aide pas à le remplir nuit. La manchette de tête dit ce qu'on est en train de faire et ce qui se passera ensuite ; l'encart en pied dit ce que ça engage, avant le bouton.</p>
+    <div class="verdict">
+      <p class="pour">c'est le seul écran où la largeur ne sert à rien, et c'est assumé. Le formulaire est identique au mobile, à la largeur près : une seule logique à maintenir.</p>
+      <p class="contre">la colonne unique rend le formulaire long : six groupes de champs à faire défiler, là où trois colonnes en auraient montré la moitié d'un coup. C'est le prix de l'absence de distraction.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       L'ADMINISTRATION
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">7</span><h2>L'administration</h2><span class="tag">Page de lecture · 3 colonnes</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/association/candidats</span></div>
+
+      <header class="b-courant">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <nav class="nav">
+          <a href="#">La une</a><a href="#">Le fil</a><a href="#">À l'affiche</a>
+          <a href="#">Les voisins</a><a href="#">Votre temps</a><a class="on" href="#">L'association<span class="cpt">7</span></a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="date">Réservé au bureau</span>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-trois">
+          <div class="gauche zone">
+            <p class="b-mini-titre">Ce qui demande votre attention</p>
+            <nav class="b-filtres">
+              <a class="on" href="#"><span class="pt"></span>Candidats à qualifier<span class="n3">3</span></a>
+              <a href="#"><span class="pt"></span>Échanges à relancer<span class="n3">2</span></a>
+              <a href="#"><span class="pt"></span>Heures à déclarer<span class="n3">2</span></a>
+              <a href="#"><span class="pt"></span>Signalements<span class="n3">0</span></a>
+            </nav>
+
+            <p class="b-mini-titre" style="margin-top:24px">L'association</p>
+            <nav class="b-filtres">
+              <a href="#"><span class="pt"></span>Les membres<span class="n3">148</span></a>
+              <a href="#"><span class="pt"></span>Dormants<span class="n3">4</span></a>
+              <a href="#"><span class="pt"></span>L'agenda<span class="n3">12</span></a>
+              <a href="#"><span class="pt"></span>Les créneaux<span class="n3">8</span></a>
+            </nav>
+
+            <p class="b-mini-titre" style="margin-top:24px">Le mois en bref</p>
+            <div class="jauges">
+              <div class="jauge-case"><div class="v">31</div><div class="l">échanges</div></div>
+              <div class="jauge-case"><div class="v">6</div><div class="l">arrivées</div></div>
+            </div>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="milieu zone">
+            <div class="rubrique"><span class="tape"><h2>Les candidats</h2><span class="badge-compte">10</span></span><span class="filet"></span></div>
+            <div class="onglets" style="margin-top:10px">
+              <a class="on" href="#">À qualifier</a><a href="#">En embarquement</a><a href="#">Traités</a>
+            </div>
+
+            <div class="b-file" style="margin-top:14px;padding-left:14px">
+              <a class="on" href="#">
+                <span class="avatar av-bleu">MD</span>
+                <span class="c"><b>Marc Dubois</b><span class="d">Centre · demande d'adhésion du 3 juin</span></span>
+                <span class="h">il y a 7 j</span>
+              </a>
+              <a href="#">
+                <span class="avatar av-vert">AF</span>
+                <span class="c"><b>Amina Fall</b><span class="d">Baugerie · demande d'adhésion du 1<sup>er</sup> juin</span></span>
+                <span class="h">il y a 9 j</span>
+              </a>
+              <a href="#">
+                <span class="avatar av-rose">CT</span>
+                <span class="c"><b>Claire Thibault</b><span class="d">Vieux Bourg · demande d'adhésion du 28 mai</span></span>
+                <span class="h">il y a 13 j</span>
+              </a>
+            </div>
+
+            <p class="entrefilet"><b>Rappel</b>Un candidat sans réponse depuis quinze jours reçoit un mot automatique lui expliquant le délai. <a href="#">Les règles</a></p>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="droite zone">
+            <p class="b-mini-titre">La fiche</p>
+            <div class="b-identite" style="border-bottom-width:1px;border-bottom-style:solid;padding-bottom:13px">
+              <span class="avatar av-bleu" style="width:62px;height:62px;font-size:20px">MD</span>
+              <h1 style="font-size:17px">Marc Dubois</h1>
+              <p class="q">Centre · 41 ans</p>
+            </div>
+
+            <div class="b-faits" style="margin-top:14px">
+              <div class="l"><span class="k">Demandé le</span><span class="v"><b>3 juin 2026</b></span></div>
+              <div class="l"><span class="k">Parrain</span><span class="v">Lucie Garnier</span></div>
+              <div class="l"><span class="k">Propose</span><span class="v">plomberie, peinture</span></div>
+              <div class="l"><span class="k">Cherche</span><span class="v">garde d'enfants</span></div>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:20px">Sa présentation</p>
+            <p class="aide" style="font-size:12px;line-height:1.6">« Bonjour, je viens d'emménager rue des Lilas. Plombier de métier, je peux dépanner facilement. Nous avons deux enfants en bas âge et un coup de main de temps en temps nous rendrait service. »</p>
+
+            <p class="b-mini-titre" style="margin-top:20px">Votre décision</p>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <button class="btn-plein btn-plein--orange" type="button" style="width:100%;padding:10px 18px">Qualifier le candidat</button>
+              <div style="display:flex;gap:14px;justify-content:center">
+                <button class="lien-filet" type="button">Demander un complément</button>
+                <button class="lien-filet lien-filet--muet" type="button">Refuser</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">L'administration est la page qui gagne le plus au passage sur grand écran : sur mobile, qualifier un candidat demande d'ouvrir sa fiche, de revenir, d'ouvrir la suivante. Ici, <b>la file et la fiche coexistent</b> — on descend la liste et la colonne de droite suit. Le bouton plein reste unique, les deux autres issues passent en liens à filet.</p>
+    <div class="verdict">
+      <p class="pour">le tri, la file et la décision tiennent sur un écran. C'est le seul endroit où la troisième colonne n'est pas un confort mais une nécessité.</p>
+      <p class="contre">la fiche de droite est trop étroite pour un candidat qui aurait beaucoup écrit. Il faut prévoir un « voir la fiche complète » qui ouvre en pleine largeur.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Les pages intérieures en D4 bis · Personnes fictives.<br>
+  <a href="../../index.html">Galerie</a> · <a href="bureau-1-accueil.html">La une</a> · <a href="bureau-2-messagerie.html">Le courrier</a>
+</footer>
+</body>
+</html>
