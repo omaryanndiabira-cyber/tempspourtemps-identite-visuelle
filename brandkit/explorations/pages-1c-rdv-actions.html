@@ -92,6 +92,54 @@
 .carte-date .m2{font-size:11px;color:var(--text-secondary);margin-top:4px;line-height:1.4;}
 .carte-date .pied{margin-top:8px;padding-top:7px;border-top:1px dashed var(--border);}
 
+/* — 3 bis · la vue d'ensemble dans le bloc — */
+.synthese{padding:2px 14px 4px;}
+.synthese-ligne{padding:10px 0;border-top:1px solid var(--border);}
+.synthese-ligne:first-child{border-top:0;}
+.synthese-ligne .l1{display:flex;align-items:baseline;gap:8px;}
+.synthese-ligne .reg{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+}
+.synthese-ligne .reg::before{content:"";width:6px;height:6px;border-radius:2px;background:currentColor;flex:none;}
+.reg--faire{color:var(--orange-hover);}
+.reg--urgent{color:var(--danger);}
+.reg--rdv{color:var(--marine);}
+.reg--ouvert{color:var(--success);}
+.synthese-ligne .quandi{font-size:10px;color:var(--text-tertiary);}
+.synthese-ligne .droite{margin-left:auto;font-size:10px;color:var(--text-tertiary);white-space:nowrap;}
+.synthese-ligne .droite--urgent{color:var(--danger);font-weight:700;}
+.synthese-ligne .l2{display:flex;align-items:baseline;gap:10px;margin-top:4px;}
+.synthese-ligne .t{flex:1;min-width:0;font-family:var(--titres);font-weight:800;font-size:13px;line-height:1.3;}
+.synthese-ligne .a{flex:none;}
+.bloc .pied-bloc{
+  display:flex;align-items:center;gap:8px;padding:9px 14px 10px;border-top:2px solid var(--marine);
+  font-size:10.5px;color:var(--text-tertiary);
+}
+.bloc .pied-bloc .lien-filet{margin-left:auto;}
+
+/* — 5 bis · le billet fin — */
+.rangee > .billet-fin{
+  width:248px;background:var(--paper);border:1px solid var(--border);border-radius:11px;
+  display:flex;flex-direction:row;overflow:hidden;
+  box-shadow:0 1px 2px rgba(24,62,87,.06), 0 8px 20px -16px rgba(24,62,87,.3);
+}
+.billet-fin .j{
+  flex:none;width:46px;background:var(--bg-hover);border-right:1px solid #efdcae;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 3px;
+}
+.billet-fin .j .n{font-family:var(--titres);font-weight:800;font-size:19px;line-height:1;color:var(--marine);}
+.billet-fin .j .m{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-top:2px;}
+.billet-fin--action .j{background:rgba(214,94,28,.12);border-right-color:rgba(214,94,28,.35);}
+.billet-fin--action .j .n{color:var(--orange-hover);}
+.billet-fin--urgent .j{background:rgba(196,69,54,.10);border-right-color:rgba(196,69,54,.35);}
+.billet-fin--urgent .j .n{color:var(--danger);}
+.billet-fin .c{flex:1;min-width:0;padding:9px 11px;display:flex;flex-direction:column;justify-content:center;gap:3px;}
+.billet-fin h3{font-family:var(--titres);font-weight:800;font-size:12.5px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.billet-fin .m2{font-size:10.5px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.billet-fin .m2 .lien-filet{font-size:10.5px;}
+.billet-fin .m2 .sep{color:var(--text-tertiary);margin:0 4px;}
+
 /* — commun : chapeau de comparaison — */
 .verdict{
   margin-top:9px;border-left:3px solid var(--sable-hover);background:var(--bg-hover);
@@ -114,6 +162,7 @@
     <span><b>Trois registres</b> à distinguer</span>
     <span><b>Pas de fusion</b> actions ≠ rendez-vous</span>
     <span><b>Pas de classement</b> par urgence calculée</span>
+    <span><a href="#" style="color:var(--orange);font-weight:700">Les deux affinées : 3 bis &amp; 5 bis ↓</a></span>
   </div>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
 </header>
@@ -582,6 +631,238 @@
     <div class="verdict">
       <p class="pour">une seule grammaire de carte à tenir, et le talon coloré se lit de loin.</p>
       <p class="contre">actions et rendez-vous se ressemblent beaucoup : seule la couleur du talon les sépare.</p>
+    </div>
+  </figure>
+
+  <!-- ================= 3 BIS · LE BLOC AVEC VUE D'ENSEMBLE ================= -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">3 bis</span><h2>Le bloc à onglets, avec la vue d'ensemble</h2></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Votre semaine</h2></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="bloc">
+          <div class="tetes">
+            <a class="on" href="#">Tout</a>
+            <a href="#">À faire<span class="n">3</span></a>
+            <a href="#">Rendez-vous<span class="n">4</span></a>
+            <a href="#">À l'affiche<span class="n">5</span></a>
+          </div>
+          <div class="corps">
+            <div class="synthese">
+              <div class="synthese-ligne">
+                <div class="l1">
+                  <span class="reg reg--urgent">À faire</span>
+                  <span class="quandi">samedi 14</span>
+                  <span class="droite droite--urgent">sous 2 jours</span>
+                </div>
+                <div class="l2">
+                  <span class="t">Valider l'étagère montée chez Alice</span>
+                  <button class="lien-filet a" type="button">Valider</button>
+                </div>
+              </div>
+
+              <div class="synthese-ligne">
+                <div class="l1">
+                  <span class="reg reg--faire">À faire</span>
+                  <span class="quandi">dimanche 15</span>
+                  <span class="droite">3 places</span>
+                </div>
+                <div class="l2">
+                  <span class="t">Pierre vous invite à l'atelier vélo</span>
+                  <button class="lien-filet a" type="button">Répondre</button>
+                </div>
+              </div>
+
+              <div class="synthese-ligne">
+                <div class="l1">
+                  <span class="reg reg--rdv">Rendez-vous</span>
+                  <span class="quandi">demain, 12:30</span>
+                  <span class="droite">15 min</span>
+                </div>
+                <div class="l2">
+                  <span class="t">Rencontre physique avec Marie Morel</span>
+                  <button class="lien-filet a lien-filet--muet" type="button">+ Cal.</button>
+                </div>
+              </div>
+
+              <div class="synthese-ligne">
+                <div class="l1">
+                  <span class="reg reg--ouvert">À l'affiche</span>
+                  <span class="quandi">jeudi 12, 18:00</span>
+                  <span class="droite">2 places</span>
+                </div>
+                <div class="l2">
+                  <span class="t">Déménager un buffet, rue Pasteur</span>
+                  <button class="lien-filet a" type="button">Je viens</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pied-bloc">
+            <span>4 essentiels sur 12</span>
+            <button class="lien-filet lien-filet--muet" type="button">Tout dérouler</button>
+          </div>
+        </div>
+
+        <div class="cta-wrap"><button class="btn-cta" type="button"><span>✍︎</span> Publier une annonce</button></div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="fil">
+          <article class="annonce">
+            <div class="an-tete"><span class="an-type an-type--demande">Demande</span><span class="an-rubr">Bricolage</span></div>
+            <h3 class="an-titre">Un coup de main pour monter une étagère</h3>
+            <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+          </article>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Un <b>quatrième onglet « Tout »</b>, actif par défaut, agrège l'essentiel des trois registres : une ou deux entrées par registre, la plus pressante en tête. Chaque ligne porte sa <b>pastille de registre</b> — on sait toujours de quoi on parle — sa date, son information de droite et son geste. Les trois autres onglets déroulent chaque registre en entier. Le pied annonce « 4 essentiels sur 12 » : on sait ce qu'on ne voit pas.</p>
+    <div class="verdict">
+      <p class="pour">on voit l'essentiel d'un coup d'œil sans rien perdre : les onglets restent là pour tout dérouler.</p>
+      <p class="contre">il faut une règle claire pour choisir les « essentiels », sinon l'agrégat paraît arbitraire.</p>
+    </div>
+  </figure>
+
+  <!-- ================= 5 BIS · LES BILLETS FINS ================= -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">5 bis</span><h2>Les billets fins</h2></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+          <p>Échangez du temps, pas de l’argent.</p>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>On attend un mot de vous</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="rangee">
+          <article class="billet-fin billet-fin--urgent">
+            <div class="j"><div class="n">14</div><div class="m">Juin</div></div>
+            <div class="c">
+              <h3>Montage de l'étagère</h3>
+              <p class="m2"><button class="lien-filet" type="button">Valider</button><span class="sep">·</span>sous 2 jours</p>
+            </div>
+          </article>
+          <article class="billet-fin billet-fin--action">
+            <div class="j"><div class="n">15</div><div class="m">Juin</div></div>
+            <div class="c">
+              <h3>Atelier réparation vélo</h3>
+              <p class="m2"><button class="lien-filet" type="button">Répondre</button><span class="sep">·</span>de Pierre</p>
+            </div>
+          </article>
+          <article class="billet-fin billet-fin--action">
+            <div class="j"><div class="n">08</div><div class="m">Juin</div></div>
+            <div class="c">
+              <h3>Cours d'espagnol</h3>
+              <p class="m2"><button class="lien-filet" type="button">Donner un avis</button></p>
+            </div>
+          </article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="rangee">
+          <article class="billet-fin">
+            <div class="j"><div class="n">11</div><div class="m">Juin</div></div>
+            <div class="c">
+              <h3>Rencontre physique</h3>
+              <p class="m2">12:30 <span class="sep">·</span> avec Marie Morel</p>
+            </div>
+          </article>
+          <article class="billet-fin">
+            <div class="j"><div class="n">18</div><div class="m">Juin</div></div>
+            <div class="c">
+              <h3>Soirée couture</h3>
+              <p class="m2">20:00 <span class="sep">·</span> avec Lucie Garnier</p>
+            </div>
+          </article>
+          <article class="billet-fin">
+            <div class="j"><div class="n">21</div><div class="m">Juin</div></div>
+            <div class="c">
+              <h3>Dépannage d'ordinateur</h3>
+              <p class="m2">14:00 <span class="sep">·</span> chez Jean Mercier</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">5</span></span>
+          <span class="filet"></span>
+        </div>
+        <p class="sous-rubrique">Ouvert à tous — inscription libre</p>
+        <div class="agenda">
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div>
+            <div class="c">
+              <div class="g"><span class="genre genre--coup">Coup de main</span><span class="jauge">2 places</span></div>
+              <h3>Déménager un buffet</h3>
+              <p class="lieu">⌖ Rue Pasteur, Baugerie · 1 h 30</p>
+              <div class="pied"><button class="lien-filet" type="button">Je viens</button><span class="orga">de Sonia Klein</span></div>
+            </div>
+          </article>
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">9:30</div></div>
+            <div class="c">
+              <div class="g"><span class="genre genre--moment">Moment ouvert</span></div>
+              <h3>Café solidaire du samedi</h3>
+              <p class="lieu">⌖ Square de la Baugerie · jusqu'à 12:00</p>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Le billet tombe de 130 à <b>52 px de haut</b> : le talon de date se resserre à 46 px, le texte vient juste après sur deux lignes — le titre, puis le geste et l'essentiel. Plus aucun vide. On en voit trois par rangée au lieu d'un et demi, et les deux rangées superposées tiennent dans la hauteur d'une seule ancienne.</p>
+    <div class="verdict">
+      <p class="pour">très dense, sans rien perdre : le talon coloré porte le registre, le titre reste lisible.</p>
+      <p class="contre">un titre long est coupé — il faut accepter l'ellipse ou raccourcir les intitulés.</p>
     </div>
   </figure>
 
