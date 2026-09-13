@@ -113,6 +113,8 @@ body{padding:36px 20px 80px;}
 .recap .e{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:5px;padding:2px 7px;white-space:nowrap;}
 .recap .e--ouvert{background:rgba(196,69,54,.11);color:var(--danger);}
 .recap .e--fait{background:rgba(47,122,68,.14);color:var(--success);}
+.recap .e--cours{background:var(--bg-hover);color:var(--orange-hover);}
+.recap tr.pris td{background:rgba(47,122,68,.05);}
 .recap .q{font-family:var(--titres);font-weight:800;color:var(--marine);white-space:nowrap;}
 
 footer{margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
@@ -135,6 +137,23 @@ footer a{color:var(--marine);font-weight:600;}
   </div>
   <a class="retour" href="migration.html">← Le protocole de migration</a>
 </header>
+
+
+<div class="fait" style="max-width:1000px;margin:26px auto 0">
+  <p class="t">Arbitrages rendus le 13 septembre</p>
+  <p><b>A2 · La recherche</b> — seule la recherche de membres sera conservée au moment d'appliquer la charte. La fusion « recherche et annuaire » devient donc juste : <b>la charte avait raison</b>. À noter tout de même dans le journal d'écarts : c'est une <b>suppression</b> de la recherche d'annonces, et donc un changement de comportement assumé, pas un effet de mise en page.</p>
+  <p><b>A4 · La devanture</b> — rien n'est exposé hors connexion, comme aujourd'hui. <b>La maquette d'accueil public est à retoucher</b> : sa section « ce qui s'échange ici » doit disparaître.</p>
+  <p><b>A5 · Le menu « Proposer »</b> — on reprend les sept entrées réelles : « Événement convivial » revient, « Un rendez-vous » s'en va. Reste à dessiner le <b>menu réduit</b>, celui d'un membre sans droits, qui est le cas le plus fréquent.</p>
+  <p><b>C4 · La pagination</b> — <b>jamais de fil infini</b>, nulle part. La pagination partout, et sur l'accueil un bouton « voir plus » en fin de fil qui mène à la page des publications. C'est plus net que ce que je proposais : une seule règle, aucune exception à retenir.</p>
+  <p><b>B1 · Les polices</b> — auto-hébergées, dans leur propre livraison. <b>Précision qui comptait :</b> les maquettes n'utilisent pas « Nunito Rounded », qui n'existe pas — elles utilisent <b>Nunito</b>, une linéale aux terminaisons déjà arrondies. C'est elle que vous trouvez juste, et elle s'auto-héberge sans difficulté.</p>
+  <p><b>E1 · Le calendrier</b> — la refonte attend quelques semaines. La priorité passe à la <b>fiabilité de la porte de charte</b> : quelqu'un qui se reconnecte deux mois plus tard la rencontrera, et il faut qu'elle fonctionne et qu'il puisse en sortir.</p>
+</div>
+
+<div class="avert" style="max-width:1000px;margin:22px auto 0">
+  <p class="t">Deux décisions demandent un dessin, pas un choix</p>
+  <p><b>A1 · Les sous-fils sur grand écran.</b> Ma recommandation était incompréhensible parce que je n'avais jamais montré <b>par où l'on atteint les autres conversations d'une même personne</b>. Quatre façons sont maintenant dessinées, dont la vôtre : <a href="brandkit/explorations/messagerie-sous-fils.html" style="color:var(--danger);font-weight:700">les sous-fils sur grand écran</a>.</p>
+  <p><b>A3 · « À l'affiche ».</b> Vous pensiez avoir retenu des cartes compactes d'actions et de rendez-vous à venir, pas un calendrier — et vous voulez comparer les deux. Les deux versions sont à produire.</p>
+</div>
 
 <nav class="somm">
   <a href="#comportement">Comportement</a>
@@ -407,18 +426,18 @@ footer a{color:var(--marine);font-weight:600;}
 <table class="recap">
   <thead><tr><th style="width:8%">Clé</th><th style="width:38%">La décision</th><th style="width:13%">Nature</th><th style="width:19%">Bloque</th><th>État</th></tr></thead>
   <tbody>
-    <tr><td class="id">A1</td><td>L'écran intermédiaire disparaît-il sur PC ?</td><td class="q">Produit</td><td>Palier 6 · messagerie</td><td><span class="e e--ouvert">À trancher</span></td></tr>
-    <tr><td class="id">A2</td><td>Recherche et annuaire fusionnent-ils ?</td><td class="q">Produit</td><td>Palier 6 · 3 pages</td><td><span class="e e--ouvert">À trancher</span></td></tr>
-    <tr><td class="id">A3</td><td>« À l'affiche » devient-il un calendrier ?</td><td class="q">Produit</td><td>Palier 6 · accueil</td><td><span class="e e--ouvert">À trancher</span></td></tr>
-    <tr><td class="id">A4</td><td>La devanture publique liste-t-elle les annonces ?</td><td class="q">Produit · RGPD</td><td>Palier 6 · hors connexion</td><td><span class="e e--ouvert">À trancher</span></td></tr>
-    <tr><td class="id">A5</td><td>Les sept entrées du menu « Proposer »</td><td class="q">Produit</td><td>Palier 6 · chrome</td><td><span class="e e--ouvert">À trancher</span></td></tr>
-    <tr><td class="id">B1</td><td>Auto-héberge-t-on Nunito et Inter ?</td><td class="q">Technique</td><td>Palier 2</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr class="cours"><td class="id">A1</td><td>L'écran intermédiaire sur PC — <b>4 options dessinées</b></td><td class="q">Produit</td><td>Palier 6 · messagerie</td><td><span class="e e--cours">À choisir</span></td></tr>
+    <tr class="pris"><td class="id">A2</td><td>Recherche = <b>membres uniquement</b> — la charte avait raison</td><td class="q">Produit</td><td>Palier 6 · 3 pages</td><td><span class="e e--fait">✓ Tranché</span></td></tr>
+    <tr class="cours"><td class="id">A3</td><td>« À l'affiche » — <b>deux versions à comparer</b></td><td class="q">Produit</td><td>Palier 6 · accueil</td><td><span class="e e--cours">En cours</span></td></tr>
+    <tr class="pris"><td class="id">A4</td><td>Devanture publique : <b>rien exposer</b>, comme aujourd'hui</td><td class="q">Produit · RGPD</td><td>Palier 6 · hors connexion</td><td><span class="e e--fait">✓ Tranché</span></td></tr>
+    <tr class="pris"><td class="id">A5</td><td>Menu « Proposer » : <b>les sept entrées du code</b></td><td class="q">Produit</td><td>Palier 6 · chrome</td><td><span class="e e--fait">✓ Tranché</span></td></tr>
+    <tr class="pris"><td class="id">B1</td><td>Auto-héberger Nunito et Inter, <b>dans sa propre livraison</b></td><td class="q">Technique</td><td>Palier 2</td><td><span class="e e--fait">✓ Tranché</span></td></tr>
     <tr><td class="id">B2</td><td>Les e-mails suivent-ils la charte, et quand ?</td><td class="q">Technique</td><td>Après l'application</td><td><span class="e e--ouvert">À trancher</span></td></tr>
     <tr><td class="id">B3</td><td>Verrouille-t-on le mode clair ?</td><td class="q">Technique</td><td>Palier 1</td><td><span class="e e--ouvert">À trancher</span></td></tr>
     <tr><td class="id">C1</td><td>La table des dix verbes du billet</td><td class="q">Charte</td><td>Palier 5</td><td><span class="e e--ouvert">À produire</span></td></tr>
     <tr><td class="id">C2</td><td>Les cinq pastilles de statut manquantes</td><td class="q">Charte</td><td>Palier 5</td><td><span class="e e--ouvert">À produire</span></td></tr>
     <tr><td class="id">C3</td><td>Le bouton fantôme et le bouton blanc</td><td class="q">Charte</td><td>Palier 3</td><td><span class="e e--ouvert">À produire</span></td></tr>
-    <tr><td class="id">C4</td><td>La pagination survit-elle ?</td><td class="q">Produit</td><td>Palier 3</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr class="pris"><td class="id">C4</td><td><b>Jamais de fil infini</b> — pagination partout</td><td class="q">Produit</td><td>Palier 3</td><td><span class="e e--fait">✓ Tranché</span></td></tr>
     <tr><td class="id">C5</td><td>La cloche et le bandeau de délégation</td><td class="q">Charte</td><td>Palier 6 · chrome</td><td><span class="e e--ouvert">À produire</span></td></tr>
     <tr><td class="id">C6</td><td>Les dix-huit écrans sans maquette</td><td class="q">Charte</td><td>Palier 6</td><td><span class="e e--ouvert">À produire</span></td></tr>
     <tr><td class="id">C7</td><td>L'embarquement et la délégation, complets</td><td class="q">Charte</td><td>Palier 6</td><td><span class="e e--ouvert">À produire</span></td></tr>
@@ -428,7 +447,7 @@ footer a{color:var(--marine);font-weight:600;}
     <tr><td class="id">D2</td><td>Une exception au dialogue à deux issues</td><td class="q">Règle</td><td>Palier 4</td><td><span class="e e--ouvert">À amender</span></td></tr>
     <tr><td class="id">D3</td><td>L'anneau de focus</td><td class="q">Charte</td><td>—</td><td><span class="e e--fait">✓ Corrigé</span></td></tr>
     <tr><td class="id">D4</td><td>La fiche « Le dialogue » en double</td><td class="q">Charte</td><td>—</td><td><span class="e e--ouvert">À corriger</span></td></tr>
-    <tr><td class="id">E1</td><td>Quand commence-t-on ?</td><td class="q">Calendrier</td><td>Tout</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr class="pris"><td class="id">E1</td><td>Refonte <b>dans quelques semaines</b> — la porte de charte d'abord</td><td class="q">Calendrier</td><td>Tout</td><td><span class="e e--fait">✓ Tranché</span></td></tr>
     <tr><td class="id">E2</td><td>Comment revient-on en arrière ?</td><td class="q">Technique</td><td>Tout</td><td><span class="e e--ouvert">À trancher</span></td></tr>
     <tr><td class="id">E3</td><td>Qui tranche les écarts, sous quel délai ?</td><td class="q">Organisation</td><td>Tout</td><td><span class="e e--ouvert">À trancher</span></td></tr>
     <tr><td class="id">E4</td><td>Que gèle-t-on, et quand ?</td><td class="q">Organisation</td><td>Paliers 5 et 6</td><td><span class="e e--ouvert">À trancher</span></td></tr>

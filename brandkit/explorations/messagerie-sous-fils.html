@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les sous-fils sur grand écran</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+/* ============================================================
+   LES SOUS-FILS SUR GRAND ÉCRAN — quatre façons d'y accéder
+   Une même personne peut avoir plusieurs conversations : une par
+   annonce, par rendez-vous, par publication, plus le fil libre.
+   Sur mobile un écran intermédiaire les liste. Sur grand écran,
+   où les met-on ?
+   ============================================================ */
+
+.q{max-width:900px;margin:0 auto 34px;text-align:center;}
+.q .kicker{font-family:var(--titres);font-weight:800;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.q h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.5rem,4vw,2.05rem);margin-top:7px;letter-spacing:-.4px;}
+.q p{color:var(--text-secondary);font-size:.92rem;line-height:1.65;margin-top:13px;}
+.q p b{color:var(--marine);}
+.q .retour{display:inline-block;margin-top:16px;color:var(--marine);font-weight:600;font-size:.85rem;text-decoration:none;}
+
+.cas{max-width:900px;margin:0 auto 38px;background:var(--paper);border:1px solid var(--marine);border-radius:15px;padding:18px 22px 20px;}
+.cas .t{font-family:var(--titres);font-weight:800;font-size:1.02rem;margin-bottom:9px;}
+.cas p{font-size:.87rem;line-height:1.62;color:var(--text-secondary);}
+.cas p + p{margin-top:8px;}
+.cas b{color:var(--marine);}
+.cas .fils{margin-top:13px;display:flex;flex-wrap:wrap;gap:7px;}
+.cas .fils span{font-size:.74rem;font-weight:700;border-radius:999px;padding:4px 11px;background:var(--bg-hover);color:var(--orange-hover);border:1px solid #f1ddae;}
+.cas .fils span.g{background:var(--bg-secondary);color:var(--text-secondary);border-color:var(--border);}
+
+/* — le cadre bureau, réduit — */
+.duo{display:flex;flex-direction:column;align-items:center;gap:44px;}
+.opt{width:100%;max-width:1100px;}
+.opt > figcaption{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px;
+  font-family:var(--titres);font-weight:800;font-size:1.02rem;color:var(--marine);
+}
+.opt > figcaption .n{font-size:.74rem;background:var(--sable);color:var(--marine);border-radius:7px;padding:2px 9px;flex:none;}
+.opt > figcaption .tag{font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-radius:5px;padding:2px 8px;}
+.opt > figcaption .tag--reco{background:rgba(47,122,68,.14);color:var(--success);}
+.opt > figcaption .tag--non{background:rgba(196,69,54,.11);color:var(--danger);}
+.opt .desc{font-size:.86rem;line-height:1.6;color:var(--text-secondary);margin:-4px 0 13px;max-width:820px;}
+.opt .desc b{color:var(--marine);}
+
+.mini-bureau{
+  width:1060px;max-width:100%;height:430px;background:var(--bg-main);
+  border:1px solid var(--marine);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 18px 46px -26px rgba(15,47,68,.55);
+}
+.mb-courant{
+  height:44px;flex:none;background:var(--marine);display:flex;align-items:center;gap:14px;padding:0 16px;
+  color:var(--sable);font-family:var(--titres);font-weight:800;font-size:13px;
+}
+.mb-courant .nav{display:flex;gap:14px;margin-left:auto;font-size:11px;font-weight:700;color:rgba(252,219,129,.72);}
+.mb-courant .nav .on{color:#fff9ec;border-bottom:2px solid var(--orange-vif);padding-bottom:3px;}
+.mb-corps{flex:1;display:flex;min-height:0;}
+
+/* colonne des personnes / dossiers */
+.col-gauche{width:266px;flex:none;border-right:1px solid var(--marine);background:var(--paper);overflow:hidden;display:flex;flex-direction:column;}
+.col-tete{padding:9px 13px;border-bottom:1px solid var(--marine);display:flex;align-items:center;gap:7px;}
+.col-tete b{font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--marine);}
+.col-tete .cpt{font-size:9.5px;font-weight:800;background:var(--sable);color:var(--marine);border-radius:999px;padding:1px 6px;margin-left:auto;}
+.col-liste{flex:1;overflow:hidden;}
+
+.pers{display:flex;align-items:center;gap:9px;padding:9px 13px;border-bottom:1px dotted var(--border);cursor:default;}
+.pers .av{width:28px;height:28px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:800;font-size:10px;background:var(--sable);color:var(--marine);}
+.pers .av--b{background:#dbe7ef;color:#2f6f8f;}
+.pers .av--c{background:#e6dff0;color:#5b4a78;}
+.pers .tx{flex:1;min-width:0;}
+.pers .tx b{display:block;font-family:var(--titres);font-weight:800;font-size:12px;color:var(--marine);}
+.pers .tx i{display:block;font-style:normal;font-size:10px;color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+.pers .droite{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+.pers .h{font-size:9px;color:var(--text-tertiary);}
+.pers .np{min-width:15px;height:15px;line-height:15px;text-align:center;border-radius:999px;background:var(--orange);color:#fff9ec;font-size:9px;font-weight:800;padding:0 4px;}
+.pers .chev{flex:none;color:var(--text-tertiary);font-size:11px;transition:none;}
+.pers--on{background:var(--bg-hover);border-left:3px solid var(--orange-vif);padding-left:10px;}
+.pers--dep{background:var(--bg-secondary);}
+
+/* sous-lignes dépliées */
+.sous{display:flex;align-items:center;gap:8px;padding:6px 13px 6px 34px;border-bottom:1px dotted var(--border);background:var(--bg-secondary);position:relative;}
+.sous::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:1px;background:var(--border);}
+.sous .pt{width:5px;height:5px;border-radius:50%;flex:none;background:var(--orange-vif);}
+.sous .pt--g{background:var(--border);}
+.sous .tx{flex:1;min-width:0;}
+.sous .tx b{display:block;font-size:11px;font-weight:700;color:var(--marine);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sous .tx i{display:block;font-style:normal;font-size:9px;color:var(--text-tertiary);margin-top:1px;}
+.sous .h{font-size:9px;color:var(--text-tertiary);flex:none;}
+.sous--on{background:var(--bg-hover);}
+.sous .k{font-size:8px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--orange-hover);}
+.sous .k--g{color:var(--text-tertiary);}
+
+/* colonne intermédiaire (option 3) */
+.col-mid{width:216px;flex:none;border-right:1px solid var(--marine);background:var(--bg-secondary);display:flex;flex-direction:column;}
+.col-mid .col-tete{background:var(--paper);}
+
+/* le fil */
+.col-fil{flex:1;min-width:0;background:var(--bg-main);display:flex;flex-direction:column;}
+.fil-tete{padding:9px 15px;border-bottom:1px solid var(--marine);background:var(--paper);display:flex;align-items:center;gap:10px;}
+.fil-tete .av{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:800;font-size:11px;background:var(--sable);color:var(--marine);}
+.fil-tete .tx b{display:block;font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);}
+.fil-tete .tx i{display:block;font-style:normal;font-size:10px;color:var(--text-tertiary);margin-top:1px;}
+
+/* onglets de sous-fils (option 2) */
+.onglets-fil{display:flex;gap:0;padding:0 15px;background:var(--paper);border-bottom:1px solid var(--marine);overflow:hidden;}
+.onglets-fil a{
+  font-size:10.5px;font-weight:700;color:var(--text-secondary);text-decoration:none;
+  padding:7px 11px;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;
+}
+.onglets-fil a.on{color:var(--marine);font-weight:800;border-bottom-color:var(--orange-vif);}
+.onglets-fil a .pt{width:5px;height:5px;border-radius:50%;background:var(--orange);}
+.onglets-fil .k{font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);align-self:center;margin-right:9px;}
+
+/* bandeau de contexte (option 4) */
+.contexte{
+  display:flex;align-items:center;gap:9px;padding:7px 15px;background:var(--bg-hover);
+  border-bottom:1px solid #efdcae;font-size:10.5px;color:var(--text-secondary);
+}
+.contexte .k{font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-hover);flex:none;}
+.contexte b{color:var(--marine);font-weight:700;}
+.contexte .autres{margin-left:auto;font-size:10px;font-weight:700;color:var(--marine);border-bottom:1px dashed var(--orange-vif);flex:none;}
+
+.msgs{flex:1;padding:13px 15px;display:flex;flex-direction:column;gap:9px;overflow:hidden;}
+.b{max-width:62%;border-radius:11px;padding:7px 11px;font-size:11px;line-height:1.45;}
+.b--eux{background:var(--paper);border:1px solid var(--border);align-self:flex-start;color:var(--marine);}
+.b--moi{background:var(--marine);color:#f3f7fb;align-self:flex-end;}
+.b .h{display:block;font-size:8.5px;margin-top:3px;opacity:.62;}
+.jour{align-self:center;font-size:8.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--text-tertiary);margin:2px 0;}
+.composer{flex:none;display:flex;align-items:center;gap:8px;padding:9px 15px;border-top:1px solid var(--marine);background:var(--paper);}
+.composer .ch{flex:1;height:28px;border:1px solid var(--border);border-radius:999px;background:var(--bg-main);display:flex;align-items:center;padding:0 12px;font-size:10.5px;color:var(--text-tertiary);}
+.composer .env{width:28px;height:28px;border-radius:50%;flex:none;background:var(--orange);display:flex;align-items:center;justify-content:center;color:#fff9ec;}
+.composer .env svg{width:13px;height:13px;}
+
+/* verdict */
+.pour-contre{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:13px;border:1px solid var(--border);border-radius:11px;overflow:hidden;max-width:1060px;}
+.pour-contre > div{padding:10px 14px;font-size:.81rem;line-height:1.55;color:var(--text-secondary);}
+.pour-contre > div:first-child{background:rgba(47,122,68,.06);border-right:1px solid var(--border);}
+.pour-contre > div:last-child{background:rgba(196,69,54,.05);}
+.pour-contre .k{display:block;font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:5px;}
+.pour-contre > div:first-child .k{color:var(--success);}
+.pour-contre > div:last-child .k{color:var(--danger);}
+.pour-contre b{color:var(--marine);}
+@media (max-width:700px){ .pour-contre{grid-template-columns:1fr;} .pour-contre > div:first-child{border-right:0;border-bottom:1px solid var(--border);} }
+
+.verdict{max-width:900px;margin:46px auto 0;background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.18);outline-offset:3px;border-radius:15px;padding:20px 24px 22px;}
+.verdict .k{font-family:var(--titres);font-weight:800;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.verdict h2{font-family:var(--titres);font-weight:800;font-size:1.18rem;margin-top:8px;line-height:1.35;}
+.verdict p{font-size:.88rem;line-height:1.65;color:var(--text-secondary);margin-top:11px;}
+.verdict p b{color:var(--marine);}
+.verdict .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+</style>
+</head>
+<body>
+
+<section class="q">
+  <p class="kicker">Décision A1 · ce que je n'avais pas expliqué</p>
+  <h1>Les sous-fils sur grand écran</h1>
+  <p>J'ai écrit que « l'écran intermédiaire disparaît sur PC », sans jamais dire <b>par où l'on atteint les autres conversations d'une même personne</b>. Voici quatre façons de le faire, dessinées. La quatrième est votre idée.</p>
+  <a class="retour" href="../../decisions.html">← Les décisions préalables</a>
+</section>
+
+<section class="cas">
+  <p class="t">Le cas qui pose problème</p>
+  <p>Une conversation n'est pas attachée à une personne mais <b>à un sujet</b> : une annonce, un rendez-vous, une publication — plus le fil libre. Avec Alice Noël, qui est voisine et avec qui vous avez déjà échangé trois fois, il existe donc <b>quatre fils distincts</b> :</p>
+  <div class="fils">
+    <span>L'étagère à monter</span>
+    <span>Perceuse à emprunter</span>
+    <span class="g">Atelier réparation vélo</span>
+    <span class="g">Fil libre</span>
+  </div>
+  <p>Sur mobile, toucher « Alice Noël » ouvre un écran qui les liste. Sur grand écran, la place existe pour tout montrer d'un coup — encore faut-il choisir <b>où</b>. Et quelle que soit la réponse, <b>l'adresse <code>/messages/user/:id</code> doit rester valide</b> : c'est la cible des notifications.</p>
+</section>
+
+<div class="duo">
+
+  <!-- ===================== OPTION 1 ===================== -->
+  <figure class="opt">
+    <figcaption><span class="n">1</span>Le dossier dépliant<span class="tag tag--reco">Votre idée</span></figcaption>
+    <p class="desc">La colonne de gauche liste <b>les personnes</b>. Celles qui ont plusieurs fils portent un chevron ; on le déplie et les sujets apparaissent en retrait, sous la personne. Un seul clic pour déplier, un second pour choisir.</p>
+    <div class="mini-bureau">
+      <div class="mb-courant"><span>tpt</span><span style="font-weight:800">Le courrier</span>
+        <span class="nav"><span>Le quartier</span><span>Les voisins</span><span class="on">Le courrier</span><span>Votre temps</span></span>
+      </div>
+      <div class="mb-corps">
+        <div class="col-gauche">
+          <div class="col-tete"><b>Vos correspondants</b><span class="cpt">9</span></div>
+          <div class="col-liste">
+            <div class="pers pers--dep">
+              <span class="av">AN</span>
+              <span class="tx"><b>Alice Noël</b><i>4 conversations</i></span>
+              <span class="droite"><span class="np">2</span></span>
+              <span class="chev">▾</span>
+            </div>
+            <div class="sous sous--on"><span class="pt"></span><span class="tx"><b>L'étagère à monter</b><i class="k">Rendez-vous · samedi</i></span><span class="h">14:02</span></div>
+            <div class="sous"><span class="pt"></span><span class="tx"><b>Perceuse à emprunter</b><i class="k">Annonce</i></span><span class="h">hier</span></div>
+            <div class="sous"><span class="pt pt--g"></span><span class="tx"><b>Atelier réparation vélo</b><i class="k k--g">Atelier · 15 juin</i></span><span class="h">lun.</span></div>
+            <div class="sous"><span class="pt pt--g"></span><span class="tx"><b>Fil libre</b><i class="k k--g">Sans sujet</i></span><span class="h">3 mai</span></div>
+            <div class="pers">
+              <span class="av av--b">MM</span>
+              <span class="tx"><b>Marie Morel</b><i>Je vous confirme pour demain…</i></span>
+              <span class="droite"><span class="h">11:47</span><span class="np">1</span></span>
+              <span class="chev" style="opacity:.25">▸</span>
+            </div>
+            <div class="pers">
+              <span class="av av--c">PB</span>
+              <span class="tx"><b>Pierre Blanchard</b><i>2 conversations</i></span>
+              <span class="droite"><span class="h">hier</span></span>
+              <span class="chev">▸</span>
+            </div>
+            <div class="pers">
+              <span class="av av--b">ML</span>
+              <span class="tx"><b>Marta Lopez</b><i>Merci pour la première leçon !</i></span>
+              <span class="droite"><span class="h">lun.</span></span>
+              <span class="chev" style="opacity:.25">▸</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-fil">
+          <div class="fil-tete"><span class="av">AN</span><span class="tx"><b>Alice Noël</b><i>L'étagère à monter · rendez-vous samedi 14, 10 h</i></span></div>
+          <div class="msgs">
+            <span class="jour">Aujourd'hui</span>
+            <div class="b b--eux">Super, samedi 10 h ça vous irait ? J'ai la perceuse et les chevilles, il ne manque que l'étagère.<span class="h">14:02</span></div>
+            <div class="b b--moi">Parfait pour moi. Je passe vers 10 h avec l'étagère.<span class="h">14:08</span></div>
+            <div class="b b--eux">Impeccable, à samedi !<span class="h">14:09</span></div>
+          </div>
+          <div class="composer"><span class="ch">Écrire à Alice…</span><span class="env"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pour-contre">
+      <div><span class="k">Ce que ça donne</span>La colonne reste <b>courte</b> : une ligne par personne tant qu'on ne déplie pas. On voit d'un coup d'œil qui vous a écrit, sans être noyé par les sujets. Et <b>l'écran intermédiaire du mobile devient ce dépli</b> : même information, même hiérarchie, sans changer de page.</div>
+      <div><span class="k">Ce que ça coûte</span><b>Deux clics</b> pour atteindre un sous-fil, alors que l'écran est assez large pour n'en demander qu'un. Et il faut décider ce que fait un clic sur la personne elle-même : déplier, ou ouvrir le fil le plus récent ? Les deux sont défendables, ce qui est mauvais signe.</div>
+    </div>
+  </figure>
+
+  <!-- ===================== OPTION 2 ===================== -->
+  <figure class="opt">
+    <figcaption><span class="n">2</span>Les onglets en tête du fil</figcaption>
+    <p class="desc">La colonne de gauche ne montre <b>que des personnes</b>, une ligne chacune. Les sujets deviennent une <b>rangée d'onglets</b> au-dessus de la conversation, comme les rubriques d'un journal.</p>
+    <div class="mini-bureau">
+      <div class="mb-courant"><span>tpt</span><span style="font-weight:800">Le courrier</span>
+        <span class="nav"><span>Le quartier</span><span>Les voisins</span><span class="on">Le courrier</span><span>Votre temps</span></span>
+      </div>
+      <div class="mb-corps">
+        <div class="col-gauche">
+          <div class="col-tete"><b>Vos correspondants</b><span class="cpt">9</span></div>
+          <div class="col-liste">
+            <div class="pers pers--on"><span class="av">AN</span><span class="tx"><b>Alice Noël</b><i>Super, samedi 10 h ça vous irait ?</i></span><span class="droite"><span class="h">14:02</span><span class="np">2</span></span></div>
+            <div class="pers"><span class="av av--b">MM</span><span class="tx"><b>Marie Morel</b><i>Je vous confirme pour demain midi.</i></span><span class="droite"><span class="h">11:47</span><span class="np">1</span></span></div>
+            <div class="pers"><span class="av av--c">PB</span><span class="tx"><b>Pierre Blanchard</b><i>Il reste deux places dimanche.</i></span><span class="droite"><span class="h">hier</span></span></div>
+            <div class="pers"><span class="av av--b">ML</span><span class="tx"><b>Marta Lopez</b><i>Merci pour la première leçon !</i></span><span class="droite"><span class="h">lun.</span></span></div>
+            <div class="pers"><span class="av av--c">SK</span><span class="tx"><b>Sonia Klein</b><i>Je peux passer samedi matin.</i></span><span class="droite"><span class="h">dim.</span></span></div>
+          </div>
+        </div>
+        <div class="col-fil">
+          <div class="fil-tete"><span class="av">AN</span><span class="tx"><b>Alice Noël</b><i>Centre · voisine depuis mars</i></span></div>
+          <div class="onglets-fil">
+            <span class="k">Vos sujets</span>
+            <a href="#" class="on"><span class="pt"></span>L'étagère</a>
+            <a href="#"><span class="pt"></span>Perceuse</a>
+            <a href="#">Atelier vélo</a>
+            <a href="#">Fil libre</a>
+          </div>
+          <div class="msgs">
+            <span class="jour">Aujourd'hui</span>
+            <div class="b b--eux">Super, samedi 10 h ça vous irait ? J'ai la perceuse et les chevilles, il ne manque que l'étagère.<span class="h">14:02</span></div>
+            <div class="b b--moi">Parfait pour moi. Je passe vers 10 h avec l'étagère.<span class="h">14:08</span></div>
+          </div>
+          <div class="composer"><span class="ch">Écrire à Alice…</span><span class="env"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pour-contre">
+      <div><span class="k">Ce que ça donne</span><b>Un seul clic</b> pour changer de sujet, et la colonne de gauche ne bouge jamais — elle reste une liste de personnes, stable et courte. Les pastilles de non-lus se voient sur les onglets. C'est exactement la façon dont une gazette range ses rubriques.</div>
+      <div><span class="k">Ce que ça coûte</span>Les onglets <b>ne tiennent pas</b> au-delà de quatre ou cinq sujets : il faudrait un dépassement, donc un menu, donc un troisième mécanisme. Et on ne voit plus depuis la liste <b>quel</b> sujet a un message non lu — seulement que la personne en a un.</div>
+    </div>
+  </figure>
+
+  <!-- ===================== OPTION 3 ===================== -->
+  <figure class="opt">
+    <figcaption><span class="n">3</span>Trois colonnes, comme sur mobile</figcaption>
+    <p class="desc">L'écran intermédiaire <b>ne disparaît pas</b> : il devient une colonne. Personnes, puis sujets de la personne choisie, puis la conversation. C'est la transposition littérale du mobile.</p>
+    <div class="mini-bureau">
+      <div class="mb-courant"><span>tpt</span><span style="font-weight:800">Le courrier</span>
+        <span class="nav"><span>Le quartier</span><span>Les voisins</span><span class="on">Le courrier</span><span>Votre temps</span></span>
+      </div>
+      <div class="mb-corps">
+        <div class="col-gauche" style="width:230px">
+          <div class="col-tete"><b>Vos correspondants</b><span class="cpt">9</span></div>
+          <div class="col-liste">
+            <div class="pers pers--on"><span class="av">AN</span><span class="tx"><b>Alice Noël</b><i>4 conversations</i></span><span class="droite"><span class="np">2</span></span></div>
+            <div class="pers"><span class="av av--b">MM</span><span class="tx"><b>Marie Morel</b><i>Je vous confirme pour…</i></span><span class="droite"><span class="np">1</span></span></div>
+            <div class="pers"><span class="av av--c">PB</span><span class="tx"><b>Pierre Blanchard</b><i>2 conversations</i></span><span class="droite"><span class="h">hier</span></span></div>
+            <div class="pers"><span class="av av--b">ML</span><span class="tx"><b>Marta Lopez</b><i>Merci pour la leçon !</i></span><span class="droite"><span class="h">lun.</span></span></div>
+          </div>
+        </div>
+        <div class="col-mid">
+          <div class="col-tete"><b>Avec Alice</b><span class="cpt">4</span></div>
+          <div class="col-liste">
+            <div class="sous sous--on" style="padding-left:13px"><span class="pt"></span><span class="tx"><b>L'étagère à monter</b><i class="k">Rendez-vous · samedi</i></span></div>
+            <div class="sous" style="padding-left:13px"><span class="pt"></span><span class="tx"><b>Perceuse à emprunter</b><i class="k">Annonce</i></span></div>
+            <div class="sous" style="padding-left:13px"><span class="pt pt--g"></span><span class="tx"><b>Atelier vélo</b><i class="k k--g">Atelier · 15 juin</i></span></div>
+            <div class="sous" style="padding-left:13px"><span class="pt pt--g"></span><span class="tx"><b>Fil libre</b><i class="k k--g">Sans sujet</i></span></div>
+          </div>
+        </div>
+        <div class="col-fil">
+          <div class="fil-tete"><span class="av">AN</span><span class="tx"><b>Alice Noël</b><i>L'étagère à monter</i></span></div>
+          <div class="msgs">
+            <span class="jour">Aujourd'hui</span>
+            <div class="b b--eux">Super, samedi 10 h ça vous irait ?<span class="h">14:02</span></div>
+            <div class="b b--moi">Parfait pour moi.<span class="h">14:08</span></div>
+          </div>
+          <div class="composer"><span class="ch">Écrire à Alice…</span><span class="env"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pour-contre">
+      <div><span class="k">Ce que ça donne</span><b>Rien à décider, rien à inventer</b> : le parcours est identique sur les deux appareils, l'adresse reste valide telle quelle, et le code du milieu existe déjà. C'est l'option la moins risquée de toutes.</div>
+      <div><span class="k">Ce que ça coûte</span><b>Une colonne entière</b> pour quatre lignes, alors que la plupart des correspondants n'ont qu'un seul fil — la colonne du milieu est vide ou presque huit fois sur dix. Et le fil, qui est l'objet infini, se retrouve écrasé à 600 px.</div>
+    </div>
+  </figure>
+
+  <!-- ===================== OPTION 4 ===================== -->
+  <figure class="opt">
+    <figcaption><span class="n">4</span>Un fil par ligne, groupés par personne<span class="tag tag--reco">Ma préférence</span></figcaption>
+    <p class="desc">On arrête de lister les personnes : <b>on liste les conversations</b>, comme le fait la boîte aujourd'hui. Quand une personne en a plusieurs, ses fils se rangent sous <b>un intertitre à son nom</b> — un bloc de gazette, pas un menu. Rien à déplier : tout est déjà là.</p>
+    <div class="mini-bureau">
+      <div class="mb-courant"><span>tpt</span><span style="font-weight:800">Le courrier</span>
+        <span class="nav"><span>Le quartier</span><span>Les voisins</span><span class="on">Le courrier</span><span>Votre temps</span></span>
+      </div>
+      <div class="mb-corps">
+        <div class="col-gauche">
+          <div class="col-tete"><b>Non lus</b><span class="cpt">3</span></div>
+          <div class="col-liste">
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 13px;background:var(--sable);border-bottom:1px solid var(--sable-hover)">
+              <span class="av" style="width:22px;height:22px;font-size:9px;background:var(--marine);color:var(--sable)">AN</span>
+              <b style="font-family:var(--titres);font-weight:800;font-size:11px;color:var(--marine);flex:1">Alice Noël</b>
+              <span style="font-size:9px;font-weight:700;color:var(--ocre)">4 fils</span>
+            </div>
+            <div class="sous sous--on"><span class="pt"></span><span class="tx"><b>L'étagère à monter</b><i>Super, samedi 10 h ça vous irait ?</i></span><span class="h">14:02</span></div>
+            <div class="sous"><span class="pt"></span><span class="tx"><b>Perceuse à emprunter</b><i>Je vous la dépose demain.</i></span><span class="h">hier</span></div>
+            <div class="sous"><span class="pt pt--g"></span><span class="tx"><b>Atelier réparation vélo</b><i>Merci pour l'inscription !</i></span><span class="h">lun.</span></div>
+            <div class="sous"><span class="pt pt--g"></span><span class="tx"><b>Fil libre</b><i>Bonne soirée à vous deux.</i></span><span class="h">3 mai</span></div>
+            <div class="pers"><span class="av av--b">MM</span><span class="tx"><b>Marie Morel</b><i>Je vous confirme pour demain midi.</i></span><span class="droite"><span class="h">11:47</span><span class="np">1</span></span></div>
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 13px;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+              <span class="av av--c" style="width:22px;height:22px;font-size:9px">PB</span>
+              <b style="font-family:var(--titres);font-weight:800;font-size:11px;color:var(--marine);flex:1">Pierre Blanchard</b>
+              <span style="font-size:9px;font-weight:700;color:var(--text-tertiary)">2 fils</span>
+            </div>
+            <div class="sous"><span class="pt pt--g"></span><span class="tx"><b>Atelier réparation vélo</b><i>Il reste deux places dimanche.</i></span><span class="h">hier</span></div>
+          </div>
+        </div>
+        <div class="col-fil">
+          <div class="fil-tete"><span class="av">AN</span><span class="tx"><b>Alice Noël</b><i>Centre · voisine depuis mars</i></span></div>
+          <div class="contexte"><span class="k">À propos de</span><b>L'étagère à monter</b> · rendez-vous samedi 14 juin, 10 h<span class="autres">3 autres fils avec Alice</span></div>
+          <div class="msgs">
+            <span class="jour">Aujourd'hui</span>
+            <div class="b b--eux">Super, samedi 10 h ça vous irait ? J'ai la perceuse et les chevilles, il ne manque que l'étagère.<span class="h">14:02</span></div>
+            <div class="b b--moi">Parfait pour moi. Je passe vers 10 h avec l'étagère.<span class="h">14:08</span></div>
+            <div class="b b--eux">Impeccable, à samedi !<span class="h">14:09</span></div>
+          </div>
+          <div class="composer"><span class="ch">Écrire à Alice…</span><span class="env"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pour-contre">
+      <div><span class="k">Ce que ça donne</span><b>Un seul clic, aucun mécanisme nouveau.</b> On voit immédiatement <b>quel sujet</b> a un non-lu, ce qu'aucune des trois autres options ne montre. Le groupement est un <b>intertitre</b>, pas un bouton : rien à déplier, rien à mémoriser. Et le bandeau « à propos de » rappelle en permanence de quoi on parle — avec un lien vers les autres fils.</div>
+      <div><span class="k">Ce que ça coûte</span>La colonne est <b>plus longue</b> : quelqu'un avec quatre fils occupe cinq lignes. Il faut donc une règle — au-delà de trois fils, on n'affiche que les trois plus récents et une ligne « voir les 4 ». Et la boîte n'est plus un carnet d'adresses : on y cherche un sujet, pas une personne.</div>
+    </div>
+  </figure>
+
+</div>
+
+<section class="verdict">
+  <p class="k">Ce que j'en tire</p>
+  <h2>La bonne question n'était pas « où mettre les sous-fils »,<br>c'était <span class="souligne">« cherche-t-on une personne, ou un sujet ? »</span></h2>
+  <p>Les options 1, 2 et 3 partent toutes du même postulat : <b>la boîte est un carnet d'adresses</b>, on y cherche quelqu'un, puis on précise. C'est ce que fait le mobile aujourd'hui, et c'est ce qui oblige à inventer un mécanisme de second niveau — un dépli, des onglets ou une colonne.</p>
+  <p>L'option 4 renverse le postulat : <b>on cherche une conversation</b>, et le nom de la personne n'est qu'un intertitre qui range. Elle ne demande aucun mécanisme nouveau, et elle est la seule à répondre à la question qu'on se pose vraiment en ouvrant sa boîte : <b>de quoi s'agit-il ?</b> Les trois autres répondent « de qui ».</p>
+  <p>Dans les quatre cas, <b>l'adresse <code>/messages/user/:id</code> reste valide</b> : elle déplie la personne (option 1), la sélectionne (options 2 et 3), ou fait défiler jusqu'à son intertitre (option 4). <b>Aucun lien de notification ne casse.</b> C'était ma seule vraie réserve, et elle tombe.</p>
+</section>
+
+</body>
+</html>
