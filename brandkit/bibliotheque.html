@@ -197,7 +197,7 @@ footer a{color:var(--marine);font-weight:600;}
   <img src="../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
   <p class="kicker">Design system</p>
   <h1>La bibliothèque</h1>
-  <p>Les <b>45 briques</b> de l'interface, dans la charte gazette. Chaque fiche indique ce que le composant est, <b>quand l'employer</b>, et son état vis-à-vis de l'application actuelle : il existe déjà, il existe en plusieurs exemplaires à fusionner, ou il reste à créer. La septième famille rassemble les pièces qui n'existent que sur grand écran.</p>
+  <p>Les <b>46 briques</b> de l'interface, dans la charte gazette. Chaque fiche indique ce que le composant est, <b>quand l'employer</b>, et son état vis-à-vis de l'application actuelle : il existe déjà, il existe en plusieurs exemplaires à fusionner, ou il reste à créer. La septième famille rassemble les pièces qui n'existent que sur grand écran.</p>
   <a class="retour" href="../index.html">← Retour à la galerie</a>
 </header>
 
@@ -350,6 +350,29 @@ footer a{color:var(--marine);font-weight:600;}
       Le triplet libellé + champ + aide, d'un seul tenant. Décline en zone de texte, sélecteur, date, heure.
       <p class="regle"><b>Règle :</b> libellé en capitales espacées, au plus une ligne d'aide, et le message d'erreur remplace l'aide — il ne s'ajoute pas.</p>
       <p class="dette">N'existe pas. <b>Une vingtaine de chaînes de classes différentes</b> pour la même chose, avec des rayons, des paddings et des anneaux de focus divergents. <b>C'est la dette la plus rentable à combler.</b></p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le sélecteur</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div style="width:100%;display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px">
+          <span style="flex:1;color:var(--marine);font-weight:500">Bricolage</span><span style="color:var(--text-tertiary);font-size:10px">&#9662;</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:13px">
+          <span style="display:flex;flex-wrap:wrap;gap:5px;flex:1">
+            <span class="puces" style="margin:0;display:contents"><span class="sable" style="font-size:11px">Plomberie</span><span class="sable" style="font-size:11px">Peinture</span></span>
+          </span>
+          <span style="color:var(--text-tertiary);font-size:10px">&#9662;</span>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Choisir dans une liste — valeur unique ou multiple, avec ou sans recherche.
+      <p class="regle"><b>R&egrave;gle :</b> deux questions d&eacute;cident de sa forme, et deux seulement. <b>L'appareil</b> — sur mobile il ouvre une feuille, jamais un panneau. <b>Le nombre d'options</b> — moins de 4, c'est une bascule ; jusqu'&agrave; 10, pas de recherche ; au-del&agrave;, recherche et groupement.</p>
+      <p class="dette"><b>Sept composants</b> pour ce seul geste, 1&nbsp;432 lignes, quatre natures diff&eacute;rentes. Un est du <b>code mort</b> (134 lignes, 0 usage). <b>Aucun</b> ne g&egrave;re les fl&egrave;ches ni <code>role="combobox"</code>, et dans <code>UserSearchSelect</code> la s&eacute;lection est <b>impossible au clavier</b>.
+      <a class="rappel-lien" href="explorations/selecteur.html">Voir la planche compl&egrave;te &rarr;</a></p>
     </div>
   </article>
 

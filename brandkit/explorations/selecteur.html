@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Le sélecteur</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+body{padding:38px 20px 80px;}
+
+/* ============================================================
+   LE SÉLECTEUR — le champ fermé
+   ============================================================ */
+.sel{
+  display:flex;align-items:center;gap:10px;background:var(--paper);
+  border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;
+}
+.sel .val{flex:1;min-width:0;color:var(--marine);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sel .val--vide{color:var(--text-tertiary);font-weight:400;}
+.sel .chev{color:var(--text-tertiary);font-size:10px;flex:none;}
+.sel .cpt{
+  font-family:var(--titres);font-weight:800;font-size:10px;background:var(--sable);color:var(--marine);
+  border-radius:5px;padding:2px 7px;flex:none;
+}
+/* ouvert : le champ et le panneau ne font plus qu'une pièce de papier */
+.sel--ouvert{border-color:var(--marine);border-bottom:0;border-radius:10px 10px 0 0;background:var(--bg-hover);}
+.sel--ouvert .val{font-weight:600;}
+.sel .saisie-curseur{
+  display:inline-block;width:1.5px;height:14px;background:var(--orange);
+  vertical-align:-2px;margin-left:1px;
+}
+
+/* ————— le panneau : une feuille posée, pas une carte flottante ————— */
+.sel-panneau{
+  background:var(--paper);border:1px solid var(--marine);border-top:1px solid var(--marine);
+  border-radius:0 0 10px 10px;overflow:hidden;
+  box-shadow:0 10px 26px -16px rgba(24,62,87,.45);
+}
+.sel-groupe{
+  font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-tertiary);
+  padding:9px 12px 6px;background:var(--bg-hover);border-bottom:1px solid var(--marine);
+}
+.sel-groupe:not(:first-child){border-top:1px solid var(--marine);}
+.sel-opt{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;font-size:13px;
+  border-top:1px dotted var(--border);color:var(--marine);
+}
+.sel-opt:first-of-type{border-top:0;}
+.sel-opt .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sel-opt .n{font-size:10.5px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;flex:none;}
+.sel-opt mark{background:var(--sable);color:var(--marine);font-weight:700;padding:0 1px;border-radius:2px;}
+/* la ligne survolée / atteinte au clavier : un filet orange, pas un aplat bleu */
+.sel-opt--vise{background:var(--bg-hover);position:relative;}
+.sel-opt--vise::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange);}
+.sel-opt--pris{color:var(--text-tertiary);}
+.sel-opt .coche{
+  width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border);background:var(--paper);
+  flex:none;display:flex;align-items:center;justify-content:center;
+}
+.sel-opt .coche.on{background:var(--marine);border-color:var(--marine);color:var(--sable);}
+.sel-opt .coche svg{width:11px;height:11px;}
+.sel-pied{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;
+  border-top:2px solid var(--marine);background:var(--bg-hover);font-size:11px;color:var(--text-tertiary);
+}
+.sel-pied .lien-filet{margin-left:auto;font-size:11px;}
+.sel-clavier{
+  display:flex;align-items:center;gap:9px;padding:7px 12px;border-top:1px solid var(--border);
+  font-size:9.5px;color:var(--text-tertiary);background:var(--paper);
+}
+.sel-clavier kbd{
+  font-family:var(--corps);font-size:8.5px;font-weight:700;background:var(--bg-secondary);
+  border:1px solid var(--border);border-bottom-width:2px;border-radius:4px;padding:1px 5px;color:var(--marine);
+}
+/* rien trouvé */
+.sel-rien{padding:16px 12px;text-align:center;}
+.sel-rien p{font-size:12.5px;color:var(--text-secondary);line-height:1.5;}
+.sel-rien p b{color:var(--marine);}
+.sel-rien .action{margin-top:10px;}
+
+/* les puces du choix multiple, dans le champ */
+.sel-puces{display:flex;flex-wrap:wrap;gap:5px;flex:1;min-width:0;}
+.sel-puce{
+  display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;
+  background:var(--bg-hover);border:1px solid #f1ddae;border-radius:6px;padding:3px 5px 3px 8px;color:var(--orange-hover);
+}
+.sel-puce .x{color:var(--text-tertiary);font-size:12px;line-height:1;}
+
+/* la feuille de choix, sur mobile */
+.feuille .champ-recherche{
+  display:flex;align-items:center;gap:9px;margin:0 18px 10px;background:var(--paper);
+  border:1px solid var(--marine);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--marine);
+}
+.feuille .champ-recherche svg{width:15px;height:15px;flex:none;color:var(--text-tertiary);}
+.feuille .sel-groupe{margin:0;}
+.feuille .sel-opt{padding:12px 18px;}
+.feuille .sel-groupe{padding-left:18px;padding-right:18px;}
+.feuille .sel-pied{padding:11px 18px;}
+.feuille .sel-rien{padding:22px 18px;}
+
+/* .registre-ligne b est en display:block — le rétablir dans les descriptions */
+.registre-ligne .d b{display:inline;}
+
+/* ————— le comparatif d'ouverture ————— */
+.deux-cas{display:grid;grid-template-columns:1fr 1fr;gap:0;width:100%;}
+.deux-cas > div{padding:0 14px;}
+.deux-cas > div:first-child{border-right:1px solid var(--border);}
+.cas-lab{
+  display:flex;align-items:center;gap:7px;margin-bottom:10px;
+  font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+}
+.cas-lab--mob{color:var(--orange-hover);}
+.cas-lab--pc{color:#2f7a44;}
+.cas-lab::after{content:"";flex:1;height:1px;background:var(--border);}
+
+.verdict{
+  border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:11px 15px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);
+  max-width:1000px;
+}
+.verdict p + p{margin-top:4px;}
+.verdict .pour::before{content:"Pour — ";font-weight:800;color:#2f7a44;}
+.verdict .contre::before{content:"Contre — ";font-weight:800;color:var(--danger);}
+
+/* le constat de départ */
+.constat{
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:16px;padding:20px 24px;margin:0 auto 44px;max-width:1000px;
+}
+.constat h2{font-family:var(--titres);font-weight:800;font-size:1rem;text-align:center;letter-spacing:.14em;text-transform:uppercase;}
+.constat code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.06);border-radius:4px;padding:1px 5px;}
+.constat .lecture{margin-top:16px;padding-top:14px;border-top:1px dashed var(--border);font-size:.86rem;line-height:1.65;color:var(--text-secondary);}
+.constat .lecture b{color:var(--marine);}
+
+.tableau{width:100%;border-collapse:collapse;margin-top:16px;font-size:.82rem;}
+.tableau th{
+  text-align:left;font-family:var(--titres);font-weight:800;font-size:.64rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-tertiary);padding:0 10px 7px 0;border-bottom:2px solid var(--marine);
+}
+.tableau th.num,.tableau td.num{text-align:right;font-variant-numeric:tabular-nums;padding-right:0;}
+.tableau td{padding:8px 10px 8px 0;border-top:1px dotted var(--border);color:var(--text-secondary);}
+.tableau tbody tr:first-child td{border-top:0;}
+.tableau td.num{font-family:var(--titres);font-weight:800;color:var(--marine);}
+.tableau tr.mort td{color:var(--text-tertiary);}
+.tableau tr.mort td.num{color:var(--danger);}
+.tableau tr.mort b{color:var(--danger);}
+
+.alarme{
+  margin-top:18px;border-left:3px solid var(--danger);background:rgba(196,69,54,.06);
+  border-radius:0 12px 12px 0;padding:13px 17px;
+}
+.alarme .t{
+  font-family:var(--titres);font-weight:800;font-size:.88rem;color:var(--danger);margin-bottom:7px;
+}
+.alarme p{font-size:.82rem;line-height:1.6;color:var(--text-secondary);}
+.alarme p + p{margin-top:8px;}
+.alarme .dur{padding-top:8px;border-top:1px dashed rgba(196,69,54,.28);}
+.alarme b{color:var(--marine);}
+.alarme .dur b:first-child{color:var(--danger);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Composant manquant</p>
+  <h1>Le sélecteur</h1>
+  <p class="sub">La charte ne connaissait du sélecteur que son <b>état fermé</b> — un champ, une valeur, un chevron. Tout le reste, l'ouverture, le filtrage, le choix multiple, l'absence de résultat, n'avait jamais été dessiné. Voici la pièce complète, et le parti pris qui la rend gazette plutôt que générique.</p>
+  <p class="traits"><b>La règle</b> sur mobile, un sélecteur n'ouvre pas un panneau mais une feuille</p>
+  <a class="retour" href="../../index.html">← Retour au design retenu</a>
+</header>
+
+<section class="constat">
+  <h2>Sept sélecteurs · 1 432 lignes</h2>
+  <div class="filet-double" style="margin:10px 0 0"></div>
+
+  <table class="tableau">
+    <thead>
+      <tr><th>Composant</th><th>Ce que c'est vraiment</th><th class="num">Lignes</th><th class="num">Usages</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>ServiceCategorySelect</code></td><td>Combobox · filtre client</td><td class="num">605</td><td class="num">7</td></tr>
+      <tr><td><code>ServiceSelector</code></td><td>Liste en flux · multiple</td><td class="num">253</td><td class="num">4</td></tr>
+      <tr><td><code>AnnouncementSelector</code></td><td>Liste en flux · simple</td><td class="num">149</td><td class="num">1</td></tr>
+      <tr><td><code>UserSearchSelect</code></td><td>Autocomplete · filtre serveur</td><td class="num">144</td><td class="num">7</td></tr>
+      <tr class="mort"><td><code>ServiceSkillSelect</code></td><td>Select natif — <b>code mort</b></td><td class="num">134</td><td class="num">0</td></tr>
+      <tr><td><code>TimeSelect</code></td><td>Select natif</td><td class="num">75</td><td class="num">2</td></tr>
+      <tr><td><code>DurationSelect</code></td><td>Select natif</td><td class="num">72</td><td class="num">10</td></tr>
+    </tbody>
+  </table>
+
+  <p class="lecture">
+    Sept composants pour un seul geste, mais <b>quatre natures différentes</b> : deux vraies combobox, trois <code>&lt;select&gt;</code> natifs, deux listes en flux. <b>Cinq sur sept n'ont aucun filtrage saisi.</b> Un seul est multi-sélection. Et <code>ServiceSkillSelect</code>, 134 lignes, n'est appelé <b>nulle part</b> : c'est du code mort, avec en prime une prop <code>filterSlugs</code> déclarée puis ignorée. Son origine se lit dans les specs — une tâche cochée « terminée » prescrit son usage dans le formulaire d'activité, mais le fichier réel appelle <code>ServiceCategorySelect</code>. Il a été écrit, remplacé, et jamais supprimé.
+    <br><br>
+    Les duplications sont franches : <code>DurationSelect</code> et <code>TimeSelect</code> partagent <b>la même API de props mot pour mot</b> et ne diffèrent que par la source des options. Le groupement par catégorie est réimplémenté <b>trois fois</b>. Le champ de recherche à loupe et croix est réécrit <b>deux fois</b>. Et « la valeur a changé » s'émet selon <b>quatre conventions différentes</b> — <code>v-model</code>, <code>select</code>+<code>deselect</code>, <code>select</code> seul, <code>update</code> avec un tableau.
+  </p>
+
+  <div class="alarme">
+    <p class="t">L'accessibilité clavier est absente, et il y a pire qu'absente</p>
+    <p><b>0 sur 7</b> ont <code>role="combobox"</code>, <code>aria-expanded</code> ou <code>aria-activedescendant</code>. <b>0 sur 7</b> gèrent les flèches haut et bas. <b>1 sur 7</b> gère Échap — et par un écouteur posé sur <code>window</code>. <b>1 sur 7</b> associe correctement son libellé à son champ.</p>
+    <p class="dur"><b>Le point dur :</b> dans <code>UserSearchSelect</code>, les résultats ne sont câblés que sur <code>@mousedown.prevent</code>, jamais sur <code>@click</code>. Entrée et Espace déclenchent un <code>click</code>, pas un <code>mousedown</code> — <b>un utilisateur au clavier ne peut donc pas sélectionner un voisin</b>. Ce composant est utilisé à sept endroits, dont la création d'activité et la régularisation par le bureau.</p>
+  </div>
+
+  <p class="lecture">
+    Ce qui sépare vraiment ces sept composants tient en <b>deux questions</b>, et deux seulement : <b>la liste tient-elle à l'écran</b>, et <b>peut-on choisir plusieurs valeurs</b> ? Le reste — le rendu, le clavier, le panneau, le vide — devrait être commun. Le sélecteur ci-dessous est cette pièce commune ; les sept deviennent alors cinq <i>réglages</i>, pas sept composants.
+  </p>
+</section>
+
+<div class="planche">
+
+  <!-- ============================================================
+       1 · AU REPOS
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>Au repos</h2><span class="route">état fermé</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Publier une annonce</span>
+        <span style="width:34px"></span>
+      </div>
+
+      <main class="feed feed--uni">
+        <div class="form" style="padding-top:16px">
+          <div class="form-groupe">
+            <label>La rubrique</label>
+            <div class="sel"><span class="val">Bricolage</span><span class="chev">▾</span></div>
+            <p class="aide">Une valeur choisie : elle s'affiche en clair, sans étiquette redondante.</p>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le service</label>
+            <div class="sel"><span class="val val--vide">Choisir un service…</span><span class="chev">▾</span></div>
+            <p class="aide">Rien de choisi : l'invite est en gris clair, jamais un faux choix par défaut.</p>
+          </div>
+
+          <div class="form-groupe">
+            <label>Vos compétences <span class="opt">3 choisies</span></label>
+            <div class="sel">
+              <span class="sel-puces">
+                <span class="sel-puce">Bricolage<span class="x">×</span></span>
+                <span class="sel-puce">Plomberie<span class="x">×</span></span>
+                <span class="sel-puce">Peinture<span class="x">×</span></span>
+              </span>
+              <span class="chev">▾</span>
+            </div>
+            <p class="aide">Choix multiple : les valeurs sont <b>dans</b> le champ, en puces, retirables une à une.</p>
+          </div>
+
+          <div class="form-groupe">
+            <label>Durée estimée</label>
+            <div class="duo">
+              <div class="sel"><span class="val">1 heure</span><span class="chev">▾</span></div>
+              <div class="sel"><span class="val">10:00</span><span class="chev">▾</span></div>
+            </div>
+            <p class="aide">Les échelles régulières — durée, heure — sont le même composant, avec une liste courte.</p>
+          </div>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">Le sélecteur fermé est <b>un champ de saisie comme les autres</b> : même hauteur, même rayon, même bordure, même libellé en capitales espacées au-dessus. Rien ne le distingue qu'un chevron. C'est volontaire — un formulaire dont les champs ont trois apparences différentes se lit mal.</p>
+    <div class="verdict">
+      <p class="pour">une seule forme pour quatre usages : valeur unique, vide, choix multiple, échelle régulière.</p>
+      <p class="contre">les puces font grandir le champ en hauteur. Au-delà de cinq, il faut tronquer avec un « +N » comme dans la liste des services.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       2 · MOBILE : LA FEUILLE
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">2</span><h2>Sur mobile : la feuille</h2><span class="route">jamais de panneau</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Publier une annonce</span>
+        <span style="width:34px"></span>
+      </div>
+
+      <main class="feed feed--uni">
+        <div class="form" style="padding-top:16px">
+          <div class="form-groupe">
+            <label>La rubrique</label>
+            <div class="sel"><span class="val val--vide">Choisir une rubrique…</span><span class="chev">▾</span></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="voile">
+        <div class="feuille feuille--haute">
+          <span class="poignee"></span>
+          <div class="tete"><h3>La rubrique</h3><button class="x" type="button">×</button></div>
+          <div class="champ-recherche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+            <span style="color:var(--text-tertiary)">Chercher une rubrique…</span>
+          </div>
+          <div class="corps">
+            <p class="sel-groupe">Les plus demandées</p>
+            <div class="sel-opt"><span class="t">Bricolage</span><span class="n">31 voisins</span></div>
+            <div class="sel-opt"><span class="t">Jardinage</span><span class="n">24 voisins</span></div>
+            <div class="sel-opt"><span class="t">Informatique</span><span class="n">19 voisins</span></div>
+
+            <p class="sel-groupe">Toutes les rubriques</p>
+            <div class="sel-opt"><span class="t">Couture</span><span class="n">12 voisins</span></div>
+            <div class="sel-opt"><span class="t">Cuisine</span><span class="n">11 voisins</span></div>
+            <div class="sel-opt"><span class="t">Garde d'animaux</span><span class="n">9 voisins</span></div>
+            <div class="sel-opt"><span class="t">Garde d'enfants</span><span class="n">8 voisins</span></div>
+            <div class="sel-opt"><span class="t">Langues</span><span class="n">7 voisins</span></div>
+            <div class="sel-opt"><span class="t">Transport</span><span class="n">6 voisins</span></div>
+            <div class="sel-opt"><span class="t">Démarches administratives</span><span class="n">4 voisins</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Voilà le parti pris. Sur un téléphone, <b>un sélecteur n'ouvre jamais un panneau flottant</b> sous le champ : la liste serait à moitié cachée par le clavier, et le doigt masque ce qu'il touche. Il ouvre une <b>feuille</b> — celle qui existe déjà pour le menu « Proposer ». La recherche est en tête, les options sont groupées, et chacune porte son compteur : on voit qu'il y a 31 voisins en bricolage avant de choisir.</p>
+    <div class="verdict">
+      <p class="pour">aucun composant nouveau : c'est la feuille de choix, avec un champ de recherche en tête. Et la liste occupe toute la hauteur au lieu de 200 px.</p>
+      <p class="contre">une feuille pour choisir « 1 heure » dans une liste de six, c'est disproportionné. D'où l'écran 6 : les listes courtes gardent le panneau.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       3 · LA FRAPPE
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">3</span><h2>Pendant la frappe</h2><span class="route">filtrage · surlignage</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Chercher un voisin</span>
+        <span style="width:34px"></span>
+      </div>
+
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille feuille--haute">
+          <span class="poignee"></span>
+          <div class="tete"><h3>À qui proposez-vous ?</h3><button class="x" type="button">×</button></div>
+          <div class="champ-recherche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+            <span>mar<span class="saisie-curseur"></span></span>
+          </div>
+          <div class="corps">
+            <p class="sel-groupe">3 voisins trouvés</p>
+            <div class="sel-opt sel-opt--vise">
+              <span class="avatar av-vert" style="width:32px;height:32px;font-size:11px">MM</span>
+              <span class="t"><b style="font-family:var(--titres);font-weight:800"><mark>Mar</mark>ie Morel</b><br><span style="font-size:11px;color:var(--text-tertiary)">Baugerie · 1 échange avec vous</span></span>
+            </div>
+            <div class="sel-opt">
+              <span class="avatar av-bleu" style="width:32px;height:32px;font-size:11px">MD</span>
+              <span class="t"><b style="font-family:var(--titres);font-weight:800"><mark>Mar</mark>c Dubois</b><br><span style="font-size:11px;color:var(--text-tertiary)">Centre · nouveau voisin</span></span>
+            </div>
+            <div class="sel-opt">
+              <span class="avatar av-sable" style="width:32px;height:32px;font-size:11px">ML</span>
+              <span class="t"><b style="font-family:var(--titres);font-weight:800"><mark>Mar</mark>ta Lopez</b><br><span style="font-size:11px;color:var(--text-tertiary)">Vieux Bourg</span></span>
+            </div>
+            <p class="sel-groupe">Rubriques correspondantes</p>
+            <div class="sel-opt"><span class="t">Bricolage — <mark>mar</mark>teau, perceuse</span><span class="n">31</span></div>
+          </div>
+          <div class="sel-pied">
+            <span>3 voisins · 1 rubrique</span>
+            <button class="lien-filet" type="button">Effacer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Ce qui est saisi est <b>surligné en sable</b> dans chaque résultat — le même surlignage que les titres de la gazette, pas un fond bleu d'éditeur de code. La ligne visée porte un <b>filet orange à gauche</b> plutôt qu'un aplat : c'est le même signal que la colonne de talon d'un billet qui attend un geste. Et le filtrage traverse les catégories : on cherche « mar », on trouve des voisins <i>et</i> des rubriques, chacun sous son intertitre.</p>
+    <div class="verdict">
+      <p class="pour">la recherche est une seule, pas une par type. Et les options riches — un voisin avec son quartier et votre historique — tiennent dans le même gabarit que les options simples.</p>
+      <p class="contre">chercher dans plusieurs catégories à la fois suppose de décider d'un ordre entre elles. Ici les voisins passent avant les rubriques, mais ce n'est pas toujours le bon choix.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       4 · LE CHOIX MULTIPLE
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">4</span><h2>Le choix multiple</h2><span class="route">cases · pied collant</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Votre profil</span>
+        <span style="width:34px"></span>
+      </div>
+
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille feuille--haute">
+          <span class="poignee"></span>
+          <div class="tete"><h3>Ce que vous savez faire</h3><button class="x" type="button">×</button></div>
+          <div class="champ-recherche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+            <span style="color:var(--text-tertiary)">Chercher un service…</span>
+          </div>
+          <div class="corps">
+            <p class="sel-groupe">Choisis</p>
+            <div class="sel-opt"><span class="coche on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">Bricolage</span><span class="n">31</span></div>
+            <div class="sel-opt"><span class="coche on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">Plomberie</span><span class="n">4</span></div>
+            <div class="sel-opt"><span class="coche on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">Peinture</span><span class="n">7</span></div>
+
+            <p class="sel-groupe">À ajouter</p>
+            <div class="sel-opt sel-opt--vise"><span class="coche"></span><span class="t">Montage de meubles</span><span class="n">14</span></div>
+            <div class="sel-opt"><span class="coche"></span><span class="t">Électricité</span><span class="n">3</span></div>
+            <div class="sel-opt"><span class="coche"></span><span class="t">Jardinage</span><span class="n">24</span></div>
+            <div class="sel-opt"><span class="coche"></span><span class="t">Informatique</span><span class="n">19</span></div>
+            <div class="sel-opt"><span class="coche"></span><span class="t">Couture</span><span class="n">12</span></div>
+          </div>
+          <div class="bas">
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 18px 16px">
+              <span style="font-size:11.5px;color:var(--text-tertiary)"><b style="font-family:var(--titres);font-weight:800;color:var(--marine)">3</b> choisis</span>
+              <button class="btn-plein btn-plein--orange" type="button" style="flex:1;padding:11px 18px">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">En choix multiple, deux choses changent. Les options portent une <b>case à cocher</b> — pas une pastille ni un aplat coloré, la même case que dans un formulaire. Et les valeurs déjà choisies <b>remontent en tête</b> sous leur propre intertitre, pour qu'on voie ce qu'on a sans faire défiler. Le pied devient collant et porte le compteur avec le bouton : c'est le seul cas où la feuille se valide.</p>
+    <div class="verdict">
+      <p class="pour">« Choisis » en tête règle le problème principal du choix multiple : savoir ce qu'on a déjà pris quand la liste est longue.</p>
+      <p class="contre">remonter les options choisies fait bouger la liste sous le doigt au moment du clic. Il faut ne réordonner qu'à la fermeture, pas à chaque coche.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       5 · RIEN TROUVÉ
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">5</span><h2>Rien trouvé</h2><span class="route">l'issue de secours</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Votre profil</span>
+        <span style="width:34px"></span>
+      </div>
+
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille">
+          <span class="poignee"></span>
+          <div class="tete"><h3>Ce que vous savez faire</h3><button class="x" type="button">×</button></div>
+          <div class="champ-recherche">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+            <span>réparation d'accordéon<span class="saisie-curseur"></span></span>
+          </div>
+          <div class="corps">
+            <div class="sel-rien">
+              <p>Aucun service ne porte ce nom.<br>Vous pouvez <b>le proposer quand même</b> — le bureau le rattachera à une rubrique.</p>
+              <button class="action action--fort" type="button">Ajouter « réparation d'accordéon »</button>
+            </div>
+            <p class="sel-groupe">Peut-être cherchiez-vous</p>
+            <div class="sel-opt"><span class="t">Réparation de vélos</span><span class="n">6</span></div>
+            <div class="sel-opt"><span class="t">Musique</span><span class="n">3</span></div>
+            <div class="sel-opt"><span class="t">Petites réparations</span><span class="n">14</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Un état vide qui ne dit pas seulement « aucun résultat ». Il propose <b>d'ajouter la valeur saisie</b> — dans une banque du temps, la liste des services ne peut pas être close d'avance : c'est le quartier qui la remplit. Et il offre trois repêchages approchants en dessous, sous leur intertitre, parce qu'il s'agit neuf fois sur dix d'une faute de frappe ou d'un synonyme.</p>
+    <div class="verdict">
+      <p class="pour">le vide propose toujours une sortie — c'est la règle de l'état vide, appliquée ici avec une sortie qui crée de la donnée.</p>
+      <p class="contre">laisser créer des valeurs libres fera proliférer les doublons (« bricolage », « petit bricolage », « bricolage divers »). Il faut une file de fusion côté bureau.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       6 · SUR PC : LE PANNEAU
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">6</span><h2>Sur PC : le panneau</h2><span class="route">et les listes courtes</span></figcaption>
+    <div class="phone" style="height:auto;min-height:812px;background:var(--bg-main);display:flex;flex-direction:column">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg></span></div>
+      <div class="tb tb--clair">
+        <span class="titre">Le panneau posé</span>
+      </div>
+      <main class="feed feed--uni">
+        <div class="form" style="padding-top:14px">
+
+          <div class="form-groupe">
+            <label>Le service</label>
+            <div class="sel sel--ouvert"><span class="val">brico<span class="saisie-curseur"></span></span><span class="chev">▴</span></div>
+            <div class="sel-panneau">
+              <p class="sel-groupe">4 services trouvés</p>
+              <div class="sel-opt sel-opt--vise"><span class="t"><mark>Brico</mark>lage</span><span class="n">31</span></div>
+              <div class="sel-opt"><span class="t">Petit <mark>brico</mark>lage du quotidien</span><span class="n">14</span></div>
+              <div class="sel-opt"><span class="t">Atelier <mark>brico</mark>lage</span><span class="n">5</span></div>
+              <div class="sel-opt"><span class="t">Prêt d'outils de <mark>brico</mark>lage</span><span class="n">8</span></div>
+              <div class="sel-clavier">
+                <kbd>↑</kbd><kbd>↓</kbd> parcourir · <kbd>Entrée</kbd> choisir · <kbd>Échap</kbd> fermer
+              </div>
+            </div>
+          </div>
+
+          <div class="form-groupe" style="margin-top:18px">
+            <label>Durée estimée <span class="opt">liste courte</span></label>
+            <div class="sel sel--ouvert"><span class="val">1 heure</span><span class="chev">▴</span></div>
+            <div class="sel-panneau">
+              <div class="sel-opt">30 minutes</div>
+              <div class="sel-opt">45 minutes</div>
+              <div class="sel-opt sel-opt--vise"><span class="t">1 heure</span><span class="n" style="color:var(--orange-hover);font-weight:700">choisi</span></div>
+              <div class="sel-opt">1 h 30</div>
+              <div class="sel-opt">2 heures</div>
+              <div class="sel-opt">Une demi-journée</div>
+            </div>
+            <p class="aide" style="margin-top:9px">Six options, pas de recherche : le champ de filtrage n'apparaît qu'<b>au-delà de dix</b>.</p>
+          </div>
+
+        </div>
+      </main>
+    </div>
+    <p class="note">Sur grand écran, le panneau s'ouvre bien sous le champ — mais il n'est pas une carte qui flotte. Le champ perd sa bordure basse et son rayon : les deux ne forment plus qu'une <b>seule pièce de papier</b> cernée d'un filet marine, comme un encadré de journal. Le rappel clavier en pied n'est pas décoratif : c'est le seul endroit de l'application où l'on navigue aux flèches, autant le dire.</p>
+    <div class="verdict">
+      <p class="pour">le panneau ne ressemble à aucun menu déroulant générique — et la continuité champ/panneau dit visuellement qu'on est toujours dans le même champ.</p>
+      <p class="contre">un panneau en flux pousse le contenu qui suit. Il faut le poser en absolu au-dessus, donc gérer un plan — celui des menus déroulants, 30 sur l'échelle.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       7 · LA RÈGLE
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">7</span><h2>Quand l'un, quand l'autre</h2><span class="route">la règle</span></figcaption>
+    <div class="phone" style="height:auto;min-height:812px;background:var(--bg-main);display:flex;flex-direction:column">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Deux questions, pas sept composants</span></div>
+
+      <main class="feed feed--uni" style="padding:16px 0 24px">
+        <div class="rubrique"><span class="tape"><h2>1 · Sur quel appareil ?</h2></span><span class="filet"></span></div>
+        <div style="padding:4px 18px 0">
+          <div class="deux-cas">
+            <div>
+              <p class="cas-lab cas-lab--mob">Mobile</p>
+              <p style="font-size:12px;line-height:1.55;color:var(--text-secondary)">Une <b style="color:var(--marine)">feuille</b>, toujours. Le clavier mangerait la moitié d'un panneau, et le doigt cache ce qu'il touche.</p>
+            </div>
+            <div>
+              <p class="cas-lab cas-lab--pc">Grand écran</p>
+              <p style="font-size:12px;line-height:1.55;color:var(--text-secondary)">Un <b style="color:var(--marine)">panneau</b> sous le champ, sauf si la liste dépasse la hauteur visible — alors, une feuille centrée.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rubrique" style="margin-top:20px"><span class="tape"><h2>2 · Combien d'options ?</h2></span><span class="filet"></span></div>
+        <div class="registre" style="margin-top:10px">
+          <div class="registre-ligne">
+            <div class="c"><b>2 ou 3</b><p class="d">Ce n'est pas un sélecteur mais une <b>bascule</b> — tout est visible d'emblée.</p></div>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>4 à 10</b><p class="d">Sélecteur <b>sans recherche</b>. Le champ de filtrage encombrerait plus qu'il n'aiderait.</p></div>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Plus de 10</b><p class="d">Sélecteur <b>avec recherche</b> en tête, options groupées sous des intertitres.</p></div>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Liste ouverte</b><p class="d">Idem, plus l'issue « <b>ajouter la valeur saisie</b> » quand rien ne correspond.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique" style="margin-top:20px"><span class="tape"><h2>Les sept, ramenés à des réglages</h2></span><span class="filet"></span></div>
+        <div class="carnet" style="margin-top:10px">
+          <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Durée · Heure</b><p class="q">liste courte · pas de recherche</p></div></div>
+          <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Rubrique</b><p class="q">liste longue · recherche · groupée</p></div></div>
+          <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Service · Compétence</b><p class="q">liste ouverte · recherche · multiple</p></div></div>
+          <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Voisin</b><p class="q">liste longue · recherche · options riches</p></div></div>
+          <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Annonce</b><p class="q">liste courte · options riches</p></div></div>
+        </div>
+
+        <div class="encart encart--info" style="margin:18px 18px 0">
+          <b>Un composant, cinq réglages.</b> Longueur de liste, recherche, groupement, choix multiple, richesse des options. Les sept sélecteurs actuels deviennent cinq configurations d'une même pièce.
+        </div>
+      </main>
+    </div>
+    <p class="note">Le sélecteur n'est pas un composant qu'on décline : c'est un composant qu'on <b>règle</b>. Ce qui décide de sa forme n'est jamais la nature des données — service, rubrique, voisin — mais deux faits mesurables : l'appareil, et le nombre d'options. Tout le reste en découle.</p>
+    <div class="verdict">
+      <p class="pour">une règle qui se vérifie sans discussion : on compte les options, on regarde la largeur. Aucune place pour la préférence personnelle.</p>
+      <p class="contre">le seuil de dix est arbitraire. Il vaut ce que valent les conventions — il faudra l'ajuster une fois, puis ne plus y toucher.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Le sélecteur · Personnes et services fictifs.<br>
+  <a href="../../index.html">Le design retenu</a> · <a href="../bibliotheque.html">La bibliothèque</a> · <a href="surfaces.html">Les surfaces</a>
+</footer>
+</body>
+</html>
