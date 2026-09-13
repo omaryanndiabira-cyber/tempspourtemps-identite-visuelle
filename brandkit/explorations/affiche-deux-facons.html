@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — « À l'affiche », deux façons</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+/* ============================================================
+   « À L'AFFICHE » — deux façons de montrer la semaine
+   L'agenda en lignes (ce qui est retenu aujourd'hui) contre le
+   calendrier (ce que j'avais écrit sans le dessiner).
+   ============================================================ */
+
+.q{max-width:900px;margin:0 auto 30px;text-align:center;}
+.q .kicker{font-family:var(--titres);font-weight:800;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.q h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.5rem,4vw,2.05rem);margin-top:7px;letter-spacing:-.4px;}
+.q p{color:var(--text-secondary);font-size:.92rem;line-height:1.65;margin-top:13px;}
+.q p b{color:var(--marine);}
+.q .retour{display:inline-block;margin-top:16px;color:var(--marine);font-weight:600;font-size:.85rem;text-decoration:none;}
+
+.leve{max-width:900px;margin:0 auto 40px;background:var(--paper);border:1px solid var(--marine);border-radius:15px;padding:18px 22px 20px;}
+.leve .t{font-family:var(--titres);font-weight:800;font-size:1.02rem;margin-bottom:9px;}
+.leve p{font-size:.87rem;line-height:1.62;color:var(--text-secondary);}
+.leve p + p{margin-top:9px;}
+.leve b{color:var(--marine);}
+.leve .deux{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:13px;border:1px solid var(--border);border-radius:11px;overflow:hidden;}
+.leve .deux > div{padding:11px 14px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);}
+.leve .deux > div:first-child{background:var(--bg-hover);border-right:1px solid var(--border);}
+.leve .deux > div:last-child{background:var(--bg-secondary);}
+.leve .deux .k{display:block;font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:5px;}
+@media (max-width:640px){ .leve .deux{grid-template-columns:1fr;} .leve .deux > div:first-child{border-right:0;border-bottom:1px solid var(--border);} }
+
+.duo{display:flex;flex-wrap:wrap;justify-content:center;gap:34px;align-items:flex-start;}
+.face{width:390px;flex:none;}
+.face > figcaption{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px;
+  font-family:var(--titres);font-weight:800;font-size:1rem;color:var(--marine);
+}
+.face > figcaption .n{font-size:.72rem;background:var(--sable);color:var(--marine);border-radius:7px;padding:2px 9px;flex:none;}
+.face > figcaption .tag{font-size:.6rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-radius:5px;padding:2px 8px;}
+.face > figcaption .tag--act{background:rgba(47,122,68,.14);color:var(--success);}
+.face > figcaption .tag--neuf{background:rgba(196,69,54,.11);color:var(--danger);}
+.face .desc{font-size:.83rem;line-height:1.58;color:var(--text-secondary);margin:-2px 0 12px;}
+.face .desc b{color:var(--marine);}
+
+.tel{
+  width:390px;background:var(--paper);border:9px solid #14222c;border-radius:34px;overflow:hidden;
+  box-shadow:0 20px 48px -24px rgba(15,47,68,.6);
+}
+.tel-tb{height:30px;background:var(--marine);display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:var(--sable);font-size:10.5px;font-weight:700;}
+.tel-nav{display:flex;align-items:center;gap:11px;padding:8px 14px;background:var(--marine);color:var(--sable);}
+.tel-nav .lg{font-family:var(--titres);font-weight:800;font-size:13px;}
+.tel-nav .pill{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:var(--sable);color:var(--marine);border-radius:999px;padding:3px 9px;font-family:var(--titres);font-weight:800;font-size:11px;}
+
+.sect{padding:14px 16px 16px;}
+.sect-tete{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.sect-tete .tape{
+  display:inline-flex;align-items:center;gap:7px;background:var(--sable);padding:4px 11px;transform:rotate(-1.2deg);
+  box-shadow:0 1px 3px rgba(24,62,87,.18);
+  clip-path:polygon(2% 0, 98% 4%, 100% 30%, 99% 68%, 100% 100%, 3% 97%, 0 70%, 1% 26%);
+}
+.sect-tete .tape h2{font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);letter-spacing:.02em;}
+.sect-tete .cpt{font-family:var(--titres);font-weight:800;font-size:10px;background:var(--marine);color:var(--sable);border-radius:999px;padding:1px 7px;}
+.sect-tete .lien{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--orange);text-decoration:none;}
+.sect .chapo{font-size:10.5px;color:var(--text-tertiary);margin:7px 0 11px;line-height:1.45;}
+
+/* ---------- A · l'agenda en lignes ---------- */
+.ag{border-top:1px solid var(--marine);}
+.ag-l{display:flex;gap:11px;padding:10px 0;border-bottom:1px dotted var(--border);}
+.ag-l .quand{
+  flex:none;width:44px;text-align:center;border-right:1px solid var(--border);padding-right:9px;
+}
+.ag-l .quand b{display:block;font-family:var(--titres);font-weight:800;font-size:18px;color:var(--marine);line-height:1;}
+.ag-l .quand i{display:block;font-style:normal;font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);margin-top:2px;}
+.ag-l .quand em{display:block;font-style:normal;font-size:9.5px;color:var(--text-secondary);margin-top:3px;}
+.ag-l--action .quand{border-right:2px solid var(--orange-vif);}
+.ag-l .tx{flex:1;min-width:0;}
+.ag-l .g{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-radius:4px;padding:1px 6px;display:inline-block;margin-bottom:4px;}
+.ag-l .g--coup{background:var(--bg-hover);color:var(--orange-hover);}
+.ag-l .g--moment{background:rgba(47,122,68,.12);color:var(--success);}
+.ag-l .g--atelier{background:var(--sable);color:var(--marine);}
+.ag-l .g--collectif{background:#e4ecf2;color:#2f6f8f;}
+.ag-l .tx h3{font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);line-height:1.3;}
+.ag-l .tx .ou{font-size:10.5px;color:var(--text-secondary);margin-top:3px;line-height:1.4;}
+.ag-l .tx .bas{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.ag-l .tx .bas a{font-size:10.5px;font-weight:700;color:var(--orange);text-decoration:none;border-bottom:1px dashed var(--orange-vif);}
+.ag-l .tx .bas i{font-style:italic;font-size:9.5px;color:var(--text-tertiary);}
+.ag-l .places{flex:none;font-size:9.5px;font-weight:700;color:var(--text-tertiary);white-space:nowrap;}
+
+/* ---------- B · le calendrier ---------- */
+.cal{border-top:1px solid var(--marine);padding-top:11px;}
+.cal-tete{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.cal-tete b{font-family:var(--titres);font-weight:800;font-size:12px;color:var(--marine);flex:1;text-align:center;letter-spacing:.04em;}
+.cal-tete span{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--marine);background:var(--paper);}
+.cal-jours{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:3px;}
+.cal-jours span{text-align:center;font-size:8.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-tertiary);}
+.cal-grille{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+.cal-c{
+  aspect-ratio:1/1;border:1px solid var(--border);border-radius:6px;background:var(--paper);
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:3px 2px 2px;gap:2px;
+}
+.cal-c b{font-size:10.5px;font-weight:700;color:var(--marine);line-height:1;}
+.cal-c--hors{background:var(--bg-secondary);border-color:transparent;}
+.cal-c--hors b{color:var(--text-tertiary);opacity:.5;}
+.cal-c--auj{background:var(--sable);border-color:var(--sable-hover);}
+.cal-c--auj b{font-family:var(--titres);font-weight:800;}
+.cal-c--on{box-shadow:0 0 0 2px var(--orange-vif);}
+.cal-pts{display:flex;gap:2px;flex-wrap:wrap;justify-content:center;}
+.cal-pt{width:4px;height:4px;border-radius:50%;background:var(--border);}
+.cal-pt--coup{background:var(--orange-vif);}
+.cal-pt--moment{background:var(--success-vif);}
+.cal-pt--atelier{background:var(--ocre);}
+.cal-pt--collectif{background:#2f6f8f;}
+.cal-legende{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px;padding-top:9px;border-top:1px dotted var(--border);}
+.cal-legende span{display:inline-flex;align-items:center;gap:4px;font-size:9px;color:var(--text-secondary);}
+.cal-jour{margin-top:11px;padding-top:10px;border-top:1px solid var(--marine);}
+.cal-jour .d{font-family:var(--titres);font-weight:800;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--marine);margin-bottom:8px;}
+
+/* le verdict */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:13px;border:1px solid var(--border);border-radius:11px;overflow:hidden;}
+.pc > div{padding:10px 13px;font-size:.79rem;line-height:1.55;color:var(--text-secondary);}
+.pc > div:first-child{background:rgba(47,122,68,.06);border-right:1px solid var(--border);}
+.pc > div:last-child{background:rgba(196,69,54,.05);}
+.pc .k{display:block;font-family:var(--titres);font-weight:800;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:5px;}
+.pc > div:first-child .k{color:var(--success);}
+.pc > div:last-child .k{color:var(--danger);}
+.pc b{color:var(--marine);}
+
+.verdict{max-width:900px;margin:46px auto 0;background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.18);outline-offset:3px;border-radius:15px;padding:20px 24px 22px;}
+.verdict .k{font-family:var(--titres);font-weight:800;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.verdict h2{font-family:var(--titres);font-weight:800;font-size:1.18rem;margin-top:8px;line-height:1.35;}
+.verdict p{font-size:.88rem;line-height:1.65;color:var(--text-secondary);margin-top:11px;}
+.verdict p b{color:var(--marine);}
+.verdict .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+</style>
+</head>
+<body>
+
+<section class="q">
+  <p class="kicker">Décision A3 · deux implémentations à comparer</p>
+  <h1>« À l'affiche », deux façons</h1>
+  <p>Vous vous souveniez de <b>petites cartes compactes</b>, pas d'un calendrier. Vous aviez raison — mais il y a une ambiguïté à lever d'abord, parce qu'il s'agit de <b>deux sections différentes</b>.</p>
+  <a class="retour" href="../../decisions.html">← Les décisions préalables</a>
+</section>
+
+<section class="leve">
+  <p class="t">L'ambiguïté : deux sections, pas une</p>
+  <p>L'accueil porte deux blocs qui parlent tous les deux de dates, et il est facile de les confondre. Le calendrier ne concerne que <b>le second</b>.</p>
+  <div class="deux">
+    <div>
+      <span class="k">Vos rendez-vous</span>
+      <b style="color:var(--marine)">Ce qui vous engage, vous.</b> Ce sont les <b>billets à talon</b> et les <b>faire-part</b> — les petites cartes compactes dont vous vous souvenez. Elles ne changent pas, elles ne sont pas en question ici.
+    </div>
+    <div>
+      <span class="k">À l'affiche</span>
+      <b style="color:var(--marine)">Ce que le quartier propose à tous.</b> Ateliers, coups de main, moments ouverts, échanges collectifs de la semaine — que vous y participiez ou non. <b>C'est cette section-là</b> que la charte proposait de transformer en calendrier.
+    </div>
+  </div>
+  <p>Ci-dessous, les deux façons de rendre « À l'affiche ». Les données sont les mêmes de part et d'autre : <b>quatre activités sur une semaine</b>, ce qui est un volume réaliste pour un quartier de cette taille.</p>
+</section>
+
+<div class="duo">
+
+  <!-- ============ A · L'AGENDA EN LIGNES ============ -->
+  <figure class="face">
+    <figcaption><span class="n">A</span>L'agenda en lignes<span class="tag tag--act">Ce qui est retenu</span></figcaption>
+    <p class="desc">Une ligne par activité, la date en vedette dans une colonne étroite, le genre en pastille, le lieu et la durée sur une ligne. <b>Rien à inventer</b> : c'est la forme déjà dessinée.</p>
+    <div class="tel">
+      <div class="tel-tb"><span>9:41</span><span>▮▮▮ ▮</span></div>
+      <div class="tel-nav"><span class="lg">tpt</span><span class="pill">⏰ 8 h 30</span></div>
+      <div class="sect">
+        <div class="sect-tete"><span class="tape"><h2>À L'AFFICHE</h2></span><span class="cpt">4</span><a class="lien" href="#">Tout voir</a></div>
+        <p class="chapo">Ateliers, coups de main et moments ouverts de la semaine.</p>
+        <div class="ag">
+          <div class="ag-l ag-l--action">
+            <span class="quand"><b>12</b><i>juin</i><em>18:00</em></span>
+            <span class="tx">
+              <span class="g g--coup">Coup de main</span>
+              <h3>Déménager un buffet</h3>
+              <span class="ou">Rue Pasteur, Baugerie · 1 h 30</span>
+              <span class="bas"><a href="#">Je viens</a><i>demandé par Sonia Klein</i></span>
+            </span>
+            <span class="places">2 places</span>
+          </div>
+          <div class="ag-l">
+            <span class="quand"><b>14</b><i>juin</i><em>9:30</em></span>
+            <span class="tx">
+              <span class="g g--moment">Moment ouvert</span>
+              <h3>Café solidaire du samedi</h3>
+              <span class="ou">Square de la Baugerie · jusqu'à 12:00</span>
+              <span class="bas"><i>sans inscription, passez quand vous voulez</i></span>
+            </span>
+          </div>
+          <div class="ag-l">
+            <span class="quand"><b>15</b><i>juin</i><em>10:00</em></span>
+            <span class="tx">
+              <span class="g g--atelier">Atelier</span>
+              <h3>Réparation vélo</h3>
+              <span class="ou">Local associatif, Vieux Bourg · 2 h</span>
+              <span class="bas"><a href="#">Je m'inscris</a><i>animé par Pierre Blanchard</i></span>
+            </span>
+            <span class="places">3/5 inscrits</span>
+          </div>
+          <div class="ag-l" style="border-bottom:0">
+            <span class="quand"><b>18</b><i>juin</i><em>20:00</em></span>
+            <span class="tx">
+              <span class="g g--collectif">Échange collectif</span>
+              <h3>Soirée couture et retouches</h3>
+              <span class="ou">Salle des Tilleuls, Centre · 2 h</span>
+              <span class="bas"><a href="#">Je m'inscris</a><i>animé par Lucie Garnier</i></span>
+            </span>
+            <span class="places">6/10</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pc">
+      <div><span class="k">Ce que ça donne</span>Tout est lisible <b>sans un clic</b> : le titre, le lieu, la durée, qui anime, combien de places, et le geste à faire. Quatre activités tiennent dans un écran. La forme <b>ne se dégrade pas</b> quand il n'y a qu'une activité, ni quand il y en a douze — elle s'allonge, c'est tout.</div>
+      <div><span class="k">Ce que ça coûte</span>On ne voit pas <b>la forme de la semaine</b> : qu'il y a trois choses le week-end et rien du tout mardi et mercredi. Au-delà d'une quinzaine de lignes, il faut faire défiler longtemps pour savoir ce qu'il y a dans dix jours.</div>
+    </div>
+  </figure>
+
+  <!-- ============ B · LE CALENDRIER ============ -->
+  <figure class="face">
+    <figcaption><span class="n">B</span>Le calendrier<span class="tag tag--neuf">Fonctionnalité neuve</span></figcaption>
+    <p class="desc">Une grille mensuelle, une pastille de couleur par activité, et le détail du jour choisi en dessous. <b>Tout est à construire</b> : navigation entre mois, densité, jour vide, gestes tactiles.</p>
+    <div class="tel">
+      <div class="tel-tb"><span>9:41</span><span>▮▮▮ ▮</span></div>
+      <div class="tel-nav"><span class="lg">tpt</span><span class="pill">⏰ 8 h 30</span></div>
+      <div class="sect">
+        <div class="sect-tete"><span class="tape"><h2>À L'AFFICHE</h2></span><span class="cpt">4</span><a class="lien" href="#">Tout voir</a></div>
+        <div class="cal">
+          <div class="cal-tete"><span>‹</span><b>JUIN 2026</b><span>›</span></div>
+          <div class="cal-jours"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+          <div class="cal-grille">
+            <div class="cal-c cal-c--hors"><b>26</b></div><div class="cal-c cal-c--hors"><b>27</b></div><div class="cal-c cal-c--hors"><b>28</b></div><div class="cal-c cal-c--hors"><b>29</b></div><div class="cal-c cal-c--hors"><b>30</b></div><div class="cal-c cal-c--hors"><b>31</b></div><div class="cal-c"><b>1</b></div>
+            <div class="cal-c"><b>2</b></div><div class="cal-c"><b>3</b></div><div class="cal-c"><b>4</b></div><div class="cal-c"><b>5</b></div><div class="cal-c"><b>6</b></div><div class="cal-c"><b>7</b></div><div class="cal-c"><b>8</b></div>
+            <div class="cal-c"><b>9</b></div><div class="cal-c cal-c--auj"><b>10</b></div><div class="cal-c"><b>11</b></div>
+            <div class="cal-c cal-c--on"><b>12</b><span class="cal-pts"><i class="cal-pt cal-pt--coup"></i></span></div>
+            <div class="cal-c"><b>13</b></div>
+            <div class="cal-c"><b>14</b><span class="cal-pts"><i class="cal-pt cal-pt--moment"></i></span></div>
+            <div class="cal-c"><b>15</b><span class="cal-pts"><i class="cal-pt cal-pt--atelier"></i></span></div>
+            <div class="cal-c"><b>16</b></div><div class="cal-c"><b>17</b></div>
+            <div class="cal-c"><b>18</b><span class="cal-pts"><i class="cal-pt cal-pt--collectif"></i></span></div>
+            <div class="cal-c"><b>19</b></div><div class="cal-c"><b>20</b></div><div class="cal-c"><b>21</b></div><div class="cal-c"><b>22</b></div>
+            <div class="cal-c"><b>23</b></div><div class="cal-c"><b>24</b></div><div class="cal-c"><b>25</b></div><div class="cal-c"><b>26</b></div><div class="cal-c"><b>27</b></div><div class="cal-c"><b>28</b></div><div class="cal-c"><b>29</b></div>
+            <div class="cal-c"><b>30</b></div><div class="cal-c cal-c--hors"><b>1</b></div><div class="cal-c cal-c--hors"><b>2</b></div><div class="cal-c cal-c--hors"><b>3</b></div><div class="cal-c cal-c--hors"><b>4</b></div><div class="cal-c cal-c--hors"><b>5</b></div><div class="cal-c cal-c--hors"><b>6</b></div>
+          </div>
+          <div class="cal-legende">
+            <span><i class="cal-pt cal-pt--coup"></i> Coup de main</span>
+            <span><i class="cal-pt cal-pt--moment"></i> Moment ouvert</span>
+            <span><i class="cal-pt cal-pt--atelier"></i> Atelier</span>
+            <span><i class="cal-pt cal-pt--collectif"></i> Collectif</span>
+          </div>
+          <div class="cal-jour">
+            <p class="d">Vendredi 12 juin</p>
+            <div class="ag">
+              <div class="ag-l ag-l--action" style="border-bottom:0;padding-top:0">
+                <span class="quand"><b>18</b><i>:00</i></span>
+                <span class="tx">
+                  <span class="g g--coup">Coup de main</span>
+                  <h3>Déménager un buffet</h3>
+                  <span class="ou">Rue Pasteur, Baugerie · 1 h 30</span>
+                  <span class="bas"><a href="#">Je viens</a><i>demandé par Sonia Klein</i></span>
+                </span>
+                <span class="places">2 places</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pc">
+      <div><span class="k">Ce que ça donne</span>On voit <b>la forme du mois</b> d'un coup d'œil : où ça se passe, où c'est vide. Utile pour <b>choisir une date</b> quand on cherche à proposer quelque chose sans tomber sur un autre évènement.</div>
+      <div><span class="k">Ce que ça coûte</span><b>Vingt-huit cases pour quatre points.</b> Il faut cliquer pour savoir de quoi il s'agit, et on ne lit jamais qu'un jour à la fois. La grille occupe les deux tiers de l'écran sans rien dire. Et c'est une <b>fonctionnalité entière</b> à écrire et à tester — navigation, fuseau, densité, tactile.</div>
+    </div>
+  </figure>
+
+</div>
+
+<section class="verdict">
+  <p class="k">Ce que j'en tire</p>
+  <h2>Un calendrier sert à <span class="souligne">choisir une date</span>.<br>Ici, on vient voir <span class="souligne">ce qui se passe</span>.</h2>
+  <p>La grille est une bonne forme quand les évènements sont <b>nombreux et réguliers</b> — un agenda de salle, un planning d'équipe. Elle devient une dépense quand il y a <b>quatre choses dans le mois</b> : vingt-huit cases affichées pour quatre points, et le détail reste à un clic de distance.</p>
+  <p>L'agenda en lignes dit tout sans rien demander : le titre, le lieu, la durée, qui anime, combien de places, et le geste à faire. C'est ce que quelqu'un vient chercher en ouvrant l'accueil — <b>pas « quand », mais « quoi »</b>.</p>
+  <p><b>Ma recommandation : garder l'agenda en lignes</b>, et laisser le calendrier de côté. S'il devient utile un jour, ce sera parce que le quartier s'est densifié — c'est-à-dire <b>pour une bonne raison, et avec de vraies données pour le dessiner</b>. En attendant, il ajouterait une fonctionnalité neuve au milieu d'une migration de charte, ce que le protocole interdit.</p>
+  <p>Et si l'envie de voir « la forme de la semaine » persiste, il existe une réponse bien moins chère : <b>une ligne de sept pastilles</b> au-dessus de l'agenda, une par jour, remplie ou vide. Elle donne le rythme en 20 px de hauteur, sans rien cacher.</p>
+</section>
+
+</body>
+</html>
