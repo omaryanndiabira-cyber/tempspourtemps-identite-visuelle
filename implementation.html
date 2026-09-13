@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les règles d'implémentation</title>
+<link rel="icon" href="assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brandkit/gazette.css">
+<style>
+body{padding:36px 20px 80px;}
+.wrap{max-width:1000px;margin:0 auto;}
+
+.entete{text-align:center;max-width:760px;margin:0 auto;}
+.entete img{width:58px;height:auto;margin-bottom:12px;}
+.entete .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.entete h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);letter-spacing:-.5px;margin-top:6px;}
+.entete p{color:var(--text-secondary);font-size:.95rem;line-height:1.65;margin-top:14px;}
+.entete .retour{display:inline-block;margin-top:18px;color:var(--marine);font-weight:600;font-size:.86rem;text-decoration:none;}
+
+/* le sommaire collant */
+.somm{
+  position:sticky;top:0;z-index:20;margin:30px 0 30px;padding:10px 0;
+  background:rgba(247,246,243,.93);backdrop-filter:blur(10px);
+  border-top:1px solid var(--marine);border-bottom:3px double var(--marine);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:3px;
+}
+@supports not (backdrop-filter:blur(2px)){ .somm{background:var(--bg-main);} }
+.somm a{
+  padding:5px 12px;border-radius:7px;text-decoration:none;
+  font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.somm a:hover{background:var(--sable);color:var(--marine);}
+
+/* les chapitres */
+.chap{display:flex;align-items:center;gap:14px;margin:48px 0 6px;scroll-margin-top:64px;}
+.chap .num{font-family:var(--titres);font-weight:800;font-size:.76rem;background:var(--sable);color:var(--marine);border-radius:8px;padding:3px 10px;}
+.chap h2{font-family:var(--titres);font-weight:800;font-size:1.28rem;white-space:nowrap;}
+.chap .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
+.chap-sub{color:var(--text-secondary);font-size:.88rem;line-height:1.6;margin:0 0 20px;}
+
+/* une règle */
+.regle{
+  background:var(--paper);border:1px solid var(--border);border-radius:13px;
+  padding:15px 18px 16px;margin-bottom:13px;
+  box-shadow:0 1px 2px rgba(24,62,87,.05);
+}
+.regle .tete{display:flex;align-items:baseline;gap:10px;}
+.regle .cle{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.66rem;font-weight:700;
+  background:var(--marine);color:var(--sable);border-radius:5px;padding:2px 7px;flex:none;
+}
+.regle h3{font-family:var(--titres);font-weight:800;font-size:1rem;line-height:1.3;flex:1;}
+.regle p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);margin-top:8px;}
+.regle p b{color:var(--marine);}
+.regle code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+.regle .pourquoi{
+  margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);
+  font-size:.79rem;line-height:1.55;color:var(--text-tertiary);
+}
+.regle .pourquoi b{color:var(--orange-hover);}
+.regle--dur{border-left:3px solid var(--danger);border-radius:0 13px 13px 0;}
+.regle--dur .cle{background:var(--danger);color:#fff9ec;}
+
+/* le tableau des interdits */
+.interdits{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:6px;}
+.interdits th{
+  text-align:left;font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-tertiary);padding:0 12px 7px 0;border-bottom:2px solid var(--marine);
+}
+.interdits td{padding:9px 12px 9px 0;border-top:1px dotted var(--border);color:var(--text-secondary);vertical-align:top;}
+.interdits tbody tr:first-child td{border-top:0;}
+.interdits code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;border-radius:4px;padding:1px 5px;}
+.interdits .non code{color:var(--danger);background:rgba(196,69,54,.1);}
+.interdits .oui{color:var(--marine);}
+.interdits .oui b{font-family:var(--titres);font-weight:800;}
+
+/* l'échelle des plans */
+.echelle{background:var(--paper);border:1px solid var(--marine);border-radius:13px;padding:4px 16px;}
+.echelle .l{display:flex;align-items:baseline;gap:14px;padding:10px 0;border-top:1px dotted var(--border);font-size:.85rem;}
+.echelle .l:first-child{border-top:0;}
+.echelle .z{font-family:var(--titres);font-weight:800;font-size:1.1rem;color:var(--marine);width:42px;flex:none;text-align:right;}
+.echelle .n{font-family:var(--titres);font-weight:800;color:var(--marine);width:120px;flex:none;}
+.echelle .d{flex:1;color:var(--text-secondary);}
+
+/* la liste de vérification */
+.check{background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:6px 18px;}
+.check .l{display:flex;gap:11px;padding:11px 0;border-top:1px dotted var(--border);font-size:.85rem;line-height:1.5;}
+.check .l:first-child{border-top:0;}
+.check .b{
+  width:17px;height:17px;border-radius:4px;border:1.5px solid var(--border);background:var(--bg-main);
+  flex:none;margin-top:2px;
+}
+.check .c{flex:1;color:var(--text-secondary);}
+.check .c b{color:var(--marine);}
+
+footer{margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
+footer a{color:var(--marine);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="entete">
+  <img src="assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">À lire avant de coder</p>
+  <h1>Les règles d'implémentation</h1>
+  <p>Ce que les maquettes ne montrent pas mais qui les fait tenir. Chaque règle porte une <b>clé courte</b> pour être citée en revue de code, et dit <b>pourquoi</b> elle existe — une règle dont on a oublié la raison finit toujours par être contournée.</p>
+  <a class="retour" href="index.html">← Retour au design retenu</a>
+</header>
+
+<nav class="somm">
+  <a href="#structure">Structure</a>
+  <a href="#surfaces">Surfaces</a>
+  <a href="#charte">Charte</a>
+  <a href="#mots">Les mots</a>
+  <a href="#interdits">Interdits</a>
+  <a href="#liste">Vérification</a>
+</nav>
+
+<!-- ================= STRUCTURE ================= -->
+<div class="chap" id="structure"><span class="num">1</span><h2>Structure</h2><span class="filet"></span></div>
+<p class="chap-sub">Les règles qui décident de <b>quel composant</b> on écrit, avant même de décider à quoi il ressemble.</p>
+
+<div class="regle">
+  <div class="tete"><span class="cle">S1</span><h3>Deux enveloppes, pas trois</h3></div>
+  <p>Si ça <b>montre</b> quelque chose, c'est une <b>fiche</b>. Si ça <b>demande</b> quelque chose, c'est un <b>dialogue</b>. Il n'y a pas de troisième cas. Un formulaire long est une fiche dont le corps est un formulaire ; une confirmation à trois issues est un dialogue à trois boutons.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> l'application compte aujourd'hui une trentaine de surfaces flottantes pour deux coquilles partagées. Chaque nouvelle coquille ajoute un voile, une fermeture clavier et un plan d'empilement à maintenir.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">S2</span><h3>Une fiche a huit zones, dans cet ordre</h3></div>
+  <p>Coquille, en-tête, frise, bandeau d'action, corps, encart, journal, pied. <b>Quatre sont facultatives</b> (frise, bandeau, encart, journal) — et une zone facultative absente <b>n'est pas rendue</b>, pas rendue vide.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> l'ordre constant est ce qui permet de retrouver le geste au même endroit dans quatre objets différents. Un titre de section sans contenu en dessous coûte plus qu'il ne rapporte.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">S3</span><h3>Le corps reste libre</h3></div>
+  <p>Sept zones sur huit sont normées. La huitième — <b>le corps</b> — ne l'est pas et ne doit pas l'être. C'est là que vivent le pavé de faits, les listes, les réactions, un formulaire entier s'il le faut.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> une enveloppe sans soupape finit contournée. Mieux vaut un corps libre qu'une neuvième enveloppe inventée pour un cas particulier.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">S4</span><h3>Un état est une position, pas une chaîne</h3></div>
+  <p>L'état d'un échange se calcule <b>une fois</b>, au même endroit, et se rend par la position de la puce dans la frise. Les libellés vivent dans <b>une seule table</b>.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> il existe aujourd'hui quatre tables parallèles de libellés. Le même échange s'affiche « Terminé » ici et « Complété » là ; « Annulé » est rouge dans un fichier et gris dans un autre.</p>
+</div>
+
+<!-- ================= SURFACES ================= -->
+<div class="chap" id="surfaces"><span class="num">2</span><h2>Surfaces</h2><span class="filet"></span></div>
+<p class="chap-sub">Tout ce qui se pose par-dessus une page. C'est le foyer principal de la dette actuelle.</p>
+
+<div class="regle">
+  <div class="tete"><span class="cle">F1</span><h3>Sur mobile une feuille, sur PC un centré à 520 px</h3></div>
+  <p>Une feuille collée en bas d'un écran de 1240 px serait une barre illisible. Sur grand écran elle <b>se centre, plafonne à 520 px</b>, arrondit ses quatre coins et perd sa poignée.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> à 520 px, le contenu ne change pas d'un pixel entre mobile et PC. C'est ce qui évite d'avoir à concevoir une version responsive de chaque fiche.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">F2</span><h3>Jamais trois surfaces empilées</h3></div>
+  <p>Un dialogue peut s'ouvrir <b>au-dessus d'une fiche</b> — c'est le cas du signalement. Un dialogue ne s'ouvre <b>jamais</b> au-dessus d'un dialogue. Au troisième niveau, on ferme le premier.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> l'application masque aujourd'hui une modale, mémorise son état, et la remonte 350 ms plus tard sur un évènement <code>window</code>. Cette mécanique existe uniquement parce que deux surfaces partagent le même plan.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">F3</span><h3>Cinq plans nommés, aucun nombre arbitraire</h3></div>
+  <div class="echelle" style="margin-top:11px">
+    <div class="l"><span class="z">10</span><span class="n">Chrome</span><span class="d">barres du haut et du bas</span></div>
+    <div class="l"><span class="z">20</span><span class="n">Bandeaux</span><span class="d">bandeaux collés, en-têtes</span></div>
+    <div class="l"><span class="z">30</span><span class="n">Menus</span><span class="d">panneaux déroulants, sélecteurs</span></div>
+    <div class="l"><span class="z">40</span><span class="n">Surfaces</span><span class="d">fiches et dialogues</span></div>
+    <div class="l"><span class="z">50</span><span class="n">Passagers</span><span class="d">notifications, infobulles</span></div>
+  </div>
+  <p class="pourquoi" style="margin-top:12px"><b>Pourquoi —</b> il existe aujourd'hui quatre plans concurrents (<code>z-50</code>, <code>z-[60]</code>, <code>z-[70]</code>, <code>z-[99999]</code>) sans échelle documentée. Les menus déroulants sont au même plan que les fiches de détail.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">F4</span><h3>Sur mobile, un sélecteur ouvre une feuille</h3></div>
+  <p>Jamais un panneau flottant sous le champ : le clavier en mangerait la moitié, et le doigt masque ce qu'il touche. Sur PC, le panneau s'ouvre sous le champ — mais <b>en continuité</b>, le champ perdant sa bordure basse.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> le seul sélecteur custom de l'application calcule aujourd'hui sa position en cinquante lignes de JavaScript, avec <code>visualViewport</code>, pour contourner ce problème.</p>
+</div>
+
+<!-- ================= CHARTE ================= -->
+<div class="chap" id="charte"><span class="num">3</span><h2>Charte</h2><span class="filet"></span></div>
+<p class="chap-sub">Les règles visuelles qui font que l'ensemble ressemble à un journal plutôt qu'à une application générique.</p>
+
+<div class="regle">
+  <div class="tete"><span class="cle">C1</span><h3>Un seul bouton plein par écran</h3></div>
+  <p>Tout le reste passe en <b>pastille en contour</b> ou en <b>lien à filet</b>. Trois niveaux d'action, jamais plus. Deux exceptions, et deux seulement : le pied d'un <b>dialogue</b> (deux issues doivent être également atteignables) et un <b>pied empilé destructif</b>.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> un écran où tout est mis en avant est un écran où rien ne l'est. <code>AppButton</code> expose douze variantes ; il devrait en exposer quatre.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">C2</span><h3>Le sable appartient aux rubans</h3></div>
+  <p>Le jaune signale une <b>tête de rubrique</b>, et rien d'autre. Les talons de date se séparent par un <b>filet</b>, pas par un aplat. Un journal sépare, il ne remplit pas.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> une règle CSS non scopée pastillait en sable tous les <code>.n</code> d'un écran. Le jaune était partout, donc il ne signalait plus rien.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">C3</span><h3>Date ou geste, jamais les deux</h3></div>
+  <p>Le talon d'un billet porte <b>la date</b> quand il n'y a rien à faire, et <b>le verbe</b> — Valider, Répondre, Noter, Clore — quand on attend quelque chose. Le verbe ne dépasse pas huit lettres.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> sur une carte d'action, la date est celle de l'échange passé : ce n'est pas la question posée.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">C4</span><h3>Toutes les cartes d'une rangée ont la même hauteur</h3></div>
+  <p>Une rangée horizontale utilise <code>align-items:stretch</code>, et les cartes poussent leur pied avec <code>margin-top:auto</code>.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> des cartes de hauteurs inégales dans un carrousel donnent un bord inférieur en dents de scie, visible au premier coup d'œil.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">C5</span><h3>Une seule feuille de style</h3></div>
+  <p>Tout composant qui sert à <b>deux endroits</b> monte dans la feuille partagée. Une règle recopiée est une règle qui divergera.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> ce projet a déjà corrigé quatre duplications de ce type. À chaque fois, les deux copies avaient commencé à diverger.</p>
+</div>
+
+<!-- ================= LES MOTS ================= -->
+<div class="chap" id="mots"><span class="num">4</span><h2>Les mots</h2><span class="filet"></span></div>
+<p class="chap-sub">Le vocabulaire fait partie du design. Ces règles valent autant que les règles visuelles.</p>
+
+<div class="regle">
+  <div class="tete"><span class="cle">M1</span><h3>Une question se pose à la première personne</h3></div>
+  <p><b>« Combien de temps avez-vous donné ? »</b>, pas « Validation de l'échange ». Un titre nominal ne dit pas ce qu'on attend de la personne.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">M2</span><h3>La conséquence avant le bouton</h3></div>
+  <p>Chiffrée quand c'est possible : <b>« Alice recevra 1 heure ; votre compteur passera de 8 h 30 à 9 h 30. »</b> On ne valide jamais un mouvement de compteur à l'aveugle.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">M3</span><h3>Un seul format d'heure</h3></div>
+  <p><code>8 h 30</code>, <code>45 min</code>. Jamais <code>8h30</code>, jamais <code>45m</code>.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> deux formateurs divergents coexistent aujourd'hui dans deux fichiers voisins : l'un rend <code>45m</code>, l'autre <code>45min</code>.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">M4</span><h3>Un état vide propose toujours une sortie</h3></div>
+  <p>Jamais « Aucun résultat » seul. Le vide dit ce qui manque <b>et</b> le geste qui le remplira.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">M5</span><h3>Une erreur rassure sur les données</h3></div>
+  <p>Jamais de message technique en titre. La personne veut savoir si ce qu'elle avait écrit est perdu. Le code d'erreur va en bas, en petit.</p>
+</div>
+
+<!-- ================= INTERDITS ================= -->
+<div class="chap" id="interdits"><span class="num">5</span><h2>Interdits</h2><span class="filet"></span></div>
+<p class="chap-sub">Ce qui existe aujourd'hui dans le code et qui ne doit plus être écrit. Chaque ligne est un constat, pas une précaution.</p>
+
+<div class="regle regle--dur" style="padding-bottom:12px">
+  <div class="tete"><span class="cle">STOP</span><h3>Les onze interdits</h3></div>
+  <table class="interdits" style="margin-top:12px">
+    <thead><tr><th>Ne plus écrire</th><th>Écrire à la place</th></tr></thead>
+    <tbody>
+      <tr><td class="non"><code>window.confirm()</code></td><td class="oui">Un <b>dialogue</b>, ton attention ou danger</td></tr>
+      <tr><td class="non"><code>window.alert()</code></td><td class="oui">Une <b>notification</b> passagère</td></tr>
+      <tr><td class="non"><code>z-[60]</code>, <code>z-[70]</code>, <code>z-[99999]</code></td><td class="oui">Un <b>plan nommé</b> de l'échelle (F3)</td></tr>
+      <tr><td class="non">Un <code>Teleport</code> + voile écrit à la main</td><td class="oui">La <b>coquille</b> de fiche ou de dialogue</td></tr>
+      <tr><td class="non">Une table de libellés de statut locale</td><td class="oui">La <b>table unique</b> (S4)</td></tr>
+      <tr><td class="non">Une chaîne de classes de champ recopiée</td><td class="oui">Le composant <b>champ de saisie</b></td></tr>
+      <tr><td class="non">Un conteneur rond autour d'un avatar</td><td class="oui">Le <b>médaillon</b>, qui porte son cercle</td></tr>
+      <tr><td class="non">Une couleur en dur (<code>#f7f6f3</code>)</td><td class="oui">Un <b>jeton</b> de la palette</td></tr>
+      <tr><td class="non">Un second système d'icônes</td><td class="oui">Le <b>jeu unique</b>, jamais de SVG recopié</td></tr>
+      <tr><td class="non"><code>@mousedown.prevent</code> seul sur une option</td><td class="oui"><code>@click</code> — sinon le clavier ne peut pas choisir</td></tr>
+      <tr><td class="non">Une page qui double une modale</td><td class="oui">La <b>modale seule</b>, avec une route qui l'ouvre</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="regle regle--dur">
+  <div class="tete"><span class="cle">A11Y</span><h3>Le clavier n'est pas optionnel</h3></div>
+  <p>Toute liste d'options custom gère <b>les flèches haut et bas</b>, <b>Entrée</b> et <b>Échap</b>, et porte <code>role="combobox"</code>, <code>aria-expanded</code>, <code>aria-activedescendant</code>. Tout libellé est associé à son champ par <code>for</code>/<code>id</code>.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> aucun des sept sélecteurs actuels ne gère les flèches, et dans l'un d'eux les options ne sont câblées que sur <code>@mousedown.prevent</code> : <b>la sélection est impossible au clavier</b>, sur sept points d'usage.</p>
+</div>
+
+<!-- ================= LISTE DE VÉRIFICATION ================= -->
+<div class="chap" id="liste"><span class="num">6</span><h2>Avant d'ouvrir une revue</h2><span class="filet"></span></div>
+<p class="chap-sub">Neuf questions à se poser sur son propre écran. Si l'une reçoit un « non », ce n'est pas encore prêt.</p>
+
+<div class="check">
+  <div class="l"><span class="b"></span><span class="c">Y a-t-il <b>au plus un bouton plein</b> ? <span style="color:var(--text-tertiary)">(hors pied de dialogue)</span></span></div>
+  <div class="l"><span class="b"></span><span class="c">Le <b>jaune</b> ne sert-il qu'aux rubans de rubrique ?</span></div>
+  <div class="l"><span class="b"></span><span class="c">Les <b>trois états</b> sont-ils traités — chargement, vide, erreur ?</span></div>
+  <div class="l"><span class="b"></span><span class="c">L'état vide <b>propose-t-il une sortie</b> ?</span></div>
+  <div class="l"><span class="b"></span><span class="c">Chaque surface flottante utilise-t-elle <b>une coquille partagée</b> et <b>un plan nommé</b> ?</span></div>
+  <div class="l"><span class="b"></span><span class="c">L'écran est-il utilisable <b>entièrement au clavier</b>, flèches comprises ?</span></div>
+  <div class="l"><span class="b"></span><span class="c">Les durées sont-elles écrites <b>8 h 30</b> et <b>45 min</b> ?</span></div>
+  <div class="l"><span class="b"></span><span class="c">Avant toute action qui déplace des heures, la <b>conséquence est-elle chiffrée</b> ?</span></div>
+  <div class="l"><span class="b"></span><span class="c">Sur PC, l'écran tient-il aux <b>trois paliers</b> — 1180 px, 980 px, mobile ?</span></div>
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Les règles d'implémentation.<br>
+  <a href="index.html">Le design retenu</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a> · <a href="brandkit/explorations/enveloppe-unique.html">L'enveloppe unique</a>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — L'enveloppe unique</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+body{padding:38px 20px 80px;}
+.large{max-width:1140px;margin:0 auto;}
+
+/* ————— l'anatomie annotée ————— */
+.anatomie{
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:16px;padding:22px 24px;margin:0 auto 26px;max-width:1140px;
+}
+.anatomie h2{font-family:var(--titres);font-weight:800;font-size:1rem;text-align:center;letter-spacing:.14em;text-transform:uppercase;}
+.anatomie .duo{display:flex;gap:30px;align-items:flex-start;margin-top:20px;flex-wrap:wrap;}
+.schema{width:290px;flex:none;border:1.5px solid var(--marine);border-radius:14px;overflow:hidden;background:var(--bg-main);}
+.bloc-a{padding:10px 13px;border-bottom:1px dashed var(--border);}
+.bloc-a:last-child{border-bottom:0;}
+.bloc-a .nom{
+  font-family:var(--titres);font-weight:800;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--marine);display:flex;align-items:center;gap:7px;
+}
+.bloc-a .r{font-size:10.5px;color:var(--text-secondary);margin-top:4px;line-height:1.45;}
+.bloc-a--opt{background:repeating-linear-gradient(135deg,transparent,transparent 7px,rgba(24,62,87,.035) 7px,rgba(24,62,87,.035) 14px);}
+.bloc-a--opt .nom{color:var(--text-secondary);}
+.opt-t{
+  font-size:7.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);
+  border:1px solid var(--border);border-radius:4px;padding:1px 5px;margin-left:auto;background:var(--paper);
+}
+.anatomie .txt{flex:1;min-width:280px;font-size:.86rem;line-height:1.68;color:var(--text-secondary);}
+.anatomie .txt b{color:var(--marine);}
+.anatomie .txt p + p{margin-top:11px;}
+.anatomie .txt code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.06);border-radius:4px;padding:1px 5px;}
+
+/* ————— le tableau de correspondance ————— */
+.corresp{width:100%;border-collapse:collapse;margin-top:18px;font-size:.8rem;}
+.corresp th{
+  text-align:left;font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-tertiary);padding:0 12px 7px 0;border-bottom:2px solid var(--marine);
+}
+.corresp td{padding:7px 12px 7px 0;border-top:1px dotted var(--border);color:var(--text-secondary);vertical-align:top;}
+.corresp tbody tr:first-child td{border-top:0;}
+.corresp code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;color:var(--marine);background:rgba(24,62,87,.06);border-radius:4px;padding:1px 5px;}
+.corresp .fleche{color:var(--orange);font-weight:700;}
+.corresp td b{color:var(--marine);}
+.corresp tr.natif td{background:rgba(196,69,54,.05);}
+.corresp tr.natif code{color:var(--danger);background:rgba(196,69,54,.1);}
+
+/* ————— les remplissages du dialogue ————— */
+.jeu{display:flex;flex-direction:column;gap:0;margin:0 18px;}
+.jeu > div{padding:14px 0;border-top:1px solid var(--border);}
+.jeu > div:first-child{border-top:0;padding-top:2px;}
+.jeu .lab{
+  display:flex;align-items:center;gap:8px;margin-bottom:10px;
+  font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);
+}
+.jeu .lab::after{content:"";flex:1;height:1px;background:var(--border);}
+/* le dialogue réduit, pour la démonstration */
+.mini-dial{background:var(--bg-main);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.mini-dial .t{padding:12px 14px 0;text-align:center;}
+.mini-dial .pic{
+  width:34px;height:34px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;
+  background:var(--bg-hover);color:var(--orange-hover);
+}
+.mini-dial .pic svg{width:17px;height:17px;}
+.mini-dial .pic--danger{background:rgba(196,69,54,.1);color:var(--danger);}
+.mini-dial .pic--calme{background:var(--bg-secondary);color:var(--text-secondary);}
+.mini-dial h4{font-family:var(--titres);font-weight:800;font-size:13.5px;line-height:1.3;}
+.mini-dial .c{padding:6px 14px 0;text-align:center;font-size:11.5px;line-height:1.5;color:var(--text-secondary);}
+.mini-dial .champs{padding:10px 14px 0;display:flex;flex-direction:column;gap:7px;}
+.mini-dial .ch{
+  background:var(--paper);border:1px solid var(--border);border-radius:9px;padding:8px 11px;
+  font-size:11.5px;color:var(--marine);display:flex;align-items:center;gap:8px;
+}
+.mini-dial .ch .lb{font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);}
+.mini-dial .ch .ch-v{flex:1;font-weight:600;}
+.mini-dial .p{display:flex;gap:8px;padding:12px 14px 14px;}
+.mini-dial .p--empile{flex-direction:column;}
+.mini-dial .p > *{flex:1;}
+.mini-dial .encart{margin:10px 14px 0;text-align:left;}
+
+/* ————— la démonstration des quatre fiches ————— */
+.quatre{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:16px;margin:0 18px;}
+.mini-fiche{background:var(--bg-main);border:1px solid var(--border);border-radius:13px;overflow:hidden;}
+.mini-fiche .z{padding:9px 12px;border-bottom:1px dashed var(--border);}
+.mini-fiche .z:last-child{border-bottom:0;}
+.mini-fiche .z--vide{background:repeating-linear-gradient(135deg,transparent,transparent 7px,rgba(24,62,87,.03) 7px,rgba(24,62,87,.03) 14px);}
+.mini-fiche .k{font-size:7.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);}
+.mini-fiche .v{font-size:11px;color:var(--marine);margin-top:3px;line-height:1.4;}
+.mini-fiche .v--gris{color:var(--text-tertiary);font-style:italic;}
+.mini-fiche .tt{
+  font-family:var(--titres);font-weight:800;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--marine);color:var(--sable);padding:8px 12px;
+}
+
+.verdict{
+  border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:11px 15px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);
+  max-width:1000px;
+}
+.verdict p + p{margin-top:4px;}
+.verdict .pour::before{content:"Pour — ";font-weight:800;color:#2f7a44;}
+.verdict .contre::before{content:"Contre — ";font-weight:800;color:var(--danger);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Unification</p>
+  <h1>L'enveloppe unique</h1>
+  <p class="sub">Une trentaine de surfaces flottantes, dont deux <code>window.confirm</code> natifs et un <code>window.alert</code>. Voici les <b>deux seules enveloppes</b> qui devraient exister : la <b>fiche</b> pour montrer quelque chose, le <b>dialogue</b> pour demander quelque chose. Tout le reste n'est que remplissage.</p>
+  <p class="traits"><span><b>La règle</b> si ça montre, c'est une fiche ; si ça demande, c'est un dialogue — il n'y a pas de troisième cas</span></p>
+  <a class="retour" href="../../index.html">← Retour au design retenu</a>
+</header>
+
+<!-- ================= ANATOMIE DE LA FICHE ================= -->
+<section class="anatomie">
+  <h2>1 · La fiche — montrer quelque chose</h2>
+  <div class="filet-double" style="margin:10px 0 0"></div>
+  <div class="duo">
+    <div class="schema">
+      <div class="bloc-a">
+        <p class="nom">La coquille</p>
+        <p class="r">Feuille au doigt, dialogue centré à 520 px sur PC. Poignée, croix, voile.</p>
+      </div>
+      <div class="bloc-a">
+        <p class="nom">L'en-tête</p>
+        <p class="r">Genre en pastille, titre, signature. Sous filet double.</p>
+      </div>
+      <div class="bloc-a bloc-a--opt">
+        <p class="nom">La frise<span class="opt-t">si états</span></p>
+        <p class="r">90 px. Où en est-on.</p>
+      </div>
+      <div class="bloc-a bloc-a--opt">
+        <p class="nom">Le bandeau<span class="opt-t">si geste</span></p>
+        <p class="r">Ce qu'on attend maintenant, et le bouton.</p>
+      </div>
+      <div class="bloc-a">
+        <p class="nom">Le corps</p>
+        <p class="r">Pavé de faits, texte, listes, réactions. Le seul bloc libre.</p>
+      </div>
+      <div class="bloc-a bloc-a--opt">
+        <p class="nom">L'encart<span class="opt-t">si besoin</span></p>
+        <p class="r">Ce que ça engage, avant le pied.</p>
+      </div>
+      <div class="bloc-a bloc-a--opt">
+        <p class="nom">Le journal<span class="opt-t">si histoire</span></p>
+        <p class="r">Replié. Ce qui s'est passé.</p>
+      </div>
+      <div class="bloc-a">
+        <p class="nom">Le pied</p>
+        <p class="r">Un bouton plein au plus, puis des liens à filet.</p>
+      </div>
+    </div>
+    <div class="txt">
+      <p><b>Huit zones, dont quatre facultatives.</b> Une fiche d'annonce n'a ni frise ni journal ; une fiche de rendez-vous a les deux ; un moment ouvert n'a même pas de bouton. C'est <b>la même enveloppe</b> — seules les zones remplies changent.</p>
+      <p>L'ordre, lui, ne change jamais. C'est ce qui fait qu'on retrouve le titre au même endroit, le geste au même endroit, et les liens de sortie au même endroit, qu'on ouvre une annonce, un rendez-vous ou une publication.</p>
+      <p>Aujourd'hui ces fiches sont <b>quatre composants sans rien en commun</b> : <code>AnnouncementDetailsModal</code> (634 l.), <code>ExchangeDetailsModal</code> (2 549 l.), <code>PostDetailsModal</code> (424 l.), <code>MomentDetailsModal</code> (284 l.). Trois d'entre eux téléportent eux-mêmes, à trois plans différents, avec trois voiles différents.</p>
+      <p>Avec une enveloppe unique, chacun devient un <b>gabarit de remplissage</b> : quelles zones, dans quel état. La coquille, le voile, la fermeture au clavier, la largeur sur PC, l'empilement — tout cela n'est écrit <b>qu'une fois</b>.</p>
+    </div>
+  </div>
+
+  <table class="corresp">
+    <thead><tr><th>Aujourd'hui</th><th></th><th>Demain</th></tr></thead>
+    <tbody>
+      <tr><td><code>AnnouncementDetailsModal</code> · 634 l.</td><td class="fleche">→</td><td>Fiche · en-tête + corps + encart + pied</td></tr>
+      <tr><td><code>ExchangeDetailsModal</code> · 2 549 l.</td><td class="fleche">→</td><td>Fiche · <b>les huit zones</b></td></tr>
+      <tr><td><code>PostDetailsModal</code> · 424 l.</td><td class="fleche">→</td><td>Fiche · en-tête + corps + pied</td></tr>
+      <tr><td><code>MomentDetailsModal</code> · 284 l.</td><td class="fleche">→</td><td>Fiche · en-tête + encart + corps, <b>sans pied</b></td></tr>
+      <tr><td><code>pages/announcements/[id]/index.vue</code> · 423 l.</td><td class="fleche">→</td><td><b>Supprimée</b> — doublon de la fiche d'annonce</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================= ANATOMIE DU DIALOGUE ================= -->
+<section class="anatomie">
+  <h2>2 · Le dialogue — demander quelque chose</h2>
+  <div class="filet-double" style="margin:10px 0 0"></div>
+  <div class="duo">
+    <div class="schema">
+      <div class="bloc-a">
+        <p class="nom">Le ton</p>
+        <p class="r">Neutre, attention ou danger. Décide du picto et de la couleur du bouton.</p>
+      </div>
+      <div class="bloc-a">
+        <p class="nom">La question</p>
+        <p class="r">Posée à la première personne. « Combien de temps avez-vous donné ? »</p>
+      </div>
+      <div class="bloc-a">
+        <p class="nom">La conséquence</p>
+        <p class="r">Chiffrée quand c'est possible. Ce qui va se produire, pas ce qu'on demande.</p>
+      </div>
+      <div class="bloc-a bloc-a--opt">
+        <p class="nom">Les champs<span class="opt-t">0 à 3</span></p>
+        <p class="r">Durée, motif, choix binaire, saisie de confirmation.</p>
+      </div>
+      <div class="bloc-a bloc-a--opt">
+        <p class="nom">L'encart<span class="opt-t">si engagement</span></p>
+        <p class="r">« Alice recevra 1 heure ; votre compteur passera à 9 h 30. »</p>
+      </div>
+      <div class="bloc-a">
+        <p class="nom">Le pied</p>
+        <p class="r">Deux issues. Côte à côte, ou empilées si l'action détruit.</p>
+      </div>
+    </div>
+    <div class="txt">
+      <p><b>Six zones, dont deux facultatives.</b> Un dialogue peut n'avoir aucun champ — c'est alors une simple confirmation. Il peut en avoir trois — c'est alors ce que l'application appelle aujourd'hui une « modale de validation ». <b>C'est la même pièce.</b></p>
+      <p>La différence avec une fiche tient en une phrase : <b>une fiche se ferme sans rien décider, un dialogue attend une réponse</b>. C'est pourquoi un dialogue n'a jamais de croix seule — il a toujours deux issues explicites.</p>
+      <p>Ce composant absorbe <b>les deux <code>window.confirm</code></b>, <b>le <code>window.alert</code></b>, les six coquilles réécrites à la main, et les <b>sept popups recopiées</b> dans la fiche candidat. Soit une vingtaine de surfaces ramenées à une.</p>
+      <p>Un dialogue ne s'ouvre <b>jamais par-dessus un autre dialogue</b>. Au-dessus d'une fiche, oui — c'est le cas du signalement. Jamais trois surfaces empilées.</p>
+    </div>
+  </div>
+
+  <table class="corresp">
+    <thead><tr><th>Aujourd'hui</th><th></th><th>Demain — le dialogue, réglé ainsi</th></tr></thead>
+    <tbody>
+      <tr class="natif"><td><code>window.confirm</code> — désactiver l'annonce</td><td class="fleche">→</td><td>Ton attention · 0 champ</td></tr>
+      <tr class="natif"><td><code>window.confirm</code> — réactiver l'annonce</td><td class="fleche">→</td><td>Ton neutre · 0 champ</td></tr>
+      <tr class="natif"><td><code>window.alert</code> — annonce indisponible</td><td class="fleche">→</td><td>Pas un dialogue : une <b>notification</b></td></tr>
+      <tr><td><code>ExchangeValidateModal</code> · 187 l.</td><td class="fleche">→</td><td>Ton neutre · 1 champ durée · encart chiffré</td></tr>
+      <tr><td><code>ExchangeAcceptModal</code> · 195 l.</td><td class="fleche">→</td><td>Ton neutre · 2 choix binaires</td></tr>
+      <tr><td><code>FeedbackModal</code> · 258 l.</td><td class="fleche">→</td><td>Ton neutre · 1 choix à 3 · 1 zone de texte</td></tr>
+      <tr><td><code>AnnouncementActionPrompt</code> · 113 l.</td><td class="fleche">→</td><td>Ton neutre · 3 issues <b>empilées</b></td></tr>
+      <tr><td><code>PostReportModal</code> · 231 l.</td><td class="fleche">→</td><td>Ton danger · 1 sélecteur · 1 zone de texte</td></tr>
+      <tr><td>Suppression d'un commentaire</td><td class="fleche">→</td><td>Ton danger · 0 champ · pied empilé</td></tr>
+      <tr><td>Suppression d'un compte</td><td class="fleche">→</td><td>Ton danger · <b>saisie du nom</b> · pied empilé</td></tr>
+      <tr><td>7 popups de la fiche candidat</td><td class="fleche">→</td><td>Sept réglages du même dialogue</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="planche">
+
+  <!-- ============================================================
+       LA MÊME ENVELOPPE, QUATRE REMPLISSAGES
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">1</span><h2>Une fiche, quatre remplissages</h2><span class="route">les zones utilisées</span></figcaption>
+    <div class="phone" style="height:auto;min-height:812px;background:var(--bg-main);display:flex;flex-direction:column">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Toujours le même ordre</span></div>
+
+      <main class="feed feed--uni" style="padding:14px 0 22px">
+        <div class="quatre">
+
+          <div class="mini-fiche">
+            <p class="tt">Le rendez-vous</p>
+            <div class="z"><p class="k">En-tête</p><p class="v">Rencontre physique · Montage de l'étagère</p></div>
+            <div class="z"><p class="k">Frise</p><p class="v">5 étapes · à valider</p></div>
+            <div class="z"><p class="k">Bandeau</p><p class="v">Alice attend votre validation</p></div>
+            <div class="z"><p class="k">Corps</p><p class="v">Quand · durée · où · annonce liée</p></div>
+            <div class="z"><p class="k">Encart</p><p class="v">Rien n'est perdu si vous oubliez</p></div>
+            <div class="z"><p class="k">Journal</p><p class="v">4 évènements, replié</p></div>
+            <div class="z"><p class="k">Pied</p><p class="v">Écrire · Signaler</p></div>
+          </div>
+
+          <div class="mini-fiche">
+            <p class="tt">L'annonce</p>
+            <div class="z"><p class="k">En-tête</p><p class="v">Demande · Bricolage · N° 1042</p></div>
+            <div class="z z--vide"><p class="k">Frise</p><p class="v v--gris">une annonce n'a pas d'états</p></div>
+            <div class="z z--vide"><p class="k">Bandeau</p><p class="v v--gris">rien n'est attendu de vous</p></div>
+            <div class="z"><p class="k">Corps</p><p class="v">Texte · faits · qui a répondu</p></div>
+            <div class="z"><p class="k">Encart</p><p class="v">Ce que ça engage</p></div>
+            <div class="z z--vide"><p class="k">Journal</p><p class="v v--gris">pas d'historique</p></div>
+            <div class="z"><p class="k">Pied</p><p class="v"><b>Proposer un RDV</b> · 2 liens</p></div>
+          </div>
+
+          <div class="mini-fiche">
+            <p class="tt">La publication</p>
+            <div class="z"><p class="k">En-tête</p><p class="v">Idée · Vie du quartier</p></div>
+            <div class="z z--vide"><p class="k">Frise</p><p class="v v--gris">—</p></div>
+            <div class="z z--vide"><p class="k">Bandeau</p><p class="v v--gris">—</p></div>
+            <div class="z"><p class="k">Corps</p><p class="v">Texte · réactions · commentaires</p></div>
+            <div class="z z--vide"><p class="k">Encart</p><p class="v v--gris">—</p></div>
+            <div class="z z--vide"><p class="k">Journal</p><p class="v v--gris">—</p></div>
+            <div class="z"><p class="k">Pied</p><p class="v">Barre de rédaction</p></div>
+          </div>
+
+          <div class="mini-fiche">
+            <p class="tt">Le moment ouvert</p>
+            <div class="z"><p class="k">En-tête</p><p class="v">Moment ouvert · Café des voisins</p></div>
+            <div class="z z--vide"><p class="k">Frise</p><p class="v v--gris">rien à confirmer</p></div>
+            <div class="z z--vide"><p class="k">Bandeau</p><p class="v v--gris">rien à faire</p></div>
+            <div class="z"><p class="k">Corps</p><p class="v">Quand · où · texte</p></div>
+            <div class="z"><p class="k">Encart</p><p class="v">Ouvert à tous, sans inscription</p></div>
+            <div class="z z--vide"><p class="k">Journal</p><p class="v v--gris">—</p></div>
+            <div class="z"><p class="k">Pied</p><p class="v">2 liens, <b>aucun bouton</b></p></div>
+          </div>
+
+        </div>
+
+        <div class="encart encart--info" style="margin:18px 18px 0">
+          <b>Les zones grises ne sont pas vides : elles n'existent pas.</b> Une fiche ne rend que ce qu'on lui donne — il n'y a ni bloc replié à zéro, ni titre de section orphelin.
+        </div>
+      </main>
+    </div>
+    <p class="note">Quatre objets qui n'ont rien à voir, et pourtant <b>le même ordre de lecture</b> : ce que c'est, où l'on en est, ce qu'on attend, les faits, l'avertissement, l'histoire, les sorties. Un membre qui a ouvert une fiche les a toutes apprises.</p>
+    <div class="verdict">
+      <p class="pour">3 891 lignes de fiches deviennent une enveloppe plus quatre gabarits. La coquille, le voile, le clavier, la largeur PC et l'empilement ne s'écrivent qu'une fois.</p>
+      <p class="contre">une enveloppe trop stricte finit par contraindre. Le <b>corps</b> doit rester entièrement libre — c'est la soupape, et il faut résister à la tentation de le normer aussi.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       LE DIALOGUE, CINQ RÉGLAGES
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">2</span><h2>Un dialogue, cinq réglages</h2><span class="route">0 à 3 champs</span></figcaption>
+    <div class="phone" style="height:auto;min-height:812px;background:var(--bg-main);display:flex;flex-direction:column">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">La même pièce, cinq fois</span></div>
+
+      <main class="feed feed--uni" style="padding:12px 0 22px">
+        <div class="jeu">
+
+          <div>
+            <p class="lab">Sans champ — remplace window.confirm</p>
+            <div class="mini-dial">
+              <div class="t">
+                <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 17.4A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3.1L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg></span>
+                <h4>Mettre cette annonce en pause ?</h4>
+              </div>
+              <div class="c">Elle disparaîtra du fil. Les 3 personnes qui ont répondu pourront toujours vous écrire.</div>
+              <div class="p">
+                <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+                <button class="btn-plein btn-plein--orange" type="button">Mettre en pause</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p class="lab">Un champ — remplace la modale de validation</p>
+            <div class="mini-dial">
+              <div class="t">
+                <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg></span>
+                <h4>Combien de temps avez-vous donné ?</h4>
+              </div>
+              <div class="c">Alice avait estimé une heure.</div>
+              <div class="champs">
+                <div class="ch"><span class="lb">Durée</span><span class="ch-v">1 heure</span><span style="color:var(--text-tertiary);font-size:9px">▾</span></div>
+              </div>
+              <div class="encart encart--info"><b>Ce que ça change.</b> Votre compteur passera de 8 h 30 à 9 h 30.</div>
+              <div class="p">
+                <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+                <button class="btn-plein btn-plein--orange" type="button">Valider</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p class="lab">Trois issues — remplace l'invite après échange</p>
+            <div class="mini-dial">
+              <div class="t">
+                <span class="pic pic--calme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
+                <h4>Et votre annonce ?</h4>
+              </div>
+              <div class="c">« Une étagère à monter » est toujours en ligne.</div>
+              <div class="p p--empile">
+                <button class="btn-plein btn-plein--orange" type="button">Elle est pourvue</button>
+                <button class="btn-plein btn-plein--contour" type="button">La laisser en ligne</button>
+                <button class="lien-filet lien-filet--muet" type="button">Plus tard</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p class="lab">Ton danger — pied empilé</p>
+            <div class="mini-dial">
+              <div class="t">
+                <span class="pic pic--danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></svg></span>
+                <h4>Supprimer ce commentaire ?</h4>
+              </div>
+              <div class="c">Il disparaîtra pour tout le monde. Cette action est sans retour.</div>
+              <div class="p p--empile">
+                <button class="btn-plein btn-plein--danger" type="button">Supprimer</button>
+                <button class="btn-plein btn-plein--contour" type="button">Garder</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p class="lab">Danger fort — saisie de confirmation</p>
+            <div class="mini-dial">
+              <div class="t">
+                <span class="pic pic--danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg></span>
+                <h4>Supprimer le compte de Marc Dubois ?</h4>
+              </div>
+              <div class="c">Ses <b style="color:var(--danger)">14 échanges</b> et ses <b style="color:var(--danger)">6 h 30</b> seront perdus. Les compteurs de ses partenaires ne bougeront pas.</div>
+              <div class="champs">
+                <div class="ch"><span class="lb">Écrivez</span><span class="ch-v" style="color:var(--text-tertiary);font-weight:400">Marc Dubois</span></div>
+              </div>
+              <div class="p p--empile">
+                <button class="btn-plein btn-plein--danger" type="button">Supprimer définitivement</button>
+                <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+    <p class="note">Cinq réglages, une seule pièce. Ce qui varie : le <b>ton</b> (trois pictos, trois couleurs de bouton), le nombre de <b>champs</b> (zéro à trois), la présence d'un <b>encart</b>, et la <b>disposition du pied</b>. Ce qui ne varie jamais : la question à la première personne, la conséquence énoncée avant les boutons, et deux issues explicites.</p>
+    <div class="verdict">
+      <p class="pour">une vingtaine de surfaces ramenées à un composant réglable. Et surtout : <b>plus aucune boîte native</b>, qui ne ressemble à rien du reste.</p>
+      <p class="contre">le pied empilé met l'action dangereuse <b>en haut</b>, sous le pouce. C'est contre-intuitif mais volontaire : la lire est plus important que l'atteindre vite. À vérifier en usage.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · L'enveloppe unique · Personnes fictives.<br>
+  <a href="../../index.html">Le design retenu</a> · <a href="fiches-modales.html">Les fiches en modale</a> · <a href="rendez-vous.html">Le fil du rendez-vous</a> · <a href="../bibliotheque.html">La bibliothèque</a>
+</footer>
+</body>
+</html>
