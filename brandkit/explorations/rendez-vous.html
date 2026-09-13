@@ -107,7 +107,7 @@ body{padding:38px 20px 80px;}
   <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
   <p class="kicker">Composant à refondre</p>
   <h1>Le fil du rendez-vous</h1>
-  <p class="sub">Une frise existe déjà dans l'application — horizontale, quatre ronds sur un bandeau orange. À côté d'elle vivent <b>dix autres dispositifs chronologiques</b> qui ne se ressemblent pas. Voici la pièce unique qui les remplace, et la règle qui fixe le sort de toutes les modales sur grand écran.</p>
+  <p class="sub">Une frise existe déjà — horizontale, quatre ronds sur un bandeau orange — et à côté d'elle vivent <b>dix autres dispositifs chronologiques</b> qui ne se ressemblent pas. La frise reste horizontale, parce qu'elle est compacte ; elle est simplement <b>refondue et dédoublée</b>. Plus la règle qui fixe le sort de toutes les modales sur grand écran.</p>
   <p class="traits"><span><b>La règle</b> une feuille ne se colle pas en bas d'un écran de 1240 px : elle se centre et garde la largeur d'un téléphone</span></p>
   <a class="retour" href="../../index.html">← Retour au design retenu</a>
 </header>
@@ -140,9 +140,9 @@ body{padding:38px 20px 80px;}
   </p>
 
   <div class="alarme">
-    <p class="t">Le fil proposé fusionne la frise et le journal</p>
-    <p>Une chronologie <b>verticale</b> peut porter ce qu'une frise horizontale ne peut pas : la phrase complète, l'acteur, l'heure exacte, et <b>le bouton de l'action attendue, posé dans l'étape où elle se joue</b>. Sur 390 px, quatre étapes horizontales laissent 97 px chacune — de quoi écrire « Planifié », pas « Alice a proposé le rendez-vous ».</p>
-    <p class="dur"><b>Conséquence :</b> un seul composant remplace la frise, le bloc « Évènements » et les libellés recalculés. L'état cesse d'être une chaîne de caractères pour devenir <b>une position dans une liste</b> — il n'y a plus rien à faire diverger.</p>
+    <p class="t">Deux pièces, deux questions — au lieu d'une pièce qui n'en résout aucune</p>
+    <p>La frise reste <b>horizontale et compacte</b> : 90 px, cinq puces sur un filet. Elle répond à <b>« où en est-on ? »</b> et à rien d'autre — c'est ce qu'on veut savoir en ouvrant une fiche. Juste dessous, un bandeau sable dit ce qu'on attend <i>maintenant</i>, avec le geste : c'est ce qui manquait à la frise actuelle, qui ne peut porter qu'un libellé de deux mots.</p>
+    <p class="dur"><b>Le journal</b> répond à l'autre question — <b>« que s'est-il passé ? »</b> — et vit replié plus bas, en chronologie verticale. C'est lui qui accueille un report, une précision de lieu, une annulation. Il remplace le bloc « Évènements » existant, aujourd'hui réservé aux activités de groupe.</p>
   </div>
 </section>
 
@@ -194,63 +194,38 @@ body{padding:38px 20px 80px;}
               <p class="avec"><span class="avatar av-creme" style="width:26px;height:26px;font-size:9.5px">AN</span>Avec Alice Noël</p>
             </div>
 
-            <div class="b-faits" style="margin:14px 18px 0">
+            <div class="frise" style="margin-top:12px">
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Proposé</span><span class="d">9 juin</span></div>
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Accepté</span><span class="d">9 juin</span></div>
+              <div class="etape etape--ici"><span class="puce"></span><span class="lab">À valider</span><span class="d">14 juin</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Validé</span><span class="d">—</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Avis</span><span class="d">—</span></div>
+            </div>
+
+            <div class="frise-action">
+              <div class="c">
+                <p class="q">Depuis 2 jours</p>
+                <b>Alice attend votre validation</b>
+              </div>
+              <button class="action action--fort" type="button">Valider</button>
+            </div>
+
+            <div class="b-faits" style="margin:15px 18px 0">
               <div class="l"><span class="k">Quand</span><span class="v"><b>Samedi 14 juin</b>, 10:00</span></div>
               <div class="l"><span class="k">Durée</span><span class="v">environ 1 heure</span></div>
               <div class="l"><span class="k">Où</span><span class="v">12 rue des Lilas, Centre</span></div>
               <div class="l"><span class="k">Annonce</span><span class="v">« Une étagère à monter samedi matin »</span></div>
             </div>
 
-            <p class="sous-titre-fil">Le fil de ce rendez-vous</p>
-            <div class="fil-rdv">
-              <div class="etape">
-                <span class="puce"></span>
-                <div class="c">
-                  <p class="q">Mardi 9 juin · 9 h 04</p>
-                  <b>Alice a proposé le rendez-vous</b>
-                  <p>Samedi 14 juin à 10 h, chez elle, pour environ une heure.</p>
-                </div>
-              </div>
-              <div class="etape">
-                <span class="puce"></span>
-                <div class="c">
-                  <p class="q">Mardi 9 juin · 9 h 40</p>
-                  <b>Vous avez accepté</b>
-                  <p>Le rendez-vous est inscrit à vos deux agendas.</p>
-                </div>
-              </div>
-              <div class="etape etape--ici">
-                <span class="puce"></span>
-                <div class="c">
-                  <p class="q">Samedi 14 juin · il y a 2 jours</p>
-                  <b>L'heure est passée</b>
-                  <p>Si l'échange a bien eu lieu, validez-le : Alice recevra 1 heure sur son compteur.</p>
-                  <button class="action action--fort agir" type="button">Valider l'échange</button>
-                </div>
-              </div>
-              <div class="etape etape--avenir">
-                <span class="puce"></span>
-                <div class="c">
-                  <p class="q">Ensuite</p>
-                  <b>Alice confirme à son tour</b>
-                  <p>Les heures ne bougent qu'une fois les deux validations reçues.</p>
-                </div>
-              </div>
-              <div class="etape etape--avenir">
-                <span class="puce"></span>
-                <div class="c">
-                  <p class="q">Pour finir</p>
-                  <b>Vous laissez un mot</b>
-                  <p>Facultatif, mais c'est ce qui fait vivre les profils.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="encart encart--info" style="margin:16px 18px 0">
+            <div class="encart encart--info" style="margin:15px 18px 0">
               <b>Rien n'est perdu si vous oubliez.</b> Sans validation sous quinze jours, le bureau vous écrit, puis régularise lui-même.
             </div>
 
-            <div style="display:flex;justify-content:center;gap:18px;margin:16px 18px 6px">
+            <details class="journal" style="margin-top:15px">
+              <summary>Ce qui s'est passé <span class="n">4</span><span class="chev">▾</span></summary>
+            </details>
+
+            <div style="display:flex;justify-content:center;gap:18px;margin:14px 18px 6px">
               <button class="lien-filet lien-filet--muet" type="button">Écrire à Alice</button>
               <button class="lien-filet lien-filet--muet" type="button">Signaler un problème</button>
             </div>
@@ -258,10 +233,85 @@ body{padding:38px 20px 80px;}
         </div>
       </div>
     </div>
-    <p class="note">La fiche empile trois blocs : l'<b>en-tête</b> sous filet double, le <b>pavé de renseignements</b> — les quatre faits qu'on relit — puis <b>le fil</b>. Le geste attendu n'est pas un bouton en pied de page : il est <b>dans l'étape où il se joue</b>, à l'endroit exact du fil où l'on se trouve. C'est le seul bouton plein de l'écran.</p>
+    <p class="note">La frise tient en <b>90 px</b> : cinq puces sur un filet, un mot sous chacune, la date en dessous. Elle ne dit qu'une chose — <b>où l'on en est</b> — et c'est suffisant en tête de fiche. Juste dessous, un bandeau sable énonce ce qu'on attend <i>maintenant</i>, avec le geste. Le détail de ce qui s'est passé vit dans un <b>journal replié</b>, plus bas : qui veut relire y va, les autres ne le voient pas.</p>
     <div class="verdict">
-      <p class="pour">on comprend en trois secondes où en est l'échange, qui a fait quoi, et ce qui reste — sans lire une seule pastille de statut.</p>
-      <p class="contre">le fil s'allonge avec les reports et les annulations. Au-delà de six étapes, il faudra replier les plus anciennes derrière un « voir tout l'historique ».</p>
+      <p class="pour">la frise et le bandeau tiennent ensemble dans la hauteur d'une seule carte. On sait où l'on en est <b>et</b> ce qu'on doit faire, sans défiler.</p>
+      <p class="contre">cinq étapes sur 390 px, c'est 78 px par libellé — « À valider » passe, « En attente de validation » non. Le vocabulaire doit être court, et il ne l'est pas aujourd'hui.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       1 BIS · LE JOURNAL DÉPLIÉ
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">1 bis</span><h2>Le journal déplié</h2><span class="route">le détail, à la demande</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Vos rendez-vous</span></div>
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille feuille--haute">
+          <span class="poignee"></span>
+          <div class="corps">
+            <div class="frise">
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Proposé</span><span class="d">9 juin</span></div>
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Accepté</span><span class="d">9 juin</span></div>
+              <div class="etape etape--ici"><span class="puce"></span><span class="lab">À valider</span><span class="d">14 juin</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Validé</span><span class="d">—</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Avis</span><span class="d">—</span></div>
+            </div>
+
+            <details class="journal" open style="margin-top:4px">
+              <summary>Ce qui s'est passé <span class="n">4</span><span class="chev">▾</span></summary>
+              <div class="fil-rdv" style="margin:4px 0 12px">
+                <div class="etape">
+                  <span class="puce"></span>
+                  <div class="c">
+                    <p class="q">Mardi 9 juin · 9 h 04</p>
+                    <b>Alice a proposé le rendez-vous</b>
+                    <p>Samedi 14 juin à 10 h, chez elle, pour environ une heure.</p>
+                  </div>
+                </div>
+                <div class="etape">
+                  <span class="puce"></span>
+                  <div class="c">
+                    <p class="q">Mardi 9 juin · 9 h 40</p>
+                    <b>Vous avez accepté</b>
+                    <p>Le rendez-vous est inscrit à vos deux agendas.</p>
+                  </div>
+                </div>
+                <div class="etape">
+                  <span class="puce"></span>
+                  <div class="c">
+                    <p class="q">Jeudi 12 juin · 18 h 22</p>
+                    <b>Alice a précisé le lieu</b>
+                    <p>« La sonnette est au nom de Noël, deuxième étage. »</p>
+                  </div>
+                </div>
+                <div class="etape etape--ici">
+                  <span class="puce"></span>
+                  <div class="c">
+                    <p class="q">Samedi 14 juin · 11 h 00</p>
+                    <b>L'heure est passée</b>
+                    <p>Les deux validations sont attendues. La vôtre d'abord.</p>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <div class="b-faits" style="margin:2px 18px 0">
+              <div class="l"><span class="k">Quand</span><span class="v"><b>Samedi 14 juin</b>, 10:00</span></div>
+              <div class="l"><span class="k">Où</span><span class="v">12 rue des Lilas, Centre</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Le journal déplié reprend <b>exactement</b> la chronologie verticale : filet ponctué, puces pleines pour ce qui est fait, orange pour l'instant présent. Il accueille ce que la frise ne peut pas porter — une précision de lieu envoyée en cours de route, un report, une annulation. <b>Il remplace le bloc « Évènements »</b> de l'application, qui existe déjà mais uniquement pour les activités de groupe.</p>
+    <div class="verdict">
+      <p class="pour">deux niveaux de lecture avec une seule géométrie : la frise résume, le journal détaille, et les deux parlent le même langage de puces et de filets.</p>
+      <p class="contre">replié par défaut, un journal n'est presque jamais ouvert. Il faut accepter qu'il serve aux litiges et à la curiosité, pas à l'usage courant.</p>
     </div>
   </figure>
 
@@ -269,68 +319,86 @@ body{padding:38px 20px 80px;}
        2 · LES CINQ ÉTATS
        ============================================================ -->
   <figure class="ecran">
-    <figcaption><span class="n n--neuf">2</span><h2>Les cinq états</h2><span class="route">le fil en abrégé</span></figcaption>
+    <figcaption><span class="n n--neuf">2</span><h2>Les cinq états</h2><span class="route">la frise seule</span></figcaption>
     <div class="phone" style="height:auto;min-height:812px;background:var(--bg-main);display:flex;flex-direction:column">
       <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg></span></div>
-      <div class="tb tb--clair"><span class="titre">Un fil, cinq issues</span></div>
+      <div class="tb tb--clair"><span class="titre">Une frise, cinq arrêts</span></div>
 
-      <main class="feed feed--uni" style="padding:14px 0 22px">
+      <main class="feed feed--uni" style="padding:10px 0 22px">
         <div class="etats-jeu">
 
           <div>
             <p class="lab">Proposé — on attend une réponse</p>
-            <div class="fil-rdv fil-rdv--bref" style="margin:0">
-              <div class="etape etape--ici"><span class="puce"></span><div class="c"><p class="q">Aujourd'hui · 9 h 04</p><b>Alice a proposé le rendez-vous</b></div></div>
-              <div class="etape etape--avenir"><span class="puce"></span><div class="c"><p class="q">Ensuite</p><b>Vous acceptez ou proposez autre chose</b></div></div>
+            <div class="frise" style="border:1px solid var(--border);border-radius:11px">
+              <div class="etape etape--ici"><span class="puce"></span><span class="lab">Proposé</span><span class="d">aujourd&rsquo;hui</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Accepté</span><span class="d">—</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">À valider</span><span class="d">—</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Validé</span><span class="d">—</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Avis</span><span class="d">—</span></div>
             </div>
           </div>
 
           <div>
-            <p class="lab">Accepté — c'est inscrit</p>
-            <div class="fil-rdv fil-rdv--bref" style="margin:0">
-              <div class="etape"><span class="puce"></span><div class="c"><p class="q">9 juin</p><b>Alice a proposé le rendez-vous</b></div></div>
-              <div class="etape etape--ici"><span class="puce"></span><div class="c"><p class="q">9 juin · 9 h 40</p><b>Vous avez accepté</b></div></div>
-              <div class="etape etape--avenir"><span class="puce"></span><div class="c"><p class="q">Samedi 14 juin</p><b>Le rendez-vous a lieu</b></div></div>
+            <p class="lab">Accepté — c&rsquo;est inscrit</p>
+            <div class="frise" style="border:1px solid var(--border);border-radius:11px">
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Proposé</span><span class="d">9 juin</span></div>
+              <div class="etape etape--ici"><span class="puce"></span><span class="lab">Accepté</span><span class="d">9 juin</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">À valider</span><span class="d">14 juin</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Validé</span><span class="d">—</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Avis</span><span class="d">—</span></div>
             </div>
           </div>
 
           <div>
             <p class="lab">À valider — le geste attendu</p>
-            <div class="fil-rdv fil-rdv--bref" style="margin:0">
-              <div class="etape"><span class="puce"></span><div class="c"><p class="q">9 juin</p><b>Vous avez accepté</b></div></div>
-              <div class="etape etape--ici"><span class="puce"></span><div class="c"><p class="q">Il y a 2 jours</p><b>L'heure est passée</b></div></div>
-              <div class="etape etape--avenir"><span class="puce"></span><div class="c"><p class="q">Ensuite</p><b>Alice confirme à son tour</b></div></div>
+            <div class="frise" style="border:1px solid var(--border);border-radius:11px 11px 0 0;border-bottom:0">
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Proposé</span><span class="d">9 juin</span></div>
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Accepté</span><span class="d">9 juin</span></div>
+              <div class="etape etape--ici"><span class="puce"></span><span class="lab">À valider</span><span class="d">14 juin</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Validé</span><span class="d">—</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Avis</span><span class="d">—</span></div>
+            </div>
+            <div class="frise-action" style="border:1px solid #efdcae;border-radius:0 0 11px 11px">
+              <div class="c"><p class="q">Depuis 2 jours</p><b>Alice attend votre validation</b></div>
+              <button class="action action--fort" type="button">Valider</button>
             </div>
           </div>
 
           <div>
             <p class="lab">Validé — les heures ont bougé</p>
-            <div class="fil-rdv fil-rdv--bref" style="margin:0">
-              <div class="etape"><span class="puce"></span><div class="c"><p class="q">14 juin</p><b>L'échange a eu lieu</b></div></div>
-              <div class="etape"><span class="puce"></span><div class="c"><p class="q">16 juin</p><b>Vous avez tous deux validé</b></div></div>
-              <div class="etape etape--ici"><span class="puce"></span><div class="c"><p class="q">16 juin · 18 h 12</p><b>1 heure portée à votre compteur</b></div></div>
+            <div class="frise" style="border:1px solid var(--border);border-radius:11px 11px 0 0;border-bottom:0">
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Proposé</span><span class="d">9 juin</span></div>
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Accepté</span><span class="d">9 juin</span></div>
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">À valider</span><span class="d">14 juin</span></div>
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Validé</span><span class="d">16 juin</span></div>
+              <div class="etape etape--ici"><span class="puce"></span><span class="lab">Avis</span><span class="d">à donner</span></div>
+            </div>
+            <div class="frise-action frise-action--calme" style="border:1px solid var(--border);border-radius:0 0 11px 11px">
+              <div class="c"><p class="q">Le 16 juin</p><b>1 heure portée à votre compteur</b></div>
+              <button class="lien-filet" type="button">Laisser un mot</button>
             </div>
           </div>
 
           <div>
-            <p class="lab">Annulé — le fil s'arrête</p>
-            <div class="fil-rdv fil-rdv--bref" style="margin:0">
-              <div class="etape"><span class="puce"></span><div class="c"><p class="q">9 juin</p><b>Vous avez accepté</b></div></div>
-              <div class="etape etape--annule"><span class="puce"></span><div class="c"><p class="q">13 juin · 20 h 05</p><b>Alice a annulé — empêchement</b></div></div>
+            <p class="lab">Annulé — la frise s&rsquo;arrête</p>
+            <div class="frise" style="border:1px solid var(--border);border-radius:11px">
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Proposé</span><span class="d">9 juin</span></div>
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Accepté</span><span class="d">9 juin</span></div>
+              <div class="etape etape--annule"><span class="puce"></span><span class="lab">Annulé</span><span class="d">13 juin</span></div>
             </div>
           </div>
 
         </div>
 
         <div class="encart encart--info" style="margin:18px 18px 0">
-          <b>Une seule pièce, cinq remplissages.</b> Ce n'est pas cinq composants : c'est le même fil, arrêté à un endroit différent. La puce orange marque toujours <b>où l'on en est</b>, et rien d'autre ne bouge.
+          <b>Une seule pièce, cinq remplissages.</b> La puce orange marque toujours où l&rsquo;on en est. En cas d&rsquo;annulation, la frise <b>se raccourcit</b> au lieu de garder des étapes grises qui n&rsquo;arriveront jamais.
         </div>
       </main>
     </div>
-    <p class="note">En version brève — dans une carte, une colonne latérale, une ligne de liste — le fil perd ses descriptions et ne garde que les dates et les titres. La géométrie est identique : mêmes puces, même filet, mêmes couleurs. On peut donc le poser à peu près partout sans le redessiner.</p>
+    <p class="note">Cinq arrêts possibles pour la même frise. Le bandeau sable ne s&rsquo;affiche que <b>s&rsquo;il y a quelque chose à faire</b> — et il passe au gris quand il ne fait que constater. L&rsquo;annulation est le seul cas où le nombre d&rsquo;étapes change : garder « Validé » et « Avis » en gris après une annulation promettrait un avenir qui n&rsquo;existe plus.</p>
     <div class="verdict">
-      <p class="pour">un seul composant remplace les pastilles de statut, les libellés recalculés et les historiques dispersés. L'état n'est plus une chaîne de caractères mais une position.</p>
-      <p class="contre">un fil prend cinq fois plus de place qu'une pastille. Dans une liste dense, la pastille reste nécessaire — les deux doivent coexister sans se contredire.</p>
+      <p class="pour">90 px suffisent à porter l&rsquo;état complet d&rsquo;un échange. C&rsquo;est quatre fois moins qu&rsquo;une chronologie verticale, pour la même information de position.</p>
+      <p class="contre">une frise ne peut pas montrer un report — le rendez-vous décalé du 14 au 21 reste « Accepté ». Seul le journal peut le dire.</p>
     </div>
   </figure>
 
@@ -393,6 +461,19 @@ body{padding:38px 20px 80px;}
               <p class="avec"><span class="avatar av-creme" style="width:26px;height:26px;font-size:9.5px">AN</span>Avec Alice Noël</p>
             </div>
 
+            <div class="frise" style="margin-top:12px">
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Proposé</span><span class="d">9 juin</span></div>
+              <div class="etape etape--faite"><span class="puce"></span><span class="lab">Accepté</span><span class="d">9 juin</span></div>
+              <div class="etape etape--ici"><span class="puce"></span><span class="lab">À valider</span><span class="d">14 juin</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Validé</span><span class="d">—</span></div>
+              <div class="etape"><span class="puce"></span><span class="lab">Avis</span><span class="d">—</span></div>
+            </div>
+
+            <div class="frise-action">
+              <div class="c"><p class="q">Depuis 2 jours</p><b>Alice attend votre validation</b></div>
+              <button class="action action--fort" type="button">Valider</button>
+            </div>
+
             <div class="b-faits" style="margin:14px 18px 0">
               <div class="l"><span class="k">Quand</span><span class="v"><b>Samedi 14 juin</b>, 10:00</span></div>
               <div class="l"><span class="k">Durée</span><span class="v">environ 1 heure</span></div>
@@ -400,30 +481,9 @@ body{padding:38px 20px 80px;}
               <div class="l"><span class="k">Annonce</span><span class="v">« Une étagère à monter samedi matin »</span></div>
             </div>
 
-            <p class="sous-titre-fil">Le fil de ce rendez-vous</p>
-            <div class="fil-rdv">
-              <div class="etape">
-                <span class="puce"></span>
-                <div class="c"><p class="q">Mardi 9 juin · 9 h 04</p><b>Alice a proposé le rendez-vous</b><p>Samedi 14 juin à 10 h, chez elle, pour environ une heure.</p></div>
-              </div>
-              <div class="etape">
-                <span class="puce"></span>
-                <div class="c"><p class="q">Mardi 9 juin · 9 h 40</p><b>Vous avez accepté</b><p>Le rendez-vous est inscrit à vos deux agendas.</p></div>
-              </div>
-              <div class="etape etape--ici">
-                <span class="puce"></span>
-                <div class="c">
-                  <p class="q">Samedi 14 juin · il y a 2 jours</p>
-                  <b>L'heure est passée</b>
-                  <p>Si l'échange a bien eu lieu, validez-le : Alice recevra 1 heure sur son compteur.</p>
-                  <button class="action action--fort agir" type="button">Valider l'échange</button>
-                </div>
-              </div>
-              <div class="etape etape--avenir">
-                <span class="puce"></span>
-                <div class="c"><p class="q">Ensuite</p><b>Alice confirme à son tour</b><p>Les heures ne bougent qu'une fois les deux validations reçues.</p></div>
-              </div>
-            </div>
+            <details class="journal" style="margin-top:15px">
+              <summary>Ce qui s&rsquo;est passé <span class="n">4</span><span class="chev">▾</span></summary>
+            </details>
 
             <div style="display:flex;justify-content:center;gap:18px;margin:18px 18px 4px">
               <button class="lien-filet lien-filet--muet" type="button">Écrire à Alice</button>
