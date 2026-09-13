@@ -16,14 +16,25 @@
      s'insère dans le fil sous forme de faire-part.
      ============================================================ */
   :root{
-    --marine:#183e57;--marine-hover:#0f2f44;--orange:#d65e1c;--orange-hover:#b84e17;
-    --sable:#fcdb81;--sable-hover:#f5cb5c;--success:#4a9d5f;--danger:#c44536;--warning:#d97706;
+    --marine:#183e57;--marine-hover:#0f2f44;--orange:#b84e17;--orange-hover:#a34413;--orange-vif:#d65e1c;
+    --sable:#fcdb81;--sable-hover:#f5cb5c;--success:#2f7a44;--success-vif:#4a9d5f;--danger:#c44536;--warning:#b45309;--warning-vif:#d97706;
     --bg-main:#f7f6f3;--bg-secondary:#f3f3f5;--bg-hover:#fdf1d7;
     --text-secondary:#4b5563;--text-tertiary:#717182;--border:#d6dbe2;--paper:#fffdf6;
     --grad-hero:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
     --titres:'Nunito',sans-serif;--corps:'Inter',sans-serif;--radius-app:34px;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
+
+  /* L'anneau de focus est double : le sable seul sur du papier mesure 1,32,
+     il est invisible. Marine sur clair (11,06), halo sable sur marine (8,36). */
+  :where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
+    outline:2px solid var(--marine);outline-offset:2px;
+    box-shadow:0 0 0 5px var(--sable);border-radius:4px;
+  }
+  .tete :focus-visible,.bandeau-delegation :focus-visible,.b-manchette :focus-visible{
+    outline-color:var(--sable);box-shadow:0 0 0 5px rgba(24,62,87,.55);
+  }
+
   html,body{height:100%;}
   body{
     font-family:var(--corps);background:#e7e4dc;

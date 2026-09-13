@@ -234,16 +234,22 @@ footer a{color:var(--marine);font-weight:600;}
     <div class="demo demo--papier">
       <div class="nuancier">
         <div class="nuance"><div class="pot" style="background:#183e57"></div><div class="n">Marine</div><div class="h">#183e57</div></div>
-        <div class="nuance"><div class="pot" style="background:#d65e1c"></div><div class="n">Orange</div><div class="h">#d65e1c</div></div>
+        <div class="nuance"><div class="pot" style="background:#b84e17"></div><div class="n">Orange</div><div class="h">#b84e17</div></div>
         <div class="nuance"><div class="pot" style="background:#fcdb81"></div><div class="n">Sable</div><div class="h">#fcdb81</div></div>
         <div class="nuance"><div class="pot" style="background:#fffdf6"></div><div class="n">Papier</div><div class="h">#fffdf6</div></div>
-        <div class="nuance"><div class="pot" style="background:#4a9d5f"></div><div class="n">Succès</div><div class="h">#4a9d5f</div></div>
+        <div class="nuance"><div class="pot" style="background:#2f7a44"></div><div class="n">Succès</div><div class="h">#2f7a44</div></div>
         <div class="nuance"><div class="pot" style="background:#c44536"></div><div class="n">Danger</div><div class="h">#c44536</div></div>
+      </div>
+      <div class="nuancier" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)">
+        <div class="nuance"><div class="pot" style="background:#d65e1c"></div><div class="n">Orange vif</div><div class="h">#d65e1c</div></div>
+        <div class="nuance"><div class="pot" style="background:#4a9d5f"></div><div class="n">Succès vif</div><div class="h">#4a9d5f</div></div>
+        <div class="nuance"><div class="pot" style="background:#d97706"></div><div class="n">Avert. vif</div><div class="h">#d97706</div></div>
       </div>
     </div>
     <div class="fiche-pied">
-      Trois encres de marque, deux encres d'état, un papier.
+      Trois encres de marque, deux encres d'état, un papier — puis trois teintes vives d'ornement.
       <p class="regle"><b>Règle :</b> l'orange est une exclamation, jamais une phrase — 5 % de la surface au plus.</p>
+      <p class="regle"><b>Règle :</b> les teintes <b>vives</b> ne portent jamais de texte et n'en reçoivent jamais. Elles sont réservées aux filets, aux puces et aux barres, où le minimum de contraste est 3 et non 4,5. Les encres, elles, mesurent toutes au moins <b>4,85</b> sur le papier.</p>
       <p class="dette">Aujourd'hui : <b>deux familles de jetons</b> cohabitent (sémantiques et <code>sand-*</code>/<code>navy-*</code>), plus des hexadécimaux en dur dans quatre fichiers.</p>
     </div>
   </article>
@@ -786,7 +792,7 @@ footer a{color:var(--marine);font-weight:600;}
   </article>
 
   <article class="fiche">
-    <div class="fiche-tete"><h3>Le dialogue</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="fiche-tete"><h3>Où se pose le dialogue</h3><span class="statut statut--fusionner">À fusionner</span></div>
     <div class="demo demo--centre">
       <div class="mini-tel">
         <div class="mini-tb"></div>
@@ -801,8 +807,8 @@ footer a{color:var(--marine);font-weight:600;}
       </div>
     </div>
     <div class="fiche-pied">
-      Décision binaire, aucune saisie, conséquence chiffrée énoncée avant la question.
-      <p class="regle"><b>Règle :</b> s'il faut remplir quelque chose, ce n'est pas un dialogue mais une feuille.</p>
+      La pose, pas le contenu : centré, sur un voile, au plan des passagers. Le contrat du dialogue lui-même est décrit plus bas, dans <b>l'enveloppe qui demande</b>.
+      <p class="regle"><b>Règle :</b> sur grand écran il se centre aussi et plafonne à <b>440 px</b> — donc aucun travail responsive sur son contenu.</p>
       <p class="dette"><b>Six copies</b> du même dialogue moyen : trois modales de composant et trois écrites directement dans des pages d'administration.</p>
     </div>
   </article>
@@ -864,9 +870,10 @@ footer a{color:var(--marine);font-weight:600;}
       </div>
     </div>
     <div class="fiche-pied">
-      L'enveloppe de tout ce qui <b>demande</b>. Six zones, cinq réglages : le ton, zéro à trois champs, l'encart, la disposition du pied.
+      L'enveloppe de tout ce qui <b>demande</b>. Six zones, cinq réglages : le ton, zéro à trois champs, l'encart, la disposition du pied. <b>C'est ici que vit le contrat</b> ; la fiche « où se pose le dialogue » n'en décrit que la pose.
       <p class="regle"><b>Règle :</b> une fiche se ferme sans rien décider, <b>un dialogue attend une réponse</b> — il a donc toujours deux issues explicites, jamais une croix seule. Un dialogue ne s'ouvre jamais au-dessus d'un dialogue.</p>
-      <p class="dette">Absorbe <b>deux <code>window.confirm</code></b>, un <code>window.alert</code>, six coquilles réécrites à la main et <b>sept popups recopiées</b> dans un seul fichier.</p>
+      <p class="regle"><b>Une exception, et une seule :</b> un dialogue peut n'avoir qu'une issue s'il exige une information sans laquelle rien d'autre ne fonctionne — le cas des informations obligatoires au démarrage. Toute autre entorse est un bogue.</p>
+      <p class="dette">Absorbe <b>14 dialogues natifs répartis dans 12 fichiers</b>, six coquilles réécrites à la main et <b>sept popups recopiées</b> dans un seul fichier. Attention : <b>sept fichiers de test attendent ces dialogues natifs</b> et cassent au remplacement.</p>
     </div>
   </article>
 

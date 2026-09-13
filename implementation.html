@@ -153,7 +153,14 @@ footer a{color:var(--marine);font-weight:600;}
 <div class="regle">
   <div class="tete"><span class="cle">S4</span><h3>Un état est une position, pas une chaîne</h3></div>
   <p>L'état d'un échange se calcule <b>une fois</b>, au même endroit, et se rend par la position de la puce dans la frise. Les libellés vivent dans <b>une seule table</b>.</p>
-  <p class="pourquoi"><b>Pourquoi —</b> il existe aujourd'hui quatre tables parallèles de libellés. Le même échange s'affiche « Terminé » ici et « Complété » là ; « Annulé » est rouge dans un fichier et gris dans un autre.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> il existe aujourd'hui plusieurs tables parallèles de libellés — le module censé être canonique en contient déjà <b>deux</b> à lui seul. Le même échange s'affiche « Terminé » ici et « Complété » là ; « Annulé » est rouge dans un fichier et gris dans un autre.</p>
+  <p class="pourquoi" style="border-left-color:var(--danger)"><b>À compléter —</b> la charte dessine <b>quatre</b> pastilles d'état, le code en affiche <b>neuf</b>. Manquent : expiré, refusé, déclaré, partiellement terminé, et la distinction accepté / confirmé.</p>
+</div>
+
+<div class="regle">
+  <div class="tete"><span class="cle">S5</span><h3>Au-delà de 980 px, un carrousel devient une grille</h3></div>
+  <p>Même quand le reste de la mise en page <b>reprend l'ordre du mobile</b>, une bande qui défile horizontalement se déplie en grille dès qu'on est sur grand écran. Sans exception.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> cinq zones de l'accueil défilent horizontalement. Au doigt c'est naturel ; à la souris, <b>il n'existe aucun geste évident</b> — il faut Maj et molette. Sans cette règle, le palier grand écran le plus étroit ramènerait ces carrousels devant quelqu'un qui ne peut pas les faire défiler.</p>
 </div>
 
 <!-- ================= SURFACES ================= -->
@@ -167,9 +174,10 @@ footer a{color:var(--marine);font-weight:600;}
 </div>
 
 <div class="regle">
-  <div class="tete"><span class="cle">F2</span><h3>Jamais trois surfaces empilées</h3></div>
-  <p>Un dialogue peut s'ouvrir <b>au-dessus d'une fiche</b> — c'est le cas du signalement. Un dialogue ne s'ouvre <b>jamais</b> au-dessus d'un dialogue. Au troisième niveau, on ferme le premier.</p>
-  <p class="pourquoi"><b>Pourquoi —</b> l'application masque aujourd'hui une modale, mémorise son état, et la remonte 350 ms plus tard sur un évènement <code>window</code>. Cette mécanique existe uniquement parce que deux surfaces partagent le même plan.</p>
+  <div class="tete"><span class="cle">F2</span><h3>Jamais trois surfaces <i>visibles</i></h3></div>
+  <p>Un dialogue peut s'ouvrir <b>au-dessus d'une fiche</b> — c'est le cas du signalement. Un dialogue ne s'ouvre <b>jamais</b> au-dessus d'un dialogue.</p>
+  <p class="pourquoi"><b>Pourquoi —</b> au-delà de deux surfaces superposées, on ne sait plus ce qu'on ferme.</p>
+  <p class="pourquoi" style="border-left-color:var(--danger)"><b>Amendé —</b> la règle disait « jamais trois surfaces empilées », ce qui condamnait à tort la pile d'overlays existante. Or celle-ci <b>masque</b> une surface, mémorise son état et la <b>remonte</b> à la fermeture de la suivante, en suivant l'historique du navigateur : à aucun moment trois surfaces ne sont visibles ensemble. <b>L'empilement mémorisé est autorisé — c'est même ce qui évite la superposition.</b> Le délai de remontée de 350 ms vit dans les feuilles elles-mêmes, pas dans la pile.</p>
 </div>
 
 <div class="regle">
@@ -198,6 +206,7 @@ footer a{color:var(--marine);font-weight:600;}
   <div class="tete"><span class="cle">C1</span><h3>Un seul bouton plein par écran</h3></div>
   <p>Tout le reste passe en <b>pastille en contour</b> ou en <b>lien à filet</b>. Trois niveaux d'action, jamais plus. Deux exceptions, et deux seulement : le pied d'un <b>dialogue</b> (deux issues doivent être également atteignables) et un <b>pied empilé destructif</b>.</p>
   <p class="pourquoi"><b>Pourquoi —</b> un écran où tout est mis en avant est un écran où rien ne l'est. <code>AppButton</code> expose douze variantes ; il devrait en exposer quatre.</p>
+  <p class="pourquoi" style="border-left-color:var(--danger)"><b>À compléter —</b> sur ces douze variantes, <b>six sont mortes</b> (zéro usage) mais deux vivantes n'ont aucun équivalent ici : la variante <b>fantôme</b> (10 usages) et la variante <b>blanche sur marine</b>. Le lien à filet ne les remplace pas — il n'a ni la même hauteur ni la même zone de clic. Deux fiches à produire avant le palier des primitives.</p>
 </div>
 
 <div class="regle">
@@ -282,6 +291,8 @@ footer a{color:var(--marine);font-weight:600;}
   <div class="tete"><span class="cle">A11Y</span><h3>Le clavier n'est pas optionnel</h3></div>
   <p>Toute liste d'options custom gère <b>les flèches haut et bas</b>, <b>Entrée</b> et <b>Échap</b>, et porte <code>role="combobox"</code>, <code>aria-expanded</code>, <code>aria-activedescendant</code>. Tout libellé est associé à son champ par <code>for</code>/<code>id</code>.</p>
   <p class="pourquoi"><b>Pourquoi —</b> aucun des sept sélecteurs actuels ne gère les flèches, et dans l'un d'eux les options ne sont câblées que sur <code>@mousedown.prevent</code> : <b>la sélection est impossible au clavier</b>, sur sept points d'usage.</p>
+  <p><b>L'anneau de focus est double</b> — encre marine, puis halo sable — et s'inverse sur les aplats marine. Une seule couleur ne peut pas convenir partout : le sable seul sur du papier mesure <b>1,32</b>, il est invisible. WCAG demande <b>3</b> au minimum ; les deux anneaux mesurent respectivement 11,06 sur clair et 8,36 sur marine.</p>
+  <p class="pourquoi" style="border-left-color:var(--danger)"><b>Corrigé —</b> cette règle existait sans son application : la feuille de style ne contenait <b>aucun <code>:focus-visible</code></b>, et la couleur de focus prescrite était précisément celle qui ne se voit pas. Une règle qu'on ne peut pas suivre n'est pas une règle.</p>
 </div>
 
 <!-- ================= LISTE DE VÉRIFICATION ================= -->

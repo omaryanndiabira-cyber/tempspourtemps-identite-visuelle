@@ -16,10 +16,13 @@
 :root{
   /* Signature */
   --marine:#183e57;        --marine-hover:#0f2f44;
-  --orange:#d65e1c;        --orange-hover:#b84e17;
+  --orange:#b84e17;        --orange-hover:#a34413;   /* encre · 4,98 sur le papier */
+  --orange-vif:#d65e1c;                              /* ornement · 3,77 — jamais de texte */
   --sable:#fcdb81;         --sable-hover:#f5cb5c;
-  /* Sémantique */
-  --success:#4a9d5f; --danger:#c44536; --warning:#d97706; --info:#183e57;
+  /* Sémantique — encre d'abord, ornement ensuite */
+  --success:#2f7a44; --success-vif:#4a9d5f;
+  --warning:#b45309; --warning-vif:#d97706;
+  --danger:#c44536;  --info:#183e57;
   /* Neutres */
   --bg-main:#f7f6f3; --bg-secondary:#f3f3f5; --bg-hover:#fdf1d7;
   --text-secondary:#4b5563; --text-tertiary:#717182; --border:#d6dbe2;
@@ -694,13 +697,14 @@ footer.pied .coeur{color:var(--orange);}
         </div>
         <div class="swatch">
           <span class="epingle"></span>
-          <div class="pot" style="background:#d65e1c;">
-            <span class="goutte-hover" style="background:#b84e17;" title="Hover #b84e17"></span>
+          <div class="pot" style="background:#b84e17;">
+            <span class="goutte-hover" style="background:#d65e1c;" title="Ornement #d65e1c"></span>
           </div>
           <div class="infos">
-            <div class="nom">Orange brûlée</div>
-            <div class="hex">#d65e1c</div>
-            <div class="usage">Action, chaleur · hover <b>#b84e17</b></div>
+            <div class="nom">Orange brûlée — l'encre</div>
+            <div class="hex">#b84e17</div>
+            <div class="usage">Action, chaleur · <b>4,98</b> sur le papier, conforme AA · survol <b>#a34413</b><br>
+            <b style="color:#b84e17">Ornement seul : #d65e1c</b> (3,77) — filets, puces et barres, <b>jamais de texte</b></div>
           </div>
         </div>
         <div class="swatch">
@@ -731,8 +735,8 @@ footer.pied .coeur{color:var(--orange);}
       <div class="rangee-swatches">
         <div class="swatch petit">
           <span class="epingle"></span>
-          <div class="pot" style="background:#4a9d5f;"></div>
-          <div class="infos"><div class="nom">Success</div><div class="hex">#4a9d5f</div></div>
+          <div class="pot" style="background:#2f7a44;"><span class="goutte-hover" style="background:#4a9d5f;" title="Ornement #4a9d5f"></span></div>
+          <div class="infos"><div class="nom">Succès</div><div class="hex">#2f7a44</div><div class="usage" style="font-size:.68rem">5,17 · ornement <b>#4a9d5f</b></div></div>
         </div>
         <div class="swatch petit">
           <span class="epingle"></span>
@@ -741,8 +745,8 @@ footer.pied .coeur{color:var(--orange);}
         </div>
         <div class="swatch petit">
           <span class="epingle"></span>
-          <div class="pot" style="background:#d97706;"></div>
-          <div class="infos"><div class="nom">Warning</div><div class="hex">#d97706</div></div>
+          <div class="pot" style="background:#b45309;"><span class="goutte-hover" style="background:#d97706;" title="Ornement #d97706"></span></div>
+          <div class="infos"><div class="nom">Avertissement</div><div class="hex">#b45309</div><div class="usage" style="font-size:.68rem">4,93 · ornement <b>#d97706</b></div></div>
         </div>
         <div class="swatch petit">
           <span class="epingle"></span>
