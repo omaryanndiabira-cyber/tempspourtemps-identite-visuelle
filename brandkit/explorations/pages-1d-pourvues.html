@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les annonces pourvues · éviter la pollution des échanges</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  /* le billet de réveil : une annonce qui dort */
+  .billet-avis--reveil{border-top-color:var(--marine);}
+  .billet-avis--reveil .k{color:var(--marine);}
+
+  /* une annonce pourvue : elle reste, mais elle s'efface */
+  .annonce--pourvue{background:var(--bg-secondary);border-style:dashed;}
+  .annonce--pourvue .an-titre{color:var(--text-tertiary);text-decoration:line-through;text-decoration-thickness:1px;}
+  .annonce--pourvue .an-texte,.annonce--pourvue .an-sign{color:var(--text-tertiary);}
+  .annonce--pourvue .an-tete{border-bottom-color:rgba(24,62,87,.12);}
+  .denouement{
+    display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);
+    font-size:11.5px;color:#2f7a44;
+  }
+  .denouement svg{width:14px;height:14px;flex:none;}
+  .denouement b{font-family:var(--titres);font-weight:800;}
+
+  /* les options d'une question posée en feuille */
+  .choix-question{display:flex;flex-direction:column;padding:0 12px;}
+  .choix-question button{
+    display:flex;align-items:center;gap:12px;padding:13px 8px;border:0;background:none;cursor:pointer;
+    text-align:left;border-bottom:1px solid var(--border);color:inherit;
+  }
+  .choix-question button:last-child{border-bottom:0;}
+  .choix-question .rond{
+    width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    background:var(--sable);color:var(--marine);border:1px solid var(--sable-hover);
+  }
+  .choix-question .rond svg{width:19px;height:19px;}
+  .choix-question b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;}
+  .choix-question span.d{display:block;font-size:11px;color:var(--text-tertiary);margin-top:2px;}
+
+  /* le rappel de l'objet concerné dans une feuille */
+  .rappel{
+    margin:0 18px 12px;background:var(--paper);border:1px solid var(--border);border-radius:11px;
+    padding:9px 12px 9px 13px;position:relative;
+  }
+  .rappel::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;background:var(--orange);border-radius:0 3px 3px 0;}
+  .rappel .k{font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-hover);}
+  .rappel b{display:block;font-family:var(--titres);font-weight:800;font-size:13px;line-height:1.3;margin-top:3px;}
+  .rappel .m{font-size:10.5px;color:var(--text-tertiary);margin-top:3px;}
+
+  .regle-encadre{
+    margin:0 18px;border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.22);outline-offset:2px;
+    border-radius:10px;background:var(--paper);padding:2px 14px;
+  }
+  .regle-encadre .l{display:flex;gap:11px;align-items:baseline;padding:10px 0;border-top:1px dotted var(--border);}
+  .regle-encadre .l:first-child{border-top:0;}
+  .regle-encadre .n{flex:none;font-family:var(--titres);font-weight:800;font-size:13px;color:var(--orange-hover);width:16px;}
+  .regle-encadre .c{flex:1;min-width:0;font-size:12px;line-height:1.5;color:var(--text-secondary);}
+  .regle-encadre .c b{font-family:var(--titres);font-weight:800;color:var(--marine);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Problème de fond</p>
+  <h1>Les annonces pourvues</h1>
+  <p>Une annonce satisfaite hors de l'application reste en ligne, et le quartier continue d'y répondre dans le vide. La réponse ne peut pas être une <b>section permanente « mes annonces »</b> sur l'accueil : elle prend de la place à tout le monde, y compris à ceux qui n'ont rien à clore, et on cesse de la voir au bout de quinze jours. Il faut <b>poser la question au bon moment</b>, dans le registre qui existe déjà — celui des avis.</p>
+  <div class="traits">
+    <span><b>Pas</b> de section permanente</span>
+    <span><b>Trois déclencheurs</b> plutôt qu'un rappel</span>
+    <span><b>Pourvue</b> ≠ supprimée</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ========== 1 · LA RÈGLE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>Quand poser la question</h2></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <span class="titre" style="color:var(--marine)">La règle proposée</span>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed feed--papier">
+        <section class="manchette" style="padding-top:14px">
+          <p class="sur">Le problème</p>
+          <h2>Une annonce pourvue <span class="souligne">que personne ne referme.</span></h2>
+          <p>L'entraide se conclut souvent hors de l'application — par un mot dans la cage d'escalier, un appel, un voisin croisé au marché. L'annonce, elle, reste en ligne. Le quartier continue d'y répondre, et chaque réponse sans suite use un peu la confiance.</p>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Trois déclencheurs</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="regle-encadre">
+          <div class="l">
+            <span class="n">1</span>
+            <div class="c"><b>Juste après un échange validé.</b> Si le rendez-vous était rattaché à une annonce, on demande dans la foulée : « et votre annonce ? ». C'est le moment le plus sûr — la personne vient de confirmer que l'aide a eu lieu.</div>
+          </div>
+          <div class="l">
+            <span class="n">2</span>
+            <div class="c"><b>Quand une annonce dort.</b> Des réponses reçues, aucune activité depuis dix jours : on réveille l'auteur par un avis, au même endroit que les autres choses qu'on attend de lui.</div>
+          </div>
+          <div class="l">
+            <span class="n">3</span>
+            <div class="c"><b>À l'échéance.</b> Chaque annonce porte une date de fin. Elle se retire d'elle-même, et l'auteur peut la remettre en ligne d'un geste. C'est le filet de sécurité : même si personne ne répond jamais aux deux premières questions, rien ne pourrit indéfiniment.</div>
+          </div>
+        </div>
+
+        <div class="encart encart--attention" style="margin-top:16px">
+          <b>Et surtout : « pourvue » n'est pas « supprimée ».</b> L'annonce reste visible, grisée, avec son dénouement — « pourvue le 9 juin, 1 h échangée avec Pierre ». C'est la meilleure preuve que le système fonctionne, et ça évite qu'on la republie deux jours plus tard.
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Et les mots du fil ?</h2></span>
+          <span class="filet"></span>
+        </div>
+        <p class="sous-rubrique" style="margin-bottom:14px">Le fil est chronologique : un mot vieux d'une semaine descend tout seul et ne pollue plus rien. On garde donc seulement le déclencheur n° 1 — après un échange — et on laisse tomber le réveil. Un mot n'a pas de date de fin : il a l'âge qu'il a, et ça suffit.</p>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">La question de départ était : faut-il afficher ses propres annonces sur l'accueil ? La réponse proposée est <b>non</b> — pas comme section fixe. Une section permanente pèse sur tout le monde et se fait oublier ; trois déclencheurs bien choisis atteignent la même personne au moment où elle peut répondre en un geste.</p>
+  </figure>
+
+  <!-- ========== 2 · LA QUESTION AU BON MOMENT ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>Juste après l'échange</h2><span class="route">déclencheur 1</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">L'échange</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <article class="carte-rdv carte-rdv--large" style="margin:14px 18px 0"><div class="cadre">
+          <div class="entete"><h3>Montage de l'étagère</h3></div>
+          <div class="statut">Échange validé</div>
+          <div class="quand"><div class="date">Samedi 14 juin</div><div class="meta">10:00<span class="sep">·</span>1 h 15 réelles</div></div>
+          <div class="avec"><span class="avatar av-creme">AN</span><span class="nom">Vous avez donné à Alice Noël</span></div>
+        </div></article>
+        <p class="compteurs-note">Votre compteur est passé à 9 h 45.</p>
+      </main>
+
+      <div class="voile">
+        <div class="feuille">
+          <span class="poignee"></span>
+          <div class="tete">
+            <h3>Et votre annonce ?</h3>
+            <button class="x" type="button" aria-label="Fermer">×</button>
+          </div>
+          <div class="corps">
+            <div class="rappel">
+              <p class="k">Votre annonce · n° 1042</p>
+              <b>Une étagère à monter samedi matin</b>
+              <p class="m">En ligne depuis 4 jours · 3 réponses reçues</p>
+            </div>
+            <div class="choix-question">
+              <button type="button">
+                <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <div><b>C'est fait, elle est pourvue</b><span class="d">Elle reste visible, grisée, avec son dénouement</span></div>
+              </button>
+              <button type="button">
+                <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 1 2.3 5.7"/><path d="M4 18v-5h5"/></svg></span>
+                <div><b>Elle court toujours</b><span class="d">J'ai encore besoin d'aide sur ce sujet</span></div>
+              </button>
+              <button type="button">
+                <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                <div><b>Me le redemander plus tard</b><span class="d">Dans une semaine, si rien ne bouge</span></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="home home--clair"></span>
+    </div>
+    <p class="note">Le moment le plus sûr. La personne vient de confirmer qu'une aide a eu lieu — c'est là qu'elle sait si son annonce tient encore. La feuille <b>rappelle l'annonce concernée</b> (on en a parfois trois) et propose trois issues, dont une troisième honnête : « plus tard ». Refuser de laisser une porte de sortie, c'est s'exposer à des clics au hasard.</p>
+  </figure>
+
+  <!-- ========== 3 · LE RÉVEIL ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Quand une annonce dort</h2><span class="route">déclencheur 2 · accueil</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>On attend un mot de vous</h2><span class="badge-compte">4</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="rangee">
+          <article class="billet-avis billet-avis--reveil">
+            <div class="k"><span>Votre annonce</span><span class="q">10 jours</span></div>
+            <h3>Petites réparations</h3>
+            <p class="d">3 réponses, rien depuis. Toujours d'actualité ?</p>
+            <div class="pied"><button class="lien-filet" type="button">Répondre</button></div>
+          </article>
+          <article class="billet-avis billet-avis--urgent">
+            <div class="k"><span>À valider</span><span class="q">2 jours</span></div>
+            <h3>Montage de l'étagère</h3>
+            <p class="d">Samedi 14, chez Alice Noël · 1 h prévue</p>
+            <div class="pied"><button class="lien-filet" type="button">Valider l'échange</button></div>
+          </article>
+          <article class="billet-avis">
+            <div class="k"><span>Invitation</span><span class="q">3 places</span></div>
+            <h3>Atelier réparation vélo</h3>
+            <p class="d">Dimanche 15, de Pierre Blanchard · 2 h</p>
+            <div class="pied"><button class="lien-filet" type="button">Répondre</button></div>
+          </article>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="rangee">
+          <article class="carte-rdv"><div class="cadre">
+            <div class="entete"><h3>Rencontre physique</h3><span class="badge-admin">Admin</span></div>
+            <div class="statut">Confirmé</div>
+            <div class="quand"><div class="date">11 juin 2026</div><div class="meta">12:30<span class="sep">·</span>15 min</div></div>
+            <div class="avec"><span class="avatar avatar--mm">MM</span><span class="nom">Avec Marie Morel</span><a class="lien-cal" href="#">+ Cal.</a></div>
+          </div></article>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note"><b>Aucune section nouvelle.</b> Le réveil est simplement un avis de plus, à filet marine pour le distinguer d'une échéance — il ne crie pas, il figure. Il n'apparaît que si l'annonce a reçu des réponses et n'a rien donné depuis dix jours : ceux qui n'ont rien à clore ne voient jamais rien. Et quand il est traité, il disparaît, contrairement à une section fixe.</p>
+  </figure>
+
+  <!-- ========== 4 · LE DÉNOUEMENT ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">4</span><h2>Pourvue, pas supprimée</h2><span class="route">le fil</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <span class="titre">Le fil</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <section class="grand-titre">
+          <h1>Le fil du quartier</h1>
+          <p class="date">Mercredi 10 juin · <b>34 mots</b> · 6 neufs</p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="fil" style="padding-top:14px">
+          <article class="annonce">
+            <div class="pastilles">
+              <span class="past past--quartier">Votre quartier</span>
+              <span class="past past--aider">Vous pouvez aider</span>
+            </div>
+            <div class="an-tete">
+              <span class="an-type an-type--demande">Demande</span>
+              <span class="an-rubr">Bricolage</span>
+            </div>
+            <h3 class="an-titre">Un coup de main pour monter une étagère</h3>
+            <p class="an-texte">Une petite heure samedi matin, j'ai déjà les outils.</p>
+            <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+            <div class="an-actions">
+              <button class="action action--fort">Je peux aider</button>
+              <button class="action">Commenter</button>
+              <span class="an-compteur">2 réponses</span>
+            </div>
+          </article>
+
+          <article class="annonce annonce--pourvue">
+            <div class="pastilles">
+              <span class="past past--pourvue">Pourvue</span>
+            </div>
+            <div class="an-tete">
+              <span class="an-type an-type--neutre">Demande</span>
+              <span class="an-rubr">Jardinage</span>
+            </div>
+            <h3 class="an-titre">Quelqu'un pour tailler une haie samedi</h3>
+            <p class="an-texte">Elle dépasse chez la voisine et je n'ai pas d'escabeau assez haut.</p>
+            <p class="an-sign">— Sonia Klein · Baugerie · il y a 6 j</p>
+            <div class="denouement">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Pourvue le 9 juin — <b>1 h 30</b> échangée avec Pierre Blanchard</span>
+            </div>
+          </article>
+
+          <article class="annonce">
+            <div class="an-tete">
+              <span class="an-type an-type--proposition">Proposition</span>
+              <span class="an-rubr">Couture</span>
+            </div>
+            <h3 class="an-titre">Ourlets et fermetures éclair</h3>
+            <p class="an-texte">Ma machine ronronne du matin au soir, profitez-en.</p>
+            <p class="an-sign">— Lucie Garnier · Centre · hier</p>
+            <div class="an-actions">
+              <button class="action">Ça m'intéresse</button>
+              <button class="action">Commenter</button>
+              <span class="an-compteur">3 intéressés</span>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Une demande pourvue <b>reste dans le fil</b>, sur fond grisé, cadre en pointillés, titre barré — et sans aucun bouton d'aide. À la place, le <b>dénouement</b> : « pourvue le 9 juin, 1 h 30 échangée avec Pierre Blanchard ». On ne peut plus y répondre dans le vide, et l'on voit que le quartier tourne. C'est aussi ce qui dissuade de republier la même demande deux jours après.</p>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Les annonces pourvues · Personnes et annonces fictives.<br>
+  <a href="../../index.html">Galerie</a> · <a href="pages-1-decouverte.html">La famille Découverte</a>
+</footer>
+</body>
+</html>
