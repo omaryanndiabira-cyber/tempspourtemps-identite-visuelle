@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Le protocole de migration</title>
+<link rel="icon" href="assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brandkit/gazette.css">
+<style>
+body{padding:36px 20px 80px;}
+.wrap{max-width:1000px;margin:0 auto;}
+
+.entete{text-align:center;max-width:780px;margin:0 auto;}
+.entete img{width:58px;height:auto;margin-bottom:12px;}
+.entete .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--danger);}
+.entete h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);letter-spacing:-.5px;margin-top:6px;}
+.entete p{color:var(--text-secondary);font-size:.95rem;line-height:1.65;margin-top:14px;}
+.entete .retour{display:inline-block;margin-top:18px;color:var(--marine);font-weight:600;font-size:.86rem;text-decoration:none;}
+
+/* la règle d'or */
+.or{
+  margin:30px auto 0;max-width:820px;text-align:center;
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:16px;padding:24px 28px;
+}
+.or .k{font-family:var(--titres);font-weight:800;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.or h2{font-family:var(--titres);font-weight:800;font-size:1.28rem;line-height:1.35;margin-top:9px;}
+.or h2 .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+.or p{font-size:.88rem;line-height:1.65;color:var(--text-secondary);margin-top:12px;}
+.or p b{color:var(--marine);}
+
+/* sommaire */
+.somm{
+  position:sticky;top:0;z-index:20;margin:32px 0 30px;padding:10px 0;
+  background:rgba(247,246,243,.93);backdrop-filter:blur(10px);
+  border-top:1px solid var(--marine);border-bottom:3px double var(--marine);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:3px;
+}
+@supports not (backdrop-filter:blur(2px)){ .somm{background:var(--bg-main);} }
+.somm a{
+  padding:5px 12px;border-radius:7px;text-decoration:none;
+  font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.somm a:hover{background:var(--sable);color:var(--marine);}
+
+.chap{display:flex;align-items:center;gap:14px;margin:48px 0 6px;scroll-margin-top:64px;}
+.chap .num{font-family:var(--titres);font-weight:800;font-size:.76rem;background:var(--sable);color:var(--marine);border-radius:8px;padding:3px 10px;}
+.chap h2{font-family:var(--titres);font-weight:800;font-size:1.26rem;}
+.chap .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
+.chap-sub{color:var(--text-secondary);font-size:.88rem;line-height:1.6;margin:0 0 20px;}
+.chap-sub b{color:var(--marine);}
+
+/* les chiffres du risque */
+.risque{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px;}
+.risque > div{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:13px 15px;}
+.risque .v{font-family:var(--titres);font-weight:800;font-size:1.7rem;line-height:1;color:var(--danger);}
+.risque .v--ok{color:#2f7a44;}
+.risque .l{font-size:.72rem;color:var(--text-secondary);margin-top:7px;line-height:1.45;}
+.risque .l b{color:var(--marine);}
+
+/* le tableau des écarts */
+.ecarts{width:100%;border-collapse:collapse;font-size:.83rem;}
+.ecarts th{
+  text-align:left;font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-tertiary);padding:0 14px 8px 0;border-bottom:2px solid var(--marine);
+}
+.ecarts td{padding:12px 14px 12px 0;border-top:1px dotted var(--border);color:var(--text-secondary);vertical-align:top;}
+.ecarts tbody tr:first-child td{border-top:0;}
+.ecarts .cas{font-family:var(--titres);font-weight:800;color:var(--marine);width:26%;}
+.ecarts .ex{width:30%;font-style:italic;}
+.ecarts .quoi b{color:var(--marine);}
+.ecarts tr.garde td{background:rgba(74,157,95,.06);}
+.ecarts tr.applique td{background:var(--bg-hover);}
+
+/* les paliers */
+.palier{
+  background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:15px 18px 16px;margin-bottom:13px;
+  border-left:3px solid var(--border);
+}
+.palier--sur{border-left-color:#4a9d5f;}
+.palier--moyen{border-left-color:var(--warning);}
+.palier--risque{border-left-color:var(--danger);}
+.palier .tete{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;}
+.palier .n{
+  font-family:var(--titres);font-weight:800;font-size:.7rem;background:var(--marine);color:var(--sable);
+  border-radius:5px;padding:2px 8px;flex:none;
+}
+.palier h3{font-family:var(--titres);font-weight:800;font-size:1rem;flex:1;}
+.palier .jauge{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:5px;padding:2px 8px;}
+.palier .jauge--sur{background:rgba(74,157,95,.14);color:#2f7a44;}
+.palier .jauge--moyen{background:var(--bg-hover);color:var(--orange-hover);}
+.palier .jauge--risque{background:rgba(196,69,54,.11);color:var(--danger);}
+.palier p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);margin-top:9px;}
+.palier p b{color:var(--marine);}
+.palier code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+.palier .filet-t{margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);font-size:.79rem;color:var(--text-tertiary);line-height:1.55;}
+.palier .filet-t b{color:var(--orange-hover);}
+
+/* la liste des angles morts */
+.morts{background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:4px 18px;}
+.morts .l{display:flex;gap:13px;padding:11px 0;border-top:1px dotted var(--border);font-size:.84rem;line-height:1.55;}
+.morts .l:first-child{border-top:0;}
+.morts .t{width:150px;flex:none;font-family:var(--titres);font-weight:800;color:var(--marine);font-size:.84rem;}
+.morts .d{flex:1;color:var(--text-secondary);}
+.morts .d code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+.morts .d b{color:var(--marine);}
+
+/* le journal d'écarts */
+.gabarit{
+  background:#1b2b38;color:#e8e3d6;border-radius:13px;padding:16px 18px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.76rem;line-height:1.75;
+  overflow-x:auto;white-space:pre;
+}
+.gabarit .c{color:#8fa5b3;}
+.gabarit .k{color:var(--sable);}
+
+.alarme{
+  border-left:3px solid var(--danger);background:rgba(196,69,54,.06);
+  border-radius:0 12px 12px 0;padding:14px 18px;margin-top:18px;
+}
+.alarme .t{font-family:var(--titres);font-weight:800;font-size:.92rem;color:var(--danger);margin-bottom:8px;}
+.alarme p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);}
+.alarme p + p{margin-top:8px;}
+.alarme b{color:var(--marine);}
+.alarme code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--danger);background:rgba(196,69,54,.1);border-radius:4px;padding:1px 5px;}
+
+.bon{
+  border-left:3px solid #4a9d5f;background:rgba(74,157,95,.06);
+  border-radius:0 12px 12px 0;padding:14px 18px;margin-top:18px;
+}
+.bon .t{font-family:var(--titres);font-weight:800;font-size:.92rem;color:#2f7a44;margin-bottom:8px;}
+.bon p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);}
+.bon b{color:var(--marine);}
+.bon code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+
+footer{margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
+footer a{color:var(--marine);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="entete">
+  <img src="assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Avant de lancer quoi que ce soit</p>
+  <h1>Le protocole de migration</h1>
+  <p>Les maquettes ne sont <b>pas</b> une spécification. Elles montrent le cas nominal d'une application qui gère des dizaines de cas conditionnels, et elles ont <b>réécrit des textes</b> qui existent déjà. Ce document dit comment les appliquer sans rien casser — et ce qu'elles ne couvrent pas.</p>
+  <a class="retour" href="index.html">← Retour au design retenu</a>
+</header>
+
+<section class="or">
+  <p class="k">La règle d'or</p>
+  <h2>Une migration de charte change l'apparence.<br><span class="souligne">Jamais le comportement.</span></h2>
+  <p>Elle ne touche ni à un <b>libellé</b>, ni à une <b>condition d'affichage</b>, ni à une <b>règle métier</b>, ni à un <b>appel d'API</b>. Quand elle rencontre un écart entre le code et la maquette, elle le <b>consigne</b> — elle ne le <b>résout</b> pas. Résoudre est une décision, et une décision se prend en connaissance de cause, pas au fil d'un refactoring.</p>
+</section>
+
+<nav class="somm">
+  <a href="#risque">Le risque</a>
+  <a href="#ecarts">Les écarts</a>
+  <a href="#paliers">Les paliers</a>
+  <a href="#morts">Angles morts</a>
+  <a href="#journal">Le journal</a>
+</nav>
+
+<!-- ================= LE RISQUE ================= -->
+<div class="chap" id="risque"><span class="num">1</span><h2>Ce que le filet ne rattrapera pas</h2><span class="filet"></span></div>
+<p class="chap-sub">Le dépôt compte <b>58 tests E2E et 179 tests Vitest</b>. C'est beaucoup — mais leur nature les rend vulnérables à exactement ce qu'une migration de charte va faire.</p>
+
+<div class="risque">
+  <div><p class="v">90 %</p><p class="l">des specs E2E (<b>52 sur 58</b>) ciblent par <b>texte affiché</b></p></div>
+  <div><p class="v">59 %</p><p class="l">des specs (<b>34 sur 58</b>) n'ont <b>aucun</b> <code>data-testid</code></p></div>
+  <div><p class="v">24 %</p><p class="l">des composants portent un <code>data-testid</code></p></div>
+  <div><p class="v">0</p><p class="l">test de <b>régression visuelle</b>, 0 test d'<b>accessibilité</b></p></div>
+</div>
+
+<div class="alarme">
+  <p class="t">Sept tests ciblent directement des classes Tailwind</p>
+  <p>Ceux-là ne cassent pas « peut-être » : ils cassent <b>mécaniquement</b> dès qu'on touche au style.</p>
+  <p><code>button.rounded-full:visible</code> ×4 · <code>.brand-wordmark</code> ×3 · <code>button.px-8</code> ×2 · <code>button.bg-primary.rounded-full</code> ×2 · <code>.text-danger</code> · <code>.fixed.z-50.bg-white.shadow-2xl.rounded-xl</code> · <code>.animate-spin</code></p>
+  <p>Le dernier est le plus parlant : il décrit une modale <b>par sa géométrie</b> — position, plan, fond, ombre, rayon. Toute la charte le contredit.</p>
+</div>
+
+<div class="bon">
+  <p class="t">Deux garde-fous existent déjà, et ils sont bons</p>
+  <p><code>scripts/check-design-tokens.mjs</code> interdit toute couleur Tailwind brute dans <code>app/</code> — son en-tête documente <b>288 infractions dans 44 fichiers</b> avant qu'il existe. Et <code>tests/unit/design-tokens-classes-fantomes.test.ts</code> attrape les classes qui nomment un jeton sans règle CSS derrière.</p>
+  <p>Cela veut dire que le projet a <b>déjà la culture</b> de ce genre de filet. La migration doit s'appuyer dessus, pas les contourner.</p>
+</div>
+
+<!-- ================= LES ÉCARTS ================= -->
+<div class="chap" id="ecarts"><span class="num">2</span><h2>La règle des écarts</h2><span class="filet"></span></div>
+<p class="chap-sub">C'est le cœur du protocole. Tout écart entre ce que montre la maquette et ce que fait le code tombe dans <b>l'un de ces quatre cas</b>, et chacun a une seule réponse possible.</p>
+
+<table class="ecarts">
+  <thead><tr><th>Le cas</th><th>Exemple réel</th><th>Ce qu'on fait</th></tr></thead>
+  <tbody>
+    <tr class="garde">
+      <td class="cas">Dans le code,<br>absent de la maquette</td>
+      <td class="ex">Le bouton « Maintenir malgré le minimum » d'une activité de groupe.</td>
+      <td class="quoi"><b>On garde.</b> On applique le style le plus proche de la charte et <b>on consigne</b>. L'absence dans la maquette n'est pas une décision de design — c'est un trou dans l'inventaire.</td>
+    </tr>
+    <tr>
+      <td class="cas">Dans la maquette,<br>absent du code</td>
+      <td class="ex">Le bandeau d'action sous la frise, le journal repliable.</td>
+      <td class="quoi"><b>On ne l'invente pas.</b> Ajouter un élément, c'est ajouter un comportement. On ouvre une tâche séparée, on ne l'écrit pas au passage.</td>
+    </tr>
+    <tr>
+      <td class="cas">Dans les deux,<br>mais différents</td>
+      <td class="ex">« Rendez-vous réalisé ! » dans le code, « Valider » dans la maquette.</td>
+      <td class="quoi"><b>Le code gagne.</b> On change l'apparence, jamais le mot. Les textes de la charte sont des <b>propositions éditoriales</b> à trancher séparément — et certains libellés sont attendus par les tests.</td>
+    </tr>
+    <tr class="applique">
+      <td class="cas">Contradiction<br>explicite</td>
+      <td class="ex"><code style="font-family:ui-monospace,Menlo,monospace;font-size:.72rem">window.confirm</code> pour désactiver une annonce.</td>
+      <td class="quoi"><b>La charte gagne</b> — mais uniquement pour les <b>onze interdits</b> nommément listés dans les règles d'implémentation. Hors de cette liste, aucune contradiction ne se tranche toute seule.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="alarme">
+  <p class="t">Le piège des textes est le plus dangereux</p>
+  <p>J'ai écrit « Alice attend votre validation », « Plus que 2 jours », « Ce que ça engage », « Combien de temps avez-vous donné ? ». <b>Aucun de ces textes n'est un relevé du code</b> — ce sont des propositions. Ils supposent un ton, une longueur, parfois une donnée que l'application ne calcule pas.</p>
+  <p>Une migration qui les applique change <b>ce que l'application dit</b>, casse des tests qui attendent l'ancien libellé, et fait passer une réécriture éditoriale pour un changement de style. <b>Les textes se traitent dans un chantier à part</b>, avec relecture.</p>
+</div>
+
+<!-- ================= LES PALIERS ================= -->
+<div class="chap" id="paliers"><span class="num">3</span><h2>Cinq paliers, dans cet ordre</h2><span class="filet"></span></div>
+<p class="chap-sub">Du moins risqué au plus risqué. <b>Chaque palier se livre séparément</b> et se vérifie avant de passer au suivant. Ne jamais en sauter un pour « aller plus vite » : l'ordre existe pour que les erreurs se voient tant qu'elles sont petites.</p>
+
+<div class="palier palier--sur">
+  <div class="tete"><span class="n">0</span><h3>Préparer le filet</h3><span class="jauge jauge--sur">Sans risque</span></div>
+  <p>Avant de toucher au style : <b>poser des <code>data-testid</code></b> sur tout ce que les tests ciblent aujourd'hui par texte ou par classe, et <b>remplacer les sept sélecteurs Tailwind</b> par ces identifiants. Les tests doivent passer <b>avant et après</b>, sans qu'une ligne de style ait bougé.</p>
+  <p class="filet-t"><b>Pourquoi d'abord —</b> c'est le seul palier qui <i>augmente</i> la sécurité au lieu de la consommer. Le faire après, c'est réparer des tests cassés sans savoir s'ils cassent pour une bonne raison.</p>
+</div>
+
+<div class="palier palier--sur">
+  <div class="tete"><span class="n">1</span><h3>Les jetons</h3><span class="jauge jauge--sur">Faible</span></div>
+  <p>Couleurs, typographie, rayons, ombres. On remplace les valeurs derrière les jetons existants — <b>sans renommer un seul jeton</b>, sans toucher à une classe utilitaire.</p>
+  <p class="filet-t"><b>Le filet —</b> <code>check:design-tokens</code> et le test des classes fantômes couvrent exactement ce palier. Ils sont déjà écrits.</p>
+</div>
+
+<div class="palier palier--moyen">
+  <div class="tete"><span class="n">2</span><h3>Les primitives sans logique</h3><span class="jauge jauge--moyen">Moyen</span></div>
+  <p>Champ de saisie, pastille, médaillon, bouton, puce. Remplacement <b>un pour un</b> : même API, mêmes props, mêmes évènements. Rien d'autre ne change.</p>
+  <p class="filet-t"><b>Le piège —</b> <code>AppButton</code> expose <b>douze variantes</b> et la charte en veut quatre. <b>Ne pas en supprimer une seule ici</b> : on ajoute les quatre nouvelles, on laisse les douze anciennes vivre, on retire plus tard quand plus rien ne les appelle.</p>
+</div>
+
+<div class="palier palier--moyen">
+  <div class="tete"><span class="n">3</span><h3>Les coquilles de surface</h3><span class="jauge jauge--moyen">Moyen</span></div>
+  <p>La fiche et le dialogue. Apparence nouvelle, <b>comportement identique</b> : mêmes props d'ouverture, même fermeture au clavier, même pile d'overlays, mêmes évènements émis.</p>
+  <p class="filet-t"><b>À ne pas casser —</b> <code>useOverlayStack</code> masque une modale, mémorise son état et la remonte <b>350 ms</b> plus tard sur un évènement <code>window</code>. Huit composants en dépendent. Ce délai est calé sur l'animation du bottom sheet : le changer casse la restauration en silence.</p>
+</div>
+
+<div class="palier palier--risque">
+  <div class="tete"><span class="n">4</span><h3>Les formes</h3><span class="jauge jauge--risque">Élevé</span></div>
+  <p>Billet, frise, journal, lignes d'agenda, fiches d'annonce. C'est ici que la charte rencontre <b>la logique métier</b> — et c'est ici qu'on casse des choses sans le voir.</p>
+  <p class="filet-t"><b>Le piège majeur —</b> la frise suppose une séquence linéaire à cinq étapes. Le code en produit <b>trois jeux différents</b> selon le flux (nominal, déclaration, groupe), se réduit à deux étapes en cas d'annulation, et sait <b>revenir en arrière</b>. Pire : le <b>statut perçu diffère du statut réel</b> — les deux participants d'un même échange voient des libellés et des boutons <b>différents au même instant</b>. Une frise naïve ment à l'un des deux.</p>
+</div>
+
+<div class="palier palier--risque">
+  <div class="tete"><span class="n">5</span><h3>Les pages</h3><span class="jauge jauge--risque">Élevé</span></div>
+  <p><b>Une page à la fois, jamais en masse.</b> Commencer par les plus petites et les moins conditionnelles — la charte, la réservation publique, les réglages.</p>
+  <p class="filet-t"><b>À garder pour la fin —</b> <code>ExchangeDetailsModal.vue</code> : <b>2 549 lignes et 70 <code>v-if</code></b>. Puis <code>profile/index.vue</code> (1 636 l.), <code>prospects/[id].vue</code> (1 390 l.), <code>messages/[threadId].vue</code> (1 102 l.). Ces quatre fichiers ne se migrent pas dans la foulée d'un autre travail.</p>
+</div>
+
+<!-- ================= LES ANGLES MORTS ================= -->
+<div class="chap" id="morts"><span class="num">4</span><h2>Ce que la charte ne couvre pas</h2><span class="filet"></span></div>
+<p class="chap-sub">Ces mécanismes existent, fonctionnent, et <b>ne se voient sur aucune maquette</b>. Ils sont à préserver tels quels. La liste n'est probablement pas complète — c'est justement le problème.</p>
+
+<div class="morts">
+  <div class="l"><span class="t">Les 22 actions</span><span class="d"><code>useExchangeActions.ts</code> calcule <b>22 actions distinctes</b> depuis <b>37 points d'appel</b>, sur <b>onze variables de décision</b> : type, statut (11 valeurs), rôle 1-to-1, rôle de groupe, statut de participant, validation croisée, temps, fenêtre de feedback, capacité, fil de discussion, origine. Aucune maquette ne montre plus de trois actions.</span></div>
+  <div class="l"><span class="t">Statut perçu</span><span class="d">Si vous avez validé et laissé un avis, vous voyez <code>completed</code> quand la base dit <code>partially_completed</code>. <b>Les deux participants ne voient pas la même chose</b> — ni le même libellé, ni les mêmes boutons.</span></div>
+  <div class="l"><span class="t">Quatre rôles</span><span class="d"><code>admin</code>, <code>member</code>, <code>delegate</code>, <code>delegant</code>, plus <b>16 actions de permission</b> via <code>usePermissions.ts</code>, testées <b>42 fois</b> dans les templates. Mes maquettes montrent surtout le membre.</span></div>
+  <div class="l"><span class="t">L'immersion</span><span class="d">Un délégué agit <b>pour</b> un délégant : l'en-tête <code>X-Acting-As</code> bascule tout le point de vue de l'application, avec un bandeau permanent et un état persisté.</span></div>
+  <div class="l"><span class="t">Deux horloges</span><span class="d"><code>TimeService</code> distingue <code>realNow()</code> et <code>appNow()</code>. Quand la simulation est active, <b>la barre du haut descend de <code>top-0</code> à <code>top-7</code></b> — un décalage de mise en page global déclenché par une variable d'environnement. Et certaines actions sont marquées « simulées ».</span></div>
+  <div class="l"><span class="t">L'auto-validation</span><span class="d">Comptes à rebours à <b>J+3</b> (validation) et <b>J+7</b> (avis), affichés à trois endroits avec un libellé qui change à mesure — « dans 2 jours », « demain », « imminente ».</span></div>
+  <div class="l"><span class="t">Le temps réel</span><span class="d">Indicateur de frappe par Supabase Presence, arrivée de messages sans rechargement, et <b>badge numérique sur l'icône</b> de l'application installée.</span></div>
+  <div class="l"><span class="t">L'optimisme</span><span class="d">Favoris, réactions et préférences changent <b>avant</b> la réponse serveur, et reviennent en arrière en cas d'échec. <code>PostReactionButtons</code> documente que <b>la mise à jour optimiste EST le retour visuel</b> — il n'y a délibérément pas de spinner. En ajouter un serait une régression.</span></div>
+  <div class="l"><span class="t">Neuf contextes</span><span class="d"><code>useExchangeContext.ts</code> pré-remplit le formulaire de rendez-vous différemment selon <b>neuf origines</b> — annonce, publication, profil, discussion, contre-proposition, déclaration, report… Le même écran n'a pas le même état initial selon d'où on l'ouvre.</span></div>
+  <div class="l"><span class="t">Les brouillons</span><span class="d">L'embarquement et la messagerie gardent ce qui a été saisi. Le consentement à la charte, lui, <b>n'est volontairement pas restauré</b>.</span></div>
+  <div class="l"><span class="t">La porte de charte</span><span class="d">Règle isomorphe client/serveur : tant que la version en vigueur n'est pas signée, le routage redirige <b>et</b> le serveur refuse toute mutation. Une divergence produirait un blocage incompréhensible.</span></div>
+  <div class="l"><span class="t">Les images</span><span class="d">Compression avant envoi, avec <b>repli documenté sur le fichier original</b> quand le décodage échoue — typiquement les HEIC d'iPhone.</span></div>
+  <div class="l"><span class="t">Petites choses</span><span class="d">Bannière d'installation à trois rendus selon la plateforme, report de 30 jours après rejet ; rafraîchissement des pages en arrière-plan par évènement global ; salutation qui ne s'affiche qu'une fois par jour ; redirection OAuth mémorisée en <code>sessionStorage</code> ; signature manuscrite sur <code>canvas</code>.</span></div>
+</div>
+
+<!-- ================= LE JOURNAL ================= -->
+<div class="chap" id="journal"><span class="num">5</span><h2>Le journal d'écarts</h2><span class="filet"></span></div>
+<p class="chap-sub">Le livrable qui compte autant que le code. Chaque palier produit <b>un fichier</b> listant tout ce qui n'a pas pu être appliqué tel quel. Sans lui, les écarts deviennent invisibles — et c'est exactement ce qu'on veut éviter.</p>
+
+<div class="gabarit"><span class="c"># Journal d'écarts — palier 4 · les formes</span>
+<span class="c"># 2026-09-14 · branche charte/palier-4-formes</span>
+
+<span class="k">## Gardé tel quel</span> <span class="c">(présent dans le code, absent de la charte)</span>
+
+- <span class="k">ExchangeDetailsModal.vue:412</span>
+  Bouton « Maintenir malgré le minimum » (groupe, organisateur,
+  sous le seuil). Aucun équivalent dans la charte.
+  → style appliqué : .action .action--fort
+  → à trancher : est-ce une action principale ou secondaire ?
+
+<span class="k">## Non appliqué</span> <span class="c">(dans la charte, absent du code)</span>
+
+- Bandeau d'action sous la frise
+  → suppose un calcul « ce qu'on attend maintenant » qui n'existe pas
+  → tâche ouverte : TPT-xxx
+
+<span class="k">## Texte conservé</span> <span class="c">(divergence charte / code)</span>
+
+- « Rendez-vous réalisé ! »        charte : « Valider »
+- « En attente de validation »     charte : « À valider »
+  → 78 px dans la frise : le libellé du code déborde
+  → à trancher avec relecture éditoriale
+
+<span class="k">## Interdit corrigé</span> <span class="c">(les onze de la liste)</span>
+
+- AnnouncementDetailsModal.vue:530,564 — window.confirm → dialogue
+- ExchangeItemCompact.vue:239-303 — table de statuts locale supprimée,
+  bascule sur useExchangeStatus
+
+<span class="k">## Vérifications</span>
+
+- [x] 58 E2E au vert
+- [x] 179 Vitest au vert
+- [x] check:design-tokens au vert
+- [ ] relu par un humain
+</div>
+
+<div class="bon" style="margin-top:20px">
+  <p class="t">Ce qu'il faut demander, concrètement</p>
+  <p>Ne pas dire « applique la charte ». Dire : <b>« applique le palier N, en suivant le protocole de migration, et produis le journal d'écarts »</b>. Un palier, une branche, un journal — et une relecture avant le suivant.</p>
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Le protocole de migration.<br>
+  <a href="index.html">Le design retenu</a> · <a href="implementation.html">Les règles d'implémentation</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a>
+</footer>
+
+</div>
+</body>
+</html>
