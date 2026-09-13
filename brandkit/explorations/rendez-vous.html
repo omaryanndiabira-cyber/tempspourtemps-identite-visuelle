@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Le fil du rendez-vous</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+body{padding:38px 20px 80px;}
+
+/* le pavé de renseignements est dans gazette.css ; ici, l'en-tête de fiche */
+.fiche-rdv-tete{
+  margin:0 18px;padding:14px 0 12px;border-bottom:3px double var(--marine);text-align:center;
+}
+.fiche-rdv-tete .genre{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-secondary);}
+.fiche-rdv-tete h1{font-family:var(--titres);font-weight:800;font-size:19px;line-height:1.25;margin-top:5px;}
+.fiche-rdv-tete .avec{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:9px;font-size:12px;color:var(--text-secondary);}
+
+.sous-titre-fil{
+  margin:16px 18px 10px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-secondary);padding-bottom:6px;border-bottom:1px solid var(--marine);
+}
+
+/* la planche des cinq états */
+.etats-jeu{display:flex;flex-direction:column;gap:0;margin:0 18px;}
+.etats-jeu > div{padding:13px 0;border-top:1px solid var(--border);}
+.etats-jeu > div:first-child{border-top:0;padding-top:4px;}
+.etats-jeu .lab{
+  display:flex;align-items:center;gap:8px;margin-bottom:9px;
+  font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);
+}
+.etats-jeu .lab::after{content:"";flex:1;height:1px;background:var(--border);}
+
+/* le comparatif mobile / PC des surfaces */
+.deux-cas{display:grid;grid-template-columns:1fr 1fr;gap:0;width:100%;}
+.deux-cas > div{padding:0 14px;}
+.deux-cas > div:first-child{border-right:1px solid var(--border);}
+.cas-lab{
+  display:flex;align-items:center;gap:7px;margin-bottom:10px;
+  font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+}
+.cas-lab--mob{color:var(--orange-hover);}
+.cas-lab--pc{color:#2f7a44;}
+.cas-lab::after{content:"";flex:1;height:1px;background:var(--border);}
+
+.verdict{
+  border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:11px 15px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);
+  max-width:1000px;
+}
+.verdict p + p{margin-top:4px;}
+.verdict .pour::before{content:"Pour — ";font-weight:800;color:#2f7a44;}
+.verdict .contre::before{content:"Contre — ";font-weight:800;color:var(--danger);}
+
+.regle-encadre{
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:16px;padding:20px 24px;margin:0 auto 44px;max-width:1000px;
+}
+.regle-encadre h2{font-family:var(--titres);font-weight:800;font-size:1rem;text-align:center;letter-spacing:.14em;text-transform:uppercase;}
+.regle-encadre .lecture{margin-top:16px;font-size:.86rem;line-height:1.65;color:var(--text-secondary);}
+.regle-encadre .lecture b{color:var(--marine);}
+.regle-encadre code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.06);border-radius:4px;padding:1px 5px;}
+
+.tableau{width:100%;border-collapse:collapse;margin-top:16px;font-size:.82rem;}
+.tableau th{
+  text-align:left;font-family:var(--titres);font-weight:800;font-size:.64rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-tertiary);padding:0 10px 7px 0;border-bottom:2px solid var(--marine);
+}
+.tableau th.num,.tableau td.num{text-align:right;font-variant-numeric:tabular-nums;padding-right:0;}
+.tableau td{padding:7px 10px 7px 0;border-top:1px dotted var(--border);color:var(--text-secondary);}
+.tableau tbody tr:first-child td{border-top:0;}
+.tableau td.num{font-family:var(--titres);font-weight:800;color:var(--marine);}
+.tableau td b{color:var(--marine);}
+.tableau tr.mort td{color:var(--text-tertiary);}
+.tableau tr.mort td b{color:var(--danger);}
+
+.alarme{
+  margin-top:18px;border-left:3px solid var(--orange);background:var(--bg-hover);
+  border-radius:0 12px 12px 0;padding:13px 17px;
+}
+.alarme .t{font-family:var(--titres);font-weight:800;font-size:.88rem;color:var(--orange-hover);margin-bottom:7px;}
+.alarme p{font-size:.82rem;line-height:1.6;color:var(--text-secondary);}
+.alarme p + p{margin-top:8px;}
+.alarme .dur{padding-top:8px;border-top:1px dashed rgba(214,94,28,.3);}
+.alarme b{color:var(--marine);}
+.regle-encadre .schema{display:flex;align-items:center;justify-content:center;gap:26px;margin-top:18px;flex-wrap:wrap;}
+.mini-ecran{border:1px solid rgba(24,62,87,.2);border-radius:10px;overflow:hidden;background:var(--bg-main);position:relative;}
+.mini-ecran .v{position:absolute;inset:0;background:rgba(15,47,68,.4);display:flex;padding:6px;}
+.mini-ecran .f{background:var(--paper);border:1px solid var(--border);}
+.mini-ecran--tel{width:96px;height:180px;}
+.mini-ecran--tel .v{align-items:flex-end;padding:0;}
+.mini-ecran--tel .f{width:100%;height:62%;border-radius:12px 12px 0 0;border-bottom:0;}
+.mini-ecran--pc{width:250px;height:160px;}
+.mini-ecran--pc .v{align-items:center;justify-content:center;}
+.mini-ecran--pc .f{width:104px;height:78%;border-radius:9px;}
+.mini-leg{text-align:center;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);margin-top:8px;}
+.mini-leg b{display:block;color:var(--marine);letter-spacing:.06em;font-size:11px;margin-top:3px;text-transform:none;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Composant à refondre</p>
+  <h1>Le fil du rendez-vous</h1>
+  <p class="sub">Une frise existe déjà dans l'application — horizontale, quatre ronds sur un bandeau orange. À côté d'elle vivent <b>dix autres dispositifs chronologiques</b> qui ne se ressemblent pas. Voici la pièce unique qui les remplace, et la règle qui fixe le sort de toutes les modales sur grand écran.</p>
+  <p class="traits"><span><b>La règle</b> une feuille ne se colle pas en bas d'un écran de 1240 px : elle se centre et garde la largeur d'un téléphone</span></p>
+  <a class="retour" href="../../index.html">← Retour au design retenu</a>
+</header>
+
+<section class="regle-encadre" style="margin-bottom:26px">
+  <h2>Onze chronologies pour un échange</h2>
+  <div class="filet-double" style="margin:10px 0 0"></div>
+
+  <table class="tableau">
+    <thead><tr><th>Où</th><th>Forme actuelle</th><th class="num">Lignes</th></tr></thead>
+    <tbody>
+      <tr><td><code>ExchangeTimeline</code></td><td>Frise <b>horizontale</b> : 4 ronds reliés, bandeau orange plein</td><td class="num">99</td></tr>
+      <tr><td>Bloc « Évènements »</td><td>Journal à puces, <b>replié par défaut</b>, groupes seulement</td><td class="num">—</td></tr>
+      <tr><td><code>ExchangeEventMessage</code></td><td>Évènements intercalés dans le fil de discussion</td><td class="num">238</td></tr>
+      <tr><td>Historique candidat</td><td>Liste plate à deux colonnes, 26 libellés</td><td class="num">—</td></tr>
+      <tr><td>Historique du temps</td><td>Cartes datées à flèche directionnelle</td><td class="num">381</td></tr>
+      <tr><td>Historique des régularisations</td><td>Cartes datées, transferts colorés</td><td class="num">126</td></tr>
+      <tr><td><code>ExchangeItemCompact</code></td><td>Diff « avant → après » barré-fléché</td><td class="num">380</td></tr>
+      <tr><td>Comptes à rebours</td><td>Texte dans un encadré d'alerte</td><td class="num">148</td></tr>
+      <tr><td>Barre d'embarquement</td><td>Pastilles numérotées + barre de remplissage</td><td class="num">44</td></tr>
+      <tr class="mort"><td>3 assistants à étapes</td><td><b>Aucun indicateur de position</b></td><td class="num">—</td></tr>
+      <tr class="mort"><td>Machine à états candidat</td><td>Définie en code, <b>jamais dessinée</b></td><td class="num">—</td></tr>
+    </tbody>
+  </table>
+
+  <p class="lecture">
+    La frise actuelle porte <b>quatre ronds et rien d'autre</b> : un libellé de deux mots et une date courte. Elle ne peut pas dire qui a fait quoi, ni ce qu'on attend de vous — d'où le bloc « Évènements » qui vit à côté d'elle, replié, et réservé aux activités de groupe. <b>Deux composants pour une seule question.</b>
+    <br><br>
+    S'y ajoute un problème de fond : les libellés de statut existent en <b>quatre tables parallèles</b> qui divergent. Le même échange s'affiche « Terminé » ici et « Complété » là ; « Annulé » est <code>bg-danger</code> dans le composable et <code>bg-bg-secondary</code> dans la carte ; « Échange déclaré » s'écrit avec accent dans un fichier, sans accent dans l'autre.
+  </p>
+
+  <div class="alarme">
+    <p class="t">Le fil proposé fusionne la frise et le journal</p>
+    <p>Une chronologie <b>verticale</b> peut porter ce qu'une frise horizontale ne peut pas : la phrase complète, l'acteur, l'heure exacte, et <b>le bouton de l'action attendue, posé dans l'étape où elle se joue</b>. Sur 390 px, quatre étapes horizontales laissent 97 px chacune — de quoi écrire « Planifié », pas « Alice a proposé le rendez-vous ».</p>
+    <p class="dur"><b>Conséquence :</b> un seul composant remplace la frise, le bloc « Évènements » et les libellés recalculés. L'état cesse d'être une chaîne de caractères pour devenir <b>une position dans une liste</b> — il n'y a plus rien à faire diverger.</p>
+  </div>
+</section>
+
+<section class="regle-encadre">
+  <h2>Les modales sur grand écran</h2>
+  <div class="filet-double" style="margin:10px 0 0"></div>
+  <div class="schema">
+    <div>
+      <div class="mini-ecran mini-ecran--tel"><div class="v"><div class="f"></div></div></div>
+      <p class="mini-leg">Mobile<b>collée en bas</b></p>
+    </div>
+    <div style="font-family:var(--titres);font-weight:800;font-size:20px;color:var(--orange)">→</div>
+    <div>
+      <div class="mini-ecran mini-ecran--pc"><div class="v"><div class="f"></div></div></div>
+      <p class="mini-leg">Grand écran<b>centrée · 520 px au plus</b></p>
+    </div>
+  </div>
+  <p class="lecture">
+    Sur un écran de 1240 px, une feuille collée en bas serait une barre de 1240 px de large et de 400 px de haut : illisible, et sans rapport avec ce qu'elle est. Elle <b>se centre donc, et sa largeur est plafonnée à 520 px</b> — soit la largeur d'un téléphone, plus un peu d'air.
+    <br><br>
+    La conséquence est le point important : <b>le contenu de la modale ne change pas d'un pixel</b> entre mobile et PC. Même ordre, même largeur de colonne, mêmes composants. Il n'y a <b>aucune version responsive à concevoir</b> pour les fiches de rendez-vous, d'annonce ou d'activité — seule la coquille se déplace. Deux détails s'ajustent : la poignée de glissement disparaît (elle n'a de sens qu'au doigt), et les quatre coins s'arrondissent au lieu des deux du haut.
+  </p>
+</section>
+
+<div class="planche">
+
+  <!-- ============================================================
+       1 · LA FICHE DE RENDEZ-VOUS
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">1</span><h2>La fiche du rendez-vous</h2><span class="route">mobile · feuille</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Vos rendez-vous</span>
+        <span style="width:34px"></span>
+      </div>
+
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille feuille--haute">
+          <span class="poignee"></span>
+          <div class="corps">
+            <div class="fiche-rdv-tete">
+              <p class="genre">Rencontre physique</p>
+              <h1>Montage de l'étagère</h1>
+              <p class="avec"><span class="avatar av-creme" style="width:26px;height:26px;font-size:9.5px">AN</span>Avec Alice Noël</p>
+            </div>
+
+            <div class="b-faits" style="margin:14px 18px 0">
+              <div class="l"><span class="k">Quand</span><span class="v"><b>Samedi 14 juin</b>, 10:00</span></div>
+              <div class="l"><span class="k">Durée</span><span class="v">environ 1 heure</span></div>
+              <div class="l"><span class="k">Où</span><span class="v">12 rue des Lilas, Centre</span></div>
+              <div class="l"><span class="k">Annonce</span><span class="v">« Une étagère à monter samedi matin »</span></div>
+            </div>
+
+            <p class="sous-titre-fil">Le fil de ce rendez-vous</p>
+            <div class="fil-rdv">
+              <div class="etape">
+                <span class="puce"></span>
+                <div class="c">
+                  <p class="q">Mardi 9 juin · 9 h 04</p>
+                  <b>Alice a proposé le rendez-vous</b>
+                  <p>Samedi 14 juin à 10 h, chez elle, pour environ une heure.</p>
+                </div>
+              </div>
+              <div class="etape">
+                <span class="puce"></span>
+                <div class="c">
+                  <p class="q">Mardi 9 juin · 9 h 40</p>
+                  <b>Vous avez accepté</b>
+                  <p>Le rendez-vous est inscrit à vos deux agendas.</p>
+                </div>
+              </div>
+              <div class="etape etape--ici">
+                <span class="puce"></span>
+                <div class="c">
+                  <p class="q">Samedi 14 juin · il y a 2 jours</p>
+                  <b>L'heure est passée</b>
+                  <p>Si l'échange a bien eu lieu, validez-le : Alice recevra 1 heure sur son compteur.</p>
+                  <button class="action action--fort agir" type="button">Valider l'échange</button>
+                </div>
+              </div>
+              <div class="etape etape--avenir">
+                <span class="puce"></span>
+                <div class="c">
+                  <p class="q">Ensuite</p>
+                  <b>Alice confirme à son tour</b>
+                  <p>Les heures ne bougent qu'une fois les deux validations reçues.</p>
+                </div>
+              </div>
+              <div class="etape etape--avenir">
+                <span class="puce"></span>
+                <div class="c">
+                  <p class="q">Pour finir</p>
+                  <b>Vous laissez un mot</b>
+                  <p>Facultatif, mais c'est ce qui fait vivre les profils.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="encart encart--info" style="margin:16px 18px 0">
+              <b>Rien n'est perdu si vous oubliez.</b> Sans validation sous quinze jours, le bureau vous écrit, puis régularise lui-même.
+            </div>
+
+            <div style="display:flex;justify-content:center;gap:18px;margin:16px 18px 6px">
+              <button class="lien-filet lien-filet--muet" type="button">Écrire à Alice</button>
+              <button class="lien-filet lien-filet--muet" type="button">Signaler un problème</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">La fiche empile trois blocs : l'<b>en-tête</b> sous filet double, le <b>pavé de renseignements</b> — les quatre faits qu'on relit — puis <b>le fil</b>. Le geste attendu n'est pas un bouton en pied de page : il est <b>dans l'étape où il se joue</b>, à l'endroit exact du fil où l'on se trouve. C'est le seul bouton plein de l'écran.</p>
+    <div class="verdict">
+      <p class="pour">on comprend en trois secondes où en est l'échange, qui a fait quoi, et ce qui reste — sans lire une seule pastille de statut.</p>
+      <p class="contre">le fil s'allonge avec les reports et les annulations. Au-delà de six étapes, il faudra replier les plus anciennes derrière un « voir tout l'historique ».</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       2 · LES CINQ ÉTATS
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">2</span><h2>Les cinq états</h2><span class="route">le fil en abrégé</span></figcaption>
+    <div class="phone" style="height:auto;min-height:812px;background:var(--bg-main);display:flex;flex-direction:column">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Un fil, cinq issues</span></div>
+
+      <main class="feed feed--uni" style="padding:14px 0 22px">
+        <div class="etats-jeu">
+
+          <div>
+            <p class="lab">Proposé — on attend une réponse</p>
+            <div class="fil-rdv fil-rdv--bref" style="margin:0">
+              <div class="etape etape--ici"><span class="puce"></span><div class="c"><p class="q">Aujourd'hui · 9 h 04</p><b>Alice a proposé le rendez-vous</b></div></div>
+              <div class="etape etape--avenir"><span class="puce"></span><div class="c"><p class="q">Ensuite</p><b>Vous acceptez ou proposez autre chose</b></div></div>
+            </div>
+          </div>
+
+          <div>
+            <p class="lab">Accepté — c'est inscrit</p>
+            <div class="fil-rdv fil-rdv--bref" style="margin:0">
+              <div class="etape"><span class="puce"></span><div class="c"><p class="q">9 juin</p><b>Alice a proposé le rendez-vous</b></div></div>
+              <div class="etape etape--ici"><span class="puce"></span><div class="c"><p class="q">9 juin · 9 h 40</p><b>Vous avez accepté</b></div></div>
+              <div class="etape etape--avenir"><span class="puce"></span><div class="c"><p class="q">Samedi 14 juin</p><b>Le rendez-vous a lieu</b></div></div>
+            </div>
+          </div>
+
+          <div>
+            <p class="lab">À valider — le geste attendu</p>
+            <div class="fil-rdv fil-rdv--bref" style="margin:0">
+              <div class="etape"><span class="puce"></span><div class="c"><p class="q">9 juin</p><b>Vous avez accepté</b></div></div>
+              <div class="etape etape--ici"><span class="puce"></span><div class="c"><p class="q">Il y a 2 jours</p><b>L'heure est passée</b></div></div>
+              <div class="etape etape--avenir"><span class="puce"></span><div class="c"><p class="q">Ensuite</p><b>Alice confirme à son tour</b></div></div>
+            </div>
+          </div>
+
+          <div>
+            <p class="lab">Validé — les heures ont bougé</p>
+            <div class="fil-rdv fil-rdv--bref" style="margin:0">
+              <div class="etape"><span class="puce"></span><div class="c"><p class="q">14 juin</p><b>L'échange a eu lieu</b></div></div>
+              <div class="etape"><span class="puce"></span><div class="c"><p class="q">16 juin</p><b>Vous avez tous deux validé</b></div></div>
+              <div class="etape etape--ici"><span class="puce"></span><div class="c"><p class="q">16 juin · 18 h 12</p><b>1 heure portée à votre compteur</b></div></div>
+            </div>
+          </div>
+
+          <div>
+            <p class="lab">Annulé — le fil s'arrête</p>
+            <div class="fil-rdv fil-rdv--bref" style="margin:0">
+              <div class="etape"><span class="puce"></span><div class="c"><p class="q">9 juin</p><b>Vous avez accepté</b></div></div>
+              <div class="etape etape--annule"><span class="puce"></span><div class="c"><p class="q">13 juin · 20 h 05</p><b>Alice a annulé — empêchement</b></div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="encart encart--info" style="margin:18px 18px 0">
+          <b>Une seule pièce, cinq remplissages.</b> Ce n'est pas cinq composants : c'est le même fil, arrêté à un endroit différent. La puce orange marque toujours <b>où l'on en est</b>, et rien d'autre ne bouge.
+        </div>
+      </main>
+    </div>
+    <p class="note">En version brève — dans une carte, une colonne latérale, une ligne de liste — le fil perd ses descriptions et ne garde que les dates et les titres. La géométrie est identique : mêmes puces, même filet, mêmes couleurs. On peut donc le poser à peu près partout sans le redessiner.</p>
+    <div class="verdict">
+      <p class="pour">un seul composant remplace les pastilles de statut, les libellés recalculés et les historiques dispersés. L'état n'est plus une chaîne de caractères mais une position.</p>
+      <p class="contre">un fil prend cinq fois plus de place qu'une pastille. Dans une liste dense, la pastille reste nécessaire — les deux doivent coexister sans se contredire.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       3 · LA MÊME FICHE SUR PC
+       ============================================================ -->
+  <figure class="ecran-bureau" style="grid-column:1 / -1">
+    <figcaption><span class="n">3</span><h2>La même fiche, sur grand écran</h2><span class="tag">Centrée · 520 px au plus</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/votre-temps</span></div>
+
+      <header class="b-courant">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <nav class="nav">
+          <a href="#">La une</a><a href="#">Le fil</a><a href="#">À l'affiche<span class="cpt">5</span></a>
+          <a href="#">Les voisins</a><a class="on" href="#">Votre temps</a><a href="#">Le courrier<span class="cpt">3</span></a><a href="#">Proposer</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="date">N° 142 · 10 juin</span>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-deux4">
+          <div class="gauche zone">
+            <p class="b-mini-titre">Votre compteur</p>
+            <div class="compteurs">
+              <div><div class="v v--donne">5 h 15</div><div class="l">donné</div></div>
+              <div><div class="v v--recu">3 h 15</div><div class="l">reçu</div></div>
+              <div><div class="v v--solde">8 h 30</div><div class="l">compteur</div></div>
+            </div>
+          </div>
+          <div class="b-filet-v"></div>
+          <div class="milieu zone">
+            <div class="rubrique"><span class="tape"><h2>Le relevé</h2><span class="badge-compte">14</span></span><span class="filet"></span></div>
+            <div class="registre" style="margin-top:12px">
+              <div class="registre-tete"><span>Juin 2026</span><span>+ 1 h 30</span></div>
+              <div class="registre-ligne">
+                <span class="avatar av-creme">AN</span>
+                <div class="c"><b>Montage de l'étagère</b><p class="d">Donné à Alice Noël · Centre</p></div>
+                <span class="etat etat--attente">À valider</span>
+              </div>
+              <div class="registre-ligne">
+                <span class="avatar av-bleu">JM</span>
+                <div class="c"><b>Prêt d'une perceuse</b><p class="d">Reçu de Jean Mercier</p></div>
+                <span class="etat etat--ok">Validé</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="voile">
+        <div class="feuille feuille--haute">
+          <div class="tete" style="padding-top:4px"><h3 style="flex:1"></h3><button class="x" type="button">×</button></div>
+          <div class="corps">
+            <div class="fiche-rdv-tete" style="padding-top:0">
+              <p class="genre">Rencontre physique</p>
+              <h1>Montage de l'étagère</h1>
+              <p class="avec"><span class="avatar av-creme" style="width:26px;height:26px;font-size:9.5px">AN</span>Avec Alice Noël</p>
+            </div>
+
+            <div class="b-faits" style="margin:14px 18px 0">
+              <div class="l"><span class="k">Quand</span><span class="v"><b>Samedi 14 juin</b>, 10:00</span></div>
+              <div class="l"><span class="k">Durée</span><span class="v">environ 1 heure</span></div>
+              <div class="l"><span class="k">Où</span><span class="v">12 rue des Lilas, Centre</span></div>
+              <div class="l"><span class="k">Annonce</span><span class="v">« Une étagère à monter samedi matin »</span></div>
+            </div>
+
+            <p class="sous-titre-fil">Le fil de ce rendez-vous</p>
+            <div class="fil-rdv">
+              <div class="etape">
+                <span class="puce"></span>
+                <div class="c"><p class="q">Mardi 9 juin · 9 h 04</p><b>Alice a proposé le rendez-vous</b><p>Samedi 14 juin à 10 h, chez elle, pour environ une heure.</p></div>
+              </div>
+              <div class="etape">
+                <span class="puce"></span>
+                <div class="c"><p class="q">Mardi 9 juin · 9 h 40</p><b>Vous avez accepté</b><p>Le rendez-vous est inscrit à vos deux agendas.</p></div>
+              </div>
+              <div class="etape etape--ici">
+                <span class="puce"></span>
+                <div class="c">
+                  <p class="q">Samedi 14 juin · il y a 2 jours</p>
+                  <b>L'heure est passée</b>
+                  <p>Si l'échange a bien eu lieu, validez-le : Alice recevra 1 heure sur son compteur.</p>
+                  <button class="action action--fort agir" type="button">Valider l'échange</button>
+                </div>
+              </div>
+              <div class="etape etape--avenir">
+                <span class="puce"></span>
+                <div class="c"><p class="q">Ensuite</p><b>Alice confirme à son tour</b><p>Les heures ne bougent qu'une fois les deux validations reçues.</p></div>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:center;gap:18px;margin:18px 18px 4px">
+              <button class="lien-filet lien-filet--muet" type="button">Écrire à Alice</button>
+              <button class="lien-filet lien-filet--muet" type="button">Signaler un problème</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Voici la règle appliquée. La feuille se détache du bas, se centre, se plafonne à <b>520 px</b> et arrondit ses quatre coins ; la poignée disparaît, la croix reste. <b>Le contenu est exactement celui du mobile</b> — comparez avec l'écran 1, c'est le même balisage, à la coquille près. Derrière, la page continue d'exister, assombrie : on n'a pas quitté son relevé.</p>
+    <div class="verdict">
+      <p class="pour">zéro travail de responsive sur le contenu des modales. Une fiche dessinée une fois sert aux deux appareils, et les corrections ne se font qu'à un endroit.</p>
+      <p class="contre">520 px au centre d'un 27 pouces, c'est une petite fenêtre dans beaucoup de vide. Pour les fiches très longues, il faudra sans doute une page à part plutôt qu'une modale.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Le fil du rendez-vous · Personnes fictives.<br>
+  <a href="../../index.html">Le design retenu</a> · <a href="../bibliotheque.html">La bibliothèque</a> · <a href="surfaces.html">Les surfaces</a>
+</footer>
+</body>
+</html>
