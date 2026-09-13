@@ -42,8 +42,11 @@ body{
 .planche{display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,max-content));gap:30px 26px;justify-content:center;max-width:846px;margin:0 auto;}
 .ecran{display:flex;flex-direction:column;gap:11px;}
 .ecran figcaption{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;}
-.ecran .n{font-family:var(--titres);font-weight:800;font-size:.74rem;background:var(--sable);color:var(--marine);border-radius:7px;padding:2px 8px;flex:none;}
-.ecran .n--neuf{background:var(--orange);color:#fff9ec;}
+/* la pastille numérotée appartient à l'étiquette de l'écran, pas au contenu :
+   scopée à figcaption, sinon elle enjaunit tous les .n du téléphone
+   (chiffres de date, compteurs de sommaire, compteurs de chips…). */
+.ecran > figcaption .n{font-family:var(--titres);font-weight:800;font-size:.74rem;background:var(--sable);color:var(--marine);border-radius:7px;padding:2px 8px;flex:none;}
+.ecran > figcaption .n--neuf{background:var(--orange);color:#fff9ec;}
 .ecran h2{font-family:var(--titres);font-weight:800;font-size:.98rem;}
 .ecran .route{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--text-tertiary);background:rgba(24,62,87,.06);border-radius:5px;padding:1px 7px;}
 .ecran .note{font-size:.78rem;color:var(--text-secondary);line-height:1.45;}
