@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les décisions préalables</title>
+<link rel="icon" href="assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brandkit/gazette.css">
+<style>
+body{padding:36px 20px 80px;}
+.wrap{max-width:1000px;margin:0 auto;}
+
+.entete{text-align:center;max-width:800px;margin:0 auto;}
+.entete img{width:58px;height:auto;margin-bottom:12px;}
+.entete .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.entete h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);letter-spacing:-.5px;margin-top:6px;}
+.entete p{color:var(--text-secondary);font-size:.95rem;line-height:1.65;margin-top:14px;}
+.entete .retour{display:inline-block;margin-top:18px;color:var(--marine);font-weight:600;font-size:.86rem;text-decoration:none;}
+
+.compte{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:26px 0 0;}
+.compte > div{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:11px 18px;text-align:center;min-width:128px;}
+.compte .v{font-family:var(--titres);font-weight:800;font-size:1.5rem;line-height:1;color:var(--marine);}
+.compte .v--rouge{color:var(--danger);}
+.compte .v--vert{color:var(--success);}
+.compte .l{font-size:.7rem;color:var(--text-tertiary);margin-top:6px;line-height:1.4;}
+
+.somm{
+  position:sticky;top:0;z-index:20;margin:32px 0 30px;padding:10px 0;
+  background:rgba(247,246,243,.93);backdrop-filter:blur(10px);
+  border-top:1px solid var(--marine);border-bottom:3px double var(--marine);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:3px;
+}
+@supports not (backdrop-filter:blur(2px)){ .somm{background:var(--bg-main);} }
+.somm a{padding:5px 11px;border-radius:7px;text-decoration:none;font-family:var(--titres);font-weight:800;font-size:.69rem;letter-spacing:.07em;text-transform:uppercase;color:var(--text-secondary);}
+.somm a:hover{background:var(--sable);color:var(--marine);}
+
+.chap{display:flex;align-items:center;gap:14px;margin:48px 0 6px;scroll-margin-top:64px;}
+.chap .num{font-family:var(--titres);font-weight:800;font-size:.76rem;background:var(--sable);color:var(--marine);border-radius:8px;padding:3px 10px;}
+.chap h2{font-family:var(--titres);font-weight:800;font-size:1.26rem;}
+.chap .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
+.chap-sub{color:var(--text-secondary);font-size:.88rem;line-height:1.6;margin:0 0 20px;}
+.chap-sub b{color:var(--marine);}
+
+/* — la carte de décision — */
+.d{
+  background:var(--paper);border:1px solid var(--border);border-radius:13px;
+  padding:15px 18px 16px;margin-bottom:14px;border-left:3px solid var(--border);
+}
+.d--produit{border-left-color:var(--danger);}
+.d--charte{border-left-color:var(--orange-vif);}
+.d--technique{border-left-color:var(--warning-vif);}
+.d--tranche{border-left-color:var(--success-vif);background:rgba(47,122,68,.05);}
+.d .tete{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin-bottom:4px;}
+.d .n{font-family:var(--titres);font-weight:800;font-size:.7rem;background:var(--marine);color:var(--sable);border-radius:5px;padding:2px 8px;flex:none;}
+.d h3{font-family:var(--titres);font-weight:800;font-size:1rem;flex:1;min-width:220px;}
+.d .nature{font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-radius:5px;padding:2px 8px;white-space:nowrap;}
+.d .nature--produit{background:rgba(196,69,54,.11);color:var(--danger);}
+.d .nature--charte{background:var(--bg-hover);color:var(--orange-hover);}
+.d .nature--technique{background:rgba(180,83,9,.11);color:var(--warning);}
+.d .nature--tranche{background:rgba(47,122,68,.14);color:var(--success);}
+
+.d .face{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:11px 0 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.d .face > div{padding:10px 13px;font-size:.8rem;line-height:1.55;color:var(--text-secondary);}
+.d .face > div:first-child{border-right:1px solid var(--border);background:var(--bg-hover);}
+.d .face > div:last-child{background:var(--bg-secondary);}
+.d .face .k{display:block;font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:5px;}
+.d .face b{color:var(--marine);}
+@media (max-width:640px){ .d .face{grid-template-columns:1fr;} .d .face > div:first-child{border-right:0;border-bottom:1px solid var(--border);} }
+
+.d .reco{margin-top:11px;padding-top:10px;border-top:1px dashed var(--border);font-size:.83rem;line-height:1.6;color:var(--text-secondary);}
+.d .reco .k{font-family:var(--titres);font-weight:800;color:var(--success);}
+.d .reco b{color:var(--marine);}
+.d .cout{margin-top:7px;font-size:.77rem;color:var(--text-tertiary);line-height:1.5;}
+.d .cout b{color:var(--danger);}
+.d code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+.d p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);margin-top:8px;}
+.d p b{color:var(--marine);}
+
+.avert{border-left:3px solid var(--danger);background:rgba(196,69,54,.06);border-radius:0 12px 12px 0;padding:14px 18px;margin:0 0 22px;}
+.avert .t{font-family:var(--titres);font-weight:800;font-size:.92rem;color:var(--danger);margin-bottom:8px;}
+.avert p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);}
+.avert p + p{margin-top:8px;}
+.avert b{color:var(--marine);}
+
+.fait{border-left:3px solid var(--success);background:rgba(47,122,68,.07);border-radius:0 12px 12px 0;padding:14px 18px;margin:0 0 22px;}
+.fait .t{font-family:var(--titres);font-weight:800;font-size:.92rem;color:var(--success);margin-bottom:8px;}
+.fait p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);}
+.fait p + p{margin-top:8px;}
+.fait b{color:var(--marine);}
+.fait code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+
+/* — le tableau des contrastes — */
+.wcag{width:100%;border-collapse:collapse;font-size:.8rem;}
+.wcag th{text-align:left;font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);padding:0 10px 8px 0;border-bottom:2px solid var(--marine);}
+.wcag td{padding:7px 10px 7px 0;border-top:1px dotted var(--border);color:var(--text-secondary);}
+.wcag tbody tr:first-child td{border-top:0;}
+.wcag .ech{width:26px;height:18px;border-radius:4px;border:1px solid rgba(24,62,87,.2);display:inline-block;vertical-align:middle;}
+.wcag .r{font-family:var(--titres);font-weight:800;}
+.wcag .r--ok{color:var(--success);}
+.wcag .r--ko{color:var(--danger);}
+.wcag .hex{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;}
+.wcag tr.avant td{opacity:.62;}
+
+/* — la récap — */
+.recap{width:100%;border-collapse:collapse;font-size:.82rem;}
+.recap th{text-align:left;font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);padding:0 10px 8px 0;border-bottom:2px solid var(--marine);}
+.recap td{padding:8px 10px 8px 0;border-top:1px dotted var(--border);color:var(--text-secondary);vertical-align:top;}
+.recap tbody tr:first-child td{border-top:0;}
+.recap .id{font-family:var(--titres);font-weight:800;color:var(--marine);white-space:nowrap;}
+.recap .e{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:5px;padding:2px 7px;white-space:nowrap;}
+.recap .e--ouvert{background:rgba(196,69,54,.11);color:var(--danger);}
+.recap .e--fait{background:rgba(47,122,68,.14);color:var(--success);}
+.recap .q{font-family:var(--titres);font-weight:800;color:var(--marine);white-space:nowrap;}
+
+footer{margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
+footer a{color:var(--marine);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="entete">
+  <img src="assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Ce qui doit être arbitré avant d'écrire du code</p>
+  <h1>Les décisions préalables</h1>
+  <p>Quatre relectures ont confronté la charte au dépôt : les composants, les écrans et parcours, le protocole lui-même, et les dimensions qui échappent au CSS. Elles laissent <b>vingt et une décisions ouvertes</b>. Aucune n'est technique au sens où un développeur pourrait la prendre seul : ce sont des choix de produit, de charte ou d'organisation. Ce document les pose une par une, avec les deux faces et une recommandation.</p>
+  <div class="compte">
+    <div><p class="v v--rouge">5</p><p class="l">changements de<br>comportement déguisés</p></div>
+    <div><p class="v">9</p><p class="l">trous dans<br>la charte</p></div>
+    <div><p class="v">7</p><p class="l">décisions techniques<br>et d'organisation</p></div>
+    <div><p class="v v--vert">4</p><p class="l">déjà tranchées<br>et corrigées</p></div>
+  </div>
+  <a class="retour" href="migration.html">← Le protocole de migration</a>
+</header>
+
+<nav class="somm">
+  <a href="#comportement">Comportement</a>
+  <a href="#palette">La palette</a>
+  <a href="#trous">Les trous</a>
+  <a href="#contradictions">Contradictions</a>
+  <a href="#organisation">Organisation</a>
+  <a href="#recap">Récapitulatif</a>
+</nav>
+
+<!-- ============ A · COMPORTEMENT ============ -->
+<div class="chap" id="comportement"><span class="num">A</span><h2>Quand la charte prescrit du comportement</h2><span class="filet"></span></div>
+
+<div class="avert">
+  <p class="t">La catégorie la plus dangereuse, parce qu'elle ne ressemble pas à une décision</p>
+  <p>Ces cinq phrases ont été écrites comme des choix de mise en page. Ce sont en réalité des <b>décisions de produit</b> : elles suppriment une route, fusionnent trois écrans, inventent une fonctionnalité, exposent des données publiquement, ou modifient un menu.</p>
+  <p>La règle d'or — « on change l'apparence, jamais le comportement » — <b>ne peut pas les arbitrer</b>, puisque c'est la charte elle-même qui la viole. Elles doivent être tranchées une par une, et <b>le refus est une réponse parfaitement valable</b> : la maquette redevient alors conforme au code.</p>
+</div>
+
+<div class="d d--produit">
+  <div class="tete"><span class="n">A1</span><h3>L'écran intermédiaire de la messagerie disparaît-il sur grand écran ?</h3><span class="nature nature--produit">Produit</span></div>
+  <div class="face">
+    <div><span class="k">Ce que dit la charte</span>« L'écran intermédiaire du mobile disparaît, remplacé par un dossier permanent. »</div>
+    <div><span class="k">Ce que fait le code</span><code>/messages/user/:id</code> est une <b>route réelle</b> de 130 lignes, cible de liens internes et de notifications.</div>
+  </div>
+  <p>Si la route disparaît sur grand écran, <b>un lien reçu par notification n'atterrit plus nulle part</b> — ou atterrit sur une page qui n'existe que la moitié du temps.</p>
+  <div class="reco"><span class="k">Recommandation —</span> garder la route et la <b>rendre dans le dossier permanent</b> : sur PC l'URL reste valide et sélectionne la personne dans la colonne de gauche. On gagne la mise en page sans perdre l'adresse.</div>
+</div>
+
+<div class="d d--produit">
+  <div class="tete"><span class="n">A2</span><h3>Recherche et annuaire fusionnent-ils ?</h3><span class="nature nature--produit">Produit</span></div>
+  <div class="face">
+    <div><span class="k">Ce que dit la charte</span>« Recherche et annuaire fusionnent » en un écran « Les voisins ».</div>
+    <div><span class="k">Ce que fait le code</span><b>Trois routes distinctes</b> : recherche de voisins (513 l.), recherche d'annonces (447 l.), annuaire par type. Et <b>aucune planche PC ne montre la recherche d'annonces</b>.</div>
+  </div>
+  <p>Fusionner, c'est réécrire trois pages et leurs filtres. Ne pas fusionner, c'est concevoir une mise en page grand écran pour la recherche d'annonces, qui n'existe pas encore.</p>
+  <div class="reco"><span class="k">Recommandation —</span> <b>ne pas fusionner maintenant.</b> Dessiner la recherche d'annonces sur grand écran avec le même gabarit que la recherche de voisins, et garder les trois routes. La fusion est une bonne idée de produit, mais c'est un chantier à elle seule.</div>
+</div>
+
+<div class="d d--produit">
+  <div class="tete"><span class="n">A3</span><h3>« À l'affiche » devient-il un calendrier ?</h3><span class="nature nature--produit">Produit</span></div>
+  <div class="face">
+    <div><span class="k">Ce que dit la charte</span>« L'affiche redevient un calendrier. »</div>
+    <div><span class="k">Ce que fait le code</span><b>Aucune route « affiche » n'existe.</b> C'est une section de l'accueil, et les ateliers s'ouvrent dans la fiche de rendez-vous.</div>
+  </div>
+  <p>Un calendrier est une <b>fonctionnalité neuve</b> : vue mensuelle, navigation entre mois, densité, gestion du vide, comportement tactile. Rien de tout cela n'existe.</p>
+  <div class="reco"><span class="k">Recommandation —</span> <b>sortir le calendrier de la migration</b> et en faire une tâche produit séparée. Sur grand écran, la section garde sa forme de liste, en colonnes.</div>
+</div>
+
+<div class="d d--produit">
+  <div class="tete"><span class="n">A4</span><h3>La devanture publique liste-t-elle les annonces ?</h3><span class="nature nature--produit">Produit &amp; RGPD</span></div>
+  <div class="face">
+    <div><span class="k">Ce que dit la charte</span>L'accueil public montre « Ce qui s'échange ici » — annonces et ateliers — à un visiteur non connecté.</div>
+    <div><span class="k">Ce que fait le code</span>Hors connexion, <b>seule la réservation existe</b>. Les annonces exigent une authentification.</div>
+  </div>
+  <p>Exposer des annonces publiquement, c'est publier des besoins et des disponibilités de personnes identifiables. <b>Ce n'est pas une question de design</b> : c'est une base légale à établir et une information à donner aux membres.</p>
+  <div class="reco"><span class="k">Recommandation —</span> <b>ne rien exposer sans décision explicite.</b> Si la vitrine doit vivre, montrer des <b>catégories et des chiffres agrégés</b> — « 34 voisins, 12 services proposés » — jamais des annonces nominatives.</div>
+</div>
+
+<div class="d d--produit">
+  <div class="tete"><span class="n">A5</span><h3>Le menu « Proposer » : une entrée ajoutée, une supprimée</h3><span class="nature nature--produit">Produit</span></div>
+  <div class="face">
+    <div><span class="k">Ce que dit la charte</span>Sept entrées, dont <b>« Un rendez-vous »</b>.</div>
+    <div><span class="k">Ce que fait le code</span>Sept entrées, dont <b>« Événement convivial »</b> — et cinq sur sept sont <b>conditionnelles à une permission</b>. Un rendez-vous ne se propose que depuis une annonce, un profil ou un fil.</div>
+  </div>
+  <p>Ajouter « Un rendez-vous » au menu, c'est créer un point d'entrée qui n'existe pas : il faudrait choisir <i>avec qui</i>, donc un sélecteur de personne, donc un nouveau parcours. Et supprimer « Événement convivial » retire une fonctionnalité en service.</p>
+  <div class="reco"><span class="k">Recommandation —</span> <b>reprendre exactement les sept entrées du code</b>, et dessiner le menu <b>réduit</b> — un membre sans droits n'en voit que deux. C'est ce cas-là qu'aucune maquette ne montre, et c'est le plus fréquent.</div>
+</div>
+
+<!-- ============ B · LA PALETTE ============ -->
+<div class="chap" id="palette"><span class="num">B</span><h2>La palette et la typographie</h2><span class="filet"></span></div>
+
+<div class="fait">
+  <p class="t">Déjà tranché et corrigé dans la feuille de style</p>
+  <p>Le calcul des contrastes a montré que <b>l'orange de la charte échouait au niveau AA</b> sur tous les fonds clairs, et que l'anneau de focus — du sable sur du papier, <b>1,32</b> — était purement invisible.</p>
+  <p>La feuille de style distingue désormais <b>l'encre</b> et <b>l'ornement</b>. <code>--orange</code> vaut <code>#b84e17</code> et porte les textes et les aplats de bouton ; <code>--orange-vif</code> garde <code>#d65e1c</code> pour les filets, les puces et les barres — <b>qui ne portent jamais de texte</b>. Même partage pour le succès et l'avertissement. L'anneau de focus est devenu double : encre marine plus halo sable, pour que l'un des deux contraste toujours, sur clair comme sur marine.</p>
+  <p><b>Ce qui reste à faire : relire les maquettes produites avant cette correction</b>, et repérer les endroits où de l'orange vif porte encore du texte.</p>
+</div>
+
+<table class="wcag">
+  <thead><tr><th style="width:34%">Paire</th><th style="width:14%">Ratio</th><th style="width:16%">Texte courant</th><th style="width:16%">Grand texte</th><th>Rôle</th></tr></thead>
+  <tbody>
+    <tr><td><span class="ech" style="background:#183e57"></span> <span class="hex">#183e57</span> sur papier</td><td class="r r--ok">11,06</td><td class="r--ok">AAA</td><td class="r--ok">AAA</td><td>L'encre principale</td></tr>
+    <tr><td><span class="ech" style="background:#fcdb81"></span> marine sur <span class="hex">#fcdb81</span></td><td class="r r--ok">8,36</td><td class="r--ok">AAA</td><td class="r--ok">AAA</td><td>Le bouton sable</td></tr>
+    <tr><td><span class="ech" style="background:#4b5563"></span> <span class="hex">#4b5563</span> sur papier</td><td class="r r--ok">7,43</td><td class="r--ok">AAA</td><td class="r--ok">AAA</td><td>Texte secondaire</td></tr>
+    <tr><td><span class="ech" style="background:#2f7a44"></span> <span class="hex">#2f7a44</span> sur papier</td><td class="r r--ok">5,17</td><td class="r--ok">AA</td><td class="r--ok">AAA</td><td><b>Succès — nouveau</b></td></tr>
+    <tr><td><span class="ech" style="background:#b84e17"></span> <span class="hex">#b84e17</span> sur papier</td><td class="r r--ok">4,98</td><td class="r--ok">AA</td><td class="r--ok">AAA</td><td><b>Orange encre — nouveau</b></td></tr>
+    <tr><td><span class="ech" style="background:#b45309"></span> <span class="hex">#b45309</span> sur papier</td><td class="r r--ok">4,93</td><td class="r--ok">AA</td><td class="r--ok">AAA</td><td><b>Avertissement — nouveau</b></td></tr>
+    <tr><td><span class="ech" style="background:#c44536"></span> <span class="hex">#c44536</span> sur papier</td><td class="r r--ok">4,85</td><td class="r--ok">AA</td><td class="r--ok">AAA</td><td>Danger — inchangé</td></tr>
+    <tr><td><span class="ech" style="background:#717182"></span> <span class="hex">#717182</span> sur papier</td><td class="r r--ok">4,70</td><td class="r--ok">AA</td><td class="r--ok">AAA</td><td>Texte tertiaire — limite</td></tr>
+    <tr class="avant"><td><span class="ech" style="background:#d65e1c"></span> <span class="hex">#d65e1c</span> sur papier</td><td class="r r--ko">3,77</td><td class="r--ko">Échec</td><td class="r--ok">AA</td><td><i>Ornement seulement</i></td></tr>
+    <tr class="avant"><td><span class="ech" style="background:#4a9d5f"></span> <span class="hex">#4a9d5f</span> sur papier</td><td class="r r--ko">3,29</td><td class="r--ko">Échec</td><td class="r--ok">AA</td><td><i>Ornement seulement</i></td></tr>
+    <tr class="avant"><td><span class="ech" style="background:#d65e1c"></span> orange vif sur sable</td><td class="r r--ko">2,85</td><td class="r--ko">Échec</td><td class="r--ko">Échec</td><td><b>À proscrire</b></td></tr>
+    <tr class="avant"><td><span class="ech" style="background:#d65e1c"></span> orange vif sur marine</td><td class="r r--ko">2,94</td><td class="r--ko">Échec</td><td class="r--ko">Échec</td><td><b>À proscrire</b></td></tr>
+    <tr class="avant"><td><span class="ech" style="background:#fcdb81"></span> sable sur papier</td><td class="r r--ko">1,32</td><td class="r--ko">Échec</td><td class="r--ko">Échec</td><td><i>L'ancien anneau de focus</i></td></tr>
+  </tbody>
+</table>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">B1</span><h3>Auto-héberge-t-on les polices ?</h3><span class="nature nature--technique">Technique &amp; RGPD</span></div>
+  <div class="face">
+    <div><span class="k">Ce que dit la charte</span>Nunito pour les titres, Inter pour le corps.</div>
+    <div><span class="k">Ce que fait le code</span><b>Ni l'une ni l'autre n'est chargée.</b> L'import vise « Nunito Rounded », qui n'existe pas — la requête renvoie <b>HTTP 400</b>. Inter n'est importée nulle part. L'application tourne en polices système.</div>
+  </div>
+  <p>Le jour où les vraies polices arrivent, <b>chaque texte change de métrique d'un coup</b> : largeurs de boutons, troncatures, retours à la ligne. Et aucun test de régression visuelle n'existe pour le voir.</p>
+  <div class="reco"><span class="k">Recommandation —</span> <b>auto-héberger</b>, avec <code>font-display:swap</code> et un <code>size-adjust</code> sur la police de repli pour amortir le saut. Le <code>preconnect</code> vers Google disparaît au passage, et avec lui une transmission d'adresse IP sans consentement.</div>
+  <p class="cout"><b>À prévoir :</b> c'est le changement le plus visible de toute la migration, et il doit avoir <b>sa propre livraison</b>, isolée, pour qu'on sache à quoi attribuer ce qu'on voit.</p>
+</div>
+
+<div class="d d--technique">
+  <div class="tete"><span class="n">B2</span><h3>Les e-mails suivent-ils la charte, et quand ?</h3><span class="nature nature--technique">Technique</span></div>
+  <div class="face">
+    <div><span class="k">Ce que dit la charte</span>Rien — les e-mails n'ont pas été traités.</div>
+    <div><span class="k">Ce que fait le code</span><b>21 fichiers serveur</b> portent la marque en dur : 154 occurrences du marine, 73 du sable. Le garde-fou de jetons <b>ne scanne pas le serveur</b>, et des tests unitaires assertent des couleurs littérales.</div>
+  </div>
+  <p>Cinq envois quotidiens sont planifiés. Une application refondue avec des e-mails à l'ancienne, c'est <b>deux marques vécues simultanément</b> par chaque membre. Le pied de page mesure d'ailleurs 2,05.</p>
+  <div class="reco"><span class="k">Recommandation —</span> créer un <b>module de jetons partagé</b> côté serveur et étendre le garde-fou à <code>server/</code>, mais <b>livrer les e-mails après l'application</b>, pas avant : leur test se fait à la main, sur plusieurs clients de messagerie, hors intégration continue.</div>
+</div>
+
+<div class="d d--technique">
+  <div class="tete"><span class="n">B3</span><h3>Verrouille-t-on le mode clair ?</h3><span class="nature nature--technique">Technique</span></div>
+  <div class="face">
+    <div><span class="k">Ce que dit la charte</span>Aucun jeton sombre.</div>
+    <div><span class="k">Ce que fait le code</span>Le module de thème embarqué par Nuxt UI est réglé sur « <b>système</b> », mais l'application n'a <b>aucune règle sombre</b>.</div>
+  </div>
+  <p>Sur un téléphone en mode sombre, les primitives encore fournies par Nuxt UI peuvent basculer <b>pendant que la coquille reste claire</b>. Personne ne l'a vérifié sur appareil réel.</p>
+  <div class="reco"><span class="k">Recommandation —</span> <b>verrouiller le mode clair</b> avant de commencer. Un vrai mode sombre demande un second jeu de jetons — c'est un chantier, pas une option de configuration.</div>
+</div>
+
+<!-- ============ C · LES TROUS ============ -->
+<div class="chap" id="trous"><span class="num">C</span><h2>Ce que la charte doit compléter</h2><span class="filet"></span></div>
+<p class="chap-sub">Neuf manques identifiés. Chacun bloque un palier précis — <b>tant qu'ils ne sont pas comblés, le palier correspondant ne peut pas démarrer</b> sans inventer, et inventer est interdit.</p>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">C1</span><h3>Les dix verbes du billet</h3><span class="nature nature--charte">Charte · bloque le palier 5</span></div>
+  <p>Le billet impose un verbe de <b>huit lettres maximum</b> dans son talon. Le carrousel d'actions gère <b>dix types</b>. « Confirmer la déclaration » et « redéfinir le lieu » n'y tiennent pas.</p>
+  <div class="reco"><span class="k">À produire —</span> la table des dix verbes, validée. Ou bien assouplir la règle du talon à deux lignes pour les cas longs — <b>ce qui revient à redessiner le billet</b>, donc à trancher maintenant plutôt qu'en cours de route.</div>
+</div>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">C2</span><h3>Les cinq statuts manquants</h3><span class="nature nature--charte">Charte · bloque le palier 5</span></div>
+  <p>La charte dessine <b>quatre</b> pastilles d'état. Le code en affiche <b>neuf</b>. Manquent : <b>expiré</b>, <b>refusé</b>, <b>déclaré</b>, <b>partiellement terminé</b>, et la distinction entre <b>accepté</b> et <b>confirmé</b>. Manque aussi la variante sur fond sombre.</p>
+  <div class="reco"><span class="k">À produire —</span> les cinq pastilles, et une règle explicite pour la distinction accepté / confirmé — <b>ou la décision de les confondre visuellement</b>, ce qui est défendable si le libellé reste distinct.</div>
+</div>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">C3</span><h3>Le bouton fantôme et le bouton blanc</h3><span class="nature nature--charte">Charte · bloque le palier 3</span></div>
+  <p>Le bouton du code expose douze variantes. Six sont mortes. Mais deux vivantes n'ont <b>aucun équivalent</b> : la variante <b>fantôme</b> (10 usages) et la variante <b>blanche sur marine</b>. Le lien à filet n'est pas un remplacement : il n'a pas la même zone de clic ni la même hauteur.</p>
+  <div class="reco"><span class="k">À produire —</span> deux fiches. Et au passage, acter que <b>les six variantes mortes se suppriment après la migration</b>, pas pendant.</div>
+</div>
+
+<div class="d d--produit">
+  <div class="tete"><span class="n">C4</span><h3>La pagination survit-elle ?</h3><span class="nature nature--produit">Produit · bloque le palier 3</span></div>
+  <div class="face">
+    <div><span class="k">Ce que dit la charte</span>« Fil infini » sur grand écran. Aucune fiche de pagination.</div>
+    <div><span class="k">Ce que fait le code</span>Un composant de pagination avec <b>11 appelants</b> — la troisième primitive la plus utilisée.</div>
+  </div>
+  <p>Remplacer une pagination par un défilement infini n'est pas un changement d'apparence : c'est un changement de comportement, de performance et d'accessibilité.</p>
+  <div class="reco"><span class="k">Recommandation —</span> <b>garder la pagination et lui dessiner une fiche.</b> Le fil infini, s'il est souhaité, est une tâche produit séparée — et il ne convient pas à une liste d'administration.</div>
+</div>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">C5</span><h3>La cloche et le bandeau de délégation</h3><span class="nature nature--charte">Charte · bloque le palier 6</span></div>
+  <p>Deux éléments du chrome n'apparaissent sur <b>aucune</b> barre dessinée : la <b>cloche de notifications</b> avec sa pastille de non-lus, et le <b>bandeau « Revenir à mon compte »</b> qui signale qu'on agit pour quelqu'un d'autre. Le second est un garde-fou de sécurité : sans lui, on peut oublier qu'on est en immersion.</p>
+  <div class="reco"><span class="k">À produire —</span> les deux, dans la barre du haut mobile <b>et</b> dans la manchette grand écran.</div>
+</div>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">C6</span><h3>Les dix-huit écrans absents</h3><span class="nature nature--charte">Charte · bloque le palier 6</span></div>
+  <p>Sur <b>57 écrans routés</b> : 7 couverts, 28 partiels, <b>18 sans aucune maquette</b>. Ils se concentrent sur l'administration (11), les retours d'authentification (3), la réservation hors cas nominal (2), les notifications et les actions (2). Et la page d'erreur — 404, 503 — n'est dessinée nulle part.</p>
+  <div class="reco"><span class="k">Recommandation —</span> ne pas tout dessiner. <b>Fixer un gabarit par format</b> — lecture, personnelle, tâche — suffisamment précis pour qu'un écran d'administration s'y range sans invention. Puis dessiner nommément <b>la page d'erreur</b> et <b>les trois écrans d'authentification</b>, qui sont vus par tout le monde.</div>
+</div>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">C7</span><h3>Les deux parcours dessinés au quart</h3><span class="nature nature--charte">Charte</span></div>
+  <p>La <b>délégation</b> compte sept étapes — nomination, lien, inscription du filleul avec signature manuscrite, bascule, bandeau, action, journal d'audit — pour <b>un écran dessiné</b>. L'<b>embarquement</b> compte six étapes pour <b>deux</b> : manquent « ton profil », « ce que tu recherches », le récapitulatif, plus le changement de mot de passe forcé et l'écran de retour de lien.</p>
+  <div class="reco"><span class="k">Recommandation —</span> compléter l'embarquement, qui est vu par <b>chaque nouveau membre</b>. Pour la délégation, se contenter du gabarit « tâche » : le parcours est rare et réservé aux parrains.</div>
+</div>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">C8</span><h3>Les états jamais dessinés</h3><span class="nature nature--charte">Charte · bloque le palier 3</span></div>
+  <p>L'application contient <b>60 indicateurs de chargement</b>, <b>72 messages de vide</b>, <b>76 blocs d'erreur</b> et <b>112 états désactivés</b>. La charte dessine un squelette, un vide générique, une erreur générique, et <b>aucun état désactivé</b>. Elle ne montre pas non plus le bouton en cours de chargement — dix usages.</p>
+  <p>Détail important : l'application ne contient <b>aucune animation de squelette</b>. Les six classes de squelette de la charte sont donc une <b>addition</b>, pas un remplacement — donc du comportement nouveau, à sortir de la migration.</p>
+  <div class="reco"><span class="k">Recommandation —</span> dessiner le <b>bouton en chargement</b> et l'<b>état désactivé</b> (obligatoires, ils existent partout), plus <b>un vide par grande liste</b> — boîte de messages, favoris, mes annonces, résultats filtrés, relevé de temps. Les squelettes attendent.</div>
+</div>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">C9</span><h3>Les carrousels sur grand écran étroit</h3><span class="nature nature--charte">Charte</span></div>
+  <p>Au palier grand écran le plus étroit, la charte dit « on reprend l'ordre du mobile » — ce qui <b>ramène les carrousels horizontaux</b> devant un utilisateur à la souris, pour qui ils ne défilent qu'avec Maj et molette. Cinq zones de l'accueil sont concernées.</p>
+  <div class="reco"><span class="k">Recommandation —</span> au-delà de 980 px, <b>un carrousel devient toujours une grille</b>, même quand le reste reprend l'ordre du mobile. C'est une règle d'une ligne à ajouter aux règles d'implémentation.</div>
+</div>
+
+<!-- ============ D · CONTRADICTIONS ============ -->
+<div class="chap" id="contradictions"><span class="num">D</span><h2>Quand mes propres règles se contredisent</h2><span class="filet"></span></div>
+<p class="chap-sub">Quatre règles de la charte entrent en conflit avec du code qui fonctionne. <b>Dans les quatre cas, c'est le code qui a raison</b> — mais la règle doit être amendée explicitement, sinon quelqu'un l'appliquera.</p>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">D1</span><h3>« Jamais trois surfaces empilées »</h3><span class="nature nature--charte">Règle à amender</span></div>
+  <p>La pile d'overlays empile jusqu'à trois surfaces et sait les <b>restaurer par l'historique du navigateur</b> — on masque une modale, on en ouvre une autre, on revient et la première remonte avec son état.</p>
+  <div class="reco"><span class="k">Amendement —</span> « jamais trois surfaces <b>visibles</b> à la fois ». L'empilement mémorisé est autorisé : c'est même ce qui évite la superposition.</div>
+</div>
+
+<div class="d d--charte">
+  <div class="tete"><span class="n">D2</span><h3>« Un dialogue a toujours deux issues »</h3><span class="nature nature--charte">Règle à amender</span></div>
+  <p>Le dialogue d'informations obligatoires est <b>volontairement non fermable</b> : on ne peut pas utiliser l'application sans compléter son profil.</p>
+  <div class="reco"><span class="k">Amendement —</span> autoriser une <b>exception nommée</b> : un dialogue peut n'avoir qu'une issue s'il exige une information sans laquelle rien d'autre ne fonctionne. Une seule exception aujourd'hui — et elle doit rester unique.</div>
+</div>
+
+<div class="d d--tranche">
+  <div class="tete"><span class="n">D3</span><h3>« Le clavier n'est pas optionnel » — mais aucun anneau de focus</h3><span class="nature nature--tranche">Corrigé</span></div>
+  <p>Les règles d'implémentation affirmaient que le clavier n'est pas optionnel, et la feuille de style ne contenait <b>aucune règle <code>:focus-visible</code></b> — tandis que la couleur de focus prescrite, du sable sur du papier, mesurait <b>1,32</b>.</p>
+  <div class="reco"><span class="k">Corrigé —</span> anneau double, encre marine plus halo sable, appliqué à tout élément focusable, avec une variante inversée sur les aplats marine.</div>
+</div>
+
+<div class="d d--tranche">
+  <div class="tete"><span class="n">D4</span><h3>La fiche « Le dialogue » existait en double</h3><span class="nature nature--tranche">À corriger</span></div>
+  <p>La bibliothèque contient <b>deux fiches « Le dialogue »</b>, avec des textes différents. Et une trentaine de classes de la feuille de style n'ont aucune fiche correspondante.</p>
+  <div class="reco"><span class="k">À faire —</span> fusionner les deux fiches, puis documenter ou retirer les classes orphelines. Sans conséquence sur le code — c'est de l'hygiène de la charte.</div>
+</div>
+
+<!-- ============ E · ORGANISATION ============ -->
+<div class="chap" id="organisation"><span class="num">E</span><h2>Les décisions d'organisation</h2><span class="filet"></span></div>
+
+<div class="d d--produit">
+  <div class="tete"><span class="n">E1</span><h3>Quand commence-t-on ?</h3><span class="nature nature--produit">Calendrier</span></div>
+  <p>La <b>porte de charte s'arme en production le 16 septembre 2026</b>. Livrer une refonte visuelle la même semaine qu'une modale bloquante de signature rendrait tout retour utilisateur inattribuable.</p>
+  <div class="reco"><span class="k">Recommandation —</span> laisser passer la porte de charte, observer une à deux semaines, puis commencer par le palier 0 — <b>qui ne change rien à l'écran</b> et peut donc démarrer pendant l'attente.</div>
+</div>
+
+<div class="d d--technique">
+  <div class="tete"><span class="n">E2</span><h3>Comment revient-on en arrière ?</h3><span class="nature nature--technique">Technique</span></div>
+  <p><b>Aucun drapeau de fonctionnalité n'est branché</b> — ni côté configuration, ni via l'outil d'analyse pourtant présent. Il n'y a donc pas de bascule progressive : le seul retour arrière est de promouvoir un déploiement précédent.</p>
+  <div class="reco"><span class="k">Recommandation —</span> <b>ne pas construire de système de drapeaux pour l'occasion</b> — c'est un chantier de plus. Documenter à la place la procédure de retour en une page, et garder les livraisons assez petites pour qu'annuler l'une d'elles reste indolore. <b>C'est un argument fort en faveur des petits paliers.</b></div>
+</div>
+
+<div class="d d--produit">
+  <div class="tete"><span class="n">E3</span><h3>Qui tranche les écarts, et sous quel délai ?</h3><span class="nature nature--produit">Organisation</span></div>
+  <p>Le journal d'écarts dit « à trancher » sans nommer personne, et « relu par un humain » sans dire lequel. <b>Un palier dont les écarts ne sont pas arbitrés bloque le suivant</b> — sinon les journaux s'empilent sans effet et la migration avance en accumulant des dettes invisibles.</p>
+  <div class="reco"><span class="k">Recommandation —</span> un nom et un délai. <b>Une semaine par palier</b> : passé ce délai, l'écart est tranché par défaut en faveur du code existant, et consigné comme tel.</div>
+</div>
+
+<div class="d d--technique">
+  <div class="tete"><span class="n">E4</span><h3>Que gèle-t-on pendant la migration ?</h3><span class="nature nature--technique">Organisation</span></div>
+  <p>Le dépôt reçoit environ <b>233 commits par mois</b> et porte quatre chantiers parallèles. Une branche longue sur la fiche de rendez-vous (2 549 lignes), le profil (1 636), la fiche de candidat (1 390) ou la conversation (1 102) <b>entrera en conflit</b>.</p>
+  <div class="reco"><span class="k">Recommandation —</span> pas de gel général — il tuerait le rythme du projet. Un <b>gel fichier par fichier</b>, annoncé, pendant le seul temps de son restylage, avec rebasage quotidien. Ces quatre fichiers passent en dernier, un par un.</div>
+</div>
+
+<div class="d d--technique">
+  <div class="tete"><span class="n">E5</span><h3>Quel jeu d'icônes ?</h3><span class="nature nature--technique">Technique · bloque le palier 1a</span></div>
+  <p><b>Trois jeux d'icônes coexistent</b> aujourd'hui. Et les catégories de services stockent des <b>noms d'icônes en base de données</b> : changer de jeu suppose de faire correspondre ces noms, ou de garder un résolveur pour l'ancien.</p>
+  <div class="reco"><span class="k">Recommandation —</span> garder le jeu déjà majoritaire et <b>résolu à l'exécution</b>, puisque 23 noms sont calculés dynamiquement. Un remplacement par imports statiques est impossible sans toucher aux données.</div>
+</div>
+
+<div class="d d--technique">
+  <div class="tete"><span class="n">E6</span><h3>Le zoom et le mouvement</h3><span class="nature nature--technique">Technique · sans risque</span></div>
+  <p>La coquille force <code>user-scalable=no</code> : le zoom du navigateur est interdit — échec WCAG, et <b>redondant</b>, puisque la raison invoquée (le zoom automatique d'iOS au focus) est déjà traitée par des champs à 16 px. Et <code>prefers-reduced-motion</code> n'apparaît <b>nulle part</b>, alors que 64 fichiers déclarent des animations.</p>
+  <div class="reco"><span class="k">Recommandation —</span> les deux corrections sont <b>indépendantes de la charte</b> et sans risque. À faire dès le palier 0, où elles seront les seuls changements visibles — donc faciles à attribuer.</div>
+</div>
+
+<div class="d d--technique">
+  <div class="tete"><span class="n">E7</span><h3>Les couleurs qui vivent hors du CSS</h3><span class="nature nature--technique">Technique</span></div>
+  <p>La couleur de fond de l'écran de démarrage vaut <b>blanc à un endroit et marine à un autre</b> — deux manifestes portent le même nom. L'icône installée est l'ancien monogramme. L'écran de chargement code son dégradé en dur, hors jetons : c'est <b>le tout premier pixel vu</b>. Et la configuration des notifications poussées — icône, badge, couleurs — vit dans un tableau de bord externe, <b>hors du dépôt</b>.</p>
+  <div class="reco"><span class="k">Recommandation —</span> traiter tout cela dans <b>une seule livraison « la coquille »</b>, au palier 2, avec une tâche séparée pour le tableau de bord externe — qui ne sera visible dans aucune revue de code.</div>
+</div>
+
+<!-- ============ RÉCAP ============ -->
+<div class="chap" id="recap"><span class="num">F</span><h2>Récapitulatif</h2><span class="filet"></span></div>
+<p class="chap-sub">Dans l'ordre où il faut les prendre. <b>Les cinq premières bloquent tout</b> : tant qu'elles ne sont pas tranchées, les maquettes contiennent des instructions qui détruiraient du code en service.</p>
+
+<table class="recap">
+  <thead><tr><th style="width:8%">Clé</th><th style="width:38%">La décision</th><th style="width:13%">Nature</th><th style="width:19%">Bloque</th><th>État</th></tr></thead>
+  <tbody>
+    <tr><td class="id">A1</td><td>L'écran intermédiaire disparaît-il sur PC ?</td><td class="q">Produit</td><td>Palier 6 · messagerie</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">A2</td><td>Recherche et annuaire fusionnent-ils ?</td><td class="q">Produit</td><td>Palier 6 · 3 pages</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">A3</td><td>« À l'affiche » devient-il un calendrier ?</td><td class="q">Produit</td><td>Palier 6 · accueil</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">A4</td><td>La devanture publique liste-t-elle les annonces ?</td><td class="q">Produit · RGPD</td><td>Palier 6 · hors connexion</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">A5</td><td>Les sept entrées du menu « Proposer »</td><td class="q">Produit</td><td>Palier 6 · chrome</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">B1</td><td>Auto-héberge-t-on Nunito et Inter ?</td><td class="q">Technique</td><td>Palier 2</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">B2</td><td>Les e-mails suivent-ils la charte, et quand ?</td><td class="q">Technique</td><td>Après l'application</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">B3</td><td>Verrouille-t-on le mode clair ?</td><td class="q">Technique</td><td>Palier 1</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">C1</td><td>La table des dix verbes du billet</td><td class="q">Charte</td><td>Palier 5</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr><td class="id">C2</td><td>Les cinq pastilles de statut manquantes</td><td class="q">Charte</td><td>Palier 5</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr><td class="id">C3</td><td>Le bouton fantôme et le bouton blanc</td><td class="q">Charte</td><td>Palier 3</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr><td class="id">C4</td><td>La pagination survit-elle ?</td><td class="q">Produit</td><td>Palier 3</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">C5</td><td>La cloche et le bandeau de délégation</td><td class="q">Charte</td><td>Palier 6 · chrome</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr><td class="id">C6</td><td>Les dix-huit écrans sans maquette</td><td class="q">Charte</td><td>Palier 6</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr><td class="id">C7</td><td>L'embarquement et la délégation, complets</td><td class="q">Charte</td><td>Palier 6</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr><td class="id">C8</td><td>Bouton en chargement, état désactivé, vides</td><td class="q">Charte</td><td>Palier 3</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr><td class="id">C9</td><td>Un carrousel devient une grille au-delà de 980 px</td><td class="q">Charte</td><td>Palier 6</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr><td class="id">D1</td><td>« Jamais trois surfaces » → trois <i>visibles</i></td><td class="q">Règle</td><td>Palier 4b</td><td><span class="e e--ouvert">À amender</span></td></tr>
+    <tr><td class="id">D2</td><td>Une exception au dialogue à deux issues</td><td class="q">Règle</td><td>Palier 4</td><td><span class="e e--ouvert">À amender</span></td></tr>
+    <tr><td class="id">D3</td><td>L'anneau de focus</td><td class="q">Charte</td><td>—</td><td><span class="e e--fait">✓ Corrigé</span></td></tr>
+    <tr><td class="id">D4</td><td>La fiche « Le dialogue » en double</td><td class="q">Charte</td><td>—</td><td><span class="e e--ouvert">À corriger</span></td></tr>
+    <tr><td class="id">E1</td><td>Quand commence-t-on ?</td><td class="q">Calendrier</td><td>Tout</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">E2</td><td>Comment revient-on en arrière ?</td><td class="q">Technique</td><td>Tout</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">E3</td><td>Qui tranche les écarts, sous quel délai ?</td><td class="q">Organisation</td><td>Tout</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">E4</td><td>Que gèle-t-on, et quand ?</td><td class="q">Organisation</td><td>Paliers 5 et 6</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">E5</td><td>Quel jeu d'icônes ?</td><td class="q">Technique</td><td>Palier 1a</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">E6</td><td>Le zoom et le mouvement réduit</td><td class="q">Technique</td><td>Palier 0</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">E7</td><td>Les couleurs hors CSS</td><td class="q">Technique</td><td>Palier 2</td><td><span class="e e--ouvert">À trancher</span></td></tr>
+    <tr><td class="id">B·</td><td>L'orange, le succès et l'avertissement au contraste AA</td><td class="q">Charte</td><td>—</td><td><span class="e e--fait">✓ Corrigé</span></td></tr>
+  </tbody>
+</table>
+
+<div class="fait" style="margin-top:24px">
+  <p class="t">Les trois premières choses à faire, dans l'ordre</p>
+  <p><b>1 ·</b> Trancher <b>A1 à A5</b>. Ce sont cinq questions, pas cinq chantiers : chacune se répond en une phrase, et le refus est toujours une réponse valable. Tant qu'elles restent ouvertes, les maquettes contiennent des instructions qui détruiraient du code en service.</p>
+  <p><b>2 ·</b> Relever la <b>mesure de référence</b> — vitesse, décalage, réactivité, taux d'erreurs — pendant que l'ancien design est encore en place. Elle ne sera plus jamais disponible après.</p>
+  <p><b>3 ·</b> Lancer le <b>palier 0</b> : les tests de bout en bout en intégration continue, puis le garde-fou d'inventaire d'actions. Il ne change rien à l'écran, il peut donc démarrer <b>pendant</b> que les décisions ci-dessus se prennent.</p>
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Les décisions préalables.<br>
+  <a href="index.html">Le design retenu</a> · <a href="migration.html">Le protocole de migration</a> · <a href="implementation.html">Les règles d'implémentation</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a>
+</footer>
+
+</div>
+</body>
+</html>

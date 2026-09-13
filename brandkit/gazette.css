@@ -5,11 +5,19 @@
    ============================================================ */
 
 :root{
-  /* — Encres — */
-  --marine:#183e57;        --marine-hover:#0f2f44;
-  --orange:#d65e1c;        --orange-hover:#b84e17;
-  --sable:#fcdb81;         --sable-hover:#f5cb5c;
-  --success:#4a9d5f;       --danger:#c44536;       --warning:#d97706;
+  /* — Encres —
+     Ratios mesures sur --paper (#fffdf6). AA exige 4,5 pour le texte courant,
+     3 pour le grand texte (>=24 px, ou >=18,7 px gras) et pour les bordures.
+     Regle : une teinte « vive » ne porte jamais de texte et n'en recoit jamais.
+     Elle ne sert qu'aux filets, aux puces et aux barres. */
+  --marine:#183e57;        --marine-hover:#0f2f44;    /* encre · 11,06 */
+  --orange:#b84e17;        --orange-hover:#a34413;    /* encre · 4,98 — creme dessus 4,83 */
+  --orange-vif:#d65e1c;                               /* ornement · 3,77 — jamais de texte */
+  --sable:#fcdb81;         --sable-hover:#f5cb5c;     /* fond · marine dessus 8,36 */
+  --success:#2f7a44;       --success-vif:#4a9d5f;     /* encre 5,17 · ornement 3,29 */
+  --danger:#c44536;        --danger-hover:#b03a2c;    /* encre · 4,85 */
+  --warning:#b45309;       --warning-vif:#d97706;     /* encre 4,93 · ornement 3,13 */
+  --focus:#183e57;         --focus-halo:#fcdb81;      /* anneau double : l'un des deux contraste toujours */
   --bg-main:#f7f6f3;       --bg-secondary:#f3f3f5; --bg-hover:#fdf1d7;
   --text-secondary:#4b5563;--text-tertiary:#717182;
   --border:#d6dbe2;        --paper:#fffdf6;        --ocre:#8a6b1f;
@@ -18,6 +26,29 @@
   --corps:'Inter',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
+
+/* ============================================================
+   LE FOCUS — la regle qui manquait
+   Le sable seul sur du papier mesure 1,32 : invisible. L'anneau est donc
+   double — encre marine + halo sable. Sur fond clair c'est le marine qui
+   porte (11,06), sur le bandeau marine c'est le halo (8,36). WCAG 2.4.11
+   demande 3 minimum ; les deux passent largement.
+   ============================================================ */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible{
+  outline:2px solid var(--focus);
+  outline-offset:2px;
+  box-shadow:0 0 0 5px var(--focus-halo);
+  border-radius:4px;
+}
+/* Sur un aplat marine, on inverse : le halo devient l'anneau. */
+.bandeau-delegation :focus-visible,
+.tete :focus-visible,
+.b-manchette :focus-visible,
+.av-marine:focus-visible{
+  outline-color:var(--focus-halo);
+  box-shadow:0 0 0 5px rgba(24,62,87,.55);
+}
+
 
 /* ============================================================
    LE DOCUMENT
@@ -92,7 +123,7 @@ footer a{color:var(--marine);font-weight:600;}
 .qui{flex:1;min-width:0;display:flex;align-items:center;gap:9px;}
 .qui .nom{font-family:var(--titres);font-weight:800;font-size:14.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .qui .etat{display:flex;align-items:center;gap:5px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);font-weight:600;margin-top:1px;}
-.qui .etat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--success);}
+.qui .etat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--success-vif);}
 .qui .etat--muet::before{background:var(--text-tertiary);}
 .filet-double{border-top:1px solid var(--marine);border-bottom:3px double var(--marine);height:7px;opacity:.62;margin:0 14px;flex:none;}
 
@@ -181,7 +212,7 @@ footer a{color:var(--marine);font-weight:600;}
   flex:1;text-align:center;border:1.5px solid var(--border);background:var(--paper);border-radius:11px;padding:11px 6px;
   font-family:var(--titres);font-weight:800;font-size:12.5px;color:var(--text-secondary);cursor:pointer;
 }
-.bascule .opt.on{border-color:var(--orange);background:var(--bg-hover);color:var(--orange-hover);box-shadow:inset 0 0 0 1px var(--orange);}
+.bascule .opt.on{border-color:var(--orange-vif);background:var(--bg-hover);color:var(--orange-hover);box-shadow:inset 0 0 0 1px var(--orange-vif);}
 .aide{font-size:11px;color:var(--text-tertiary);line-height:1.4;}
 .form-pied{display:flex;gap:9px;padding:6px 18px 18px;}
 .form-pied > *{flex:1;}
@@ -288,9 +319,9 @@ footer a{color:var(--marine);font-weight:600;}
 .conv .av{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:800;font-size:12px;position:relative;border:1.5px solid rgba(24,62,87,.14);}
 .conv .av .type{position:absolute;right:-3px;bottom:-3px;width:13px;height:13px;border-radius:4px;border:2px solid var(--bg-hover);}
 .section-courrier--lus .av .type{border-color:var(--paper);}
-.type--demande{background:var(--orange);}.type--proposition{background:var(--marine);}
-.type--atelier{background:var(--sable);}.type--idee{background:var(--success);}
-.type--rdv{background:var(--success);border-radius:50%;}
+.type--demande{background:var(--orange-vif);}.type--proposition{background:var(--marine);}
+.type--atelier{background:var(--sable);}.type--idee{background:var(--success-vif);}
+.type--rdv{background:var(--success-vif);border-radius:50%;}
 .conv .corps{flex:1;min-width:0;}
 .conv .l1{display:flex;align-items:baseline;gap:8px;}
 .conv .nom{font-family:var(--titres);font-weight:800;font-size:13.5px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -532,7 +563,7 @@ footer a{color:var(--marine);font-weight:600;}
    Tout le reste : pastille de contour, ou lien à filet.
    ============================================================ */
 .lien-filet{
-  display:inline-block;background:none;border:0;border-bottom:1px dashed var(--orange);
+  display:inline-block;background:none;border:0;border-bottom:1px dashed var(--orange-vif);
   padding:0 0 1px;font-family:var(--corps);font-size:11.5px;font-weight:700;
   color:var(--orange-hover);text-decoration:none;white-space:nowrap;cursor:pointer;
 }
@@ -591,7 +622,7 @@ footer a{color:var(--marine);font-weight:600;}
 .agenda-ligne .pied{display:flex;align-items:center;gap:12px;margin-top:8px;flex-wrap:wrap;row-gap:6px;}
 .agenda-ligne .orga{font-size:10.5px;font-style:italic;color:var(--text-tertiary);}
 /* une entrée qui attend un geste de vous : la colonne de date passe à l'orange */
-.agenda-ligne--action .quand{border-right:2px solid var(--orange);}
+.agenda-ligne--action .quand{border-right:2px solid var(--orange-vif);}
 .agenda-ligne--action .quand .j{color:var(--orange-hover);}
 .agenda-ligne--urgent .quand{border-right-color:var(--danger);}
 .agenda-ligne--urgent .quand .j{color:var(--danger);}
@@ -603,12 +634,12 @@ footer a{color:var(--marine);font-weight:600;}
    Carte horizontale courte, filet de tête colore selon le registre.
    ============================================================ */
 .billet-avis{
-  width:236px;background:var(--paper);border:1px solid var(--border);border-top:3px solid var(--orange);
+  width:236px;background:var(--paper);border:1px solid var(--border);border-top:3px solid var(--orange-vif);
   border-radius:12px;padding:11px 13px;
   box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -16px rgba(24,62,87,.28);
 }
 .billet-avis--urgent{border-top-color:var(--danger);}
-.billet-avis--doux{border-top-color:var(--success);}
+.billet-avis--doux{border-top-color:var(--success-vif);}
 .billet-avis .k{display:flex;align-items:baseline;gap:7px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--orange-hover);}
 .billet-avis--urgent .k{color:var(--danger);}
 .billet-avis--doux .k{color:var(--success);}
@@ -636,7 +667,7 @@ footer a{color:var(--marine);font-weight:600;}
 .filtres-ligne{display:flex;gap:15px;margin:-2px 18px 10px;font-size:11px;overflow-x:auto;scrollbar-width:none;}
 .filtres-ligne::-webkit-scrollbar{display:none;}
 .filtres-ligne a{color:var(--text-tertiary);text-decoration:none;font-weight:600;white-space:nowrap;padding-bottom:3px;flex:none;}
-.filtres-ligne a.on{color:var(--marine);font-weight:800;border-bottom:2px solid var(--orange);}
+.filtres-ligne a.on{color:var(--marine);font-weight:800;border-bottom:2px solid var(--orange-vif);}
 
 /* ============================================================
    ONGLETS
@@ -644,7 +675,7 @@ footer a{color:var(--marine);font-weight:600;}
 .onglets{display:flex;margin:0 18px 12px;border-bottom:2px solid var(--marine);}
 .onglets a{flex:1;text-align:center;padding:9px 4px;font-family:var(--titres);font-weight:800;font-size:11.5px;color:var(--text-tertiary);text-decoration:none;position:relative;white-space:nowrap;}
 .onglets a.on{color:var(--marine);}
-.onglets a.on::after{content:"";position:absolute;left:10%;right:10%;bottom:-2px;height:3px;background:var(--orange);}
+.onglets a.on::after{content:"";position:absolute;left:10%;right:10%;bottom:-2px;height:3px;background:var(--orange-vif);}
 
 /* ============================================================
    COMPTEURS DE TEMPS
@@ -714,7 +745,7 @@ footer a{color:var(--marine);font-weight:600;}
    ============================================================ */
 .progression{margin:0 18px 16px;}
 .progression .barre{height:5px;border-radius:999px;background:var(--border);overflow:hidden;}
-.progression .barre i{display:block;height:100%;background:var(--orange);border-radius:999px;}
+.progression .barre i{display:block;height:100%;background:var(--orange-vif);border-radius:999px;}
 .progression .etape{margin-top:8px;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
 .etapes{margin:0 18px;display:flex;flex-direction:column;gap:0;}
 .etape-ligne{display:flex;align-items:center;gap:11px;padding:12px 0;border-top:1px solid var(--border);}
@@ -781,7 +812,7 @@ footer a{color:var(--marine);font-weight:600;}
 /* talon de geste — pour une action, c'est le geste qui est le sujet */
 .billet2 .talon svg{width:20px;height:20px;stroke-width:2;color:var(--orange-hover);}
 .billet2 .talon .verbe{font-size:7px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--orange-hover);line-height:1;}
-.billet2--action .talon{border-right:2px solid var(--orange);}
+.billet2--action .talon{border-right:2px solid var(--orange-vif);}
 .billet2--urgent .talon{border-right:2px solid var(--danger);}
 .billet2--urgent .talon svg,
 .billet2--urgent .talon .verbe{color:var(--danger);}
@@ -924,7 +955,7 @@ footer a{color:var(--marine);font-weight:600;}
   font-family:var(--titres);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--text-secondary);
 }
-.b-manchette .nav a.on{color:var(--marine);border-bottom-color:var(--orange);}
+.b-manchette .nav a.on{color:var(--marine);border-bottom-color:var(--orange-vif);}
 .b-manchette .nav a .cpt{color:var(--orange);margin-left:5px;}
 /* la manchette resserrée, sous 980 px */
 .b-manchette--compact{padding:10px 22px 0;}
@@ -948,7 +979,7 @@ footer a{color:var(--marine);font-weight:600;}
   font-family:var(--titres);font-weight:800;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--text-secondary);
 }
-.b-courant .nav a.on{color:var(--marine);border-bottom-color:var(--orange);}
+.b-courant .nav a.on{color:var(--marine);border-bottom-color:var(--orange-vif);}
 .b-courant .nav a .cpt{color:var(--orange);margin-left:4px;}
 .b-courant .spacer{flex:1;}
 .b-courant .date{white-space:nowrap;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
@@ -995,7 +1026,7 @@ footer a{color:var(--marine);font-weight:600;}
 .b-filtres a:first-of-type{border-top:0;}
 .b-filtres a.on{font-family:var(--titres);font-weight:800;color:var(--marine);}
 .b-filtres a .pt{width:8px;height:8px;border-radius:2px;flex:none;background:var(--border);}
-.b-filtres a.on .pt{background:var(--orange);}
+.b-filtres a.on .pt{background:var(--orange-vif);}
 .b-filtres a .n3{margin-left:auto;font-size:10.5px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;}
 .b-filtres a.on .n3{color:var(--orange-hover);font-weight:700;}
 

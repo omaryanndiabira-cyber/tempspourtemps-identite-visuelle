@@ -13,12 +13,21 @@
 body{padding:36px 20px 80px;}
 .wrap{max-width:1000px;margin:0 auto;}
 
-.entete{text-align:center;max-width:780px;margin:0 auto;}
+.entete{text-align:center;max-width:800px;margin:0 auto;}
 .entete img{width:58px;height:auto;margin-bottom:12px;}
 .entete .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--danger);}
 .entete h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);letter-spacing:-.5px;margin-top:6px;}
 .entete p{color:var(--text-secondary);font-size:.95rem;line-height:1.65;margin-top:14px;}
 .entete .retour{display:inline-block;margin-top:18px;color:var(--marine);font-weight:600;font-size:.86rem;text-decoration:none;}
+
+.revise{
+  margin:22px auto 0;max-width:800px;
+  border-left:3px solid var(--orange);background:var(--bg-hover);
+  border-radius:0 12px 12px 0;padding:13px 18px;text-align:left;
+}
+.revise .t{font-family:var(--titres);font-weight:800;font-size:.86rem;color:var(--orange-hover);margin-bottom:6px;}
+.revise p{font-size:.83rem;line-height:1.6;color:var(--text-secondary);margin:0;}
+.revise b{color:var(--marine);}
 
 .or{
   margin:30px auto 0;max-width:820px;text-align:center;
@@ -39,8 +48,8 @@ body{padding:36px 20px 80px;}
 }
 @supports not (backdrop-filter:blur(2px)){ .somm{background:var(--bg-main);} }
 .somm a{
-  padding:5px 11px;border-radius:7px;text-decoration:none;
-  font-family:var(--titres);font-weight:800;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;
+  padding:5px 10px;border-radius:7px;text-decoration:none;
+  font-family:var(--titres);font-weight:800;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
   color:var(--text-secondary);
 }
 .somm a:hover{background:var(--sable);color:var(--marine);}
@@ -51,12 +60,12 @@ body{padding:36px 20px 80px;}
 .chap .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
 .chap-sub{color:var(--text-secondary);font-size:.88rem;line-height:1.6;margin:0 0 20px;}
 .chap-sub b{color:var(--marine);}
-.chap-sub code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+.chap-sub code,.morts code,.palier code,.gf code,.alarme code,.bon code,.ecarts code,.modes code,.corr code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
 
-.risque{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px;}
+.risque{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin-bottom:18px;}
 .risque > div{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:13px 15px;}
-.risque .v{font-family:var(--titres);font-weight:800;font-size:1.7rem;line-height:1;color:var(--danger);}
-.risque .v--ok{color:#2f7a44;}
+.risque .v{font-family:var(--titres);font-weight:800;font-size:1.6rem;line-height:1;color:var(--danger);}
+.risque .v--ok{color:var(--success);}
 .risque .l{font-size:.72rem;color:var(--text-secondary);margin-top:7px;line-height:1.45;}
 .risque .l b{color:var(--marine);}
 .risque code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.66rem;}
@@ -71,16 +80,15 @@ body{padding:36px 20px 80px;}
 .ecarts .cas{font-family:var(--titres);font-weight:800;color:var(--marine);width:26%;}
 .ecarts .ex{width:30%;font-style:italic;}
 .ecarts .quoi b{color:var(--marine);}
-.ecarts tr.garde td{background:rgba(74,157,95,.06);}
+.ecarts tr.garde td{background:rgba(47,122,68,.07);}
 .ecarts tr.applique td{background:var(--bg-hover);}
-.ecarts code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;}
 
 .palier{
   background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:15px 18px 16px;margin-bottom:13px;
   border-left:3px solid var(--border);
 }
-.palier--sur{border-left-color:#4a9d5f;}
-.palier--moyen{border-left-color:var(--warning);}
+.palier--sur{border-left-color:var(--success-vif);}
+.palier--moyen{border-left-color:var(--warning-vif);}
 .palier--risque{border-left-color:var(--danger);}
 .palier .tete{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;}
 .palier .n{
@@ -89,22 +97,21 @@ body{padding:36px 20px 80px;}
 }
 .palier h3{font-family:var(--titres);font-weight:800;font-size:1rem;flex:1;}
 .palier .jauge{font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-radius:5px;padding:2px 8px;white-space:nowrap;}
-.palier .jauge--sur{background:rgba(74,157,95,.14);color:#2f7a44;}
+.palier .jauge--sur{background:rgba(47,122,68,.14);color:var(--success);}
 .palier .jauge--moyen{background:var(--bg-hover);color:var(--orange-hover);}
 .palier .jauge--risque{background:rgba(196,69,54,.11);color:var(--danger);}
 .palier .mode{font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-tertiary);border:1px solid var(--border);border-radius:5px;padding:2px 8px;white-space:nowrap;}
 .palier p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);margin-top:9px;}
 .palier p b{color:var(--marine);}
-.palier code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
 .palier .filet-t{margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);font-size:.79rem;color:var(--text-tertiary);line-height:1.55;}
 .palier .filet-t b{color:var(--orange-hover);}
+.palier--neuf{box-shadow:0 0 0 2px var(--sable);}
 
 .morts{background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:4px 18px;}
 .morts .l{display:flex;gap:13px;padding:11px 0;border-top:1px dotted var(--border);font-size:.84rem;line-height:1.55;}
 .morts .l:first-child{border-top:0;}
 .morts .t{width:150px;flex:none;font-family:var(--titres);font-weight:800;color:var(--marine);font-size:.84rem;}
 .morts .d{flex:1;color:var(--text-secondary);}
-.morts .d code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
 .morts .d b{color:var(--marine);}
 
 .gabarit{
@@ -112,43 +119,31 @@ body{padding:36px 20px 80px;}
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.76rem;line-height:1.75;
   overflow-x:auto;white-space:pre;
 }
-.gabarit .c{color:#8fa5b3;}
+.gabarit .c{color:#9fb4c1;}
 .gabarit .k{color:var(--sable);}
 
-.alarme{
-  border-left:3px solid var(--danger);background:rgba(196,69,54,.06);
-  border-radius:0 12px 12px 0;padding:14px 18px;margin-top:18px;
-}
+.alarme{border-left:3px solid var(--danger);background:rgba(196,69,54,.06);border-radius:0 12px 12px 0;padding:14px 18px;margin-top:18px;}
 .alarme .t{font-family:var(--titres);font-weight:800;font-size:.92rem;color:var(--danger);margin-bottom:8px;}
 .alarme p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);}
 .alarme p + p{margin-top:8px;}
 .alarme b{color:var(--marine);}
-.alarme code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--danger);background:rgba(196,69,54,.1);border-radius:4px;padding:1px 5px;}
+.alarme code{color:var(--danger);background:rgba(196,69,54,.1);}
 
-.bon{
-  border-left:3px solid #4a9d5f;background:rgba(74,157,95,.06);
-  border-radius:0 12px 12px 0;padding:14px 18px;margin-top:18px;
-}
-.bon .t{font-family:var(--titres);font-weight:800;font-size:.92rem;color:#2f7a44;margin-bottom:8px;}
+.bon{border-left:3px solid var(--success);background:rgba(47,122,68,.07);border-radius:0 12px 12px 0;padding:14px 18px;margin-top:18px;}
+.bon .t{font-family:var(--titres);font-weight:800;font-size:.92rem;color:var(--success);margin-bottom:8px;}
 .bon p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);}
 .bon p + p{margin-top:8px;}
 .bon b{color:var(--marine);}
-.bon code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
 
-/* les garde-fous */
 .gf{width:100%;border-collapse:collapse;font-size:.83rem;}
-.gf th{
-  text-align:left;font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--text-tertiary);padding:0 14px 8px 0;border-bottom:2px solid var(--marine);
-}
-.gf td{padding:9px 14px 9px 0;border-top:1px dotted var(--border);color:var(--text-secondary);vertical-align:top;}
+.gf th{text-align:left;font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);padding:0 14px 8px 0;border-bottom:2px solid var(--marine);}
+.gf td{padding:10px 14px 10px 0;border-top:1px dotted var(--border);color:var(--text-secondary);vertical-align:top;}
 .gf tbody tr:first-child td{border-top:0;}
 .gf .cle{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:2px 6px;white-space:nowrap;}
-.gf tr.existe td{background:rgba(74,157,95,.06);}
-.gf .ok{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2f7a44;white-space:nowrap;}
-.gf code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;}
+.gf tr.existe td{background:rgba(47,122,68,.07);}
+.gf .ok{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--success);white-space:nowrap;}
+.gf .ko{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--danger);white-space:nowrap;}
 
-/* les deux modes */
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--paper);border:1px solid var(--marine);border-radius:14px;overflow:hidden;}
 .modes > div{padding:16px 20px 18px;}
 .modes > div:first-child{border-right:1px solid var(--border);}
@@ -159,6 +154,15 @@ body{padding:36px 20px 80px;}
 .modes .liste{margin-top:10px;font-size:.8rem;color:var(--text-tertiary);line-height:1.7;}
 .modes .liste b{color:var(--marine);font-family:var(--titres);font-weight:800;}
 @media (max-width:640px){ .modes{grid-template-columns:1fr;} .modes > div:first-child{border-right:0;border-bottom:1px solid var(--border);} }
+
+.corr{width:100%;border-collapse:collapse;font-size:.82rem;}
+.corr th{text-align:left;font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);padding:0 12px 8px 0;border-bottom:2px solid var(--marine);}
+.corr td{padding:9px 12px 9px 0;border-top:1px dotted var(--border);color:var(--text-secondary);vertical-align:top;}
+.corr tbody tr:first-child td{border-top:0;}
+.corr .dit{text-decoration:line-through;color:var(--text-tertiary);white-space:nowrap;}
+.corr .vrai{font-family:var(--titres);font-weight:800;color:var(--danger);}
+.corr .vrai--ok{color:var(--success);}
+.corr .q{font-family:var(--titres);font-weight:800;color:var(--marine);width:24%;}
 
 footer{margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
 footer a{color:var(--marine);font-weight:600;}
@@ -172,6 +176,10 @@ footer a{color:var(--marine);font-weight:600;}
   <p class="kicker">Avant de lancer quoi que ce soit</p>
   <h1>Le protocole de migration</h1>
   <p>Les maquettes ne sont <b>pas</b> une spécification. Elles montrent le cas nominal d'une application qui gère des dizaines de cas conditionnels, et elles ont <b>réécrit des textes</b> qui existent déjà. Ce document dit comment les appliquer sans rien casser — dans quel ordre, avec quels filets, et ce qu'elles ne couvrent pas.</p>
+  <div class="revise">
+    <p class="t">Deuxième version — après vérification dans le code</p>
+    <p>La première version avançait des chiffres de mémoire. Une relecture adversariale les a <b>recomptés un par un</b> : plusieurs étaient faux, tous dans le sens dangereux — la sous-estimation. Les chiffres ci-dessous sont ceux du dépôt, et le <a href="#corrections" style="color:var(--orange-hover);font-weight:700">chapitre 9</a> liste ce qui a changé.</p>
+  </div>
   <a class="retour" href="index.html">← Retour au design retenu</a>
 </header>
 
@@ -182,62 +190,139 @@ footer a{color:var(--marine);font-weight:600;}
 </section>
 
 <nav class="somm">
+  <a href="#avant">Avant le palier 0</a>
   <a href="#risque">Le risque</a>
   <a href="#gardefous">Les garde-fous</a>
   <a href="#ecarts">Les écarts</a>
   <a href="#granularite">Granularité</a>
-  <a href="#paliers">Les 7 paliers</a>
+  <a href="#paliers">Les 8 paliers</a>
   <a href="#nuxtui">Sortir de Nuxt UI</a>
   <a href="#morts">Angles morts</a>
   <a href="#journal">Le journal</a>
+  <a href="#corrections">Corrections</a>
 </nav>
+
+<!-- ================= 0 · AVANT LE PALIER 0 ================= -->
+<div class="chap" id="avant"><span class="num">0</span><h2>Ce qui ne se règle pas en code</h2><span class="filet"></span></div>
+<p class="chap-sub">Quatre choses doivent être tranchées <b>avant la première ligne</b>. Aucune n'est un travail de développement, et chacune invalide le reste si on la découvre en route.</p>
+
+<div class="alarme">
+  <p class="t">1 · L'orange de la charte échouait au contraste — c'est corrigé, il faut le savoir</p>
+  <p>L'orange d'origine <code>#d65e1c</code> mesurait <b>3,77</b> sur le papier. Le minimum AA pour du texte courant est 4,5. Il échouait aussi en blanc dessus (3,83), et totalement sur sable (2,85) et sur marine (2,94).</p>
+  <p>La feuille de style distingue désormais <b>l'encre</b> et <b>l'ornement</b> : <code>--orange</code> vaut <code>#b84e17</code> (4,98) et porte tous les textes et tous les aplats de bouton ; <code>--orange-vif</code> garde <code>#d65e1c</code> pour les filets, les puces et les barres, <b>qui ne portent jamais de texte</b>. Même partage pour <code>--success</code> (5,17) et <code>--warning</code> (4,93).</p>
+  <p>Et l'anneau de focus, qui était du sable sur du papier — <b>1,32, invisible</b> — est devenu un anneau double : encre marine plus halo sable, pour que l'un des deux contraste toujours. <b>Toute maquette produite avant cette correction doit être relue.</b></p>
+</div>
+
+<div class="alarme">
+  <p class="t">2 · Aucune des deux polices n'est chargée aujourd'hui</p>
+  <p><code>main.css:1</code> importe <b>« Nunito Rounded »</b> depuis Google — cette police n'existe pas, la requête renvoie <b>HTTP 400</b>. Et <b>Inter n'est importée nulle part</b>. L'application tourne donc en polices système depuis toujours.</p>
+  <p>Conséquence : toutes les largeurs de boutons, toutes les troncatures et tous les retours à la ligne ont été calés sur une police système. Le jour où les vraies polices arrivent, <b>chaque texte change de métrique d'un coup</b> — et aucun test de régression visuelle n'existe pour le voir.</p>
+  <p><b>À décider :</b> auto-héberger Nunito et Inter, avec <code>font-display:swap</code> et un <code>size-adjust</code> de repli. Au passage, le <code>preconnect</code> vers Google disparaît, et avec lui une transmission d'adresse IP sans consentement.</p>
+</div>
+
+<div class="alarme">
+  <p class="t">3 · Les e-mails sont une seconde marque, hors de tout garde-fou</p>
+  <p><b>21 fichiers serveur</b> portent la marque en dur : 154 occurrences du marine, 73 du sable. Or <code>check:design-tokens</code> ne scanne que <code>app/</code> et <code>shared/</code> — <b>le serveur est hors périmètre</b>. Des tests unitaires assertent même littéralement <code>background-color:#fcdb81</code>.</p>
+  <p>Les digests partent <b>tous les jours</b> — cinq tâches planifiées. Une application refondue avec des e-mails à l'ancienne, c'est <b>deux marques vécues simultanément</b> par chaque membre. Le pied de page e-mail mesure d'ailleurs 2,05.</p>
+</div>
+
+<div class="alarme">
+  <p class="t">4 · Une collision de calendrier</p>
+  <p><b>La porte de charte s'arme en production le 16 septembre 2026.</b> Livrer une refonte visuelle la même semaine qu'une modale bloquante de signature rendrait tout retour utilisateur inattribuable : on ne saurait pas si les gens réagissent au nouveau look ou à l'obligation de signer.</p>
+</div>
+
+<div class="bon">
+  <p class="t">Une mesure à relever pendant que l'ancien design est encore en place</p>
+  <p>Il n'existe <b>aucun test de régression visuelle</b> et <b>aucun test d'accessibilité</b>. La seule façon de prouver plus tard que « rien n'a été dégradé » est d'avoir une base de comparaison : vitesse de chargement, décalage de mise en page, réactivité, taille du CSS compilé, taux d'erreurs — sur sept jours glissants. Les outils sont déjà branchés. <b>Il suffit de noter les valeurs avant de commencer.</b></p>
+</div>
+
+<div class="bon">
+  <p class="t">Une bonne nouvelle : pas de CSS coincé en cache</p>
+  <p>La PWA est <b>désactivée en production</b> — il n'y a aucun service worker de cache. Le pire scénario d'une refonte sur PWA, l'ancien style servi pendant des semaines, <b>n'existe pas ici</b>. Seules l'icône d'accueil et l'écran de démarrage iOS restent mis en cache par le système jusqu'à réinstallation.</p>
+</div>
 
 <!-- ================= 1 · LE RISQUE ================= -->
 <div class="chap" id="risque"><span class="num">1</span><h2>Ce que le filet ne rattrapera pas</h2><span class="filet"></span></div>
-<p class="chap-sub">Le dépôt compte <b>58 tests E2E et 179 tests Vitest</b>. C'est beaucoup — mais leur nature les rend vulnérables à exactement ce qu'une migration de charte va faire.</p>
+<p class="chap-sub">Le dépôt compte <b>313 cas de test E2E</b> répartis en 58 fichiers, et <b>1 962 cas unitaires</b> en 175 fichiers. C'est un filet dense — mais sa nature le rend vulnérable à exactement ce qu'une migration de charte va faire, et <b>la moitié ne tourne pas automatiquement</b>.</p>
 
 <div class="risque">
-  <div><p class="v">90 %</p><p class="l">des specs E2E (<b>52 sur 58</b>) ciblent par <b>texte affiché</b></p></div>
-  <div><p class="v">59 %</p><p class="l">des specs (<b>34 sur 58</b>) n'ont <b>aucun</b> <code>data-testid</code></p></div>
-  <div><p class="v">24 %</p><p class="l">des composants portent un <code>data-testid</code></p></div>
+  <div><p class="v">51/58</p><p class="l">fichiers E2E ciblent par <b>texte affiché</b></p></div>
+  <div><p class="v">34/58</p><p class="l">fichiers E2E n'ont <b>aucun</b> <code>data-testid</code></p></div>
+  <div><p class="v">28 %</p><p class="l">des composants portent un <code>data-testid</code> (26 sur 92)</p></div>
   <div><p class="v">0</p><p class="l">test de <b>régression visuelle</b>, 0 test d'<b>accessibilité</b></p></div>
 </div>
 
 <div class="alarme">
-  <p class="t">Sept tests ciblent directement des classes Tailwind</p>
-  <p>Ceux-là ne cassent pas « peut-être » : ils cassent <b>mécaniquement</b> dès qu'on touche au style.</p>
-  <p><code>button.rounded-full:visible</code> ×4 · <code>.brand-wordmark</code> ×3 · <code>button.px-8</code> ×2 · <code>button.bg-primary.rounded-full</code> ×2 · <code>.text-danger</code> · <code>.fixed.z-50.bg-white.shadow-2xl.rounded-xl</code> · <code>.animate-spin</code></p>
-  <p>Le dernier est le plus parlant : il décrit une modale <b>par sa géométrie</b> — position, plan, fond, ombre, rayon. Toute la charte le contredit.</p>
+  <p class="t">Les tests E2E ne tournent pas en intégration continue</p>
+  <p>Le fichier d'intégration continue ne lance <b>aucun</b> test de bout en bout : lint, typage, tests unitaires, compilation. Les 313 cas exigent Docker et une base locale, et ne s'exécutent qu'à la main.</p>
+  <p>Conséquence directe : <b>tout critère de sortie formulé « la CI entière au vert » est faux.</b> Tant que les E2E n'y sont pas — avec un échec explicite sur « <i>did not run</i> », que la configuration signale déjà comme un piège à verts trompeurs — aucune ligne « 313 E2E au vert » d'un journal d'écarts n'est vérifiable par un tiers.</p>
+</div>
+
+<div class="alarme">
+  <p class="t">Quinze assertions ciblent directement des classes de style</p>
+  <p>Celles-là ne cassent pas « peut-être » : elles cassent <b>mécaniquement</b> dès qu'on touche au style.</p>
+  <p><code>button.rounded-full:visible</code> ×4 · <code>.brand-wordmark</code> ×3 · <code>button.px-8</code> ×3 · <code>button.bg-primary.rounded-full</code> ×2 · <code>.text-danger</code> · <code>.animate-spin</code> · <code>.fixed.z-50.bg-white.shadow-2xl.rounded-xl</code></p>
+  <p>Le dernier est le plus parlant : il décrit une modale <b>par sa géométrie</b> — position, plan, fond, ombre, rayon. Toute la charte le contredit. S'y ajoutent <code>.announcement</code> ×3, <code>label.keep</code> ×3, <code>label.deactivate</code> et <code>label.delete</code>, également cassables par un renommage.</p>
+</div>
+
+<div class="alarme">
+  <p class="t">Sept fichiers de test <i>attendent</i> un <code>window.confirm</code></p>
+  <p>Treize gestionnaires <code>page.on('dialog')</code> répartis sur sept fichiers de spécification interceptent les dialogues natifs. Remplacer ces <code>confirm</code> par un dialogue maison fait que <b>le gestionnaire ne se déclenche jamais et que le test expire</b>.</p>
+  <p>Autrement dit : la branche qui corrige cet interdit change l'apparence, le comportement <b>et</b> les tests en même temps — exactement ce que la règle d'or interdit. <b>C'est une unité de changement à part</b>, à planifier explicitement, et non une ligne à cocher au fil d'un palier.</p>
 </div>
 
 <!-- ================= 2 · LES GARDE-FOUS ================= -->
 <div class="chap" id="gardefous"><span class="num">2</span><h2>Les garde-fous à poser d'abord</h2><span class="filet"></span></div>
-<p class="chap-sub">Un bon garde-fou est <b>automatique</b>, <b>rapide</b>, <b>sans faux positif</b>, et il échoue pour une raison qu'on comprend en lisant le message. Deux existent déjà et sont bons ; il en manque six.</p>
+<p class="chap-sub">Un bon garde-fou est <b>automatique</b>, <b>rapide</b>, <b>sans faux positif</b>, et il échoue pour une raison qu'on comprend en lisant le message. Deux existent déjà et sont bons. Les six autres sont décrits ci-dessous <b>avec leurs limites</b> : un garde-fou dont on ignore les angles morts donne une fausse sécurité, ce qui est pire que pas de garde-fou du tout.</p>
 
 <table class="gf">
-  <thead><tr><th style="width:22%">Clé</th><th>Ce qu'il attrape</th><th style="width:16%">État</th></tr></thead>
+  <thead><tr><th style="width:21%">Clé</th><th>Ce qu'il attrape — et ce qu'il laisse passer</th><th style="width:13%">État</th></tr></thead>
   <tbody>
-    <tr class="existe"><td><span class="cle">check:design-tokens</span></td><td>Toute couleur Tailwind brute (<code>text-blue-600</code>…) dans <code>app/</code> et <code>shared/</code>. Son en-tête documente <b>288 infractions dans 44 fichiers</b> avant qu'il existe.</td><td><span class="ok">✓ Existe</span></td></tr>
+    <tr class="existe"><td><span class="cle">check:design-tokens</span></td><td>Toute couleur brute dans <code>app/</code> et <code>shared/</code>. Son en-tête documente <b>288 infractions dans 44 fichiers</b> avant qu'il existe. <b>Laisse passer :</b> tout <code>server/</code> — les 21 fichiers d'e-mails.</td><td><span class="ok">✓ Existe</span></td></tr>
     <tr class="existe"><td><span class="cle">classes-fantômes</span></td><td>Une classe qui nomme un jeton sans règle CSS derrière. A déjà attrapé <code>bg-border-secondary</code>, <code>hover:bg-primary-hover</code>.</td><td><span class="ok">✓ Existe</span></td></tr>
-    <tr><td><span class="cle">inventaire-actions</span></td><td><b>Le plus important.</b> Pour chaque <code>statut × rôle</code>, la liste gelée des libellés d'actions affichés. Voir ci-dessous.</td><td>À créer</td></tr>
-    <tr><td><span class="cle">no-native-dialogs</span></td><td><code>window.confirm</code> · <code>alert</code> · <code>prompt</code>. Trois occurrences connues aujourd'hui.</td><td>À créer</td></tr>
-    <tr><td><span class="cle">no-arbitrary-z</span></td><td>Tout <code>z-[…]</code> hors de l'échelle nommée. Quatre plans concurrents aujourd'hui.</td><td>À créer</td></tr>
-    <tr><td><span class="cle">no-hand-rolled-overlay</span></td><td><code>Teleport to="body"</code> ailleurs que dans les deux coquilles autorisées. Dix surfaces le font.</td><td>À créer</td></tr>
-    <tr><td><span class="cle">no-local-status-labels</span></td><td>Une table de libellés de statut hors du module canonique. Quatre tables parallèles aujourd'hui.</td><td>À créer</td></tr>
-    <tr><td><span class="cle">no-nuxt-ui</span></td><td>Toute balise <code>&lt;U…&gt;</code> et tout <code>useToast</code>. <b>À n'activer qu'après le palier 1.</b></td><td>À créer</td></tr>
+    <tr><td><span class="cle">inventaire-actions</span></td><td><b>Le plus important, et le plus difficile.</b> Voir ci-dessous : il exige une horloge gelée et des fixtures, faute de quoi il est intermittent.</td><td>À créer</td></tr>
+    <tr><td><span class="cle">no-native-dialogs</span></td><td><code>window.confirm</code> · <code>alert</code> · <code>prompt</code> — <b>14 occurrences dans 12 fichiers</b>. <b>Faux positif garanti :</b> une méthode maison nommée <code>confirm()</code>. <b>Laisse passer :</b> les 11 messages de confirmation stockés dans les définitions d'actions, et les 7 fichiers de test à réécrire.</td><td>À créer</td></tr>
+    <tr><td><span class="cle">no-arbitrary-z</span></td><td>Tout <code>z-[…]</code> hors de l'échelle nommée. <b>Limite sérieuse :</b> ne voit que les crochets. <code>z-50</code> — 16 usages, pour des menus <i>et</i> des modales — passe toujours, et rien ne distingue les deux. Ignore aussi <code>style="z-index:…"</code>.</td><td>À créer</td></tr>
+    <tr><td><span class="cle">no-hand-rolled-overlay</span></td><td><code>Teleport to="body"</code> hors des coquilles : <b>26 occurrences dans 19 fichiers</b>. <b>Exige six exceptions dès le premier jour</b> — dont le sélecteur en feuille que la charte elle-même impose. <b>Laisse passer :</b> un voile en <code>position:fixed</code> sans portail.</td><td>À créer</td></tr>
+    <tr><td><span class="cle">no-local-status-labels</span></td><td>Une table de libellés hors du module canonique — <b>lequel en contient déjà deux</b>. Les vraies duplications sont des <code>switch</code> et des ternaires, qu'aucune expression régulière n'attrape.</td><td><span class="ko">À repenser</span></td></tr>
+    <tr><td><span class="cle">no-nuxt-ui</span></td><td>Toute balise <code>&lt;U…&gt;</code> et tout <code>useToast</code>. Le plus simple des six. <b>Faux positif :</b> tout composant maison commençant par U majuscule. <b>Laisse passer :</b> l'import dans <code>main.css</code>, <code>app.config.ts</code>, la ligne <code>modules</code>.</td><td>À créer</td></tr>
   </tbody>
 </table>
 
+<div class="alarme">
+  <p class="t">Le garde-fou vedette n'est pas déterministe tel qu'il était décrit</p>
+  <p>La première version proposait de geler la liste des libellés d'actions par <code>statut × rôle</code>. <b>Ce n'est pas la vraie signature.</b> Le calcul dépend aussi de :</p>
+  <p>— <b>l'heure</b>, via le service de temps : la fenêtre de feedback J+3, le dépassement de l'horaire prévu, et le marquage « action simulée » qui lit en plus le décalage d'environnement — <b>les tests E2E tournent avec +25 h</b> ;<br>
+  — <b>le statut perçu</b>, calculé depuis les drapeaux de validation croisée et l'avis déjà laissé ;<br>
+  — <b>des données serveur</b> : places restantes, nombre de participants, fil existant, statut du participant (quatre valeurs) ;<br>
+  — <b>le mode groupe</b> et le rôle de groupe (quatre valeurs).</p>
+  <p>Sans <b>horloge gelée</b> et <b>fixtures versionnées</b>, l'inventaire monté un lundi diffère de celui d'un jeudi : le garde-fou devient un test intermittent, et un test intermittent finit toujours par être désactivé.</p>
+  <p>Trou plus grave encore : <b>il ne verrait pas les boutons rendus hors de la boucle d'actions</b>. La fiche de rendez-vous affiche 23 boutons, dont une dizaine vivent dans des sous-formulaires — motif d'annulation, « je ne peux plus accueillir », retour. La peur « un bouton disparaît sans qu'on le voie » ne serait couverte qu'aux deux tiers.</p>
+</div>
+
 <div class="bon">
-  <p class="t">Le garde-fou qui répond vraiment à la crainte</p>
-  <p>La peur n'est pas « le style va changer ». C'est <b>« un bouton va disparaître sans qu'on le voie »</b>. Ni un script de style, ni une capture d'écran, ni un test E2E ne l'attrapent proprement.</p>
-  <p>Ce qu'il faut est un <b>inventaire des affordances</b> : pour chaque combinaison <code>statut × rôle</code>, monter le composant et figer <b>la liste des libellés d'actions affichés</b> dans un fichier de référence lisible et versionné.</p>
-  <div class="gabarit" style="margin-top:12px;font-size:.72rem">proposed · requester  → [Annuler, Contre-proposition, Contacter]
-proposed · recipient  → [Accepter, Refuser, Contre-proposition, Contacter]
-accepted · requester  → [Annuler, Reprogrammer, Contacter]
-declared · recipient  → [Confirmer, Refuser la déclaration, Contacter]
-completed · both      → [Laisser un feedback, Contacter]</div>
-  <p style="margin-top:12px">Si la migration escamote « Maintenir malgré le minimum », le test rougit avec <b>un diff d'une ligne</b>. Les <b>22 actions × 11 statuts × les rôles</b> se gèlent une fois, et protègent ensuite pour toujours. C'est peu de travail pour ce que ça couvre.</p>
+  <p class="t">Ce qu'il faut écrire, concrètement</p>
+  <p>Un test qui, pour chaque combinaison d'une <b>liste explicite et versionnée</b>, monte le composant avec une horloge figée et écrit la liste des libellés d'actions dans un fichier de référence lisible :</p>
+  <div class="gabarit" style="margin-top:12px;font-size:.72rem">horloge figée : 2026-06-15T10:00:00Z · service de temps simulé · décalage 0
+
+<span class="c"># 1-à-1</span>
+proposed   · demandeur     · avant     → [Annuler, Contre-proposition, Contacter]
+proposed   · destinataire  · avant     → [Accepter, Refuser, Contre-proposition, Contacter]
+accepted   · demandeur     · avant     → [Annuler, Reprogrammer, Contacter]
+accepted   · demandeur     · après     → [Déclarer la durée, Annuler, Contacter]
+declared   · destinataire  · après     → [Confirmer, Refuser la déclaration, Contacter]
+completed  · les deux      · J+1       → [Laisser un avis, Contacter]
+completed  · les deux      · J+4       → [Contacter]        <span class="c"># fenêtre fermée</span>
+
+<span class="c"># groupe — le rôle de groupe et le statut de participant comptent</span>
+accepted · organisateur · places&gt;0 → [Inviter, Modifier le lieu, Annuler, Contacter le groupe]
+accepted · organisateur · complet  → [Maintenir malgré le minimum, Annuler, Contacter le groupe]
+accepted · participant  · pending  → [Confirmer ma venue, Me désister]
+
+<span class="c"># hors boucle d'actions — les sous-formulaires comptent aussi</span>
+form:motif-annulation → [Retour, Confirmer l'annulation]
+form:plus-accueillir  → [Retour, Je ne peux plus accueillir]</div>
+  <p style="margin-top:12px">Si la migration escamote « Maintenir malgré le minimum », le test rougit avec <b>un diff d'une ligne</b>. C'est peu de travail pour ce que ça couvre — <b>à condition d'écrire la liste des combinaisons à la main</b> plutôt que de la calculer, sinon on fige le bogue avec le comportement.</p>
 </div>
 
 <!-- ================= 3 · LES ÉCARTS ================= -->
@@ -249,12 +334,12 @@ completed · both      → [Laisser un feedback, Contacter]</div>
   <tbody>
     <tr class="garde">
       <td class="cas">Dans le code,<br>absent de la maquette</td>
-      <td class="ex">Le bouton « Maintenir malgré le minimum » d'une activité de groupe.</td>
+      <td class="ex">Le bouton « Maintenir malgré le minimum ». Ou la pagination — 11 appelants, aucune fiche.</td>
       <td class="quoi"><b>On garde.</b> On applique le style le plus proche et <b>on consigne</b>. L'absence dans la maquette n'est pas une décision de design — c'est un trou dans l'inventaire.</td>
     </tr>
     <tr>
       <td class="cas">Dans la maquette,<br>absent du code</td>
-      <td class="ex">Le bandeau d'action sous la frise, le journal repliable.</td>
+      <td class="ex">Le bandeau d'action sous la frise. Le calendrier « à l'affiche ». Les six squelettes.</td>
       <td class="quoi"><b>On ne l'invente pas.</b> Ajouter un élément, c'est ajouter un comportement. On ouvre une tâche séparée.</td>
     </tr>
     <tr>
@@ -265,15 +350,15 @@ completed · both      → [Laisser un feedback, Contacter]</div>
     <tr class="applique">
       <td class="cas">Contradiction<br>explicite</td>
       <td class="ex"><code>window.confirm</code> pour désactiver une annonce.</td>
-      <td class="quoi"><b>La charte gagne</b> — mais uniquement pour les <b>onze interdits</b> nommément listés dans les règles d'implémentation.</td>
+      <td class="quoi"><b>La charte gagne</b> — mais uniquement pour les <b>onze interdits</b> nommément listés, et dans une unité de changement dédiée quand des tests en dépendent.</td>
     </tr>
   </tbody>
 </table>
 
 <div class="alarme">
-  <p class="t">Le piège des textes est le plus dangereux</p>
-  <p>J'ai écrit « Alice attend votre validation », « Plus que 2 jours », « Combien de temps avez-vous donné ? ». <b>Aucun n'est un relevé du code</b> — ce sont des propositions qui supposent un ton, une longueur, parfois une donnée que l'application ne calcule pas.</p>
-  <p>Les appliquer changerait <b>ce que l'application dit</b>, casserait des tests, et ferait passer une réécriture éditoriale pour un changement de style. <b>Les textes se traitent dans un chantier à part</b>, avec relecture.</p>
+  <p class="t">Une cinquième catégorie, découverte à la relecture : la charte qui prescrit du comportement</p>
+  <p>Cinq phrases des maquettes ne sont pas des décisions de design mais des <b>décisions de produit déguisées</b> : « l'écran intermédiaire disparaît sur PC » (c'est une route réelle, cible de notifications) · « recherche et annuaire fusionnent » (trois routes distinctes) · « l'affiche redevient un calendrier » (aucune route de ce nom n'existe) · la devanture publique qui liste les annonces (elles exigent une authentification — décision produit et RGPD) · le menu « Proposer », où une entrée a été ajoutée qui n'existe pas et une autre supprimée qui existe.</p>
+  <p><b>Ces cinq-là ne relèvent pas de la règle des écarts : elles doivent être tranchées avant, une par une</b>, dans les <a href="decisions.html" style="color:var(--danger);font-weight:700">décisions préalables</a>.</p>
 </div>
 
 <!-- ================= 4 · GRANULARITÉ ================= -->
@@ -285,142 +370,167 @@ completed · both      → [Laisser un feedback, Contacter]</div>
     <p class="k">Paliers 0 à 4</p>
     <h3>Transverse, par composant</h3>
     <p>Jetons, primitives, coquilles. Un composant, tous ses appelants, d'un coup. <b>Faire ça écran par écran serait absurde</b> : on toucherait quarante fois au même bouton, avec quarante occasions de diverger.</p>
-    <p class="liste"><b>Unité</b> — le composant<br><b>Vérification</b> — la CI entière<br><b>Journal</b> — un par palier</p>
+    <p class="liste"><b>Unité</b> — le composant<br><b>Vérification</b> — lint, typage, unitaires, compilation, <i>et les E2E</i><br><b>Journal</b> — un par palier</p>
   </div>
   <div>
-    <p class="k">Paliers 5 et 6</p>
-    <h3>Par écran, un à la fois</h3>
-    <p>Formes et pages. C'est là que la charte rencontre la logique métier — et là qu'on casse sans le voir. <b>Jamais deux écrans dans la même branche.</b></p>
-    <p class="liste"><b>Unité</b> — l'écran<br><b>Vérification</b> — la CI + l'écran à la main<br><b>Journal</b> — un par écran</p>
+    <p class="k">Paliers 4b à 6</p>
+    <h3>Un à la fois</h3>
+    <p>Surfaces, formes et pages. C'est là que la charte rencontre la logique métier — et là qu'on casse sans le voir. <b>Jamais deux écrans dans la même branche.</b></p>
+    <p class="liste"><b>Unité</b> — la surface, puis l'écran<br><b>Vérification</b> — la même, plus une relecture <i>au clavier seul</i><br><b>Journal</b> — un par écran</p>
   </div>
 </div>
 
 <div class="bon">
   <p class="t">Et les modales ?</p>
-  <p><b>Une modale n'est pas une unité de migration.</b> C'est soit une <b>coquille</b> — palier 4, transverse : on remplace <code>AppModal</code> et <code>AppFormOverlay</code>, rien d'autre ne bouge — soit un <b>contenu</b>, et alors elle suit l'écran qui l'ouvre, au palier 5 ou 6. Les traiter comme un bloc indivisible mélangerait les deux risques.</p>
+  <p><b>Une modale n'est pas une unité de migration.</b> C'est soit une <b>coquille</b> — palier 4, transverse — soit un <b>contenu</b>, et alors elle suit l'écran qui l'ouvre, au palier 5 ou 6.</p>
+  <p>Deux exceptions. Les seize surfaces qui n'utilisent aucune coquille forment leur propre palier, le <b>4b</b>. Et la fiche de rendez-vous, ouverte depuis plusieurs pages, est <b>un écran partagé par N pages</b> : sa propre branche, pas celle d'une page.</p>
 </div>
 
 <!-- ================= 5 · LES PALIERS ================= -->
-<div class="chap" id="paliers"><span class="num">5</span><h2>Sept paliers, dans cet ordre</h2><span class="filet"></span></div>
-<p class="chap-sub">Chaque palier se livre <b>séparément</b> et se vérifie avant le suivant. Ne jamais en sauter un : l'ordre existe pour que les erreurs se voient tant qu'elles sont petites.</p>
+<div class="chap" id="paliers"><span class="num">5</span><h2>Huit paliers, dans cet ordre</h2><span class="filet"></span></div>
+<p class="chap-sub">Chaque palier se livre <b>séparément</b> et se vérifie avant le suivant. Ne jamais en sauter un : l'ordre existe pour que les erreurs se voient tant qu'elles sont petites. Le palier <b>4b est nouveau</b> — la relecture a montré que le 4 ne couvrait presque rien.</p>
 
 <div class="palier palier--sur">
   <div class="tete"><span class="n">0</span><h3>Le filet</h3><span class="jauge jauge--sur">Sans risque</span><span class="mode">Transverse</span></div>
-  <p>Deux volets. <b>Poser les <code>data-testid</code></b> sur tout ce que les tests ciblent par texte ou par classe, et remplacer les sept sélecteurs Tailwind. Puis <b>écrire les six garde-fous</b> manquants, en commençant par l'inventaire d'actions.</p>
-  <p class="filet-t"><b>Critère de sortie —</b> les 58 E2E et 179 Vitest passent <b>avant et après</b>, sans qu'une ligne de style ait bougé. C'est le seul palier qui <i>augmente</i> la sécurité au lieu de la consommer.</p>
+  <p>Trois volets. <b>Mettre les E2E en intégration continue</b>, avec échec sur « <i>did not run</i> » — sans quoi rien d'autre n'est vérifiable. <b>Poser les <code>data-testid</code></b> sur tout ce que les tests ciblent par texte ou par classe, et remplacer les quinze sélecteurs de style. <b>Écrire les six garde-fous</b>, en commençant par l'inventaire d'actions.</p>
+  <p class="filet-t"><b>Une difficulté réelle —</b> poser un identifiant sur les 22 actions dynamiques suppose de choisir sa forme avant de savoir si ces 22 boutons resteront 22 boutons. <b>Choisir la forme générique</b>, dérivée de l'identifiant d'action : elle survit à une réorganisation.</p>
+  <p class="filet-t"><b>Critère de sortie —</b> tout est au vert <b>avant et après</b>, sans qu'une ligne de style ait bougé. C'est le seul palier qui <i>augmente</i> la sécurité au lieu de la consommer.</p>
 </div>
 
 <div class="palier palier--moyen">
   <div class="tete"><span class="n">1</span><h3>Sortir de Nuxt UI</h3><span class="jauge jauge--moyen">Moyen</span><span class="mode">Transverse</span></div>
-  <p>Tant que deux systèmes cohabitent, la charte ne peut pas gagner : <code>main.css</code> contient déjà <b>100 <code>!important</code></b> pour contrer le thème par défaut. Détail complet au chapitre suivant.</p>
+  <p>Tant que deux systèmes cohabitent, la charte ne peut pas gagner : la feuille de style principale contient <b>100 <code>!important</code></b> pour contrer le thème par défaut. Détail complet au chapitre 6.</p>
   <p class="filet-t"><b>Pourquoi ici et pas plus tard —</b> le palier 2 remplace les valeurs des jetons. Le faire avant d'avoir retiré la couche de compensation, c'est régler une couleur en se battant contre une autre.</p>
 </div>
 
 <div class="palier palier--sur">
   <div class="tete"><span class="n">2</span><h3>Les jetons</h3><span class="jauge jauge--sur">Faible</span><span class="mode">Transverse</span></div>
   <p>Couleurs, typographie, rayons, ombres. On remplace les valeurs <b>derrière</b> les jetons existants — sans renommer un jeton, sans toucher à une classe utilitaire. Et on <b>supprime les 100 <code>!important</code></b> devenus inutiles.</p>
-  <p class="filet-t"><b>Le filet —</b> <code>check:design-tokens</code> et les classes fantômes couvrent exactement ce palier. Ils sont déjà écrits.</p>
+  <p class="filet-t"><b>À faire en premier dans ce palier —</b> trancher le sort de <code>tailwind.config.ts</code>, qui n'est pas chargé mais que la documentation interne déclare « source de vérité ». Il porte une palette divergente : un secondaire orange là où le CSS fait un gris, un violet hors charte, un gris à 2,56. <b>On ne règle pas des jetons dans un fichier que personne ne lit.</b></p>
+  <p class="filet-t"><b>Le filet —</b> les deux scripts existants couvrent exactement ce palier. Mais il faut <b>étendre le premier à <code>server/</code></b> pour les e-mails.</p>
 </div>
 
 <div class="palier palier--moyen">
   <div class="tete"><span class="n">3</span><h3>Les primitives</h3><span class="jauge jauge--moyen">Moyen</span><span class="mode">Transverse</span></div>
   <p>Champ de saisie, pastille, médaillon, bouton, puce. Remplacement <b>un pour un</b> : même API, mêmes props, mêmes évènements.</p>
-  <p class="filet-t"><b>Le piège —</b> <code>AppButton</code> expose <b>douze variantes</b> et la charte en veut quatre. <b>N'en supprimer aucune ici</b> : on ajoute les quatre, on laisse les douze vivre, on retire quand plus rien ne les appelle.</p>
+  <p class="filet-t"><b>Le piège —</b> le bouton expose <b>douze variantes</b> et la charte en veut quatre. <b>N'en supprimer aucune ici.</b> Six sont d'ailleurs mortes — zéro usage — mais leur retrait est un nettoyage, pas une migration : on le fait après, séparément.</p>
+  <p class="filet-t"><b>Non couvert par la charte —</b> la variante fantôme (10 usages) et la variante blanche sur marine. Le lien à filet n'a pas la même zone de clic : <b>il faut leur dessiner un équivalent avant ce palier.</b></p>
 </div>
 
 <div class="palier palier--moyen">
-  <div class="tete"><span class="n">4</span><h3>Les coquilles de surface</h3><span class="jauge jauge--moyen">Moyen</span><span class="mode">Transverse</span></div>
+  <div class="tete"><span class="n">4</span><h3>Les deux coquilles</h3><span class="jauge jauge--moyen">Moyen</span><span class="mode">Transverse</span></div>
   <p>La fiche et le dialogue. Apparence nouvelle, <b>comportement identique</b> : mêmes props, même fermeture au clavier, même pile d'overlays.</p>
-  <p class="filet-t"><b>À ne pas casser —</b> <code>useOverlayStack</code> masque une modale, mémorise son état et la remonte <b>350 ms</b> plus tard. Sept composants en dépendent, et ce délai est calé sur l'animation du bottom sheet.</p>
+  <p class="filet-t"><b>Portée réelle, à ne pas surestimer —</b> la coquille de dialogue n'est utilisée que dans <b>5 fichiers</b>, celle de formulaire dans <b>10</b>. Ce palier ne touche donc que quinze surfaces sur trente-cinq.</p>
+  <p class="filet-t"><b>À ne pas casser —</b> une modale masquée est mémorisée puis remontée <b>350 ms</b> plus tard. Ce délai <b>ne vit pas dans le composable de pile</b> mais dans la feuille d'échange et l'overlay d'édition d'annonce — il est calé sur l'animation de la feuille. Neuf éléments dépendent de la pile.</p>
+</div>
+
+<div class="palier palier--risque palier--neuf">
+  <div class="tete"><span class="n">4b</span><h3>Rapatrier les surfaces maison</h3><span class="jauge jauge--risque">Élevé</span><span class="mode">Par surface</span></div>
+  <p><b>Ce palier n'existait pas, et c'est celui qui manquait.</b> Seize fichiers portent un portail vers le corps du document <b>sans utiliser aucune des deux coquilles</b> — dont la fiche de rendez-vous, la validation, l'avis, l'acceptation, le dialogue d'informations obligatoires et trois pages d'administration. Sur 26 portails, <b>17 sont hors des coquilles</b>.</p>
+  <p>Les migrer n'est pas un changement d'apparence : c'est un changement de <b>structure</b> — voile, plan, fermeture au clavier, piège de focus, restauration du focus à la fermeture. Ni transverse ni par écran : <b>une surface à la fois</b>, avec relecture au clavier.</p>
+  <p class="filet-t"><b>Six exceptions légitimes —</b> la barre du bas, le sélecteur de catégorie en feuille (que la charte <i>exige</i>), la visionneuse d'image, le sélecteur de photo, la feuille d'échange et l'en-tête de conversation. Elles restent des portails maison ; le garde-fou doit les lister nommément.</p>
 </div>
 
 <div class="palier palier--risque">
   <div class="tete"><span class="n">5</span><h3>Les formes</h3><span class="jauge jauge--risque">Élevé</span><span class="mode">Par écran</span></div>
   <p>Billet, frise, journal, lignes d'agenda, fiches. C'est ici que la charte rencontre <b>la logique métier</b>.</p>
-  <p class="filet-t"><b>Le piège majeur —</b> la frise suppose une séquence linéaire à cinq étapes. Le code en produit <b>trois jeux</b> selon le flux, se réduit à deux en cas d'annulation, et sait <b>revenir en arrière</b>. Pire : le <b>statut perçu diffère du statut réel</b> — les deux participants voient des boutons différents au même instant. Une frise naïve ment à l'un des deux.</p>
+  <p class="filet-t"><b>Le piège majeur —</b> la frise suppose une séquence linéaire à cinq étapes. Le code manipule <b>huit statuts réels et neuf affichés</b>, sait revenir en arrière, et surtout : le <b>statut perçu diffère du statut réel</b> — les deux participants voient des boutons différents au même instant. Une frise naïve ment à l'un des deux.</p>
+  <p class="filet-t"><b>Manquant dans la charte —</b> le billet impose un verbe de huit lettres, mais le carrousel gère <b>dix types d'action</b> dont « confirmer la déclaration » et « redéfinir le lieu ». <b>La table des dix verbes doit exister avant ce palier.</b></p>
 </div>
 
 <div class="palier palier--risque">
   <div class="tete"><span class="n">6</span><h3>Les pages</h3><span class="jauge jauge--risque">Élevé</span><span class="mode">Par écran</span></div>
-  <p><b>Une page à la fois.</b> Commencer par les plus petites et les moins conditionnelles — la charte, la réservation publique, les réglages.</p>
-  <p class="filet-t"><b>À garder pour la fin —</b> <code>ExchangeDetailsModal.vue</code> : <b>2 549 lignes, 70 <code>v-if</code></b>. Puis <code>profile/index.vue</code> (1 636 l.), <code>prospects/[id].vue</code> (1 390 l.), <code>messages/[threadId].vue</code> (1 102 l.).</p>
+  <p><b>Une page à la fois.</b> Commencer par les plus petites et les moins conditionnelles — la charte, la réservation publique, les réglages. Rappel : sur <b>57 écrans routés, 7 sont couverts par une maquette, 28 partiellement, 18 pas du tout</b>.</p>
+  <p class="filet-t"><b>À garder pour la fin —</b> la fiche de rendez-vous (<b>2 549 lignes, 70 branches</b>), puis le profil (1 636 l.), la fiche de candidat (1 390 l.) et la conversation (1 102 l.).</p>
+  <p class="filet-t"><b>Conflits garantis —</b> le dépôt reçoit environ <b>233 commits par mois</b> et porte quatre chantiers parallèles. Une branche longue sur ces quatre fichiers entrera en conflit. Il faut <b>geler chaque gros fichier pendant son propre restylage</b>, et rebaser chaque jour.</p>
 </div>
 
 <!-- ================= 6 · NUXT UI ================= -->
 <div class="chap" id="nuxtui"><span class="num">6</span><h2>Sortir de Nuxt UI</h2><span class="filet"></span></div>
-<p class="chap-sub">C'est bien un <b>préalable</b>, et c'est <b>beaucoup moins cher qu'il n'y paraît</b> : sept composants seulement, dont deux sans aucun comportement représentent 96 % des occurrences.</p>
+<p class="chap-sub">C'est bien un <b>préalable</b>, et c'est <b>moins cher qu'il n'y paraît</b> côté composants — mais <b>plus technique</b> côté chaîne de compilation qu'annoncé la première fois.</p>
 
 <div class="risque">
   <div><p class="v v--ok">7</p><p class="l">composants Nuxt UI utilisés, sur <b>272 occurrences</b></p></div>
-  <div><p class="v v--ok">96 %</p><p class="l">sont <code>UIcon</code> + <code>UContainer</code> — <b>zéro comportement</b></p></div>
-  <div><p class="v v--ok">0</p><p class="l"><code>UModal</code>, <code>UPopover</code>, <code>UTooltip</code>, <code>USelect</code> — <b>le plus coûteux n'existe pas</b></p></div>
-  <div><p class="v v--ok">0</p><p class="l">test ne cible un composant Nuxt UI</p></div>
+  <div><p class="v v--ok">96 %</p><p class="l">sont des icônes et des conteneurs — <b>zéro comportement</b></p></div>
+  <div><p class="v v--ok">0</p><p class="l">modale, menu flottant, infobulle ou liste déroulante — <b>le plus coûteux n'existe pas</b></p></div>
+  <div><p class="v">2</p><p class="l">assertions dépendent du <code>role</code> émis par la notification</p></div>
 </div>
 
 <div class="bon">
   <p class="t">La partie normalement la plus dure est déjà faite</p>
-  <p>Un détachement Nuxt UI coûte d'ordinaire cher à cause des portails, du piège de focus et du positionnement flottant — <code>UModal</code>, <code>UPopover</code>, <code>UDropdown</code>, <code>USelect</code>. <b>Aucun n'est utilisé ici.</b> Les modales sont déjà 100 % maison (<code>AppModal</code>, <code>AppFormOverlay</code>, <code>ExchangeBottomSheet</code>, <code>useOverlayStack</code>), et <code>AppButton</code> est utilisé dans <b>64 fichiers contre 8</b> pour <code>UButton</code>.</p>
-  <p>Le résiduel comportemental tient en <b>31 occurrences sur 13 fichiers</b>, plus <b>27 appels de toast sur 3 fichiers</b>.</p>
+  <p>Un détachement Nuxt UI coûte d'ordinaire cher à cause des portails, du piège de focus et du positionnement flottant. <b>Aucun de ces composants n'est utilisé ici.</b> Les modales sont déjà 100 % maison, et le bouton maison vit dans <b>64 fichiers</b> quand celui de Nuxt UI n'apparaît que dans <b>4</b>.</p>
+  <p>Le résiduel comportemental tient en <b>31 occurrences sur 12 fichiers</b>, plus <b>27 appels de notification sur 3 fichiers</b>.</p>
 </div>
 
 <div class="alarme">
   <p class="t">Pourquoi c'est un préalable et pas une option</p>
-  <p><code>main.css</code> contient <b>96 sélecteurs et 100 <code>!important</code></b> sous le commentaire « <i>Override Nuxt UI : force toutes les classes à utiliser les variables centralisées</i> ». Cette couche existe uniquement pour contrer le thème par défaut.</p>
-  <p>Le fichier documente même l'incident : « <i>mesure du 09/09, <code>bg-primary/10</code> rendait du VERT (le primary par défaut de Nuxt UI) alors que <code>bg-primary</code> rendait bien le marine</i> ». <b>Régler les jetons de la charte avant d'avoir retiré cette couche, c'est se battre contre une force qu'on ne voit pas.</b></p>
-  <p>Aggravant : <code>app.config.ts</code> est écrit en syntaxe <b>Nuxt UI v2/v3</b> alors que la <b>v4</b> est installée — la configuration de thème est donc <b>inopérante</b>, ce qui explique la couche de compensation.</p>
+  <p>La feuille de style principale contient <b>100 <code>!important</code></b> sous le commentaire « <i>Override Nuxt UI : force toutes les classes à utiliser les variables centralisées</i> ». Cette couche existe uniquement pour contrer le thème par défaut, et <b>c'est elle, le thème réel</b>.</p>
+  <p>Le fichier documente l'incident : « <i>mesure du 09/09, <code>bg-primary/10</code> rendait du VERT (le primary par défaut de Nuxt UI) alors que <code>bg-primary</code> rendait bien le marine</i> ». Aggravant : <code>app.config.ts</code> est écrit en syntaxe <b>v2/v3</b> alors que la <b>v4</b> est installée — la configuration de thème est <b>inopérante</b>, ce qui explique la compensation.</p>
 </div>
 
 <div class="alarme">
-  <p class="t">Trois dépendances transitives à ne pas découvrir en route</p>
-  <p><b>1 · <code>tailwindcss</code> n'est pas dans le <code>package.json</code>.</b> Il arrive uniquement par <code>@nuxt/ui</code>. Retirer le module sans l'installer explicitement casse <b>tout</b> le style.</p>
-  <p><b>2 · <code>@nuxt/icon</code> non plus.</b> Or le composant <code>&lt;Icon&gt;</code> qu'il fournit est utilisé <b>65 fois dans 22 fichiers</b> qui n'ont pourtant aucune balise <code>&lt;U…&gt;</code>. Le périmètre réel passe de <b>74 à 94 fichiers</b>.</p>
-  <p><b>3 · Les icônes sont résolues à l'exécution.</b> 92 noms heroicons distincts, dont <b>23 calculés dynamiquement</b> — certains venant de la base (<code>category.icon</code>). Une conversion mécanique vers des imports statiques est impossible ; il faut garder un résolveur.</p>
+  <p class="t">Quatre pièges techniques à ne pas découvrir en route</p>
+  <p><b>1 · Ce n'est pas « installer Tailwind ».</b> La feuille de style importe Tailwind <b>v4</b>, chargé par le plugin de compilation qu'enregistre <code>@nuxt/ui</code>. Retirer le module <b>casse la compilation du CSS</b> tant qu'on n'ajoute pas <code>@tailwindcss/vite</code> explicitement.</p>
+  <p><b>2 · <code>@nuxt/icon</code> n'est pas déclaré non plus.</b> Or son composant est utilisé <b>65 fois dans 22 fichiers</b>, dont 20 n'ont aucune balise Nuxt UI. Le périmètre réel passe de <b>74 à 94 fichiers</b>.</p>
+  <p><b>3 · Les icônes sont résolues à l'exécution.</b> 92 noms distincts, certains venant de la base de données. Une conversion mécanique vers des imports statiques est impossible ; il faut garder un résolveur. <b>Et trois jeux d'icônes coexistent</b> : le choix du jeu final est à trancher avant.</p>
+  <p><b>4 · La notification maison doit émettre <code>role="alert"</code>.</b> Deux tests en dépendent, et 24 occurrences de ce rôle existent ailleurs. Sans lui, un palier dit « sans changement à l'écran » casse deux spécifications.</p>
 </div>
 
 <div class="palier palier--sur" style="margin-top:18px">
   <div class="tete"><span class="n">1a</span><h3>Les icônes d'abord</h3><span class="jauge jauge--sur">Faible</span></div>
-  <p>Installer <code>@nuxt/icon</code> et <code>tailwindcss</code> en dépendances <b>explicites</b>, puis remplacer les 223 <code>&lt;UIcon&gt;</code> par <code>&lt;Icon&gt;</code> — même API <code>name</code> + <code>class</code>, même résolveur. <b>Rien ne change à l'écran.</b></p>
-  <p class="filet-t"><b>Au passage —</b> trois systèmes d'icônes cohabitent (<code>UIcon</code>, <code>Icon</code>, <code>lucide-vue-next</code>). Ce palier en supprime un ; les deux autres se traitent au palier 3.</p>
+  <p>Déclarer <code>@nuxt/icon</code>, <code>tailwindcss</code> et <code>@tailwindcss/vite</code> en dépendances <b>explicites</b>, puis remplacer les 223 icônes Nuxt UI — même API, même résolveur. <b>Rien ne change à l'écran.</b></p>
+  <p class="filet-t"><b>Attention au chevauchement —</b> le bouton maison porte lui-même des noms d'icônes. Ce palier touche donc un composant utilisé dans 64 fichiers <b>avant</b> que le palier 3 l'autorise à changer : le remplacement doit y être strictement mécanique.</p>
 </div>
 
 <div class="palier palier--sur">
   <div class="tete"><span class="n">1b</span><h3>L'habillage</h3><span class="jauge jauge--sur">Faible</span></div>
-  <p><code>UContainer</code> (18) → un <code>&lt;div&gt;</code> avec les mêmes classes : les 18 usages ne passent <b>que</b> <code>class</code>. <code>UButton</code> (8) → <code>AppButton</code>, déjà majoritaire. <code>UAlert</code> (11) → <code>AppInfoBanner</code>. <code>UInput</code> (9) et <code>UTextarea</code> (2) → le champ de saisie de la charte.</p>
-  <p class="filet-t"><b>Le seul cas non trivial —</b> le <code>UTextarea</code> de la messagerie utilise <code>autoresize</code> et <code>:maxrows="5"</code> : un recalcul de hauteur à chaque frappe, à reproduire.</p>
+  <p>Le conteneur (18 usages, qui ne passent que <code>class</code>) devient un bloc. Le bouton (8) rejoint le bouton maison, déjà majoritaire. L'encart (11) rejoint la bannière maison. Les champs (9 et 2) rejoignent le champ de la charte.</p>
+  <p class="filet-t"><b>Le seul cas non trivial —</b> le champ multiligne de la messagerie utilise l'auto-agrandissement jusqu'à cinq lignes : un recalcul de hauteur à chaque frappe, à reproduire.</p>
 </div>
 
 <div class="palier palier--moyen">
-  <div class="tete"><span class="n">1c</span><h3>Les toasts, puis le module</h3><span class="jauge jauge--moyen">Moyen</span></div>
-  <p>Le seul vrai point dur : <code>UApp</code> fournit l'hôte des <b>27 <code>toast.add()</code></b>. Il faut une notification maison — portail, file d'attente, disparition temporisée. Le contrat est <b>étroit</b> : trois couleurs, <code>title</code> + <code>description</code>, et <b>un seul</b> appel avec une action.</p>
-  <p class="filet-t"><b>Indice que ça vaut le coup —</b> les E2E tolèrent déjà deux erreurs console attribuées au <code>ToastProvider</code> : un <i>hydration mismatch</i> et un crash <code>insertBefore</code>. Ces exclusions disparaissent avec le module.</p>
+  <div class="tete"><span class="n">1c</span><h3>Les notifications, puis le module</h3><span class="jauge jauge--moyen">Moyen</span></div>
+  <p>Le point dur : la coquille racine fournit l'hôte des <b>27 notifications</b>. Il faut une version maison — portail, file d'attente, disparition temporisée, <code>role="alert"</code>. Le contrat est <b>étroit</b> : trois couleurs, un titre, une description, et <b>un seul</b> appel avec une action.</p>
+  <p class="filet-t"><b>Indice que ça vaut le coup —</b> les tests tolèrent déjà deux erreurs console attribuées au fournisseur de notifications : une incohérence d'hydratation et un plantage d'insertion dans le DOM. <b>Ces exclusions disparaissent avec le module.</b></p>
+</div>
+
+<div class="alarme">
+  <p class="t">La fenêtre visuellement cassée, entre 1c et 2</p>
+  <p>Les <code>!important</code> neutralisent la palette <i>de Nuxt UI</i>. Une fois le module retiré, les nuances qu'il générait n'existent plus — mais les jetons de la charte ne sont posés qu'au palier 2. <b>Entre les deux, des classes peuvent ne plus rien rendre.</b></p>
+  <p>Deux réponses possibles : soit livrer 1c et 2 dans <b>la même branche</b>, en acceptant qu'elle soit plus grosse ; soit ajouter au palier 1c un critère de sortie explicite — les deux scripts de jetons au vert, plus les deux spécifications de notification. <b>La seconde est préférable</b> : elle garde les branches petites et rend la fenêtre mesurable.</p>
 </div>
 
 <!-- ================= 7 · LES ANGLES MORTS ================= -->
 <div class="chap" id="morts"><span class="num">7</span><h2>Ce que la charte ne couvre pas</h2><span class="filet"></span></div>
-<p class="chap-sub">Ces mécanismes existent, fonctionnent, et <b>ne se voient sur aucune maquette</b>. Ils sont à préserver tels quels. La liste n'est probablement pas complète — c'est justement le problème.</p>
+<p class="chap-sub">Ces mécanismes existent, fonctionnent, et <b>ne se voient sur aucune maquette</b>. Ils sont à préserver tels quels.</p>
 
 <div class="morts">
-  <div class="l"><span class="t">Les 22 actions</span><span class="d"><code>useExchangeActions.ts</code> calcule <b>22 actions</b> depuis <b>37 points d'appel</b>, sur <b>onze variables</b> : type, statut (11 valeurs), rôle 1-to-1, rôle de groupe, statut de participant, validation croisée, temps, fenêtre de feedback, capacité, fil, origine. Aucune maquette n'en montre plus de trois.</span></div>
-  <div class="l"><span class="t">Statut perçu</span><span class="d">Si vous avez validé et laissé un avis, vous voyez <code>completed</code> quand la base dit <code>partially_completed</code>. <b>Les deux participants ne voient pas la même chose.</b></span></div>
-  <div class="l"><span class="t">Quatre rôles</span><span class="d"><code>admin</code>, <code>member</code>, <code>delegate</code>, <code>delegant</code>, plus <b>16 actions de permission</b> via <code>usePermissions.ts</code>, testées <b>42 fois</b> dans les templates.</span></div>
-  <div class="l"><span class="t">L'immersion</span><span class="d">Un délégué agit <b>pour</b> un délégant : l'en-tête <code>X-Acting-As</code> bascule tout le point de vue de l'application.</span></div>
-  <div class="l"><span class="t">Deux horloges</span><span class="d"><code>TimeService</code> distingue <code>realNow()</code> et <code>appNow()</code>. En simulation, <b>la barre du haut descend de <code>top-0</code> à <code>top-7</code></b> — un décalage global piloté par une variable d'environnement.</span></div>
+  <div class="l"><span class="t">Le décalage des barres</span><span class="d"><b>Le plus dangereux de la liste.</b> Un composable mesure les barres <b>par sélecteur CSS</b> — <code>header.fixed</code>, <code>nav.fixed</code>. Si la charte renomme ou restructure le chrome, il retombe sur ses valeurs de repli, 65 et 64 px, et <b>tout le contenu de l'application se décale silencieusement</b>. Aucun test ne l'attrape.</span></div>
+  <div class="l"><span class="t">Les 22 actions</span><span class="d">Calculées depuis <b>37 points d'appel</b>, sur le type, le statut, le rôle 1-à-1, le rôle de groupe, le statut de participant, la validation croisée, le temps, la fenêtre de feedback, la capacité, le fil et l'origine. Aucune maquette n'en montre plus de trois.</span></div>
+  <div class="l"><span class="t">Statut perçu</span><span class="d">Si vous avez validé et laissé un avis, vous voyez « terminé » quand la base dit « partiellement terminé ». <b>Les deux participants ne voient pas la même chose.</b></span></div>
+  <div class="l"><span class="t">Quatre rôles</span><span class="d">Administrateur, membre, délégué, délégant, plus seize actions de permission testées dans les gabarits.</span></div>
+  <div class="l"><span class="t">L'immersion</span><span class="d">Un délégué agit <b>pour</b> un délégant : un en-tête bascule tout le point de vue. Le bandeau « Revenir à mon compte » <b>n'est dessiné nulle part</b>, et le parcours complet compte sept étapes pour <b>un seul écran dessiné</b>.</span></div>
+  <div class="l"><span class="t">Deux horloges</span><span class="d">Le service distingue l'heure réelle et l'heure applicative. En simulation, <b>toute la barre du haut descend de 28 px</b> — un décalage global piloté par une variable d'environnement.</span></div>
+  <div class="l"><span class="t">La pagination</span><span class="d">Troisième primitive la plus utilisée — <b>11 appelants</b> — et <b>aucune fiche</b>. La charte parle de « fil infini » sur grand écran : ce serait un changement de comportement.</span></div>
+  <div class="l"><span class="t">La cloche</span><span class="d">La barre du haut porte une cloche de notifications avec sa pastille de non-lus. <b>Aucune barre dessinée ne la montre.</b></span></div>
   <div class="l"><span class="t">L'auto-validation</span><span class="d">Comptes à rebours <b>J+3</b> et <b>J+7</b>, affichés à trois endroits, avec un libellé qui change à mesure.</span></div>
   <div class="l"><span class="t">Le temps réel</span><span class="d">Indicateur de frappe, arrivée de messages sans rechargement, <b>badge numérique</b> sur l'icône de l'application installée.</span></div>
-  <div class="l"><span class="t">L'optimisme</span><span class="d">Favoris et réactions changent <b>avant</b> la réponse serveur. <code>PostReactionButtons</code> documente que <b>la mise à jour optimiste EST le retour visuel</b> — ajouter un spinner serait une régression.</span></div>
-  <div class="l"><span class="t">Neuf contextes</span><span class="d"><code>useExchangeContext.ts</code> pré-remplit le formulaire de rendez-vous différemment selon <b>neuf origines</b>. Le même écran n'a pas le même état initial selon d'où on l'ouvre.</span></div>
-  <div class="l"><span class="t">Les brouillons</span><span class="d">L'embarquement et la messagerie gardent ce qui a été saisi. Le consentement à la charte, lui, <b>n'est volontairement pas restauré</b>.</span></div>
-  <div class="l"><span class="t">La porte de charte</span><span class="d">Règle isomorphe client/serveur. Une divergence produirait un blocage incompréhensible.</span></div>
-  <div class="l"><span class="t">Les images</span><span class="d">Compression avant envoi, avec <b>repli documenté</b> quand le décodage échoue — typiquement les HEIC d'iPhone.</span></div>
-  <div class="l"><span class="t">Petites choses</span><span class="d">Bannière d'installation à trois rendus, report de 30 jours ; rafraîchissement par évènement global ; salutation une fois par jour ; redirection OAuth mémorisée ; signature manuscrite sur <code>canvas</code>.</span></div>
+  <div class="l"><span class="t">L'optimisme</span><span class="d">Favoris et réactions changent <b>avant</b> la réponse serveur. Le code documente que <b>la mise à jour optimiste EST le retour visuel</b> — ajouter un indicateur de chargement serait une régression.</span></div>
+  <div class="l"><span class="t">Neuf contextes</span><span class="d">Le formulaire de rendez-vous est pré-rempli différemment selon <b>neuf origines</b>. Le même écran n'a pas le même état initial selon d'où on l'ouvre.</span></div>
+  <div class="l"><span class="t">Le clavier virtuel</span><span class="d">En conversation, la barre du bas <b>se masque à l'ouverture du clavier</b>, par mesure de la fenêtre visible. Zéro occurrence dans la charte.</span></div>
+  <div class="l"><span class="t">Comportements fins</span><span class="d">Piège de focus et restauration dans la visionneuse ; verrou de défilement ; anti-rebond sur cinq recherches ; délai de flou pour laisser le clic aboutir ; lecture obligatoire de la charte par observateur d'intersection, avec repli ; signature manuscrite sur canevas ; compression d'images avec repli documenté.</span></div>
+  <div class="l"><span class="t">Le zoom interdit</span><span class="d">La coquille force <code>user-scalable=no</code> : échec WCAG, et <b>redondant</b> puisque les champs sont déjà à 16 px. À retirer.</span></div>
+  <div class="l"><span class="t">Le mouvement</span><span class="d"><code>prefers-reduced-motion</code> : <b>zéro occurrence</b> dans l'application, alors que 64 fichiers déclarent des animations.</span></div>
+  <div class="l"><span class="t">Le mode sombre</span><span class="d">Nuxt UI embarque un module de thème réglé sur « système », l'application n'a <b>aucune règle sombre</b>, et la charte <b>aucun jeton sombre</b>. Sur un téléphone en mode sombre, les primitives restantes peuvent basculer pendant que la coquille reste claire. À vérifier sur appareil, et à verrouiller.</span></div>
+  <div class="l"><span class="t">Le premier pixel</span><span class="d">L'écran de chargement code en dur son dégradé, hors jetons. C'est <b>la toute première chose vue</b>, et elle ne suivra pas la charte si on l'oublie. Même problème pour la couleur de fond du manifeste, qui vaut <b>blanc à un endroit et marine à un autre</b>.</span></div>
 </div>
 
 <!-- ================= 8 · LE JOURNAL ================= -->
 <div class="chap" id="journal"><span class="num">8</span><h2>Le journal d'écarts</h2><span class="filet"></span></div>
-<p class="chap-sub">Le livrable qui compte autant que le code. Chaque palier — chaque <b>écran</b> à partir du palier 5 — produit un fichier listant tout ce qui n'a pas pu être appliqué tel quel.</p>
+<p class="chap-sub">Le livrable qui compte autant que le code. Chaque palier — chaque <b>écran</b> à partir du palier 4b — produit un fichier listant tout ce qui n'a pas pu être appliqué tel quel.</p>
 
 <div class="gabarit"><span class="c"># Journal d'écarts — palier 5 · la fiche de rendez-vous</span>
-<span class="c"># 2026-09-14 · branche charte/p5-fiche-rdv</span>
+<span class="c"># 2026-09-14 · branche charte/p5-fiche-rdv · rebasé sur develop le 14/09</span>
 
 <span class="k">## Gardé tel quel</span> <span class="c">(présent dans le code, absent de la charte)</span>
 
@@ -446,26 +556,61 @@ completed · both      → [Laisser un feedback, Contacter]</div>
 <span class="k">## Interdit corrigé</span> <span class="c">(les onze de la liste)</span>
 
 - AnnouncementDetailsModal.vue:530,564 — window.confirm → dialogue
+  ⚠ casse 07-announcements.spec.ts (page.on('dialog'))
+  → test réécrit dans la même branche, cf. règle du chapitre 1
 
 <span class="k">## Vérifications</span>
 
-- [x] 58 E2E au vert
-- [x] 179 Vitest au vert
-- [x] check:design-tokens au vert
+- [x] lint · typage · 1 962 unitaires · compilation
+- [x] 313 E2E au vert <span class="c">— en CI, pas « did not run »</span>
+- [x] jetons de design · classes fantômes
 - [x] inventaire-actions <span class="c">inchangé</span>
-- [ ] écran relu à la main
-- [ ] relu par un humain
+- [ ] écran relu à la main, <span class="c">au clavier seul</span>
+- [ ] relu par un humain — <span class="k">qui, et avant quelle date ?</span>
 </div>
 
-<div class="bon" style="margin-top:20px">
+<div class="alarme">
+  <p class="t">Trois choses que le protocole ne disait pas et qui doivent être décidées</p>
+  <p><b>Le retour arrière.</b> Aucun drapeau de fonctionnalité n'est branché — ni côté configuration, ni via l'outil d'analyse pourtant présent. Il n'y a donc <b>pas de bascule progressive possible</b>, et revenir en arrière signifie promouvoir un déploiement précédent. À documenter avant, pas pendant.</p>
+  <p><b>Le gel fonctionnel.</b> Le dépôt fusionne plusieurs fois par jour. Sans gel explicite des quatre gros fichiers pendant leur restylage, les conflits mangeront le gain.</p>
+  <p><b>Qui tranche.</b> Le journal dit « à trancher » sans nommer personne, et « relu par un humain » sans dire lequel. <b>Un palier dont les écarts ne sont pas arbitrés sous une semaine bloque le suivant</b> : il faut un nom et un délai, sinon les journaux s'empilent sans effet.</p>
+</div>
+
+<div class="bon">
   <p class="t">Ce qu'il faut demander, concrètement</p>
   <p>Ne pas dire « applique la charte ». Dire : <b>« applique le palier N, en suivant le protocole de migration, et produis le journal d'écarts »</b>. Un palier — ou un écran — une branche, un journal, et une relecture avant le suivant.</p>
-  <p>Et pour le tout premier : <b>« écris le garde-fou d'inventaire d'actions, sans toucher à une ligne de style »</b>. Tant qu'il n'existe pas, aucun autre palier ne devrait commencer.</p>
+  <p>Et pour le tout premier : <b>« mets les E2E en intégration continue, puis écris le garde-fou d'inventaire d'actions, sans toucher à une ligne de style »</b>. Tant que ces deux-là n'existent pas, aucun autre palier ne devrait commencer.</p>
+</div>
+
+<!-- ================= 9 · LES CORRECTIONS ================= -->
+<div class="chap" id="corrections"><span class="num">9</span><h2>Ce que la relecture a corrigé</h2><span class="filet"></span></div>
+<p class="chap-sub">Par honnêteté envers la version précédente, et parce que l'écart lui-même est instructif : <b>les erreurs allaient presque toutes dans le sens de la sous-estimation</b>.</p>
+
+<table class="corr">
+  <thead><tr><th>Affirmation</th><th style="width:13%">Disait</th><th style="width:18%">En réalité</th><th style="width:33%">Pourquoi ça change quelque chose</th></tr></thead>
+  <tbody>
+    <tr><td class="q">Dialogues natifs</td><td class="dit">3</td><td class="vrai">14, sur 12 fichiers</td><td>Et <b>7 fichiers de test les attendent</b> : ce n'est plus une ligne à cocher mais une unité de changement.</td></tr>
+    <tr><td class="q">Surfaces flottantes maison</td><td class="dit">10</td><td class="vrai">26, dont 17 hors coquilles</td><td>Le palier 4 ne couvrait presque rien. <b>Le palier 4b est né de là.</b></td></tr>
+    <tr><td class="q">Tests de bout en bout</td><td class="dit">58</td><td class="vrai">313 cas, en 58 fichiers</td><td>Le filet est cinq fois plus dense — et <b>il ne tourne pas en CI</b>.</td></tr>
+    <tr><td class="q">Tests unitaires</td><td class="dit">179</td><td class="vrai">1 962 cas, en 175 fichiers</td><td>Idem : dix fois plus de surface, protégée et exposée.</td></tr>
+    <tr><td class="q">Sélecteurs de style dans les tests</td><td class="dit">7</td><td class="vrai">15 occurrences</td><td>Quatre sélecteurs de classe avaient été oubliés.</td></tr>
+    <tr><td class="q">Le délai de 350 ms</td><td class="dit">dans la pile</td><td class="vrai">ailleurs</td><td>Le composable n'a <b>aucun minuteur</b>. Chercher au mauvais endroit fait manquer la vraie dépendance.</td></tr>
+    <tr><td class="q">Plans z-index</td><td class="dit">4</td><td class="vrai">6 valeurs</td><td>Et le garde-fou proposé n'en voit que les deux écrites entre crochets.</td></tr>
+    <tr><td class="q">Statuts d'échange</td><td class="dit">11</td><td class="vrai">8 réels, 9 affichés</td><td>Erreur dans le sens inverse — mais la charte n'en couvre que <b>quatre</b>.</td></tr>
+    <tr><td class="q">Tests ciblant Nuxt UI</td><td class="dit">0</td><td class="vrai">2</td><td>La notification maison doit émettre <code>role="alert"</code>.</td></tr>
+    <tr><td class="q">Composants avec identifiant</td><td class="dit">24 %</td><td class="vrai vrai--ok">28 %</td><td>Unités mélangées : 24 % seulement si l'on compte les pages.</td></tr>
+    <tr><td class="q">« La CI entière au vert »</td><td class="dit">critère</td><td class="vrai">impossible</td><td>Les E2E n'y sont pas. <b>Le palier 0 commence par les y mettre.</b></td></tr>
+  </tbody>
+</table>
+
+<div class="bon">
+  <p class="t">Ce qui n'a pas bougé</p>
+  <p>L'architecture tient : la règle d'or, les quatre cas d'écart, le journal, le découpage transverse / par écran, et le constat que le détachement de Nuxt UI est un préalable. Ce sont <b>les chiffres, deux paliers et la conception du garde-fou principal</b> qui étaient à refaire — pas la méthode.</p>
 </div>
 
 <footer>
-  TempsPourTemps — identité visuelle · Le protocole de migration.<br>
-  <a href="index.html">Le design retenu</a> · <a href="implementation.html">Les règles d'implémentation</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a>
+  TempsPourTemps — identité visuelle · Le protocole de migration, deuxième version.<br>
+  <a href="index.html">Le design retenu</a> · <a href="implementation.html">Les règles d'implémentation</a> · <a href="decisions.html">Les décisions préalables</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a>
 </footer>
 
 </div>
