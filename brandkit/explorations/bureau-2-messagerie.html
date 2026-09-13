@@ -57,6 +57,26 @@ body{padding:38px 20px 80px;}
 .b-rail2 a .pt{position:absolute;top:5px;right:9px;min-width:14px;height:14px;line-height:14px;border-radius:999px;background:var(--orange);color:#fff9ec;font-family:var(--titres);font-weight:800;font-size:8.5px;text-align:center;padding:0 3px;border:1.5px solid var(--marine);}
 .b-rail2 .bas2{margin-top:auto;}
 
+/* ————— D4 bis · le titre courant — la manchette repliée des pages intérieures ————— */
+.b-courant{
+  height:56px;flex:none;background:var(--paper);border-bottom:3px double var(--marine);
+  display:flex;align-items:center;gap:14px;padding:0 20px;
+}
+.b-courant .marque{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--marine);padding-right:18px;border-right:1px solid var(--border);}
+.b-courant .marque img{height:24px;width:auto;}
+.b-courant .marque b{font-family:var(--titres);font-weight:800;font-size:16px;letter-spacing:-.2px;white-space:nowrap;}
+.b-courant .nav{display:flex;gap:2px;}
+.b-courant .nav a{
+  padding:6px 9px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;
+  font-family:var(--titres);font-weight:800;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.b-courant .nav a.on{color:var(--marine);border-bottom-color:var(--orange);}
+.b-courant .nav a .cpt{color:var(--orange);margin-left:4px;}
+.b-courant .spacer{flex:1;}
+.b-courant .date{white-space:nowrap;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
+.b-courant .moi{display:flex;align-items:center;gap:8px;padding-left:12px;border-left:1px solid var(--border);}
+
 /* ————— les trois panneaux de la messagerie ————— */
 .b-liste{
   width:344px;flex:none;background:var(--bg-main);border-right:1px solid var(--marine);
@@ -816,6 +836,174 @@ body{padding:38px 20px 80px;}
     <div class="verdict">
       <p class="pour">une identité qui ne se dilue jamais : on est dans le journal du quartier, même en écrivant un message privé.</p>
       <p class="contre">c'est précisément là que la manchette coûte le plus cher. Un fil de conversation a besoin de hauteur, pas d'un titre de journal répété à chaque page.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       D4 BIS · LE TITRE COURANT
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D4 bis</span><h2>Le titre courant</h2><span class="tag">La manchette repliée, hors de la une</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/courrier</span></div>
+
+      <header class="b-courant">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <nav class="nav">
+          <a href="#">La une</a>
+          <a href="#">Le fil</a>
+          <a href="#">À l'affiche<span class="cpt">5</span></a>
+          <a href="#">Les voisins</a>
+          <a href="#">Votre temps</a>
+          <a class="on" href="#">Le courrier<span class="cpt">3</span></a>
+          <a href="#">Proposer</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="date">N° 142 · 10 juin</span>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </header>
+
+      <div class="b-corps">
+        <aside class="b-liste">
+          <div class="tete">
+            <h2>Le courrier</h2>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="flux">
+            <div class="chips"><span class="chip on">Tous</span><span class="chip">Non lus<span class="n">3</span></span><span class="chip">Annonces</span></div>
+            <p class="titre-sect">Non lus</p>
+            <div style="margin:0 12px 12px">
+              <div class="b-groupe">
+                <div class="tete-g">
+                  <span class="avatar av-creme">AN</span>
+                  <span class="nom">Alice Noël</span>
+                  <span class="cpt">3 fils</span>
+                </div>
+                <a class="b-sous on nonlu" href="#">
+                  <span class="bar"></span>
+                  <span class="c"><span class="s">Annonce · <b>Une étagère</b></span><h4>Je confirme pour 10 h</h4><p>Je vous attends au 12 rue des Lilas.</p></span>
+                  <span class="h">9:12</span>
+                </a>
+                <a class="b-sous nonlu" href="#">
+                  <span class="bar"></span>
+                  <span class="c"><span class="s rdv">Rendez-vous · <b>Jardin</b></span><h4>Et pour les rosiers ?</h4><p>Si vous avez une heure la semaine prochaine…</p></span>
+                  <span class="h">8:02</span>
+                </a>
+                <a class="b-sous" href="#">
+                  <span class="bar"></span>
+                  <span class="c"><span class="s">Annonce · <b>Échelle</b></span><h4>Vous : Merci, je la rapporte</h4></span>
+                  <span class="h">4 juin</span>
+                </a>
+              </div>
+            </div>
+            <div class="section-courrier section-courrier--nonlus">
+              <a class="conv nonlu" href="#">
+                <span class="av av-bleu">PB</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Pierre Blanchard</span><span class="heure">8:40</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Atelier vélo</b></span>
+                  <span class="extrait">Dimanche 15 à 10 h, ça vous irait ?</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+              <a class="conv nonlu" href="#">
+                <span class="av av-rose">SR</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Sofia Ruiz</span><span class="heure">hier</span></span>
+                  <span class="sujet">Annonce · <b>Cours d'espagnol</b></span>
+                  <span class="extrait">Merci beaucoup pour cette heure, c'était très utile !</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+            </div>
+            <p class="titre-sect">Lus</p>
+            <div class="section-courrier section-courrier--lus">
+              <a class="conv" href="#">
+                <span class="av av-vert">MM</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Marie Morel</span><span class="heure">lundi</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Rencontre physique</b></span>
+                  <span class="extrait"><i>Vous :</i> Parfait, à jeudi alors !</span>
+                </span>
+              </a>
+              <a class="conv" href="#">
+                <span class="av av-sable">LG</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Lucie Garnier</span><span class="heure">7 juin</span></span>
+                  <span class="sujet">Annonce · <b>Soirée couture</b></span>
+                  <span class="extrait">J'apporte la machine et du tissu, à très vite.</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <section class="b-fil">
+          <div class="b-fil-tete">
+            <span class="avatar av-creme" style="width:38px;height:38px;font-size:12px">AN</span>
+            <div class="c">
+              <div class="nom">Alice Noël</div>
+              <div class="sujet">Annonce · <b>Une étagère à monter samedi matin</b></div>
+            </div>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
+          </div>
+          <div class="b-fil-corps">
+            <p class="jour">Mardi 9 juin</p>
+            <div class="msg eux"><div class="bulle">Bonjour Omar ! J'ai vu que vous vous y connaissiez en bricolage. Est-ce que samedi matin serait jouable pour l'étagère ?</div><p class="h">9:04</p></div>
+            <div class="msg moi"><div class="bulle">Avec plaisir. Samedi matin me va très bien — disons <b>10 h</b> ? Je passe avec ma visseuse et mon niveau.</div><p class="h">9:21 · <span class="vu">Lu</span></p></div>
+            <p class="systeme">Alice a proposé un <b>rendez-vous</b></p>
+            <div class="fp">
+              <div class="cadre">
+                <p class="genre">Rencontre physique</p>
+                <h3>Montage de l'étagère</h3>
+                <div class="quand"><div class="date">Samedi 14 juin 2026</div><div class="meta">10:00<span class="sep">·</span>1 heure</div></div>
+                <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+                <p class="attente">Vous avez accepté le 9 juin à 9 h 40.</p>
+              </div>
+            </div>
+            <p class="jour">Aujourd'hui</p>
+            <div class="msg eux"><div class="bulle">Je confirme pour 10 h, je vous attends au 12 rue des Lilas. La sonnette est au nom de Noël.</div><p class="h">9:12</p></div>
+          </div>
+          <div class="bas">
+            <div class="composer">
+              <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+              <span class="zone">Écrire à Alice…</span>
+              <button class="send" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="b-dossier">
+          <div class="carte-id">
+            <span class="avatar av-creme">AN</span>
+            <b>Alice Noël</b>
+            <p class="q">Centre · voisine depuis mars 2025</p>
+            <div class="liens">
+              <button class="lien-filet" type="button">Son profil</button>
+              <button class="lien-filet lien-filet--muet" type="button">Signaler</button>
+            </div>
+          </div>
+          <p class="tete">Le rendez-vous en cours</p>
+          <div class="b-resume">
+            <div class="l"><span class="k">Quand</span><span><b>Samedi 14 juin</b>, 10:00</span></div>
+            <div class="l"><span class="k">Durée</span><span>environ 1 heure</span></div>
+            <div class="l"><span class="k">Où</span><span>12 rue des Lilas</span></div>
+            <div class="l"><span class="k">État</span><span><span class="etat etat--ok">Confirmé</span></span></div>
+          </div>
+          <p class="tete">Ce qu'elle propose</p>
+          <div class="puces"><span class="sable">Jardinage</span><span class="sable">Couture</span><span>Garde d'animaux</span></div>
+          <p class="tete">Vos échanges passés<span class="n2">2</span></p>
+          <div class="carnet">
+            <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Prêt d'une échelle</b><p class="q">4 juin · 0 h 30 reçue</p></div></div>
+            <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Aide au déménagement</b><p class="q">18 mai · 2 h données</p></div></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <p class="note">Ce que fait n'importe quel journal : la manchette pleine <b>en une seulement</b>, et sur toutes les pages intérieures un <b>titre courant</b> — une ligne de 56 px qui garde le nom, les rubriques, le numéro et la date. Le filet double sous la ligne est la signature de la manchette ; il suffit à dire qu'on est toujours dans le même journal. La conversation récupère près de 100 px de hauteur par rapport à D4.</p>
+    <div class="verdict">
+      <p class="pour">le défaut principal de D4 disparaît sans rien céder de son identité. Et l'accueil garde sa manchette entière : c'est là qu'elle fait son effet, pas ailleurs.</p>
+      <p class="contre">deux états pour un même chrome, il faut que le passage de l'un à l'autre soit sans surprise — au changement de page, ou au défilement sur la une elle-même.</p>
     </div>
   </figure>
 
