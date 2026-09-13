@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — L'entrée et la réservation sur grand écran</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+body{padding:38px 20px 80px;}
+
+/* ————— le chrome hors connexion ————— */
+.b-manchette--public .nav a{color:var(--text-secondary);}
+.b-manchette--public .nav .entrer{
+  margin-left:14px;padding:6px 16px;border-radius:999px;border-bottom:0;
+  background:var(--marine);color:var(--sable);
+}
+.b-courant--public .nav{display:none;}
+.b-courant--public .etape{
+  font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);
+  padding-left:18px;border-left:1px solid var(--border);white-space:nowrap;
+}
+.b-courant--public .etape b{color:var(--orange-hover);}
+
+/* ————— les chemins d'entrée ————— */
+.choix{display:flex;flex-direction:column;}
+.choix a{display:flex;align-items:center;gap:13px;padding:14px 0;border-top:1px solid var(--border);text-decoration:none;color:inherit;}
+.choix a:first-child{border-top:0;}
+.choix .rond{width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;}
+.choix .rond svg{width:19px;height:19px;}
+.choix .c{flex:1;min-width:0;}
+.choix b{display:block;font-family:var(--titres);font-weight:800;font-size:14.5px;}
+.choix .d{font-size:11.5px;color:var(--text-tertiary);margin-top:2px;line-height:1.4;}
+.choix .duree{font-family:var(--titres);font-weight:800;font-size:11px;background:var(--sable);color:var(--marine);border-radius:5px;padding:3px 7px;white-space:nowrap;}
+
+/* ————— la charte, en texte de journal ————— */
+.charte-texte{font-size:12.5px;line-height:1.7;color:var(--text-secondary);columns:2;column-gap:30px;column-rule:1px solid var(--border);}
+.charte-texte h3{font-family:var(--titres);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--marine);margin:0 0 6px;break-after:avoid;}
+.charte-texte h3 + p{break-before:avoid;}
+.charte-texte p{margin-bottom:11px;}
+.charte-texte > h3:not(:first-child){margin-top:14px;}
+.charte-texte p:first-of-type::first-letter{
+  font-family:var(--titres);font-weight:800;float:left;font-size:34px;line-height:.82;
+  padding:4px 7px 0 0;color:var(--orange);
+}
+
+/* ————— la confirmation au sceau ————— */
+.confirmation{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:0 26px;background:var(--grad-hero);
+}
+.confirmation .sceau{
+  width:86px;height:86px;border-radius:50%;border:2px solid var(--success);
+  box-shadow:inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--success);
+  display:flex;align-items:center;justify-content:center;color:var(--success);margin-bottom:20px;
+  background:rgba(74,157,95,.06);
+}
+.confirmation .sceau svg{width:36px;height:36px;}
+.confirmation h1{font-family:var(--titres);font-weight:800;font-size:27px;line-height:1.2;}
+.confirmation .regle{border-top:1px solid var(--marine);border-bottom:3px double var(--marine);height:7px;opacity:.55;width:140px;margin:18px 0;}
+.confirmation p{font-size:13.5px;color:var(--text-secondary);line-height:1.6;max-width:46ch;}
+.confirmation .b-faits{margin-top:22px;text-align:left;width:100%;max-width:420px;}
+
+/* ————— le pavé de renseignements (repris de la planche 3) ————— */
+.b-faits{
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:2px;
+  border-radius:10px;padding:2px 13px;
+}
+.b-faits .l{display:flex;gap:11px;padding:9px 0;border-top:1px dotted var(--border);font-size:12.5px;}
+.b-faits .l:first-child{border-top:0;}
+.b-faits .k{width:74px;flex:none;font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);padding-top:3px;}
+.b-faits .v{flex:1;}
+.b-faits .v b{font-family:var(--titres);font-weight:800;}
+
+/* ————— la grille de créneaux, élargie ————— */
+.b-une4 .creneaux{grid-template-columns:repeat(6,1fr);}
+.b-une4 .jour-creneaux{margin-bottom:18px;}
+
+/* ————— les chiffres de l'association ————— */
+.b-chiffres{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.b-chiffre{background:var(--paper);border:1px solid var(--border);border-radius:11px;padding:11px 12px;text-align:center;}
+.b-chiffre .v{font-family:var(--titres);font-weight:800;font-size:23px;line-height:1;color:var(--marine);}
+.b-chiffre .l{font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-top:5px;line-height:1.35;}
+
+.b-mots{counter-reset:mot;}
+.b-mots .m{display:flex;gap:12px;padding:13px 0;border-top:1px solid var(--border);}
+.b-mots .m:first-child{border-top:0;}
+.b-mots .m::before{
+  counter-increment:mot;content:counter(mot);flex:none;
+  width:26px;height:26px;border-radius:50%;background:var(--sable);color:var(--marine);
+  font-family:var(--titres);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;
+}
+.b-mots .m b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;}
+.b-mots .m p{font-size:11.5px;color:var(--text-secondary);margin-top:3px;line-height:1.5;}
+
+.verdict{
+  border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:11px 15px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);
+  max-width:1000px;
+}
+.verdict p + p{margin-top:4px;}
+.verdict .pour::before{content:"Pour — ";font-weight:800;color:#2f7a44;}
+.verdict .contre::before{content:"Contre — ";font-weight:800;color:var(--danger);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Grand écran · ossature retenue</p>
+  <h1>L'entrée et la réservation</h1>
+  <p class="sub">Les deux parcours qui manquaient encore sur PC. Ils ont une particularité : ils se vivent <b>hors connexion</b>, par des gens qui ne connaissent pas encore l'association. Le chrome change donc de rôle — la manchette n'a plus de navigation applicative, et pendant l'embarquement le titre courant affiche <b>où l'on en est</b> plutôt que où aller.</p>
+  <p class="traits">Fenêtre de <b>1240 × 772</b>. Tout ce qui se fait sur mobile se fait ici, et réciproquement : aucun parcours n'est réservé à un appareil.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche-bureau">
+
+  <!-- ============================================================
+       L'ACCUEIL PUBLIC
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">1</span><h2>L'accueil public</h2><span class="tag">Hors connexion · manchette sans navigation</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr</span></div>
+
+      <header class="b-manchette b-manchette--public">
+        <div class="haut">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span>Association loi 1901 · depuis 2024</span>
+          <span style="text-transform:none;letter-spacing:normal">148 voisins · 1 240 heures échangées</span>
+        </div>
+        <div class="titre">
+          <img src="../../assets/logo/logo-tpt-transparent.png" alt="">
+          <h1>TempsPourTemps</h1>
+          <span class="devise">1 h donnée = 1 h reçue</span>
+        </div>
+        <nav class="nav">
+          <a class="on" href="#">Le principe</a>
+          <a href="#">Qui nous sommes</a>
+          <a href="#">La charte</a>
+          <a href="#">Nous rencontrer</a>
+          <a class="entrer" href="#">Se connecter</a>
+        </nav>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-trois">
+          <div class="gauche zone">
+            <p class="b-mini-titre">Comment ça marche</p>
+            <div class="b-mots">
+              <div class="m"><div><b>Vous donnez une heure</b><p>Monter un meuble, garder un chat, expliquer un tableur. Ce que vous savez faire.</p></div></div>
+              <div class="m"><div><b>Votre compteur monte</b><p>Une heure donnée vaut une heure reçue, quelle que soit la tâche. Pas d'argent, jamais.</p></div></div>
+              <div class="m"><div><b>Vous demandez à votre tour</b><p>Auprès de n'importe quel voisin, pas forcément celui que vous avez aidé.</p></div></div>
+            </div>
+
+            <p class="entrefilet"><b>À l'arrivée</b>L'association vous avance 5 heures, pour que vous puissiez demander avant d'avoir rendu. <a href="#">La charte</a></p>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="milieu zone">
+            <div class="manchette" style="padding-top:0">
+              <p class="sur">Le principe</p>
+              <h2>Dans ce quartier, une heure de votre temps <span class="souligne">vaut une heure du sien.</span></h2>
+              <p>TempsPourTemps est une banque du temps de voisinage. Vous y échangez des heures, pas de l'argent : une heure de bricolage vaut une heure de garde d'enfants, une heure de cours d'espagnol ou une heure de jardinage. Aucune compétence n'est mieux payée qu'une autre — c'est tout le principe.</p>
+              <p>L'association compte aujourd'hui 148 voisins à Saint-Sébastien-sur-Loire. On se rencontre avant d'entrer : un quart d'heure, chez vous ou au local, pour se connaître et répondre à vos questions.</p>
+              <div class="pied">
+                <button class="btn-plein btn-plein--orange" type="button" style="width:auto;padding:11px 22px">Demander à nous rencontrer</button>
+                <span class="mention">un quart d'heure, sans engagement</span>
+              </div>
+            </div>
+
+            <div class="b-bloc" style="margin-top:22px">
+              <div class="rubrique"><span class="tape"><h2>Ce qui s'échange ici</h2></span><span class="filet"></span></div>
+              <div class="fil">
+                <article class="annonce">
+                  <div class="an-tete"><span class="an-type an-type--demande">Demande</span><span class="an-rubr">Bricolage</span></div>
+                  <h3 class="an-titre">Une étagère à monter samedi matin</h3>
+                  <p class="an-sign">— Alice, Centre</p>
+                </article>
+                <article class="annonce">
+                  <div class="an-tete"><span class="an-type an-type--offre">Offre</span><span class="an-rubr">Langues</span></div>
+                  <h3 class="an-titre">Je donne des cours d'espagnol débutant</h3>
+                  <p class="an-sign">— Sofia, Centre</p>
+                </article>
+              </div>
+              <p class="aide" style="margin-top:9px">Les annonces complètes ne sont visibles qu'une fois membre.</p>
+            </div>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="droite zone">
+            <p class="b-mini-titre">L'association en chiffres</p>
+            <div class="b-chiffres">
+              <div class="b-chiffre"><div class="v">148</div><div class="l">voisins</div></div>
+              <div class="b-chiffre"><div class="v">1 240</div><div class="l">heures échangées</div></div>
+              <div class="b-chiffre"><div class="v">31</div><div class="l">échanges en juin</div></div>
+              <div class="b-chiffre"><div class="v">2024</div><div class="l">année de création</div></div>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:24px">Ouvert à tous, sans être membre</p>
+            <div class="agenda">
+              <article class="agenda-ligne"><div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:30</div></div><div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span></div><h3>Café des voisins</h3><p class="lieu">⌖ Place J.-B. Vigier</p></div></article>
+              <article class="agenda-ligne"><div class="quand"><div class="j">21</div><div class="m">Juin</div><div class="h">11:00</div></div><div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span></div><h3>Portes ouvertes du local</h3><p class="lieu">⌖ 4 rue du Bourg</p></div></article>
+            </div>
+            <p class="aide" style="margin-top:8px">Venez nous voir avant de décider — c'est souvent le plus simple.</p>
+
+            <p class="b-mini-titre" style="margin-top:24px">Déjà membre ?</p>
+            <button class="btn-plein btn-plein--contour" type="button" style="width:100%;padding:10px 18px">Se connecter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">La manchette sert ici de <b>devanture</b> : mêmes filets, même titre, mais la navigation devient celle d'un site de présentation — le principe, qui nous sommes, la charte — et « Se connecter » s'en détache en pilule marine. La colonne du milieu porte le discours, celle de gauche le mode d'emploi en trois temps, celle de droite les preuves : des chiffres, et deux moments ouverts auxquels on peut venir sans être membre.</p>
+    <div class="verdict">
+      <p class="pour">un seul système visuel du site public à l'application : quelqu'un qui s'inscrit ne découvre pas une deuxième interface après coup.</p>
+      <p class="contre">montrer des annonces tronquées est un pari — c'est alléchant, mais il faut assumer de dire clairement que le contenu est réservé aux membres.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       DEMANDER À NOUS RENCONTRER
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">2</span><h2>Choisir un créneau</h2><span class="tag">Page de tâche · 1 colonne</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/rencontre</span></div>
+
+      <header class="b-courant b-courant--public">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <span class="etape">Nous rencontrer · <b>étape 2 sur 3</b></span>
+        <span class="spacer"></span>
+        <span class="date">Un quart d'heure, sans engagement</span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-une4 zone" style="width:760px">
+          <div class="manchette" style="padding-top:0">
+            <p class="sur">Nous rencontrer</p>
+            <h2>Quand cela <span class="souligne">vous arrange-t-il ?</span></h2>
+            <p>Un quart d'heure pour faire connaissance et voir si ça vous parle. Chez vous, au local, ou par téléphone — vous choisirez à l'étape suivante.</p>
+          </div>
+
+          <div class="progression" style="margin-top:20px">
+            <div class="barre"><i style="width:66%"></i></div>
+            <p class="etape">Étape 2 sur 3 — le créneau</p>
+          </div>
+
+          <div class="jour-creneaux" style="margin-top:20px">
+            <p class="t">Jeudi 12 juin</p>
+            <div class="creneaux">
+              <span class="creneau">09:00</span><span class="creneau">09:30</span><span class="creneau off">10:00</span>
+              <span class="creneau">14:00</span><span class="creneau">14:30</span><span class="creneau">15:00</span>
+            </div>
+          </div>
+
+          <div class="jour-creneaux">
+            <p class="t">Vendredi 13 juin</p>
+            <div class="creneaux">
+              <span class="creneau off">09:00</span><span class="creneau off">09:30</span><span class="creneau">10:30</span>
+              <span class="creneau on">17:00</span><span class="creneau">17:30</span><span class="creneau">18:30</span>
+            </div>
+          </div>
+
+          <div class="jour-creneaux">
+            <p class="t">Samedi 14 juin</p>
+            <div class="creneaux">
+              <span class="creneau">10:00</span><span class="creneau">10:30</span><span class="creneau">11:00</span>
+              <span class="creneau off">11:30</span><span class="creneau">15:00</span><span class="creneau">15:30</span>
+            </div>
+          </div>
+
+          <div class="encart encart--info" style="margin:6px 0 0">
+            <b>Rien n'est figé.</b> Vous pourrez décaler ou annuler ce rendez-vous d'un lien, jusqu'à la veille.
+          </div>
+
+          <div class="form-pied" style="align-items:center;gap:18px;margin-top:14px">
+            <button class="lien-filet lien-filet--muet" type="button" style="flex:none">Aucun ne me convient</button>
+            <button class="btn-plein btn-plein--orange" type="button">Réserver le vendredi 13 à 17 h</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Sur mobile, la grille de créneaux tient trois colonnes et il faut faire défiler trois jours. Ici, <b>six créneaux par ligne</b> : les trois jours proposés tiennent d'un seul regard, et l'on compare les disponibilités au lieu de les découvrir une par une. C'est le seul changement — même composant, même code couleur (pris, libre, choisi).</p>
+    <div class="verdict">
+      <p class="pour">le bouton final <b>récapitule le choix</b> au lieu de dire « Continuer » : on ne valide jamais à l'aveugle un rendez-vous.</p>
+      <p class="contre">la colonne à 760 px déroge aux 648 px des pages de tâche. C'est justifié par la grille, mais c'est une exception à documenter.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       C'EST NOTÉ
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">3</span><h2>C'est noté</h2><span class="tag">Hors connexion · le sceau</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/rencontre/confirmee</span></div>
+
+      <header class="b-courant b-courant--public">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <span class="etape">Nous rencontrer · <b>c'est fait</b></span>
+        <span class="spacer"></span>
+        <span class="date">Un courriel vient de partir</span>
+      </header>
+
+      <div class="confirmation">
+        <span class="sceau">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </span>
+        <h1>C'est noté, Marc.</h1>
+        <div class="regle"></div>
+        <p>Lucie Garnier vous attend vendredi. Elle vous a envoyé un courriel avec l'adresse exacte et son numéro, au cas où.</p>
+
+        <div class="b-faits">
+          <div class="l"><span class="k">Quand</span><span class="v"><b>Vendredi 13 juin</b>, 17:00 — 15 minutes</span></div>
+          <div class="l"><span class="k">Où</span><span class="v">Au local, 4 rue du Bourg</span></div>
+          <div class="l"><span class="k">Avec</span><span class="v">Lucie Garnier, bénévole d'accueil</span></div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:18px;margin-top:24px">
+          <button class="lien-filet lien-filet--muet" type="button">Décaler</button>
+          <button class="btn-plein btn-plein--contour" type="button" style="width:auto;padding:10px 20px">Ajouter à mon calendrier</button>
+        </div>
+      </div>
+
+      <footer class="pied-public">
+        <p>TempsPourTemps est une association de voisinage à Saint-Sébastien-sur-Loire.<br>On y échange des heures, jamais de l'argent. <a href="#">En savoir plus</a></p>
+      </footer>
+    </div>
+    <p class="note">La fin d'un parcours public se clôt par un <b>sceau</b> plutôt que par une notification : un cercle à double filet, vert, au centre d'une page vide. C'est le seul écran de toute l'application où l'on assume de ne rien mettre autour — la page ne demande plus rien, elle constate. Le pavé de renseignements rappelle les trois faits qu'on relira, et le pied explique en une phrase ce qu'est l'association à quelqu'un qui vient d'arriver.</p>
+    <div class="verdict">
+      <p class="pour">le vide est ici le message. Et « Décaler » figure dès la confirmation : on n'oblige personne à retrouver un courriel pour changer d'avis.</p>
+      <p class="contre">une page entière pour trois lignes, c'est beaucoup sur un grand écran. Le sceau porte l'écran ; s'il était moins soigné, l'impression serait celle d'un bug.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       CE QUE VOUS SAVEZ FAIRE
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">4</span><h2>Ce que vous savez faire</h2><span class="tag">Embarquement · 1 colonne</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/bienvenue/competences</span></div>
+
+      <header class="b-courant b-courant--public">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <span class="etape">Bienvenue · <b>étape 2 sur 4</b></span>
+        <span class="spacer"></span>
+        <span class="date">Marc Dubois</span>
+        <span class="moi"><span class="avatar av-bleu" style="width:28px;height:28px;font-size:10px">MD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-une4 zone">
+          <div class="manchette" style="padding-top:0">
+            <p class="sur">Bienvenue</p>
+            <h2>Qu'est-ce que <span class="souligne">vous savez faire ?</span></h2>
+            <p>Choisissez ce que vous pourriez proposer aux voisins. Rien n'est définitif — vous modifierez tout cela quand vous voudrez, depuis votre profil.</p>
+          </div>
+
+          <div class="etapes" style="margin-top:20px">
+            <div class="etape-ligne faite"><span class="rond">✓</span><b>Vous et votre quartier</b><span class="m">fait</span></div>
+            <div class="etape-ligne encours"><span class="rond">2</span><b>Ce que vous savez faire</b><span class="m">maintenant</span></div>
+            <div class="etape-ligne"><span class="rond">3</span><b>Ce que vous cherchez</b><span class="m">1 min</span></div>
+            <div class="etape-ligne"><span class="rond">4</span><b>La charte</b><span class="m">à signer</span></div>
+          </div>
+
+          <div class="form" style="margin-top:22px">
+            <div class="form-groupe">
+              <label>Vos services <span class="opt">3 choisis</span></label>
+              <div class="puces" style="gap:7px">
+                <span class="sable">Bricolage</span><span class="sable">Plomberie</span><span class="sable">Peinture</span>
+                <span>Jardinage</span><span>Informatique</span><span>Couture</span><span>Cuisine</span>
+                <span>Garde d'enfants</span><span>Garde d'animaux</span><span>Transport</span>
+                <span>Soutien scolaire</span><span>Langues</span><span>Démarches administratives</span>
+                <span>Déménagement</span><span>Photographie</span><span>Musique</span>
+              </div>
+              <p class="aide">Trois suffisent pour commencer. Vous pourrez en ajouter à tout moment.</p>
+            </div>
+
+            <div class="form-groupe">
+              <label>Un mot sur vous <span class="opt">facultatif</span></label>
+              <div class="saisie saisie--zone saisie--rempli">Plombier de métier, je viens d'emménager rue des Lilas. Je peux dépanner facilement sur tout ce qui fuit.</div>
+              <p class="aide">C'est ce que les voisins liront en haut de votre profil.</p>
+            </div>
+
+            <div class="form-groupe">
+              <label>Vos disponibilités</label>
+              <div class="bascule"><span class="opt">En semaine</span><span class="opt on">Le week-end</span><span class="opt">Les deux</span></div>
+            </div>
+          </div>
+
+          <div class="form-pied" style="align-items:center;gap:18px">
+            <button class="lien-filet lien-filet--muet" type="button" style="flex:none">Passer cette étape</button>
+            <button class="btn-plein btn-plein--orange" type="button">Continuer vers l'étape 3</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Pendant l'embarquement, le titre courant <b>renonce à la navigation</b> : il n'y a nulle part où aller, on est dans un tunnel. À la place, il dit où l'on en est — « étape 2 sur 4 » — et les quatre étapes sont rappelées en clair sous la manchette, avec ce qui est fait, ce qui se passe maintenant, et ce qu'il reste. La largeur sert ici à afficher <b>toutes les compétences d'un coup</b> au lieu d'une liste qu'on fait défiler.</p>
+    <div class="verdict">
+      <p class="pour">voir les seize services d'emblée change tout : on reconnaît le sien au lieu de chercher. C'est le gain le plus net de la largeur sur tout le parcours.</p>
+      <p class="contre">« Passer cette étape » est nécessaire mais dangereux — un profil sans compétence ne sert à personne. Il faudra relancer ces gens-là.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       LA CHARTE
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">5</span><h2>La charte</h2><span class="tag">Embarquement · le texte en deux colonnes</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/bienvenue/charte</span></div>
+
+      <header class="b-courant b-courant--public">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <span class="etape">Bienvenue · <b>étape 4 sur 4</b></span>
+        <span class="spacer"></span>
+        <span class="date">Marc Dubois</span>
+        <span class="moi"><span class="avatar av-bleu" style="width:28px;height:28px;font-size:10px">MD</span></span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-une4 zone" style="width:760px">
+          <div class="manchette" style="padding-top:0">
+            <p class="sur">La charte</p>
+            <h2>Ce que nous nous <span class="souligne">promettons les uns aux autres.</span></h2>
+            <p>Quatre engagements, une page. Ils tiennent l'association debout depuis 2024.</p>
+          </div>
+
+          <div class="filet-double" style="margin:18px 0"></div>
+
+          <div class="charte-texte">
+            <h3>Une heure vaut une heure</h3>
+            <p>Quelle que soit la tâche, quelle que soit la personne. Une heure de plomberie ne vaut pas plus qu'une heure de repassage ou d'écoute. C'est le fondement de l'association, et ce qui la distingue d'un service marchand : ici, personne ne vaut plus cher que son voisin.</p>
+
+            <h3>On ne paie jamais</h3>
+            <p>Aucun argent ne circule entre membres, sous aucune forme. Ni pourboire, ni cadeau de remerciement, ni «&nbsp;pour les frais&nbsp;». Les fournitures et le carburant peuvent être remboursés au centime près, sur justificatif, et c'est tout.</p>
+
+            <h3>On dit ce qu'on fait</h3>
+            <p>On valide ses échanges, on décline poliment ce qu'on ne peut pas faire, et on prévient dès qu'on ne peut plus honorer un rendez-vous. Un compteur juste ne tient que si chacun déclare ses heures — les siennes comme celles qu'il a reçues.</p>
+
+            <h3>On reste chez soi quand il faut</h3>
+            <p>Personne n'est obligé d'accepter une demande, de donner son adresse, ou de recevoir chez lui. On peut refuser sans se justifier. Tout comportement déplacé se signale au bureau, qui tranche sous huit jours.</p>
+          </div>
+
+          <div class="filet-double" style="margin:18px 0"></div>
+
+          <div style="display:flex;align-items:flex-start;gap:11px;font-size:13px;line-height:1.5">
+            <span style="width:20px;height:20px;border-radius:5px;border:1.5px solid var(--marine);background:var(--marine);color:var(--sable);flex:none;display:flex;align-items:center;justify-content:center;margin-top:1px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            <span>J'ai lu la charte de l'association et je m'engage à la respecter.</span>
+          </div>
+
+          <div class="form-pied" style="align-items:center;gap:18px;margin-top:18px">
+            <button class="lien-filet lien-filet--muet" type="button" style="flex:none">Télécharger en PDF</button>
+            <button class="btn-plein btn-plein--orange" type="button">Signer et rejoindre le quartier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Le seul endroit de l'application où le texte se met <b>en deux colonnes séparées d'un filet</b>, avec une lettrine orange — parce que c'est le seul endroit où l'on demande vraiment de lire. Sur mobile, la charte est une colonne longue qu'on fait défiler ; ici elle tient d'une pièce, encadrée de deux filets doubles, et la case à cocher se trouve juste sous le dernier mot.</p>
+    <div class="verdict">
+      <p class="pour">une charte qui tient sur un écran a beaucoup plus de chances d'être lue qu'une charte qu'on fait défiler. La forme sert le fond.</p>
+      <p class="contre">le texte en colonnes est le seul composant de ce genre : il ne resservira nulle part, et il faudra le tester avec des textes plus longs que celui-ci.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       LA CONNEXION
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">6</span><h2>La connexion</h2><span class="tag">Hors connexion · deux chemins</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/connexion</span></div>
+
+      <header class="b-courant b-courant--public">
+        <a class="marque" href="#"><img src="../../assets/logo/logo-tpt-transparent.png" alt=""><b>TempsPourTemps</b></a>
+        <span class="spacer"></span>
+        <span class="date">Saint-Sébastien-sur-Loire</span>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-une4 zone">
+          <div class="manchette" style="padding-top:0;text-align:center">
+            <h2 style="font-size:24px">Bonjour !<br><span class="souligne">Vous êtes chez vous.</span></h2>
+            <p>Échangez du temps, pas de l'argent, entre voisins de Saint-Sébastien.</p>
+          </div>
+
+          <div class="filet-double" style="margin:20px 0"></div>
+
+          <div class="form">
+            <div class="form-groupe">
+              <label>Votre adresse électronique</label>
+              <div class="saisie saisie--rempli">marc.dubois@exemple.fr</div>
+            </div>
+            <div class="form-groupe">
+              <label>Votre mot de passe</label>
+              <div class="saisie">••••••••••</div>
+              <p class="aide"><button class="lien-filet lien-filet--muet" type="button">J'ai oublié mon mot de passe</button></p>
+            </div>
+          </div>
+
+          <div class="form-pied" style="margin-top:4px">
+            <button class="btn-plein btn-plein--orange" type="button">Entrer</button>
+          </div>
+
+          <div class="filet-double" style="margin:24px 0 18px"></div>
+
+          <p class="b-mini-titre">Vous n'êtes pas encore des nôtres ?</p>
+          <div class="choix">
+            <a href="#">
+              <span class="rond av-creme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20v-1c0-2.8 2.7-4.5 6-4.5s6 1.7 6 4.5v1"/><circle cx="9" cy="8" r="3.3"/><path d="M17 11h5M19.5 8.5v5"/></svg></span>
+              <span class="c"><b>Nous rencontrer</b><span class="d">Un quart d'heure pour faire connaissance, chez vous ou au local.</span></span>
+              <span class="duree">15 min</span>
+            </a>
+            <a href="#">
+              <span class="rond av-bleu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M8 3v5M16 3v5M8 13h8"/></svg></span>
+              <span class="c"><b>Venir à un moment ouvert</b><span class="d">Le café des voisins, samedi 14 juin à 10 h 30. Sans inscription.</span></span>
+              <span class="duree">1 h</span>
+            </a>
+            <a href="#">
+              <span class="rond av-vert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+              <span class="c"><b>Comprendre d'abord</b><span class="d">Le principe, la charte, et ce qui s'échange dans le quartier.</span></span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <footer class="pied-public">
+        <p>TempsPourTemps est une association de voisinage à Saint-Sébastien-sur-Loire.<br>On y échange des heures, jamais de l'argent. <a href="#">En savoir plus</a></p>
+      </footer>
+    </div>
+    <p class="note">La connexion garde le format « page de tâche » — une colonne, rien autour — mais elle porte <b>deux publics</b> : ceux qui reviennent, et ceux qui découvrent. Le filet double sépare franchement les deux, et les trois chemins d'entrée sont présentés comme un menu de choix, avec leur durée en pastille sable. Aucun ne demande de s'inscrire tout de suite.</p>
+    <div class="verdict">
+      <p class="pour">on ne pousse jamais un formulaire d'inscription à quelqu'un qui ne connaît pas l'association. Les trois portes sont douces, et la plus engageante coûte un quart d'heure.</p>
+      <p class="contre">deux publics sur un écran, c'est toujours un compromis : le membre qui revient voit une moitié de page qui ne le concerne plus.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · L'entrée et la réservation sur grand écran · Personnes fictives.<br>
+  <a href="../../index.html">Galerie</a> · <a href="bureau-3-pages.html">Les pages intérieures</a> · <a href="pages-8-entree.html">La version mobile</a>
+</footer>
+</body>
+</html>

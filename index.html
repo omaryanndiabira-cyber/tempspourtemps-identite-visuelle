@@ -3,662 +3,370 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TempsPourTemps — Propositions page d'accueil</title>
+<title>TempsPourTemps — Le design retenu</title>
 <link rel="icon" href="assets/logo/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brandkit/gazette.css">
 <style>
-  :root{
-    --marine:#183e57;
-    --marine-hover:#0f2f44;
-    --orange:#d65e1c;
-    --sable:#fcdb81;
-    --bg-main:#f7f6f3;
-    --text-secondary:#4b5563;
-    --text-tertiary:#717182;
-    --border:#e9ebef;
-    --titres:'Nunito',sans-serif;
-    --corps:'Inter',sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{
-    font-family:var(--corps);
-    background:var(--bg-main);
-    background-image:
-      radial-gradient(circle at 15% 8%, rgba(252,219,129,.22), transparent 40%),
-      radial-gradient(circle at 88% 92%, rgba(24,62,87,.08), transparent 45%);
-    color:var(--marine);
-    min-height:100vh;
-    padding:40px 20px 80px;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:1240px;margin:0 auto;}
+body{padding:36px 20px 80px;}
+.wrap{max-width:1240px;margin:0 auto;}
 
-  header{text-align:center;margin-bottom:14px;}
-  header img{width:72px;height:auto;margin-bottom:14px;}
-  h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.5px;}
-  h1 .accent{color:var(--orange);}
-  .sub{color:var(--text-secondary);font-size:1rem;max-width:660px;margin:12px auto 0;line-height:1.55;}
-  .brandkit-link{
-    display:inline-flex;align-items:center;gap:8px;
-    margin-top:20px;padding:10px 20px;border-radius:999px;
-    background:var(--marine);color:#fff;text-decoration:none;
-    font-weight:600;font-size:.9rem;transition:background .15s;
-  }
-  .brandkit-link:hover{background:var(--marine-hover);}
+/* ————— l'en-tête ————— */
+.entete{text-align:center;max-width:800px;margin:0 auto;}
+.entete img{width:72px;height:auto;margin-bottom:14px;}
+.entete .kicker{font-family:var(--titres);font-weight:800;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.entete h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.8rem,5vw,2.7rem);letter-spacing:-.6px;margin-top:8px;}
+.entete h1 .accent{color:var(--orange);}
+.entete .sous{color:var(--text-secondary);font-size:1rem;line-height:1.6;margin-top:14px;}
+.entete .liens{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;margin-top:22px;}
+.entete .liens a{
+  display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;
+  text-decoration:none;font-weight:700;font-size:.9rem;
+}
+.entete .liens .primaire{background:var(--marine);color:var(--sable);}
+.entete .liens .primaire:hover{background:var(--marine-hover);}
+.entete .liens .secondaire{background:var(--paper);color:var(--marine);border:1px solid var(--marine);}
+.entete .liens .secondaire:hover{background:var(--bg-hover);}
 
-  .hint{
-    text-align:center;color:var(--text-tertiary);font-size:.85rem;
-    margin:34px 0 26px;
-  }
+/* ————— les principes ————— */
+.principes{
+  margin:38px auto 0;max-width:1060px;
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:16px;overflow:hidden;
+}
+.principes .tete{text-align:center;padding:16px 20px 0;}
+.principes .tete h2{font-family:var(--titres);font-weight:800;font-size:1rem;letter-spacing:.16em;text-transform:uppercase;}
+.principes .grille{display:grid;grid-template-columns:repeat(3,1fr);}
+.principes .p{padding:15px 18px 17px;border-left:1px solid var(--border);border-top:1px solid var(--border);}
+.principes .p:nth-child(3n+1){border-left:0;}
+.principes .num{
+  font-family:var(--titres);font-weight:800;font-size:.68rem;color:var(--orange);
+  letter-spacing:.14em;text-transform:uppercase;
+}
+.principes h3{font-family:var(--titres);font-weight:800;font-size:.94rem;margin-top:4px;line-height:1.3;}
+.principes p{font-size:.8rem;line-height:1.55;color:var(--text-secondary);margin-top:5px;}
+.principes p b{color:var(--marine);}
 
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(min(460px,100%),1fr));
-    gap:28px;
-  }
-  .card{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 2px 6px rgba(24,62,87,.06), 0 18px 40px -22px rgba(24,62,87,.25);
-    display:flex;flex-direction:column;
-    transition:transform .18s, box-shadow .18s;
-  }
-  .card:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(24,62,87,.08), 0 26px 52px -22px rgba(24,62,87,.35);}
+/* ————— le sommaire collant ————— */
+.sommaire-nav{
+  position:sticky;top:0;z-index:20;margin:36px 0 30px;padding:11px 0;
+  background:rgba(247,246,243,.92);backdrop-filter:blur(10px);
+  border-top:1px solid var(--marine);border-bottom:3px double var(--marine);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:4px;
+}
+@supports not (backdrop-filter:blur(2px)){ .sommaire-nav{background:var(--bg-main);} }
+.sommaire-nav a{
+  padding:6px 14px;border-radius:7px;text-decoration:none;
+  font-family:var(--titres);font-weight:800;font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.sommaire-nav a:hover{background:var(--sable);color:var(--marine);}
+.sommaire-nav a .n{color:var(--orange);margin-left:5px;}
+.sommaire-nav .archives{margin-left:10px;padding-left:16px;border-left:1px solid var(--border);color:var(--orange-hover);}
 
-  .card-head{
-    padding:16px 18px 12px;
-    display:flex;align-items:baseline;gap:10px;
-    border-bottom:1px solid var(--border);
-  }
-  .num{
-    font-family:var(--titres);font-weight:800;
-    background:var(--sable);color:var(--marine);
-    border-radius:8px;padding:2px 9px;font-size:.85rem;flex-shrink:0;
-  }
-  .card-head h2{font-family:var(--titres);font-weight:800;font-size:1.02rem;line-height:1.3;}
+/* ————— les groupes ————— */
+.groupe{display:flex;align-items:center;gap:14px;margin:52px 0 8px;scroll-margin-top:70px;}
+.groupe h2{font-family:var(--titres);font-weight:800;font-size:1.35rem;white-space:nowrap;}
+.groupe .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.4;}
+.groupe .compte{
+  font-family:var(--titres);font-weight:800;font-size:.72rem;background:var(--sable);color:var(--marine);
+  border-radius:7px;padding:3px 9px;white-space:nowrap;
+}
+.groupe-sub{color:var(--text-secondary);font-size:.9rem;margin:0 0 22px;max-width:860px;line-height:1.6;}
+.groupe-sub b{color:var(--marine);}
 
-  .preview{
-    position:relative;
-    height:500px;
-    overflow:hidden;
-    background:#e7e4dc;
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    padding:10px 8px 0;
-  }
-  .shot{
-    width:212px;
-    flex-shrink:0;
-    display:flex;flex-direction:column;align-items:center;
-  }
-  .shot-label{
-    font-size:.66rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
-    color:var(--text-tertiary);margin-bottom:7px;
-  }
-  .shot iframe{
-    width:424px;height:940px;
-    border:0;
-    transform:scale(.5);
-    transform-origin:top center;
-    pointer-events:none;
-  }
-  .preview a.overlay{
-    position:absolute;inset:0;z-index:2;
-    display:flex;align-items:flex-end;justify-content:center;
-    text-decoration:none;
-  }
-  .preview a.overlay span{
-    margin-bottom:14px;
-    background:rgba(24,62,87,.92);color:#fff;
-    font-size:.82rem;font-weight:600;
-    padding:8px 16px;border-radius:999px;
-    opacity:0;transform:translateY(6px);
-    transition:opacity .18s, transform .18s;
-  }
-  .card:hover .preview a.overlay span{opacity:1;transform:translateY(0);}
+/* ————— vignettes mobiles ————— */
+.rangs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(232px,100%),1fr));gap:18px;}
+.vignette{
+  background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  box-shadow:0 1px 3px rgba(24,62,87,.05), 0 14px 30px -24px rgba(24,62,87,.3);
+  display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  transition:transform .16s, box-shadow .16s;
+}
+.vignette:hover{transform:translateY(-3px);box-shadow:0 3px 8px rgba(24,62,87,.08), 0 22px 42px -22px rgba(24,62,87,.4);}
+.vignette .apercu{height:210px;overflow:hidden;background:#e7e4dc;}
+.vignette .apercu iframe{
+  width:460px;height:1600px;flex:none;border:0;display:block;
+  transform:scale(.5);transform-origin:top left;margin-top:-285px;pointer-events:none;
+}
+.vignette .pied{padding:11px 13px 13px;display:flex;flex-direction:column;gap:2px;flex:1;}
+.vignette .k{font-size:.6rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--orange-hover);}
+.vignette h3{font-family:var(--titres);font-weight:800;font-size:.92rem;line-height:1.3;}
+.vignette p{font-size:.76rem;color:var(--text-secondary);line-height:1.45;margin-top:3px;}
+.vignette .ecrans{margin-top:auto;padding-top:9px;font-size:.68rem;font-weight:700;color:var(--text-tertiary);}
 
-  .card-foot{
-    padding:12px 18px 16px;
-    display:flex;align-items:center;justify-content:space-between;gap:10px;
-  }
-  .desc{color:var(--text-secondary);font-size:.85rem;line-height:1.45;}
-  .open{
-    flex-shrink:0;
-    color:var(--orange);font-weight:700;font-size:.85rem;text-decoration:none;
-    white-space:nowrap;
-  }
-  .open:hover{text-decoration:underline;}
+/* ————— cartes PC ————— */
+.rangs-pc{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(560px,100%),1fr));gap:22px;}
+.carte-pc{
+  background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  box-shadow:0 2px 6px rgba(24,62,87,.05), 0 18px 38px -26px rgba(24,62,87,.32);
+  display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  transition:transform .16s, box-shadow .16s;
+}
+.carte-pc:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(24,62,87,.08), 0 26px 50px -24px rgba(24,62,87,.42);}
+.carte-pc .apercu{height:340px;overflow:hidden;background:#e7e4dc;}
+.carte-pc .apercu iframe{
+  width:1240px;height:2200px;flex:none;border:0;display:block;
+  transform:scale(.44);transform-origin:top left;margin-top:-187px;pointer-events:none;
+}
+/* bureau-3 ouvre sur la règle des trois formats : on descend jusqu'au premier écran */
+.carte-pc .apercu--formats iframe{margin-top:-326px;}
 
-  footer{
-    margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.82rem;line-height:1.6;
-  }
-  footer a{color:var(--marine);font-weight:600;}
+.carte-pc .pied{padding:14px 18px 16px;display:flex;flex-direction:column;gap:3px;flex:1;}
+.carte-pc .k{font-size:.62rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--orange-hover);}
+.carte-pc h3{font-family:var(--titres);font-weight:800;font-size:1.04rem;line-height:1.3;}
+.carte-pc p{font-size:.83rem;color:var(--text-secondary);line-height:1.5;margin-top:4px;}
+.carte-pc .ecrans{margin-top:auto;padding-top:10px;font-size:.72rem;font-weight:700;color:var(--text-tertiary);}
 
-  .groupe{
-    display:flex;align-items:center;gap:14px;margin:56px 0 18px;
-  }
-  .groupe h2{font-family:var(--titres);font-weight:800;font-size:1.3rem;white-space:nowrap;}
-  .groupe .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.4;}
-  .groupe-sub{color:var(--text-secondary);font-size:.9rem;margin:-6px 0 22px;max-width:760px;line-height:1.5;}
-  .preview--doc{padding:0;}
-  .preview--doc iframe{width:1320px;height:1000px;border:0;transform:scale(.5);transform-origin:top left;pointer-events:none;}
-  .preview--doc .shot{width:100%;align-items:stretch;}
-  .preview--planche{padding:0;height:530px;}
-  .preview--planche .shot{width:100%;align-items:stretch;overflow:hidden;}
-  .preview--planche iframe{width:1000px;height:1500px;border:0;margin-top:-196px;transform:scale(.62);transform-origin:top left;pointer-events:none;}
-  .preview--bureau{padding:0;height:352px;}
-  .preview--bureau .shot{width:100%;align-items:stretch;overflow:hidden;}
-  /* flex:none — sans lui l'iframe, élément flex en colonne, est écrasé à la
-     hauteur du cadre avant d'être mis à l'échelle, et l'aperçu reste vide. */
-  .preview--bureau iframe{width:1330px;height:1900px;flex:none;border:0;margin-top:-183px;transform:scale(.43);transform-origin:top left;pointer-events:none;}
+/* ————— les règles retenues ————— */
+.regles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:18px;}
+.regle-c{
+  background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--orange);
+  border-radius:0 13px 13px 0;padding:15px 18px 16px;text-decoration:none;color:inherit;display:block;
+  transition:border-left-color .16s, transform .16s;
+}
+.regle-c:hover{transform:translateX(3px);border-left-color:var(--marine);}
+.regle-c .k{font-size:.62rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--orange-hover);}
+.regle-c h3{font-family:var(--titres);font-weight:800;font-size:1rem;margin-top:5px;}
+.regle-c p{font-size:.83rem;line-height:1.55;color:var(--text-secondary);margin-top:6px;}
+.regle-c p b{color:var(--marine);}
+.regle-c .voir{display:inline-block;margin-top:9px;font-size:.78rem;font-weight:700;color:var(--orange);border-bottom:1px dashed var(--orange);}
+
+/* ————— le renvoi aux archives ————— */
+.vers-archives{
+  margin-top:56px;padding:26px 28px;border-radius:16px;
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  display:flex;align-items:center;gap:26px;flex-wrap:wrap;
+}
+.vers-archives .t{flex:1;min-width:280px;}
+.vers-archives .k{font-family:var(--titres);font-weight:800;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.vers-archives h2{font-family:var(--titres);font-weight:800;font-size:1.3rem;margin-top:5px;}
+.vers-archives p{font-size:.88rem;line-height:1.6;color:var(--text-secondary);margin-top:8px;}
+.vers-archives .bouton{
+  display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:999px;
+  background:var(--marine);color:var(--sable);text-decoration:none;font-weight:700;font-size:.92rem;white-space:nowrap;
+}
+.vers-archives .bouton:hover{background:var(--marine-hover);}
+
+footer{margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.82rem;line-height:1.7;}
+footer a{color:var(--marine);font-weight:600;}
+
+@media (max-width:860px){ .principes .grille{grid-template-columns:1fr 1fr;} .principes .p:nth-child(3n+1){border-left:1px solid var(--border);} .principes .p:nth-child(2n+1){border-left:0;} }
+@media (max-width:560px){ body{padding:22px 10px 50px;} .principes .grille{grid-template-columns:1fr;} .principes .p{border-left:0!important;} }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <img src="assets/logo/logo-tpt-transparent.png" alt="Logo TempsPourTemps">
-    <h1>Propositions — page d'accueil <span class="accent">TempsPourTemps</span></h1>
-    <p class="sub">Sept pistes visuelles pour l'écran d'accueil de l'application, avec un fil d'actualité de posts (demandes, propositions, ateliers, idées de voisinage). Les aperçus montrent le haut de page et le fil ; en ouvrant une piste, vous naviguez dans un seul écran qui défile. Les personnes et annonces affichées sont fictives.</p>
-    <a class="brandkit-link" href="brandkit/index.html">Voir le brandkit complet →</a>
-  </header>
 
-  <p class="hint">Cliquez sur une maquette pour l'ouvrir en taille réelle et la faire défiler.</p>
-
-  <div class="grid">
-    <article class="card">
-      <div class="card-head"><span class="num">V1</span><h2>Éditorial « Gazette du quartier »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-1-editorial.html" loading="lazy" title="Aperçu V1 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-1-editorial.html#fil" loading="lazy" title="Aperçu V1 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-1-editorial.html" aria-label="Ouvrir la proposition V1 Éditorial en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Papier crème, rubriques de journal, fil du quartier en entrefilets.</p>
-        <a class="open" href="brandkit/explorations/accueil-1-editorial.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V2</span><h2>Bento</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-2-bento.html" loading="lazy" title="Aperçu V2 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-2-bento.html#fil" loading="lazy" title="Aperçu V2 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-2-bento.html" aria-label="Ouvrir la proposition V2 Bento en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Tuiles compactes, solde de temps en vedette, fil en cartes arrondies.</p>
-        <a class="open" href="brandkit/explorations/accueil-2-bento.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V3</span><h2>Social — le quartier en direct</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-3-social.html" loading="lazy" title="Aperçu V3 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-3-social.html#fil" loading="lazy" title="Aperçu V3 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-3-social.html" aria-label="Ouvrir la proposition V3 Social en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Les voisins d'abord : visages, ton chaleureux, fil de vie du quartier.</p>
-        <a class="open" href="brandkit/explorations/accueil-3-social.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V4</span><h2>« Tableau de liège »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-4-tableau-liege.html" loading="lazy" title="Aperçu V4 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-4-tableau-liege.html#fil" loading="lazy" title="Aperçu V4 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-4-tableau-liege.html" aria-label="Ouvrir la proposition V4 Tableau de liège en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Posts punaisés comme au panneau de la maison de quartier.</p>
-        <a class="open" href="brandkit/explorations/accueil-4-tableau-liege.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V5</span><h2>« Carnet washi »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-5-carnet-washi.html" loading="lazy" title="Aperçu V5 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-5-carnet-washi.html#fil" loading="lazy" title="Aperçu V5 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-5-carnet-washi.html" aria-label="Ouvrir la proposition V5 Carnet washi en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Carnet personnel, posts scotchés au ruban washi coloré par type.</p>
-        <a class="open" href="brandkit/explorations/accueil-5-carnet-washi.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V6</span><h2>« Épinglé épuré »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-6-epingle-epure.html" loading="lazy" title="Aperçu V6 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-6-epingle-epure.html#fil" loading="lazy" title="Aperçu V6 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-6-epingle-epure.html" aria-label="Ouvrir la proposition V6 Épinglé épuré en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Le même esprit épinglé, en version minimale et aérée.</p>
-        <a class="open" href="brandkit/explorations/accueil-6-epingle-epure.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V7</span><h2>« Fil à linge »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-7-fil-a-linge.html" loading="lazy" title="Aperçu V7 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-7-fil-a-linge.html#fil" loading="lazy" title="Aperçu V7 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-7-fil-a-linge.html" aria-label="Ouvrir la proposition V7 Fil à linge en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Les posts suspendus au fil, comme entre deux balcons.</p>
-        <a class="open" href="brandkit/explorations/accueil-7-fil-a-linge.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V8</span><h2>Gazette v2 « Belle Époque »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-8-gazette-belle-epoque.html" loading="lazy" title="Aperçu V8 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-8-gazette-belle-epoque.html#fil" loading="lazy" title="Aperçu V8 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-8-gazette-belle-epoque.html" aria-label="Ouvrir la proposition V8 Gazette Belle Époque en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Journal 1890 : posts en réclames letterpress à lettrines, RDV en faire-part gravés avec cachet.</p>
-        <a class="open" href="brandkit/explorations/accueil-8-gazette-belle-epoque.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V9</span><h2>Gazette v3 « Dépêches »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-9-gazette-depeches.html" loading="lazy" title="Aperçu V9 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-9-gazette-depeches.html#fil" loading="lazy" title="Aperçu V9 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-9-gazette-depeches.html" aria-label="Ouvrir la proposition V9 Gazette Dépêches en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Quotidien 1930 : gros titres bois, posts en télégrammes tapés à la machine, RDV en billets perforés tamponnés.</p>
-        <a class="open" href="brandkit/explorations/accueil-9-gazette-depeches.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V10</span><h2>Gazette revisitée · A « Colonnes classées »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-10-gazette-colonnes.html" loading="lazy" title="Aperçu V10 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-10-gazette-colonnes.html#fil" loading="lazy" title="Aperçu V10 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-10-gazette-colonnes.html" aria-label="Ouvrir la proposition V10 Gazette Colonnes classées en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Peau V1. Posts en petites annonces sur une seule feuille : filets, chapeau en gras, signature en italique, numéro. Zone d'annonce en brève d'une ligne.</p>
-        <a class="open" href="brandkit/explorations/accueil-10-gazette-colonnes.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V11</span><h2>Gazette revisitée · B « Brèves encadrées »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-11-gazette-breves.html" loading="lazy" title="Aperçu V11 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-11-gazette-breves.html#fil" loading="lazy" title="Aperçu V11 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-11-gazette-breves.html" aria-label="Ouvrir la proposition V11 Gazette Brèves encadrées en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Peau V1. Posts en brèves : filet de tête coloré par type, chapeau centré entre deux filets, titre, ligne de date. Zone d'annonce en carte à filet sable.</p>
-        <a class="open" href="brandkit/explorations/accueil-11-gazette-breves.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">V12</span><h2>Gazette revisitée · C « À la une »</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/accueil-12-gazette-une.html" loading="lazy" title="Aperçu V12 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Fil d'actualité</span><iframe src="brandkit/explorations/accueil-12-gazette-une.html#fil" loading="lazy" title="Aperçu V12 fil d'actualité" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/accueil-12-gazette-une.html" aria-label="Ouvrir la proposition V12 Gazette À la une en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Peau V1. Posts en petits articles : titre serif (seul écart typo), lettrine orange, signature « par … », double filet de pied. Zone d'annonce = mot de la rédaction avec médaillon.</p>
-        <a class="open" href="brandkit/explorations/accueil-12-gazette-une.html">Ouvrir →</a>
-      </div>
-    </article>
+<header class="entete">
+  <img src="assets/logo/logo-tpt-transparent.png" alt="Logo TempsPourTemps">
+  <p class="kicker">Identité visuelle</p>
+  <h1>TempsPourTemps — <span class="accent">le design retenu</span></h1>
+  <p class="sous">La peau « gazette du quartier » appliquée à toute l'application, sur mobile comme sur grand écran. <b>Tout ce qui se fait sur l'un se fait sur l'autre</b> : aucun parcours n'est réservé à un appareil. Les personnes et les annonces affichées sont fictives.</p>
+  <div class="liens">
+    <a class="primaire" href="brandkit/bibliotheque.html">La bibliothèque de composants →</a>
+    <a class="secondaire" href="brandkit/index.html">Le brandkit</a>
+    <a class="secondaire" href="explorations.html">Les pistes explorées</a>
   </div>
+</header>
 
-  <div class="groupe"><h2>Les pages de l'application</h2><span class="filet"></span></div>
-  <p class="groupe-sub">Maquettage page par page de l'app réelle (54 routes, dont <b>32 écrans distincts</b> — les redirections, callbacks et variantes mineures sont exclus). Les planches sont regroupées par famille et partagent une feuille de style commune, <code>brandkit/gazette.css</code>.</p>
-
-  <div class="grid">
-    <article class="card">
-      <div class="card-head"><span class="num">1</span><h2>Découverte — accueil, actions, menu Proposer</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-1-decouverte.html" loading="lazy" title="Aperçu pages Découverte" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-1-decouverte.html" aria-label="Ouvrir la famille Découverte"><span>Ouvrir les 5 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">La une et son sommaire, l'affiche en agenda, le fil et le carnet des voisins, la feuille « Proposer ». Trois registres distincts par la forme : billets, faire-part, agenda.</p>
-        <a class="open" href="brandkit/explorations/pages-1-decouverte.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num" style="background:var(--orange);color:#fff">?</span><h2>Arbitrage — actions, rendez-vous &amp; affiche</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-1c-rdv-actions.html" loading="lazy" title="Aperçu des 5 variantes" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-1c-rdv-actions.html" aria-label="Ouvrir les variantes"><span>Comparer les variantes</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Cinq façons d'articuler les trois registres, chacune dans une page complète avec son pour et son contre — plus trois versions affinées : le bloc à onglets avec sa vue d'ensemble, les billets fins, et <b>les billets révisés (5 ter)</b> : talon au filet au lieu du talon jaune, et le geste attendu à la place de la date. Une planche d'étude compare les deux talons.</p>
-        <a class="open" href="brandkit/explorations/pages-1c-rdv-actions.html">Comparer →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num" style="background:var(--orange);color:#fff">?</span><h2>Les annonces pourvues</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-1d-pourvues.html" loading="lazy" title="Aperçu annonces pourvues" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-1d-pourvues.html" aria-label="Ouvrir la question des annonces pourvues"><span>Ouvrir les 4 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Comment éviter qu'une annonce satisfaite hors de l'app continue d'attirer des réponses — sans ajouter de section permanente sur l'accueil. Trois déclencheurs, et un état « pourvue » visible plutôt qu'une suppression.</p>
-        <a class="open" href="brandkit/explorations/pages-1d-pourvues.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">2</span><h2>Recherche &amp; annuaire</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-2-recherche.html" loading="lazy" title="Aperçu Recherche" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-2-recherche.html" aria-label="Ouvrir Recherche"><span>Ouvrir les 3 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Le registre des voisins, celui des annonces, et les correspondances — résultats en lignes de carnet plutôt qu'en cartes.</p>
-        <a class="open" href="brandkit/explorations/pages-2-recherche.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">3</span><h2>Les annonces</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-3-annonces.html" loading="lazy" title="Aperçu Annonces" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-3-annonces.html" aria-label="Ouvrir Annonces"><span>Ouvrir les 3 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">L'annonce ouverte en entrefilet avec son encadré de renseignements, le formulaire de publication, et la vue de suivi de l'auteur.</p>
-        <a class="open" href="brandkit/explorations/pages-3-annonces.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">4</span><h2>Le fil du quartier</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-4-fil.html" loading="lazy" title="Aperçu Fil" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-4-fil.html" aria-label="Ouvrir le Fil"><span>Ouvrir les 3 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Le fil et son tri expliqué, la publication ouverte avec ses réactions en compteurs jumeaux, et le formulaire à trois sens.</p>
-        <a class="open" href="brandkit/explorations/pages-4-fil.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">5</span><h2>Échanges &amp; activités</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-5-echanges.html" loading="lazy" title="Aperçu Échanges" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-5-echanges.html" aria-label="Ouvrir Échanges"><span>Ouvrir les 4 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Le carnet des échanges groupé par échéance, le grand livre des heures avant validation, et les formulaires d'atelier et de moment ouvert.</p>
-        <a class="open" href="brandkit/explorations/pages-5-echanges.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">6</span><h2>Messagerie</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/proposition-1-revisee.html" loading="lazy" title="Aperçu Messagerie" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/proposition-1-revisee.html" aria-label="Ouvrir la messagerie"><span>Ouvrir les écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Traitée dans « La gazette aérée » : le courrier avec ses non-lus en section sable, l'écran des fils avec une personne, et les deux types de conversation.</p>
-        <a class="open" href="brandkit/explorations/proposition-1-revisee.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">7</span><h2>Profil &amp; temps</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-7-profil.html" loading="lazy" title="Aperçu Profil" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-7-profil.html" aria-label="Ouvrir Profil"><span>Ouvrir les 3 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Le profil en ours et lignes de réglage, la fiche publique d'un voisin avec « ce qui vous rapproche », et le relevé de compte du temps.</p>
-        <a class="open" href="brandkit/explorations/pages-7-profil.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">8</span><h2>Entrée &amp; engagement</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-8-entree.html" loading="lazy" title="Aperçu Entrée" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-8-entree.html" aria-label="Ouvrir Entrée"><span>Ouvrir les 4 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">La connexion en une de bienvenue, l'embarquement qui annonce son chemin en sommaire d'étapes, et la charte traitée en article à lettrine.</p>
-        <a class="open" href="brandkit/explorations/pages-8-entree.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">9</span><h2>Réservation publique</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-9-reservation.html" loading="lazy" title="Aperçu Réservation" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-9-reservation.html" aria-label="Ouvrir Réservation"><span>Ouvrir les 3 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Le tunnel vu par quelqu'un qui ne connaît pas encore l'association : choix du format, grille de créneaux, et confirmation au sceau.</p>
-        <a class="open" href="brandkit/explorations/pages-9-reservation.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">10</span><h2>Administration</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/pages-10-administration.html" loading="lazy" title="Aperçu Administration" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/pages-10-administration.html" aria-label="Ouvrir Administration"><span>Ouvrir les 6 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Le sommaire de l'association, les candidats et leur fiche, la régularisation avec son aperçu d'écritures, les moments hors plateforme et le parrainage.</p>
-        <a class="open" href="brandkit/explorations/pages-10-administration.html">Ouvrir →</a>
-      </div>
-    </article>
+<!-- ================= LES PRINCIPES ================= -->
+<section class="principes">
+  <div class="tete"><h2>Les six règles</h2><div class="filet-double" style="margin:10px 0 0"></div></div>
+  <div class="grille">
+    <div class="p">
+      <p class="num">Règle 1</p>
+      <h3>La gazette, pas le costume</h3>
+      <p>Filets, rubans sable, papier crème, points de conduite. Le thème se lit <b>sans se déguiser</b> : les versions Belle Époque et Dépêches ont été écartées pour excès.</p>
+    </div>
+    <div class="p">
+      <p class="num">Règle 2</p>
+      <h3>Un seul bouton plein par écran</h3>
+      <p>Tout le reste passe en <b>pastille en contour</b> ou en <b>lien à filet</b> — un texte souligné de pointillés. Trois niveaux d'action, jamais plus.</p>
+    </div>
+    <div class="p">
+      <p class="num">Règle 3</p>
+      <h3>Le jaune est une exclamation</h3>
+      <p>Le sable appartient aux <b>rubans de rubrique</b>, et à rien d'autre. Les talons de date se séparent par un filet, pas par un aplat : un journal sépare, il ne remplit pas.</p>
+    </div>
+    <div class="p">
+      <p class="num">Règle 4</p>
+      <h3>Date ou geste, jamais les deux</h3>
+      <p>Le billet fait 52 px. Son talon porte <b>la date</b> quand il n'y a rien à faire, et <b>le verbe</b> — Valider, Répondre, Noter, Clore — quand on attend quelque chose de vous.</p>
+    </div>
+    <div class="p">
+      <p class="num">Règle 5</p>
+      <h3>La manchette en une seulement</h3>
+      <p>Sur PC, la manchette pleine ouvre l'accueil ; partout ailleurs elle se replie en <b>titre courant</b> de 56 px. Comme dans n'importe quel journal.</p>
+    </div>
+    <div class="p">
+      <p class="num">Règle 6</p>
+      <h3>Le contenu garde sa colonne</h3>
+      <p>Quand la fenêtre rétrécit, <b>les colonnes d'encadré fusionnent entre elles</b> — le fil, lui, ne bouge pas. Trois paliers : 1180 px, 980 px, puis l'ordre du mobile.</p>
+    </div>
   </div>
+</section>
 
-  <div class="groupe"><h2>Trois propositions complètes</h2><span class="filet"></span></div>
-  <p class="groupe-sub">Trois directions visuelles abouties, chacune déclinée sur <b>quatre écrans</b> : accueil, messagerie, fil de conversation, et fil rattaché à une annonce. Même peau gazette, trois traitements distincts des annonces, des messages et des barres. <b>La révision de P1 ci-dessous est la piste retenue</b> — elle ajoute un sixième écran.</p>
+<nav class="sommaire-nav">
+  <a href="#mobile">Sur mobile <span class="n">10</span></a>
+  <a href="#pc">Sur grand écran <span class="n">4</span></a>
+  <a href="#composants">Les composants <span class="n">2</span></a>
+  <a href="#regles">Les règles de fond <span class="n">2</span></a>
+  <a class="archives" href="explorations.html">Les pistes explorées →</a>
+</nav>
 
-  <div class="grid">
-    <article class="card">
-      <div class="card-head"><span class="num" style="background:var(--orange);color:#fff">P1★</span><h2>« La gazette aérée » — P1 révisée · 6 écrans</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/proposition-1-revisee.html" loading="lazy" title="Aperçu P1 révisée" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/proposition-1-revisee.html" aria-label="Ouvrir la P1 révisée"><span>Ouvrir les 6 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Annonces aérées en fiches lisibles, « non lus » en section sable, bulles marine, barre B5 qui se replie, et un nouvel écran listant les fils avec une même personne.</p>
-        <a class="open" href="brandkit/explorations/proposition-1-revisee.html">Ouvrir →</a>
-      </div>
-    </article>
+<!-- ================= MOBILE ================= -->
+<div class="groupe" id="mobile"><h2>Sur mobile</h2><span class="compte">10 planches · 41 écrans</span><span class="filet"></span></div>
+<p class="groupe-sub">L'application complète, écran par écran, dans la peau retenue. La barre du bas est la <b>B5</b> — une pilule flottante en verre dépoli qui se replie sur l'onglet actif au défilement. Les billets à talon, les lignes d'agenda et les rubans de rubrique sont les mêmes partout.</p>
 
-    <article class="card">
-      <div class="card-head"><span class="num">P1</span><h2>« Colonnes » — le journal en colonnes</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/proposition-1-colonnes.html" loading="lazy" title="Aperçu proposition 1" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/proposition-1-colonnes.html" aria-label="Ouvrir la proposition 1"><span>Ouvrir les 4 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Annonces sur une feuille unique séparée par des filets, messages en lettres à filet vertical, barre du bas flottante à colonnes.</p>
-        <a class="open" href="brandkit/explorations/proposition-1-colonnes.html">Ouvrir →</a>
-      </div>
-    </article>
+<div class="rangs">
+  <a class="vignette" href="brandkit/explorations/pages-1-decouverte.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-1-decouverte.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 1</p><h3>La une</h3><p>L'accueil, l'affiche, le fil, les rendez-vous, le menu Proposer et son formulaire.</p><p class="ecrans">6 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/proposition-1-revisee.html">
+    <div class="apercu"><iframe src="brandkit/explorations/proposition-1-revisee.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 6</p><h3>Le courrier</h3><p>Boîte à sections sable, écran intermédiaire des fils multiples, bulles marine.</p><p class="ecrans">6 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-4-fil.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-4-fil.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 4</p><h3>Le fil du quartier</h3><p>Les publications, leurs réactions en compteurs jumeaux et leurs commentaires.</p><p class="ecrans">3 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-3-annonces.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-3-annonces.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 3</p><h3>Les annonces</h3><p>La fiche complète, les réponses reçues, et le formulaire de publication.</p><p class="ecrans">3 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-2-recherche.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-2-recherche.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 2</p><h3>Recherche &amp; annuaire</h3><p>Le champ, les filtres en ligne de liens, et le carnet des voisins.</p><p class="ecrans">3 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-5-echanges.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-5-echanges.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 5</p><h3>Les échanges</h3><p>Le carnet, le registre du relevé, et la validation d'une heure donnée.</p><p class="ecrans">4 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-7-profil.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-7-profil.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 7</p><h3>Le profil</h3><p>Votre fiche, ce que vous proposez, les avis reçus et les réglages.</p><p class="ecrans">3 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-8-entree.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-8-entree.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 8</p><h3>L'entrée</h3><p>La connexion, le chemin d'embarquement en quatre étapes, et la charte.</p><p class="ecrans">4 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-9-reservation.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-9-reservation.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 9</p><h3>La réservation</h3><p>Vue par quelqu'un qui ne connaît pas encore l'association. Se clôt par un sceau.</p><p class="ecrans">3 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-10-administration.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-10-administration.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 10</p><h3>L'administration</h3><p>Le sommaire du bureau, les candidats, les créneaux et l'agenda de l'association.</p><p class="ecrans">6 écrans</p></div>
+  </a>
+</div>
 
-    <article class="card">
-      <div class="card-head"><span class="num">P2</span><h2>« Brèves » — le journal en encadrés</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/proposition-2-breves.html" loading="lazy" title="Aperçu proposition 2" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/proposition-2-breves.html" aria-label="Ouvrir la proposition 2"><span>Ouvrir les 4 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Annonces et conversations en brèves à filet coloré par type, messages en bulles, barre du bas qui se minimise au défilement.</p>
-        <a class="open" href="brandkit/explorations/proposition-2-breves.html">Ouvrir →</a>
-      </div>
-    </article>
+<!-- ================= GRAND ÉCRAN ================= -->
+<div class="groupe" id="pc"><h2>Sur grand écran</h2><span class="compte">4 planches · 17 écrans</span><span class="filet"></span></div>
+<p class="groupe-sub">L'ossature <b>D4 bis</b> : manchette pleine sur l'accueil, titre courant de 56 px partout ailleurs, colonnes séparées par des filets. <b>Aucun composant nouveau</b> — ce sont les mêmes briques que sur mobile, réarrangées. Trois formats de page selon ce qu'on y fait : lecture, personnelle, tâche.</p>
 
-    <article class="card">
-      <div class="card-head"><span class="num">P3</span><h2>« À la une » — le journal éditorial</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/proposition-3-alaune.html" loading="lazy" title="Aperçu proposition 3" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/proposition-3-alaune.html" aria-label="Ouvrir la proposition 3"><span>Ouvrir les 4 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Annonces en petits articles à titre serif et lettrine, une en verre dépoli, barre du bas ancrée à colonnes sous filet double.</p>
-        <a class="open" href="brandkit/explorations/proposition-3-alaune.html">Ouvrir →</a>
-      </div>
-    </article>
+<div class="rangs-pc">
+  <a class="carte-pc" href="brandkit/explorations/bureau-1-accueil.html#retenu">
+    <div class="apercu"><iframe src="brandkit/explorations/bureau-1-accueil.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied">
+      <p class="k">L'ossature retenue</p>
+      <h3>La une et ses trois paliers</h3>
+      <p>La manchette pleine, trois colonnes, et le repli : à 1180 px la colonne de droite se verse dans celle de gauche, à 980 px tout s'empile dans l'ordre du mobile. Les cinq ossatures comparées suivent en seconde partie.</p>
+      <p class="ecrans">3 écrans retenus · 5 comparatifs</p>
+    </div>
+  </a>
+  <a class="carte-pc" href="brandkit/explorations/bureau-2-messagerie.html#retenu">
+    <div class="apercu"><iframe src="brandkit/explorations/bureau-2-messagerie.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied">
+      <p class="k">L'ossature retenue</p>
+      <h3>Le courrier</h3>
+      <p>Le titre courant remplace la manchette et rend 100 px à la conversation. Les fils multiples avec une même personne sont groupés dans la liste : l'écran intermédiaire du mobile disparaît, remplacé par un dossier permanent.</p>
+      <p class="ecrans">1 écran retenu · 5 comparatifs</p>
+    </div>
+  </a>
+  <a class="carte-pc" href="brandkit/explorations/bureau-3-pages.html">
+    <div class="apercu apercu--formats"><iframe src="brandkit/explorations/bureau-3-pages.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied">
+      <p class="k">Les pages intérieures</p>
+      <h3>Le fil, l'affiche, les voisins, votre temps, le profil, proposer, l'administration</h3>
+      <p>Recherche et annuaire fusionnent, l'affiche redevient un calendrier, le relevé devient un livre de comptes groupé par mois, et l'administration fait enfin cohabiter la file et la fiche.</p>
+      <p class="ecrans">7 écrans</p>
+    </div>
+  </a>
+  <a class="carte-pc" href="brandkit/explorations/bureau-4-entree.html">
+    <div class="apercu"><iframe src="brandkit/explorations/bureau-4-entree.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied">
+      <p class="k">Hors connexion</p>
+      <h3>L'entrée et la réservation</h3>
+      <p>La manchette devient une devanture, et pendant l'embarquement le titre courant dit <b>où l'on en est</b> plutôt qu'où aller. La charte s'y lit en deux colonnes à lettrine, et le parcours public se clôt par un sceau.</p>
+      <p class="ecrans">6 écrans</p>
+    </div>
+  </a>
+</div>
+
+<!-- ================= COMPOSANTS ================= -->
+<div class="groupe" id="composants"><h2>Les composants</h2><span class="compte">2 documents</span><span class="filet"></span></div>
+<p class="groupe-sub">Les briques communes et les règles qui disent quand les employer. La bibliothèque confronte chaque brique au code réel de l'application : <b>existe</b>, <b>à fusionner</b> ou <b>à créer</b>.</p>
+
+<div class="rangs-pc">
+  <a class="carte-pc" href="brandkit/bibliotheque.html">
+    <div class="apercu"><iframe src="brandkit/bibliotheque.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied">
+      <p class="k">★ Le document de référence</p>
+      <h3>La bibliothèque</h3>
+      <p>Trente briques en six familles — fondations, primitives, formes, surfaces, états, navigation. Chaque fiche donne le rendu, la règle d'emploi et le statut face aux <b>92 composants</b> du code actuel.</p>
+      <p class="ecrans">30 fiches</p>
+    </div>
+  </a>
+  <a class="carte-pc" href="brandkit/explorations/surfaces.html">
+    <div class="apercu"><iframe src="brandkit/explorations/surfaces.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied">
+      <p class="k">Les surfaces</p>
+      <h3>Feuilles, dialogues, bandeaux, états</h3>
+      <p>Tout ce qui se pose par-dessus une page, avec sa règle d'emploi : feuille de choix et de formulaire, dialogue simple et destructif, bandeau système et notification, infobulle, et les trois états — chargement, vide, erreur.</p>
+      <p class="ecrans">7 écrans</p>
+    </div>
+  </a>
+</div>
+
+<!-- ================= LES RÈGLES DE FOND ================= -->
+<div class="groupe" id="regles"><h2>Les règles de fond</h2><span class="compte">2 arbitrages</span><span class="filet"></span></div>
+<p class="groupe-sub">Deux questions qui ne se règlent pas en dessinant une carte, et dont la réponse structure toute l'application.</p>
+
+<div class="regles">
+  <a class="regle-c" href="brandkit/explorations/pages-1c-rdv-actions.html">
+    <p class="k">Arbitrage · retenu</p>
+    <h3>Le billet à talon</h3>
+    <p>Comment articuler <b>ce qu'on attend de vous</b>, <b>vos rendez-vous</b> et <b>ce que propose le quartier</b> sans les confondre. La réponse : trois registres, trois formes — billets, faire-part, agenda — et un billet de 52 px dont le talon porte <b>la date</b> ou <b>le geste</b> selon qu'il y a quelque chose à faire.</p>
+    <span class="voir">Voir les six variantes et l'étude du talon →</span>
+  </a>
+  <a class="regle-c" href="brandkit/explorations/pages-1d-pourvues.html">
+    <p class="k">Arbitrage · retenu</p>
+    <h3>Les annonces pourvues</h3>
+    <p>Une annonce trouve preneur mais personne ne le déclare, et le fil pourrit. La réponse : <b>trois déclencheurs</b> — après un échange validé, un réveil après dix jours de silence, la date d'échéance en filet de sécurité — et le principe qu'une annonce pourvue est <b>grisée, jamais supprimée</b>.</p>
+    <span class="voir">Voir les quatre écrans →</span>
+  </a>
+</div>
+
+<!-- ================= VERS LES ARCHIVES ================= -->
+<section class="vers-archives">
+  <div class="t">
+    <p class="k">Et avant ça ?</p>
+    <h2>Les pistes explorées</h2>
+    <p>Neuf directions visuelles, douze accueils dont cinq gazettes, vingt barres de navigation, cinq ossatures PC. Rien n'est supprimé : chaque piste garde son pour et son contre, et une ligne dit <b>ce qu'on en a tiré</b> — car le filet vertical vient de V10, et la manchette de V12.</p>
   </div>
+  <a class="bouton" href="explorations.html">Parcourir les archives →</a>
+</section>
 
-  <div class="groupe"><h2>Sur grand écran</h2><span class="filet"></span></div>
-  <p class="groupe-sub">L'adaptation PC des choix retenus pour le mobile — <b>aucun composant nouveau</b>, seule l'ossature change. Cinq propositions comparées sur l'accueil puis sur la messagerie ; <b>D4 bis est la piste retenue</b> : manchette pleine en une, titre courant sur les pages intérieures, et trois paliers de colonnes. La troisième planche applique cette ossature à toute l'application.</p>
+<footer>
+  TempsPourTemps — identité visuelle · Le design retenu · Personnes et annonces fictives.<br>
+  Tous les écrans reposent sur une feuille de style unique, <code>brandkit/gazette.css</code>.<br>
+  <a href="brandkit/index.html">Le brandkit</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a> · <a href="explorations.html">Les pistes explorées</a>
+</footer>
 
-  <div class="grid">
-    <article class="card">
-      <div class="card-head"><span class="num" style="background:var(--orange);color:#fff">★</span><h2>Les pages intérieures en D4 bis</h2></div>
-      <div class="preview preview--bureau">
-        <div class="shot"><iframe src="brandkit/explorations/bureau-3-pages.html" title="Aperçu des pages intérieures" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/bureau-3-pages.html" aria-label="Ouvrir les pages intérieures"><span>Ouvrir les 7 pages</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Le fil, à l'affiche, les voisins, votre temps, votre profil, proposer, l'administration — tous alignés sur l'ossature retenue. Trois formats de page selon ce qu'on y fait : <b>lecture</b> (3 colonnes), <b>personnelle</b> (2 colonnes), <b>tâche</b> (1 colonne, rien autour).</p>
-        <a class="open" href="brandkit/explorations/bureau-3-pages.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">PC</span><h2>L'accueil sur PC — cinq adaptations</h2></div>
-      <div class="preview preview--bureau">
-        <div class="shot"><iframe src="brandkit/explorations/bureau-1-accueil.html" title="Aperçu de l'accueil sur PC" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/bureau-1-accueil.html" aria-label="Ouvrir l'accueil sur PC"><span>Comparer les 5</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc"><b>D1</b> la colonne unique · <b>D2</b> le rail de gauche · <b>D3</b> le journal à deux colonnes · <b>D4</b> la une pleine page · <b>D5</b> le bureau à panneau — plus <b>D4 bis</b>, la piste retenue : la une allégée, et ses <b>trois paliers de repli</b> — où va la troisième colonne quand la fenêtre rétrécit. Billets à talon, lignes d'agenda et rubans de rubrique sont repris tels quels ; chaque écran porte son pour et son contre.</p>
-        <a class="open" href="brandkit/explorations/bureau-1-accueil.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">PC</span><h2>La messagerie sur PC — cinq adaptations</h2></div>
-      <div class="preview preview--bureau">
-        <div class="shot"><iframe src="brandkit/explorations/bureau-2-messagerie.html" title="Aperçu de la messagerie sur PC" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/bureau-2-messagerie.html" aria-label="Ouvrir la messagerie sur PC"><span>Comparer les 5</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Les mêmes cinq ossatures, appliquées au courrier. Le point d'attention : l'<b>écran intermédiaire</b> du mobile — plusieurs fils avec une même personne — n'a plus lieu d'être sur grand écran. Chaque proposition montre par quoi elle le remplace, du simple lien au <b>dossier permanent</b>. <b>D4 bis</b> montre le <b>titre courant</b> : la manchette repliée en 56 px sur les pages intérieures.</p>
-        <a class="open" href="brandkit/explorations/bureau-2-messagerie.html">Ouvrir →</a>
-      </div>
-    </article>
-  </div>
-
-  <div class="groupe"><h2>Les composants</h2><span class="filet"></span></div>
-  <p class="groupe-sub">Les briques communes, montrées en situation avec la règle qui dit quand les employer.</p>
-
-  <div class="grid">
-    <article class="card">
-      <div class="card-head"><span class="num">★</span><h2>La bibliothèque — inventaire complet des composants</h2></div>
-      <div class="preview preview--doc">
-        <div class="shot"><iframe src="brandkit/bibliotheque.html" loading="lazy" title="Aperçu de la bibliothèque" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/bibliotheque.html" aria-label="Ouvrir la bibliothèque"><span>Ouvrir la bibliothèque</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc"><b>30 briques</b> en 6 familles — fondations, primitives, formes, surfaces, états, navigation. Chaque fiche donne le rendu gazette, la règle d'emploi, et le statut vis-à-vis du code : <b>existe</b>, <b>à fusionner</b> (les doublons sont nommés) ou <b>à créer</b>. Confronté aux <b>92 composants</b> de l'app réelle.</p>
-        <a class="open" href="brandkit/bibliotheque.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">S</span><h2>Les surfaces — feuilles, dialogues, bandeaux, états</h2></div>
-      <div class="preview preview--planche">
-        <div class="shot"><iframe src="brandkit/explorations/surfaces.html" loading="lazy" title="Aperçu des surfaces" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/surfaces.html" aria-label="Ouvrir les surfaces"><span>Ouvrir les 7 écrans</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Feuille de choix et feuille de formulaire, dialogue de confirmation et dialogue destructif, bandeau système et notification, infobulle, et les trois états : chargement, vide, erreur.</p>
-        <a class="open" href="brandkit/explorations/surfaces.html">Ouvrir →</a>
-      </div>
-    </article>
-  </div>
-
-  <div class="groupe"><h2>Composants &amp; écrans — thème gazette</h2><span class="filet"></span></div>
-  <p class="groupe-sub">Déclinaisons de la peau « Gazette du quartier » (V1) au-delà de l'accueil : un document de référence pour les barres de navigation, et trois écrans de messagerie.</p>
-
-  <div class="grid">
-    <article class="card">
-      <div class="card-head"><span class="num">DOC</span><h2>Barres du haut &amp; du bas — 10 + 10 modèles</h2></div>
-      <div class="preview preview--doc">
-        <div class="shot"><iframe src="brandkit/explorations/barres-gazette.html#haut" loading="lazy" title="Aperçu du document barres" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/barres-gazette.html" aria-label="Ouvrir le document des barres en plein écran"><span>Ouvrir le document</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Dix barres supérieures, dix barres inférieures, rendues en 390 px, avec les conventions iOS 17→26 et Material 3 dont chacune découle.</p>
-        <a class="open" href="brandkit/explorations/barres-gazette.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">M1</span><h2>Messagerie · La boîte aux lettres</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/messagerie-1-boite.html" loading="lazy" title="Aperçu M1 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Suite de la liste</span><iframe src="brandkit/explorations/messagerie-1-boite.html#suite" loading="lazy" title="Aperçu M1 suite" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/messagerie-1-boite.html" aria-label="Ouvrir la messagerie 1 en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Liste des conversations, chacune rattachée à une annonce ou à un rendez-vous ; grand titre, recherche et filtres, sections « Non lus » / « Plus tôt ».</p>
-        <a class="open" href="brandkit/explorations/messagerie-1-boite.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">M2</span><h2>Messagerie · La conversation</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/messagerie-2-conversation.html" loading="lazy" title="Aperçu M2 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">Proposition de RDV</span><iframe src="brandkit/explorations/messagerie-2-conversation.html#suite" loading="lazy" title="Aperçu M2 proposition de rendez-vous" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/messagerie-2-conversation.html" aria-label="Ouvrir la messagerie 2 en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Fil en bulles, entrefilet de l'annonce sous la barre de retour, proposition de rendez-vous en faire-part dans le fil, actions rapides au-dessus du composer.</p>
-        <a class="open" href="brandkit/explorations/messagerie-2-conversation.html">Ouvrir →</a>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="card-head"><span class="num">M3</span><h2>Messagerie · La correspondance</h2></div>
-      <div class="preview">
-        <div class="shot"><span class="shot-label">Haut de page</span><iframe src="brandkit/explorations/messagerie-3-correspondance.html" loading="lazy" title="Aperçu M3 haut de page" tabindex="-1"></iframe></div>
-        <div class="shot"><span class="shot-label">RDV confirmé</span><iframe src="brandkit/explorations/messagerie-3-correspondance.html#suite" loading="lazy" title="Aperçu M3 rendez-vous confirmé" tabindex="-1"></iframe></div>
-        <a class="overlay" href="brandkit/explorations/messagerie-3-correspondance.html" aria-label="Ouvrir la messagerie 3 en plein écran"><span>Ouvrir en plein écran</span></a>
-      </div>
-      <div class="card-foot">
-        <p class="desc">Variante sans bulles : chaque message est une petite lettre sur papier (en-tête, filet marine ou sable, signature), composer en « réponse » avec filet double.</p>
-        <a class="open" href="brandkit/explorations/messagerie-3-correspondance.html">Ouvrir →</a>
-      </div>
-    </article>
-  </div>
-
-  <footer>
-    TempsPourTemps — identité visuelle · Les prénoms, annonces et adresses affichés dans les maquettes sont fictifs.<br>
-    <a href="brandkit/index.html">Brandkit</a> · <a href="README.md">Documentation du dépôt</a>
-  </footer>
 </div>
 </body>
 </html>

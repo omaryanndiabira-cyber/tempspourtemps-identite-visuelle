@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les pistes explorées</title>
+<link rel="icon" href="assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brandkit/gazette.css">
+<style>
+body{padding:36px 20px 80px;}
+.wrap{max-width:1240px;margin:0 auto;}
+
+/* ————— l'en-tête ————— */
+.entete{text-align:center;max-width:780px;margin:0 auto 14px;}
+.entete img{width:58px;height:auto;margin-bottom:12px;}
+.entete .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.entete h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);letter-spacing:-.5px;margin-top:6px;}
+.entete p{color:var(--text-secondary);font-size:.95rem;line-height:1.6;margin-top:14px;}
+.entete .retour{
+  display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:10px 20px;border-radius:999px;
+  background:var(--marine);color:var(--sable);text-decoration:none;font-weight:700;font-size:.88rem;
+}
+.entete .retour:hover{background:var(--marine-hover);}
+
+/* ————— le sommaire collant ————— */
+.sommaire-nav{
+  position:sticky;top:0;z-index:20;margin:28px 0 34px;padding:11px 0;
+  background:rgba(247,246,243,.92);backdrop-filter:blur(10px);
+  border-top:1px solid var(--marine);border-bottom:3px double var(--marine);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:4px;
+}
+@supports not (backdrop-filter:blur(2px)){ .sommaire-nav{background:var(--bg-main);} }
+.sommaire-nav a{
+  padding:6px 13px;border-radius:7px;text-decoration:none;
+  font-family:var(--titres);font-weight:800;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.sommaire-nav a:hover{background:var(--sable);color:var(--marine);}
+.sommaire-nav a .n{color:var(--orange);margin-left:5px;}
+
+/* ————— les groupes ————— */
+.groupe{display:flex;align-items:center;gap:14px;margin:52px 0 8px;scroll-margin-top:70px;}
+.groupe h2{font-family:var(--titres);font-weight:800;font-size:1.3rem;white-space:nowrap;}
+.groupe .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.4;}
+.groupe .compte{
+  font-family:var(--titres);font-weight:800;font-size:.72rem;background:var(--sable);color:var(--marine);
+  border-radius:7px;padding:3px 9px;
+}
+.groupe-sub{color:var(--text-secondary);font-size:.88rem;margin:0 0 20px;max-width:820px;line-height:1.55;}
+.groupe-sub b{color:var(--marine);}
+
+/* ————— la grille de vignettes ————— */
+.rangs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(232px,100%),1fr));gap:18px;}
+.vignette{
+  background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  box-shadow:0 1px 3px rgba(24,62,87,.05), 0 14px 30px -24px rgba(24,62,87,.3);
+  display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  transition:transform .16s, box-shadow .16s;
+}
+.vignette:hover{transform:translateY(-3px);box-shadow:0 3px 8px rgba(24,62,87,.08), 0 22px 42px -22px rgba(24,62,87,.4);}
+.vignette .apercu{
+  height:210px;overflow:hidden;position:relative;background:#e7e4dc;
+  background-image:radial-gradient(circle at 20% 15%, rgba(252,219,129,.3), transparent 45%);
+}
+.vignette .apercu iframe{
+  width:390px;height:900px;flex:none;border:0;display:block;
+  transform:scale(.53);transform-origin:top left;pointer-events:none;
+}
+.vignette .apercu--large iframe{width:1240px;height:900px;transform:scale(.188);}
+.vignette .apercu--doc iframe{width:1100px;height:1600px;transform:scale(.21);}
+.vignette .pied{padding:11px 13px 13px;display:flex;flex-direction:column;gap:3px;flex:1;}
+.vignette .k{font-size:.6rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--orange-hover);}
+.vignette h3{font-family:var(--titres);font-weight:800;font-size:.9rem;line-height:1.3;}
+.vignette p{font-size:.76rem;color:var(--text-secondary);line-height:1.45;margin-top:2px;}
+/* « issue » et non « etat » : .etat est déjà la pastille d'état des composants */
+.vignette .issue{margin-top:auto;padding-top:9px;font-size:.7rem;font-weight:700;line-height:1.4;color:var(--text-tertiary);}
+.vignette .issue--retenu{color:#2f7a44;}
+
+/* ————— la ligne « ce qu'on en a tiré » ————— */
+.tire{
+  margin:14px 0 0;padding:11px 15px;border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;font-size:.82rem;line-height:1.55;color:var(--text-secondary);max-width:900px;
+}
+.tire b{color:var(--marine);}
+.tire .v{font-family:var(--titres);font-weight:800;color:var(--orange-hover);}
+
+footer{margin-top:64px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
+footer a{color:var(--marine);font-weight:600;}
+
+@media (max-width:520px){ body{padding:22px 10px 50px;} .sommaire-nav{gap:2px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="entete">
+  <img src="assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Archives</p>
+  <h1>Les pistes explorées</h1>
+  <p>Tout ce qui a été dessiné avant d'arriver au design retenu : neuf directions visuelles, douze accueils, trois gazettes déclinées, vingt barres de navigation, cinq ossatures PC et une poignée d'arbitrages. Rien n'est supprimé — chaque piste garde son <b>pour</b> et son <b>contre</b>, et la ligne sable sous chaque groupe dit ce qu'on en a retenu.</p>
+  <a class="retour" href="index.html">← Voir le design retenu</a>
+</header>
+
+<nav class="sommaire-nav">
+  <a href="#directions">Directions <span class="n">9</span></a>
+  <a href="#accueils">Accueils <span class="n">12</span></a>
+  <a href="#gazettes">Gazettes <span class="n">3</span></a>
+  <a href="#barres">Barres <span class="n">20</span></a>
+  <a href="#messagerie">Messagerie <span class="n">3</span></a>
+  <a href="#arbitrages">Arbitrages <span class="n">2</span></a>
+  <a href="#ossatures">Ossatures PC <span class="n">5</span></a>
+</nav>
+
+<!-- ================= 1 · LES DIRECTIONS ================= -->
+<div class="groupe" id="directions"><h2>Les directions visuelles</h2><span class="compte">9</span><span class="filet"></span></div>
+<p class="groupe-sub">Le tout premier tour de piste : neuf univers graphiques radicalement différents pour la même page, avant même de parler de structure. C'est ici qu'est née l'idée de la gazette.</p>
+
+<div class="rangs">
+  <a class="vignette" href="brandkit/explorations/variante-01-poster.html">
+    <div class="apercu"><iframe src="brandkit/explorations/variante-01-poster.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Variante 01</p><h3>Poster</h3><p>Grands aplats, typographie démesurée.</p><p class="issue">Écartée — trop affirmée pour un usage quotidien</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/variante-02-magazine.html">
+    <div class="apercu"><iframe src="brandkit/explorations/variante-02-magazine.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Variante 02</p><h3>Magazine</h3><p>Mise en pages éditoriale, photos pleine largeur.</p><p class="issue">Écartée — suppose des images qu'on n'aura pas</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/variante-03-swiss.html">
+    <div class="apercu"><iframe src="brandkit/explorations/variante-03-swiss.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Variante 03</p><h3>Swiss</h3><p>Grille stricte, Helvetica, aucun ornement.</p><p class="issue">Écartée — juste, mais froide pour du voisinage</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/variante-04-organique.html">
+    <div class="apercu"><iframe src="brandkit/explorations/variante-04-organique.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Variante 04</p><h3>Organique</h3><p>Formes molles, dégradés, coins très arrondis.</p><p class="issue">Écartée — trop proche de mille autres applications</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/variante-05-ui-system.html">
+    <div class="apercu"><iframe src="brandkit/explorations/variante-05-ui-system.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Variante 05</p><h3>UI system</h3><p>Composants génériques, tokens visibles.</p><p class="issue">Écartée — un système, pas une identité</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/variante-06-marine-premium.html">
+    <div class="apercu"><iframe src="brandkit/explorations/variante-06-marine-premium.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Variante 06</p><h3>Marine premium</h3><p>Fond sombre, dorures, contrastes forts.</p><p class="issue">Écartée — le luxe ne dit pas l'entraide</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/variante-07-bento.html">
+    <div class="apercu"><iframe src="brandkit/explorations/variante-07-bento.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Variante 07</p><h3>Bento</h3><p>Tuiles de tailles inégales, façon tableau de bord.</p><p class="issue">Écartée — belle vitrine, mauvaise lecture</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/variante-08-bauhaus.html">
+    <div class="apercu"><iframe src="brandkit/explorations/variante-08-bauhaus.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Variante 08</p><h3>Bauhaus</h3><p>Primaires, cercles et triangles, géométrie stricte.</p><p class="issue">Écartée — un parti pris qui vieillit vite</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/variante-09-minimal.html">
+    <div class="apercu"><iframe src="brandkit/explorations/variante-09-minimal.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Variante 09</p><h3>Minimal</h3><p>Noir, blanc, un seul accent, beaucoup de vide.</p><p class="issue">Écartée — rien à quoi s'attacher</p></div>
+  </a>
+</div>
+<p class="tire"><span class="v">Ce qu'on en a tiré —</span> aucune de ces neuf directions n'a été retenue, mais elles ont servi de <b>test d'élimination</b> : le projet ne voulait ni la froideur du système, ni la mode des tuiles, ni le luxe. Restait à trouver une forme qui parle de <b>papier, de quartier et de durée</b>. C'est de là qu'est venue la gazette.</p>
+
+<!-- ================= 2 · LES ACCUEILS ================= -->
+<div class="groupe" id="accueils"><h2>Les douze accueils</h2><span class="compte">12</span><span class="filet"></span></div>
+<p class="groupe-sub">Une fois la piste gazette ouverte, douze versions de la page d'accueil — dont cinq déclinaisons du thème journal, de la plus sage à la plus appuyée. <b>V1 est la peau retenue</b> ; V8 à V12 ont servi à trouver jusqu'où pousser le thème.</p>
+
+<div class="rangs">
+  <a class="vignette" href="brandkit/explorations/accueil-1-editorial.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-1-editorial.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V1</p><h3>Éditorial « Gazette du quartier »</h3><p>Filets, rubans sable, bandeau d'édition.</p><p class="issue issue--retenu">★ La peau retenue</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-2-bento.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-2-bento.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V2</p><h3>Bento</h3><p>Tuiles d'informations de tailles variables.</p><p class="issue">Écartée</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-3-social.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-3-social.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V3</p><h3>Social</h3><p>Fil continu, codes des réseaux sociaux.</p><p class="issue">Écartée</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-4-tableau-liege.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-4-tableau-liege.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V4</p><h3>Tableau de liège</h3><p>Petites annonces punaisées sur du liège.</p><p class="issue">Écartée — le décor prend le pas</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-5-carnet-washi.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-5-carnet-washi.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V5</p><h3>Carnet washi</h3><p>Papier, rubans adhésifs, écriture manuscrite.</p><p class="issue">Écartée</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-6-epingle-epure.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-6-epingle-epure.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V6</p><h3>Épinglé épuré</h3><p>La même idée, sans l'imitation de matière.</p><p class="issue">Écartée</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-7-fil-a-linge.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-7-fil-a-linge.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V7</p><h3>Fil à linge</h3><p>Cartes suspendues à une corde.</p><p class="issue">Écartée</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-8-gazette-belle-epoque.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-8-gazette-belle-epoque.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V8 · gazette</p><h3>Belle Époque</h3><p>Empattements, cachets, ornements 1900.</p><p class="issue">Écartée — thème trop prononcé</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-9-gazette-depeches.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-9-gazette-depeches.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V9 · gazette</p><h3>Dépêches</h3><p>Télex, capitales, numérotation d'agence.</p><p class="issue">Écartée — thème trop prononcé</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-10-gazette-colonnes.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-10-gazette-colonnes.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V10 · gazette</p><h3>Colonnes</h3><p>Filets verticaux, colonnes de plomb.</p><p class="issue">Écartée — mais le filet vertical est resté</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-11-gazette-breves.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-11-gazette-breves.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V11 · gazette</p><h3>Brèves</h3><p>Entrefilets courts, densité maximale.</p><p class="issue">Écartée</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/accueil-12-gazette-une.html">
+    <div class="apercu"><iframe src="brandkit/explorations/accueil-12-gazette-une.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">V12 · gazette</p><h3>La une</h3><p>Manchette en tête, article vedette.</p><p class="issue">Écartée sur mobile — reprise sur PC</p></div>
+  </a>
+</div>
+<p class="tire"><span class="v">Ce qu'on en a tiré —</span> <b>V1 est la peau retenue</b> : le thème y est lisible sans être costumé. V8 et V9 ont établi la limite haute — « carrément trop prononcé ». Mais V10 a laissé le <b>filet vertical</b>, qui sépare aujourd'hui les colonnes sur PC, et V12 a laissé la <b>manchette</b>, devenue l'ossature D4 bis du grand écran.</p>
+
+<!-- ================= 3 · LES GAZETTES ================= -->
+<div class="groupe" id="gazettes"><h2>Les trois propositions complètes</h2><span class="compte">3</span><span class="filet"></span></div>
+<p class="groupe-sub">Trois traitements de la peau V1, chacun décliné sur quatre écrans — accueil, messagerie, fil de conversation, fil rattaché à une annonce. Ils diffèrent par la forme des annonces, des messages et des barres.</p>
+
+<div class="rangs">
+  <a class="vignette" href="brandkit/explorations/proposition-1-colonnes.html">
+    <div class="apercu"><iframe src="brandkit/explorations/proposition-1-colonnes.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">P1</p><h3>Colonnes</h3><p>Le journal en colonnes, annonces à filets.</p><p class="issue">Base de la version retenue</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/proposition-2-breves.html">
+    <div class="apercu"><iframe src="brandkit/explorations/proposition-2-breves.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">P2</p><h3>Brèves</h3><p>Annonces courtes, très denses.</p><p class="issue">Écartée</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/proposition-3-alaune.html">
+    <div class="apercu"><iframe src="brandkit/explorations/proposition-3-alaune.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">P3</p><h3>À la une</h3><p>Une annonce vedette, le reste en sommaire.</p><p class="issue">Écartée</p></div>
+  </a>
+</div>
+<p class="tire"><span class="v">Ce qu'on en a tiré —</span> P1 a été retenue « sur quasiment tout », avec quatre corrections qui ont donné <b>la gazette aérée</b> : les posts ne sont plus collés, « lus / non lus » passent sur fond sable comme les sections d'accueil, les bulles de messages adoptent un <b>fond marine</b> pour le contraste, et un <b>écran intermédiaire</b> apparaît quand plusieurs fils existent avec une même personne.</p>
+
+<!-- ================= 4 · LES BARRES ================= -->
+<div class="groupe" id="barres"><h2>Les barres de navigation</h2><span class="compte">20</span><span class="filet"></span></div>
+<p class="groupe-sub">Dix barres du haut et dix barres du bas dans le thème gazette, suivant les conventions iOS et Android récentes — puis une section supplémentaire qui tente d'y intégrer les filets verticaux du journal.</p>
+
+<div class="rangs">
+  <a class="vignette" href="brandkit/explorations/barres-gazette.html">
+    <div class="apercu apercu--doc"><iframe src="brandkit/explorations/barres-gazette.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Document de référence</p><h3>10 barres du haut · 10 barres du bas</h3><p>Plus quatre essais d'intégration des filets verticaux.</p><p class="issue issue--retenu">★ B5 retenue — la pilule flottante qui se replie</p></div>
+  </a>
+</div>
+<p class="tire"><span class="v">Ce qu'on en a tiré —</span> <b>B5</b> est la barre retenue sur mobile : une pilule flottante en verre dépoli, qui se minimise sur l'onglet actif au défilement. Les essais d'intégration des filets verticaux ont été <b>rejetés en bloc</b> — « en haut, en bas, dans la page, ça fait beaucoup ». Sur PC, la barre du bas disparaît : c'est la manchette qui absorbe la navigation.</p>
+
+<!-- ================= 5 · LA MESSAGERIE ================= -->
+<div class="groupe" id="messagerie"><h2>Les premières messageries</h2><span class="compte">3</span><span class="filet"></span></div>
+<p class="groupe-sub">Trois écrans dessinés avant les propositions complètes, pour chercher la forme du courrier dans le thème gazette.</p>
+
+<div class="rangs">
+  <a class="vignette" href="brandkit/explorations/messagerie-1-boite.html">
+    <div class="apercu"><iframe src="brandkit/explorations/messagerie-1-boite.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">M1</p><h3>La boîte</h3><p>Liste des conversations, filtres en pastilles.</p><p class="issue">Base de la boîte retenue</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/messagerie-2-conversation.html">
+    <div class="apercu"><iframe src="brandkit/explorations/messagerie-2-conversation.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">M2</p><h3>La conversation</h3><p>Bulles claires, séparateurs de jour.</p><p class="issue">Revue — les bulles passent au marine</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/messagerie-3-correspondance.html">
+    <div class="apercu"><iframe src="brandkit/explorations/messagerie-3-correspondance.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">M3</p><h3>La correspondance</h3><p>Messages traités comme des lettres.</p><p class="issue">Écartée — trop lent à lire</p></div>
+  </a>
+</div>
+<p class="tire"><span class="v">Ce qu'on en a tiré —</span> la boîte de M1 est restée presque telle quelle. M2 a montré que des <b>bulles toutes claires</b> ne se distinguent pas assez : d'où le fond marine pour ses propres messages. M3 a prouvé qu'on ne lit pas une conversation comme une lettre.</p>
+
+<!-- ================= 6 · LES ARBITRAGES ================= -->
+<div class="groupe" id="arbitrages"><h2>Les arbitrages</h2><span class="compte">2</span><span class="filet"></span></div>
+<p class="groupe-sub">Deux questions de fond, traitées chacune dans une planche dédiée : comment articuler actions et rendez-vous, et que faire des annonces pourvues sans que personne ne le dise.</p>
+
+<div class="rangs">
+  <a class="vignette" href="brandkit/explorations/pages-1c-rdv-actions.html">
+    <div class="apercu apercu--doc"><iframe src="brandkit/explorations/pages-1c-rdv-actions.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Arbitrage</p><h3>Actions, rendez-vous &amp; affiche</h3><p>Cinq façons d'articuler les trois registres, plus trois versions affinées et une étude du talon.</p><p class="issue issue--retenu">★ 5 ter retenu — le billet à talon</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-1d-pourvues.html">
+    <div class="apercu apercu--doc"><iframe src="brandkit/explorations/pages-1d-pourvues.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Arbitrage</p><h3>Les annonces pourvues</h3><p>Trois déclencheurs pour clore une annonce, et le principe « pourvue ≠ supprimée ».</p><p class="issue issue--retenu">★ Règle retenue</p></div>
+  </a>
+</div>
+<p class="tire"><span class="v">Ce qu'on en a tiré —</span> deux décisions qui structurent toute l'application. <b>Le billet à talon</b> (5 ter) : 52 px de haut, talon séparé par un filet — jamais d'aplat — portant la date quand il n'y a rien à faire, et <b>le geste</b> quand on attend quelque chose de vous. Et pour les annonces : trois déclencheurs — après un échange validé, un réveil après dix jours de silence, la date d'échéance en filet de sécurité — avec le principe qu'une annonce pourvue est <b>grisée, jamais supprimée</b>.</p>
+
+<!-- ================= 7 · LES OSSATURES PC ================= -->
+<div class="groupe" id="ossatures"><h2>Les cinq ossatures PC</h2><span class="compte">5</span><span class="filet"></span></div>
+<p class="groupe-sub">Cinq façons d'adapter au grand écran les choix faits sur mobile, comparées deux fois : sur l'accueil, puis sur la messagerie. Elles se trouvent en <b>seconde partie</b> des deux planches, après l'ossature retenue.</p>
+
+<div class="rangs">
+  <a class="vignette" href="brandkit/explorations/bureau-1-accueil.html">
+    <div class="apercu apercu--large"><iframe src="brandkit/explorations/bureau-1-accueil.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Comparatif</p><h3>D1 à D5 sur l'accueil</h3><p>La colonne unique, le rail, le journal à deux colonnes, la une, le bureau à panneau.</p><p class="issue issue--retenu">★ D4 bis retenue</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/bureau-2-messagerie.html">
+    <div class="apercu apercu--large"><iframe src="brandkit/explorations/bureau-2-messagerie.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Comparatif</p><h3>D1 à D5 sur la messagerie</h3><p>Les mêmes ossatures appliquées au courrier, et le sort de l'écran intermédiaire.</p><p class="issue issue--retenu">★ D4 bis retenue</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/journal-ancien.html">
+    <div class="apercu apercu--doc"><iframe src="brandkit/explorations/journal-ancien.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Étude</p><h3>Le journal ancien</h3><p>Vocabulaire typographique du journal d'époque.</p><p class="issue">Source d'inspiration</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/journal-recent.html">
+    <div class="apercu apercu--doc"><iframe src="brandkit/explorations/journal-recent.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Étude</p><h3>Le journal récent</h3><p>Comment la presse contemporaine traite les filets.</p><p class="issue">Source d'inspiration</p></div>
+  </a>
+</div>
+<p class="tire"><span class="v">Ce qu'on en a tiré —</span> <b>D4 bis</b>, la une allégée : la manchette pleine sur l'accueil, le <b>titre courant</b> de 56 px sur les pages intérieures, et trois paliers de colonnes. D2 et D5 étaient les choix sûrs — mais un rail de navigation ne porte aucune identité, alors que la manchette est le seul endroit où le PC exprime le thème <b>mieux</b> que le mobile ne le pourra jamais.</p>
+
+<footer>
+  TempsPourTemps — identité visuelle · Archives des pistes explorées · Personnes et annonces fictives.<br>
+  <a href="index.html">Le design retenu</a> · <a href="brandkit/index.html">Le brandkit</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a>
+</footer>
+
+</div>
+</body>
+</html>
