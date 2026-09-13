@@ -408,6 +408,108 @@ footer a{color:var(--marine);font-weight:600;}
 .feuille .corps{overflow-y:auto;scrollbar-width:none;}
 .feuille .corps::-webkit-scrollbar{display:none;}
 
+/* feuille haute : tête et pied collants, corps défilant */
+.feuille--haute{height:88%;}
+.feuille--haute .corps{flex:1;}
+.feuille .pied{
+  flex:none;display:flex;gap:9px;padding:10px 18px 4px;border-top:1px solid var(--border);margin-top:6px;
+}
+.feuille .pied > *{flex:1;}
+
+/* ============================================================
+   LE DIALOGUE — court, centré, une seule question
+   ============================================================ */
+.voile--centre{align-items:center;justify-content:center;padding:0 26px;}
+.dialogue{
+  width:100%;background:var(--bg-main);border-radius:18px;overflow:hidden;
+  box-shadow:0 20px 50px -12px rgba(15,47,68,.55);
+  border:1px solid var(--border);
+}
+.dialogue .tete{padding:16px 18px 0;text-align:center;}
+.dialogue .tete .pic{
+  width:44px;height:44px;border-radius:50%;margin:0 auto 10px;
+  display:flex;align-items:center;justify-content:center;background:var(--bg-hover);color:var(--orange-hover);
+}
+.dialogue .tete .pic svg{width:21px;height:21px;}
+.dialogue .tete .pic--danger{background:rgba(196,69,54,.10);color:var(--danger);}
+.dialogue .tete h3{font-family:var(--titres);font-weight:800;font-size:16.5px;line-height:1.3;}
+.dialogue .corps{padding:8px 18px 4px;text-align:center;font-size:12.5px;line-height:1.55;color:var(--text-secondary);}
+.dialogue .corps b{color:var(--marine);font-family:var(--titres);font-weight:800;}
+.dialogue .regle{margin:12px 18px 0;border-top:1px solid var(--marine);border-bottom:3px double var(--marine);height:7px;opacity:.5;}
+.dialogue .pied{display:flex;gap:9px;padding:14px 18px 16px;}
+.dialogue .pied > *{flex:1;}
+.dialogue .pied--empile{flex-direction:column;}
+
+/* ============================================================
+   LE BANDEAU DE NOTIFICATION — passager, au-dessus de la barre
+   ============================================================ */
+.toast{
+  position:absolute;left:16px;right:16px;bottom:92px;z-index:58;
+  display:flex;align-items:center;gap:10px;
+  background:var(--marine);color:#fff9ec;border-radius:13px;padding:11px 13px;
+  box-shadow:0 12px 28px -10px rgba(15,47,68,.6);
+}
+.toast .pic{flex:none;width:24px;height:24px;border-radius:50%;background:rgba(252,219,129,.18);display:flex;align-items:center;justify-content:center;color:var(--sable);}
+.toast .pic svg{width:14px;height:14px;}
+.toast .c{flex:1;min-width:0;font-size:12.5px;line-height:1.4;}
+.toast .c b{font-family:var(--titres);font-weight:800;color:var(--sable);}
+.toast .lien-filet{color:var(--sable);border-bottom-color:rgba(252,219,129,.5);flex:none;}
+.toast--succes{background:#2f6b44;}
+.toast--succes .pic{background:rgba(255,255,255,.18);color:#fff;}
+.toast--erreur{background:#8f3227;}
+.toast--erreur .pic{background:rgba(255,255,255,.18);color:#fff;}
+.toast--erreur .lien-filet,.toast--succes .lien-filet{color:#fff;border-bottom-color:rgba(255,255,255,.55);}
+
+/* ============================================================
+   L'INFOBULLE — une explication attachée à un mot
+   ============================================================ */
+.infobulle{
+  position:absolute;z-index:59;max-width:240px;
+  background:var(--marine);color:#fff9ec;border-radius:12px;padding:10px 12px;
+  font-size:11.5px;line-height:1.5;
+  box-shadow:0 12px 28px -10px rgba(15,47,68,.55);
+}
+.infobulle b{font-family:var(--titres);font-weight:800;color:var(--sable);}
+.infobulle::after{
+  content:"";position:absolute;width:12px;height:12px;background:var(--marine);
+  transform:rotate(45deg);
+}
+.infobulle--haut::after{bottom:-5px;left:28px;}
+.infobulle--bas::after{top:-5px;left:28px;}
+.infobulle .fermer{
+  display:block;margin-top:8px;font-size:10.5px;font-weight:700;color:var(--sable);
+  background:none;border:0;border-bottom:1px dashed rgba(252,219,129,.5);padding:0 0 1px;cursor:pointer;
+}
+
+/* ============================================================
+   LES ÉTATS — chargement, erreur
+   ============================================================ */
+.squelette{display:block;background:rgba(24,62,87,.09);border-radius:6px;}
+.squelette--titre{height:15px;width:70%;margin-bottom:9px;}
+.squelette--ligne{height:11px;width:100%;margin-bottom:6px;}
+.squelette--courte{width:52%;}
+.squelette--pastille{height:14px;width:78px;border-radius:5px;margin-bottom:10px;}
+.squelette--rond{width:40px;height:40px;border-radius:50%;flex:none;}
+.squelette-carte{
+  background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:13px 16px 14px;
+}
+.squelette-carte .tete{display:flex;gap:10px;align-items:center;margin-bottom:11px;}
+@media (prefers-reduced-motion:no-preference){
+  .squelette{animation:respire 1.6s ease-in-out infinite;}
+  @keyframes respire{0%,100%{opacity:1}50%{opacity:.45}}
+}
+
+.erreur{
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;
+  margin:26px 26px;padding:26px 18px;
+  border:1px solid rgba(196,69,54,.3);border-radius:16px;background:rgba(196,69,54,.05);
+}
+.erreur .pic{width:46px;height:46px;border-radius:50%;background:rgba(196,69,54,.10);display:flex;align-items:center;justify-content:center;color:var(--danger);}
+.erreur .pic svg{width:22px;height:22px;}
+.erreur h3{font-family:var(--titres);font-weight:800;font-size:14.5px;}
+.erreur p{font-size:12px;color:var(--text-secondary);line-height:1.5;max-width:28ch;}
+.erreur .detail{font-size:10.5px;color:var(--text-tertiary);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:2px;}
+
 /* menu « Proposer » */
 .menu-proposer{display:flex;flex-direction:column;gap:2px;padding:0 12px;}
 .menu-proposer a{display:flex;align-items:center;gap:12px;padding:11px 8px;border-radius:12px;text-decoration:none;color:inherit;border-bottom:1px solid var(--border);}

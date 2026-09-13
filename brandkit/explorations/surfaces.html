@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les surfaces · feuilles, dialogues, bandeaux, états</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  /* bandeau système, sous la barre du haut */
+  .bandeau-systeme{
+    display:flex;align-items:center;gap:10px;padding:8px 14px 8px 12px;flex:none;
+    background:var(--bg-hover);border-left:4px solid var(--warning);border-bottom:1px solid #efdcae;
+    font-size:11.5px;color:var(--text-secondary);line-height:1.4;
+  }
+  .bandeau-systeme svg{width:16px;height:16px;flex:none;color:var(--warning);}
+  .bandeau-systeme b{color:var(--marine);font-family:var(--titres);font-weight:800;}
+  .bandeau-systeme .x{margin-left:auto;color:var(--text-tertiary);font-size:16px;line-height:1;flex:none;background:none;border:0;cursor:pointer;}
+  .bandeau-systeme--info{border-left-color:var(--marine);background:#eef3f7;border-bottom-color:#dfe7ee;}
+  .bandeau-systeme--info svg{color:var(--marine);}
+
+  .mot-souligne{
+    border-bottom:1px dotted var(--orange);cursor:help;font-weight:600;color:var(--marine);
+  }
+  .repere{
+    display:inline-block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;
+    background:rgba(24,62,87,.07);border-radius:5px;padding:1px 7px;color:var(--text-tertiary);
+  }
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Composants</p>
+  <h1>Les surfaces</h1>
+  <p>Tout ce qui vient se poser <b>par-dessus</b> une page : feuilles, dialogues, bandeaux, infobulles, et les trois états qu'un écran peut prendre — chargement, vide, erreur. Chacun est montré en situation, avec la règle qui dit <b>quand l'employer</b>. C'est cette règle qui compte : le plus sûr moyen d'abîmer une interface est d'avoir quatre surfaces qui se ressemblent sans qu'on sache laquelle choisir.</p>
+  <div class="traits">
+    <span><b>Feuilles</b> choix · formulaire</span>
+    <span><b>Dialogues</b> confirmation · destructif</span>
+    <span><b>Bandeaux</b> passager · persistant</span>
+    <span><b>États</b> chargement · vide · erreur</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ========== 1 · LA FEUILLE DE CHOIX ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>La feuille de choix</h2><span class="repere">feuille</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+      </main>
+
+      <div class="voile">
+        <div class="feuille">
+          <span class="poignee"></span>
+          <div class="tete"><h3>Que souhaitez-vous proposer ?</h3><button class="x" type="button">×</button></div>
+          <div class="corps">
+            <div class="menu-proposer">
+              <a href="#"><span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></span><div><b>Un mot dans le fil</b><span>Un besoin ou une envie, en quelques lignes</span></div></a>
+              <a href="#"><span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg></span><div><b>Une petite annonce</b><span>Un service que vous rendez ou cherchez</span></div></a>
+              <a href="#"><span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg></span><div><b>Un rendez-vous</b><span>Vous convenez d'un créneau avec un voisin</span></div></a>
+              <a href="#"><span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 11a3 3 0 1 0 0-6M18 20a6 6 0 0 0-3-5.2"/></svg></span><div><b>Un atelier</b><span>Vous animez, plusieurs voisins participent</span></div></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="home home--clair"></span>
+    </div>
+    <p class="note"><b>Quand ?</b> Pour offrir de 2 à 7 chemins de même nature. Elle remonte du bas, s'appuie sur une poignée, et se ferme au glissement ou au voile. Elle ne porte <b>jamais de bouton de validation</b> : chaque ligne est elle-même le choix. Au-delà de sept entrées, c'est une page, pas une feuille.</p>
+  </figure>
+
+  <!-- ========== 2 · LA FEUILLE DE FORMULAIRE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>La feuille de formulaire</h2><span class="repere">feuille haute</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed"></main>
+
+      <div class="voile">
+        <div class="feuille feuille--haute">
+          <span class="poignee"></span>
+          <div class="tete">
+            <h3>Proposer un rendez-vous</h3>
+            <button class="x" type="button">×</button>
+          </div>
+          <div class="corps">
+            <div class="form" style="padding-top:4px">
+              <div class="form-groupe">
+                <label>Avec qui</label>
+                <div class="saisie saisie--rempli" style="display:flex;align-items:center;gap:9px">
+                  <span class="avatar av-creme" style="width:26px;height:26px;font-size:9.5px;border:1.5px solid var(--sable)">AN</span>
+                  Alice Noël · Centre
+                </div>
+              </div>
+              <div class="form-groupe">
+                <label>À propos de <span class="opt">— facultatif</span></label>
+                <div class="select"><b style="font-family:var(--titres)">Son annonce « Une étagère à monter »</b><span class="chev">▾</span></div>
+              </div>
+              <div class="form-groupe">
+                <label>Quand</label>
+                <div class="duo"><div class="saisie saisie--rempli">Sam. 14 juin</div><div class="saisie saisie--rempli">10:00</div></div>
+              </div>
+              <div class="form-groupe">
+                <label>Combien de temps</label>
+                <div class="saisie saisie--rempli">1 h 00</div>
+                <p class="aide">Une estimation suffit : vous corrigerez la durée réelle à la validation.</p>
+              </div>
+              <div class="form-groupe">
+                <label>Où</label>
+                <div class="bascule"><span class="opt on">Chez Alice</span><span class="opt">Chez moi</span><span class="opt">Ailleurs</span></div>
+              </div>
+              <div class="form-groupe">
+                <label>Un mot <span class="opt">— facultatif</span></label>
+                <div class="saisie saisie--zone">Je passe avec ma perceuse…</div>
+              </div>
+            </div>
+          </div>
+          <div class="pied">
+            <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+            <button class="btn-plein btn-plein--orange" type="button">Proposer</button>
+          </div>
+        </div>
+      </div>
+      <span class="home home--clair"></span>
+    </div>
+    <p class="note"><b>Quand ?</b> Pour toute saisie — création, édition. La règle de l'app tient : jamais de page pleine pour un formulaire, toujours cette feuille. Sa <b>tête et son pied restent collés</b>, seul le corps défile : le bouton de validation ne disparaît donc jamais. Elle monte à 88 % de la hauteur, ce qui laisse voir qu'on est posé sur quelque chose.</p>
+  </figure>
+
+  <!-- ========== 3 · LE DIALOGUE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Le dialogue de confirmation</h2><span class="repere">dialogue</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <span class="titre">L'échange</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed">
+        <article class="carte-rdv carte-rdv--large" style="margin:14px 18px 0"><div class="cadre">
+          <div class="entete"><h3>Montage de l'étagère</h3></div>
+          <div class="statut statut--attente">En attente de validation</div>
+          <div class="quand"><div class="date">Samedi 14 juin</div><div class="meta">10:00<span class="sep">·</span>1 h 15 réelles</div></div>
+        </div></article>
+      </main>
+
+      <div class="voile voile--centre">
+        <div class="dialogue">
+          <div class="tete">
+            <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <h3>Valider cet échange ?</h3>
+          </div>
+          <div class="corps">
+            Vous confirmez avoir donné <b>1 h 15</b> à Alice Noël.<br>
+            Votre compteur passera de 8 h 30 à <b>9 h 45</b>.
+          </div>
+          <div class="regle"></div>
+          <div class="pied">
+            <button class="btn-plein btn-plein--contour" type="button">Pas encore</button>
+            <button class="btn-plein btn-plein--orange" type="button">Valider</button>
+          </div>
+        </div>
+      </div>
+      <span class="home home--clair"></span>
+    </div>
+    <p class="note"><b>Quand ?</b> Pour une décision <b>binaire et irréversible dans ses effets</b> — ici, un mouvement de compteur. Le dialogue est centré, court, et ne contient aucune saisie : s'il faut remplir quelque chose, c'est une feuille. Il énonce toujours la <b>conséquence chiffrée</b> avant de demander. Le bouton de refus dit ce qu'il fait (« Pas encore »), pas « Annuler ».</p>
+  </figure>
+
+  <!-- ========== 4 · LE DIALOGUE DESTRUCTIF ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">4</span><h2>Le dialogue destructif</h2><span class="repere">dialogue · danger</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb" style="background:var(--marine-hover)">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Supprimer un compte</span>
+        <span style="width:36px"></span>
+      </div>
+      <main class="feed"></main>
+
+      <div class="voile voile--centre">
+        <div class="dialogue">
+          <div class="tete">
+            <span class="pic pic--danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg></span>
+            <h3>Supprimer le compte de Robert Maury ?</h3>
+          </div>
+          <div class="corps">
+            Ses <b>14 échanges</b> et son compteur de <b>6 h</b> seront perdus. Ses annonces disparaîtront du quartier. <b>Cette action est irréversible.</b>
+          </div>
+          <div style="padding:12px 18px 0;text-align:left">
+            <div class="form-groupe">
+              <label>Écrivez son nom pour confirmer</label>
+              <div class="saisie">Robert Maury</div>
+            </div>
+          </div>
+          <div class="pied pied--empile">
+            <button class="btn-plein" type="button" style="background:var(--danger);color:#fff;box-shadow:0 2px 0 #8f3227">Supprimer définitivement</button>
+            <button class="btn-plein btn-plein--contour" type="button">Garder ce compte</button>
+          </div>
+        </div>
+      </div>
+      <span class="home home--clair"></span>
+    </div>
+    <p class="note"><b>Quand ?</b> Uniquement pour ce qui <b>détruit des données</b>. Trois différences avec le dialogue ordinaire : le picto passe en rouge, ce qui sera perdu est <b>chiffré</b>, et une <b>saisie du nom</b> barre la route au geste réflexe. Les boutons s'empilent au lieu de se côtoyer — on ne clique pas au hasard sur une pile — et l'issue sûre est en bas, sous le pouce.</p>
+  </figure>
+
+  <!-- ========== 5 · LES BANDEAUX ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">5</span><h2>Les bandeaux</h2><span class="repere">système · notification</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 9 h 45</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <div class="bandeau-systeme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg>
+        <span><b>Hors connexion.</b> Vos réponses partiront au retour du réseau.</span>
+      </div>
+      <div class="bandeau-systeme bandeau-systeme--info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <span>Connecté pour <b>Jean Mercier</b>, votre filleul.</span>
+        <button class="x" type="button">×</button>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+        <div class="rubrique">
+          <span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="rangee">
+          <article class="carte-rdv"><div class="cadre">
+            <div class="entete"><h3>Rencontre physique</h3></div>
+            <div class="statut">Confirmé</div>
+            <div class="quand"><div class="date">11 juin 2026</div><div class="meta">12:30<span class="sep">·</span>15 min</div></div>
+            <div class="avec"><span class="avatar avatar--mm">MM</span><span class="nom">Avec Marie Morel</span></div>
+          </div></article>
+        </div>
+      </main>
+
+      <div class="toast toast--succes">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p class="c">Échange validé · <b>1 h 15</b> créditée</p>
+        <button class="lien-filet" type="button">Annuler</button>
+      </div>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Deux familles à ne pas confondre. Le <b>bandeau système</b> se colle sous la barre du haut, ne part pas tout seul, et décrit un état durable — hors connexion, immersion chez un filleul. La <b>notification</b> flotte au-dessus de la barre du bas, s'efface après quelques secondes, et confirme un geste qu'on vient de faire. Elle porte presque toujours un « Annuler » : c'est ce qui permet d'agir sans dialogue de confirmation.</p>
+  </figure>
+
+  <!-- ========== 6 · L'INFOBULLE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">6</span><h2>L'infobulle</h2><span class="repere">infobulle</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Le relevé</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed" style="position:relative">
+        <section class="grand-titre">
+          <h1>Votre temps</h1>
+          <p class="date">Depuis le 12 mars 2026 · <b>12 échanges</b></p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="compteurs" style="margin-top:14px">
+          <div><div class="v v--donne">5 h 15</div><div class="l">donné</div></div>
+          <div><div class="v v--recu">3 h 15</div><div class="l">reçu</div></div>
+          <div><div class="v v--solde">8 h 30</div><div class="l">compteur</div></div>
+        </div>
+        <p class="compteurs-note">Vous avez commencé avec <span class="mot-souligne">5 heures offertes</span> à l'inscription.</p>
+
+        <div class="infobulle infobulle--bas" style="left:18px;right:18px;top:268px">
+          <b>Les 5 heures d'arrivée.</b> Le quartier vous les avance pour que vous puissiez demander un coup de main avant d'en avoir rendu un. Elles ne s'annulent pas et ne se remboursent pas : c'est un cadeau de bienvenue.
+          <button class="fermer" type="button">J'ai compris</button>
+        </div>
+
+        <div class="rubrique" style="margin-top:150px">
+          <span class="tape"><h2>Les mouvements</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="registre">
+          <div class="registre-tete"><span>Juin 2026</span><span>Solde</span></div>
+          <div class="registre-ligne">
+            <div class="c"><b>Cours d'espagnol</b><p class="m">reçu de Marta Lopez · 8 juin</p></div>
+            <span class="etat etat--neutre">− 1 h</span>
+          </div>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note"><b>Quand ?</b> Pour expliquer <b>un mot précis</b>, jamais une page. Elle s'accroche au terme souligné de pointillés orange, en marine plein pour qu'on la distingue du contenu, et se referme par un « J'ai compris » plutôt qu'une croix — on veut savoir qu'elle a été lue. Elle ne contient <b>aucune action</b> : si l'explication débouche sur un geste, c'est un encart dans le flux, pas une bulle.</p>
+  </figure>
+
+  <!-- ========== 7 · LES ÉTATS ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n">7</span><h2>Chargement, vide, erreur</h2><span class="repere">états</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <span class="titre">Le fil</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="rubrique" style="margin-top:14px">
+          <span class="tape"><h2>Chargement</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="fil">
+          <div class="squelette-carte">
+            <div class="tete">
+              <span class="squelette squelette--rond"></span>
+              <div style="flex:1">
+                <span class="squelette squelette--ligne" style="width:42%;margin-bottom:5px"></span>
+                <span class="squelette squelette--ligne" style="width:28%;height:9px;margin:0"></span>
+              </div>
+            </div>
+            <span class="squelette squelette--pastille"></span>
+            <span class="squelette squelette--titre"></span>
+            <span class="squelette squelette--ligne"></span>
+            <span class="squelette squelette--ligne squelette--courte"></span>
+          </div>
+          <div class="squelette-carte">
+            <div class="tete">
+              <span class="squelette squelette--rond"></span>
+              <div style="flex:1">
+                <span class="squelette squelette--ligne" style="width:52%;margin-bottom:5px"></span>
+                <span class="squelette squelette--ligne" style="width:32%;height:9px;margin:0"></span>
+              </div>
+            </div>
+            <span class="squelette squelette--titre" style="width:82%"></span>
+            <span class="squelette squelette--ligne"></span>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Vide</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="vide" style="margin:0 18px">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></span>
+          <h3>Personne n'a encore écrit</h3>
+          <p>Le fil est tout neuf. Le premier mot est souvent le plus utile.</p>
+          <button class="action action--fort" type="button">Écrire le premier</button>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Erreur</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="erreur" style="margin:0 18px 18px">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16h.01"/></svg></span>
+          <h3>Le fil n'a pas pu être chargé</h3>
+          <p>Le réseau a coupé en cours de route. Vos données sont intactes.</p>
+          <button class="action action--fort" type="button">Réessayer</button>
+          <p class="detail">erreur 503 · 10 juin, 9 h 41</p>
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Les trois états d'un écran, ici côte à côte pour comparaison — dans la vraie vie ils s'excluent. Le <b>chargement</b> dessine la forme de ce qui arrive, pas un tourniquet : on prépare l'œil. Le <b>vide</b> n'est jamais une page blanche, il propose le geste qui le remplira. L'<b>erreur</b> dit ce qui a échoué, <b>rassure sur les données</b>, offre de réessayer, et relègue le code technique en bas de casse.</p>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Les surfaces · Tous les composants reposent sur <code>brandkit/gazette.css</code>.<br>
+  <a href="../../index.html">Galerie</a>
+</footer>
+</body>
+</html>
