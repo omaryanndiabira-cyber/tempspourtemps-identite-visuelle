@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — La messagerie sur grand écran, 5 adaptations</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+body{padding:38px 20px 80px;}
+
+/* ————— ossatures reprises de la planche accueil ————— */
+.b-nav1{height:47px;flex:none;background:var(--paper);border-bottom:1px solid var(--marine);display:flex;align-items:stretch;justify-content:center;gap:2px;}
+.b-nav1 a{display:flex;align-items:center;gap:8px;padding:0 22px;text-decoration:none;font-family:var(--titres);font-weight:800;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary);border-bottom:3px solid transparent;}
+.b-nav1 a svg{width:16px;height:16px;}
+.b-nav1 a.on{color:var(--marine);border-bottom-color:var(--orange);}
+.b-nav1 a .cpt{min-width:16px;height:16px;line-height:16px;border-radius:999px;background:var(--orange);color:#fff9ec;font-size:9px;text-align:center;padding:0 4px;}
+
+.b-rail{width:244px;flex:none;background:var(--paper);border-right:1px solid var(--marine);padding:15px 0 14px;display:flex;flex-direction:column;}
+.b-rail .grp{font-size:8.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-tertiary);padding:0 22px;margin:13px 0 6px;}
+.b-rail a{display:flex;align-items:center;gap:11px;margin:1px 13px;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600;color:var(--text-secondary);text-decoration:none;}
+.b-rail a svg{width:17px;height:17px;color:var(--text-tertiary);flex:none;}
+.b-rail a.on{background:var(--sable);color:var(--marine);font-family:var(--titres);font-weight:800;transform:rotate(-.45deg);box-shadow:0 1px 2px rgba(24,62,87,.12);}
+.b-rail a.on svg{color:var(--marine);}
+.b-rail a .cpt{margin-left:auto;min-width:18px;height:18px;line-height:18px;border-radius:999px;background:var(--marine);color:var(--sable);font-family:var(--titres);font-weight:800;font-size:10px;text-align:center;padding:0 5px;}
+.b-rail .filet-r{height:1px;background:var(--border);margin:12px 22px;}
+.b-rail .pied{margin-top:auto;padding:13px 22px 0;border-top:1px solid var(--border);}
+.b-rail .pied .compteur{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
+.b-rail .pied .v{font-family:var(--titres);font-weight:800;font-size:23px;color:var(--marine);margin-top:2px;}
+
+.b-rubriques{height:45px;flex:none;background:var(--bg-main);border-bottom:2px solid var(--marine);display:flex;align-items:center;padding:0 26px;gap:3px;}
+.b-rubriques a{padding:6px 16px;text-decoration:none;border-radius:4px;font-family:var(--titres);font-weight:800;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);}
+.b-rubriques a.on{color:var(--marine);background:var(--sable);transform:rotate(-.5deg);box-shadow:0 1px 2px rgba(24,62,87,.12);}
+.b-rubriques .droite{margin-left:auto;font-size:10.5px;color:var(--text-tertiary);letter-spacing:.1em;text-transform:uppercase;font-weight:600;}
+
+.b-manchette{flex:none;background:var(--paper);border-bottom:3px double var(--marine);padding:11px 30px 0;}
+.b-manchette .haut{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--marine);padding-bottom:8px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--text-secondary);}
+.b-manchette .haut .moi{display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:normal;}
+.b-manchette .titre{display:flex;align-items:center;justify-content:center;gap:15px;padding:11px 0 9px;}
+.b-manchette .titre img{height:38px;width:auto;}
+.b-manchette .titre h1{font-family:var(--titres);font-weight:800;font-size:29px;letter-spacing:-.4px;color:var(--marine);}
+.b-manchette .titre .devise{font-size:10.5px;font-style:italic;color:var(--text-tertiary);border-left:1px solid var(--border);padding-left:15px;}
+.b-manchette .nav{display:flex;justify-content:center;border-top:1px solid var(--marine);}
+.b-manchette .nav a{padding:8px 19px;text-decoration:none;border-bottom:3px solid transparent;font-family:var(--titres);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-secondary);}
+.b-manchette .nav a.on{color:var(--marine);border-bottom-color:var(--orange);}
+.b-manchette .nav a .cpt{color:var(--orange);margin-left:5px;}
+
+.b-rail2{width:76px;flex:none;background:var(--marine);display:flex;flex-direction:column;align-items:center;gap:2px;padding:13px 0;}
+.b-rail2 .marque{margin-bottom:11px;}
+.b-rail2 .marque img{height:26px;width:auto;}
+.b-rail2 a{width:54px;height:52px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;position:relative;color:rgba(255,249,236,.62);font-size:7.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
+.b-rail2 a svg{width:19px;height:19px;}
+.b-rail2 a.on{background:var(--sable);color:var(--marine);}
+.b-rail2 a .pt{position:absolute;top:5px;right:9px;min-width:14px;height:14px;line-height:14px;border-radius:999px;background:var(--orange);color:#fff9ec;font-family:var(--titres);font-weight:800;font-size:8.5px;text-align:center;padding:0 3px;border:1.5px solid var(--marine);}
+.b-rail2 .bas2{margin-top:auto;}
+
+/* ————— les trois panneaux de la messagerie ————— */
+.b-liste{
+  width:344px;flex:none;background:var(--bg-main);border-right:1px solid var(--marine);
+  display:flex;flex-direction:column;min-height:0;
+}
+.b-liste .tete{
+  height:54px;flex:none;display:flex;align-items:center;gap:10px;padding:0 16px;
+  border-bottom:1px solid var(--border);background:var(--paper);
+}
+.b-liste .tete h2{font-family:var(--titres);font-weight:800;font-size:15px;flex:1;}
+.b-liste .tete .ibtn{width:32px;height:32px;color:var(--marine);}
+.b-liste .flux{flex:1;overflow-y:auto;scrollbar-width:none;padding:10px 0 24px;min-height:0;}
+.b-liste .flux::-webkit-scrollbar{display:none;}
+.b-liste .chips{margin:0 12px 10px;}
+.b-liste .section-courrier{margin:0 12px 12px;}
+.b-liste .titre-sect{
+  font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-tertiary);margin:0 16px 6px;
+}
+/* la conversation ouverte */
+.b-liste .conv.actif{position:relative;}
+.b-liste .conv.actif::after{content:"";position:absolute;left:-12px;top:4px;bottom:4px;width:3px;border-radius:0 3px 3px 0;background:var(--orange);}
+
+/* le fil ouvert */
+.b-fil{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--grad-hero);}
+.b-fil-tete{
+  flex:none;display:flex;align-items:center;gap:12px;padding:11px 18px;
+  background:var(--paper);border-bottom:1px solid var(--marine);
+}
+.b-fil-tete .c{flex:1;min-width:0;}
+.b-fil-tete .nom{font-family:var(--titres);font-weight:800;font-size:15px;}
+.b-fil-tete .sujet{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-top:2px;}
+.b-fil-tete .sujet b{color:var(--orange-hover);}
+.b-fil-tete .ibtn{width:34px;height:34px;color:var(--marine);}
+.b-fil-corps{
+  flex:1;overflow-y:auto;scrollbar-width:none;min-height:0;
+  padding:14px 22px 10px;display:flex;flex-direction:column;gap:8px;
+}
+.b-fil-corps::-webkit-scrollbar{display:none;}
+.b-fil-corps .msg{max-width:62%;}
+.b-fil .bas{flex:none;}
+.b-fil .composer{padding:10px 14px 14px 10px;}
+
+/* le dossier de la personne */
+.b-dossier{
+  width:304px;flex:none;background:var(--paper);border-left:1px solid var(--marine);
+  overflow-y:auto;scrollbar-width:none;padding:16px 18px 26px;min-height:0;
+}
+.b-dossier::-webkit-scrollbar{display:none;}
+.b-dossier .carte-id{text-align:center;padding-bottom:14px;border-bottom:1px solid var(--marine);}
+.b-dossier .carte-id .avatar{width:56px;height:56px;font-size:18px;margin:0 auto 9px;border:2px solid var(--sable);}
+.b-dossier .carte-id b{display:block;font-family:var(--titres);font-weight:800;font-size:16px;}
+.b-dossier .carte-id .q{font-size:10.5px;color:var(--text-tertiary);margin-top:2px;}
+.b-dossier .carte-id .liens{display:flex;justify-content:center;gap:14px;margin-top:10px;}
+.b-dossier .tete{
+  font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-secondary);padding-bottom:6px;border-bottom:1px solid var(--border);
+  margin:20px 0 9px;display:flex;align-items:baseline;gap:8px;
+}
+.b-dossier .tete .n2{margin-left:auto;color:var(--orange-hover);letter-spacing:.06em;}
+
+/* le groupe de fils avec une même personne — l'écran intermédiaire du mobile */
+.b-groupe{background:var(--bg-hover);border:1px solid #efdcae;border-radius:14px;padding:2px 12px 8px;box-shadow:0 1px 2px rgba(24,62,87,.05);}
+.b-groupe--calme{background:var(--paper);border-color:var(--border);}
+.b-groupe .tete-g{display:flex;align-items:center;gap:9px;padding:10px 0 9px;border-bottom:1px solid rgba(24,62,87,.14);}
+.b-groupe .tete-g .avatar{width:34px;height:34px;font-size:11px;}
+.b-groupe .tete-g .nom{font-family:var(--titres);font-weight:800;font-size:13.5px;flex:1;}
+.b-groupe .tete-g .cpt{font-size:8.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--orange-hover);}
+.b-sous{display:flex;gap:10px;padding:9px 0;border-top:1px dotted rgba(24,62,87,.2);text-decoration:none;color:inherit;position:relative;}
+.b-sous:first-of-type{border-top:0;}
+.b-sous .bar{width:3px;border-radius:3px;background:rgba(24,62,87,.16);flex:none;}
+.b-sous.on .bar{background:var(--orange);}
+.b-sous .c{flex:1;min-width:0;}
+.b-sous .s{font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);}
+.b-sous .s b{color:var(--orange-hover);}
+.b-sous .s.rdv b{color:var(--success);}
+.b-sous h4{font-family:var(--titres);font-weight:800;font-size:12.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.b-sous p{font-size:11.5px;color:var(--text-secondary);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.b-sous .h{font-size:9.5px;color:var(--text-tertiary);white-space:nowrap;}
+.b-sous.nonlu .h{color:var(--orange-hover);font-weight:700;}
+.b-sous.on h4{color:var(--marine);}
+
+/* le dossier en version compacte, pour le panneau de D5 */
+.b-resume{
+  background:var(--bg-hover);border:1px solid #efdcae;border-radius:12px;padding:10px 12px;
+  font-size:11.5px;line-height:1.5;color:var(--text-secondary);
+}
+.b-resume b{color:var(--marine);}
+.b-resume .l{display:flex;gap:9px;padding:5px 0;border-top:1px dotted rgba(24,62,87,.18);}
+.b-resume .l:first-of-type{border-top:0;}
+.b-resume .k{width:58px;flex:none;font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);padding-top:2px;}
+
+.b-centre-msg{flex:1;display:flex;min-width:0;min-height:0;}
+
+/* verdict */
+.verdict{
+  border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:11px 15px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);
+  max-width:1000px;
+}
+.verdict p + p{margin-top:4px;}
+.verdict .pour::before{content:"Pour — ";font-weight:800;color:#2f7a44;}
+.verdict .contre::before{content:"Contre — ";font-weight:800;color:var(--danger);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Grand écran</p>
+  <h1>La messagerie sur PC — cinq adaptations</h1>
+  <p class="sub">Les mêmes cinq ossatures que l'accueil, appliquées au courrier. Les composants ne changent pas : sections <b>lus</b> / <b>non lus</b> sur fond sable, bulles marine pour vos messages, faire-part inséré dans le fil, barre de rédaction en pied.</p>
+  <p class="traits">Le point d'attention : sur mobile, quand on a <b>plusieurs fils avec une même personne</b>, un écran intermédiaire s'intercale. Sur grand écran il n'a plus lieu d'être — chaque proposition montre par quoi elle le remplace.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche-bureau">
+
+  <!-- ============================================================
+       D1 · LA COLONNE UNIQUE
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D1</span><h2>La colonne unique</h2><span class="tag">Deux volets, centrés</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/courrier</span></div>
+
+      <div class="b-tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <div class="recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher un service, un voisin…</div>
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="pastille">3</span></button>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </div>
+
+      <nav class="b-nav1">
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>Agenda</a>
+        <a class="on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier<span class="cpt">3</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+      </nav>
+
+      <div class="b-corps" style="justify-content:center">
+        <div style="width:1080px;display:flex;min-height:0;border-left:1px solid var(--border);border-right:1px solid var(--border)">
+          <aside class="b-liste">
+            <div class="tete">
+              <h2>Le courrier</h2>
+              <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+            </div>
+            <div class="flux">
+              <div class="chips"><span class="chip on">Tous</span><span class="chip">Non lus<span class="n">3</span></span><span class="chip">Annonces</span><span class="chip">Rendez-vous</span></div>
+
+              <p class="titre-sect">Non lus</p>
+              <div class="section-courrier section-courrier--nonlus">
+                <a class="conv nonlu actif" href="#">
+                  <span class="av av-creme">AN</span>
+                  <span class="corps">
+                    <span class="l1"><span class="nom">Alice Noël</span><span class="heure">9:12</span></span>
+                    <span class="sujet">Annonce · <b>Une étagère à monter</b></span>
+                    <span class="extrait">Je confirme pour 10 h, je vous attends au 12 rue des Lilas.</span>
+                  </span>
+                  <span class="compte">2</span>
+                </a>
+                <a class="conv nonlu" href="#">
+                  <span class="av av-bleu">PB</span>
+                  <span class="corps">
+                    <span class="l1"><span class="nom">Pierre Blanchard</span><span class="heure">8:40</span></span>
+                    <span class="sujet rdv">Rendez-vous · <b>Atelier vélo</b></span>
+                    <span class="extrait">Dimanche 15 à 10 h, ça vous irait ?</span>
+                  </span>
+                  <span class="compte">1</span>
+                </a>
+                <a class="conv nonlu" href="#">
+                  <span class="av av-rose">SR</span>
+                  <span class="corps">
+                    <span class="l1"><span class="nom">Sofia Ruiz</span><span class="heure">hier</span></span>
+                    <span class="sujet">Annonce · <b>Cours d'espagnol</b></span>
+                    <span class="extrait">Merci beaucoup pour cette heure, c'était très utile !</span>
+                  </span>
+                  <span class="compte">1</span>
+                </a>
+              </div>
+
+              <p class="titre-sect">Lus</p>
+              <div class="section-courrier section-courrier--lus">
+                <a class="conv" href="#">
+                  <span class="av av-vert">MM</span>
+                  <span class="corps">
+                    <span class="l1"><span class="nom">Marie Morel</span><span class="heure">lundi</span></span>
+                    <span class="sujet rdv">Rendez-vous · <b>Rencontre physique</b></span>
+                    <span class="extrait"><i>Vous :</i> Parfait, à jeudi alors !</span>
+                  </span>
+                </a>
+                <a class="conv" href="#">
+                  <span class="av av-sable">LG</span>
+                  <span class="corps">
+                    <span class="l1"><span class="nom">Lucie Garnier</span><span class="heure">7 juin</span></span>
+                    <span class="sujet">Annonce · <b>Soirée couture</b></span>
+                    <span class="extrait">J'apporte la machine et du tissu, à très vite.</span>
+                  </span>
+                </a>
+                <a class="conv" href="#">
+                  <span class="av av-bleu">JM</span>
+                  <span class="corps">
+                    <span class="l1"><span class="nom">Jean Mercier</span><span class="heure">3 juin</span></span>
+                    <span class="sujet">Annonce · <b>Prêt de perceuse</b></span>
+                    <span class="extrait"><i>Vous :</i> Merci Jean, je vous la ramène samedi.</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+          <section class="b-fil">
+            <div class="b-fil-tete">
+              <span class="avatar av-creme" style="width:38px;height:38px;font-size:12px">AN</span>
+              <div class="c">
+                <div class="nom">Alice Noël</div>
+                <div class="sujet">Annonce · <b>Une étagère à monter samedi matin</b></div>
+              </div>
+              <button class="lien-filet" type="button">Ses 3 fils</button>
+              <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
+            </div>
+
+            <div class="b-fil-corps">
+              <p class="jour">Mardi 9 juin</p>
+              <div class="msg eux"><div class="bulle">Bonjour Omar ! J'ai vu que vous vous y connaissiez en bricolage. Est-ce que samedi matin serait jouable pour l'étagère ?</div><p class="h">9:04</p></div>
+              <div class="msg moi"><div class="bulle">Avec plaisir. Samedi matin me va très bien — disons <b>10 h</b> ? Je passe avec ma visseuse et mon niveau.</div><p class="h">9:21 · <span class="vu">Lu</span></p></div>
+              <p class="systeme">Alice a proposé un <b>rendez-vous</b></p>
+              <div class="fp">
+                <div class="cadre">
+                  <p class="genre">Rencontre physique</p>
+                  <h3>Montage de l'étagère</h3>
+                  <div class="quand"><div class="date">Samedi 14 juin 2026</div><div class="meta">10:00<span class="sep">·</span>1 heure</div></div>
+                  <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+                  <p class="attente">Vous avez accepté le 9 juin à 9 h 40.</p>
+                </div>
+              </div>
+              <p class="jour">Aujourd'hui</p>
+              <div class="msg eux"><div class="bulle">Je confirme pour 10 h, je vous attends au 12 rue des Lilas. La sonnette est au nom de Noël.</div><p class="h">9:12</p></div>
+            </div>
+
+            <div class="bas">
+              <div class="composer">
+                <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+                <span class="zone">Écrire à Alice…</span>
+                <button class="send" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <p class="note">La messagerie est le seul écran où le mobile <b>ne suffit plus</b> : sur PC, personne n'accepte de quitter la liste pour lire un message. Elle se dédouble donc en deux volets — liste à gauche, fil à droite — posés dans un bloc de 1080 px centré, encadré de deux filets. L'écran intermédiaire « plusieurs fils avec Alice » devient un <b>lien discret dans l'en-tête du fil</b> : « Ses 3 fils ».</p>
+    <div class="verdict">
+      <p class="pour">le passage à deux volets est la seule vraie concession au PC, et elle est attendue. Tout le reste est identique au mobile.</p>
+      <p class="contre">« Ses 3 fils » reste un détour : il faut cliquer pour découvrir qu'il existe d'autres conversations avec la même personne. Le problème du mobile n'est pas résolu, seulement déplacé.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       D2 · LE RAIL DE GAUCHE
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D2</span><h2>Le rail de gauche</h2><span class="tag">Trois volets</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/courrier</span></div>
+
+      <div class="b-tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <div class="recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher un service, un voisin…</div>
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="pastille">3</span></button>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span><span class="nom">Omar</span></span>
+      </div>
+
+      <div class="b-corps">
+        <nav class="b-rail">
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>La une</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher</a>
+          <a class="on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier<span class="cpt">3</span></a>
+          <p class="grp">Votre temps</p>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>Vos rendez-vous<span class="cpt">4</span></a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Vos annonces</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Le relevé</a>
+          <p class="grp">Le quartier</p>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20v-1c0-2.8 2.7-4.5 6-4.5s6 1.7 6 4.5v1"/><circle cx="9" cy="8" r="3.3"/></svg>Les voisins</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M8 3v5M16 3v5"/></svg>À l'affiche<span class="cpt">5</span></a>
+          <div class="filet-r"></div>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <div class="pied"><p class="compteur">Votre compteur</p><p class="v">8 h 30</p></div>
+        </nav>
+
+        <aside class="b-liste">
+          <div class="tete">
+            <h2>Le courrier</h2>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="flux">
+            <div class="chips"><span class="chip on">Tous</span><span class="chip">Non lus<span class="n">3</span></span><span class="chip">Annonces</span></div>
+
+            <p class="titre-sect">Non lus</p>
+            <div class="section-courrier section-courrier--nonlus">
+              <a class="conv nonlu actif" href="#">
+                <span class="av av-creme">AN</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Alice Noël</span><span class="heure">9:12</span></span>
+                  <span class="sujet">Annonce · <b>Une étagère à monter</b></span>
+                  <span class="extrait">Je confirme pour 10 h, je vous attends au 12 rue des Lilas.</span>
+                </span>
+                <span class="compte">2</span>
+              </a>
+              <a class="conv nonlu" href="#">
+                <span class="av av-bleu">PB</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Pierre Blanchard</span><span class="heure">8:40</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Atelier vélo</b></span>
+                  <span class="extrait">Dimanche 15 à 10 h, ça vous irait ?</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+              <a class="conv nonlu" href="#">
+                <span class="av av-rose">SR</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Sofia Ruiz</span><span class="heure">hier</span></span>
+                  <span class="sujet">Annonce · <b>Cours d'espagnol</b></span>
+                  <span class="extrait">Merci beaucoup pour cette heure, c'était très utile !</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+            </div>
+
+            <p class="titre-sect">Lus</p>
+            <div class="section-courrier section-courrier--lus">
+              <a class="conv" href="#">
+                <span class="av av-vert">MM</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Marie Morel</span><span class="heure">lundi</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Rencontre physique</b></span>
+                  <span class="extrait"><i>Vous :</i> Parfait, à jeudi alors !</span>
+                </span>
+              </a>
+              <a class="conv" href="#">
+                <span class="av av-sable">LG</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Lucie Garnier</span><span class="heure">7 juin</span></span>
+                  <span class="sujet">Annonce · <b>Soirée couture</b></span>
+                  <span class="extrait">J'apporte la machine et du tissu, à très vite.</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <section class="b-fil">
+          <div class="b-fil-tete">
+            <span class="avatar av-creme" style="width:38px;height:38px;font-size:12px">AN</span>
+            <div class="c">
+              <div class="nom">Alice Noël</div>
+              <div class="sujet">Annonce · <b>Une étagère à monter samedi matin</b></div>
+            </div>
+            <button class="lien-filet" type="button">Ses 3 fils</button>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
+          </div>
+          <div class="b-fil-corps">
+            <p class="jour">Mardi 9 juin</p>
+            <div class="msg eux"><div class="bulle">Bonjour Omar ! J'ai vu que vous vous y connaissiez en bricolage. Est-ce que samedi matin serait jouable pour l'étagère ?</div><p class="h">9:04</p></div>
+            <div class="msg moi"><div class="bulle">Avec plaisir. Samedi matin me va très bien — disons <b>10 h</b> ? Je passe avec ma visseuse et mon niveau.</div><p class="h">9:21 · <span class="vu">Lu</span></p></div>
+            <p class="systeme">Alice a proposé un <b>rendez-vous</b></p>
+            <div class="fp">
+              <div class="cadre">
+                <p class="genre">Rencontre physique</p>
+                <h3>Montage de l'étagère</h3>
+                <div class="quand"><div class="date">Samedi 14 juin 2026</div><div class="meta">10:00<span class="sep">·</span>1 heure</div></div>
+                <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+                <p class="attente">Vous avez accepté le 9 juin à 9 h 40.</p>
+              </div>
+            </div>
+            <p class="jour">Aujourd'hui</p>
+            <div class="msg eux"><div class="bulle">Je confirme pour 10 h, je vous attends au 12 rue des Lilas. La sonnette est au nom de Noël.</div><p class="h">9:12</p></div>
+          </div>
+          <div class="bas">
+            <div class="composer">
+              <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+              <span class="zone">Écrire à Alice…</span>
+              <button class="send" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <p class="note">Le rail, la liste, le fil : la disposition classique à trois volets. Le rail garde exactement le même contenu que sur l'accueil — la messagerie n'a pas de navigation qui lui soit propre, elle est juste une destination parmi les autres. Le fil hérite de toute la largeur restante, soit près de 650 px : les bulles n'ont plus besoin d'être bridées à 82 %.</p>
+    <div class="verdict">
+      <p class="pour">aucune surprise, et le rail rend la messagerie moins isolée : on voit toujours combien de rendez-vous attendent pendant qu'on écrit.</p>
+      <p class="contre">trois volets, c'est 244 + 344 px de chrome avant le premier mot de la conversation. Sur un portable de 1280 px, c'est déjà la moitié de l'écran.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       D3 · LE JOURNAL À DEUX COLONNES
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D3</span><h2>Le journal à deux colonnes</h2><span class="tag">Le dossier permanent</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/courrier</span></div>
+
+      <div class="b-tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <div class="recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher un service, un voisin…</div>
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="pastille">3</span></button>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </div>
+
+      <nav class="b-rubriques">
+        <a href="#">La une</a>
+        <a href="#">Le fil</a>
+        <a href="#">À l'affiche</a>
+        <a href="#">Les voisins</a>
+        <a href="#">Votre temps</a>
+        <a class="on" href="#">Le courrier</a>
+        <span class="droite">3 non lus</span>
+      </nav>
+
+      <div class="b-corps">
+        <aside class="b-liste">
+          <div class="tete">
+            <h2>Le courrier</h2>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="flux">
+            <div class="chips"><span class="chip on">Tous</span><span class="chip">Non lus<span class="n">3</span></span><span class="chip">Annonces</span></div>
+
+            <p class="titre-sect">Non lus</p>
+            <div style="margin:0 12px 12px">
+              <div class="b-groupe">
+                <div class="tete-g">
+                  <span class="avatar av-creme">AN</span>
+                  <span class="nom">Alice Noël</span>
+                  <span class="cpt">3 fils</span>
+                </div>
+                <a class="b-sous on nonlu" href="#">
+                  <span class="bar"></span>
+                  <span class="c">
+                    <span class="s">Annonce · <b>Une étagère à monter</b></span>
+                    <h4>Je confirme pour 10 h</h4>
+                    <p>Je vous attends au 12 rue des Lilas.</p>
+                  </span>
+                  <span class="h">9:12</span>
+                </a>
+                <a class="b-sous nonlu" href="#">
+                  <span class="bar"></span>
+                  <span class="c">
+                    <span class="s rdv">Rendez-vous · <b>Coup de main jardin</b></span>
+                    <h4>Et pour les rosiers ?</h4>
+                    <p>Si vous avez une heure la semaine prochaine…</p>
+                  </span>
+                  <span class="h">8:02</span>
+                </a>
+                <a class="b-sous" href="#">
+                  <span class="bar"></span>
+                  <span class="c">
+                    <span class="s">Annonce · <b>Prêt d'une échelle</b></span>
+                    <h4>Vous : Merci, je la rapporte</h4>
+                    <p>Elle est déjà dans le garage.</p>
+                  </span>
+                  <span class="h">4 juin</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="section-courrier section-courrier--nonlus">
+              <a class="conv nonlu" href="#">
+                <span class="av av-bleu">PB</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Pierre Blanchard</span><span class="heure">8:40</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Atelier vélo</b></span>
+                  <span class="extrait">Dimanche 15 à 10 h, ça vous irait ?</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+              <a class="conv nonlu" href="#">
+                <span class="av av-rose">SR</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Sofia Ruiz</span><span class="heure">hier</span></span>
+                  <span class="sujet">Annonce · <b>Cours d'espagnol</b></span>
+                  <span class="extrait">Merci beaucoup pour cette heure, c'était très utile !</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+            </div>
+
+            <p class="titre-sect">Lus</p>
+            <div class="section-courrier section-courrier--lus">
+              <a class="conv" href="#">
+                <span class="av av-vert">MM</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Marie Morel</span><span class="heure">lundi</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Rencontre physique</b></span>
+                  <span class="extrait"><i>Vous :</i> Parfait, à jeudi alors !</span>
+                </span>
+              </a>
+              <a class="conv" href="#">
+                <span class="av av-sable">LG</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Lucie Garnier</span><span class="heure">7 juin</span></span>
+                  <span class="sujet">Annonce · <b>Soirée couture</b></span>
+                  <span class="extrait">J'apporte la machine et du tissu, à très vite.</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <section class="b-fil">
+          <div class="b-fil-tete">
+            <span class="avatar av-creme" style="width:38px;height:38px;font-size:12px">AN</span>
+            <div class="c">
+              <div class="nom">Alice Noël</div>
+              <div class="sujet">Annonce · <b>Une étagère à monter samedi matin</b></div>
+            </div>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
+          </div>
+          <div class="b-fil-corps">
+            <p class="jour">Mardi 9 juin</p>
+            <div class="msg eux"><div class="bulle">Bonjour Omar ! J'ai vu que vous vous y connaissiez en bricolage. Est-ce que samedi matin serait jouable pour l'étagère ?</div><p class="h">9:04</p></div>
+            <div class="msg moi"><div class="bulle">Avec plaisir. Samedi matin me va très bien — disons <b>10 h</b> ? Je passe avec ma visseuse et mon niveau.</div><p class="h">9:21 · <span class="vu">Lu</span></p></div>
+            <p class="systeme">Alice a proposé un <b>rendez-vous</b></p>
+            <div class="fp">
+              <div class="cadre">
+                <p class="genre">Rencontre physique</p>
+                <h3>Montage de l'étagère</h3>
+                <div class="quand"><div class="date">Samedi 14 juin 2026</div><div class="meta">10:00<span class="sep">·</span>1 heure</div></div>
+                <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+                <p class="attente">Vous avez accepté le 9 juin à 9 h 40.</p>
+              </div>
+            </div>
+            <p class="jour">Aujourd'hui</p>
+            <div class="msg eux"><div class="bulle">Je confirme pour 10 h, je vous attends au 12 rue des Lilas. La sonnette est au nom de Noël.</div><p class="h">9:12</p></div>
+          </div>
+          <div class="bas">
+            <div class="composer">
+              <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+              <span class="zone">Écrire à Alice…</span>
+              <button class="send" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="b-dossier">
+          <div class="carte-id">
+            <span class="avatar av-creme">AN</span>
+            <b>Alice Noël</b>
+            <p class="q">Centre · voisine depuis mars 2025</p>
+            <div class="liens">
+              <button class="lien-filet" type="button">Son profil</button>
+              <button class="lien-filet lien-filet--muet" type="button">Signaler</button>
+            </div>
+          </div>
+
+          <p class="tete">Vos fils avec Alice<span class="n2">3</span></p>
+          <div class="b-groupe b-groupe--calme">
+            <a class="b-sous on" href="#">
+              <span class="bar"></span>
+              <span class="c"><span class="s">Annonce · <b>Une étagère</b></span><h4>Je confirme pour 10 h</h4></span>
+            </a>
+            <a class="b-sous nonlu" href="#">
+              <span class="bar"></span>
+              <span class="c"><span class="s rdv">Rendez-vous · <b>Jardin</b></span><h4>Et pour les rosiers ?</h4></span>
+            </a>
+            <a class="b-sous" href="#">
+              <span class="bar"></span>
+              <span class="c"><span class="s">Annonce · <b>Échelle</b></span><h4>Vous : Merci, je la rapporte</h4></span>
+            </a>
+          </div>
+
+          <p class="tete">Le rendez-vous en cours</p>
+          <div class="b-resume">
+            <div class="l"><span class="k">Quand</span><span><b>Samedi 14 juin</b>, 10:00</span></div>
+            <div class="l"><span class="k">Durée</span><span>environ 1 heure</span></div>
+            <div class="l"><span class="k">Où</span><span>12 rue des Lilas</span></div>
+            <div class="l"><span class="k">État</span><span><span class="etat etat--ok">Confirmé</span></span></div>
+          </div>
+
+          <p class="tete">Vos échanges passés<span class="n2">2</span></p>
+          <div class="carnet">
+            <div class="carnet-ligne" style="padding-left:0">
+              <div class="c"><b>Prêt d'une échelle</b><p class="q">4 juin · 0 h 30 reçue</p></div>
+            </div>
+            <div class="carnet-ligne" style="padding-left:0">
+              <div class="c"><b>Aide au déménagement</b><p class="q">18 mai · 2 h données</p></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <p class="note">La proposition qui <b>résout vraiment</b> le problème de l'écran intermédiaire. À gauche, les fils d'une même personne sont <b>groupés dans un encadré sable</b> : on voit d'un coup qu'Alice a trois conversations en cours, sans cliquer. À droite, une troisième colonne — le <b>dossier</b> — rassemble en permanence qui elle est, tous vos fils avec elle, le rendez-vous en cours et vos échanges passés.</p>
+    <div class="verdict">
+      <p class="pour">on ne cherche plus rien : le contexte de la conversation est affiché, pas caché. Le groupement dans la liste supprime purement et simplement l'écran intermédiaire.</p>
+      <p class="contre">c'est la proposition la plus lourde à construire — deux composants nouveaux, le groupe de fils et le dossier — et la moins tolérante aux fenêtres étroites.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       D4 · LA UNE PLEINE PAGE
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D4</span><h2>La une pleine page</h2><span class="tag">Le courrier des lecteurs</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/courrier</span></div>
+
+      <header class="b-manchette">
+        <div class="haut">
+          <span>N° 142 · Saint-Sébastien-sur-Loire</span>
+          <span>Mercredi 10 juin 2026</span>
+          <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+        </div>
+        <div class="titre">
+          <img src="../../assets/logo/logo-tpt-transparent.png" alt="">
+          <h1>TempsPourTemps</h1>
+          <span class="devise">1 h donnée = 1 h reçue</span>
+        </div>
+        <nav class="nav">
+          <a href="#">La une</a>
+          <a href="#">Le fil</a>
+          <a href="#">À l'affiche<span class="cpt">5</span></a>
+          <a href="#">Les voisins</a>
+          <a href="#">Votre temps</a>
+          <a class="on" href="#">Le courrier<span class="cpt">3</span></a>
+          <a href="#">Proposer</a>
+        </nav>
+      </header>
+
+      <div class="b-corps">
+        <aside class="b-liste">
+          <div class="tete">
+            <h2>Le courrier</h2>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="flux">
+            <p class="titre-sect">Non lus</p>
+            <div style="margin:0 12px 12px">
+              <div class="b-groupe">
+                <div class="tete-g">
+                  <span class="avatar av-creme">AN</span>
+                  <span class="nom">Alice Noël</span>
+                  <span class="cpt">3 fils</span>
+                </div>
+                <a class="b-sous on nonlu" href="#">
+                  <span class="bar"></span>
+                  <span class="c"><span class="s">Annonce · <b>Une étagère</b></span><h4>Je confirme pour 10 h</h4></span>
+                  <span class="h">9:12</span>
+                </a>
+                <a class="b-sous nonlu" href="#">
+                  <span class="bar"></span>
+                  <span class="c"><span class="s rdv">Rendez-vous · <b>Jardin</b></span><h4>Et pour les rosiers ?</h4></span>
+                  <span class="h">8:02</span>
+                </a>
+              </div>
+            </div>
+            <div class="section-courrier section-courrier--nonlus">
+              <a class="conv nonlu" href="#">
+                <span class="av av-bleu">PB</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Pierre Blanchard</span><span class="heure">8:40</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Atelier vélo</b></span>
+                  <span class="extrait">Dimanche 15 à 10 h, ça vous irait ?</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+            </div>
+            <p class="titre-sect">Lus</p>
+            <div class="section-courrier section-courrier--lus">
+              <a class="conv" href="#">
+                <span class="av av-vert">MM</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Marie Morel</span><span class="heure">lundi</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Rencontre physique</b></span>
+                  <span class="extrait"><i>Vous :</i> Parfait, à jeudi alors !</span>
+                </span>
+              </a>
+              <a class="conv" href="#">
+                <span class="av av-sable">LG</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Lucie Garnier</span><span class="heure">7 juin</span></span>
+                  <span class="sujet">Annonce · <b>Soirée couture</b></span>
+                  <span class="extrait">J'apporte la machine et du tissu, à très vite.</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <section class="b-fil">
+          <div class="b-fil-tete">
+            <span class="avatar av-creme" style="width:38px;height:38px;font-size:12px">AN</span>
+            <div class="c">
+              <div class="nom">Alice Noël</div>
+              <div class="sujet">Annonce · <b>Une étagère à monter samedi matin</b></div>
+            </div>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
+          </div>
+          <div class="b-fil-corps">
+            <p class="jour">Mardi 9 juin</p>
+            <div class="msg eux"><div class="bulle">Bonjour Omar ! J'ai vu que vous vous y connaissiez en bricolage. Est-ce que samedi matin serait jouable ?</div><p class="h">9:04</p></div>
+            <div class="msg moi"><div class="bulle">Avec plaisir. Disons <b>10 h</b> ? Je passe avec ma visseuse.</div><p class="h">9:21 · <span class="vu">Lu</span></p></div>
+            <p class="systeme">Alice a proposé un <b>rendez-vous</b></p>
+            <div class="fp">
+              <div class="cadre">
+                <p class="genre">Rencontre physique</p>
+                <h3>Montage de l'étagère</h3>
+                <div class="quand"><div class="date">Samedi 14 juin 2026</div><div class="meta">10:00<span class="sep">·</span>1 heure</div></div>
+                <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+                <p class="attente">Vous avez accepté le 9 juin à 9 h 40.</p>
+              </div>
+            </div>
+            <p class="jour">Aujourd'hui</p>
+            <div class="msg eux"><div class="bulle">Je confirme pour 10 h, je vous attends au 12 rue des Lilas.</div><p class="h">9:12</p></div>
+          </div>
+          <div class="bas">
+            <div class="composer">
+              <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+              <span class="zone">Écrire à Alice…</span>
+              <button class="send" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="b-dossier">
+          <div class="carte-id">
+            <span class="avatar av-creme">AN</span>
+            <b>Alice Noël</b>
+            <p class="q">Centre · voisine depuis mars 2025</p>
+            <div class="liens">
+              <button class="lien-filet" type="button">Son profil</button>
+              <button class="lien-filet lien-filet--muet" type="button">Signaler</button>
+            </div>
+          </div>
+          <p class="tete">Le rendez-vous en cours</p>
+          <div class="b-resume">
+            <div class="l"><span class="k">Quand</span><span><b>Samedi 14 juin</b>, 10:00</span></div>
+            <div class="l"><span class="k">Durée</span><span>environ 1 heure</span></div>
+            <div class="l"><span class="k">Où</span><span>12 rue des Lilas</span></div>
+            <div class="l"><span class="k">État</span><span><span class="etat etat--ok">Confirmé</span></span></div>
+          </div>
+          <p class="tete">Ce qu'elle propose</p>
+          <div class="puces"><span class="sable">Jardinage</span><span class="sable">Couture</span><span>Garde d'animaux</span></div>
+          <p class="tete">Vos échanges passés<span class="n2">2</span></p>
+          <div class="carnet">
+            <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Prêt d'une échelle</b><p class="q">4 juin · 0 h 30 reçue</p></div></div>
+            <div class="carnet-ligne" style="padding-left:0"><div class="c"><b>Aide au déménagement</b><p class="q">18 mai · 2 h données</p></div></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <p class="note">La manchette reste en place — elle est le chrome de <b>toutes</b> les pages, pas seulement de l'accueil. En dessous, la même organisation à trois volets que D3. La différence tient à la hauteur : la manchette prend 150 px, et le fil de conversation en perd d'autant.</p>
+    <div class="verdict">
+      <p class="pour">une identité qui ne se dilue jamais : on est dans le journal du quartier, même en écrivant un message privé.</p>
+      <p class="contre">c'est précisément là que la manchette coûte le plus cher. Un fil de conversation a besoin de hauteur, pas d'un titre de journal répété à chaque page.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       D5 · LE BUREAU À PANNEAU
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D5</span><h2>Le bureau à panneau</h2><span class="tag">Le panneau change de rôle</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr/courrier</span></div>
+
+      <div class="b-corps">
+        <nav class="b-rail2">
+          <span class="marque"><img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps"></span>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Une</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>Agenda</a>
+          <a class="on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <span class="bas2"><a href="#"><span class="avatar avatar--me" style="width:30px;height:30px;font-size:11px">OD</span></a></span>
+        </nav>
+
+        <aside class="b-liste">
+          <div class="tete">
+            <h2>Le courrier</h2>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="flux">
+            <div class="chips"><span class="chip on">Tous</span><span class="chip">Non lus<span class="n">3</span></span><span class="chip">Annonces</span></div>
+            <p class="titre-sect">Non lus</p>
+            <div style="margin:0 12px 12px">
+              <div class="b-groupe">
+                <div class="tete-g">
+                  <span class="avatar av-creme">AN</span>
+                  <span class="nom">Alice Noël</span>
+                  <span class="cpt">3 fils</span>
+                </div>
+                <a class="b-sous on nonlu" href="#">
+                  <span class="bar"></span>
+                  <span class="c"><span class="s">Annonce · <b>Une étagère</b></span><h4>Je confirme pour 10 h</h4><p>Je vous attends au 12 rue des Lilas.</p></span>
+                  <span class="h">9:12</span>
+                </a>
+                <a class="b-sous nonlu" href="#">
+                  <span class="bar"></span>
+                  <span class="c"><span class="s rdv">Rendez-vous · <b>Jardin</b></span><h4>Et pour les rosiers ?</h4><p>Si vous avez une heure la semaine prochaine…</p></span>
+                  <span class="h">8:02</span>
+                </a>
+                <a class="b-sous" href="#">
+                  <span class="bar"></span>
+                  <span class="c"><span class="s">Annonce · <b>Échelle</b></span><h4>Vous : Merci, je la rapporte</h4></span>
+                  <span class="h">4 juin</span>
+                </a>
+              </div>
+            </div>
+            <div class="section-courrier section-courrier--nonlus">
+              <a class="conv nonlu" href="#">
+                <span class="av av-bleu">PB</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Pierre Blanchard</span><span class="heure">8:40</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Atelier vélo</b></span>
+                  <span class="extrait">Dimanche 15 à 10 h, ça vous irait ?</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+              <a class="conv nonlu" href="#">
+                <span class="av av-rose">SR</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Sofia Ruiz</span><span class="heure">hier</span></span>
+                  <span class="sujet">Annonce · <b>Cours d'espagnol</b></span>
+                  <span class="extrait">Merci beaucoup pour cette heure !</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+            </div>
+            <p class="titre-sect">Lus</p>
+            <div class="section-courrier section-courrier--lus">
+              <a class="conv" href="#">
+                <span class="av av-vert">MM</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Marie Morel</span><span class="heure">lundi</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Rencontre physique</b></span>
+                  <span class="extrait"><i>Vous :</i> Parfait, à jeudi alors !</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <section class="b-fil">
+          <div class="b-fil-tete">
+            <span class="avatar av-creme" style="width:38px;height:38px;font-size:12px">AN</span>
+            <div class="c">
+              <div class="nom">Alice Noël</div>
+              <div class="sujet">Annonce · <b>Une étagère à monter samedi matin</b></div>
+            </div>
+            <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
+          </div>
+          <div class="b-fil-corps">
+            <p class="jour">Mardi 9 juin</p>
+            <div class="msg eux"><div class="bulle">Bonjour Omar ! J'ai vu que vous vous y connaissiez en bricolage. Est-ce que samedi matin serait jouable pour l'étagère ?</div><p class="h">9:04</p></div>
+            <div class="msg moi"><div class="bulle">Avec plaisir. Samedi matin me va très bien — disons <b>10 h</b> ? Je passe avec ma visseuse et mon niveau.</div><p class="h">9:21 · <span class="vu">Lu</span></p></div>
+            <p class="systeme">Alice a proposé un <b>rendez-vous</b></p>
+            <div class="fp">
+              <div class="cadre">
+                <p class="genre">Rencontre physique</p>
+                <h3>Montage de l'étagère</h3>
+                <div class="quand"><div class="date">Samedi 14 juin 2026</div><div class="meta">10:00<span class="sep">·</span>1 heure</div></div>
+                <p class="lieu">⌖ 12 rue des Lilas, Centre</p>
+                <p class="attente">Vous avez accepté le 9 juin à 9 h 40.</p>
+              </div>
+            </div>
+            <p class="jour">Aujourd'hui</p>
+            <div class="msg eux"><div class="bulle">Je confirme pour 10 h, je vous attends au 12 rue des Lilas. La sonnette est au nom de Noël.</div><p class="h">9:12</p></div>
+          </div>
+          <div class="bas">
+            <div class="composer">
+              <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+              <span class="zone">Écrire à Alice…</span>
+              <button class="send" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="b-dossier zone">
+          <p class="tete" style="margin-top:0">Le rendez-vous en cours</p>
+          <div class="b-resume">
+            <div class="l"><span class="k">Quand</span><span><b>Samedi 14 juin</b>, 10:00</span></div>
+            <div class="l"><span class="k">Où</span><span>12 rue des Lilas</span></div>
+            <div class="l"><span class="k">État</span><span><span class="etat etat--ok">Confirmé</span></span></div>
+          </div>
+
+          <p class="tete">On attend un mot de vous<span class="n2">3</span></p>
+          <div class="rangee" style="flex-direction:column;gap:8px;padding:0">
+            <article class="billet2 billet2--large billet2--urgent">
+              <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg><span class="verbe">Valider</span></div>
+              <div class="c"><h3>Montage de l'étagère</h3><p class="m2"><span class="delai">Plus que 2 jours</span></p></div>
+            </article>
+            <article class="billet2 billet2--large billet2--action">
+              <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a7.5 7.5 0 0 1-7.5 7.5H4l1.6-3.1A7.5 7.5 0 1 1 21 11.5Z"/></svg><span class="verbe">Répondre</span></div>
+              <div class="c"><h3>Atelier réparation vélo</h3><p class="m2">Pierre vous invite</p></div>
+            </article>
+            <article class="billet2 billet2--large billet2--action">
+              <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.5 5.3 5.8.8-4.2 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.2-4 5.8-.8Z"/></svg><span class="verbe">Noter</span></div>
+              <div class="c"><h3>Cours d'espagnol</h3><p class="m2">Échange du 8 juin</p></div>
+            </article>
+          </div>
+
+          <p class="tete">Vos rendez-vous<span class="n2">4</span></p>
+          <div class="rangee" style="flex-direction:column;gap:8px;padding:0">
+            <article class="billet2 billet2--large"><div class="talon"><span class="n">11</span><span class="m">Juin</span></div><div class="c"><h3>Rencontre physique</h3><p class="m2"><span class="quand">12:30</span><span class="sep">·</span>Marie Morel</p></div></article>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <p class="note">Le panneau de droite ne disparaît pas : il <b>ajoute</b> le rendez-vous en cours en tête, puis garde ce qu'il affiche partout ailleurs — ce qu'on attend de vous, vos rendez-vous. C'est la contrepartie de sa permanence : il n'est jamais tout à fait le dossier de la personne, seulement votre carnet enrichi du contexte. Les fils multiples d'Alice, eux, sont groupés dans la liste comme en D3.</p>
+    <div class="verdict">
+      <p class="pour">quatre volets et pourtant rien de perdu : la liste groupée suffit à supprimer l'écran intermédiaire, et on garde ses engagements sous les yeux pendant qu'on écrit.</p>
+      <p class="contre">le panneau devient ambigu — mi-carnet, mi-dossier. Il faudrait trancher : soit il suit la page, soit il ne bouge jamais ; les deux à la fois, c'est une règle de plus à expliquer.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · La messagerie sur grand écran · Personnes fictives.<br>
+  <a href="../../index.html">Galerie</a> · <a href="bureau-1-accueil.html">L'accueil sur PC</a> · <a href="proposition-1-revisee.html">La version mobile</a>
+</footer>
+</body>
+</html>

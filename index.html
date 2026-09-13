@@ -151,6 +151,11 @@
   .preview--planche{padding:0;height:530px;}
   .preview--planche .shot{width:100%;align-items:stretch;overflow:hidden;}
   .preview--planche iframe{width:1000px;height:1500px;border:0;margin-top:-196px;transform:scale(.62);transform-origin:top left;pointer-events:none;}
+  .preview--bureau{padding:0;height:352px;}
+  .preview--bureau .shot{width:100%;align-items:stretch;overflow:hidden;}
+  /* flex:none — sans lui l'iframe, élément flex en colonne, est écrasé à la
+     hauteur du cadre avant d'être mis à l'échelle, et l'aperçu reste vide. */
+  .preview--bureau iframe{width:1330px;height:1900px;flex:none;border:0;margin-top:-183px;transform:scale(.43);transform-origin:top left;pointer-events:none;}
 </style>
 </head>
 <body>
@@ -520,6 +525,35 @@
       <div class="card-foot">
         <p class="desc">Annonces en petits articles à titre serif et lettrine, une en verre dépoli, barre du bas ancrée à colonnes sous filet double.</p>
         <a class="open" href="brandkit/explorations/proposition-3-alaune.html">Ouvrir →</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="groupe"><h2>Sur grand écran</h2><span class="filet"></span></div>
+  <p class="groupe-sub">L'adaptation PC des choix retenus pour le mobile — <b>aucun composant nouveau</b>, seule l'ossature change. Cinq propositions déclinées deux fois : sur l'accueil, puis sur la messagerie. Chacune dit par quoi elle remplace la barre du bas flottante, et comment elle occupe la largeur gagnée.</p>
+
+  <div class="grid">
+    <article class="card">
+      <div class="card-head"><span class="num">PC</span><h2>L'accueil sur PC — cinq adaptations</h2></div>
+      <div class="preview preview--bureau">
+        <div class="shot"><iframe src="brandkit/explorations/bureau-1-accueil.html" title="Aperçu de l'accueil sur PC" tabindex="-1"></iframe></div>
+        <a class="overlay" href="brandkit/explorations/bureau-1-accueil.html" aria-label="Ouvrir l'accueil sur PC"><span>Comparer les 5</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc"><b>D1</b> la colonne unique · <b>D2</b> le rail de gauche · <b>D3</b> le journal à deux colonnes · <b>D4</b> la une pleine page · <b>D5</b> le bureau à panneau. Billets à talon, lignes d'agenda et rubans de rubrique sont repris tels quels ; chaque écran porte son pour et son contre.</p>
+        <a class="open" href="brandkit/explorations/bureau-1-accueil.html">Ouvrir →</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="num">PC</span><h2>La messagerie sur PC — cinq adaptations</h2></div>
+      <div class="preview preview--bureau">
+        <div class="shot"><iframe src="brandkit/explorations/bureau-2-messagerie.html" title="Aperçu de la messagerie sur PC" tabindex="-1"></iframe></div>
+        <a class="overlay" href="brandkit/explorations/bureau-2-messagerie.html" aria-label="Ouvrir la messagerie sur PC"><span>Comparer les 5</span></a>
+      </div>
+      <div class="card-foot">
+        <p class="desc">Les mêmes cinq ossatures, appliquées au courrier. Le point d'attention : l'<b>écran intermédiaire</b> du mobile — plusieurs fils avec une même personne — n'a plus lieu d'être sur grand écran. Chaque proposition montre par quoi elle le remplace, du simple lien au <b>dossier permanent</b>.</p>
+        <a class="open" href="brandkit/explorations/bureau-2-messagerie.html">Ouvrir →</a>
       </div>
     </article>
   </div>

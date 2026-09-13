@@ -830,7 +830,7 @@ footer a{color:var(--marine);font-weight:600;}
   color:var(--text-tertiary);background:#fffdf8;border:1px solid rgba(24,62,87,.09);
   border-radius:6px;padding:3px 14px;
 }
-.bureau .corps{flex:1;display:flex;min-height:0;}
+.bureau .b-corps{flex:1;display:flex;min-height:0;}
 
 /* — la barre du haut, version large — */
 .b-tb{
