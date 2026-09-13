@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les fiches en modale</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+body{padding:38px 20px 80px;}
+
+/* l'en-tête d'une fiche en feuille */
+.fiche-tete{margin:0 18px;padding:12px 0;border-bottom:3px double var(--marine);}
+.fiche-tete .haut{display:flex;align-items:center;gap:9px;margin-bottom:8px;}
+.fiche-tete h1{font-family:var(--titres);font-weight:800;font-size:18px;line-height:1.28;}
+.fiche-tete .sign{margin-top:9px;font-size:11.5px;font-style:italic;color:var(--text-tertiary);}
+.fiche-tete--centre{text-align:center;}
+.fiche-tete--centre .haut{justify-content:center;}
+
+.sous-titre{
+  margin:15px 18px 9px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-secondary);padding-bottom:6px;border-bottom:1px solid var(--marine);
+}
+.corps-texte{margin:0 18px;font-size:13px;line-height:1.6;color:var(--text-secondary);}
+
+/* le pied d'actions d'une fiche */
+.pied-fiche{margin:16px 18px 4px;padding-top:13px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:10px;}
+.pied-fiche .liens{display:flex;justify-content:center;gap:18px;}
+
+/* un commentaire */
+.commentaire{display:flex;gap:10px;padding:11px 0;border-top:1px dotted var(--border);}
+.commentaire:first-of-type{border-top:0;}
+.commentaire .c{flex:1;min-width:0;}
+.commentaire .l1{display:flex;align-items:baseline;gap:8px;}
+.commentaire b{font-family:var(--titres);font-weight:800;font-size:12.5px;}
+.commentaire .h{font-size:9.5px;color:var(--text-tertiary);margin-left:auto;}
+.commentaire p{font-size:12.5px;line-height:1.5;color:var(--text-secondary);margin-top:3px;}
+.commentaire .agir{display:flex;gap:14px;margin-top:6px;}
+
+/* les compteurs jumeaux de réaction */
+.jumeaux{display:flex;gap:9px;margin:0 18px;}
+.jumeaux button{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 6px;
+  background:var(--paper);border:1px solid var(--border);border-radius:11px;cursor:pointer;
+}
+.jumeaux button.on{background:var(--bg-hover);border-color:var(--sable-hover);}
+.jumeaux .v{font-family:var(--titres);font-weight:800;font-size:17px;color:var(--marine);}
+.jumeaux button.on .v{color:var(--orange-hover);}
+.jumeaux .l{font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-tertiary);}
+
+/* le choix d'avis en trois visages */
+.trois-avis{display:flex;gap:9px;margin:0 18px;}
+.trois-avis button{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:13px 6px;
+  background:var(--paper);border:1px solid var(--border);border-radius:12px;cursor:pointer;
+}
+.trois-avis button.on{background:var(--bg-hover);border-color:var(--orange);box-shadow:0 0 0 2px rgba(214,94,28,.14);}
+.trois-avis svg{width:26px;height:26px;color:var(--text-tertiary);}
+.trois-avis button.on svg{color:var(--orange-hover);}
+.trois-avis .l{font-size:10.5px;font-weight:700;color:var(--text-secondary);}
+.trois-avis button.on .l{color:var(--marine);}
+
+/* la visionneuse */
+.visionneuse{position:absolute;inset:0;background:rgba(10,16,22,.94);display:flex;flex-direction:column;z-index:61;}
+.visionneuse .barre{display:flex;align-items:center;gap:10px;padding:12px 14px;color:rgba(255,253,246,.85);}
+.visionneuse .barre .t{flex:1;font-size:11.5px;}
+.visionneuse .barre button{background:rgba(255,253,246,.14);border:0;color:#fff9ec;width:30px;height:30px;border-radius:50%;font-size:15px;cursor:pointer;}
+.visionneuse .img{
+  flex:1;margin:0 14px;border-radius:10px;
+  background:linear-gradient(140deg,#3e5f70,#7d9099 55%,#c7b393);
+  display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:11px;
+}
+.visionneuse .pied{padding:13px 16px 18px;color:rgba(255,253,246,.6);font-size:10.5px;text-align:center;line-height:1.5;}
+
+.verdict{
+  border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:11px 15px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);
+  max-width:1000px;
+}
+.verdict p + p{margin-top:4px;}
+.verdict .pour::before{content:"Pour — ";font-weight:800;color:#2f7a44;}
+.verdict .contre::before{content:"Contre — ";font-weight:800;color:var(--danger);}
+
+/* le constat */
+.constat{
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:16px;padding:20px 24px;margin:0 auto 44px;max-width:1000px;
+}
+.constat h2{font-family:var(--titres);font-weight:800;font-size:1rem;text-align:center;letter-spacing:.14em;text-transform:uppercase;}
+.constat code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--marine);background:rgba(24,62,87,.06);border-radius:4px;padding:1px 5px;}
+.constat .lecture{margin-top:16px;font-size:.86rem;line-height:1.65;color:var(--text-secondary);}
+.constat .lecture b{color:var(--marine);}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:16px;}
+.plan{border:1px solid var(--border);border-radius:11px;padding:11px 13px;background:var(--bg-main);}
+.plan .z{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;font-weight:700;color:var(--danger);}
+.plan .n{font-family:var(--titres);font-weight:800;font-size:1.5rem;color:var(--marine);line-height:1;margin-top:5px;}
+.plan .l{font-size:.7rem;color:var(--text-tertiary);margin-top:5px;line-height:1.4;}
+.alarme{
+  margin-top:18px;border-left:3px solid var(--danger);background:rgba(196,69,54,.06);
+  border-radius:0 12px 12px 0;padding:13px 17px;
+}
+.alarme .t{font-family:var(--titres);font-weight:800;font-size:.88rem;color:var(--danger);margin-bottom:7px;}
+.alarme p{font-size:.82rem;line-height:1.6;color:var(--text-secondary);}
+.alarme p + p{margin-top:8px;}
+.alarme b{color:var(--marine);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Les surfaces manquantes</p>
+  <h1>Les fiches en modale</h1>
+  <p class="sub">Le scan a dénombré <b>une trentaine de surfaces flottantes</b> dans l'application. Sept n'avaient encore aucune version dans la charte : la fiche d'annonce, la fiche de publication, le moment ouvert, la validation, l'avis, le signalement et la visionneuse d'image. Les voici — et toutes suivent la même règle sur grand écran.</p>
+  <p class="traits"><span><b>Rappel</b> sur PC une feuille se centre et plafonne à 520 px : le contenu ne bouge pas d'un pixel</span></p>
+  <a class="retour" href="../../index.html">← Retour au design retenu</a>
+</header>
+
+<section class="constat">
+  <h2>Quatre plans concurrents, une trentaine de surfaces</h2>
+  <div class="filet-double" style="margin:10px 0 0"></div>
+
+  <div class="plans">
+    <div class="plan"><p class="z">z-50</p><p class="n">9</p><p class="l">fiches, feuilles de formulaire, panneau de sélecteur, barres fixes</p></div>
+    <div class="plan"><p class="z">z-[60]</p><p class="n">13</p><p class="l">confirmations, menu « Proposer », et 7 popups d'une seule page</p></div>
+    <div class="plan"><p class="z">z-[70]</p><p class="n">7</p><p class="l">fiches via <code>AppModal</code>, modales bloquantes</p></div>
+    <div class="plan"><p class="z">z-[99999]</p><p class="n">1</p><p class="l">bandeau de simulation temporelle</p></div>
+  </div>
+
+  <p class="lecture">
+    Deux coquilles partagées existent — <code>AppModal</code> à <code>z-[70]</code> et <code>AppFormOverlay</code> à <code>z-50</code> — mais elles ne couvrent que la moitié des cas. <b>Dix surfaces téléportent elles-mêmes</b>, chacune avec son propre voile (<code>black/40</code>, <code>black/50</code>, avec ou sans flou) et sa propre fermeture. Une fiche de détail à <code>z-50</code> se retrouve ainsi <b>sous</b> une fiche ouverte via <code>AppModal</code> à <code>z-[70]</code> — d'où une mécanique d'empilement maison qui masque une modale, mémorise son état, et la remonte 350 ms plus tard sur un évènement <code>window</code>.
+  </p>
+
+  <div class="alarme">
+    <p class="t">Trois manières de poser la même question</p>
+    <p>Dans la seule fiche d'annonce coexistent <b><code>window.confirm</code> natif</b> pour désactiver et pour réactiver, une <b>modale de charte</b> pour supprimer, et la page jumelle ajoute un <b><code>window.alert</code></b>. Trois apparences pour trois gestes voisins, dont deux qui ne ressemblent à rien du reste de l'application.</p>
+    <p>À quoi s'ajoutent <b>sept popups écrites en dur</b> dans un seul fichier de 1 390 lignes, toutes identiques : même voile, même carte, même géométrie, sept fois recopiées.</p>
+  </div>
+</section>
+
+<div class="planche">
+
+  <!-- ============================================================
+       1 · LA FICHE D'ANNONCE
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">1</span><h2>La fiche d'annonce</h2><span class="route">feuille · z 40</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Le fil du quartier</span></div>
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille feuille--haute">
+          <span class="poignee"></span>
+          <div class="tete" style="padding-top:2px"><h3 style="flex:1"></h3><button class="x" type="button">×</button></div>
+          <div class="corps">
+            <div class="fiche-tete">
+              <div class="haut">
+                <span class="an-type an-type--demande">Demande</span>
+                <span class="an-rubr">Bricolage</span>
+                <span class="an-ref">N° 1042</span>
+              </div>
+              <h1>Une étagère à monter samedi matin</h1>
+              <p class="sign">— Alice Noël · Centre · publiée il y a 2 h</p>
+            </div>
+
+            <p class="corps-texte" style="margin-top:14px">Une petite heure suffit, je fournis les outils et le café. Idéalement quelqu'un d'habitué à la perceuse — le mur est en placo et je préfère ne pas m'y risquer seule.</p>
+
+            <div class="b-faits" style="margin:14px 18px 0">
+              <div class="l"><span class="k">Service</span><span class="v"><b>Montage de meubles</b></span></div>
+              <div class="l"><span class="k">Durée</span><span class="v">environ 1 heure</span></div>
+              <div class="l"><span class="k">Où</span><span class="v">Chez Alice · Centre</span></div>
+              <div class="l"><span class="k">Jusqu'au</span><span class="v">10 juillet — dans 30 jours</span></div>
+            </div>
+
+            <p class="sous-titre">Trois voisins ont déjà répondu</p>
+            <div class="carnet" style="margin:0 18px">
+              <div class="carnet-ligne" style="padding-left:0"><span class="avatar av-bleu">JM</span><div class="c"><b>Jean Mercier</b><p class="q">Vieux Bourg · propose bricolage</p></div></div>
+              <div class="carnet-ligne" style="padding-left:0"><span class="avatar av-sable">PB</span><div class="c"><b>Pierre Blanchard</b><p class="q">Baugerie · propose bricolage</p></div></div>
+            </div>
+
+            <div class="encart encart--info" style="margin:15px 18px 0">
+              <b>Ce que ça engage.</b> Rien encore : proposer un rendez-vous ouvre une discussion. Vous conviendrez ensemble de l'heure.
+            </div>
+
+            <div class="pied-fiche">
+              <button class="btn-plein btn-plein--orange" type="button">Proposer un rendez-vous</button>
+              <div class="liens">
+                <button class="lien-filet" type="button">Écrire à Alice</button>
+                <button class="lien-filet lien-filet--muet" type="button">Voir son profil</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">L'en-tête reprend exactement la <b>ligne de tête d'une fiche d'annonce</b> du fil — genre, rubrique, référence — pour qu'on reconnaisse ce qu'on vient d'ouvrir. Suivent le texte, le pavé de faits, et les voisins qui ont déjà répondu : c'est ce qui manque le plus quand on hésite à se positionner.</p>
+    <div class="verdict">
+      <p class="pour">un seul bouton plein, et l'encart dit ce qui se passe avant de cliquer. Les réponses déjà reçues aident à décider.</p>
+      <p class="contre">cette fiche existe <b>en double</b> dans l'app — une modale de 634 lignes et une page de 423 lignes au contenu identique. Il faudra en supprimer une.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       2 · LA FICHE DE PUBLICATION
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">2</span><h2>La publication</h2><span class="route">feuille · commentaires</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Le fil du quartier</span></div>
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille feuille--haute">
+          <span class="poignee"></span>
+          <div class="tete" style="padding-top:2px"><h3 style="flex:1"></h3><button class="x" type="button">×</button></div>
+          <div class="corps">
+            <div class="fiche-tete">
+              <div class="haut">
+                <span class="an-type an-type--idee">Idée</span>
+                <span class="an-rubr">Vie du quartier</span>
+              </div>
+              <h1>Et si on faisait un vide-grenier de rue ?</h1>
+              <p class="sign">— Lucie Garnier · Centre · hier à 18 h 30</p>
+            </div>
+
+            <p class="corps-texte" style="margin-top:14px">Rien d'organisé pour l'instant, je lance juste l'idée. S'il y a du monde, on pourrait viser un samedi de septembre — la rue est calme et large, ça se prêterait bien.</p>
+
+            <p class="sous-titre">Ce qu'en dit le quartier</p>
+            <div class="jumeaux">
+              <button class="on" type="button"><span class="v">12</span><span class="l">Partants</span></button>
+              <button type="button"><span class="v">3</span><span class="l">Peuvent aider</span></button>
+            </div>
+
+            <p class="sous-titre">4 commentaires</p>
+            <div style="margin:0 18px">
+              <div class="commentaire">
+                <span class="avatar av-bleu" style="width:30px;height:30px;font-size:10px">JM</span>
+                <div class="c">
+                  <div class="l1"><b>Jean Mercier</b><span class="h">hier</span></div>
+                  <p>Très bonne idée. J'ai des tables pliantes si besoin.</p>
+                </div>
+              </div>
+              <div class="commentaire">
+                <span class="avatar av-creme" style="width:30px;height:30px;font-size:10px">AN</span>
+                <div class="c">
+                  <div class="l1"><b>Alice Noël</b><span class="h">hier</span></div>
+                  <p>Septembre me va. Il faudra demander l'autorisation à la mairie, je peux m'en charger.</p>
+                </div>
+              </div>
+              <div class="commentaire">
+                <span class="avatar avatar--me" style="width:30px;height:30px;font-size:10px">OD</span>
+                <div class="c">
+                  <div class="l1"><b>Vous</b><span class="h">9 h 12</span></div>
+                  <p>Partant pour aider au montage la veille.</p>
+                  <div class="agir">
+                    <button class="lien-filet lien-filet--muet" type="button">Modifier</button>
+                    <button class="lien-filet lien-filet--muet" type="button">Supprimer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bas">
+              <div class="composer">
+                <span class="zone">Écrire un commentaire…</span>
+                <button class="send" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 20 4l-4 16-4-7-8-1Z"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Les réactions deviennent des <b>compteurs jumeaux</b> — deux blocs de même taille, le chiffre au-dessus du mot — plutôt que deux boutons à pastille. Les commentaires reprennent la ligne de carnet, et les actions sur ses propres commentaires sont des <b>liens à filet gris</b>, pas des boutons : une correction n'est pas une action principale.</p>
+    <div class="verdict">
+      <p class="pour">la barre de rédaction est le même composant que la messagerie. Rien de nouveau à dessiner pour commenter.</p>
+      <p class="contre">signaler un commentaire ouvrirait une modale <b>par-dessus cette feuille</b>. C'est exactement le cas que l'échelle des plans doit régler, et que l'app actuelle résout en empilant deux surfaces au même niveau.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       3 · LE MOMENT OUVERT
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">3</span><h2>Le moment ouvert</h2><span class="route">feuille · sans inscription</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">À l'affiche</span></div>
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille">
+          <span class="poignee"></span>
+          <div class="tete" style="padding-top:2px"><h3 style="flex:1"></h3><button class="x" type="button">×</button></div>
+          <div class="corps">
+            <div class="fiche-tete fiche-tete--centre">
+              <div class="haut"><span class="genre genre--moment">Moment ouvert</span></div>
+              <h1>Café des voisins</h1>
+              <p class="sign">— proposé par Marie Morel</p>
+            </div>
+
+            <div class="encart encart--info" style="margin:14px 18px 0">
+              <b>Ouvert à tous, sans inscription.</b> Passez quand vous voulez pendant le créneau — il n'y a rien à réserver, et rien à valider ensuite.
+            </div>
+
+            <div class="b-faits" style="margin:14px 18px 0">
+              <div class="l"><span class="k">Quand</span><span class="v"><b>Samedi 14 juin</b>, 10:30 → 11:30</span></div>
+              <div class="l"><span class="k">Où</span><span class="v">Place Jean-Baptiste Vigier</span></div>
+            </div>
+
+            <p class="corps-texte" style="margin-top:14px">On s'installe près du kiosque avec des thermos. Venez avec votre tasse si vous y pensez, sinon il y en a toujours en rab.</p>
+
+            <div class="pied-fiche">
+              <div class="liens">
+                <button class="lien-filet" type="button">Écrire à Marie</button>
+                <button class="lien-filet lien-filet--muet" type="button">Ajouter à mon agenda</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Le seul écran de fiche <b>sans bouton plein</b>, et c'est volontaire : un moment ouvert n'a rien à confirmer, rien à valider, aucun compteur à faire bouger. L'encart le dit franchement plutôt que de laisser chercher un bouton d'inscription qui n'existe pas. La feuille est basse — il n'y a que quatre faits à lire.</p>
+    <div class="verdict">
+      <p class="pour">l'absence d'action est énoncée, pas subie. C'est la différence entre un écran vide et un écran qui a quelque chose à dire.</p>
+      <p class="contre">deux entrées voisines — « moment ouvert » et « activité à l'affiche » — se ressemblent beaucoup mais n'ont pas les mêmes règles. Le genre en pastille est le seul repère.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       4 · VALIDER L'ÉCHANGE
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">4</span><h2>Valider l'échange</h2><span class="route">dialogue · z 40</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Vos rendez-vous</span></div>
+      <main class="feed feed--uni"></main>
+
+      <div class="voile voile--centre">
+        <div class="dialogue">
+          <div class="tete">
+            <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg></span>
+            <h3>Combien de temps avez-vous donné ?</h3>
+          </div>
+          <div class="corps">
+            Alice avait estimé une heure. Corrigez si l'échange a été plus court ou plus long — c'est votre chiffre qui fait foi.
+            <div style="display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;margin-top:12px;text-align:left">
+              <span style="flex:1;color:var(--marine);font-weight:600">1 heure</span><span style="color:var(--text-tertiary);font-size:10px">▾</span>
+            </div>
+            <div class="encart encart--info" style="margin:10px 0 0;text-align:left">
+              <b>Ce que ça change.</b> Alice recevra 1 heure ; votre compteur passera de 8 h 30 à 9 h 30.
+            </div>
+          </div>
+          <div class="pied">
+            <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+            <button class="btn-plein btn-plein--orange" type="button">Valider</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Un dialogue et non une feuille : il n'y a qu'un champ, et la décision est binaire. La phrase d'ouverture est <b>une question posée à la première personne</b> — « combien de temps avez-vous donné » — plutôt qu'un titre nominal. Et l'encart chiffre la conséquence <b>avant</b> le bouton : on ne valide jamais un mouvement de compteur à l'aveugle.</p>
+    <div class="verdict">
+      <p class="pour">la conséquence est écrite en clair, avec les deux chiffres. C'est la règle des dialogues appliquée à la seule action qui déplace des heures.</p>
+      <p class="contre">deux boutons pleins côte à côte. Ici je l'assume : dans un dialogue, « Annuler » doit rester aussi atteignable que « Valider » — mais c'est la seule exception à la règle du bouton unique.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       5 · LAISSER UN AVIS
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">5</span><h2>Laisser un avis</h2><span class="route">feuille · facultatif</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Vos rendez-vous</span></div>
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille">
+          <span class="poignee"></span>
+          <div class="tete"><h3>Comment ça s'est passé ?</h3><button class="x" type="button">×</button></div>
+          <div class="corps">
+            <p class="corps-texte">Avec Alice Noël, samedi 14 juin — montage de l'étagère. C'est facultatif, et votre mot apparaîtra sur son profil.</p>
+
+            <p class="sous-titre">En un mot</p>
+            <div class="trois-avis">
+              <button class="on" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.3 1.5 3.5 1.5 3.5-1.5 3.5-1.5"/><path d="M9 9.5h.01M15 9.5h.01"/></svg>
+                <span class="l">Très bien</span>
+              </button>
+              <button type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 15h7"/><path d="M9 9.5h.01M15 9.5h.01"/></svg>
+                <span class="l">Correct</span>
+              </button>
+              <button type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 16s1.3-1.5 3.5-1.5 3.5 1.5 3.5 1.5"/><path d="M9 9.5h.01M15 9.5h.01"/></svg>
+                <span class="l">Décevant</span>
+              </button>
+            </div>
+
+            <div class="form" style="padding-top:16px">
+              <div class="form-groupe">
+                <label>Un mot <span class="opt">facultatif</span></label>
+                <div class="saisie saisie--zone saisie--rempli">Très efficace et de bonne humeur. Tout était monté en une heure, et on a bu un café après.</div>
+                <p class="aide">Visible de tous sur le profil d'Alice.</p>
+              </div>
+            </div>
+
+            <div class="form-pied" style="align-items:center;gap:18px">
+              <button class="lien-filet lien-filet--muet" type="button" style="flex:none">Passer</button>
+              <button class="btn-plein btn-plein--orange" type="button">Publier l'avis</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Trois visages plutôt qu'un nombre d'étoiles : dans une banque du temps, noter un voisin sur cinq n'aurait pas de sens — on n'achète pas un service. « Passer » est un <b>lien à filet gris</b>, jamais un bouton : l'avis est facultatif et doit le rester, mais on ne l'encourage pas non plus à être sauté.</p>
+    <div class="verdict">
+      <p class="pour">le vocabulaire évite l'évaluation marchande. Et la phrase de contexte rappelle avec qui et quand, ce qui aide à écrire.</p>
+      <p class="contre">trois niveaux, c'est peu pour distinguer une gêne d'un vrai problème. Il faudra que « Décevant » débouche sur autre chose qu'un simple mot public.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       6 · LA VISIONNEUSE
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">6</span><h2>La visionneuse</h2><span class="route">l'exception · plein écran</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:rgba(10,16,22,.94);color:rgba(255,253,246,.8)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Le fil du quartier</span></div>
+      <main class="feed feed--uni"></main>
+
+      <div class="visionneuse">
+        <div class="barre">
+          <button type="button">×</button>
+          <span class="t">Photo de Lucie Garnier · hier</span>
+          <button type="button">⤓</button>
+        </div>
+        <div class="img">l'image, à sa taille</div>
+        <p class="pied">Touchez l'image pour revenir<br>« Et si on faisait un vide-grenier de rue ? »</p>
+      </div>
+    </div>
+    <p class="note">La seule surface qui <b>ne suit pas la règle des 520 px</b>. Une image se regarde en grand : sur PC elle occupe tout l'écran comme sur mobile, sur un fond presque noir. C'est aussi la seule fois où l'on sort de la palette gazette — le papier crème fausserait les couleurs de la photo.</p>
+    <div class="verdict">
+      <p class="pour">une exception assumée et unique, facile à énoncer : la visionneuse est plein écran partout.</p>
+      <p class="contre">toute exception coûte. Si une deuxième apparaît, la règle des 520 px cesse d'être une règle.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       7 · SIGNALER
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">7</span><h2>Signaler</h2><span class="route">dialogue · par-dessus une feuille</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair"><span class="titre">Le fil du quartier</span></div>
+      <main class="feed feed--uni"></main>
+
+      <!-- la feuille reste visible dessous, assombrie -->
+      <div class="voile" style="z-index:60">
+        <div class="feuille feuille--haute" style="filter:saturate(.7)">
+          <span class="poignee"></span>
+          <div class="corps">
+            <div class="fiche-tete">
+              <div class="haut"><span class="an-type an-type--idee">Idée</span><span class="an-rubr">Vie du quartier</span></div>
+              <h1>Et si on faisait un vide-grenier de rue ?</h1>
+              <p class="sign">— Lucie Garnier · Centre · hier</p>
+            </div>
+            <p class="corps-texte" style="margin-top:14px">Rien d'organisé pour l'instant, je lance juste l'idée.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="voile voile--centre" style="z-index:62;background:rgba(15,47,68,.5)">
+        <div class="dialogue">
+          <div class="tete">
+            <span class="pic pic--danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4h10l1 2h5v9h-6l-1-2H4"/></svg></span>
+            <h3>Signaler cette publication</h3>
+          </div>
+          <div class="corps">
+            Le bureau la relira sous huit jours. L'auteur ne saura pas qui a signalé.
+            <div style="text-align:left;margin-top:12px;display:flex;flex-direction:column;gap:10px">
+              <div class="select"><span class="lab">Motif</span><span>Propos déplacés</span><span class="chev">▾</span></div>
+              <div class="saisie">Précisions — facultatif</div>
+            </div>
+          </div>
+          <div class="pied pied--empile">
+            <button class="btn-plein btn-plein--danger" type="button">Signaler</button>
+            <button class="lien-filet lien-filet--muet" type="button">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Voici le cas que l'échelle des plans doit régler : <b>un dialogue par-dessus une feuille déjà ouverte</b>. La feuille reste visible, désaturée, sous un second voile — on n'a pas perdu la publication qu'on est en train de signaler. Dans l'application actuelle, les deux surfaces sont au même plan et l'une doit être masquée puis remontée par un évènement.</p>
+    <div class="verdict">
+      <p class="pour">l'empilement se voit et se comprend. Deux plans nommés suffisent : la feuille au plan des fiches, le dialogue au-dessus.</p>
+      <p class="contre">au-delà de deux surfaces empilées, ça devient illisible. Il faut poser la limite maintenant : <b>jamais trois</b>.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Les fiches en modale · Personnes et publications fictives.<br>
+  <a href="../../index.html">Le design retenu</a> · <a href="rendez-vous.html">Le fil du rendez-vous</a> · <a href="surfaces.html">Les surfaces</a> · <a href="../bibliotheque.html">La bibliothèque</a>
+</footer>
+</body>
+</html>
