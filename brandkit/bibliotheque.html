@@ -148,6 +148,36 @@ body{padding:38px 20px 80px;}
 .mini-tel .mini-bandeau .t{flex:1;height:5px;border-radius:3px;background:rgba(24,62,87,.2);}
 .mini-tel .mini-tb{background:var(--marine);height:26px;}
 
+/* mini-maquette d'écran large, pour la manchette et le titre courant */
+.mini-pc{
+  width:100%;border-radius:9px;overflow:hidden;border:1px solid rgba(24,62,87,.15);
+  background:var(--bg-main);box-shadow:0 4px 12px -8px rgba(24,62,87,.45);
+}
+.mini-pc .man{background:var(--paper);border-bottom:2px double var(--marine);padding:5px 9px 0;}
+.mini-pc .man .h{display:flex;justify-content:space-between;font-size:5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);border-bottom:1px solid var(--marine);padding-bottom:3px;}
+.mini-pc .man .t{text-align:center;padding:5px 0 4px;font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);}
+.mini-pc .man .n{display:flex;justify-content:center;gap:8px;border-top:1px solid var(--marine);padding:3px 0;font-size:5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);}
+.mini-pc .man .n b{color:var(--marine);border-bottom:1.5px solid var(--orange);padding-bottom:2px;}
+.mini-pc .cour{background:var(--paper);border-bottom:2px double var(--marine);display:flex;align-items:center;gap:7px;padding:7px 9px;}
+.mini-pc .cour .m{font-family:var(--titres);font-weight:800;font-size:8.5px;color:var(--marine);padding-right:7px;border-right:1px solid var(--border);white-space:nowrap;}
+.mini-pc .cour .n{display:flex;gap:7px;font-size:5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);}
+.mini-pc .cour .n b{color:var(--marine);border-bottom:1.5px solid var(--orange);padding-bottom:2px;}
+.mini-pc .cour .p{margin-left:auto;width:14px;height:14px;border-radius:50%;background:var(--sable);flex:none;}
+.mini-pc .cols{display:flex;padding:7px 6px;height:56px;}
+.mini-pc .cols .c{flex:1;display:flex;flex-direction:column;gap:4px;padding:0 6px;min-width:0;}
+.mini-pc .cols .c span{height:3px;border-radius:2px;background:rgba(24,62,87,.13);}
+.mini-pc .cols .c.plein span{background:rgba(24,62,87,.24);}
+.mini-pc .cols .c.plein span:first-child{background:var(--sable);height:5px;}
+.mini-pc .cols .f{width:5px;border-left:1px solid rgba(24,62,87,.28);border-right:1px solid rgba(24,62,87,.28);flex:none;}
+
+/* schémas de colonnes */
+.sch{display:flex;gap:5px;height:40px;width:100%;}
+.sch i{border-radius:3px;background:var(--bg-secondary);border:1px solid var(--border);}
+.sch i.plein{background:var(--sable);border-color:var(--sable-hover);}
+.sch-lab{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-top:7px;}
+.sch-lab b{color:var(--marine);}
+.sch-jeu{display:flex;flex-direction:column;gap:13px;width:100%;}
+
 .rappel-lien{
   display:inline-flex;align-items:center;gap:7px;margin-top:10px;
   font-size:.76rem;font-weight:700;color:var(--orange-hover);text-decoration:none;
@@ -167,7 +197,7 @@ footer a{color:var(--marine);font-weight:600;}
   <img src="../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
   <p class="kicker">Design system</p>
   <h1>La bibliothèque</h1>
-  <p>Toutes les briques de l'interface, dans la charte gazette. Chaque fiche indique <b>ce que le composant est</b>, <b>quand l'employer</b>, et son état vis-à-vis de l'application actuelle : il existe déjà, il existe en plusieurs exemplaires à fusionner, ou il reste à créer.</p>
+  <p>Les <b>45 briques</b> de l'interface, dans la charte gazette. Chaque fiche indique ce que le composant est, <b>quand l'employer</b>, et son état vis-à-vis de l'application actuelle : il existe déjà, il existe en plusieurs exemplaires à fusionner, ou il reste à créer. La septième famille rassemble les pièces qui n'existent que sur grand écran.</p>
   <a class="retour" href="../index.html">← Retour à la galerie</a>
 </header>
 
@@ -186,6 +216,8 @@ footer a{color:var(--marine);font-weight:600;}
     L'application a <b>un excellent bouton</b> — douze variantes, bien adopté — et presque rien d'autre en primitives. Tout le reste est réécrit à la main : on relève <b>une vingtaine de chaînes de classes différentes</b> pour un simple champ de saisie, <b>six formules de pastille</b>, et <b>six copies du même dialogue moyen</b>. Deux familles de jetons de couleur cohabitent (sémantiques et bruts <code>sand-*</code>/<code>navy-*</code>), deux systèmes d'icônes, et des SVG recopiés à la main.
     <br><br>
     La bonne nouvelle : cette dette est <b>concentrée dans les primitives</b>, pas dans le métier. Créer une quinzaine de briques manquantes et fusionner une dizaine de doublons suffirait à remettre les 92 composants d'aplomb.
+    <br><br>
+    S'y ajoutent les pièces nées du travail sur le grand écran — <b>manchette</b>, <b>titre courant</b>, <b>billet à talon</b>, <b>dossier</b>, <b>colonne de filtres</b>, <b>sceau</b>. Toutes sont à créer : l'application n'a aujourd'hui <b>aucune mise en page grand écran</b>, elle se contente d'étirer celle du mobile.
   </p>
 </section>
 
@@ -589,6 +621,37 @@ footer a{color:var(--marine);font-weight:600;}
     </div>
   </article>
 
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le billet</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <article class="billet2 billet2--large billet2--urgent" style="width:100%">
+        <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg><span class="verbe">Valider</span></div>
+        <div class="c"><h3>Montage de l'étagère</h3><p class="m2"><span class="delai">Plus que 2 jours</span><span class="sep">·</span>avec Alice</p></div>
+      </article>
+      <article class="billet2 billet2--large" style="width:100%">
+        <div class="talon"><span class="n">11</span><span class="m">Juin</span></div>
+        <div class="c"><h3>Rencontre physique</h3><p class="m2"><span class="quand">12:30</span><span class="sep">·</span>avec Marie Morel</p></div>
+      </article>
+    </div>
+    <div class="fiche-pied">
+      52 px de haut. Un talon de 50 px séparé par un filet — <b>jamais d'aplat</b> — puis le titre et une ligne de contexte.
+      <p class="regle"><b>Règle :</b> le talon porte <b>la date</b> quand il n'y a rien à faire, et <b>le geste</b> — Valider, Répondre, Noter, Clore — quand on attend quelque chose de vous. Jamais les deux. Le verbe ne dépasse pas huit lettres.</p>
+      <p class="dette">N'existe pas. C'est la forme retenue à l'issue de l'arbitrage actions / rendez-vous ; elle remplace les cartes en carrousel de 130 px.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>L'entrefilet</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <p class="entrefilet" style="margin:0;width:100%"><b>Nouveau</b>Les moments ouverts arrivent : un créneau sans destinataire, qui veut s'inscrit. <a href="#">En savoir plus</a></p>
+    </div>
+    <div class="fiche-pied">
+      Un communiqué réduit à deux lignes, entre deux filets simples, en italique.
+      <p class="regle"><b>Règle :</b> c'est la forme allégée de l'encart, pour les annonces qui n'appellent pas de décision. Sur grand écran, il remplace la carte de communiqué — qui pesait trop pour ce qu'elle disait.</p>
+      <p class="dette">N'existe pas ; <code>.avis</code> en est la version carte, réservée aux choses qu'on attend de vous.</p>
+    </div>
+  </article>
+
 </div>
 
 <!-- ================= 4 · SURFACES ================= -->
@@ -832,6 +895,21 @@ footer a{color:var(--marine);font-weight:600;}
     </div>
   </article>
 
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le sceau</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--centre">
+      <span class="sceau" style="width:64px;height:64px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:27px;height:27px"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <p style="font-family:var(--titres);font-weight:800;font-size:15px;margin-top:10px">C'est noté, Marc.</p>
+      <div style="border-top:1px solid var(--marine);border-bottom:3px double var(--marine);height:7px;opacity:.55;width:90px;margin:10px 0"></div>
+      <p style="font-size:12px;color:var(--text-secondary);text-align:center;line-height:1.5">Lucie vous attend vendredi à 17 h.</p>
+    </div>
+    <div class="fiche-pied">
+      La fin d'un parcours : un cercle à double filet vert, au centre d'une page qui ne demande plus rien.
+      <p class="regle"><b>Règle :</b> réservé à la <b>dernière</b> étape d'un parcours public — inscription, réservation. Jamais pour confirmer une action courante : ça, c'est la notification passagère.</p>
+      <p class="dette">N'existe pas. C'est le seul écran où l'on assume de ne rien mettre autour ; s'il était moins soigné, l'impression serait celle d'un bug.</p>
+    </div>
+  </article>
+
 </div>
 
 <!-- ================= 6 · NAVIGATION ================= -->
@@ -907,11 +985,157 @@ footer a{color:var(--marine);font-weight:600;}
     </div>
   </article>
 
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La manchette</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="mini-pc">
+        <div class="man">
+          <div class="h"><span>N° 142 · Saint-Sébastien</span><span>Mercredi 10 juin</span></div>
+          <div class="t">TempsPourTemps</div>
+          <div class="n"><b>La une</b><span>Le fil</span><span>À l'affiche</span><span>Les voisins</span><span>Votre temps</span><span>Le courrier</span></div>
+        </div>
+        <div class="cols">
+          <div class="c"><span></span><span style="width:70%"></span><span></span></div>
+          <div class="f"></div>
+          <div class="c plein"><span style="width:80%"></span><span></span><span></span><span style="width:60%"></span></div>
+          <div class="f"></div>
+          <div class="c"><span></span><span style="width:75%"></span><span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Le chrome du grand écran : bandeau de numéro, titre centré, devise, et la navigation sous un filet.
+      <p class="regle"><b>Règle :</b> la manchette pleine est <b>l'exclusivité de la une</b>. Elle coûte 150 px de hauteur — c'est justifié une fois, pas sur chaque page.</p>
+      <p class="dette">N'existe pas : sur PC l'application actuelle réutilise la barre marine du mobile, étirée.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le titre courant</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="mini-pc">
+        <div class="cour">
+          <span class="m">TempsPourTemps</span>
+          <span class="n"><span>La une</span><span>Le fil</span><span>À l'affiche</span><b>Le courrier</b><span>Proposer</span></span>
+          <span class="p"></span>
+        </div>
+        <div class="cols" style="height:64px">
+          <div class="c"><span></span><span style="width:70%"></span><span></span><span style="width:55%"></span></div>
+          <div class="f"></div>
+          <div class="c plein"><span style="width:80%"></span><span></span><span></span><span style="width:60%"></span><span></span></div>
+          <div class="f"></div>
+          <div class="c"><span></span><span style="width:65%"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      La manchette repliée en 56 px : marque, rubriques, numéro, compteur. Le filet double reste — c'est lui qui signe.
+      <p class="regle"><b>Règle :</b> sur toutes les pages sauf la une. En parcours public ou en embarquement, la navigation disparaît et la ligne affiche <b>où l'on en est</b> — « étape 2 sur 4 ».</p>
+      <p class="dette">N'existe pas. C'est ce qui rend la manchette tenable : sans lui, elle coûterait 150 px sur chaque écran.</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ================= 7 · LE GRAND ÉCRAN ================= -->
+<div class="section-titre" id="grand-ecran">
+  <span class="num">7</span><h2>Le grand écran</h2><span class="filet"></span>
+</div>
+<p class="section-intro">Les pièces qui n'existent que sur PC. Elles ne remplacent aucun composant mobile : elles <b>arrangent</b> les mêmes briques autrement. Aucune n'existe aujourd'hui — l'application n'a pas de mise en page grand écran.</p>
+
+<div class="grille">
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Les trois formats</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <div class="sch-jeu">
+        <div>
+          <div class="sch"><i style="width:26%"></i><i class="plein" style="flex:1"></i><i style="width:28%"></i></div>
+          <p class="sch-lab"><b>Lecture</b> — trier · lire · agir</p>
+        </div>
+        <div>
+          <div class="sch"><i style="width:32%"></i><i class="plein" style="flex:1"></i></div>
+          <p class="sch-lab"><b>Personnelle</b> — vos chiffres · le détail</p>
+        </div>
+        <div>
+          <div class="sch"><i style="width:22%"></i><i class="plein" style="flex:1"></i><i style="width:22%"></i></div>
+          <p class="sch-lab"><b>Tâche</b> — 648 px, rien autour</p>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Trois dispositions selon ce qu'on fait de la page, et pas selon son contenu.
+      <p class="regle"><b>Règle :</b> une page <b>personnelle</b> n'a pas de troisième colonne — il n'y a rien d'extérieur à vous à mettre à côté de votre relevé. Une page de <b>tâche</b> n'a rien autour : ce qui n'aide pas à remplir le formulaire nuit.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Les trois paliers</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <div class="sch-jeu">
+        <div>
+          <div class="sch" style="height:32px"><i style="width:26%"></i><i class="plein" style="flex:1"></i><i style="width:28%"></i></div>
+          <p class="sch-lab">≥ 1180 px — <b>trois colonnes</b></p>
+        </div>
+        <div>
+          <div class="sch" style="height:32px"><i style="width:32%"></i><i class="plein" style="flex:1"></i></div>
+          <p class="sch-lab">&lt; 1180 px — <b>la droite se verse dans la gauche</b></p>
+        </div>
+        <div>
+          <div class="sch" style="height:32px"><i class="plein" style="flex:1"></i></div>
+          <p class="sch-lab">&lt; 980 px — <b>l'ordre du mobile</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Comment la page se replie quand la fenêtre rétrécit.
+      <p class="regle"><b>Règle :</b> le contenu garde sa colonne, <b>les colonnes d'encadré fusionnent entre elles</b>. Les deux côtés sont finis, le fil est infini — placé sous lui, l'encadré ne serait jamais atteint.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La colonne de filtres</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <nav class="b-filtres" style="width:100%">
+        <a class="on" href="#"><span class="pt"></span>Tout le fil<span class="n3">34</span></a>
+        <a href="#"><span class="pt"></span>Qui m'intéressent<span class="n3">9</span></a>
+        <a href="#"><span class="pt"></span>Les demandes<span class="n3">18</span></a>
+        <a href="#"><span class="pt"></span>Les offres<span class="n3">12</span></a>
+      </nav>
+    </div>
+    <div class="fiche-pied">
+      La ligne de filtres du mobile, redressée à la verticale — et enrichie de ses compteurs.
+      <p class="regle"><b>Règle :</b> les compteurs sont l'intérêt du format : on voit la composition de la liste avant de filtrer. Au-delà d'une dizaine d'entrées, il faut en replier une partie.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le dossier</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div style="width:100%">
+        <div class="b-identite" style="border-bottom-width:1px;border-bottom-style:solid;padding-bottom:11px">
+          <span class="avatar av-creme" style="width:46px;height:46px;font-size:15px">AN</span>
+          <h1 style="font-size:15px">Alice Noël</h1>
+          <p class="q">Centre · voisine depuis mars 2025</p>
+        </div>
+        <div class="b-faits" style="margin-top:11px">
+          <div class="l"><span class="k">Quand</span><span class="v"><b>Samedi 14 juin</b>, 10:00</span></div>
+          <div class="l"><span class="k">État</span><span class="v"><span class="etat etat--ok">Confirmé</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      La troisième colonne d'une conversation : qui est la personne, vos fils avec elle, le rendez-vous en cours, vos échanges passés.
+      <p class="regle"><b>Règle :</b> c'est ce qui <b>supprime l'écran intermédiaire</b> du mobile. Le contexte est affiché, plus caché derrière un lien.</p>
+      <p class="dette">Assemble la <b>carte d'identité</b> et le <b>pavé de renseignements</b>, deux pièces qui resservent ailleurs — le pavé ouvre aussi la fiche d'un candidat et la confirmation de rendez-vous.</p>
+    </div>
+  </article>
+
 </div>
 
 <footer>
   TempsPourTemps — identité visuelle · La bibliothèque · Tous les composants reposent sur <code>brandkit/gazette.css</code>.<br>
-  <a href="../index.html">Galerie</a> · <a href="explorations/surfaces.html">Les surfaces en situation</a>
+  <a href="../index.html">Le design retenu</a> · <a href="explorations/surfaces.html">Les surfaces en situation</a> · <a href="explorations/bureau-3-pages.html">Les pages PC</a> · <a href="../explorations.html">Les pistes explorées</a>
 </footer>
 
 </div>
