@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les quatre dernières surfaces</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+body{padding:38px 20px 80px;}
+
+/* le menu de choix de photo, ancré sous un déclencheur */
+.ancre{position:relative;margin:0 18px;}
+.menu-ancre{
+  position:absolute;left:0;right:0;top:calc(100% + 7px);z-index:2;
+  background:var(--paper);border:1px solid var(--marine);border-radius:12px;overflow:hidden;
+  box-shadow:0 14px 30px -14px rgba(24,62,87,.5);
+}
+.menu-ancre a{
+  display:flex;align-items:center;gap:11px;padding:12px 14px;text-decoration:none;color:var(--marine);
+  font-size:13.5px;border-top:1px dotted var(--border);
+}
+.menu-ancre a:first-child{border-top:0;}
+.menu-ancre a .rond{
+  width:32px;height:32px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  background:var(--sable);color:var(--marine);border:1px solid var(--sable-hover);
+}
+.menu-ancre a .rond svg{width:16px;height:16px;}
+.menu-ancre a .c{flex:1;min-width:0;}
+.menu-ancre a b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;}
+.menu-ancre a .d{font-size:11px;color:var(--text-tertiary);margin-top:1px;}
+.menu-ancre .retirer{color:var(--danger);}
+.menu-ancre .retirer .rond{background:rgba(196,69,54,.1);color:var(--danger);border-color:rgba(196,69,54,.2);}
+
+/* le déclencheur d'avatar */
+.avatar-decl{
+  display:flex;align-items:center;gap:13px;background:var(--paper);border:1px solid var(--border);
+  border-radius:12px;padding:11px 13px;
+}
+.avatar-decl .c{flex:1;min-width:0;}
+.avatar-decl b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;}
+.avatar-decl .d{font-size:11.5px;color:var(--text-tertiary);margin-top:2px;}
+
+/* les deux étapes de la relance */
+.pas{display:flex;align-items:center;gap:9px;margin:0 18px 12px;}
+.pas .p{
+  flex:1;height:4px;border-radius:999px;background:var(--border);
+}
+.pas .p.on{background:var(--orange);}
+.pas .l{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);white-space:nowrap;}
+
+/* les grandes cartes de choix */
+.cartes-choix{display:flex;flex-direction:column;gap:10px;margin:0 18px;}
+.cartes-choix button{
+  display:flex;align-items:center;gap:13px;padding:14px;text-align:left;cursor:pointer;
+  background:var(--paper);border:1px solid var(--border);border-radius:13px;
+}
+.cartes-choix button.on{border-color:var(--orange);box-shadow:0 0 0 2px rgba(214,94,28,.14);background:var(--bg-hover);}
+.cartes-choix .rond{
+  width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  background:var(--bg-hover);color:var(--orange-hover);border:1px solid #f1ddae;
+}
+.cartes-choix .rond svg{width:18px;height:18px;}
+.cartes-choix .c{flex:1;min-width:0;}
+.cartes-choix b{display:block;font-family:var(--titres);font-weight:800;font-size:14px;}
+.cartes-choix .d{font-size:11.5px;color:var(--text-secondary);margin-top:3px;line-height:1.45;}
+
+.verdict{
+  border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:11px 15px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);
+  max-width:1000px;
+}
+.verdict p + p{margin-top:4px;}
+.verdict .pour::before{content:"Pour — ";font-weight:800;color:#2f7a44;}
+.verdict .contre::before{content:"Contre — ";font-weight:800;color:var(--danger);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Les dernières</p>
+  <h1>Quatre surfaces restantes</h1>
+  <p class="sub">Les quatre surfaces flottantes qui n'avaient pas encore de version dans la charte : le <b>mot de passe oublié</b>, les <b>informations obligatoires</b>, le <b>sélecteur de photo</b> et la <b>relance d'un candidat</b>. Avec elles, l'inventaire des surfaces est complet.</p>
+  <p class="traits"><span><b>Rappel</b> les quatre suivent les mêmes enveloppes — fiche ou dialogue — et la même règle des 520 px sur PC</span></p>
+  <a class="retour" href="../../index.html">← Retour au design retenu</a>
+</header>
+
+<div class="planche">
+
+  <!-- ============================================================
+       1 · MOT DE PASSE OUBLIÉ
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">1</span><h2>Mot de passe oublié</h2><span class="route">dialogue · hors connexion</span></figcaption>
+    <div class="phone">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg></span></div>
+      <div class="tete-public">
+        <img src="../../assets/logo/logo-tpt-transparent.png" alt="">
+        <span class="wordmark">Temps<em>Pour</em>Temps</span>
+      </div>
+      <main class="feed feed--uni"></main>
+
+      <div class="voile voile--centre">
+        <div class="dialogue">
+          <div class="tete">
+            <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="m3.5 7.5 8.5 6 8.5-6"/></svg></span>
+            <h3>On vous envoie un lien</h3>
+          </div>
+          <div class="corps">
+            Indiquez l'adresse avec laquelle vous vous êtes inscrit. Vous recevrez un lien valable une heure.
+            <div style="text-align:left;margin-top:13px">
+              <div class="saisie saisie--rempli">marc.dubois@exemple.fr</div>
+            </div>
+            <p class="aide" style="margin-top:8px;text-align:left">Si cette adresse n'est pas connue, vous ne recevrez rien — et nous ne vous le dirons pas.</p>
+          </div>
+          <div class="pied">
+            <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+            <button class="btn-plein btn-plein--orange" type="button">Envoyer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Un dialogue à un champ, sur l'en-tête public. La phrase d'aide dit franchement ce que beaucoup d'applications taisent : <b>on ne confirme pas qu'une adresse existe</b>. C'est une règle de sécurité élémentaire, et l'annoncer évite qu'on attende un courriel qui n'arrivera jamais.</p>
+    <div class="verdict">
+      <p class="pour">rien de nouveau : c'est le dialogue standard, ton neutre, un champ. La coquille écrite à la main aujourd'hui disparaît.</p>
+      <p class="contre">l'écran de succès manque ici. Il devrait être une <b>notification</b>, pas un second dialogue — sinon on empile deux surfaces pour rien.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       2 · INFORMATIONS OBLIGATOIRES
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">2</span><h2>Informations obligatoires</h2><span class="route">dialogue bloquant</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed feed--avec-barre"></main>
+
+      <div class="voile voile--centre">
+        <div class="dialogue">
+          <div class="tete">
+            <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-4.7 7-10.5A7 7 0 0 0 5 10.5C5 16.3 12 21 12 21Z"/><circle cx="12" cy="10.5" r="2.4"/></svg></span>
+            <h3>Dans quel quartier habitez-vous ?</h3>
+          </div>
+          <div class="corps">
+            C'est ce qui permet aux voisins proches de vous trouver. On ne montre jamais votre adresse — seulement le quartier.
+            <div style="text-align:left;margin-top:13px">
+              <div class="select"><span class="lab">Quartier</span><span>Choisir…</span><span class="chev">▾</span></div>
+            </div>
+          </div>
+          <div class="pied">
+            <button class="btn-plein btn-plein--orange" type="button">Enregistrer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Le seul dialogue de l'application à <b>une seule issue</b>. Il est bloquant — on ne peut pas s'en débarrasser — donc la règle des deux issues ne s'applique pas : en proposer une seconde serait mentir. En contrepartie, il ne demande <b>qu'une chose</b>, et dit pourquoi.</p>
+    <div class="verdict">
+      <p class="pour">une question, une réponse, une phrase qui justifie. Un dialogue bloquant qui demanderait cinq champs serait vécu comme une prise d'otage.</p>
+      <p class="contre">un dialogue sans échappatoire reste une entorse. Il faut s'assurer qu'il ne puisse jamais apparaître pour un champ qui n'est pas réellement indispensable.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       3 · LE SÉLECTEUR DE PHOTO
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">3</span><h2>Le sélecteur de photo</h2><span class="route">menu ancré · plan 30</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Votre profil</span>
+        <span style="width:34px"></span>
+      </div>
+
+      <main class="feed feed--uni">
+        <div class="form" style="padding-top:16px">
+          <div class="form-groupe">
+            <label>Votre portrait</label>
+            <div class="ancre">
+              <div class="avatar-decl">
+                <span class="avatar av-marine" style="width:48px;height:48px;font-size:16px">OD</span>
+                <span class="c"><b>Ajouter une photo</b><span class="d">Facultatif — les initiales font très bien l'affaire.</span></span>
+                <span style="color:var(--text-tertiary);font-size:11px">▾</span>
+              </div>
+              <div class="menu-ancre">
+                <a href="#">
+                  <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3v11H4Z"/><circle cx="12" cy="13" r="3.3"/></svg></span>
+                  <span class="c"><b>Prendre une photo</b><span class="d">Ouvre l'appareil</span></span>
+                </a>
+                <a href="#">
+                  <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="9.5" r="1.3"/></svg></span>
+                  <span class="c"><b>Choisir une image</b><span class="d">Dans vos photos</span></span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-groupe" style="margin-top:110px">
+            <label>Votre prénom</label>
+            <div class="saisie saisie--rempli">Omar-Yann</div>
+          </div>
+        </div>
+      </main>
+      <span class="home"></span>
+    </div>
+    <p class="note">Une <b>petite</b> surface, et c'est ce qui la définit : deux ou trois chemins, ancrés sous le déclencheur, sans voile qui assombrit la page. C'est le plan des menus — <b>30</b> sur l'échelle — au-dessus du contenu mais sous les fiches. Quand une photo existe déjà, une troisième entrée « Retirer la photo » s'ajoute, en rouge.</p>
+    <div class="verdict">
+      <p class="pour">pas de voile, pas de feuille : ouvrir une surface pleine hauteur pour deux options serait disproportionné. C'est la limite basse de l'échelle.</p>
+      <p class="contre">sans voile, rien n'indique qu'un clic ailleurs referme le menu. Il faut une zone de fermeture invisible — et se souvenir qu'elle existe en relisant le code.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       4 · LA RELANCE D'UN CANDIDAT
+       ============================================================ -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">4</span><h2>Relancer un candidat</h2><span class="route">feuille · deux temps</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Marc Dubois</span>
+        <span style="width:34px"></span>
+      </div>
+      <main class="feed feed--uni"></main>
+
+      <div class="voile">
+        <div class="feuille">
+          <span class="poignee"></span>
+          <div class="tete"><h3>Relancer Marc Dubois</h3><button class="x" type="button">×</button></div>
+          <div class="corps">
+            <div class="pas">
+              <span class="l">Le canal</span>
+              <span class="p on"></span>
+              <span class="p"></span>
+              <span class="l">Le mot</span>
+            </div>
+
+            <p class="aide" style="margin:0 18px 12px">Sans nouvelles depuis le 28 mai — 13 jours. Sa demande date du 3 juin.</p>
+
+            <div class="cartes-choix">
+              <button class="on" type="button">
+                <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="m3.5 7.5 8.5 6 8.5-6"/></svg></span>
+                <span class="c"><b>Par courriel</b><span class="d">Vous relirez le message avant l'envoi.</span></span>
+              </button>
+              <button type="button">
+                <span class="rond"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z"/></svg></span>
+                <span class="c"><b>Je l'ai appelé</b><span class="d">Rien ne part — on note simplement la relance.</span></span>
+              </button>
+            </div>
+
+            <div class="encart encart--attention" style="margin:15px 18px 0">
+              <b>Deuxième relance.</b> Sans réponse sous huit jours, la fiche passera d'elle-même en « abandonnée ».
+            </div>
+
+            <div class="form-pied" style="align-items:center;gap:18px">
+              <button class="lien-filet lien-filet--muet" type="button" style="flex:none">Annuler</button>
+              <button class="btn-plein btn-plein--orange" type="button">Rédiger le message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Deux temps, donc <b>un indicateur de position</b> — deux segments et deux mots. L'assistant actuel n'en a aucun : le seul repère est une flèche de retour qui apparaît à la seconde étape. Deux segments, c'est peu, mais c'est ce qui distingue « je choisis » de « je rédige ».</p>
+    <div class="verdict">
+      <p class="pour">le second choix, « je l'ai appelé », ne déclenche aucun envoi mais consigne la relance. Le dire en clair évite qu'on l'utilise par erreur en croyant envoyer un courriel.</p>
+      <p class="contre">un indicateur pour deux étapes peut sembler lourd. Il se justifie ici parce que la seconde étape est longue — une zone de texte à relire — et qu'on doit savoir qu'elle existe avant de s'y engager.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Les quatre dernières surfaces · Personnes fictives.<br>
+  <a href="../../index.html">Le design retenu</a> · <a href="fiches-modales.html">Les fiches en modale</a> · <a href="enveloppe-unique.html">L'enveloppe unique</a> · <a href="../bibliotheque.html">La bibliothèque</a>
+</footer>
+</body>
+</html>

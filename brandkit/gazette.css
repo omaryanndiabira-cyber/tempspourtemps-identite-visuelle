@@ -1131,7 +1131,8 @@ footer a{color:var(--marine);font-weight:600;}
 .fil-rdv--bref .etape::before{top:15px;}
 .fil-rdv--bref .puce{width:11px;height:11px;margin-top:2px;}
 .fil-rdv--bref b{font-size:12.5px;}
-.fil-rdv--bref p{display:none;}
+/* en version brève on garde la date (.q) et l'on masque la description */
+.fil-rdv--bref p:not(.q){display:none;}
 
 /* ============================================================
    LES SURFACES SUR GRAND ÉCRAN

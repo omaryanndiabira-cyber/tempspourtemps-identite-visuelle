@@ -197,7 +197,7 @@ footer a{color:var(--marine);font-weight:600;}
   <img src="../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
   <p class="kicker">Design system</p>
   <h1>La bibliothèque</h1>
-  <p>Les <b>46 briques</b> de l'interface, dans la charte gazette. Chaque fiche indique ce que le composant est, <b>quand l'employer</b>, et son état vis-à-vis de l'application actuelle : il existe déjà, il existe en plusieurs exemplaires à fusionner, ou il reste à créer. La septième famille rassemble les pièces qui n'existent que sur grand écran.</p>
+  <p>Les <b>54 briques</b> de l'interface, dans la charte gazette. Chaque fiche indique ce que le composant est, <b>quand l'employer</b>, et son état vis-à-vis de l'application actuelle : il existe déjà, il existe en plusieurs exemplaires à fusionner, ou il reste à créer. La septième famille rassemble les pièces qui n'existent que sur grand écran.</p>
   <a class="retour" href="../index.html">← Retour à la galerie</a>
 </header>
 
@@ -664,6 +664,54 @@ footer a{color:var(--marine);font-weight:600;}
   </article>
 
   <article class="fiche">
+    <div class="fiche-tete"><h3>La frise</h3><span class="statut statut--fusionner">À refondre</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="frise" style="width:100%;border:1px solid var(--border);border-radius:11px">
+        <div class="etape etape--faite"><span class="puce"></span><span class="lab">Proposé</span><span class="d">9 juin</span></div>
+        <div class="etape etape--faite"><span class="puce"></span><span class="lab">Accepté</span><span class="d">9 juin</span></div>
+        <div class="etape etape--ici"><span class="puce"></span><span class="lab">À valider</span><span class="d">14 juin</span></div>
+        <div class="etape"><span class="puce"></span><span class="lab">Validé</span><span class="d">—</span></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      90 px. Cinq puces sur un filet, un mot sous chacune. Elle répond à <b>une seule question : où en est-on</b>.
+      <p class="regle"><b>Règle :</b> la frise <b>se raccourcit</b> en cas d'annulation — garder des étapes grises qui n'arriveront jamais promettrait un avenir qui n'existe plus. Les libellés tiennent en 78 px.</p>
+      <p class="dette"><code>ExchangeTimeline</code> existe (99 l.) mais sur un <b>bandeau orange plein</b>, et ne peut porter qu'un libellé de deux mots — d'où le bloc « Évènements » qui vit à côté d'elle.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le bandeau d'action</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="frise-action" style="width:100%;border:1px solid #efdcae;border-radius:11px">
+        <div class="c"><p class="q">Depuis 2 jours</p><b>Alice attend votre validation</b></div>
+        <button class="action action--fort" type="button">Valider</button>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Il suit la frise et dit ce qu'on attend <b>maintenant</b>, avec le geste.
+      <p class="regle"><b>Règle :</b> il n'apparaît que <b>s'il y a quelque chose à faire</b>, et passe au gris quand il ne fait que constater. C'est lui qui porte l'unique bouton de la fiche.</p>
+      <p class="dette">N'existe pas : c'est précisément ce que la frise actuelle ne peut pas porter.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le journal</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="fil-rdv fil-rdv--bref" style="margin:0;width:100%">
+        <div class="etape"><span class="puce"></span><div class="c"><p class="q">9 juin · 9 h 04</p><b>Alice a proposé le rendez-vous</b></div></div>
+        <div class="etape"><span class="puce"></span><div class="c"><p class="q">12 juin · 18 h 22</p><b>Alice a précisé le lieu</b></div></div>
+        <div class="etape etape--ici"><span class="puce"></span><div class="c"><p class="q">14 juin · 11 h 00</p><b>L'heure est passée</b></div></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Chronologie verticale, <b>repliée par défaut</b>. Elle répond à l'autre question : que s'est-il passé.
+      <p class="regle"><b>Règle :</b> il accueille ce que la frise ne peut pas montrer — un report, une précision de lieu, une annulation. Replié, il sert aux litiges et à la curiosité, pas à l'usage courant.</p>
+      <p class="dette">Le bloc « Évènements » existe, mais <b>uniquement pour les activités de groupe</b> — et sous forme de liste à puces sans filet de liaison.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
     <div class="fiche-tete"><h3>L'entrefilet</h3><span class="statut statut--creer">À créer</span></div>
     <div class="demo demo--papier demo--serre">
       <p class="entrefilet" style="margin:0;width:100%"><b>Nouveau</b>Les moments ouverts arrivent : un créneau sans destinataire, qui veut s'inscrit. <a href="#">En savoir plus</a></p>
@@ -779,6 +827,67 @@ footer a{color:var(--marine);font-weight:600;}
       Pour ce qui détruit des données : picto rouge, perte chiffrée, saisie du nom, boutons empilés.
       <p class="regle"><b>Règle :</b> l'issue sûre est en bas, sous le pouce. On ne clique pas au hasard sur une pile.</p>
       <p class="dette">N'existe pas en composant : trois approches concurrentes coexistent, dont des modales écrites dans les pages.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La fiche</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div style="width:100%;border:1.5px solid var(--marine);border-radius:11px;overflow:hidden;background:var(--bg-main);font-size:9px">
+        <div style="padding:6px 10px;border-bottom:1px dashed var(--border)"><b style="font-family:var(--titres);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--marine)">En-tête</b></div>
+        <div style="padding:6px 10px;border-bottom:1px dashed var(--border);background:repeating-linear-gradient(135deg,transparent,transparent 7px,rgba(24,62,87,.035) 7px,rgba(24,62,87,.035) 14px)"><b style="font-family:var(--titres);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary)">Frise · bandeau</b></div>
+        <div style="padding:6px 10px;border-bottom:1px dashed var(--border)"><b style="font-family:var(--titres);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--marine)">Corps</b></div>
+        <div style="padding:6px 10px;border-bottom:1px dashed var(--border);background:repeating-linear-gradient(135deg,transparent,transparent 7px,rgba(24,62,87,.035) 7px,rgba(24,62,87,.035) 14px)"><b style="font-family:var(--titres);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary)">Encart · journal</b></div>
+        <div style="padding:6px 10px"><b style="font-family:var(--titres);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--marine)">Pied</b></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      L'enveloppe de tout ce qui <b>montre</b> : annonce, rendez-vous, publication, moment. Huit zones, dont quatre facultatives.
+      <p class="regle"><b>Règle :</b> l'ordre ne change jamais ; une zone facultative absente <b>n'est pas rendue</b>, pas rendue vide. Seul le <b>corps</b> reste libre — c'est la soupape.</p>
+      <p class="dette">Quatre composants sans rien en commun aujourd'hui : <b>3 891 lignes</b>, trois plans différents, trois voiles différents.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le dialogue</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--centre demo--serre">
+      <div style="width:200px;background:var(--bg-main);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+        <div style="padding:11px 12px 0;text-align:center">
+          <span class="pic" style="width:30px;height:30px;border-radius:50%;margin:0 auto 7px;display:flex;align-items:center;justify-content:center;background:var(--bg-hover);color:var(--orange-hover)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg></span>
+          <b style="font-family:var(--titres);font-weight:800;font-size:12px">Valider cet échange ?</b>
+        </div>
+        <div style="padding:5px 12px 0;text-align:center;font-size:10px;color:var(--text-secondary);line-height:1.45">Votre compteur passera à 9 h 30.</div>
+        <div style="display:flex;gap:6px;padding:11px 12px 12px">
+          <span style="flex:1;height:19px;border-radius:7px;border:1px solid var(--border);background:var(--paper)"></span>
+          <span style="flex:1;height:19px;border-radius:7px;background:var(--orange)"></span>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      L'enveloppe de tout ce qui <b>demande</b>. Six zones, cinq réglages : le ton, zéro à trois champs, l'encart, la disposition du pied.
+      <p class="regle"><b>Règle :</b> une fiche se ferme sans rien décider, <b>un dialogue attend une réponse</b> — il a donc toujours deux issues explicites, jamais une croix seule. Un dialogue ne s'ouvre jamais au-dessus d'un dialogue.</p>
+      <p class="dette">Absorbe <b>deux <code>window.confirm</code></b>, un <code>window.alert</code>, six coquilles réécrites à la main et <b>sept popups recopiées</b> dans un seul fichier.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le menu ancré</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div style="width:100%;background:var(--paper);border:1px solid var(--marine);border-radius:11px;overflow:hidden">
+        <a href="#" style="display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:var(--marine);font-size:12.5px">
+          <span style="width:28px;height:28px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--sable);border:1px solid var(--sable-hover)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M4 8h3l1.5-2h7L17 8h3v11H4Z"/><circle cx="12" cy="13" r="3.3"/></svg></span>
+          <b style="font-family:var(--titres);font-weight:800">Prendre une photo</b>
+        </a>
+        <a href="#" style="display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:var(--marine);font-size:12.5px;border-top:1px dotted var(--border)">
+          <span style="width:28px;height:28px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--sable);border:1px solid var(--sable-hover)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg></span>
+          <b style="font-family:var(--titres);font-weight:800">Choisir une image</b>
+        </a>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Deux ou trois chemins, ancrés sous leur déclencheur, <b>sans voile</b>. Plan 30 — au-dessus du contenu, sous les fiches.
+      <p class="regle"><b>Règle :</b> c'est la limite basse de l'échelle. Au-delà de trois entrées ou si un choix engage, c'est une <b>feuille de choix</b>.</p>
+      <p class="dette">Trois implémentations aujourd'hui — sélecteur de photo, panneau de sélecteur, résultats de recherche — chacune avec son propre backdrop, ou sans.</p>
     </div>
   </article>
 
@@ -915,6 +1024,23 @@ footer a{color:var(--marine);font-weight:600;}
       Dire ce qui a échoué, rassurer sur les données, offrir de réessayer, reléguer le code en bas de casse.
       <p class="regle"><b>Règle :</b> jamais de message technique en titre. L'utilisateur veut savoir si ce qu'il avait écrit est perdu.</p>
       <p class="dette"><b>Quatre formes concurrentes</b>, dont un encart réécrit dans <b>28 fichiers</b> avec quatre rayons différents. La page d'erreur globale utilise même un bouton d'une autre bibliothèque.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>L'indicateur d'étapes</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div style="display:flex;align-items:center;gap:9px;width:100%">
+        <span style="font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);white-space:nowrap">Le canal</span>
+        <span style="flex:1;height:4px;border-radius:999px;background:var(--orange)"></span>
+        <span style="flex:1;height:4px;border-radius:999px;background:var(--border)"></span>
+        <span style="font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);white-space:nowrap">Le mot</span>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Un segment par étape, le mot de l'étape à chaque bout. Pour les parcours à plusieurs temps.
+      <p class="regle"><b>Règle :</b> dès <b>deux étapes</b>, un indicateur. Sans lui, on ne sait pas qu'une seconde étape existe avant de s'y engager.</p>
+      <p class="dette">La barre d'embarquement existe (44 l.) mais avec <b>deux barèmes différents</b> — 4 étapes dans un parcours, 5 dans l'autre. Et <b>trois assistants n'ont aucun indicateur</b>.</p>
     </div>
   </article>
 
@@ -1151,6 +1277,30 @@ footer a{color:var(--marine);font-weight:600;}
       La troisième colonne d'une conversation : qui est la personne, vos fils avec elle, le rendez-vous en cours, vos échanges passés.
       <p class="regle"><b>Règle :</b> c'est ce qui <b>supprime l'écran intermédiaire</b> du mobile. Le contexte est affiché, plus caché derrière un lien.</p>
       <p class="dette">Assemble la <b>carte d'identité</b> et le <b>pavé de renseignements</b>, deux pièces qui resservent ailleurs — le pavé ouvre aussi la fiche d'un candidat et la confirmation de rendez-vous.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Les modales sur PC</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--centre">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="width:54px;height:96px;border:1px solid rgba(24,62,87,.2);border-radius:8px;overflow:hidden;position:relative;background:var(--bg-main)">
+          <div style="position:absolute;inset:0;background:rgba(15,47,68,.4);display:flex;align-items:flex-end">
+            <div style="width:100%;height:60%;background:var(--paper);border:1px solid var(--border);border-bottom:0;border-radius:9px 9px 0 0"></div>
+          </div>
+        </div>
+        <span style="font-family:var(--titres);font-weight:800;color:var(--orange)">→</span>
+        <div style="width:140px;height:96px;border:1px solid rgba(24,62,87,.2);border-radius:8px;overflow:hidden;position:relative;background:var(--bg-main)">
+          <div style="position:absolute;inset:0;background:rgba(15,47,68,.4);display:flex;align-items:center;justify-content:center">
+            <div style="width:58px;height:76%;background:var(--paper);border:1px solid var(--border);border-radius:7px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Sur grand écran, une feuille <b>se centre et plafonne à 520 px</b> — la largeur d'un téléphone, plus un peu d'air.
+      <p class="regle"><b>Règle :</b> le contenu ne change pas d'un pixel entre mobile et PC — <b>aucune version responsive à concevoir</b>. Deux détails s'ajustent : la poignée disparaît, les quatre coins s'arrondissent. Une seule exception : la <b>visionneuse d'image</b>, plein écran partout.</p>
+      <p class="dette">N'existe pas : sur PC les feuilles s'étirent aujourd'hui sur toute la largeur.</p>
     </div>
   </article>
 
