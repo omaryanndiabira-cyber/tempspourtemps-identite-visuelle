@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Les temps de chargement</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+/* ============================================================
+   LES TEMPS DE CHARGEMENT
+   Cinq attentes possibles, cinq réponses différentes.
+   Le tourniquet ne répond qu'à une seule d'entre elles.
+   ============================================================ */
+
+.q{max-width:900px;margin:0 auto 30px;text-align:center;}
+.q .kicker{font-family:var(--titres);font-weight:800;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.q h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.5rem,4vw,2.05rem);margin-top:7px;letter-spacing:-.4px;}
+.q p{color:var(--text-secondary);font-size:.92rem;line-height:1.65;margin-top:13px;}
+.q p b{color:var(--marine);}
+.q .retour{display:inline-block;margin-top:16px;color:var(--marine);font-weight:600;font-size:.85rem;text-decoration:none;}
+
+.sec{display:flex;align-items:center;gap:14px;max-width:1080px;margin:52px auto 8px;}
+.sec .num{font-family:var(--titres);font-weight:800;font-size:.74rem;background:var(--sable);color:var(--marine);border-radius:8px;padding:3px 10px;}
+.sec h2{font-family:var(--titres);font-weight:800;font-size:1.2rem;}
+.sec .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
+.sec-sub{max-width:1080px;margin:0 auto 22px;color:var(--text-secondary);font-size:.88rem;line-height:1.6;}
+.sec-sub b{color:var(--marine);}
+.sec-sub code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.74rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+
+/* ---------- la règle des cinq attentes ---------- */
+.regles{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(198px,1fr));gap:12px;}
+.r{background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:14px 16px 15px;border-top:3px solid var(--marine);}
+.r .q2{font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);}
+.r h3{font-family:var(--titres);font-weight:800;font-size:.96rem;margin-top:6px;line-height:1.3;}
+.r p{font-size:.79rem;line-height:1.55;color:var(--text-secondary);margin-top:8px;}
+.r p b{color:var(--marine);}
+.r .quoi{margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);font-size:.76rem;color:var(--orange-hover);font-weight:700;}
+.r--rien{border-top-color:var(--border);}
+.r--sq{border-top-color:var(--orange-vif);}
+.r--btn{border-top-color:var(--success-vif);}
+.r--plein{border-top-color:var(--sable-hover);}
+.r--raf{border-top-color:#2f6f8f;}
+
+/* ============================================================
+   LES CINQ TOURNIQUETS
+   ============================================================ */
+.grille-ld{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(198px,1fr));gap:14px;}
+.carte-ld{background:var(--paper);border:1px solid var(--border);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;}
+.carte-ld .scene{
+  height:132px;display:flex;align-items:center;justify-content:center;gap:20px;
+  background:var(--bg-main);border-bottom:1px solid var(--border);
+  background-image:radial-gradient(circle at 50% 40%, rgba(252,219,129,.2), transparent 62%);
+}
+.carte-ld .bas{padding:12px 15px 14px;}
+.carte-ld .bas .n{font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);}
+.carte-ld .bas h3{font-family:var(--titres);font-weight:800;font-size:.98rem;margin-top:5px;}
+.carte-ld .bas p{font-size:.78rem;line-height:1.55;color:var(--text-secondary);margin-top:7px;}
+.carte-ld .bas p b{color:var(--marine);}
+.carte-ld .bas .ang{display:inline-block;margin-top:9px;font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-radius:5px;padding:2px 8px;}
+.ang--temps{background:var(--sable);color:var(--marine);}
+.ang--gaz{background:var(--bg-hover);color:var(--orange-hover);}
+
+/* — 1 · le sablier — */
+.ld-sablier{width:30px;height:42px;animation:sab-bascule 3.2s steps(1) infinite;}
+.ld-sablier--p{width:19px;height:27px;}
+.ld-sablier svg{width:100%;height:100%;display:block;}
+.ld-sablier .haut{transform-box:fill-box;transform-origin:center top;animation:sab-vide 1.6s linear infinite;}
+.ld-sablier .bas2{transform-box:fill-box;transform-origin:center bottom;animation:sab-plein 1.6s linear infinite;}
+.ld-sablier .grain{animation:sab-grain .5s linear infinite;}
+@keyframes sab-vide{0%{transform:scaleY(1);}100%{transform:scaleY(0);}}
+@keyframes sab-plein{0%{transform:scaleY(0);}100%{transform:scaleY(1);}}
+@keyframes sab-grain{0%{opacity:.2;}50%{opacity:1;}100%{opacity:.2;}}
+@keyframes sab-bascule{0%,50%{transform:rotate(0deg);}50.01%,100%{transform:rotate(180deg);}}
+
+/* — 2 · le cadran — */
+.ld-cadran{width:38px;height:38px;position:relative;}
+.ld-cadran--p{width:22px;height:22px;}
+.ld-cadran svg{width:100%;height:100%;display:block;}
+.ld-cadran .arc{
+  fill:none;stroke:var(--orange);stroke-width:3.2;stroke-linecap:round;
+  stroke-dasharray:22 78;transform-origin:center;animation:cad-tourne 1.15s linear infinite;
+}
+.ld-cadran .aig{transform-origin:center;animation:cad-aiguille 3.4s linear infinite;}
+@keyframes cad-tourne{100%{transform:rotate(360deg);}}
+@keyframes cad-aiguille{100%{transform:rotate(360deg);}}
+
+/* — 3 · les points de conduite — */
+.ld-points{display:flex;align-items:center;gap:7px;width:100%;max-width:186px;}
+.ld-points .mot{font-family:var(--titres);font-weight:800;font-size:11px;color:var(--marine);white-space:nowrap;}
+.ld-points .pts{flex:1;display:flex;align-items:center;justify-content:space-between;gap:3px;}
+.ld-points .pts i{width:3.5px;height:3.5px;border-radius:50%;background:var(--marine);opacity:.16;animation:pt-onde 1.45s ease-in-out infinite;}
+.ld-points .fin{font-family:var(--titres);font-weight:800;font-size:11px;color:var(--marine);opacity:.28;animation:pt-onde 1.45s ease-in-out infinite;animation-delay:.65s;}
+@keyframes pt-onde{0%,70%,100%{opacity:.16;transform:scale(1);}30%{opacity:1;transform:scale(1.5);}}
+
+/* — 4 · le sceau — */
+.ld-sceau{width:52px;height:52px;position:relative;animation:sc-pivot 4.5s ease-in-out infinite;}
+.ld-sceau--p{width:30px;height:30px;}
+.ld-sceau .anneau{
+  position:absolute;inset:0;border-radius:50%;border:2px solid var(--marine);
+  box-shadow:inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--marine);
+}
+.ld-sceau .halo{
+  position:absolute;inset:0;border-radius:50%;border:2px solid var(--orange-vif);
+  animation:sc-onde 1.8s ease-out infinite;
+}
+.ld-sceau .mq{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);letter-spacing:.04em;
+}
+.ld-sceau--p .mq{font-size:8px;}
+@keyframes sc-onde{0%{transform:scale(1);opacity:.7;}100%{transform:scale(1.5);opacity:0;}}
+@keyframes sc-pivot{0%,100%{transform:rotate(-6deg);}50%{transform:rotate(6deg);}}
+
+/* — 5 · la rotative — */
+.ld-rotative{width:100%;max-width:184px;height:9px;border-radius:999px;overflow:hidden;background:var(--bg-secondary);border:1px solid var(--border);}
+.ld-rotative i{
+  display:block;height:100%;width:100%;
+  background:repeating-linear-gradient(-45deg, var(--orange-vif) 0 8px, var(--orange-hover) 8px 16px);
+  background-size:22.7px 100%;animation:rot-roule .7s linear infinite;
+}
+.ld-rotative--fin{height:3px;border:0;border-radius:0;max-width:100%;}
+@keyframes rot-roule{100%{background-position:22.7px 0;}}
+
+/* ============================================================
+   LES SQUELETTES
+   ============================================================ */
+.sq-duo{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;align-items:start;}
+.sq-carte{background:var(--paper);border:1px solid var(--border);border-radius:13px;overflow:hidden;}
+.sq-carte > .tt{
+  padding:9px 14px;border-bottom:1px solid var(--border);background:var(--bg-secondary);
+  display:flex;align-items:center;gap:8px;
+}
+.sq-carte > .tt b{font-family:var(--titres);font-weight:800;font-size:.78rem;color:var(--marine);}
+.sq-carte > .tt span{margin-left:auto;font-size:.66rem;color:var(--text-tertiary);}
+.sq-carte > .dedans{padding:14px;background:var(--bg-main);}
+
+/* le scintillement, posé sur la carte entière et non sur chaque trait */
+.sq{position:relative;overflow:hidden;background:var(--paper);border:1px solid var(--border);border-radius:11px;}
+.sq::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(100deg, transparent 20%, rgba(255,255,255,.85) 48%, transparent 76%);
+  transform:translateX(-110%);animation:scintille 1.5s ease-in-out infinite;
+}
+.sq-t{background:#e4e7ec;border-radius:5px;}
+.sq-t--sable{background:#f2e4c2;}
+.sq-t--marine{background:#d8e0e7;}
+.sq-rond{border-radius:50%;background:#e4e7ec;flex:none;}
+@keyframes scintille{0%{transform:translateX(-110%);}60%,100%{transform:translateX(110%);}}
+
+/* formes particulières */
+.sq-annonce{padding:12px 13px;}
+.sq-annonce .g{width:76px;height:11px;}
+.sq-annonce .ti{width:84%;height:14px;margin-top:9px;}
+.sq-annonce .l1{width:100%;height:9px;margin-top:8px;}
+.sq-annonce .l2{width:62%;height:9px;margin-top:5px;}
+.sq-annonce .pied{display:flex;align-items:center;gap:8px;margin-top:11px;padding-top:9px;border-top:1px dotted var(--border);}
+.sq-annonce .pied .sq-rond{width:20px;height:20px;}
+.sq-annonce .pied .nm{width:78px;height:9px;}
+.sq-annonce .pied .dt{width:44px;height:8px;margin-left:auto;}
+
+.sq-fairepart{padding:12px 13px;border-top:3px double var(--border);border-radius:0 0 11px 11px;}
+.sq-fairepart .dt{width:112px;height:10px;margin:0 auto;}
+.sq-fairepart .ti{width:70%;height:14px;margin:9px auto 0;}
+.sq-fairepart .ou{width:52%;height:9px;margin:8px auto 0;}
+.sq-fairepart .btns{display:flex;gap:7px;justify-content:center;margin-top:12px;}
+.sq-fairepart .btns .sq-t{width:74px;height:22px;border-radius:999px;}
+
+.sq-billet{display:flex;overflow:hidden;}
+.sq-billet .talon{flex:none;width:50px;border-right:1px solid var(--border);padding:9px 5px;display:flex;flex-direction:column;align-items:center;gap:5px;}
+.sq-billet .talon .sq-t{width:26px;height:9px;}
+.sq-billet .talon .sq-t.gros{width:22px;height:15px;}
+.sq-billet .corps2{flex:1;padding:10px 12px;min-width:0;}
+.sq-billet .corps2 .ti{width:80%;height:12px;}
+.sq-billet .corps2 .l1{width:56%;height:8px;margin-top:7px;}
+
+.sq-carnet{display:flex;align-items:center;gap:10px;padding:10px 13px;}
+.sq-carnet .sq-rond{width:34px;height:34px;}
+.sq-carnet .tx{flex:1;min-width:0;}
+.sq-carnet .tx .nm{width:44%;height:12px;}
+.sq-carnet .tx .cp{width:72%;height:8px;margin-top:7px;}
+.sq-carnet .ac{width:58px;height:20px;border-radius:999px;flex:none;}
+
+.sq-post{padding:12px 13px;}
+.sq-post .tete{display:flex;align-items:center;gap:9px;}
+.sq-post .tete .sq-rond{width:28px;height:28px;}
+.sq-post .tete .nm{width:88px;height:10px;}
+.sq-post .tete .dt{width:40px;height:8px;margin-left:auto;}
+.sq-post .l1{width:100%;height:9px;margin-top:11px;}
+.sq-post .l2{width:94%;height:9px;margin-top:6px;}
+.sq-post .l3{width:48%;height:9px;margin-top:6px;}
+.sq-post .re{display:flex;gap:7px;margin-top:11px;}
+.sq-post .re .sq-t{width:62px;height:20px;border-radius:999px;}
+
+.sq-agenda{display:flex;gap:11px;padding:11px 13px;border-radius:0;border-left:0;border-right:0;}
+.sq-agenda .quand{flex:none;width:44px;border-right:1px solid var(--border);padding-right:9px;display:flex;flex-direction:column;align-items:center;gap:5px;}
+.sq-agenda .quand .j{width:24px;height:17px;}
+.sq-agenda .quand .m{width:28px;height:8px;}
+.sq-agenda .tx{flex:1;min-width:0;}
+.sq-agenda .tx .g{width:68px;height:10px;}
+.sq-agenda .tx .ti{width:76%;height:13px;margin-top:7px;}
+.sq-agenda .tx .ou{width:58%;height:8px;margin-top:6px;}
+
+.pile{display:flex;flex-direction:column;gap:9px;}
+.pile--serre{gap:0;}
+.pile--serre > .sq{border-radius:0;border-bottom:0;}
+.pile--serre > .sq:first-child{border-radius:11px 11px 0 0;}
+.pile--serre > .sq:last-child{border-radius:0 0 11px 11px;border-bottom:1px solid var(--border);}
+
+/* la comparaison avant / après */
+.av-ap{max-width:1080px;margin:26px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--marine);border-radius:14px;overflow:hidden;}
+.av-ap > div{padding:16px 18px 18px;}
+.av-ap > div:first-child{background:var(--bg-secondary);border-right:1px solid var(--border);}
+.av-ap > div:last-child{background:var(--paper);}
+.av-ap .k{font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;}
+.av-ap > div:first-child .k{color:var(--danger);}
+.av-ap > div:last-child .k{color:var(--success);}
+.av-ap h3{font-family:var(--titres);font-weight:800;font-size:1rem;margin-top:6px;}
+.av-ap p{font-size:.82rem;line-height:1.6;color:var(--text-secondary);margin-top:9px;}
+.av-ap p b{color:var(--marine);}
+.av-ap .demo{margin-top:12px;background:var(--bg-main);border:1px solid var(--border);border-radius:11px;padding:13px;min-height:168px;display:flex;flex-direction:column;}
+.av-ap .demo .entete{display:flex;align-items:center;gap:7px;margin-bottom:10px;}
+.av-ap .demo .entete .tape{background:var(--sable);padding:3px 9px;transform:rotate(-1.2deg);font-family:var(--titres);font-weight:800;font-size:10px;color:var(--marine);}
+.av-ap .demo .vide{flex:1;display:flex;align-items:center;justify-content:center;}
+@media (max-width:720px){ .av-ap{grid-template-columns:1fr;} .av-ap > div:first-child{border-right:0;border-bottom:1px solid var(--border);} }
+
+/* le tableau de répartition */
+.rep{max-width:1080px;margin:26px auto 0;width:100%;border-collapse:collapse;font-size:.83rem;}
+.rep th{text-align:left;font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);padding:0 12px 8px 0;border-bottom:2px solid var(--marine);}
+.rep td{padding:10px 12px 10px 0;border-top:1px dotted var(--border);color:var(--text-secondary);vertical-align:top;}
+.rep tbody tr:first-child td{border-top:0;}
+.rep .c{font-family:var(--titres);font-weight:800;color:var(--marine);white-space:nowrap;}
+.rep .n{font-family:var(--titres);font-weight:800;font-size:1.05rem;color:var(--orange-hover);white-space:nowrap;}
+
+.verdict{max-width:1000px;margin:50px auto 0;background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.18);outline-offset:3px;border-radius:15px;padding:20px 24px 22px;}
+.verdict .k{font-family:var(--titres);font-weight:800;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.verdict h2{font-family:var(--titres);font-weight:800;font-size:1.18rem;margin-top:8px;line-height:1.35;}
+.verdict p{font-size:.88rem;line-height:1.65;color:var(--text-secondary);margin-top:11px;}
+.verdict p b{color:var(--marine);}
+.verdict code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.76rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+.verdict .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+
+/* mouvement réduit : on arrête tout, on ne cache rien */
+@media (prefers-reduced-motion: reduce){
+  .ld-sablier,.ld-sablier .haut,.ld-sablier .bas2,.ld-sablier .grain,
+  .ld-cadran .arc,.ld-cadran .aig,.ld-points .pts i,.ld-points .fin,
+  .ld-sceau,.ld-sceau .halo,.ld-rotative i,.sq::after{
+    animation:none !important;
+  }
+  .sq::after{display:none;}
+  .ld-points .pts i{opacity:.45;}
+}
+</style>
+</head>
+<body>
+
+<section class="q">
+  <p class="kicker">Ce qui manquait à la charte</p>
+  <h1>Les temps de chargement</h1>
+  <p>L'application compte <b>soixante tourniquets</b> en huit tailles, et <b>aucun squelette</b>. Or un tourniquet ne répond qu'à une seule des cinq attentes possibles — et pas à la plus fréquente.</p>
+  <a class="retour" href="../../decisions.html">← Les décisions préalables</a>
+</section>
+
+<!-- ============ 1 · LA RÈGLE ============ -->
+<div class="sec"><span class="num">1</span><h2>Cinq attentes, cinq réponses</h2><span class="filet"></span></div>
+<p class="sec-sub">La question n'est pas « quel tourniquet », c'est <b>« qu'est-ce qu'on attend »</b>. Chaque colonne ci-dessous est un cas distinct, avec une seule bonne réponse.</p>
+
+<div class="regles">
+  <div class="r r--rien">
+    <p class="q2">Moins de 300 ms</p>
+    <h3>On ne montre rien</h3>
+    <p>Un indicateur affiché 200 ms produit <b>un clignotement plus gênant que l'attente elle-même</b>. On temporise avant d'afficher quoi que ce soit, et on n'affiche que si le délai est dépassé.</p>
+    <p class="quoi">→ Rien du tout</p>
+  </div>
+  <div class="r r--sq">
+    <p class="q2">Une zone dont on connaît la forme</p>
+    <h3>Le squelette</h3>
+    <p>Liste d'annonces, fil, agenda, carnet, conversation. On connaît <b>la géométrie</b> de ce qui va venir : on la dessine en creux, et elle scintille. <b>C'est le cas le plus fréquent</b>, et celui qui est aujourd'hui mal servi.</p>
+    <p class="quoi">→ Squelette de la carte concernée</p>
+  </div>
+  <div class="r r--btn">
+    <p class="q2">Une action qu'on vient de déclencher</p>
+    <h3>Le tourniquet dans le bouton</h3>
+    <p>Il remplace le libellé, <b>à largeur figée</b> pour que le bouton ne saute pas, et le bouton se désactive. L'attente a un endroit : celui qu'on vient de toucher.</p>
+    <p class="quoi">→ Tourniquet 16 px, en ligne</p>
+  </div>
+  <div class="r r--plein">
+    <p class="q2">Le premier chargement</p>
+    <h3>La coquille</h3>
+    <p>Une seule fois par session, avant que quoi que ce soit n'existe. C'est le seul moment où <b>un grand tourniquet centré</b> se justifie — et le seul endroit où la marque a le temps de se montrer.</p>
+    <p class="quoi">→ Tourniquet 48 px, centré</p>
+  </div>
+  <div class="r r--raf">
+    <p class="q2">Un contenu déjà lu qui se rafraîchit</p>
+    <h3>Le filet du haut</h3>
+    <p><b>On ne remplace jamais du contenu déjà affiché par un squelette.</b> Le lecteur perd sa place et croit avoir tout perdu. Un trait fin en haut de zone suffit à dire que ça travaille.</p>
+    <p class="quoi">→ Rotative, 3 px</p>
+  </div>
+</div>
+
+<!-- ============ 2 · LES CINQ TOURNIQUETS ============ -->
+<div class="sec"><span class="num">2</span><h2>Cinq tourniquets</h2><span class="filet"></span></div>
+<p class="sec-sub">Deux angles, comme demandé : <b>le temps</b>, qui est le sujet même de l'application, et <b>la gazette</b>, qui est sa peau. Tous s'arrêtent net si le système demande <code>prefers-reduced-motion</code> — la charte l'exige et l'application ne le respecte nulle part aujourd'hui.</p>
+
+<div class="grille-ld">
+
+  <div class="carte-ld">
+    <div class="scene">
+      <span class="ld-sablier">
+        <svg viewBox="0 0 24 36">
+          <path d="M4.5 2.5h15M4.5 33.5h15" stroke="#183e57" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M6 4h12L12 18 6 4Z" fill="#fcdb81" class="haut"/>
+          <path d="M6 32h12L12 18 6 32Z" fill="#fcdb81" class="bas2"/>
+          <path d="M6 4h12L12 18 6 4ZM6 32h12L12 18 6 32Z" fill="none" stroke="#183e57" stroke-width="1.9" stroke-linejoin="round"/>
+          <line x1="12" y1="19" x2="12" y2="27" stroke="#b84e17" stroke-width="1.6" stroke-linecap="round" class="grain"/>
+        </svg>
+      </span>
+      <span class="ld-sablier ld-sablier--p">
+        <svg viewBox="0 0 24 36">
+          <path d="M4.5 2.5h15M4.5 33.5h15" stroke="#183e57" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M6 4h12L12 18 6 4Z" fill="#fcdb81" class="haut"/>
+          <path d="M6 32h12L12 18 6 32Z" fill="#fcdb81" class="bas2"/>
+          <path d="M6 4h12L12 18 6 4ZM6 32h12L12 18 6 32Z" fill="none" stroke="#183e57" stroke-width="1.9" stroke-linejoin="round"/>
+          <line x1="12" y1="19" x2="12" y2="27" stroke="#b84e17" stroke-width="1.6" stroke-linecap="round" class="grain"/>
+        </svg>
+      </span>
+    </div>
+    <div class="bas">
+      <p class="n">Proposition 1</p>
+      <h3>Le sablier</h3>
+      <p>Le sable s'écoule, puis le verre <b>se retourne</b>. C'est le seul des cinq qui dit littéralement de quoi parle l'application — et le sable est déjà une des trois encres de la marque.</p>
+      <span class="ang ang--temps">Angle · le temps</span>
+    </div>
+  </div>
+
+  <div class="carte-ld">
+    <div class="scene">
+      <span class="ld-cadran">
+        <svg viewBox="0 0 40 40">
+          <circle cx="20" cy="20" r="17.4" fill="none" stroke="#d6dbe2" stroke-width="2"/>
+          <g stroke="#183e57" stroke-width="1.8" stroke-linecap="round">
+            <line x1="20" y1="3.6" x2="20" y2="7.2"/><line x1="20" y1="32.8" x2="20" y2="36.4"/>
+            <line x1="3.6" y1="20" x2="7.2" y2="20"/><line x1="32.8" y1="20" x2="36.4" y2="20"/>
+          </g>
+          <g class="aig"><line x1="20" y1="20" x2="20" y2="9.5" stroke="#183e57" stroke-width="2.2" stroke-linecap="round"/></g>
+          <circle class="arc" cx="20" cy="20" r="17.4" pathLength="100"/>
+        </svg>
+      </span>
+      <span class="ld-cadran ld-cadran--p">
+        <svg viewBox="0 0 40 40">
+          <circle cx="20" cy="20" r="17.4" fill="none" stroke="#d6dbe2" stroke-width="2.6"/>
+          <circle class="arc" cx="20" cy="20" r="17.4" pathLength="100" stroke-width="4"/>
+        </svg>
+      </span>
+    </div>
+    <div class="bas">
+      <p class="n">Proposition 2</p>
+      <h3>Le cadran</h3>
+      <p>Une aiguille qui avance lentement, un arc orange qui tourne vite. <b>Le plus sobre des cinq</b>, et le seul qui se réduise proprement à 16 px — l'arc seul suffit dans un bouton.</p>
+      <span class="ang ang--temps">Angle · le temps</span>
+    </div>
+  </div>
+
+  <div class="carte-ld">
+    <div class="scene">
+      <span class="ld-points">
+        <span class="mot">On charge</span>
+        <span class="pts">
+          <i style="animation-delay:0s"></i><i style="animation-delay:.07s"></i><i style="animation-delay:.14s"></i>
+          <i style="animation-delay:.21s"></i><i style="animation-delay:.28s"></i><i style="animation-delay:.35s"></i>
+          <i style="animation-delay:.42s"></i><i style="animation-delay:.49s"></i><i style="animation-delay:.56s"></i>
+        </span>
+        <span class="fin">…</span>
+      </span>
+    </div>
+    <div class="bas">
+      <p class="n">Proposition 3</p>
+      <h3>Les points de conduite</h3>
+      <p>Une onde parcourt les points, comme dans un <b>sommaire de journal</b>. Aucune forme nouvelle : c'est la ligne à points de conduite déjà dessinée, animée. Elle porte un mot, donc elle peut <b>dire ce qu'on attend</b>.</p>
+      <span class="ang ang--gaz">Angle · la gazette</span>
+    </div>
+  </div>
+
+  <div class="carte-ld">
+    <div class="scene">
+      <span class="ld-sceau"><span class="anneau"></span><span class="halo"></span><span class="mq">TpT</span></span>
+      <span class="ld-sceau ld-sceau--p"><span class="anneau"></span><span class="halo"></span><span class="mq">TpT</span></span>
+    </div>
+    <div class="bas">
+      <p class="n">Proposition 4</p>
+      <h3>Le sceau</h3>
+      <p>Le tampon oscille et diffuse une onde, comme une encre qui prend. <b>Le plus chargé de marque</b> — donc le bon pour le premier chargement, et le mauvais partout ailleurs : il attire trop l'œil.</p>
+      <span class="ang ang--gaz">Angle · la gazette</span>
+    </div>
+  </div>
+
+  <div class="carte-ld">
+    <div class="scene" style="flex-direction:column;gap:14px">
+      <span class="ld-rotative"><i></i></span>
+      <span style="width:100%;max-width:184px"><span class="ld-rotative ld-rotative--fin" style="display:block"><i></i></span></span>
+    </div>
+    <div class="bas">
+      <p class="n">Proposition 5</p>
+      <h3>La rotative</h3>
+      <p>Les rayures de la marque défilent comme un rouleau d'imprimerie. <b>Le seul qui ne soit pas rond</b> : sa forme en bandeau en fait la réponse naturelle au rafraîchissement, en 3 px de haut, sans rien masquer.</p>
+      <span class="ang ang--gaz">Angle · la gazette</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ 3 · LES SQUELETTES ============ -->
+<div class="sec"><span class="num">3</span><h2>Les squelettes qui scintillent</h2><span class="filet"></span></div>
+<p class="sec-sub">Un squelette par type de carte, <b>à la géométrie exacte</b> de ce qui va s'afficher. Le scintillement passe <b>sur la carte entière</b>, pas sur chaque trait : une seule animation par carte, et le balayage reste lisible.</p>
+
+<div class="sq-duo">
+
+  <div class="sq-carte">
+    <div class="tt"><b>Fiche d'annonce</b><span>× 3 attendues</span></div>
+    <div class="dedans">
+      <div class="pile">
+        <div class="sq sq-annonce">
+          <div class="sq-t sq-t--sable g"></div><div class="sq-t ti"></div>
+          <div class="sq-t l1"></div><div class="sq-t l2"></div>
+          <div class="pied"><span class="sq-rond"></span><span class="sq-t nm"></span><span class="sq-t dt"></span></div>
+        </div>
+        <div class="sq sq-annonce">
+          <div class="sq-t sq-t--sable g"></div><div class="sq-t ti"></div>
+          <div class="sq-t l1"></div><div class="sq-t l2"></div>
+          <div class="pied"><span class="sq-rond"></span><span class="sq-t nm"></span><span class="sq-t dt"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sq-carte">
+    <div class="tt"><b>Faire-part de rendez-vous</b></div>
+    <div class="dedans">
+      <div class="pile">
+        <div class="sq sq-fairepart">
+          <div class="sq-t dt"></div><div class="sq-t ti"></div><div class="sq-t ou"></div>
+          <div class="btns"><span class="sq-t"></span><span class="sq-t sq-t--sable"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sq-carte">
+    <div class="tt"><b>Billet à talon</b><span>actions en attente</span></div>
+    <div class="dedans">
+      <div class="pile">
+        <div class="sq sq-billet">
+          <span class="talon"><span class="sq-t gros sq-t--sable"></span><span class="sq-t"></span></span>
+          <span class="corps2"><span class="sq-t ti" style="display:block"></span><span class="sq-t l1" style="display:block"></span></span>
+        </div>
+        <div class="sq sq-billet">
+          <span class="talon"><span class="sq-t gros sq-t--sable"></span><span class="sq-t"></span></span>
+          <span class="corps2"><span class="sq-t ti" style="display:block"></span><span class="sq-t l1" style="display:block"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sq-carte">
+    <div class="tt"><b>Ligne de carnet</b><span>les voisins</span></div>
+    <div class="dedans">
+      <div class="pile pile--serre">
+        <div class="sq sq-carnet"><span class="sq-rond"></span><span class="tx"><span class="sq-t nm" style="display:block"></span><span class="sq-t cp" style="display:block"></span></span><span class="sq-t ac"></span></div>
+        <div class="sq sq-carnet"><span class="sq-rond"></span><span class="tx"><span class="sq-t nm" style="display:block"></span><span class="sq-t cp" style="display:block"></span></span><span class="sq-t ac"></span></div>
+        <div class="sq sq-carnet"><span class="sq-rond"></span><span class="tx"><span class="sq-t nm" style="display:block"></span><span class="sq-t cp" style="display:block"></span></span><span class="sq-t ac"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sq-carte">
+    <div class="tt"><b>Publication du fil</b></div>
+    <div class="dedans">
+      <div class="pile">
+        <div class="sq sq-post">
+          <div class="tete"><span class="sq-rond"></span><span class="sq-t nm"></span><span class="sq-t dt"></span></div>
+          <div class="sq-t l1"></div><div class="sq-t l2"></div><div class="sq-t l3"></div>
+          <div class="re"><span class="sq-t"></span><span class="sq-t"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sq-carte">
+    <div class="tt"><b>Ligne d'agenda</b><span>à l'affiche</span></div>
+    <div class="dedans">
+      <div class="pile pile--serre">
+        <div class="sq sq-agenda">
+          <span class="quand"><span class="sq-t j"></span><span class="sq-t m"></span></span>
+          <span class="tx"><span class="sq-t sq-t--sable g" style="display:block"></span><span class="sq-t ti" style="display:block"></span><span class="sq-t ou" style="display:block"></span></span>
+        </div>
+        <div class="sq sq-agenda">
+          <span class="quand"><span class="sq-t j"></span><span class="sq-t m"></span></span>
+          <span class="tx"><span class="sq-t sq-t--sable g" style="display:block"></span><span class="sq-t ti" style="display:block"></span><span class="sq-t ou" style="display:block"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ 4 · CE QUE ÇA REMPLACE ============ -->
+<div class="sec"><span class="num">4</span><h2>Ce que ça change, concrètement</h2><span class="filet"></span></div>
+<p class="sec-sub">Voici la même section de l'accueil pendant son chargement, <b>telle qu'elle est aujourd'hui</b> et telle qu'elle serait. Les deux attendent exactement le même temps.</p>
+
+<div class="av-ap">
+  <div>
+    <p class="k">Aujourd'hui</p>
+    <h3>Un tourniquet dans un trou</h3>
+    <p>La zone se vide, un rond tourne au milieu, et <b>la page saute</b> quand le contenu arrive parce que la hauteur change. On ne sait ni ce qui vient, ni combien, ni si ça vaut la peine d'attendre.</p>
+    <div class="demo">
+      <div class="entete"><span class="tape">À L'AFFICHE</span></div>
+      <div class="vide"><span class="ld-cadran" style="opacity:.45"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17.4" fill="none" stroke="#d6dbe2" stroke-width="3"/><circle class="arc" cx="20" cy="20" r="17.4" pathLength="100" stroke="#94a3b8" stroke-width="3"/></svg></span></div>
+    </div>
+  </div>
+  <div>
+    <p class="k">Avec les squelettes</p>
+    <h3>La page est déjà là</h3>
+    <p>La forme est posée, <b>la hauteur est la bonne</b>, rien ne sautera. L'œil sait déjà où ira le titre et où ira la date. Et le nombre de squelettes est <b>le nombre attendu</b>, pas dix par défaut.</p>
+    <div class="demo">
+      <div class="entete"><span class="tape">À L'AFFICHE</span></div>
+      <div class="pile pile--serre" style="margin-top:2px">
+        <div class="sq sq-agenda">
+          <span class="quand"><span class="sq-t j"></span><span class="sq-t m"></span></span>
+          <span class="tx"><span class="sq-t sq-t--sable g" style="display:block"></span><span class="sq-t ti" style="display:block"></span><span class="sq-t ou" style="display:block"></span></span>
+        </div>
+        <div class="sq sq-agenda">
+          <span class="quand"><span class="sq-t j"></span><span class="sq-t m"></span></span>
+          <span class="tx"><span class="sq-t sq-t--sable g" style="display:block"></span><span class="sq-t ti" style="display:block"></span><span class="sq-t ou" style="display:block"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="rep">
+  <thead><tr><th style="width:13%">Combien</th><th style="width:26%">Où</th><th>Ce que ça devient</th></tr></thead>
+  <tbody>
+    <tr><td class="n">~40</td><td class="c">Chargements de section et de liste</td><td><b>Squelettes.</b> C'est la masse, et c'est exactement le cas que le tourniquet sert le plus mal.</td></tr>
+    <tr><td class="n">10</td><td class="c">Dans un bouton</td><td><b>Le tourniquet reste</b>, en 16 px, à la place du libellé, largeur figée. C'est son bon usage.</td></tr>
+    <tr><td class="n">4</td><td class="c">Sections de l'accueil</td><td><b>Squelettes</b> du type correspondant : agenda, billets, publications.</td></tr>
+    <tr><td class="n">1</td><td class="c">Premier chargement, plein écran</td><td><b>Le tourniquet de marque</b>, en grand, une fois par session.</td></tr>
+    <tr><td class="n">?</td><td class="c">Rafraîchissements silencieux</td><td><b>La rotative de 3 px</b> en haut de zone. Le contenu déjà lu ne bouge pas. À relever écran par écran : ce cas n'est traité nulle part aujourd'hui.</td></tr>
+  </tbody>
+</table>
+
+<section class="verdict">
+  <p class="k">Ce que j'en tire</p>
+  <h2>Un squelette n'est pas un tourniquet plus joli.<br>C'est <span class="souligne">une promesse tenue d'avance</span>.</h2>
+  <p>Le tourniquet dit « attendez ». Le squelette dit <b>« voilà ce qui arrive, et voilà la place que ça prendra »</b> — c'est pour cela que la page ne saute pas et que l'attente paraît plus courte à durée égale.</p>
+  <p><b>Ma recommandation sur les tourniquets :</b> le <b>cadran</b> pour tous les usages fonctionnels — il se réduit proprement à 16 px et ne demande pas l'attention — et le <b>sceau</b> pour le seul premier chargement, où la marque a le droit de se montrer. La <b>rotative</b> pour les rafraîchissements. Le sablier est le plus juste sur le fond, mais il tourne à sa propre vitesse : impossible de le réduire sous 24 px sans que le grain disparaisse.</p>
+  <p><b>Deux règles à ajouter aux règles d'implémentation :</b> on n'affiche rien avant <b>300 ms</b> ; et <b>un squelette ne remplace jamais un contenu déjà affiché</b>. Au-delà de trois secondes, ce n'est plus un chargement, c'est une erreur — et c'est l'erreur qu'il faut montrer.</p>
+  <p>Attention enfin à une décision existante à ne pas écraser : les <b>réactions et les favoris</b> se mettent à jour <b>avant</b> la réponse du serveur, et le code documente que <i>cette mise à jour optimiste EST le retour visuel</i>. <b>Y ajouter un tourniquet serait une régression</b>, pas une amélioration.</p>
+</section>
+
+</body>
+</html>

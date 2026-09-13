@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Le relevé d'avant</title>
+<link rel="icon" href="assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brandkit/gazette.css">
+<style>
+body{padding:36px 20px 80px;}
+.wrap{max-width:1000px;margin:0 auto;}
+
+.entete{text-align:center;max-width:800px;margin:0 auto;}
+.entete img{width:58px;height:auto;margin-bottom:12px;}
+.entete .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.entete h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);letter-spacing:-.5px;margin-top:6px;}
+.entete p{color:var(--text-secondary);font-size:.95rem;line-height:1.65;margin-top:14px;}
+.entete .retour{display:inline-block;margin-top:18px;color:var(--marine);font-weight:600;font-size:.86rem;text-decoration:none;}
+
+.or{
+  margin:30px auto 0;max-width:820px;text-align:center;
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:16px;padding:24px 28px;
+}
+.or .k{font-family:var(--titres);font-weight:800;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.or h2{font-family:var(--titres);font-weight:800;font-size:1.24rem;line-height:1.38;margin-top:9px;}
+.or h2 .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+.or p{font-size:.88rem;line-height:1.65;color:var(--text-secondary);margin-top:12px;}
+.or p b{color:var(--marine);}
+
+.somm{
+  position:sticky;top:0;z-index:20;margin:32px 0 30px;padding:10px 0;
+  background:rgba(247,246,243,.93);backdrop-filter:blur(10px);
+  border-top:1px solid var(--marine);border-bottom:3px double var(--marine);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:3px;
+}
+@supports not (backdrop-filter:blur(2px)){ .somm{background:var(--bg-main);} }
+.somm a{padding:5px 11px;border-radius:7px;text-decoration:none;font-family:var(--titres);font-weight:800;font-size:.69rem;letter-spacing:.07em;text-transform:uppercase;color:var(--text-secondary);}
+.somm a:hover{background:var(--sable);color:var(--marine);}
+
+.chap{display:flex;align-items:center;gap:14px;margin:48px 0 6px;scroll-margin-top:64px;}
+.chap .num{font-family:var(--titres);font-weight:800;font-size:.76rem;background:var(--sable);color:var(--marine);border-radius:8px;padding:3px 10px;}
+.chap h2{font-family:var(--titres);font-weight:800;font-size:1.26rem;}
+.chap .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
+.chap-sub{color:var(--text-secondary);font-size:.88rem;line-height:1.6;margin:0 0 20px;}
+.chap-sub b{color:var(--marine);}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.74rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+
+.quoi{background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:4px 18px;}
+.quoi .l{display:flex;gap:14px;padding:12px 0;border-top:1px dotted var(--border);font-size:.85rem;line-height:1.55;}
+.quoi .l:first-child{border-top:0;}
+.quoi .t{width:172px;flex:none;font-family:var(--titres);font-weight:800;color:var(--marine);font-size:.85rem;}
+.quoi .d{flex:1;color:var(--text-secondary);}
+.quoi .d b{color:var(--marine);}
+.quoi .d em{font-style:italic;color:var(--text-tertiary);}
+
+.gabarit{
+  background:#1b2b38;color:#e8e3d6;border-radius:13px;padding:16px 18px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.74rem;line-height:1.7;
+  overflow-x:auto;white-space:pre;
+}
+.gabarit .c{color:#9fb4c1;}
+.gabarit .k{color:var(--sable);}
+.gabarit .o{color:#f0a068;}
+.gabarit .v{color:#8fd4a2;}
+
+.etape{background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:15px 18px 16px;margin-bottom:13px;border-left:3px solid var(--orange-vif);}
+.etape .tete{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;}
+.etape .n{font-family:var(--titres);font-weight:800;font-size:.7rem;background:var(--marine);color:var(--sable);border-radius:5px;padding:2px 8px;flex:none;}
+.etape h3{font-family:var(--titres);font-weight:800;font-size:1rem;flex:1;}
+.etape .quand{font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-tertiary);border:1px solid var(--border);border-radius:5px;padding:2px 8px;white-space:nowrap;}
+.etape p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);margin-top:9px;}
+.etape p b{color:var(--marine);}
+.etape .note{margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);font-size:.79rem;color:var(--text-tertiary);line-height:1.55;}
+.etape .note b{color:var(--orange-hover);}
+
+.alarme{border-left:3px solid var(--danger);background:rgba(196,69,54,.06);border-radius:0 12px 12px 0;padding:14px 18px;margin-top:18px;}
+.alarme .t{font-family:var(--titres);font-weight:800;font-size:.92rem;color:var(--danger);margin-bottom:8px;}
+.alarme p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);}
+.alarme p + p{margin-top:8px;}
+.alarme b{color:var(--marine);}
+
+.bon{border-left:3px solid var(--success);background:rgba(47,122,68,.07);border-radius:0 12px 12px 0;padding:14px 18px;margin-top:18px;}
+.bon .t{font-family:var(--titres);font-weight:800;font-size:.92rem;color:var(--success);margin-bottom:8px;}
+.bon p{font-size:.85rem;line-height:1.6;color:var(--text-secondary);}
+.bon p + p{margin-top:8px;}
+.bon b{color:var(--marine);}
+
+.volume{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 20px;}
+.volume > div{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:13px 15px;}
+.volume .v{font-family:var(--titres);font-weight:800;font-size:1.5rem;line-height:1;color:var(--marine);}
+.volume .l{font-size:.72rem;color:var(--text-secondary);margin-top:7px;line-height:1.45;}
+.volume .l b{color:var(--marine);}
+
+footer{margin-top:60px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
+footer a{color:var(--marine);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="entete">
+  <img src="assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">La toute première tâche du chantier</p>
+  <h1>Le relevé d'avant</h1>
+  <p>Avant de toucher à une seule ligne de style, on relève <b>tout ce que l'application affiche</b> — chaque écran, chaque modale, chaque feuille, chaque bouton, chaque texte, chaque information calculée. Ce relevé est le seul moyen de répondre, après coup, à la question qui compte : <b>qu'est-ce qui a disparu sans qu'on le voie ?</b></p>
+  <a class="retour" href="migration.html">← Le protocole de migration</a>
+</header>
+
+<section class="or">
+  <p class="k">Le principe</p>
+  <h2>Une migration ne se vérifie pas en regardant.<br><span class="souligne">Elle se vérifie en comparant deux listes.</span></h2>
+  <p>Regarder un écran refait, c'est constater ce qui <b>est</b>. Ça ne dit rien de ce qui <b>n'est plus</b> — et c'est précisément là que se cache le dégât : un bouton qui n'apparaît que pour un rôle, dans un statut, après une certaine heure. Personne ne remarque son absence, sauf la personne qui en avait besoin.</p>
+</section>
+
+<nav class="somm">
+  <a href="#pourquoi">Pourquoi</a>
+  <a href="#quoi">Ce qu'on relève</a>
+  <a href="#comment">Comment</a>
+  <a href="#format">Le format</a>
+  <a href="#delta">Le delta</a>
+  <a href="#limites">Les limites</a>
+</nav>
+
+<!-- ============ 1 ============ -->
+<div class="chap" id="pourquoi"><span class="num">1</span><h2>Pourquoi aucun autre filet ne suffit</h2><span class="filet"></span></div>
+<p class="chap-sub">L'application est bien testée — <b>313 cas de bout en bout, 1 962 cas unitaires</b>. Et pourtant aucun de ces tests ne répond à la question posée.</p>
+
+<div class="quoi">
+  <div class="l"><span class="t">Les tests</span><span class="d">Ils vérifient que <b>ce qu'on a pensé à tester</b> fonctionne. Un bouton qu'aucun test ne mentionne peut disparaître sans qu'un seul test rougisse. <em>Ils prouvent la présence, jamais l'exhaustivité.</em></span></div>
+  <div class="l"><span class="t">La capture d'écran</span><span class="d">Elle compare des pixels sur <b>l'état qu'on a su reproduire</b>. Les 22 actions d'un rendez-vous dépendent de onze variables ; personne ne capture les milliers de combinaisons. <em>Et une capture rougit aussi quand le style change — ce qui est le but de l'opération.</em></span></div>
+  <div class="l"><span class="t">La relecture à l'œil</span><span class="d">Elle voit ce qui est affiché. <b>Elle ne voit pas ce qui manque</b>, sauf à connaître par cœur les 22 actions et leurs conditions. Personne ne les connaît par cœur : elles sont calculées depuis 37 points d'appel.</span></div>
+  <div class="l"><span class="t">Le relevé</span><span class="d">Il fige <b>la liste de ce qui s'affiche</b>, état par état. Après la migration, on refait le même relevé et on compare. Ce qui a disparu apparaît <b>en une ligne de différence</b>. <em>C'est le seul instrument qui réponde à « qu'est-ce qui n'est plus là ».</em></span></div>
+</div>
+
+<div class="alarme">
+  <p class="t">Le relevé ne peut être fait qu'une fois — et c'est maintenant</p>
+  <p>Un relevé d'avant a une propriété désagréable : <b>il n'existe que tant que l'ancien design existe</b>. Le jour où la première ligne de style change, l'occasion est passée et ne revient pas.</p>
+  <p>C'est la raison pour laquelle cette tâche passe <b>avant même le palier 0</b>, et pas « quand on aura le temps ». Tout le reste peut être rattrapé ; <b>celle-ci, non</b>.</p>
+</div>
+
+<!-- ============ 2 ============ -->
+<div class="chap" id="quoi"><span class="num">2</span><h2>Ce qu'on relève exactement</h2><span class="filet"></span></div>
+<p class="chap-sub">Six familles. Rien de ce qui est <b>décoratif</b> n'entre dans le relevé — ni couleur, ni espacement, ni ombre, puisque c'est justement ce qui va changer. On relève <b>ce que l'application dit et ce qu'elle permet</b>.</p>
+
+<div class="quoi">
+  <div class="l"><span class="t">1 · Les affordances</span><span class="d">Tout ce sur quoi on peut agir : <b>boutons, liens, onglets, cases, interrupteurs, champs</b>. Pour chacun : son libellé exact, son niveau (plein, contour, lien), et s'il est actif ou désactivé. <em>C'est la famille la plus importante : c'est elle qui répond à « un bouton a disparu ».</em></span></div>
+  <div class="l"><span class="t">2 · Les textes</span><span class="d">Titres, chapôs, libellés, messages d'aide, messages d'erreur, textes de vide, unités, pluriels. <b>Au mot près.</b> <em>La charte a proposé des réécritures ; le relevé prouve lesquelles ont été appliquées par erreur.</em></span></div>
+  <div class="l"><span class="t">3 · Les informations calculées</span><span class="d">Tout ce qui vient d'un calcul et non d'un champ : <b>compteurs, soldes, comptes à rebours, places restantes, durées, statuts, badges de non-lus</b>. On relève <b>le gabarit</b>, pas la valeur — <code>« Plus que {n} jours »</code> et non « Plus que 2 jours ».</span></div>
+  <div class="l"><span class="t">4 · Les conditions</span><span class="d">Pourquoi cet élément est là : <b>rôle, statut, propriétaire, permission, fenêtre de temps, capacité</b>. <em>Sans la condition, un élément absent du relevé d'après est indistinguable d'un élément simplement pas déclenché.</em></span></div>
+  <div class="l"><span class="t">5 · Les surfaces</span><span class="d">Qu'est-ce qui <b>ouvre</b> quoi : quel geste ouvre quelle modale, quelle feuille, quel menu, et ce qui se passe en la fermant. <em>C'est ce que le palier des coquilles risque de casser en silence.</em></span></div>
+  <div class="l"><span class="t">6 · Les états de la page</span><span class="d">Pour chaque écran : <b>chargement, vide, erreur, accès refusé, hors ligne, données incomplètes</b>. On relève <b>ce qui s'affiche dans chacun</b> — c'est le cas le plus oublié, et la charte n'en dessine presque aucun.</span></div>
+</div>
+
+<!-- ============ 3 ============ -->
+<div class="chap" id="comment"><span class="num">3</span><h2>Comment on s'y prend</h2><span class="filet"></span></div>
+<p class="chap-sub">Trois passes, de la moins chère à la plus chère. <b>On ne fait la troisième que là où les deux premières ne suffisent pas.</b></p>
+
+<div class="etape">
+  <div class="tete"><span class="n">1</span><h3>La passe automatique — le squelette du relevé</h3><span class="quand">Machine</span></div>
+  <p>Un script parcourt <code>app/pages/</code> et <code>app/components/</code> et extrait, fichier par fichier : les libellés littéraux des boutons et des liens, les conditions d'affichage qui les entourent, les appels aux tables de libellés, les interpolations. <b>Il ne comprend rien, mais il n'oublie rien.</b></p>
+  <p class="note"><b>Ce qu'il attrape mal —</b> les libellés dynamiques (<code>{{ actionDef.label }}</code>), qui renvoient à une table à relever séparément. Et les conditions imbriquées, qu'il faut relire. <b>Il produit un brouillon, pas le relevé.</b></p>
+</div>
+
+<div class="etape">
+  <div class="tete"><span class="n">2</span><h3>La passe montée — les composants sous toutes leurs faces</h3><span class="quand">Machine, guidée à la main</span></div>
+  <p>Pour les composants riches — la fiche de rendez-vous, l'annonce, le profil — on <b>monte le composant</b> avec une liste explicite d'états, <b>horloge figée</b>, et on écrit ce qu'il rend. C'est l'inventaire des affordances décrit dans le protocole, étendu à tout ce qui s'affiche et pas seulement aux actions.</p>
+  <p class="note"><b>La liste des états s'écrit à la main —</b> si on la calcule depuis le code, on fige les bogues avec le comportement. On écrit les combinaisons qu'on veut garantir, pas celles que le code produit.</p>
+</div>
+
+<div class="etape">
+  <div class="tete"><span class="n">3</span><h3>La passe humaine — le parcours réel</h3><span class="quand">À la main</span></div>
+  <p>Une personne parcourt l'application <b>avec un jeu de données de démonstration</b> et note ce que les deux premières passes ne peuvent pas voir : l'ordre réel des éléments, ce qui se passe au clavier seul, les surfaces qui s'empilent, les rafraîchissements silencieux, ce qui apparaît après un délai.</p>
+  <p class="note"><b>À faire pour les écrans les plus conditionnels seulement —</b> la fiche de rendez-vous, le profil, la conversation, la fiche de candidat. Soit quatre écrans sur cinquante-sept, mais <b>les quatre qui portent le plus de logique</b>.</p>
+</div>
+
+<div class="bon">
+  <p class="t">Le jeu de données est un livrable à part entière</p>
+  <p>Un relevé n'a de valeur que s'il est <b>reproductible à l'identique</b>. Cela suppose un jeu de données figé : des comptes couvrant les quatre rôles, des échanges dans chacun des neuf statuts affichés, un groupe complet et un groupe sous le seuil, une délégation active, des listes vides et des listes longues.</p>
+  <p>Sans ce jeu, le relevé d'après ne sera pas comparable et <b>tout le travail sera perdu</b>. Les scripts d'amorçage existent déjà dans le dépôt ; il faut en figer un et le versionner sous un nom clair.</p>
+</div>
+
+<!-- ============ 4 ============ -->
+<div class="chap" id="format"><span class="num">4</span><h2>Le format</h2><span class="filet"></span></div>
+<p class="chap-sub">Un fichier texte par écran, lisible par un humain, versionné à côté du code. <b>Ni tableur, ni base de données</b> : il faut que la différence entre deux versions se lise dans un outil de comparaison ordinaire.</p>
+
+<div class="gabarit"><span class="c"># Relevé — écran : la fiche de rendez-vous</span>
+<span class="c"># version : avant migration · données : jeu-releve-2026-09 · horloge : 2026-06-15T10:00Z</span>
+
+<span class="k">## Surfaces ouvertes depuis cet écran</span>
+  bouton « Contacter »            → conversation, même onglet
+  bouton « Annuler »              → dialogue de confirmation
+  bouton « Déclarer la durée »    → feuille de formulaire (3 champs)
+  clic sur une photo              → visionneuse plein écran
+
+<span class="k">## État : proposed · rôle : demandeur · avant l'horaire</span>
+  <span class="o">affordances</span>
+    [plein]   Contre-proposition
+    [contour] Annuler
+    [lien]    Contacter Alice
+  <span class="o">textes</span>
+    titre        « Rendez-vous proposé »
+    chapo        « En attente de la réponse d'Alice »
+    mention      « Vous pouvez encore modifier la date »
+  <span class="o">calculs</span>
+    frise        position 1 sur 4
+    durée        « {n} h prévue{s} »
+    <span class="v">solde        non affiché à cet état</span>
+  <span class="o">conditions</span>
+    « Contre-proposition » ssi statut=proposed ET horaire non dépassé
+
+<span class="k">## État : proposed · rôle : destinataire · avant l'horaire</span>
+  <span class="o">affordances</span>
+    [plein]   Accepter
+    [contour] Refuser
+    [contour] Contre-proposition
+    [lien]    Contacter Alice
+  <span class="c">… les libellés diffèrent du rôle demandeur : c'est voulu</span>
+
+<span class="k">## État : accepted · rôle : organisateur · groupe sous le seuil</span>
+  <span class="o">affordances</span>
+    [plein]   Maintenir malgré le minimum
+    [contour] Annuler
+    [lien]    Contacter le groupe
+  <span class="o">calculs</span>
+    places       « {n} sur {max} inscrits »
+    alerte       « Il manque {n} participant{s} »
+
+<span class="k">## États de page</span>
+  chargement   squelette de fiche <span class="c">(aujourd'hui : tourniquet 28 px)</span>
+  erreur       « Impossible de charger ce rendez-vous » + bouton Réessayer
+  introuvable  « Ce rendez-vous n'existe plus » + lien Retour
+</div>
+
+<div class="bon">
+  <p class="t">Pourquoi ce format et pas un tableur</p>
+  <p>Parce que le relevé d'après doit se comparer au relevé d'avant <b>avec l'outil de comparaison du dépôt</b>. Une ligne supprimée s'affiche en rouge, une ligne ajoutée en vert, et la revue de code montre la différence <b>au moment même où le changement est proposé</b> — pas trois semaines plus tard dans un autre outil que personne n'ouvre.</p>
+</div>
+
+<!-- ============ 5 ============ -->
+<div class="chap" id="delta"><span class="num">5</span><h2>Le delta, et ce qu'on en fait</h2><span class="filet"></span></div>
+<p class="chap-sub">Après chaque écran migré, on refait le relevé de cet écran et on compare. <b>Quatre cas, quatre réponses</b> — les mêmes que la règle des écarts du protocole, appliquées à une différence constatée plutôt qu'anticipée.</p>
+
+<div class="quoi">
+  <div class="l"><span class="t">Une ligne a disparu</span><span class="d"><b>Régression, jusqu'à preuve du contraire.</b> On remet, on ne discute pas. Si la suppression était voulue, elle devait être décidée <i>avant</i> et figurer au journal d'écarts — pas être découverte dans un delta.</span></div>
+  <div class="l"><span class="t">Un libellé a changé</span><span class="d"><b>Régression.</b> La règle d'or l'interdit : on change l'apparence, jamais le mot. <em>C'est le cas le plus probable, puisque la charte propose des réécritures partout.</em></span></div>
+  <div class="l"><span class="t">Une ligne est apparue</span><span class="d"><b>À justifier.</b> Un élément nouveau est du comportement nouveau. Soit il était prévu au journal, soit il s'est ajouté tout seul — et alors il s'enlève.</span></div>
+  <div class="l"><span class="t">Une condition a bougé</span><span class="d"><b>Le plus grave, et le plus discret.</b> Le bouton est toujours là mais il n'apparaît plus dans les mêmes cas. Aucune capture d'écran ne le verra. <em>C'est exactement pour ce cas que la famille « conditions » est dans le relevé.</em></span></div>
+</div>
+
+<div class="alarme">
+  <p class="t">Le delta n'est pas une formalité de fin — c'est le critère de sortie</p>
+  <p>Un écran n'est pas « migré » quand il ressemble à la maquette. Il est migré quand <b>son delta est vide, ou entièrement justifié ligne par ligne</b> dans le journal d'écarts.</p>
+  <p>Sans cette règle, le relevé devient un document qu'on produit et qu'on n'ouvre jamais — <b>le sort habituel des inventaires</b>.</p>
+</div>
+
+<!-- ============ 6 ============ -->
+<div class="chap" id="limites"><span class="num">6</span><h2>Ce que le relevé ne fera pas</h2><span class="filet"></span></div>
+<p class="chap-sub">Autant le dire tout de suite, pour ne pas lui faire confiance au-delà de ce qu'il couvre.</p>
+
+<div class="quoi">
+  <div class="l"><span class="t">Il ne voit pas le temps</span><span class="d">Un anti-rebond de recherche, un délai de flou, la remontée d'une surface 350 ms plus tard, une mise à jour optimiste : <b>rien de tout cela n'est un texte affiché</b>. Ces comportements se relèvent à part, en prose, et se vérifient à la main.</span></div>
+  <div class="l"><span class="t">Il ne voit pas l'ordre visuel</span><span class="d">Deux boutons intervertis produisent le même relevé. <b>La hiérarchie reste affaire d'œil</b> — le relevé garantit la présence, pas la place.</span></div>
+  <div class="l"><span class="t">Il ne voit pas l'accessibilité</span><span class="d">Un bouton qui devient inatteignable au clavier reste présent dans le relevé. <em>À couvrir par une passe séparée, avec un outil dédié — il n'y en a aucun aujourd'hui.</em></span></div>
+  <div class="l"><span class="t">Il coûte à maintenir</span><span class="d">Chaque fonctionnalité livrée pendant la migration <b>doit mettre à jour le relevé d'avant</b>, sinon le delta se remplit de faux positifs et on cesse de le lire. <em>C'est un argument de plus pour une migration courte plutôt qu'étalée.</em></span></div>
+</div>
+
+<div class="bon">
+  <p class="t">Le volume, pour savoir à quoi s'attendre</p>
+  <div class="volume" style="margin-top:13px">
+    <div><p class="v">57</p><p class="l">écrans routés à relever</p></div>
+    <div><p class="v">~35</p><p class="l">surfaces flottantes <b>modales, feuilles, menus</b></p></div>
+    <div><p class="v">92</p><p class="l">composants, dont une dizaine de riches</p></div>
+    <div><p class="v">4</p><p class="l">écrans exigeant la passe humaine</p></div>
+  </div>
+  <p>La passe automatique couvre l'essentiel du volume. <b>L'effort réel se concentre sur une dizaine d'objets</b> — la fiche de rendez-vous à elle seule vaut plusieurs écrans ordinaires, avec ses 70 branches et ses 22 actions.</p>
+  <p>Ordre conseillé : <b>d'abord les quatre gros</b>, tant que l'énergie est là et parce que ce sont eux qui portent le risque ; ensuite le reste, qui va vite.</p>
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Le relevé d'avant.<br>
+  <a href="index.html">Le design retenu</a> · <a href="migration.html">Le protocole de migration</a> · <a href="decisions.html">Les décisions préalables</a> · <a href="implementation.html">Les règles d'implémentation</a>
+</footer>
+
+</div>
+</body>
+</html>
