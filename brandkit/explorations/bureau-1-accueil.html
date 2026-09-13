@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — L'accueil sur grand écran, 5 adaptations</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+body{padding:38px 20px 80px;}
+
+/* ————— D1 · la colonne unique ————— */
+.b-nav1{
+  height:47px;flex:none;background:var(--paper);border-bottom:1px solid var(--marine);
+  display:flex;align-items:stretch;justify-content:center;gap:2px;
+}
+.b-nav1 a{
+  display:flex;align-items:center;gap:8px;padding:0 22px;text-decoration:none;
+  font-family:var(--titres);font-weight:800;font-size:12px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-tertiary);border-bottom:3px solid transparent;
+}
+.b-nav1 a svg{width:16px;height:16px;}
+.b-nav1 a.on{color:var(--marine);border-bottom-color:var(--orange);}
+.b-nav1 a .cpt{
+  min-width:16px;height:16px;line-height:16px;border-radius:999px;background:var(--orange);color:#fff9ec;
+  font-size:9px;text-align:center;padding:0 4px;
+}
+.b-colonne{width:782px;margin:0 auto;padding:16px 0 40px;}
+
+/* ————— D2 · le rail de gauche ————— */
+.b-rail{
+  width:244px;flex:none;background:var(--paper);border-right:1px solid var(--marine);
+  padding:15px 0 14px;display:flex;flex-direction:column;
+}
+.b-rail .grp{
+  font-size:8.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-tertiary);padding:0 22px;margin:13px 0 6px;
+}
+.b-rail a{
+  display:flex;align-items:center;gap:11px;margin:1px 13px;padding:9px 12px;border-radius:9px;
+  font-size:13px;font-weight:600;color:var(--text-secondary);text-decoration:none;
+}
+.b-rail a svg{width:17px;height:17px;color:var(--text-tertiary);flex:none;}
+.b-rail a.on{
+  background:var(--sable);color:var(--marine);font-family:var(--titres);font-weight:800;
+  transform:rotate(-.45deg);box-shadow:0 1px 2px rgba(24,62,87,.12);
+}
+.b-rail a.on svg{color:var(--marine);}
+.b-rail a .cpt{
+  margin-left:auto;min-width:18px;height:18px;line-height:18px;border-radius:999px;
+  background:var(--marine);color:var(--sable);font-family:var(--titres);font-weight:800;font-size:10px;
+  text-align:center;padding:0 5px;
+}
+.b-rail a.on .cpt{background:var(--marine);color:var(--sable);}
+.b-rail .filet-r{height:1px;background:var(--border);margin:12px 22px;}
+.b-rail .pied{margin-top:auto;padding:13px 22px 0;border-top:1px solid var(--border);}
+.b-rail .pied .compteur{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
+.b-rail .pied .v{font-family:var(--titres);font-weight:800;font-size:23px;color:var(--marine);margin-top:2px;}
+.b-rail .pied .d{font-size:10.5px;color:var(--text-tertiary);margin-top:2px;}
+.b-centre{width:700px;margin:0 auto;padding:16px 0 40px;}
+
+/* ————— D3 · le journal à deux colonnes ————— */
+.b-rubriques{
+  height:45px;flex:none;background:var(--bg-main);border-bottom:2px solid var(--marine);
+  display:flex;align-items:center;padding:0 26px;gap:3px;
+}
+.b-rubriques a{
+  padding:6px 16px;text-decoration:none;border-radius:4px;
+  font-family:var(--titres);font-weight:800;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.b-rubriques a.on{
+  color:var(--marine);background:var(--sable);transform:rotate(-.5deg);
+  box-shadow:0 1px 2px rgba(24,62,87,.12);
+}
+.b-rubriques .droite{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--text-tertiary);letter-spacing:.1em;text-transform:uppercase;font-weight:600;}
+.b-deux{display:flex;padding:15px 26px 36px;gap:0;}
+.b-deux .principale{flex:1;min-width:0;padding-right:24px;}
+.b-deux .laterale{width:372px;flex:none;padding-left:24px;}
+
+/* ————— D4 · la une pleine page ————— */
+.b-manchette{flex:none;background:var(--paper);border-bottom:3px double var(--marine);padding:11px 30px 0;}
+.b-manchette .haut{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border-bottom:1px solid var(--marine);padding-bottom:8px;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--text-secondary);
+}
+.b-manchette .haut .moi{display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:normal;}
+.b-manchette .titre{display:flex;align-items:center;justify-content:center;gap:15px;padding:11px 0 9px;}
+.b-manchette .titre img{height:38px;width:auto;}
+.b-manchette .titre h1{font-family:var(--titres);font-weight:800;font-size:29px;letter-spacing:-.4px;color:var(--marine);}
+.b-manchette .titre .devise{font-size:10.5px;font-style:italic;color:var(--text-tertiary);border-left:1px solid var(--border);padding-left:15px;}
+.b-manchette .nav{display:flex;justify-content:center;border-top:1px solid var(--marine);}
+.b-manchette .nav a{
+  padding:8px 19px;text-decoration:none;border-bottom:3px solid transparent;
+  font-family:var(--titres);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.b-manchette .nav a.on{color:var(--marine);border-bottom-color:var(--orange);}
+.b-manchette .nav a .cpt{color:var(--orange);margin-left:5px;}
+.b-trois{display:flex;padding:15px 30px 34px;}
+.b-trois .gauche{width:292px;flex:none;padding-right:20px;}
+.b-trois .milieu{flex:1;min-width:0;padding:0 22px;}
+.b-trois .droite{width:312px;flex:none;padding-left:20px;}
+
+/* ————— D5 · le bureau à panneau ————— */
+.b-rail2{
+  width:76px;flex:none;background:var(--marine);display:flex;flex-direction:column;
+  align-items:center;gap:2px;padding:13px 0;
+}
+.b-rail2 .marque{margin-bottom:11px;}
+.b-rail2 .marque img{height:26px;width:auto;}
+.b-rail2 a{
+  width:54px;height:52px;border-radius:12px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:4px;text-decoration:none;position:relative;
+  color:rgba(255,249,236,.62);font-size:7.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+}
+.b-rail2 a svg{width:19px;height:19px;}
+.b-rail2 a.on{background:var(--sable);color:var(--marine);}
+.b-rail2 a .pt{
+  position:absolute;top:5px;right:9px;min-width:14px;height:14px;line-height:14px;border-radius:999px;
+  background:var(--orange);color:#fff9ec;font-family:var(--titres);font-weight:800;font-size:8.5px;
+  text-align:center;padding:0 3px;border:1.5px solid var(--marine);
+}
+.b-rail2 .bas2{margin-top:auto;}
+.b-entete{
+  height:56px;flex:none;background:var(--paper);border-bottom:1px solid var(--marine);
+  display:flex;align-items:center;gap:16px;padding:0 24px;
+}
+.b-entete h1{font-family:var(--titres);font-weight:800;font-size:17px;}
+.b-entete .date{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);border-left:1px solid var(--border);padding-left:16px;}
+.b-entete .spacer{flex:1;}
+.b-entete .recherche{
+  width:280px;display:flex;align-items:center;gap:9px;background:var(--bg-main);
+  border:1px solid var(--border);border-radius:999px;padding:8px 15px;
+  font-size:12.5px;color:var(--text-tertiary);
+}
+.b-entete .recherche svg{width:14px;height:14px;flex:none;}
+.b-panneau{
+  width:328px;flex:none;background:var(--paper);border-left:1px solid var(--marine);
+  overflow-y:auto;scrollbar-width:none;padding:16px 20px 30px;
+}
+.b-panneau::-webkit-scrollbar{display:none;}
+.b-panneau .tete{
+  font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-secondary);padding-bottom:7px;border-bottom:2px solid var(--marine);margin-bottom:11px;
+}
+.b-panneau .tete--suite{margin-top:22px;}
+.b-corps5{flex:1;min-width:0;display:flex;flex-direction:column;}
+.b-large{padding:16px 24px 36px;}
+
+/* ————— pièces communes aux planches bureau ————— */
+.b-salut{margin-bottom:14px;}
+.b-salut h1{font-family:var(--titres);font-weight:800;font-size:25px;line-height:1.15;}
+.b-salut h1 .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+.b-salut p{font-size:13px;color:var(--text-secondary);margin-top:4px;}
+.b-salut .actions{display:flex;align-items:center;gap:14px;margin-top:13px;}
+.b-bloc{margin-top:20px;}
+.b-bloc:first-child{margin-top:0;}
+.b-grille2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.b-grille3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.b-mini-titre{
+  font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-secondary);padding-bottom:6px;border-bottom:1px solid var(--marine);margin-bottom:10px;
+}
+.b-suite{
+  display:block;text-align:center;margin-top:11px;padding:8px;border:1px dashed var(--border);border-radius:9px;
+  font-size:11.5px;font-weight:700;color:var(--text-secondary);text-decoration:none;background:rgba(255,253,246,.5);
+}
+
+/* verdict */
+.verdict{
+  border-left:3px solid var(--sable-hover);background:var(--bg-hover);
+  border-radius:0 10px 10px 0;padding:11px 15px;font-size:.82rem;line-height:1.55;color:var(--text-secondary);
+  max-width:1000px;
+}
+.verdict p + p{margin-top:4px;}
+.verdict .pour::before{content:"Pour — ";font-weight:800;color:#2f7a44;}
+.verdict .contre::before{content:"Contre — ";font-weight:800;color:var(--danger);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Grand écran</p>
+  <h1>L'accueil sur PC — cinq adaptations</h1>
+  <p class="sub">Aucun élément nouveau : ce sont les <b>mêmes composants que sur mobile</b> — billets à talon, lignes d'agenda, fiches d'annonce, rubans de rubrique — réarrangés pour un écran large. Ce qui change d'une proposition à l'autre, c'est <b>l'ossature</b> : où passe la navigation, et comment on occupe la largeur gagnée.</p>
+  <p class="traits">Fenêtre de <b>1240 × 772</b>. La barre du bas flottante n'existe plus sur PC : chaque proposition dit par quoi elle la remplace.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche-bureau">
+
+  <!-- ============================================================
+       D1 · LA COLONNE UNIQUE
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D1</span><h2>La colonne unique</h2><span class="tag">Le mobile, centré</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr</span></div>
+
+      <div class="b-tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <div class="recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher un service, un voisin…</div>
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="pastille">3</span></button>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </div>
+
+      <nav class="b-nav1">
+        <a class="on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>Agenda</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier<span class="cpt">3</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+      </nav>
+
+      <div class="b-scroll">
+        <div class="b-colonne zone">
+          <div class="bandeau-edition"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+
+          <section class="b-salut" style="margin-top:14px">
+            <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+            <p>Échangez du temps, pas de l’argent. Une heure donnée vaut une heure reçue.</p>
+            <div class="actions">
+              <button class="btn-plein btn-plein--orange" type="button" style="width:auto;padding:11px 22px">Publier une annonce</button>
+              <button class="lien-filet" type="button">Proposer un rendez-vous</button>
+            </div>
+          </section>
+
+          <div class="b-bloc">
+            <div class="rubrique"><span class="tape"><h2>On attend un mot de vous</h2><span class="badge-compte">3</span></span><span class="filet"></span></div>
+            <div class="rangee">
+              <article class="billet2 billet2--urgent">
+                <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg><span class="verbe">Valider</span></div>
+                <div class="c"><h3>Montage de l'étagère</h3><p class="m2"><span class="delai">Plus que 2 jours</span><span class="sep">·</span>avec Alice</p></div>
+              </article>
+              <article class="billet2 billet2--action">
+                <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a7.5 7.5 0 0 1-7.5 7.5H4l1.6-3.1A7.5 7.5 0 1 1 21 11.5Z"/></svg><span class="verbe">Répondre</span></div>
+                <div class="c"><h3>Atelier réparation vélo</h3><p class="m2">Pierre vous invite<span class="sep">·</span>le 15 juin</p></div>
+              </article>
+              <article class="billet2 billet2--action">
+                <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.5 5.3 5.8.8-4.2 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.2-4 5.8-.8Z"/></svg><span class="verbe">Noter</span></div>
+                <div class="c"><h3>Cours d'espagnol</h3><p class="m2">Échange du 8 juin<span class="sep">·</span>avec Sofia</p></div>
+              </article>
+            </div>
+          </div>
+
+          <div class="b-bloc">
+            <div class="rubrique"><span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="rangee">
+              <article class="billet2"><div class="talon"><span class="n">11</span><span class="m">Juin</span></div><div class="c"><h3>Rencontre physique</h3><p class="m2"><span class="quand">12:30</span><span class="sep">·</span>avec Marie Morel</p></div></article>
+              <article class="billet2"><div class="talon"><span class="n">18</span><span class="m">Juin</span></div><div class="c"><h3>Soirée couture</h3><p class="m2"><span class="quand">20:00</span><span class="sep">·</span>avec Lucie Garnier</p></div></article>
+              <article class="billet2"><div class="talon"><span class="n">21</span><span class="m">Juin</span></div><div class="c"><h3>Dépannage d'ordinateur</h3><p class="m2"><span class="quand">14:00</span><span class="sep">·</span>chez Jean Mercier</p></div></article>
+            </div>
+          </div>
+
+          <div class="b-bloc">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">5</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <p class="sous-rubrique">Ouvert à tous — inscription libre</p>
+            <div class="agenda">
+              <article class="agenda-ligne"><div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div><div class="c"><div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">3/5</span></div><h3>Réparation de vélos</h3><p class="lieu">⌖ Local associatif, Vieux Bourg</p></div></article>
+              <article class="agenda-ligne"><div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:30</div></div><div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span><span class="jauge">7/12</span></div><h3>Café des voisins</h3><p class="lieu">⌖ Place Jean-Baptiste Vigier</p></div></article>
+            </div>
+          </div>
+
+          <div class="b-bloc">
+            <div class="rubrique"><span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span><span class="filet"></span></div>
+            <div class="fil">
+              <article class="annonce">
+                <div class="an-tete"><span class="an-type an-type--demande">Demande</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1042</span></div>
+                <h3 class="an-titre">Une étagère à monter samedi matin</h3>
+                <p class="an-texte">Une petite heure suffit, je fournis les outils et le café. Idéalement quelqu'un d'habitué à la perceuse.</p>
+                <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+                <div class="an-actions"><button class="action action--fort" type="button">Je peux aider</button><button class="action" type="button">Commenter</button><span class="an-compteur">3 réponses</span></div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">La page mobile, posée telle quelle dans une colonne de 782 px. La barre flottante du bas devient une <b>rangée d'onglets sous la barre marine</b> — même ordre, mêmes icônes, mêmes compteurs. Les rangées de billets, qui défilaient horizontalement sur mobile, tiennent ici sur une seule ligne.</p>
+    <div class="verdict">
+      <p class="pour">zéro composant nouveau, une seule mise en page à maintenir, et une lecture confortable — on ne balaie jamais l'écran des yeux de gauche à droite.</p>
+      <p class="contre">sur un 27 pouces, deux tiers de l'écran ne servent à rien. On paie la largeur sans rien en tirer.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       D2 · LE RAIL DE GAUCHE
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D2</span><h2>Le rail de gauche</h2><span class="tag">La convention des applications</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr</span></div>
+
+      <div class="b-tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <div class="recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher un service, un voisin…</div>
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="pastille">3</span></button>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span><span class="nom">Omar</span></span>
+      </div>
+
+      <div class="corps">
+        <nav class="b-rail">
+          <a class="on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>La une</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier<span class="cpt">3</span></a>
+
+          <p class="grp">Votre temps</p>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>Vos rendez-vous<span class="cpt">4</span></a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Vos annonces</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Le relevé</a>
+
+          <p class="grp">Le quartier</p>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20v-1c0-2.8 2.7-4.5 6-4.5s6 1.7 6 4.5v1"/><circle cx="9" cy="8" r="3.3"/><path d="M17 14.5c2.4.4 4 1.9 4 4.2V20"/><path d="M16.5 5.2a3.3 3.3 0 0 1 0 6.1"/></svg>Les voisins</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M8 3v5M16 3v5M8 13h8"/></svg>À l'affiche<span class="cpt">5</span></a>
+
+          <div class="filet-r"></div>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+
+          <div class="pied">
+            <p class="compteur">Votre compteur</p>
+            <p class="v">8 h 30</p>
+            <p class="d">5 h 15 données · 3 h 15 reçues</p>
+          </div>
+        </nav>
+
+        <div class="b-scroll">
+          <div class="b-centre zone">
+            <div class="bandeau-edition"><span>La gazette du quartier</span><span><b>Mercredi 10 juin</b></span></div>
+
+            <section class="b-salut" style="margin-top:14px">
+              <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+              <p>Échangez du temps, pas de l’argent. Une heure donnée vaut une heure reçue.</p>
+              <div class="actions">
+                <button class="btn-plein btn-plein--orange" type="button" style="width:auto;padding:11px 22px">Publier une annonce</button>
+                <button class="lien-filet" type="button">Proposer un rendez-vous</button>
+              </div>
+            </section>
+
+            <div class="b-bloc">
+              <div class="rubrique"><span class="tape"><h2>On attend un mot de vous</h2><span class="badge-compte">3</span></span><span class="filet"></span></div>
+              <div class="rangee">
+                <article class="billet2 billet2--urgent">
+                  <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg><span class="verbe">Valider</span></div>
+                  <div class="c"><h3>Montage de l'étagère</h3><p class="m2"><span class="delai">Plus que 2 jours</span><span class="sep">·</span>avec Alice</p></div>
+                </article>
+                <article class="billet2 billet2--action">
+                  <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a7.5 7.5 0 0 1-7.5 7.5H4l1.6-3.1A7.5 7.5 0 1 1 21 11.5Z"/></svg><span class="verbe">Répondre</span></div>
+                  <div class="c"><h3>Atelier réparation vélo</h3><p class="m2">Pierre vous invite<span class="sep">·</span>le 15 juin</p></div>
+                </article>
+              </div>
+            </div>
+
+            <div class="b-bloc">
+              <div class="rubrique"><span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+              <div class="rangee">
+                <article class="billet2"><div class="talon"><span class="n">11</span><span class="m">Juin</span></div><div class="c"><h3>Rencontre physique</h3><p class="m2"><span class="quand">12:30</span><span class="sep">·</span>avec Marie Morel</p></div></article>
+                <article class="billet2"><div class="talon"><span class="n">18</span><span class="m">Juin</span></div><div class="c"><h3>Soirée couture</h3><p class="m2"><span class="quand">20:00</span><span class="sep">·</span>avec Lucie Garnier</p></div></article>
+              </div>
+            </div>
+
+            <div class="b-bloc">
+              <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">5</span></span><span class="filet"></span></div>
+              <p class="sous-rubrique">Ouvert à tous — inscription libre</p>
+              <div class="agenda">
+                <article class="agenda-ligne"><div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div><div class="c"><div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">3/5</span></div><h3>Réparation de vélos</h3><p class="lieu">⌖ Local associatif, Vieux Bourg</p></div></article>
+                <article class="agenda-ligne"><div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:30</div></div><div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span><span class="jauge">7/12</span></div><h3>Café des voisins</h3><p class="lieu">⌖ Place Jean-Baptiste Vigier</p></div></article>
+              </div>
+            </div>
+
+            <div class="b-bloc">
+              <div class="rubrique"><span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span><span class="filet"></span></div>
+              <div class="fil">
+                <article class="annonce">
+                  <div class="an-tete"><span class="an-type an-type--demande">Demande</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1042</span></div>
+                  <h3 class="an-titre">Une étagère à monter samedi matin</h3>
+                  <p class="an-texte">Une petite heure suffit, je fournis les outils et le café.</p>
+                  <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+                  <div class="an-actions"><button class="action action--fort" type="button">Je peux aider</button><button class="action" type="button">Commenter</button><span class="an-compteur">3 réponses</span></div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">La barre du bas se redresse à la verticale et devient un rail. Elle en profite pour <b>se déplier</b> : ce que le mobile cachait derrière « Proposer » ou dans le profil — vos annonces, le relevé, les voisins — remonte en clair, groupé sous des intertitres. Le compteur d'heures s'installe en pied de rail, visible en permanence.</p>
+    <div class="verdict">
+      <p class="pour">c'est ce que tout le monde attend d'une application sur PC. La navigation devient une carte du site : plus rien n'est caché derrière un menu.</p>
+      <p class="contre">le rail est le composant le plus éloigné du mobile — c'est la seule proposition qui demande une vraie pièce nouvelle. Et la colonne centrale reste étroite.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       D3 · LE JOURNAL À DEUX COLONNES
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D3</span><h2>Le journal à deux colonnes</h2><span class="tag">La largeur au service du fil</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr</span></div>
+
+      <div class="b-tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <div class="recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher un service, un voisin…</div>
+        <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="pastille">3</span></button>
+        <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+      </div>
+
+      <nav class="b-rubriques">
+        <a class="on" href="#">La une</a>
+        <a href="#">Le fil</a>
+        <a href="#">À l'affiche</a>
+        <a href="#">Les voisins</a>
+        <a href="#">Votre temps</a>
+        <a href="#">Le courrier</a>
+        <span class="droite">N° 142 · Mercredi 10 juin 2026</span>
+      </nav>
+
+      <div class="b-scroll">
+        <div class="b-deux">
+          <div class="principale zone">
+            <section class="b-salut">
+              <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+              <p>Échangez du temps, pas de l’argent. Une heure donnée vaut une heure reçue.</p>
+              <div class="actions">
+                <button class="btn-plein btn-plein--orange" type="button" style="width:auto;padding:11px 22px">Publier une annonce</button>
+                <button class="lien-filet" type="button">Proposer un rendez-vous</button>
+              </div>
+            </section>
+
+            <div class="b-bloc">
+              <div class="rubrique"><span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span><span class="filet"></span></div>
+              <div class="filtres-ligne"><a class="on" href="#">Qui m'intéressent</a><a href="#">Récentes</a><a href="#">Offres</a><a href="#">Demandes</a></div>
+              <div class="fil">
+                <article class="annonce">
+                  <div class="an-tete"><span class="an-type an-type--demande">Demande</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1042</span></div>
+                  <h3 class="an-titre">Une étagère à monter samedi matin</h3>
+                  <p class="an-texte">Une petite heure suffit, je fournis les outils et le café. Idéalement quelqu'un d'habitué à la perceuse — le mur est en placo et je préfère ne pas m'y risquer seule.</p>
+                  <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+                  <div class="an-actions"><button class="action action--fort" type="button">Je peux aider</button><button class="action" type="button">Commenter</button><span class="an-compteur">3 réponses</span></div>
+                </article>
+                <article class="annonce">
+                  <div class="an-tete"><span class="an-type an-type--offre">Offre</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1041</span></div>
+                  <h3 class="an-titre">Je prête ma perceuse et mon escabeau</h3>
+                  <p class="an-texte">Disponibles en semaine, à récupérer rue Pasteur. Je peux aussi venir donner un coup de main si le chantier vous impressionne.</p>
+                  <p class="an-sign">— Jean Mercier · Vieux Bourg · il y a 5 h</p>
+                  <div class="an-actions"><button class="action action--fort" type="button">Ça m'intéresse</button><button class="action" type="button">Commenter</button><span class="an-compteur">1 réponse</span></div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="laterale zone">
+            <div class="b-bloc">
+              <div class="rubrique"><span class="tape"><h2>On attend un mot de vous</h2><span class="badge-compte">3</span></span><span class="filet"></span></div>
+              <div class="rangee" style="flex-direction:column;gap:8px">
+                <article class="billet2 billet2--large billet2--urgent">
+                  <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg><span class="verbe">Valider</span></div>
+                  <div class="c"><h3>Montage de l'étagère</h3><p class="m2"><span class="delai">Plus que 2 jours</span><span class="sep">·</span>avec Alice</p></div>
+                </article>
+                <article class="billet2 billet2--large billet2--action">
+                  <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a7.5 7.5 0 0 1-7.5 7.5H4l1.6-3.1A7.5 7.5 0 1 1 21 11.5Z"/></svg><span class="verbe">Répondre</span></div>
+                  <div class="c"><h3>Atelier réparation vélo</h3><p class="m2">Pierre vous invite<span class="sep">·</span>le 15 juin</p></div>
+                </article>
+                <article class="billet2 billet2--large billet2--action">
+                  <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.5 5.3 5.8.8-4.2 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.2-4 5.8-.8Z"/></svg><span class="verbe">Noter</span></div>
+                  <div class="c"><h3>Cours d'espagnol</h3><p class="m2">Échange du 8 juin<span class="sep">·</span>avec Sofia</p></div>
+                </article>
+              </div>
+            </div>
+
+            <div class="b-bloc">
+              <div class="rubrique"><span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span><span class="filet"></span></div>
+              <div class="rangee" style="flex-direction:column;gap:8px">
+                <article class="billet2 billet2--large"><div class="talon"><span class="n">11</span><span class="m">Juin</span></div><div class="c"><h3>Rencontre physique</h3><p class="m2"><span class="quand">12:30</span><span class="sep">·</span>avec Marie Morel</p></div></article>
+                <article class="billet2 billet2--large"><div class="talon"><span class="n">18</span><span class="m">Juin</span></div><div class="c"><h3>Soirée couture</h3><p class="m2"><span class="quand">20:00</span><span class="sep">·</span>avec Lucie Garnier</p></div></article>
+              </div>
+              <a class="b-suite" href="#">Voir les 4 rendez-vous</a>
+            </div>
+
+            <div class="b-bloc">
+              <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">5</span></span><span class="filet"></span></div>
+              <div class="agenda">
+                <article class="agenda-ligne"><div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div><div class="c"><div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">3/5</span></div><h3>Réparation de vélos</h3><p class="lieu">⌖ Local associatif</p></div></article>
+                <article class="agenda-ligne"><div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:30</div></div><div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span><span class="jauge">7/12</span></div><h3>Café des voisins</h3><p class="lieu">⌖ Place J.-B. Vigier</p></div></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Une vraie mise en pages de journal : la <b>colonne de gauche</b> porte le fil, qui gagne enfin la largeur nécessaire pour qu'une annonce se lise sans être tronquée ; la <b>colonne de droite</b> rassemble tout ce qui vous concerne personnellement, en billets à pleine largeur. Un filet vertical les sépare, comme entre deux colonnes de plomb. La navigation passe en rubriques à ruban, sous la barre marine.</p>
+    <div class="verdict">
+      <p class="pour">le thème gazette trouve enfin son format naturel. La séparation « ce qui vous concerne » / « ce que fait le quartier » est nette et se lit d'un coup d'œil.</p>
+      <p class="contre">la colonne de droite s'allonge vite ; il faut la discipliner avec des « voir les N » systématiques, sinon les deux colonnes se désynchronisent.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       D4 · LA UNE PLEINE PAGE
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D4</span><h2>La une pleine page</h2><span class="tag">Le parti pris éditorial</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr</span></div>
+
+      <header class="b-manchette">
+        <div class="haut">
+          <span>N° 142 · Saint-Sébastien-sur-Loire</span>
+          <span>Mercredi 10 juin 2026</span>
+          <span class="moi"><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></span>
+        </div>
+        <div class="titre">
+          <img src="../../assets/logo/logo-tpt-transparent.png" alt="">
+          <h1>TempsPourTemps</h1>
+          <span class="devise">1 h donnée = 1 h reçue</span>
+        </div>
+        <nav class="nav">
+          <a class="on" href="#">La une</a>
+          <a href="#">Le fil</a>
+          <a href="#">À l'affiche<span class="cpt">5</span></a>
+          <a href="#">Les voisins</a>
+          <a href="#">Votre temps</a>
+          <a href="#">Le courrier<span class="cpt">3</span></a>
+          <a href="#">Proposer</a>
+        </nav>
+      </header>
+
+      <div class="b-scroll b-scroll--papier">
+        <div class="b-trois">
+          <div class="gauche zone">
+            <p class="b-mini-titre">On attend un mot de vous</p>
+            <div class="rangee" style="flex-direction:column;gap:8px">
+              <article class="billet2 billet2--large billet2--urgent">
+                <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg><span class="verbe">Valider</span></div>
+                <div class="c"><h3>Montage de l'étagère</h3><p class="m2"><span class="delai">Plus que 2 jours</span></p></div>
+              </article>
+              <article class="billet2 billet2--large billet2--action">
+                <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a7.5 7.5 0 0 1-7.5 7.5H4l1.6-3.1A7.5 7.5 0 1 1 21 11.5Z"/></svg><span class="verbe">Répondre</span></div>
+                <div class="c"><h3>Atelier réparation vélo</h3><p class="m2">Pierre vous invite</p></div>
+              </article>
+              <article class="billet2 billet2--large billet2--action">
+                <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.5 5.3 5.8.8-4.2 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.2-4 5.8-.8Z"/></svg><span class="verbe">Noter</span></div>
+                <div class="c"><h3>Cours d'espagnol</h3><p class="m2">Échange du 8 juin</p></div>
+              </article>
+            </div>
+
+            <p class="b-mini-titre" style="margin-top:20px">Vos rendez-vous</p>
+            <div class="rangee" style="flex-direction:column;gap:8px">
+              <article class="billet2 billet2--large"><div class="talon"><span class="n">11</span><span class="m">Juin</span></div><div class="c"><h3>Rencontre physique</h3><p class="m2"><span class="quand">12:30</span><span class="sep">·</span>Marie Morel</p></div></article>
+              <article class="billet2 billet2--large"><div class="talon"><span class="n">18</span><span class="m">Juin</span></div><div class="c"><h3>Soirée couture</h3><p class="m2"><span class="quand">20:00</span><span class="sep">·</span>Lucie Garnier</p></div></article>
+            </div>
+            <a class="b-suite" href="#">Voir les 4 rendez-vous</a>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="milieu zone">
+            <div class="manchette" style="padding-top:0">
+              <p class="sur">L'appel du jour</p>
+              <h2>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h2>
+              <p>Trois voisins attendent une réponse de votre part, et cinq rendez-vous ouverts cherchent encore des participants cette semaine. Votre compteur vous laisse largement de quoi demander.</p>
+              <div class="pied">
+                <button class="btn-plein btn-plein--orange" type="button" style="width:auto;padding:10px 20px">Publier une annonce</button>
+                <button class="lien-filet" type="button">Proposer un rendez-vous</button>
+              </div>
+            </div>
+
+            <div class="b-bloc" style="margin-top:18px">
+              <div class="rubrique"><span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span><span class="filet"></span></div>
+              <div class="fil">
+                <article class="annonce">
+                  <div class="an-tete"><span class="an-type an-type--demande">Demande</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1042</span></div>
+                  <h3 class="an-titre">Une étagère à monter samedi matin</h3>
+                  <p class="an-texte">Une petite heure suffit, je fournis les outils et le café. Idéalement quelqu'un d'habitué à la perceuse — le mur est en placo.</p>
+                  <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+                  <div class="an-actions"><button class="action action--fort" type="button">Je peux aider</button><span class="an-compteur">3 réponses</span></div>
+                </article>
+                <article class="annonce">
+                  <div class="an-tete"><span class="an-type an-type--offre">Offre</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1041</span></div>
+                  <h3 class="an-titre">Je prête ma perceuse et mon escabeau</h3>
+                  <p class="an-texte">Disponibles en semaine, à récupérer rue Pasteur.</p>
+                  <p class="an-sign">— Jean Mercier · Vieux Bourg · il y a 5 h</p>
+                  <div class="an-actions"><button class="action action--fort" type="button">Ça m'intéresse</button><span class="an-compteur">1 réponse</span></div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="b-filet-v"></div>
+
+          <div class="droite zone">
+            <nav class="sommaire" style="margin-top:0">
+              <p class="t">Au sommaire aujourd'hui</p>
+              <ul>
+                <li><span class="lab">On attend un mot</span><span class="pts"></span><span class="n">3</span></li>
+                <li><span class="lab">Vos rendez-vous</span><span class="pts"></span><span class="n">4</span></li>
+                <li><span class="lab">À l'affiche</span><span class="pts"></span><span class="n">5</span></li>
+                <li><span class="lab">Le fil</span><span class="pts"></span><span class="n">34<em>dont 6 neufs</em></span></li>
+              </ul>
+            </nav>
+
+            <p class="b-mini-titre" style="margin-top:18px">À l'affiche cette semaine</p>
+            <div class="agenda">
+              <article class="agenda-ligne"><div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div><div class="c"><div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">3/5</span></div><h3>Réparation de vélos</h3><p class="lieu">⌖ Local associatif</p></div></article>
+              <article class="agenda-ligne"><div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:30</div></div><div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span><span class="jauge">7/12</span></div><h3>Café des voisins</h3><p class="lieu">⌖ Place J.-B. Vigier</p></div></article>
+              <article class="agenda-ligne"><div class="quand"><div class="j">16</div><div class="m">Juin</div><div class="h">14:00</div></div><div class="c"><div class="g"><span class="genre genre--coup">Coup de main</span><span class="jauge">2 places</span></div><h3>Déménager un buffet</h3><p class="lieu">⌖ Rue Pasteur, Baugerie</p></div></article>
+            </div>
+
+            <div class="avis" style="margin:18px 0 0">
+              <button class="x" type="button">×</button>
+              <span class="k">Nouveau</span>
+              <h3>Les moments ouverts arrivent</h3>
+              <p>Proposez un créneau sans destinataire : qui veut, s'inscrit. <a href="#">En savoir plus</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Une véritable une de journal : la <b>manchette occupe toute la largeur</b> et absorbe la navigation, le compteur et l'identité — il n'y a plus de barre marine du tout. En dessous, trois colonnes séparées par des filets : ce qu'on attend de vous à gauche, l'appel du jour et le fil au centre, le sommaire et l'agenda à droite.</p>
+    <div class="verdict">
+      <p class="pour">de loin la plus fidèle au thème, et la plus mémorable. Tout tient sans défilement : c'est la seule proposition où l'on voit l'intégralité de sa situation d'un seul regard.</p>
+      <p class="contre">la manchette mange 150 px de hauteur sur chaque page, pas seulement l'accueil. Et trois colonnes, c'est trois fois plus de règles à tenir quand la fenêtre rétrécit.</p>
+    </div>
+  </figure>
+
+  <!-- ============================================================
+       D5 · LE BUREAU À PANNEAU
+       ============================================================ -->
+  <figure class="ecran-bureau">
+    <figcaption><span class="n">D5</span><h2>Le bureau à panneau</h2><span class="tag">Le carnet toujours ouvert</span></figcaption>
+    <div class="bureau">
+      <div class="chassis"><i></i><i></i><i></i><span class="url">tempspourtemps.fr</span></div>
+
+      <div class="corps">
+        <nav class="b-rail2">
+          <span class="marque"><img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps"></span>
+          <a class="on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Une</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>Agenda</a>
+          <a href="#"><span class="pt">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <span class="bas2"><a href="#"><span class="avatar avatar--me" style="width:30px;height:30px;font-size:11px">OD</span></a></span>
+        </nav>
+
+        <div class="b-corps5">
+          <div class="b-entete">
+            <h1>La une</h1>
+            <span class="date">Mercredi 10 juin 2026</span>
+            <div class="spacer"></div>
+            <div class="recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher un service, un voisin…</div>
+            <span class="credit-pill" style="box-shadow:none">⏰ 8 h 30</span>
+          </div>
+
+          <div class="corps" style="flex:1;min-height:0">
+            <div class="b-scroll">
+              <div class="b-large zone">
+                <section class="b-salut">
+                  <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+                  <p>Échangez du temps, pas de l’argent. Une heure donnée vaut une heure reçue.</p>
+                  <div class="actions">
+                    <button class="btn-plein btn-plein--orange" type="button" style="width:auto;padding:11px 22px">Publier une annonce</button>
+                    <button class="lien-filet" type="button">Proposer un rendez-vous</button>
+                  </div>
+                </section>
+
+                <div class="b-bloc">
+                  <div class="rubrique"><span class="tape"><h2>Le fil du quartier</h2><span class="badge-compte">34</span></span><span class="filet"></span></div>
+                  <div class="filtres-ligne"><a class="on" href="#">Qui m'intéressent</a><a href="#">Récentes</a><a href="#">Offres</a><a href="#">Demandes</a></div>
+                  <div class="fil">
+                    <article class="annonce">
+                      <div class="an-tete"><span class="an-type an-type--demande">Demande</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1042</span></div>
+                      <h3 class="an-titre">Une étagère à monter samedi matin</h3>
+                      <p class="an-texte">Une petite heure suffit, je fournis les outils et le café. Idéalement quelqu'un d'habitué à la perceuse — le mur est en placo et je préfère ne pas m'y risquer seule.</p>
+                      <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+                      <div class="an-actions"><button class="action action--fort" type="button">Je peux aider</button><button class="action" type="button">Commenter</button><span class="an-compteur">3 réponses</span></div>
+                    </article>
+                    <article class="annonce">
+                      <div class="an-tete"><span class="an-type an-type--offre">Offre</span><span class="an-rubr">Bricolage</span><span class="an-ref">N° 1041</span></div>
+                      <h3 class="an-titre">Je prête ma perceuse et mon escabeau</h3>
+                      <p class="an-texte">Disponibles en semaine, à récupérer rue Pasteur. Je peux aussi venir donner un coup de main si le chantier vous impressionne.</p>
+                      <p class="an-sign">— Jean Mercier · Vieux Bourg · il y a 5 h</p>
+                      <div class="an-actions"><button class="action action--fort" type="button">Ça m'intéresse</button><button class="action" type="button">Commenter</button><span class="an-compteur">1 réponse</span></div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="b-panneau zone">
+              <p class="tete">On attend un mot de vous · 3</p>
+              <div class="rangee" style="flex-direction:column;gap:8px;padding:0">
+                <article class="billet2 billet2--large billet2--urgent">
+                  <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.4"/></svg><span class="verbe">Valider</span></div>
+                  <div class="c"><h3>Montage de l'étagère</h3><p class="m2"><span class="delai">Plus que 2 jours</span></p></div>
+                </article>
+                <article class="billet2 billet2--large billet2--action">
+                  <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a7.5 7.5 0 0 1-7.5 7.5H4l1.6-3.1A7.5 7.5 0 1 1 21 11.5Z"/></svg><span class="verbe">Répondre</span></div>
+                  <div class="c"><h3>Atelier réparation vélo</h3><p class="m2">Pierre vous invite</p></div>
+                </article>
+                <article class="billet2 billet2--large billet2--action">
+                  <div class="talon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.5 5.3 5.8.8-4.2 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.2-4 5.8-.8Z"/></svg><span class="verbe">Noter</span></div>
+                  <div class="c"><h3>Cours d'espagnol</h3><p class="m2">Échange du 8 juin</p></div>
+                </article>
+              </div>
+
+              <p class="tete tete--suite">Vos rendez-vous · 4</p>
+              <div class="rangee" style="flex-direction:column;gap:8px;padding:0">
+                <article class="billet2 billet2--large"><div class="talon"><span class="n">11</span><span class="m">Juin</span></div><div class="c"><h3>Rencontre physique</h3><p class="m2"><span class="quand">12:30</span><span class="sep">·</span>Marie Morel</p></div></article>
+                <article class="billet2 billet2--large"><div class="talon"><span class="n">18</span><span class="m">Juin</span></div><div class="c"><h3>Soirée couture</h3><p class="m2"><span class="quand">20:00</span><span class="sep">·</span>Lucie Garnier</p></div></article>
+              </div>
+              <a class="b-suite" href="#">Voir les 4 rendez-vous</a>
+
+              <p class="tete tete--suite">À l'affiche · 5</p>
+              <div class="agenda">
+                <article class="agenda-ligne"><div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">18:00</div></div><div class="c"><div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">3/5</span></div><h3>Réparation de vélos</h3><p class="lieu">⌖ Local associatif</p></div></article>
+                <article class="agenda-ligne"><div class="quand"><div class="j">14</div><div class="m">Juin</div><div class="h">10:30</div></div><div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span><span class="jauge">7/12</span></div><h3>Café des voisins</h3><p class="lieu">⌖ Place J.-B. Vigier</p></div></article>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">La navigation se réduit à un <b>rail d'icônes de 76 px</b> — exactement les cinq onglets de la barre mobile, redressés — et toute la largeur restante se partage entre le fil, qui occupe le centre, et un <b>panneau de droite permanent</b> : votre carnet. Ce panneau ne bouge pas quand on change de page : où que vous soyez dans l'application, ce qu'on attend de vous reste sous les yeux.</p>
+    <div class="verdict">
+      <p class="pour">c'est la seule proposition où l'on ne perd jamais de vue ses engagements, y compris en lisant le fil ou en écrivant un message. La plus dense sans être encombrée.</p>
+      <p class="contre">un panneau permanent, c'est 328 px confisqués sur toutes les pages — et il faut décider quoi en faire sur celles qui ont déjà une colonne latérale, comme la messagerie.</p>
+    </div>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · L'accueil sur grand écran · Personnes fictives.<br>
+  <a href="../../index.html">Galerie</a> · <a href="bureau-2-messagerie.html">La messagerie sur PC</a> · <a href="pages-1-decouverte.html">La version mobile</a>
+</footer>
+</body>
+</html>

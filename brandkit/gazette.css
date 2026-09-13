@@ -757,4 +757,133 @@ footer a{color:var(--marine);font-weight:600;}
 .encart--attention b{color:var(--orange-hover);}
 .encart--danger b{color:var(--danger);}
 
+/* ============================================================
+   LE BILLET — la forme fine retenue (cf. planche 1c, écran 5 ter)
+   Talon de 50 px séparé par un filet — jamais d'aplat, le jaune
+   reste l'exclusivité des rubans de rubrique. Le talon porte la
+   date quand il n'y a rien à faire, le geste quand on attend
+   quelque chose de vous.
+   ============================================================ */
+.billet2{
+  width:252px;background:var(--paper);border:1px solid var(--border);border-radius:11px;
+  display:flex;flex-direction:row;overflow:hidden;
+  box-shadow:0 1px 2px rgba(24,62,87,.06), 0 8px 20px -16px rgba(24,62,87,.3);
+}
+.rangee > .billet2{flex:none;flex-direction:row;}
+.billet2--large{width:auto;flex:1;min-width:0;}
+.billet2 .talon{
+  flex:none;width:50px;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 3px;
+}
+/* talon de date — pour un rendez-vous, la date est le sujet */
+.billet2 .talon .n{font-family:var(--titres);font-weight:800;font-size:19px;line-height:1;color:var(--marine);}
+.billet2 .talon .m{font-size:7.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--text-tertiary);line-height:1;}
+/* talon de geste — pour une action, c'est le geste qui est le sujet */
+.billet2 .talon svg{width:20px;height:20px;stroke-width:2;color:var(--orange-hover);}
+.billet2 .talon .verbe{font-size:7px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--orange-hover);line-height:1;}
+.billet2--action .talon{border-right:2px solid var(--orange);}
+.billet2--urgent .talon{border-right:2px solid var(--danger);}
+.billet2--urgent .talon svg,
+.billet2--urgent .talon .verbe{color:var(--danger);}
+.billet2 .c{flex:1;min-width:0;padding:9px 11px;display:flex;flex-direction:column;justify-content:center;gap:3px;}
+.billet2 h3{font-family:var(--titres);font-weight:800;font-size:12.5px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.billet2 .m2{font-size:10.5px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.billet2 .m2 .sep{color:var(--text-tertiary);margin:0 4px;}
+.billet2 .m2 .delai{font-weight:700;color:var(--danger);}
+.billet2 .m2 .quand{font-weight:700;color:var(--marine);}
+
+/* ============================================================
+   LE BUREAU — adaptation grand écran
+   Les composants mobiles sont réutilisés tels quels ; seule
+   l'ossature change. Les marges latérales de 18 px cuites dans
+   les composants sont neutralisées par .zone.
+   ============================================================ */
+.planche-bureau{display:flex;flex-direction:column;gap:46px;max-width:1240px;margin:0 auto;}
+.ecran-bureau{display:flex;flex-direction:column;gap:12px;}
+.ecran-bureau > figcaption{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.ecran-bureau > figcaption .n{
+  font-family:var(--titres);font-weight:800;font-size:.78rem;background:var(--marine);color:var(--sable);
+  border-radius:7px;padding:3px 10px;flex:none;
+}
+.ecran-bureau > figcaption h2{font-family:var(--titres);font-weight:800;font-size:1.12rem;}
+.ecran-bureau > figcaption .tag{
+  font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--orange-hover);background:var(--bg-hover);border-radius:5px;padding:3px 9px;
+}
+.ecran-bureau .note{font-size:.84rem;color:var(--text-secondary);line-height:1.55;max-width:1000px;}
+.ecran-bureau .note b{color:var(--marine);}
+
+.bureau{
+  width:1240px;height:772px;border-radius:14px;overflow:hidden;position:relative;flex:none;
+  background:var(--bg-main);border:1px solid rgba(24,62,87,.2);
+  box-shadow:0 4px 12px rgba(24,62,87,.08), 0 46px 80px -56px rgba(24,62,87,.6);
+  display:flex;flex-direction:column;
+}
+/* le châssis de fenêtre, pour situer l'échelle */
+.bureau .chassis{
+  height:32px;flex:none;background:#e7e3d9;border-bottom:1px solid rgba(24,62,87,.13);
+  display:flex;align-items:center;gap:7px;padding:0 13px;
+}
+.bureau .chassis i{width:10px;height:10px;border-radius:50%;background:#cdc6b7;flex:none;}
+.bureau .chassis .url{
+  margin-left:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;
+  color:var(--text-tertiary);background:#fffdf8;border:1px solid rgba(24,62,87,.09);
+  border-radius:6px;padding:3px 14px;
+}
+.bureau .corps{flex:1;display:flex;min-height:0;}
+
+/* — la barre du haut, version large — */
+.b-tb{
+  height:56px;flex:none;background:var(--marine);color:#fff9ec;
+  display:flex;align-items:center;gap:16px;padding:0 22px;
+}
+.b-tb .logo{height:29px;width:auto;}
+.b-tb .spacer{flex:1;}
+.b-tb .recherche{
+  width:290px;display:flex;align-items:center;gap:9px;background:rgba(255,253,246,.13);
+  border:1px solid rgba(252,219,129,.28);border-radius:999px;padding:8px 15px;
+  font-size:12.5px;color:rgba(255,249,236,.72);
+}
+.b-tb .recherche svg{width:14px;height:14px;flex:none;opacity:.8;}
+.b-tb .ibtn{color:#fff9ec;width:36px;height:36px;position:relative;}
+.b-tb .ibtn:hover{background:rgba(255,253,246,.1);}
+.b-tb .ibtn .pastille{
+  position:absolute;top:3px;right:3px;min-width:15px;height:15px;line-height:15px;border-radius:999px;
+  background:var(--orange);color:#fff9ec;font-family:var(--titres);font-weight:800;font-size:9px;
+  text-align:center;padding:0 4px;border:1.5px solid var(--marine);
+}
+.b-tb .moi{display:flex;align-items:center;gap:9px;padding-left:16px;border-left:1px solid rgba(252,219,129,.22);}
+.b-tb .moi .nom{font-size:12.5px;font-weight:600;}
+
+/* — la zone de contenu : on annule les marges latérales du mobile — */
+/* .zone ne touche pas à son propre padding : elle neutralise seulement
+   les marges de 18 px que les composants mobiles portent en dur. */
+.bureau .zone{min-width:0;}
+.bureau .zone .rubrique,
+.bureau .zone .sous-rubrique,
+.bureau .zone .bandeau-edition,
+.bureau .zone .sommaire,
+.bureau .zone .avis,
+.bureau .zone .filtres-ligne,
+.bureau .zone .jauges,
+.bureau .zone .agenda,
+.bureau .zone .carnet{margin-left:0;margin-right:0;}
+.bureau .zone .fil,
+.bureau .zone .rangee,
+.bureau .zone .agenda,
+.bureau .zone .carnet,
+.bureau .zone .hero,
+.bureau .zone .manchette{padding-left:0;padding-right:0;}
+/* sur un écran large les rangées ne défilent plus : elles s'enroulent */
+.bureau .zone .rangee{flex-wrap:wrap;overflow:visible;}
+
+/* — la colonne défilante — */
+.b-scroll{flex:1;overflow-y:auto;min-height:0;scrollbar-width:none;background:var(--grad-hero);}
+.b-scroll::-webkit-scrollbar{display:none;}
+.b-scroll--uni{background:var(--bg-main);}
+.b-scroll--papier{background:var(--paper);}
+
+/* — le filet vertical qui sépare deux colonnes, comme dans un journal — */
+.b-filet-v{flex:none;width:7px;border-left:1px solid rgba(24,62,87,.3);border-right:1px solid rgba(24,62,87,.3);align-self:stretch;}
+
 @media (max-width:460px){ body{padding:20px 8px 50px;} .phone{width:100%;} }
