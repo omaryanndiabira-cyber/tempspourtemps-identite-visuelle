@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — La bibliothèque de composants</title>
+<link rel="icon" href="../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gazette.css">
+<style>
+/* ============================================================
+   CHROME DE LA BIBLIOTHÈQUE
+   ============================================================ */
+body{padding:38px 20px 80px;}
+.wrap{max-width:1180px;margin:0 auto;}
+
+.entete{text-align:center;max-width:760px;margin:0 auto 30px;}
+.entete img{width:58px;height:auto;margin-bottom:12px;}
+.entete .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.entete h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);letter-spacing:-.5px;margin-top:6px;}
+.entete p{color:var(--text-secondary);font-size:.95rem;line-height:1.6;margin-top:14px;}
+.entete .retour{display:inline-block;margin-top:18px;color:var(--marine);font-weight:600;font-size:.86rem;text-decoration:none;}
+
+/* le constat chiffré */
+.constat{
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:16px;padding:22px 24px;margin:0 auto 46px;max-width:900px;
+}
+.constat h2{font-family:var(--titres);font-weight:800;font-size:1.05rem;text-align:center;letter-spacing:.14em;text-transform:uppercase;}
+.constat .filet-double{margin:12px 0 18px;}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:14px;}
+.chiffre{text-align:center;padding:10px 6px;border-left:1px solid var(--border);}
+.chiffre:first-child{border-left:0;}
+.chiffre .v{font-family:var(--titres);font-weight:800;font-size:1.8rem;line-height:1;color:var(--marine);}
+.chiffre .v--alerte{color:var(--danger);}
+.chiffre .v--attente{color:var(--orange-hover);}
+.chiffre .l{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-top:7px;line-height:1.4;}
+.constat .lecture{margin-top:18px;padding-top:16px;border-top:1px dashed var(--border);font-size:.86rem;line-height:1.65;color:var(--text-secondary);}
+.constat .lecture b{color:var(--marine);}
+
+/* sections */
+.section-titre{display:flex;align-items:center;gap:16px;margin:54px 0 8px;scroll-margin-top:16px;}
+.section-titre h2{font-family:var(--titres);font-weight:800;font-size:1.4rem;white-space:nowrap;}
+.section-titre .num{font-family:var(--titres);font-weight:800;font-size:.78rem;background:var(--sable);border-radius:8px;padding:3px 10px;}
+.section-titre .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
+.section-intro{color:var(--text-secondary);font-size:.88rem;line-height:1.6;margin:0 0 22px;max-width:760px;}
+
+/* fiche de composant */
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));gap:20px;}
+.fiche{
+  background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  box-shadow:0 2px 6px rgba(24,62,87,.05),0 16px 34px -26px rgba(24,62,87,.28);
+  display:flex;flex-direction:column;
+}
+.fiche-tete{display:flex;align-items:baseline;gap:9px;padding:13px 16px 11px;border-bottom:1px solid var(--border);}
+.fiche-tete h3{font-family:var(--titres);font-weight:800;font-size:.95rem;flex:1;}
+.statut{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:5px;padding:3px 8px;white-space:nowrap;}
+.statut--existe{background:rgba(74,157,95,.14);color:#2f7a44;}
+.statut--fusionner{background:var(--bg-hover);color:var(--orange-hover);}
+.statut--creer{background:#e8eef4;color:var(--marine);}
+.demo{
+  background:#e7e4dc;padding:20px 16px;display:flex;flex-direction:column;gap:11px;align-items:flex-start;
+  background-image:radial-gradient(circle at 18% 18%, rgba(252,219,129,.28), transparent 46%);
+  min-height:96px;justify-content:center;
+}
+.demo--centre{align-items:center;}
+.demo--papier{background:var(--grad-hero);background-image:none;}
+.demo--serre{padding:14px;}
+.demo .etiq{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);}
+.fiche-pied{padding:12px 16px 14px;font-size:.79rem;line-height:1.55;color:var(--text-secondary);flex:1;}
+.fiche-pied .regle{margin-top:7px;}
+.fiche-pied .regle b{color:var(--marine);}
+.fiche-pied .dette{
+  margin-top:9px;padding-top:8px;border-top:1px dashed var(--border);
+  font-size:.74rem;color:var(--text-tertiary);
+}
+.fiche-pied .dette b{color:var(--orange-hover);}
+.fiche-pied code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+
+/* pièces de démonstration */
+.nuancier{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;width:100%;}
+.nuance{min-width:0;}
+.nuance .pot{height:42px;border-radius:8px;border:1px solid rgba(24,62,87,.14);}
+.nuance .n{font-size:.62rem;font-weight:700;margin-top:5px;color:var(--marine);}
+.nuance .h{font-size:.58rem;color:var(--text-tertiary);font-variant-numeric:tabular-nums;}
+
+.specimen-typo b{display:block;font-family:var(--titres);font-weight:800;font-size:1.35rem;line-height:1.2;color:var(--marine);}
+.specimen-typo span{display:block;font-size:.84rem;color:var(--text-secondary);margin-top:5px;line-height:1.5;}
+.specimen-typo em{display:block;font-style:normal;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-top:7px;}
+
+.filets-demo{width:100%;display:flex;flex-direction:column;gap:12px;}
+.filets-demo > div{width:100%;}
+.pts-demo{display:flex;align-items:baseline;gap:7px;font-size:.8rem;width:100%;}
+.pts-demo .lab{font-family:var(--titres);font-weight:800;color:var(--marine);}
+.pts-demo .pts{flex:1;border-bottom:1px dotted rgba(24,62,87,.4);position:relative;top:-3px;}
+.pts-demo .n{font-family:var(--titres);font-weight:800;color:var(--orange-hover);}
+
+.interrupteur{display:inline-flex;align-items:center;gap:10px;}
+.piste{width:44px;height:25px;border-radius:999px;background:var(--border);position:relative;transition:background .15s;flex:none;}
+.piste i{position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(24,62,87,.35);transition:left .15s;}
+.piste.on{background:var(--success);}
+.piste.on i{left:22px;}
+.interrupteur span{font-size:.8rem;font-weight:600;}
+
+.case{display:inline-flex;align-items:flex-start;gap:9px;font-size:.8rem;line-height:1.45;max-width:250px;}
+.case .b{width:19px;height:19px;border-radius:5px;border:1.5px solid var(--border);background:var(--paper);flex:none;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.case .b.on{background:var(--marine);border-color:var(--marine);color:var(--sable);}
+.case .b svg{width:12px;height:12px;}
+
+.mini-tel{
+  width:190px;height:150px;border-radius:14px;overflow:hidden;position:relative;flex:none;
+  background:var(--bg-main);border:1px solid rgba(24,62,87,.15);box-shadow:0 6px 16px -8px rgba(24,62,87,.4);
+}
+.mini-tel .voile{position:absolute;inset:0;background:rgba(15,47,68,.42);display:flex;align-items:flex-end;}
+.mini-tel .voile--centre{align-items:center;justify-content:center;padding:10px 12px;}
+.mini-tel .faux{padding:10px;display:flex;flex-direction:column;gap:6px;}
+.mini-tel .faux span{display:block;height:7px;border-radius:4px;background:rgba(24,62,87,.10);}
+.mini-tel .mini-feuille{width:100%;background:var(--bg-main);border-radius:12px 12px 0 0;padding:8px 10px 10px;}
+.mini-tel .mini-feuille .p{width:30px;height:3px;border-radius:9px;background:var(--border);margin:0 auto 7px;}
+.mini-tel .mini-feuille b{display:block;font-family:var(--titres);font-weight:800;font-size:.72rem;margin-bottom:6px;}
+.mini-tel .mini-feuille .l{display:flex;align-items:center;gap:7px;padding:5px 0;border-top:1px solid var(--border);}
+.mini-tel .mini-feuille .l:first-of-type{border-top:0;}
+.mini-tel .mini-feuille .r{width:19px;height:19px;border-radius:50%;background:var(--sable);flex:none;}
+.mini-tel .mini-feuille .t{flex:1;height:6px;border-radius:3px;background:rgba(24,62,87,.14);}
+.mini-tel .mini-dialogue{
+  width:100%;background:var(--bg-main);border-radius:12px;padding:12px 10px;text-align:center;border:1px solid var(--border);
+}
+.mini-tel .mini-dialogue .rond{width:26px;height:26px;border-radius:50%;background:var(--bg-hover);margin:0 auto 7px;}
+.mini-tel .mini-dialogue .rond--danger{background:rgba(196,69,54,.12);}
+.mini-tel .mini-dialogue b{display:block;font-family:var(--titres);font-weight:800;font-size:.7rem;line-height:1.3;}
+.mini-tel .mini-dialogue .boutons{display:flex;gap:5px;margin-top:9px;}
+.mini-tel .mini-dialogue .boutons span{flex:1;height:20px;border-radius:6px;background:var(--border);}
+.mini-tel .mini-dialogue .boutons span.o{background:var(--orange);}
+.mini-tel .mini-dialogue .boutons span.d{background:var(--danger);}
+.mini-tel .mini-toast{
+  position:absolute;left:10px;right:10px;bottom:10px;background:#2f6b44;border-radius:9px;padding:7px 9px;
+  display:flex;align-items:center;gap:7px;
+}
+.mini-tel .mini-toast .r{width:15px;height:15px;border-radius:50%;background:rgba(255,255,255,.25);flex:none;}
+.mini-tel .mini-toast .t{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.55);}
+.mini-tel .mini-bandeau{
+  background:var(--bg-hover);border-left:3px solid var(--warning);border-bottom:1px solid #efdcae;
+  padding:6px 8px;display:flex;align-items:center;gap:6px;
+}
+.mini-tel .mini-bandeau .r{width:12px;height:12px;border-radius:50%;background:var(--warning);opacity:.5;flex:none;}
+.mini-tel .mini-bandeau .t{flex:1;height:5px;border-radius:3px;background:rgba(24,62,87,.2);}
+.mini-tel .mini-tb{background:var(--marine);height:26px;}
+
+.rappel-lien{
+  display:inline-flex;align-items:center;gap:7px;margin-top:10px;
+  font-size:.76rem;font-weight:700;color:var(--orange-hover);text-decoration:none;
+  border-bottom:1px dashed var(--orange);padding-bottom:1px;
+}
+
+footer{margin-top:64px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
+footer a{color:var(--marine);font-weight:600;}
+
+@media (max-width:520px){ body{padding:22px 10px 50px;} .constat{padding:16px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="entete">
+  <img src="../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Design system</p>
+  <h1>La bibliothèque</h1>
+  <p>Toutes les briques de l'interface, dans la charte gazette. Chaque fiche indique <b>ce que le composant est</b>, <b>quand l'employer</b>, et son état vis-à-vis de l'application actuelle : il existe déjà, il existe en plusieurs exemplaires à fusionner, ou il reste à créer.</p>
+  <a class="retour" href="../index.html">← Retour à la galerie</a>
+</header>
+
+<!-- ================= LE CONSTAT ================= -->
+<section class="constat">
+  <h2>Ce que dit le code aujourd'hui</h2>
+  <div class="filet-double"></div>
+  <div class="chiffres">
+    <div class="chiffre"><div class="v">92</div><div class="l">composants<br>dont 60 métier</div></div>
+    <div class="chiffre"><div class="v v--alerte">24</div><div class="l">surfaces flottantes<br>2 coquilles partagées</div></div>
+    <div class="chiffre"><div class="v v--alerte">0</div><div class="l">champ texte<br>en composant</div></div>
+    <div class="chiffre"><div class="v v--attente">~35</div><div class="l">fichiers recopient<br>la carte blanche</div></div>
+    <div class="chiffre"><div class="v v--alerte">0</div><div class="l">squelette · état vide<br>erreur · notification</div></div>
+  </div>
+  <p class="lecture">
+    L'application a <b>un excellent bouton</b> — douze variantes, bien adopté — et presque rien d'autre en primitives. Tout le reste est réécrit à la main : on relève <b>une vingtaine de chaînes de classes différentes</b> pour un simple champ de saisie, <b>six formules de pastille</b>, et <b>six copies du même dialogue moyen</b>. Deux familles de jetons de couleur cohabitent (sémantiques et bruts <code>sand-*</code>/<code>navy-*</code>), deux systèmes d'icônes, et des SVG recopiés à la main.
+    <br><br>
+    La bonne nouvelle : cette dette est <b>concentrée dans les primitives</b>, pas dans le métier. Créer une quinzaine de briques manquantes et fusionner une dizaine de doublons suffirait à remettre les 92 composants d'aplomb.
+  </p>
+</section>
+
+<!-- ================= 1 · FONDATIONS ================= -->
+<div class="section-titre" id="fondations">
+  <span class="num">1</span><h2>Fondations</h2><span class="filet"></span>
+</div>
+<p class="section-intro">Ce dont tout le reste découle. Aucune couleur, aucune graisse ne devrait apparaître ailleurs que sous forme de jeton.</p>
+
+<div class="grille">
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Les encres</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--papier">
+      <div class="nuancier">
+        <div class="nuance"><div class="pot" style="background:#183e57"></div><div class="n">Marine</div><div class="h">#183e57</div></div>
+        <div class="nuance"><div class="pot" style="background:#d65e1c"></div><div class="n">Orange</div><div class="h">#d65e1c</div></div>
+        <div class="nuance"><div class="pot" style="background:#fcdb81"></div><div class="n">Sable</div><div class="h">#fcdb81</div></div>
+        <div class="nuance"><div class="pot" style="background:#fffdf6"></div><div class="n">Papier</div><div class="h">#fffdf6</div></div>
+        <div class="nuance"><div class="pot" style="background:#4a9d5f"></div><div class="n">Succès</div><div class="h">#4a9d5f</div></div>
+        <div class="nuance"><div class="pot" style="background:#c44536"></div><div class="n">Danger</div><div class="h">#c44536</div></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Trois encres de marque, deux encres d'état, un papier.
+      <p class="regle"><b>Règle :</b> l'orange est une exclamation, jamais une phrase — 5 % de la surface au plus.</p>
+      <p class="dette">Aujourd'hui : <b>deux familles de jetons</b> cohabitent (sémantiques et <code>sand-*</code>/<code>navy-*</code>), plus des hexadécimaux en dur dans quatre fichiers.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Les caractères</h3><span class="statut statut--existe">Existe</span></div>
+    <div class="demo demo--papier">
+      <div class="specimen-typo">
+        <b>Le quartier a besoin de vous</b>
+        <span>Une heure donnée vaut une heure reçue, quelle que soit la tâche.</span>
+        <em>Nunito 800 · Inter 400 / 600</em>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Nunito pour tout ce qui titre, Inter pour tout ce qui se lit.
+      <p class="regle"><b>Règle :</b> les capitales espacées (.10 – .24 em) sont réservées aux têtes de rubrique et aux étiquettes — c'est la signature journal.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Les filets</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <div class="filets-demo">
+        <div class="filet-double" style="margin:0"></div>
+        <div style="height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.5"></div>
+        <div class="pts-demo"><span class="lab">Vos rendez-vous</span><span class="pts"></span><span class="n">4</span></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Filet double, filet d'encadrement, points de conduite du sommaire.
+      <p class="regle"><b>Règle :</b> le filet sépare, il ne décore pas. Un filet double ouvre ou ferme une zone ; un filet simple sépare des pairs.</p>
+      <p class="dette">N'existe pas : la séparation se fait aujourd'hui par ombre et par carte blanche.</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ================= 2 · PRIMITIVES ================= -->
+<div class="section-titre" id="primitives">
+  <span class="num">2</span><h2>Primitives</h2><span class="filet"></span>
+</div>
+<p class="section-intro">Les plus petites briques manipulables. C'est là qu'est concentrée la dette : l'application en possède deux ou trois et réécrit tout le reste à la main.</p>
+
+<div class="grille">
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le bouton</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo">
+      <button class="btn-plein btn-plein--orange" type="button" style="width:auto;padding:11px 22px">Publier une annonce</button>
+      <button class="btn-plein btn-plein--marine" type="button" style="width:auto;padding:11px 22px">Écrire à Alice</button>
+      <button class="btn-plein btn-plein--contour" type="button" style="width:auto;padding:11px 22px">Annuler</button>
+      <button class="btn-plein btn-plein--danger" type="button" style="width:auto;padding:11px 22px">Supprimer</button>
+    </div>
+    <div class="fiche-pied">
+      Quatre variantes, pas douze : orange (action principale), marine (action neutre forte), contour (repli), danger (destruction).
+      <p class="regle"><b>Règle :</b> <b>un seul bouton plein par écran</b>. Tout le reste passe en pastille ou en lien à filet.</p>
+      <p class="dette">Aujourd'hui : <code>AppButton</code> existe et est bien adopté, mais expose <b>12 variantes</b> et 3 tailles. À réduire.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La pastille d'action</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="action action--fort" type="button">Je peux aider</button>
+        <button class="action" type="button">Répondre</button>
+        <button class="action" type="button">Commenter</button>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Action secondaire, en contour. Deux tons : sable pour l'action attendue, neutre pour les autres.
+      <p class="regle"><b>Règle :</b> c'est le niveau par défaut des actions dans une liste ou une fiche. Jamais plus de trois côte à côte.</p>
+      <p class="dette">N'existe pas : chaque carte réécrit ses boutons, souvent en <code>AppButton size="sm"</code>.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le lien à filet</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo">
+      <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:baseline">
+        <button class="lien-filet" type="button">Valider l'échange</button>
+        <button class="lien-filet lien-filet--muet" type="button">Voir le détail</button>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Le plus discret des trois niveaux d'action : texte souligné d'un pointillé orange, ou gris pour une action secondaire.
+      <p class="regle"><b>Règle :</b> pour les actions posées à l'intérieur d'une ligne de liste ou d'un agenda, là où un bouton pèserait trop lourd.</p>
+      <p class="dette">Approché par <code>AppTextButton</code>, créé faute de variante adaptée — mais celui-ci est pleine largeur et souligné plein.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le champ de saisie</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <div style="width:100%">
+        <div class="form-groupe">
+          <label>Le titre</label>
+          <div class="saisie saisie--rempli">Petites réparations et montage</div>
+          <p class="aide">C'est ce qu'on lira dans le fil.</p>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Le triplet libellé + champ + aide, d'un seul tenant. Décline en zone de texte, sélecteur, date, heure.
+      <p class="regle"><b>Règle :</b> libellé en capitales espacées, au plus une ligne d'aide, et le message d'erreur remplace l'aide — il ne s'ajoute pas.</p>
+      <p class="dette">N'existe pas. <b>Une vingtaine de chaînes de classes différentes</b> pour la même chose, avec des rayons, des paddings et des anneaux de focus divergents. <b>C'est la dette la plus rentable à combler.</b></p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La bascule</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--papier">
+      <div style="width:100%">
+        <div class="bascule"><span class="opt on">Je propose</span><span class="opt">Je recherche</span></div>
+      </div>
+      <div style="width:100%">
+        <div class="bascule"><span class="opt on">Chez Alice</span><span class="opt">Chez moi</span><span class="opt">Ailleurs</span></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Deux ou trois choix exclusifs, tous visibles d'emblée.
+      <p class="regle"><b>Règle :</b> jusqu'à trois options, c'est une bascule ; au-delà, c'est un sélecteur.</p>
+      <p class="dette">Trois composants font ce travail aujourd'hui — <code>AppSegmentedControl</code>, <code>AppToggleCard</code>, <code>AppBinaryChoice</code> — avec trois apparences.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>L'interrupteur</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <div class="interrupteur"><span class="piste on"><i></i></span><span>Rendez-vous à venir</span></div>
+      <div class="interrupteur"><span class="piste"><i></i></span><span>Moments ouverts</span></div>
+    </div>
+    <div class="fiche-pied">
+      Réglage à effet immédiat, sans validation.
+      <p class="regle"><b>Règle :</b> l'interrupteur agit tout de suite. Si le changement doit être enregistré, c'est une case à cocher dans un formulaire.</p>
+      <p class="dette">Écrit <b>une seule fois en ligne</b>, dans les préférences de notification. Aucun autre écran ne peut le réutiliser.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La case à cocher</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <div class="case"><span class="b on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>J'ai lu la charte de l'association et j'en accepte les termes.</span></div>
+    </div>
+    <div class="fiche-pied">
+      Engagement explicite dans un formulaire.
+      <p class="regle"><b>Règle :</b> le libellé est cliquable en entier, et il énonce l'engagement à la première personne.</p>
+      <p class="dette"><code>&lt;input type="checkbox"&gt;</code> nu dans la charte et la création d'activité.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La pastille d'état</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo">
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <span class="etat etat--ok">Confirmé</span>
+        <span class="etat etat--attente">À valider</span>
+        <span class="etat etat--marine">Invitation</span>
+        <span class="etat etat--neutre">Terminé</span>
+        <span class="etat etat--alerte">Gelé</span>
+      </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <span class="genre genre--atelier">Atelier</span>
+        <span class="genre genre--coup">Coup de main</span>
+        <span class="genre genre--moment">Moment ouvert</span>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Deux familles : l'<b>état</b> (où en est la chose) et le <b>genre</b> (de quelle nature elle est).
+      <p class="regle"><b>Règle :</b> une seule pastille d'état par objet, toujours au même endroit. Le genre peut l'accompagner, jamais la remplacer.</p>
+      <p class="dette"><code>Badge</code> existe mais n'est presque pas utilisé : on relève <b>six formules de pastille</b> réécrites à la main, et <b>trois sources de vérité</b> pour le statut d'un échange.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le médaillon</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo">
+      <div style="display:flex;gap:9px;align-items:center">
+        <span class="avatar av-creme" style="width:44px;height:44px;font-size:14px;border:2px solid var(--sable)">AN</span>
+        <span class="avatar av-bleu" style="width:36px;height:36px;font-size:12px;border:1.5px solid var(--border)">ML</span>
+        <span class="avatar av-sable" style="width:30px;height:30px;font-size:10px">PB</span>
+        <span class="avatar av-marine" style="width:24px;height:24px;font-size:8.5px">tpt</span>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Photo ou initiales, quatre tailles nommées, toujours cerclé.
+      <p class="regle"><b>Règle :</b> le cercle appartient au médaillon, pas à son parent — c'est ce qui manque aujourd'hui.</p>
+      <p class="dette"><code>AppAvatar</code> existe mais <b>ne porte pas son cercle</b> : le conteneur rond est recopié dans six fichiers. La dette est signalée en commentaire dans le code lui-même.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La puce de compétence</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <div class="puces">
+        <span class="sable">Bricolage</span><span class="sable">Informatique</span><span>Jardinage</span><span>Couture</span><span>+2</span>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Liste de services, en deux tons : choisi (sable) ou disponible (neutre).
+      <p class="regle"><b>Règle :</b> au-delà de quatre puces, on tronque avec un « +N » — jamais de retour à la ligne interminable.</p>
+      <p class="dette">Réécrite dans chaque écran de profil, d'annuaire et de carte membre.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le compteur de temps</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--papier">
+      <span class="credit-pill" style="box-shadow:none">⏰ 8 h 30</span>
+      <div class="compteurs" style="margin:0;width:100%">
+        <div><div class="v v--donne">5 h 15</div><div class="l">donné</div></div>
+        <div><div class="v v--recu">3 h 15</div><div class="l">reçu</div></div>
+        <div><div class="v v--solde">8 h 30</div><div class="l">compteur</div></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      En pilule dans la barre du haut, en triptyque dans le profil et le relevé.
+      <p class="regle"><b>Règle :</b> un seul format d'heure dans toute l'app — <code>8 h 30</code>, <code>45 min</code>, jamais <code>8h30</code> ni <code>45m</code>.</p>
+      <p class="dette">Deux formateurs divergents coexistent dans deux fichiers voisins : l'un rend <code>45m</code>, l'autre <code>45min</code>.</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ================= 3 · FORMES ================= -->
+<div class="section-titre" id="formes">
+  <span class="num">3</span><h2>Les formes</h2><span class="filet"></span>
+</div>
+<p class="section-intro">Les contenants du thème gazette. Chacun dit quelque chose par sa seule silhouette : une fiche n'est pas un faire-part, un faire-part n'est pas une ligne d'agenda.</p>
+
+<div class="grille">
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La fiche d'annonce</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--papier demo--serre">
+      <article class="annonce" style="width:100%">
+        <div class="an-tete">
+          <span class="an-type an-type--demande">Demande</span>
+          <span class="an-rubr">Bricolage</span>
+          <span class="an-ref">N° 1042</span>
+        </div>
+        <h3 class="an-titre">Une étagère à monter samedi matin</h3>
+        <p class="an-texte">Une petite heure suffit, je fournis les outils.</p>
+        <p class="an-sign">— Alice Noël · Centre · il y a 2 h</p>
+      </article>
+    </div>
+    <div class="fiche-pied">
+      Ligne de tête soulignée d'un filet (genre · rubrique · référence), titre seul, texte aéré, signature en italique.
+      <p class="regle"><b>Règle :</b> le titre ne partage jamais sa ligne. C'est ce qui rend la liste lisible en diagonale.</p>
+      <p class="dette"><code>AnnouncementCard</code> et <code>PostCard</code> existent mais divergent, et aucune <code>AppCard</code> ne les sous-tend : le motif de carte blanche est recopié dans ~35 fichiers.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le faire-part</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <article class="carte-rdv" style="width:100%"><div class="cadre">
+        <div class="entete"><h3>Rencontre physique</h3><span class="badge-admin">Admin</span></div>
+        <div class="statut">Confirmé</div>
+        <div class="quand"><div class="date">11 juin 2026</div><div class="meta">12:30<span class="sep">·</span>15 min</div></div>
+        <div class="avec"><span class="avatar avatar--mm">MM</span><span class="nom">Avec Marie Morel</span></div>
+      </div></article>
+    </div>
+    <div class="fiche-pied">
+      Le rendez-vous, traité comme un carton d'invitation : double filet, date en vedette entre deux pointillés, interlocuteur en pied.
+      <p class="regle"><b>Règle :</b> réservé à ce qui vous engage avec quelqu'un. Une activité ouverte à tous n'est pas un faire-part.</p>
+      <p class="dette">N'existe pas : <code>ExchangeItemCompact</code> est une carte de liste ordinaire, et recalcule ses propres libellés de statut.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La ligne d'agenda</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="agenda" style="margin:0;width:100%">
+        <article class="agenda-ligne">
+          <div class="quand"><div class="j">15</div><div class="m">Juin</div><div class="h">10:00</div></div>
+          <div class="c">
+            <div class="g"><span class="genre genre--atelier">Atelier</span><span class="jauge">3/5</span></div>
+            <h3>Réparation vélo</h3>
+            <p class="lieu">⌖ Local associatif, Vieux Bourg</p>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Date en vedette dans une colonne à filet, genre en pastille, lieu sur une ligne. On lit la semaine d'un coup d'œil.
+      <p class="regle"><b>Règle :</b> la colonne de date <b>vire à l'orange</b> quand un geste est attendu de vous, au rouge quand l'échéance approche.</p>
+      <p class="dette">N'existe pas : les activités sont aujourd'hui des cartes en carrousel, impossibles à distinguer des rendez-vous pris.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La ligne de carnet</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="carnet" style="margin:0;width:100%">
+        <div class="carnet-ligne">
+          <span class="avatar av-creme">SK</span>
+          <div class="c"><b>Sonia Klein</b><p class="q">Baugerie</p><p class="comp">cherche <b>bricolage</b> · +2 autres</p></div>
+          <button class="lien-filet" type="button">Écrire</button>
+        </div>
+        <div class="carnet-ligne">
+          <span class="avatar av-vert">LG</span>
+          <div class="c"><b>Lucie Garnier</b><p class="q">Centre</p><p class="comp">propose <b>couture</b></p></div>
+          <button class="lien-filet" type="button">Écrire</button>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Un voisin par ligne : médaillon, nom, quartier, ce qu'il propose ou cherche, et un lien.
+      <p class="regle"><b>Règle :</b> pour lister des personnes. Plus dense qu'une carte, et le filet suffit à séparer.</p>
+      <p class="dette"><code>UserCard</code> existe en carte ; la liste dense n'existe pas.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La rubrique à ruban</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <div class="rubrique" style="margin:0;width:100%">
+        <span class="tape"><h2>Vos rendez-vous</h2><span class="badge-compte">4</span></span>
+        <span class="filet"></span>
+        <a class="lien" href="#">Tout voir</a>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Tête de section : ruban sable légèrement de travers, compteur, filet d'encadrement et lien de sortie.
+      <p class="regle"><b>Règle :</b> une seule rubrique par bloc de contenu, et le compteur y figure toujours s'il existe.</p>
+      <p class="dette">N'existe pas : <code>PageHeader</code> est quasi mort (2 pages) et les titres de section sont refaits à la main partout.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le sommaire</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <nav class="sommaire" style="margin:0;width:100%">
+        <p class="t">Au sommaire aujourd'hui</p>
+        <ul>
+          <li><span class="lab">Vos rendez-vous</span><span class="pts"></span><span class="n">4</span></li>
+          <li><span class="lab">À l'affiche</span><span class="pts"></span><span class="n">5</span></li>
+          <li><span class="lab">Le fil du quartier</span><span class="pts"></span><span class="n">34</span></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="fiche-pied">
+      Points de conduite et compteurs : ce que la page contient, et où sauter.
+      <p class="regle"><b>Règle :</b> en tête de page longue seulement. Il annonce ce qui suit — il ne remplace pas les rubriques.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>L'encadré de renseignements</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div style="width:100%;background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.22);outline-offset:2px;border-radius:10px;padding:2px 12px">
+        <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px dotted var(--border)"><span style="width:66px;font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary)">Service</span><span style="flex:1;font-size:12px"><b style="font-family:var(--titres);font-weight:800">Montage de meubles</b></span></div>
+        <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px dotted var(--border)"><span style="width:66px;font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary)">Durée</span><span style="flex:1;font-size:12px">environ <b style="font-family:var(--titres);font-weight:800">1 heure</b></span></div>
+        <div style="display:flex;gap:10px;padding:8px 0"><span style="width:66px;font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary)">Lieu</span><span style="flex:1;font-size:12px">12 rue des Lilas</span></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Le pavé de faits qu'on relit avant de s'engager : clé en capitales, valeur en clair.
+      <p class="regle"><b>Règle :</b> au plus cinq lignes, et jamais de prose — que des faits vérifiables.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>L'encart</h3><span class="statut statut--existe">Existe</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="encart encart--info" style="margin:0;width:100%"><b>Ce que ça engage.</b> Vous donnez 1 heure ; votre compteur passera à 9 h 30.</div>
+      <div class="encart encart--attention" style="margin:0;width:100%"><b>Tout le quartier sera prévenu.</b></div>
+      <div class="encart encart--danger" style="margin:0;width:100%"><b>Action irréversible.</b> Ses 14 échanges seront perdus.</div>
+    </div>
+    <div class="fiche-pied">
+      Avertissement posé dans le flux, trois niveaux.
+      <p class="regle"><b>Règle :</b> l'encart explique <b>ce qui va se produire</b>, avant l'action. Il n'annonce jamais un résultat — ça, c'est la notification.</p>
+      <p class="dette"><code>AppInfoBanner</code> existe et est bien conçu (5 niveaux), mais n'est utilisé que dans <b>deux fichiers</b>.</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ================= 4 · SURFACES ================= -->
+<div class="section-titre" id="surfaces">
+  <span class="num">4</span><h2>Les surfaces</h2><span class="filet"></span>
+</div>
+<p class="section-intro">Tout ce qui se pose par-dessus une page. C'est le foyer principal de la dette : <b>24 surfaces flottantes pour 2 coquilles partagées</b> — les trois quarts réimplémentent leur propre voile et leur propre carte.</p>
+
+<div class="grille">
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La feuille de choix</h3><span class="statut statut--existe">Existe</span></div>
+    <div class="demo demo--centre">
+      <div class="mini-tel">
+        <div class="mini-tb"></div>
+        <div class="faux"><span style="width:70%"></span><span style="width:50%"></span></div>
+        <div class="voile">
+          <div class="mini-feuille">
+            <span class="p"></span><b>Que proposer ?</b>
+            <div class="l"><span class="r"></span><span class="t"></span></div>
+            <div class="l"><span class="r"></span><span class="t" style="width:60%"></span></div>
+            <div class="l"><span class="r"></span><span class="t" style="width:75%"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      2 à 7 chemins de même nature, chaque ligne étant elle-même le choix.
+      <p class="regle"><b>Règle :</b> aucun bouton de validation. Au-delà de sept entrées, c'est une page.</p>
+      <p class="dette">Le menu « Proposer » existe, mais <b>écrit en dur dans la barre du bas</b> — pas réutilisable.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La feuille de formulaire</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--centre">
+      <div class="mini-tel">
+        <div class="mini-tb"></div>
+        <div class="voile">
+          <div class="mini-feuille" style="height:78%;display:flex;flex-direction:column;overflow:hidden">
+            <span class="p"></span><b>Proposer un rendez-vous</b>
+            <div style="flex:1;display:flex;flex-direction:column;gap:5px;min-height:0;overflow:hidden">
+              <span style="flex:none;height:6px;width:40%;background:rgba(24,62,87,.18);border-radius:3px"></span>
+              <span style="flex:none;height:18px;background:var(--paper);border:1px solid var(--border);border-radius:5px"></span>
+              <span style="flex:none;height:6px;width:32%;background:rgba(24,62,87,.18);border-radius:3px"></span>
+              <span style="flex:none;height:18px;background:var(--paper);border:1px solid var(--border);border-radius:5px"></span>
+            </div>
+            <div style="flex:none;display:flex;gap:5px;padding-top:6px;border-top:1px solid var(--border)">
+              <span style="flex:1;height:18px;border-radius:6px;background:var(--border)"></span>
+              <span style="flex:1;height:18px;border-radius:6px;background:var(--orange)"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Toute saisie. Tête et pied collés, corps défilant : le bouton de validation ne disparaît jamais.
+      <p class="regle"><b>Règle :</b> jamais de page pleine pour un formulaire.</p>
+      <p class="dette"><code>AppFormOverlay</code> existe (10 consommateurs) mais <code>ExchangeBottomSheet</code> le <b>réimplémente à l'identique</b>, jusqu'à l'animation dupliquée.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le dialogue</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--centre">
+      <div class="mini-tel">
+        <div class="mini-tb"></div>
+        <div class="faux"><span style="width:70%"></span><span style="width:45%"></span></div>
+        <div class="voile voile--centre">
+          <div class="mini-dialogue">
+            <span class="rond"></span>
+            <b>Valider cet échange ?</b>
+            <div class="boutons"><span></span><span class="o"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Décision binaire, aucune saisie, conséquence chiffrée énoncée avant la question.
+      <p class="regle"><b>Règle :</b> s'il faut remplir quelque chose, ce n'est pas un dialogue mais une feuille.</p>
+      <p class="dette"><b>Six copies</b> du même dialogue moyen : trois modales de composant et trois écrites directement dans des pages d'administration.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le dialogue destructif</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--centre">
+      <div class="mini-tel">
+        <div class="mini-tb" style="background:var(--marine-hover)"></div>
+        <div class="faux"><span style="width:60%"></span></div>
+        <div class="voile voile--centre">
+          <div class="mini-dialogue">
+            <span class="rond rond--danger"></span>
+            <b>Supprimer ce compte ?</b>
+            <div style="height:18px;border:1px solid var(--border);border-radius:5px;background:var(--paper);margin-top:7px"></div>
+            <div class="boutons" style="flex-direction:column"><span class="d"></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Pour ce qui détruit des données : picto rouge, perte chiffrée, saisie du nom, boutons empilés.
+      <p class="regle"><b>Règle :</b> l'issue sûre est en bas, sous le pouce. On ne clique pas au hasard sur une pile.</p>
+      <p class="dette">N'existe pas en composant : trois approches concurrentes coexistent, dont des modales écrites dans les pages.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le bandeau système</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--centre">
+      <div class="mini-tel">
+        <div class="mini-tb"></div>
+        <div class="mini-bandeau"><span class="r"></span><span class="t"></span></div>
+        <div class="faux"><span style="width:70%"></span><span style="width:52%"></span><span style="width:62%"></span></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      État durable : hors connexion, immersion chez un filleul. Collé sous la barre du haut, ne part pas tout seul.
+      <p class="regle"><b>Règle :</b> il décrit un <b>état</b>, jamais le résultat d'un geste.</p>
+      <p class="dette"><code>DelegationBanner</code> est autonome, <code>AppInfoBanner</code> sous-utilisé, et une page d'administration a sa propre bannière fixe.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La notification</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--centre">
+      <div class="mini-tel">
+        <div class="mini-tb"></div>
+        <div class="faux"><span style="width:70%"></span><span style="width:45%"></span><span style="width:58%"></span></div>
+        <div class="mini-toast"><span class="r"></span><span class="t"></span></div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Passagère, au-dessus de la barre du bas, elle confirme un geste qu'on vient de faire.
+      <p class="regle"><b>Règle :</b> elle porte presque toujours un « Annuler ». C'est ce qui permet d'agir <b>sans</b> dialogue de confirmation.</p>
+      <p class="dette">Aucun composant. <code>useToast()</code> de Nuxt UI est appelé dans <b>deux fichiers</b> ; partout ailleurs le retour d'action est un paragraphe rouge local.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>L'infobulle</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div style="position:relative;width:100%;padding-top:6px">
+        <p style="font-size:12px;color:var(--text-secondary)">Vous avez commencé avec <span style="border-bottom:1px dotted var(--orange);font-weight:600;color:var(--marine)">5 heures offertes</span>.</p>
+        <div class="infobulle infobulle--bas" style="position:relative;left:auto;right:auto;top:auto;bottom:auto;margin-top:14px;max-width:100%">
+          <b>Les 5 heures d'arrivée.</b> Le quartier vous les avance pour que vous puissiez demander avant d'avoir rendu.
+          <button class="fermer" type="button">J'ai compris</button>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Explique un mot précis, accroché au terme souligné de pointillés.
+      <p class="regle"><b>Règle :</b> aucune action à l'intérieur. Si l'explication débouche sur un geste, c'est un encart dans le flux.</p>
+      <p class="dette">Aucun composant générique. Trois popovers ad hoc existent, chacun réécrit.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>L'échelle des plans</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier">
+      <div style="width:100%;font-size:.78rem;line-height:1.9;color:var(--text-secondary)">
+        <div><code>10</code> — barres du haut et du bas</div>
+        <div><code>20</code> — bandeaux collés, en-têtes</div>
+        <div><code>30</code> — panneaux déroulants, menus</div>
+        <div><code>40</code> — feuilles et dialogues</div>
+        <div><code>50</code> — notifications, infobulles</div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Cinq plans nommés, et rien entre les deux.
+      <p class="regle"><b>Règle :</b> aucune valeur arbitraire dans le code — on nomme un plan, on ne choisit pas un nombre.</p>
+      <p class="dette"><b>Quatre niveaux concurrents</b> sans échelle documentée (<code>z-40</code>, <code>z-50</code>, <code>z-[60]</code>, <code>z-[70]</code>) : les menus déroulants sont au même plan que les modales de détail.</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ================= 5 · ÉTATS ================= -->
+<div class="section-titre" id="etats">
+  <span class="num">5</span><h2>Les états</h2><span class="filet"></span>
+</div>
+<p class="section-intro">Ce que montre un écran quand il n'a pas encore, plus, ou pas pu avoir son contenu. Aucun des trois n'existe aujourd'hui en composant — et le motif « Aucun… » est réparti à la main dans quarante fichiers.</p>
+
+<div class="grille">
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Le squelette</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="squelette-carte" style="width:100%">
+        <div class="tete">
+          <span class="squelette squelette--rond"></span>
+          <div style="flex:1">
+            <span class="squelette squelette--ligne" style="width:44%;margin-bottom:5px"></span>
+            <span class="squelette squelette--ligne" style="width:28%;height:9px;margin:0"></span>
+          </div>
+        </div>
+        <span class="squelette squelette--titre"></span>
+        <span class="squelette squelette--ligne"></span>
+        <span class="squelette squelette--ligne squelette--courte"></span>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Le chargement dessine la forme de ce qui arrive, au lieu de faire tourner un disque.
+      <p class="regle"><b>Règle :</b> un squelette par type de carte, qui reprend sa géométrie exacte. En dessous de 300 ms, on n'affiche rien du tout.</p>
+      <p class="dette"><b>Zéro squelette</b> dans l'app. <code>AppLoader</code> est le seul indicateur, utilisé dans 46 fichiers avec <b>huit tailles en dur</b> différentes.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>L'état vide</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="vide" style="margin:0;width:100%;padding:18px 14px">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></span>
+        <h3>Personne n'a encore écrit</h3>
+        <p>Le premier mot est souvent le plus utile.</p>
+        <button class="action action--fort" type="button">Écrire le premier</button>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Cadre pointillé, picto, une phrase, et le geste qui le remplira.
+      <p class="regle"><b>Règle :</b> jamais une page blanche ni un simple « Aucun résultat ». Le vide <b>propose toujours une sortie</b>.</p>
+      <p class="dette">Aucun composant : trois formes coexistent, du texte nu au cadre pointillé — ce dernier n'apparaissant qu'<b>une seule fois</b> dans tout le projet.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>L'erreur</h3><span class="statut statut--creer">À créer</span></div>
+    <div class="demo demo--papier demo--serre">
+      <div class="erreur" style="margin:0;width:100%;padding:18px 14px">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16h.01"/></svg></span>
+        <h3>Le fil n'a pas pu être chargé</h3>
+        <p>Vos données sont intactes.</p>
+        <button class="action action--fort" type="button">Réessayer</button>
+        <p class="detail">erreur 503 · 9 h 41</p>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Dire ce qui a échoué, rassurer sur les données, offrir de réessayer, reléguer le code en bas de casse.
+      <p class="regle"><b>Règle :</b> jamais de message technique en titre. L'utilisateur veut savoir si ce qu'il avait écrit est perdu.</p>
+      <p class="dette"><b>Quatre formes concurrentes</b>, dont un encart réécrit dans <b>28 fichiers</b> avec quatre rayons différents. La page d'erreur globale utilise même un bouton d'une autre bibliothèque.</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ================= 6 · NAVIGATION ================= -->
+<div class="section-titre" id="navigation">
+  <span class="num">6</span><h2>Navigation</h2><span class="filet"></span>
+</div>
+<p class="section-intro">Le châssis, présent sur tous les écrans. C'est la partie la plus saine de l'existant — elle demande surtout à être documentée.</p>
+
+<div class="grille">
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La barre du haut</h3><span class="statut statut--existe">Existe</span></div>
+    <div class="demo demo--centre demo--serre">
+      <div style="width:100%;border-radius:11px;overflow:hidden;border:1px solid rgba(24,62,87,.15)">
+        <div class="tb" style="padding:9px 10px 10px 13px">
+          <img class="logo" src="../assets/logo/logo-tpt-transparent.png" alt="" style="height:24px">
+          <div class="spacer"></div>
+          <span class="credit-pill" style="font-size:11px;padding:4px 9px 4px 7px">⏰ 8 h 30</span>
+          <span class="avatar avatar--me" style="width:26px;height:26px;font-size:9.5px">OD</span>
+        </div>
+        <div class="tb tb--clair" style="padding:8px 8px 9px 6px;border-top:1px solid var(--border)">
+          <button class="ibtn" style="width:28px;height:28px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="m15 5-7 7 7 7"/></svg></button>
+          <span class="titre" style="font-size:13px">Le relevé</span>
+          <span style="width:28px"></span>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Deux tons : marine pour les écrans de premier niveau, papier pour les pages intérieures avec retour.
+      <p class="regle"><b>Règle :</b> le compteur d'heures ne figure que sur l'accueil. Partout ailleurs, il encombrerait.</p>
+      <p class="dette"><code>AppTopBar</code> existe comme coquille, mais le contenu est refait dans chaque layout.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>La barre du bas</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--centre demo--serre">
+      <div style="width:100%;height:86px;position:relative;background:var(--grad-hero);border-radius:11px;border:1px solid rgba(24,62,87,.15)">
+        <div class="barre-bas" style="bottom:10px;left:10px;right:10px">
+          <div class="pilule" style="padding:5px 6px">
+            <a class="tab on" href="#" style="font-size:8px;padding:5px 3px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+            <a class="tab" href="#" style="font-size:8px;padding:5px 3px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Chercher</a>
+            <a class="tab" href="#" style="font-size:8px;padding:5px 3px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="width:16px;height:16px"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+            <a class="tab" href="#" style="font-size:8px;padding:5px 3px"><span class="badge" style="min-width:12px;height:12px;line-height:12px;font-size:7.5px;right:6px">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Flottante, en verre dépoli, onglet actif sur pilule sable. Elle se replie sur l'onglet actif au défilement.
+      <p class="regle"><b>Règle :</b> prévoir un repli opaque si le flou n'est pas supporté — il coûte cher sur les appareils modestes.</p>
+      <p class="dette"><code>BottomNavBar</code> existe mais fait <b>442 lignes</b>, avec ses icônes en SVG recopié et le menu « Proposer » écrit à l'intérieur.</p>
+    </div>
+  </article>
+
+  <article class="fiche">
+    <div class="fiche-tete"><h3>Onglets &amp; filtres</h3><span class="statut statut--fusionner">À fusionner</span></div>
+    <div class="demo demo--papier">
+      <div class="onglets" style="margin:0;width:100%">
+        <a class="on" href="#">Les voisins</a>
+        <a href="#">Les annonces</a>
+      </div>
+      <div class="filtres-ligne" style="margin:0;width:100%">
+        <a class="on" href="#">Qui m'intéressent</a>
+        <a href="#">Récentes</a>
+        <a href="#">Offres</a>
+      </div>
+    </div>
+    <div class="fiche-pied">
+      Les <b>onglets</b> changent de registre ; la <b>ligne de filtres</b> réduit une même liste.
+      <p class="regle"><b>Règle :</b> jamais de menu déroulant pour filtrer une liste courte — une ligne de liens se lit sans être ouverte.</p>
+      <p class="dette"><code>AppTabs</code> et <code>AppSegmentedControl</code> partagent le même habillage mais font deux choses différentes ; les filtres sont réécrits dans chaque page de recherche.</p>
+    </div>
+  </article>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · La bibliothèque · Tous les composants reposent sur <code>brandkit/gazette.css</code>.<br>
+  <a href="../index.html">Galerie</a> · <a href="explorations/surfaces.html">Les surfaces en situation</a>
+</footer>
+
+</div>
+</body>
+</html>
