@@ -106,7 +106,8 @@ body{padding:38px 20px 80px;}
 }
 .b-dossier .tete .n2{margin-left:auto;color:var(--orange-hover);letter-spacing:.06em;}
 
-/* le groupe de fils avec une même personne — l'écran intermédiaire du mobile */
+/* le groupe de fils avec une même personne — ABANDONNÉ (deux niveaux, pas de regroupement) ;
+   conservé seulement pour les pistes comparées D3 à D5 */
 .b-groupe{background:var(--bg-hover);border:1px solid #efdcae;border-radius:14px;padding:2px 12px 8px;box-shadow:0 1px 2px rgba(24,62,87,.05);}
 .b-groupe--calme{background:var(--paper);border-color:var(--border);}
 .b-groupe .tete-g{display:flex;align-items:center;gap:9px;padding:10px 0 9px;border-bottom:1px solid rgba(24,62,87,.14);}
@@ -170,7 +171,7 @@ body{padding:38px 20px 80px;}
   <p class="kicker">Grand écran · ossature retenue</p>
   <h1>La messagerie sur PC</h1>
   <p class="sub"><b>D4 bis ouvre ce document</b> : hors de la une, la manchette se replie en titre courant de 56 px, et la conversation récupère la hauteur. Les composants ne changent pas — sections <b>lus</b> / <b>non lus</b> sur fond sable, bulles marine pour vos messages, faire-part inséré dans le fil. Les quatre autres pistes suivent, pour mémoire.</p>
-  <p class="traits">Le point d'attention : sur mobile, quand on a <b>plusieurs fils avec une même personne</b>, un écran intermédiaire s'intercale. Sur grand écran il n'a plus lieu d'être — chaque proposition montre par quoi elle le remplace.</p>
+  <p class="traits"><b>Deux niveaux, jamais trois</b> — sur PC comme sur mobile : la liste du courrier, puis le fil. Les fils d'une même personne <b>ne sont pas regroupés</b> : chacun a sa ligne, triée par date comme les autres, et le sujet sous le nom suffit à les distinguer. Les pistes comparées plus bas datent d'avant cette décision — leurs groupes et leurs « Ses 3 fils » sont abandonnés.</p>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
 </header>
 
@@ -192,7 +193,7 @@ body{padding:38px 20px 80px;}
           <a href="#">À l'affiche<span class="cpt">5</span></a>
           <a href="#">Les voisins</a>
           <a href="#">Votre temps</a>
-          <a class="on" href="#">Le courrier<span class="cpt">3</span></a>
+          <a class="on" href="#">Le courrier<span class="cpt">4</span></a>
           <a href="#">Proposer</a>
         </nav>
         <span class="spacer"></span>
@@ -207,33 +208,27 @@ body{padding:38px 20px 80px;}
             <button class="ibtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
           </div>
           <div class="flux">
-            <div class="chips"><span class="chip on">Tous</span><span class="chip">Non lus<span class="n">3</span></span><span class="chip">Annonces</span></div>
+            <div class="chips"><span class="chip on">Tous</span><span class="chip">Non lus<span class="n">4</span></span><span class="chip">Annonces</span></div>
             <p class="titre-sect">Non lus</p>
-            <div style="margin:0 12px 12px">
-              <div class="b-groupe">
-                <div class="tete-g">
-                  <span class="avatar av-creme">AN</span>
-                  <span class="nom">Alice Noël</span>
-                  <span class="cpt">3 fils</span>
-                </div>
-                <a class="b-sous on nonlu" href="#">
-                  <span class="bar"></span>
-                  <span class="c"><span class="s">Annonce · <b>Une étagère</b></span><h4>Je confirme pour 10 h</h4><p>Je vous attends au 12 rue des Lilas.</p></span>
-                  <span class="h">9:12</span>
-                </a>
-                <a class="b-sous nonlu" href="#">
-                  <span class="bar"></span>
-                  <span class="c"><span class="s rdv">Rendez-vous · <b>Jardin</b></span><h4>Et pour les rosiers ?</h4><p>Si vous avez une heure la semaine prochaine…</p></span>
-                  <span class="h">8:02</span>
-                </a>
-                <a class="b-sous" href="#">
-                  <span class="bar"></span>
-                  <span class="c"><span class="s">Annonce · <b>Échelle</b></span><h4>Vous : Merci, je la rapporte</h4></span>
-                  <span class="h">4 juin</span>
-                </a>
-              </div>
-            </div>
             <div class="section-courrier section-courrier--nonlus">
+              <a class="conv nonlu actif" href="#" aria-current="true">
+                <span class="av av-creme">AN</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Alice Noël</span><span class="heure">9:12</span></span>
+                  <span class="sujet">Annonce · <b>Une étagère</b></span>
+                  <span class="extrait">Je confirme pour 10 h, je vous attends au 12 rue des Lilas.</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
+              <a class="conv nonlu" href="#">
+                <span class="av av-creme">AN</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Alice Noël</span><span class="heure">8:02</span></span>
+                  <span class="sujet rdv">Rendez-vous · <b>Jardin</b></span>
+                  <span class="extrait">Et pour les rosiers ? Si vous avez une heure la semaine prochaine…</span>
+                </span>
+                <span class="compte">1</span>
+              </a>
               <a class="conv nonlu" href="#">
                 <span class="av av-bleu">PB</span>
                 <span class="corps">
@@ -269,6 +264,14 @@ body{padding:38px 20px 80px;}
                   <span class="l1"><span class="nom">Lucie Garnier</span><span class="heure">7 juin</span></span>
                   <span class="sujet">Annonce · <b>Soirée couture</b></span>
                   <span class="extrait">J'apporte la machine et du tissu, à très vite.</span>
+                </span>
+              </a>
+              <a class="conv" href="#">
+                <span class="av av-creme">AN</span>
+                <span class="corps">
+                  <span class="l1"><span class="nom">Alice Noël</span><span class="heure">4 juin</span></span>
+                  <span class="sujet">Annonce · <b>Échelle</b></span>
+                  <span class="extrait"><i>Vous :</i> Merci, je la rapporte dimanche.</span>
                 </span>
               </a>
             </div>
@@ -338,6 +341,7 @@ body{padding:38px 20px 80px;}
       </div>
     </div>
     <p class="note">Ce que fait n'importe quel journal : la manchette pleine <b>en une seulement</b>, et sur toutes les pages intérieures un <b>titre courant</b> — une ligne de 56 px qui garde le nom, les rubriques, le numéro et la date. Le filet double sous la ligne est la signature de la manchette ; il suffit à dire qu'on est toujours dans le même journal. La conversation récupère près de 100 px de hauteur par rapport à D4.</p>
+    <p class="note"><b>Deux niveaux, pas trois.</b> Alice a trois fils avec vous — l'étagère, le jardin, l'échelle — et ils occupent <b>trois lignes</b> du courrier, chacune à sa place dans l'ordre des dates. Un clic ouvre le fil, il n'y a rien entre la liste et la conversation. L'en-tête du fil rappelle le sujet sous le nom, et le panneau de droite parle de la personne et du rendez-vous en cours : <b>il ne liste pas ses autres fils</b>, ce n'est pas un troisième niveau.</p>
     <div class="verdict">
       <p class="pour">le défaut principal de D4 disparaît sans rien céder de son identité. Et l'accueil garde sa manchette entière : c'est là qu'elle fait son effet, pas ailleurs.</p>
       <p class="contre">deux états pour un même chrome, il faut que le passage de l'un à l'autre soit sans surprise — au changement de page, ou au défilement sur la une elle-même.</p>
@@ -350,7 +354,7 @@ body{padding:38px 20px 80px;}
     <div class="t">
       <p class="k">D'où ça vient</p>
       <h2>Les cinq pistes comparées</h2>
-      <p class="d">Les ossatures examinées avant de retenir D4 bis. Conservées pour mémoire — chacune porte son pour et son contre.</p>
+      <p class="d">Les ossatures examinées avant de retenir D4 bis. Conservées pour mémoire — chacune porte son pour et son contre. Elles regroupent encore les fils d'une même personne : <b>ce regroupement est abandonné</b>.</p>
     </div>
     <span class="filet"></span>
   </div>

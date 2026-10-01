@@ -140,6 +140,12 @@ footer a{color:var(--marine);font-weight:600;}
 
 
 <div class="fait" style="max-width:1000px;margin:26px auto 0">
+  <p class="t">Arbitrage rendu le 1er octobre</p>
+  <p><b>A1 · La messagerie a deux niveaux, jamais trois</b> — sur l'application comme sur PC : le courrier, puis le fil. <b>Les fils d'une même personne ne sont plus regroupés</b> : chacun occupe sa ligne dans le courrier, et le sujet sous le nom suffit à les distinguer. Aucune des quatre façons dessinées n'est retenue, puisque toutes supposaient un regroupement. Les maquettes sont révisées : l'écran « les fils avec une personne » disparaît du <a href="brandkit/explorations/proposition-1-revisee.html" style="color:var(--success);font-weight:700">mobile</a>, et le groupe disparaît de la <a href="brandkit/explorations/bureau-2-messagerie.html#retenu" style="color:var(--success);font-weight:700">liste sur PC</a>.</p>
+  <p><b>Conséquence sur le code :</b> c'est la <b>suppression d'un écran en service</b>, donc un changement de comportement à consigner dans le journal d'écarts. La route <code>/messages/user/:id</code> ne doit pas casser pour autant, puisqu'elle est la cible de notifications : elle reste valide et <b>ouvre la conversation la plus récente avec cette personne</b>. Les nouvelles notifications pointent directement vers le fil concerné.</p>
+</div>
+
+<div class="fait" style="max-width:1000px;margin:22px auto 0">
   <p class="t">Arbitrages rendus le 13 septembre</p>
   <p><b>A2 · La recherche</b> — seule la recherche de membres sera conservée au moment d'appliquer la charte. La fusion « recherche et annuaire » devient donc juste : <b>la charte avait raison</b>. À noter tout de même dans le journal d'écarts : c'est une <b>suppression</b> de la recherche d'annonces, et donc un changement de comportement assumé, pas un effet de mise en page.</p>
   <p><b>A4 · La devanture</b> — rien n'est exposé hors connexion, comme aujourd'hui. <b>La maquette d'accueil public est à retoucher</b> : sa section « ce qui s'échange ici » doit disparaître.</p>
@@ -150,8 +156,7 @@ footer a{color:var(--marine);font-weight:600;}
 </div>
 
 <div class="avert" style="max-width:1000px;margin:22px auto 0">
-  <p class="t">Deux décisions demandent un dessin, pas un choix</p>
-  <p><b>A1 · Les sous-fils sur grand écran.</b> Ma recommandation était incompréhensible parce que je n'avais jamais montré <b>par où l'on atteint les autres conversations d'une même personne</b>. Quatre façons sont maintenant dessinées, dont la vôtre : <a href="brandkit/explorations/messagerie-sous-fils.html" style="color:var(--danger);font-weight:700">les sous-fils sur grand écran</a>.</p>
+  <p class="t">Une décision demande un dessin, pas un choix</p>
   <p><b>A3 · « À l'affiche ».</b> Vous pensiez avoir retenu des cartes compactes, pas un calendrier. Les deux versions sont dessinées côte à côte, avec les mêmes données : <a href="brandkit/explorations/affiche-deux-facons.html" style="color:var(--danger);font-weight:700">« À l'affiche », deux façons</a>. Au passage, une ambiguïté est levée — les cartes compactes dont vous vous souveniez sont celles de <b>vos rendez-vous</b>, une autre section, qui n'est pas en question.</p>
 </div>
 
@@ -173,14 +178,15 @@ footer a{color:var(--marine);font-weight:600;}
   <p>La règle d'or — « on change l'apparence, jamais le comportement » — <b>ne peut pas les arbitrer</b>, puisque c'est la charte elle-même qui la viole. Elles doivent être tranchées une par une, et <b>le refus est une réponse parfaitement valable</b> : la maquette redevient alors conforme au code.</p>
 </div>
 
-<div class="d d--produit">
-  <div class="tete"><span class="n">A1</span><h3>L'écran intermédiaire de la messagerie disparaît-il sur grand écran ?</h3><span class="nature nature--produit">Produit</span></div>
+<div class="d d--tranche">
+  <div class="tete"><span class="n">A1</span><h3>L'écran intermédiaire de la messagerie disparaît-il sur grand écran ?</h3><span class="nature nature--tranche">Tranché</span></div>
   <div class="face">
     <div><span class="k">Ce que dit la charte</span>« L'écran intermédiaire du mobile disparaît, remplacé par un dossier permanent. »</div>
     <div><span class="k">Ce que fait le code</span><code>/messages/user/:id</code> est une <b>route réelle</b> de 130 lignes, cible de liens internes et de notifications.</div>
   </div>
   <p>Si la route disparaît sur grand écran, <b>un lien reçu par notification n'atterrit plus nulle part</b> — ou atterrit sur une page qui n'existe que la moitié du temps.</p>
   <div class="reco"><span class="k">Recommandation —</span> garder la route et la <b>rendre dans le dossier permanent</b> : sur PC l'URL reste valide et sélectionne la personne dans la colonne de gauche. On gagne la mise en page sans perdre l'adresse.</div>
+  <div class="reco"><span class="k">Tranché le 1er octobre —</span> plus radical : l'écran intermédiaire disparaît <b>partout</b>, mobile compris. Deux niveaux, aucun regroupement par personne. L'adresse reste valide et ouvre la conversation la plus récente avec la personne.</div>
 </div>
 
 <div class="d d--produit">
@@ -426,7 +432,7 @@ footer a{color:var(--marine);font-weight:600;}
 <table class="recap">
   <thead><tr><th style="width:8%">Clé</th><th style="width:38%">La décision</th><th style="width:13%">Nature</th><th style="width:19%">Bloque</th><th>État</th></tr></thead>
   <tbody>
-    <tr class="cours"><td class="id">A1</td><td>L'écran intermédiaire sur PC — <b>4 options dessinées</b></td><td class="q">Produit</td><td>Palier 6 · messagerie</td><td><span class="e e--cours">À choisir</span></td></tr>
+    <tr class="pris"><td class="id">A1</td><td>Messagerie à <b>deux niveaux</b>, sans regroupement par personne</td><td class="q">Produit</td><td>Palier 6 · messagerie</td><td><span class="e e--fait">✓ Tranché</span></td></tr>
     <tr class="pris"><td class="id">A2</td><td>Recherche = <b>membres uniquement</b> — la charte avait raison</td><td class="q">Produit</td><td>Palier 6 · 3 pages</td><td><span class="e e--fait">✓ Tranché</span></td></tr>
     <tr class="cours"><td class="id">A3</td><td>« À l'affiche » — <b>deux versions à comparer</b></td><td class="q">Produit</td><td>Palier 6 · accueil</td><td><span class="e e--cours">En cours</span></td></tr>
     <tr class="pris"><td class="id">A4</td><td>Devanture publique : <b>rien exposer</b>, comme aujourd'hui</td><td class="q">Produit · RGPD</td><td>Palier 6 · hors connexion</td><td><span class="e e--fait">✓ Tranché</span></td></tr>

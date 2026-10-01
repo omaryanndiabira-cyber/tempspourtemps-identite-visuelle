@@ -17,7 +17,8 @@
    2. « Non lus » devient une vraie section sur fond sable
    3. bulles à fond marine pour vos messages (contraste)
    4. barre du bas B5 : flottante en verre, qui se replie
-   5. nouvel écran intermédiaire : les fils avec une personne
+   5. pas d'écran intermédiaire : chaque fil est une ligne du
+      courrier, même avec la même personne — deux niveaux, jamais trois
    ============================================================ */
 :root{
   --marine:#183e57;--marine-hover:#0f2f44;--orange:#b84e17;--orange-hover:#a34413;--orange-vif:#d65e1c;
@@ -59,7 +60,6 @@ body{
 .ecran{display:flex;flex-direction:column;gap:11px;}
 .ecran figcaption{display:flex;align-items:baseline;gap:9px;}
 .ecran .n{font-family:var(--titres);font-weight:800;font-size:.74rem;background:var(--sable);color:var(--marine);border-radius:7px;padding:2px 8px;flex:none;}
-.ecran .n--neuf{background:var(--orange);color:#fff9ec;}
 .ecran h2{font-family:var(--titres);font-weight:800;font-size:.98rem;}
 .ecran .note{font-size:.78rem;color:var(--text-secondary);line-height:1.45;}
 .ecran .note b{color:var(--marine);}
@@ -234,58 +234,6 @@ body{
 .conv.nonlu .extrait{color:var(--marine);}
 .conv .compte{position:absolute;right:0;top:36px;min-width:19px;height:19px;line-height:19px;border-radius:999px;background:var(--marine);color:var(--sable);font-family:var(--titres);font-weight:800;font-size:10.5px;text-align:center;padding:0 6px;}
 .conv.nonlu .corps{padding-right:24px;}
-/* indicateur « plusieurs fils » */
-.pastille-fils{
-  display:inline-flex;align-items:center;gap:4px;margin-top:5px;
-  font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  background:rgba(24,62,87,.07);border:1px solid rgba(24,62,87,.14);border-radius:999px;padding:2px 8px;color:var(--marine);
-}
-.pastille-fils svg{width:10px;height:10px;}
-
-/* ============================================================
-   5. ÉCRAN INTERMÉDIAIRE — les fils avec une personne
-   ============================================================ */
-.fiche-personne{
-  margin:12px 18px 0;display:flex;align-items:center;gap:12px;
-  background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:13px 15px;
-  box-shadow:0 1px 2px rgba(24,62,87,.06);
-}
-.fiche-personne .grand-av{width:52px;height:52px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--titres);font-weight:800;font-size:16px;border:2px solid var(--sable);}
-.fiche-personne .t{flex:1;min-width:0;}
-.fiche-personne .t b{display:block;font-family:var(--titres);font-weight:800;font-size:17px;}
-.fiche-personne .t .lieu{font-size:11px;color:var(--text-tertiary);margin-top:1px;}
-.fiche-personne .t .bilan{display:flex;gap:10px;margin-top:6px;font-size:10.5px;color:var(--text-secondary);}
-.fiche-personne .t .bilan b{display:inline;font-family:var(--titres);font-weight:800;font-size:11.5px;color:var(--marine);}
-.fiche-personne .ibtn{color:var(--marine);}
-.fiche-personne .ibtn:hover{background:rgba(24,62,87,.08);}
-
-.fils{display:flex;flex-direction:column;gap:12px;padding:2px 18px 8px;}
-.fil-ligne{
-  position:relative;display:block;text-decoration:none;color:inherit;
-  background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--border);border-radius:13px;
-  padding:12px 14px 12px 13px;
-  box-shadow:0 1px 2px rgba(24,62,87,.06), 0 10px 24px -16px rgba(24,62,87,.26);
-}
-.fil-ligne--demande{border-left-color:var(--orange);}
-.fil-ligne--atelier{border-left-color:var(--sable-hover);}
-.fil-ligne--general{border-left-color:var(--marine);}
-.fil-ligne--clos{background:var(--bg-secondary);border-left-color:var(--success);}
-.fil-ligne .k{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);}
-.fil-ligne .k b{color:var(--orange-hover);}
-.fil-ligne .k .h{margin-left:auto;font-family:var(--titres);font-weight:800;font-size:10px;background:var(--sable);color:var(--marine);border-radius:5px;padding:2px 6px;letter-spacing:0;}
-.fil-ligne .k .clos{margin-left:auto;color:var(--success);letter-spacing:.08em;}
-.fil-ligne h3{font-family:var(--titres);font-weight:800;font-size:14.5px;line-height:1.3;margin-top:6px;}
-.fil-ligne .dernier{font-size:12px;color:var(--text-secondary);line-height:1.45;margin-top:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.fil-ligne .dernier i{font-style:normal;color:var(--text-tertiary);}
-.fil-ligne .pied{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:10px;color:var(--text-tertiary);}
-.fil-ligne .pied .badge{margin-left:auto;min-width:19px;height:19px;line-height:19px;border-radius:999px;background:var(--marine);color:var(--sable);font-family:var(--titres);font-weight:800;font-size:10.5px;text-align:center;padding:0 6px;}
-.nouveau-fil{
-  display:flex;align-items:center;justify-content:center;gap:8px;margin:2px 18px 0;
-  border:1.5px dashed var(--border);border-radius:13px;padding:12px;
-  font-family:var(--titres);font-weight:800;font-size:12.5px;color:var(--marine);background:transparent;cursor:pointer;
-}
-.nouveau-fil svg{width:15px;height:15px;color:var(--orange);}
-
 /* ============================================================
    3. LES BULLES — fond marine pour vos messages
    ============================================================ */
@@ -363,12 +311,12 @@ footer a{color:var(--marine);font-weight:600;}
   <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
   <p class="kicker">Proposition 1 · révision</p>
   <h1>La gazette aérée</h1>
-  <p>Reprise de la proposition 1 avec vos remarques : les annonces ne sont plus collées les unes aux autres mais <b>respirent, une fiche chacune</b>, titre sur sa propre ligne et texte non justifié ; les <b>non lus</b> forment une vraie section sur fond sable comme les rubriques de l'accueil ; vos messages sont en <b>bulles marine</b> pour le contraste ; la barre du bas est la <b>B5</b> qui se replie au défilement. Et un <b>écran intermédiaire</b> apparaît quand plusieurs fils vous lient à la même personne.</p>
+  <p>Reprise de la proposition 1 avec vos remarques : les annonces ne sont plus collées les unes aux autres mais <b>respirent, une fiche chacune</b>, titre sur sa propre ligne et texte non justifié ; les <b>non lus</b> forment une vraie section sur fond sable comme les rubriques de l'accueil ; vos messages sont en <b>bulles marine</b> pour le contraste ; la barre du bas est la <b>B5</b> qui se replie au défilement. La messagerie a <b>deux niveaux, jamais trois</b> : le courrier, puis le fil. Quand plusieurs fils vous lient à la même personne, chacun garde sa propre ligne — il n'y a pas d'écran qui les regroupe.</p>
   <div class="traits">
     <span><b>Posts</b> fiches aérées à filet de tête</span>
     <span><b>Messages</b> bulles marine</span>
     <span><b>Bas</b> B5 minimisée</span>
-    <span><b>Nouveau</b> écran des fils</span>
+    <span><b>Courrier</b> deux niveaux</span>
   </div>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
 </header>
@@ -584,7 +532,6 @@ footer a{color:var(--marine);font-weight:600;}
               <div class="l1"><span class="nom">Alice Noël</span><span class="heure">14:02</span></div>
               <div class="sujet"><b>Demande</b> · Une étagère à monter samedi</div>
               <p class="extrait">Super, samedi 10 h ça vous irait ? J'ai la perceuse et les chevilles.</p>
-              <span class="pastille-fils"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h8M8 14h5"/><rect x="3" y="4" width="18" height="16" rx="3"/></svg>3 fils</span>
             </div>
             <span class="compte">2</span>
           </a>
@@ -614,6 +561,14 @@ footer a{color:var(--marine);font-weight:600;}
         </div>
         <section class="section-courrier section-courrier--lus">
           <a class="conv" href="#">
+            <span class="av av-creme">AN<span class="type type--atelier"></span></span>
+            <div class="corps">
+              <div class="l1"><span class="nom">Alice Noël</span><span class="heure">Lun.</span></div>
+              <div class="sujet"><b>Atelier</b> · Couture du jeudi soir</div>
+              <p class="extrait"><i>Vous :</i> Je ramène ma machine, elle fait des points fantaisie. À jeudi !</p>
+            </div>
+          </a>
+          <a class="conv" href="#">
             <span class="av av-bleu">ML<span class="type type--proposition"></span></span>
             <div class="corps">
               <div class="l1"><span class="nom">Marta Lopez</span><span class="heure">Lun.</span></div>
@@ -639,84 +594,12 @@ footer a{color:var(--marine);font-weight:600;}
       </div>
       <span class="home"></span>
     </div>
-    <p class="note"><b>Les non lus forment une section sable</b>, encadrée comme les rubriques de l'accueil et coiffée du même ruban ; les conversations lues restent sur papier. Alice porte une pastille « 3 fils » : on ouvre l'écran suivant plutôt qu'une conversation. On a descendu la liste, donc la barre s'est repliée sur l'onglet actif.</p>
+    <p class="note"><b>Les non lus forment une section sable</b>, encadrée comme les rubriques de l'accueil et coiffée du même ruban ; les conversations lues restent sur papier. Alice apparaît <b>deux fois</b>, une ligne par sujet — l'étagère, l'atelier couture : on ne regroupe pas les fils d'une même personne, chaque ligne ouvre directement sa conversation. Le sujet, sous le nom, suffit à les distinguer. On a descendu la liste, donc la barre s'est repliée sur l'onglet actif.</p>
   </figure>
 
-  <!-- ==================== 4 · ÉCRAN INTERMÉDIAIRE ==================== -->
+  <!-- ==================== 4 · FIL OUVERT ==================== -->
   <figure class="ecran">
-    <figcaption><span class="n n--neuf">4</span><h2>Les fils avec une personne <em style="font-style:normal;color:var(--orange);font-size:.8rem">· nouveau</em></h2></figcaption>
-    <div class="phone">
-      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
-      <div class="tb tb--clair">
-        <button class="ibtn" aria-label="Retour au courrier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
-        <div class="qui">
-          <div><div class="nom">Alice Noël</div><div class="etat">3 fils · Centre</div></div>
-        </div>
-        <button class="ibtn" aria-label="Options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
-      </div>
-      <div class="filet-double"></div>
-
-      <main class="feed feed--avec-barre">
-        <section class="fiche-personne">
-          <span class="avatar grand-av av-creme">AN</span>
-          <div class="t">
-            <b>Alice Noël</b>
-            <div class="lieu">⌖ Centre · voisine depuis mars 2026</div>
-            <div class="bilan"><span><b>4 h</b> échangées</span><span><b>3</b> coups de main</span></div>
-          </div>
-          <button class="ibtn" aria-label="Voir le profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
-        </section>
-
-        <div class="rubrique">
-          <span class="tape"><h2>Vos fils</h2><span class="badge-compte">3</span></span>
-          <span class="filet"></span>
-        </div>
-
-        <div class="fils">
-          <a class="fil-ligne fil-ligne--demande" href="#">
-            <div class="k"><b>Demande</b><span>· N° 1042</span><span class="h">1 h</span></div>
-            <h3>Une étagère à monter samedi matin</h3>
-            <p class="dernier">Super, samedi 10 h ça vous irait ? J'ai la perceuse et les chevilles, il ne manque que vos bras.</p>
-            <div class="pied"><span>Aujourd'hui, 14:02</span><span class="badge">2</span></div>
-          </a>
-
-          <a class="fil-ligne fil-ligne--atelier" href="#">
-            <div class="k"><b>Atelier</b><span>· N° 0996</span><span class="h">2 h</span></div>
-            <h3>Atelier couture du jeudi soir</h3>
-            <p class="dernier"><i>Vous :</i> Je ramène ma machine, elle fait des points fantaisie. À jeudi !</p>
-            <div class="pied"><span>Lundi, 20:14</span></div>
-          </a>
-
-          <a class="fil-ligne fil-ligne--clos" href="#">
-            <div class="k"><b style="color:var(--success)">Terminé</b><span>· N° 0987</span><span class="clos">1 h créditée</span></div>
-            <h3>Perceuse à emprunter un dimanche</h3>
-            <p class="dernier"><i>Alice :</i> Merci encore, elle m'a bien servi ! Je vous ai crédité l'heure.</p>
-            <div class="pied"><span>28 mai</span></div>
-          </a>
-        </div>
-
-        <button class="nouveau-fil" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          Nouveau fil avec Alice
-        </button>
-      </main>
-
-      <div class="barre-bas">
-        <div class="pilule">
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agenda</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
-          <a class="tab on" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Courrier</a>
-        </div>
-      </div>
-      <span class="home"></span>
-    </div>
-    <p class="note"><b>Le nouvel écran.</b> Quand plusieurs fils vous lient à la même personne, on ne saute plus directement dans une conversation : on passe par ses fils. Chacun porte le genre, le numéro d'annonce et les heures en jeu ; les fils terminés grisent et affichent le temps crédité. Un bouton permet d'en ouvrir un nouveau.</p>
-  </figure>
-
-  <!-- ==================== 5 · FIL OUVERT ==================== -->
-  <figure class="ecran">
-    <figcaption><span class="n">5</span><h2>Fil ouvert — conversation simple</h2></figcaption>
+    <figcaption><span class="n">4</span><h2>Fil ouvert — conversation simple</h2></figcaption>
     <div class="phone">
       <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
       <div class="tb tb--clair">
@@ -752,16 +635,16 @@ footer a{color:var(--marine);font-weight:600;}
       </div>
       <span class="home"></span>
     </div>
-    <p class="note"><b>Vos messages sont en marine plein</b>, ceux du voisin en papier bordé : on distingue les deux voix d'un coup d'œil, même en diagonale. Un seul fil avec Marie, donc on arrive directement ici depuis le courrier.</p>
+    <p class="note"><b>Vos messages sont en marine plein</b>, ceux du voisin en papier bordé : on distingue les deux voix d'un coup d'œil, même en diagonale. Depuis le courrier, une ligne ouvre directement sa conversation.</p>
   </figure>
 
-  <!-- ==================== 6 · FIL LIÉ À UNE ANNONCE ==================== -->
+  <!-- ==================== 5 · FIL LIÉ À UNE ANNONCE ==================== -->
   <figure class="ecran">
-    <figcaption><span class="n">6</span><h2>Fil ouvert — lié à une annonce</h2></figcaption>
+    <figcaption><span class="n">5</span><h2>Fil ouvert — lié à une annonce</h2></figcaption>
     <div class="phone">
       <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
       <div class="tb tb--clair">
-        <button class="ibtn" aria-label="Retour aux fils d'Alice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <button class="ibtn" aria-label="Retour au courrier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
         <div class="qui">
           <span class="avatar av-creme">AN</span>
           <div><div class="nom">Alice Noël</div><div class="etat">En ligne · Centre</div></div>
@@ -817,7 +700,7 @@ footer a{color:var(--marine);font-weight:600;}
       </div>
       <span class="home"></span>
     </div>
-    <p class="note">Le retour ne ramène plus au courrier mais <b>aux fils d'Alice</b>. L'entrefilet rappelle l'annonce, le faire-part s'intercale entre les bulles, et le composer gagne les actions propres à l'échange.</p>
+    <p class="note">Le retour ramène <b>au courrier</b>, toujours : il n'y a pas d'étage entre les deux. L'entrefilet rappelle l'annonce, le faire-part s'intercale entre les bulles, et le composer gagne les actions propres à l'échange.</p>
   </figure>
 
 </div>
