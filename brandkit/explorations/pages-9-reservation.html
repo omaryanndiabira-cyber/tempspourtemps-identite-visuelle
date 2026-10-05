@@ -10,6 +10,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../gazette.css">
 <style>
+  /* la fiche signalétique : l'encadré de renseignements, comme en famille 3 */
+  .signaletique{
+    margin:14px 18px 0;background:var(--paper);border:1px solid var(--marine);
+    outline:1px solid rgba(24,62,87,.22);outline-offset:2px;border-radius:10px;padding:2px 14px;
+  }
+  .signaletique .l{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-top:1px dotted var(--border);}
+  .signaletique .l:first-child{border-top:0;}
+  .signaletique .k{flex:none;width:82px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);}
+  .signaletique .v{flex:1;font-size:12.5px;color:var(--marine);font-weight:500;}
+  .signaletique .v b{font-family:var(--titres);font-weight:800;}
+
   .choix{display:flex;flex-direction:column;margin:0 18px;}
   .choix a{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--border);text-decoration:none;color:inherit;}
   .choix a:first-child{border-top:0;}
@@ -42,11 +53,13 @@
   <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
   <p class="kicker">Pages · famille 9</p>
   <h1>Réservation publique</h1>
-  <p>Ces trois écrans sont vus par des gens qui <b>ne connaissent pas encore l'association</b> — ils arrivent par un lien, hors connexion. Le ton doit donc porter la marque plus que l'app : en-tête à wordmark, pas de barre de navigation, un pied qui explique en une phrase ce qu'est TempsPourTemps. La confirmation se clôt par un <b>sceau</b>.</p>
+  <p>Ces six écrans sont vus par des gens qui <b>ne connaissent pas encore l'association</b> — ils arrivent par un lien, hors connexion. Le ton doit donc porter la marque plus que l'app : en-tête à wordmark, pas de barre de navigation, un pied qui explique en une phrase ce qu'est TempsPourTemps. La confirmation se clôt par un <b>sceau</b>.</p>
   <div class="traits">
     <span><b>Hors connexion</b> en-tête public</span>
     <span><b>Créneaux</b> grille par jour</span>
     <span><b>Fin</b> sceau de confirmation</span>
+    <span><b>Liens directs</b> format répété trois fois</span>
+    <span><b>Échecs</b> annulation et lien mort</span>
   </div>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
 </header>
@@ -219,10 +232,173 @@
     <p class="note">La confirmation se clôt par un <b>sceau</b> vert à double cercle, cousin du cachet des faire-part. Le rendez-vous est répété en toutes lettres avec le prénom du bénévole — on sait qui va sonner. L'annulation reste accessible, en lien discret : la cacher ne ferait qu'engendrer des rendez-vous manqués.</p>
   </figure>
 
+
+  <!-- ========== 4 · LE LIEN QUI A DÉJÀ CHOISI ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">4</span><h2>Le lien qui a déjà choisi</h2><span class="route">réservation · café</span></figcaption>
+    <div class="phone">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tete-public">
+        <img src="../../assets/logo/logo-tpt-fond.png" alt="" style="border-radius:8px">
+        <span class="wordmark">Temps<em>Pour</em>Temps</span>
+      </div>
+
+      <main class="feed feed--uni">
+        <section class="manchette" style="padding-top:16px">
+          <p class="sur">Autour d'un café · 30 minutes</p>
+          <h2>On vous attend au <span class="souligne">café du Centre.</span></h2>
+          <p>Le format est déjà choisi : votre lien y menait. Il ne reste qu'à dire quand.</p>
+        </section>
+
+        <div class="signaletique">
+          <div class="l"><span class="k">Où</span><span class="v"><b>Café du Centre</b> · 3 place Jean-Moulin</span></div>
+          <div class="l"><span class="k">Combien</span><span class="v">30 minutes, et rien à payer</span></div>
+          <div class="l"><span class="k">Avec qui</span><span class="v">un bénévole de l'association</span></div>
+        </div>
+        <p style="text-align:center;margin-top:9px">
+          <button class="lien-filet lien-filet--muet" type="button">Je préférerais un autre format</button>
+        </p>
+
+        <div class="jour-creneaux" style="margin-top:18px">
+          <div class="t">Samedi 14 juin</div>
+          <div class="creneaux">
+            <span class="creneau">10:00</span>
+            <span class="creneau on">11:30</span>
+            <span class="creneau off">14:00</span>
+          </div>
+        </div>
+
+        <div class="jour-creneaux">
+          <div class="t">Lundi 16 juin</div>
+          <div class="creneaux">
+            <span class="creneau">17:00</span>
+            <span class="creneau">18:00</span>
+            <span class="creneau off">19:00</span>
+          </div>
+        </div>
+
+        <div class="signaletique" style="margin-top:6px">
+          <div class="l"><span class="k">Retenu</span><span class="v"><b>Samedi 14 juin, 11:30</b> · au café du Centre</span></div>
+        </div>
+
+        <div style="padding:14px 18px 8px">
+          <button class="btn-plein btn-plein--orange" type="button">Réserver ce créneau</button>
+        </div>
+        <p style="text-align:center;padding-bottom:14px">
+          <button class="lien-filet lien-filet--muet" type="button">Aucun créneau ne me convient</button>
+        </p>
+      </main>
+
+      <div class="pied-public">
+        <p>Échangez des services entre voisins, sans argent.<br>1 h donnée = 1 h reçue.</p>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Trois adresses mènent directement à un format — le téléphone, la visite, le café — en sautant l'écran 1. Le danger est qu'on ne sache plus <b>à quoi on s'inscrit</b> : le format est donc répété trois fois, en surtitre, en titre et dans l'encadré de renseignements, avec l'adresse exacte. L'échappatoire « je préférerais un autre format » remplace la flèche de retour, qui ne mènerait nulle part.</p>
+  </figure>
+
+  <!-- ========== 5 · ANNULER MON RENDEZ-VOUS ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">5</span><h2>Annuler mon rendez-vous</h2><span class="route">réservation · annuler</span></figcaption>
+    <div class="phone">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tete-public">
+        <img src="../../assets/logo/logo-tpt-fond.png" alt="" style="border-radius:8px">
+        <span class="wordmark">Temps<em>Pour</em>Temps</span>
+      </div>
+
+      <main class="feed feed--uni">
+        <section class="manchette" style="padding-top:16px">
+          <p class="sur">Depuis le lien de votre courriel</p>
+          <h2>Annuler votre <span class="souligne">rendez-vous ?</span></h2>
+        </section>
+
+        <div class="signaletique">
+          <div class="l"><span class="k">Quand</span><span class="v"><b>Vendredi 13 juin, 10:30</b></span></div>
+          <div class="l"><span class="k">Quoi</span><span class="v">Chez vous · 45 minutes</span></div>
+          <div class="l"><span class="k">Avec</span><span class="v">Camille, bénévole du Centre</span></div>
+        </div>
+
+        <div class="encart encart--attention" style="margin-top:16px">
+          <b>Le créneau repart aussitôt à la disposition d'un autre voisin.</b> Vous pourrez reprendre rendez-vous quand vous voudrez, mais pas forcément à cette heure-là.
+        </div>
+
+        <div style="padding:6px 18px 0;display:flex;flex-direction:column;gap:9px">
+          <button class="btn-plein btn-plein--danger" type="button">Oui, annuler ce rendez-vous</button>
+          <button class="btn-plein btn-plein--contour" type="button">Non, je le garde</button>
+        </div>
+
+        <p class="compteurs-note" style="margin-top:16px">Ce lien ne sert qu'une fois et n'ouvre aucun compte.</p>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Si vous préférez décaler</h2></span>
+          <span class="filet"></span>
+        </div>
+        <p style="padding:0 18px;font-size:12px;line-height:1.55;color:var(--text-secondary)">
+          Annuler puis reprendre un créneau marche très bien, mais vous pouvez aussi appeler le Centre au <b style="font-family:var(--titres);font-weight:800;color:var(--marine)">02 40 33 18 00</b> — on décale pour vous, et le créneau reste réservé entre-temps.
+        </p>
+      </main>
+
+      <div class="pied-public">
+        <p>Échangez des services entre voisins, sans argent.<br>1 h donnée = 1 h reçue.</p>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Un écran atteint par un lien de courriel, par quelqu'un qui n'a pas de compte : il faut d'abord <b>prouver qu'on parle du bon rendez-vous</b>, d'où l'encadré de renseignements avant toute question. Les deux boutons sont empilés, le destructeur en haut, l'issue sûre en bas. La dernière rubrique offre la sortie qu'on cherchait vraiment neuf fois sur dix : décaler, pas annuler.</p>
+  </figure>
+
+  <!-- ========== 6 · LE LIEN QUI NE MÈNE NULLE PART ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">6</span><h2>Le lien qui ne mène nulle part</h2><span class="route">réservation · lien mort</span></figcaption>
+    <div class="phone">
+      <div class="status status--papier"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tete-public">
+        <img src="../../assets/logo/logo-tpt-fond.png" alt="" style="border-radius:8px">
+        <span class="wordmark">Temps<em>Pour</em>Temps</span>
+      </div>
+
+      <main class="feed feed--uni">
+        <section class="manchette" style="padding-top:16px">
+          <p class="sur">Prendre rendez-vous</p>
+          <h2>Ce lien ne mène <span class="souligne">nulle part.</span></h2>
+        </section>
+
+        <div class="erreur" style="margin:18px 18px 0">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg></span>
+          <h3>Page de réservation introuvable</h3>
+          <p>L'adresse a peut-être été coupée en deux par votre messagerie, ou le rendez-vous est passé.</p>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Ce que vous pouvez faire</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="etapes">
+          <div class="etape-ligne"><span class="rond">1</span><b>Rouvrir le lien du courriel</b><span class="m">en entier</span></div>
+          <div class="etape-ligne"><span class="rond">2</span><b>Repartir du début</b><span class="m">30 s</span></div>
+          <div class="etape-ligne"><span class="rond">3</span><b>Appeler le Centre</b><span class="m">02 40 33 18 00</span></div>
+        </div>
+
+        <div style="padding:16px 18px 8px">
+          <button class="btn-plein btn-plein--orange" type="button">Prendre rendez-vous depuis le début</button>
+        </div>
+
+        <div class="encart encart--info" style="margin-top:8px">
+          <b>Rien n'est perdu.</b> Si vous aviez déjà un rendez-vous, il tient toujours : cette page n'annule rien.
+        </div>
+      </main>
+
+      <div class="pied-public">
+        <p>Échangez des services entre voisins, sans argent.<br>1 h donnée = 1 h reçue.</p>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">La page d'erreur la plus exposée de l'application : elle est vue par quelqu'un qui ne connaît pas l'association et dont le lien vient de casser. Elle ne s'excuse pas, elle <b>répare</b> — trois issues numérotées, un bouton qui repart du début, un numéro de téléphone. Et la dernière phrase lève l'inquiétude qu'elle aurait créée : non, un rendez-vous déjà pris n'a pas disparu.</p>
+  </figure>
 </div>
 
 <footer>
-  TempsPourTemps — identité visuelle · Pages 9/9 · Créneaux et bénévoles fictifs.<br>
+  TempsPourTemps — identité visuelle · Pages 9 · Les six écrans publics · Créneaux et bénévoles fictifs.<br>
   <a href="../../index.html">Galerie</a>
 </footer>
 </body>

@@ -10,6 +10,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../gazette.css">
 <style>
+  /* la ligne d'auteur : même règle qu'en famille 3 */
+  .auteur{display:flex;align-items:center;gap:10px;margin:14px 18px 0;padding:11px 13px;background:var(--paper);border:1px solid var(--border);border-radius:12px;}
+  .auteur .avatar{width:40px;height:40px;font-size:12.5px;border:1.5px solid var(--sable);}
+  .auteur .c{flex:1;min-width:0;}
+  .auteur b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;}
+  .auteur .q{font-size:10.5px;color:var(--text-tertiary);margin-top:1px;}
+
   .reactions{display:flex;gap:9px;margin:0 18px 12px;}
   .reaction{
     flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
@@ -49,6 +56,7 @@
     <span><b>Fil</b> fiches + pastilles</span>
     <span><b>Ouverte</b> réactions en compteurs</span>
     <span><b>Écrire</b> cinq champs</span>
+    <span><b>Les miennes</b> sans fenêtre d'affichage</span>
   </div>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
 </header>
@@ -296,10 +304,103 @@
     <p class="note">Trois sens plutôt que deux : « Je demande », « Je propose » et <b>« Un mot »</b> — le cas neutre, qui n'attend pas de réponse, explicité en une ligne d'aide au lieu du « non précisé » actuel. L'encart du bas répond à la question que tout le monde se pose avant de publier.</p>
   </figure>
 
+
+  <!-- ========== 4 · MES PUBLICATIONS ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">4</span><h2>Mes publications</h2><span class="route">fil · les miennes</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Mes publications</span>
+        <button class="ibtn" aria-label="Options"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+      </div>
+
+      <main class="feed feed--avec-barre feed--fil">
+        <section class="grand-titre">
+          <h1>Mes publications</h1>
+          <p class="date">Depuis mars 2026 · <b>12 mots</b> · 2 encore ouverts</p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="encart encart--info" style="margin-top:14px">
+          <b>Pas de fenêtre d'affichage ici.</b> Le fil du quartier n'expose que les mots récents ; vos propres publications restent toutes, sans limite d'ancienneté — y compris celles qui sont pourvues ou réalisées.
+        </div>
+
+        <div class="filtres-ligne">
+          <a class="on" href="#">Tout</a>
+          <a href="#">Encore ouverts</a>
+          <a href="#">Pourvus</a>
+          <a href="#">Retirés</a>
+        </div>
+        <div class="fil">
+          <article class="annonce">
+            <div class="pastilles">
+              <span class="past past--pourvue">Pourvue</span>
+            </div>
+            <div class="an-tete">
+              <span class="an-type an-type--demande">Demande</span>
+              <span class="an-rubr">Bricolage</span>
+            </div>
+            <h3 class="an-titre">Un coup de main pour monter une étagère</h3>
+            <p class="an-texte">Une petite heure samedi matin, j'ai déjà les outils.</p>
+            <p class="an-sign">— publiée le 2 juin · pourvue le 8 juin par Pierre Blanc</p>
+            <div class="an-actions">
+              <button class="action">Voir l'échange</button>
+              <span class="an-compteur">4 réponses</span>
+            </div>
+          </article>
+
+          <article class="annonce">
+            <div class="an-tete">
+              <span class="an-type an-type--neutre">Sans suite attendue</span>
+              <span class="an-rubr">Vie de quartier</span>
+            </div>
+            <h3 class="an-titre">Merci à ceux qui ont tenu le stand samedi</h3>
+            <p class="an-texte">On a servi quatre-vingts cafés et personne n'a vu l'après-midi passer.</p>
+            <p class="an-sign">— publiée le 26 mai · 7 commentaires</p>
+            <div class="an-actions">
+              <button class="action">Ouvrir</button>
+              <button class="action">Retirer</button>
+            </div>
+          </article>
+
+          <article class="annonce">
+            <div class="an-tete">
+              <span class="an-type an-type--proposition">Proposition</span>
+              <span class="an-rubr">Informatique</span>
+            </div>
+            <h3 class="an-titre">Je dépanne les ordinateurs qui rament</h3>
+            <p class="an-texte">Nettoyage, sauvegarde, mises à jour. Chez vous, en une heure.</p>
+            <p class="an-sign">— publiée le 14 mars · encore ouverte</p>
+            <div class="an-actions">
+              <button class="action action--fort">Modifier</button>
+              <button class="action">Marquer pourvue</button>
+              <span class="an-compteur">1 intéressé</span>
+            </div>
+          </article>
+        </div>
+
+        <p class="compteurs-note">Encore 9 publications, jusqu'à mars</p>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8h13l-3-3M17 16H4l3 3"/></svg>Services</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Le même papier que le fil, mais lu de l'autre côté : la signature ne dit plus qui a écrit — c'est vous — mais <b>ce que la publication est devenue</b> : publiée le 2 juin, pourvue le 8 juin par Pierre. Les actions changent aussi : on ne répond pas à soi-même, on modifie, on marque pourvue, on retire. L'encart du haut explique pourquoi on voit ici des mots de mars que le fil n'affiche plus.</p>
+  </figure>
 </div>
 
 <footer>
-  TempsPourTemps — identité visuelle · Pages 4/9 · Personnes et publications fictives.<br>
+  TempsPourTemps — identité visuelle · Pages 4 · Les quatre écrans du fil · Personnes et publications fictives.<br>
   <a href="../../index.html">Galerie</a>
 </footer>
 </body>

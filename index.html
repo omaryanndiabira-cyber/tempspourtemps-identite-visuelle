@@ -75,6 +75,7 @@ body{padding:36px 20px 80px;}
   border-radius:7px;padding:3px 9px;white-space:nowrap;
 }
 .groupe-sub{color:var(--text-secondary);font-size:.9rem;margin:0 0 22px;max-width:860px;line-height:1.6;}
+.groupe-sub code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
 .groupe-sub b{color:var(--marine);}
 
 /* ————— vignettes mobiles ————— */
@@ -170,6 +171,7 @@ footer a{color:var(--marine);font-weight:600;}
     <a class="secondaire" href="implementation.html">Les règles d’implémentation</a>
     <a class="secondaire" href="migration.html">Le protocole de migration</a>
     <a class="secondaire" href="decisions.html">Les décisions préalables</a>
+    <a class="secondaire" href="couverture.html">La couverture des écrans</a>
     <a class="secondaire" href="releve.html">Le relevé d’avant</a>
     <a class="secondaire" href="brandkit/index.html">Le brandkit</a>
     <a class="secondaire" href="explorations.html">Les pistes explorées</a>
@@ -214,7 +216,7 @@ footer a{color:var(--marine);font-weight:600;}
 </section>
 
 <nav class="sommaire-nav">
-  <a href="#mobile">Sur mobile <span class="n">10</span></a>
+  <a href="#mobile">Sur mobile <span class="n">11</span></a>
   <a href="#pc">Sur grand écran <span class="n">4</span></a>
   <a href="#composants">Les composants <span class="n">7</span></a>
   <a href="#regles">Les règles de fond <span class="n">2</span></a>
@@ -222,8 +224,8 @@ footer a{color:var(--marine);font-weight:600;}
 </nav>
 
 <!-- ================= MOBILE ================= -->
-<div class="groupe" id="mobile"><h2>Sur mobile</h2><span class="compte">10 planches · 41 écrans</span><span class="filet"></span></div>
-<p class="groupe-sub">L'application complète, écran par écran, dans la peau retenue. La barre du bas est la <b>B5</b> — une pilule flottante en verre dépoli qui se replie sur l'onglet actif au défilement. Les billets à talon, les lignes d'agenda et les rubans de rubrique sont les mêmes partout.</p>
+<div class="groupe" id="mobile"><h2>Sur mobile</h2><span class="compte">11 planches · 63 écrans</span><span class="filet"></span></div>
+<p class="groupe-sub"><b>Toutes les pages de l'application</b> — les 53 routes de <code>app/pages</code>, sans exception, et le <a href="couverture.html" style="color:var(--orange);font-weight:700">relevé de couverture</a> qui le prouve ligne à ligne. La barre du bas est la <b>B5</b> — une pilule flottante en verre dépoli qui se replie sur l'onglet actif au défilement. Les billets à talon, les lignes d'agenda et les rubans de rubrique sont les mêmes partout.</p>
 
 <div class="rangs">
   <a class="vignette" href="brandkit/explorations/pages-1-decouverte.html">
@@ -236,11 +238,11 @@ footer a{color:var(--marine);font-weight:600;}
   </a>
   <a class="vignette" href="brandkit/explorations/pages-4-fil.html">
     <div class="apercu"><iframe src="brandkit/explorations/pages-4-fil.html" loading="lazy" tabindex="-1" title=""></iframe></div>
-    <div class="pied"><p class="k">Famille 4</p><h3>Le fil du quartier</h3><p>Les publications, leurs réactions en compteurs jumeaux et leurs commentaires.</p><p class="ecrans">3 écrans</p></div>
+    <div class="pied"><p class="k">Famille 4</p><h3>Le fil du quartier</h3><p>Les publications, leurs réactions en compteurs jumeaux, leurs commentaires — et les vôtres.</p><p class="ecrans">4 écrans</p></div>
   </a>
   <a class="vignette" href="brandkit/explorations/pages-3-annonces.html">
     <div class="apercu"><iframe src="brandkit/explorations/pages-3-annonces.html" loading="lazy" tabindex="-1" title=""></iframe></div>
-    <div class="pied"><p class="k">Famille 3</p><h3>Les annonces</h3><p>La fiche complète, les réponses reçues, et le formulaire de publication.</p><p class="ecrans">3 écrans</p></div>
+    <div class="pied"><p class="k">Famille 3</p><h3>Les annonces</h3><p>La fiche complète, les réponses reçues, le formulaire de publication et sa modification.</p><p class="ecrans">4 écrans</p></div>
   </a>
   <a class="vignette" href="brandkit/explorations/pages-2-recherche.html">
     <div class="apercu"><iframe src="brandkit/explorations/pages-2-recherche.html" loading="lazy" tabindex="-1" title=""></iframe></div>
@@ -256,15 +258,19 @@ footer a{color:var(--marine);font-weight:600;}
   </a>
   <a class="vignette" href="brandkit/explorations/pages-8-entree.html">
     <div class="apercu"><iframe src="brandkit/explorations/pages-8-entree.html" loading="lazy" tabindex="-1" title=""></iframe></div>
-    <div class="pied"><p class="k">Famille 8</p><h3>L'entrée</h3><p>La connexion, le chemin d'embarquement en quatre étapes, et la charte.</p><p class="ecrans">4 écrans</p></div>
+    <div class="pied"><p class="k">Famille 8</p><h3>L'entrée</h3><p>La connexion, l'embarquement en cinq étapes, la charte — et le parcours qu'un parrain remplit pour quelqu'un d'autre.</p><p class="ecrans">7 écrans</p></div>
   </a>
   <a class="vignette" href="brandkit/explorations/pages-9-reservation.html">
     <div class="apercu"><iframe src="brandkit/explorations/pages-9-reservation.html" loading="lazy" tabindex="-1" title=""></iframe></div>
-    <div class="pied"><p class="k">Famille 9</p><h3>La réservation</h3><p>Vue par quelqu'un qui ne connaît pas encore l'association. Se clôt par un sceau.</p><p class="ecrans">3 écrans</p></div>
+    <div class="pied"><p class="k">Famille 9</p><h3>La réservation</h3><p>Vue par quelqu'un qui ne connaît pas encore l'association. Les liens directs, l'annulation, le lien mort.</p><p class="ecrans">6 écrans</p></div>
   </a>
   <a class="vignette" href="brandkit/explorations/pages-10-administration.html">
     <div class="apercu"><iframe src="brandkit/explorations/pages-10-administration.html" loading="lazy" tabindex="-1" title=""></iframe></div>
-    <div class="pied"><p class="k">Famille 10</p><h3>L'administration</h3><p>Le sommaire du bureau, les candidats, les créneaux et l'agenda de l'association.</p><p class="ecrans">6 écrans</p></div>
+    <div class="pied"><p class="k">Famille 10</p><h3>L'administration</h3><p>Les seize écrans de l'association, au complet : candidats, agenda, créneaux, comptes, parrainage, échanges, moments, modération.</p><p class="ecrans">16 écrans</p></div>
+  </a>
+  <a class="vignette" href="brandkit/explorations/pages-11-avis.html">
+    <div class="apercu"><iframe src="brandkit/explorations/pages-11-avis.html" loading="lazy" tabindex="-1" title=""></iframe></div>
+    <div class="pied"><p class="k">Famille 11</p><h3>Les avis &amp; la coulisse</h3><p>Les avis et leur état vide, le mot de passe de la première connexion, le retour d'un lien raté, le diagnostic.</p><p class="ecrans">5 écrans</p></div>
   </a>
 </div>
 
@@ -418,7 +424,7 @@ footer a{color:var(--marine);font-weight:600;}
 <footer>
   TempsPourTemps — identité visuelle · Le design retenu · Personnes et annonces fictives.<br>
   Tous les écrans reposent sur une feuille de style unique, <code>brandkit/gazette.css</code>.<br>
-  <a href="implementation.html">Les règles d’implémentation</a> · <a href="migration.html">Le protocole de migration</a> · <a href="decisions.html">Les décisions préalables</a> · <a href="releve.html">Le relevé d’avant</a> · <a href="brandkit/index.html">Le brandkit</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a> · <a href="explorations.html">Les pistes explorées</a>
+  <a href="implementation.html">Les règles d’implémentation</a> · <a href="migration.html">Le protocole de migration</a> · <a href="decisions.html">Les décisions préalables</a> · <a href="couverture.html">La couverture des écrans</a> · <a href="releve.html">Le relevé d’avant</a> · <a href="brandkit/index.html">Le brandkit</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a> · <a href="explorations.html">Les pistes explorées</a>
 </footer>
 
 </div>

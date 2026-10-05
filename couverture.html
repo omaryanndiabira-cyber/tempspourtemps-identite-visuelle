@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — La couverture des écrans</title>
+<link rel="icon" href="assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brandkit/gazette.css">
+<style>
+body{padding:36px 20px 80px;}
+.wrap{max-width:1040px;margin:0 auto;}
+
+.entete{text-align:center;max-width:800px;margin:0 auto;}
+.entete img{width:58px;height:auto;margin-bottom:12px;}
+.entete .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.entete h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.7rem,4.5vw,2.4rem);letter-spacing:-.5px;margin-top:6px;}
+.entete p{color:var(--text-secondary);font-size:.95rem;line-height:1.65;margin-top:14px;}
+.entete p b{color:var(--marine);}
+.entete .retour{display:inline-block;margin-top:18px;color:var(--marine);font-weight:600;font-size:.86rem;text-decoration:none;}
+
+.volume{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:30px 0 0;}
+.volume > div{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:13px 15px;}
+.volume .v{font-family:var(--titres);font-weight:800;font-size:1.5rem;line-height:1;color:var(--marine);}
+.volume .v.ok{color:var(--success);}
+.volume .v.neuve{color:var(--orange-hover);}
+.volume .l{font-size:.72rem;color:var(--text-secondary);margin-top:7px;line-height:1.45;}
+
+.chap{display:flex;align-items:center;gap:14px;margin:44px 0 6px;scroll-margin-top:20px;}
+.chap .num{font-family:var(--titres);font-weight:800;font-size:.76rem;background:var(--sable);color:var(--marine);border-radius:8px;padding:3px 10px;}
+.chap h2{font-family:var(--titres);font-weight:800;font-size:1.22rem;}
+.chap .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
+.chap-sub{color:var(--text-secondary);font-size:.86rem;line-height:1.6;margin:0 0 16px;}
+.chap-sub b{color:var(--marine);}
+
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.74rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+code.v{background:none;color:var(--text-tertiary);font-size:.7rem;padding:0;}
+
+.table{background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:0 16px;overflow-x:auto;}
+.table .tete,.table .l{display:flex;gap:14px;align-items:baseline;min-width:780px;}
+.table .tete{padding:11px 0 9px;border-bottom:2px solid var(--marine);font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-tertiary);}
+.table .l{padding:11px 0;border-top:1px dotted var(--border);font-size:.82rem;line-height:1.5;}
+.table .l:first-of-type{border-top:0;}
+.table .r{width:250px;flex:none;overflow-wrap:anywhere;}
+.table .f{width:232px;flex:none;overflow-wrap:anywhere;}
+.table .p{flex:1;min-width:0;color:var(--text-secondary);}
+.table .p a{color:var(--marine);font-weight:600;text-decoration:none;border-bottom:1px dotted rgba(24,62,87,.4);white-space:nowrap;}
+.table .p a:hover{border-bottom-style:solid;}
+.muet{color:var(--text-tertiary);}
+.redir{font-style:italic;color:var(--text-tertiary);font-size:.78rem;}
+.neuf{display:inline-block;font-family:var(--titres);font-weight:800;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:var(--orange);color:#fff9ec;border-radius:4px;padding:2px 6px;margin-right:5px;vertical-align:1px;}
+
+.or{
+  margin:30px auto 0;max-width:860px;
+  background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.2);outline-offset:3px;
+  border-radius:16px;padding:22px 26px;
+}
+.or .k{font-family:var(--titres);font-weight:800;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.or h2{font-family:var(--titres);font-weight:800;font-size:1.16rem;line-height:1.4;margin-top:9px;}
+.or h2 .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+.or p{font-size:.87rem;line-height:1.65;color:var(--text-secondary);margin-top:11px;}
+.or p b{color:var(--marine);}
+.or ul{margin:11px 0 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px;}
+.or li{font-size:.85rem;line-height:1.55;color:var(--text-secondary);padding-left:16px;position:relative;}
+.or li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:2px;background:var(--orange-vif);}
+.or li b{color:var(--marine);}
+.or a{color:var(--marine);font-weight:600;}
+
+.pied{margin-top:52px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
+.pied a{color:var(--marine);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="entete">
+  <img src="assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Le relevé de couverture</p>
+  <h1>Toutes les pages, et où elles sont dessinées</h1>
+  <p>Une ligne par route de l'application, prise dans <code>app/pages</code> et non de mémoire. Chacune renvoie à la planche et au numéro d'écran qui la dessinent. <b>Aucune ligne n'est vide</b> : c'est l'objet de ce document, et la façon de le vérifier à chaque fois qu'une page sera ajoutée. Les cinq routes sans écran propre sont des coquilles à onglets qui redirigent vers leur premier onglet.</p>
+  <div class="volume">
+    <div><div class="v">53</div><div class="l">fichiers de page dans <code>app/pages</code></div></div>
+    <div><div class="v ok">49</div><div class="l">routes avec leur écran dessiné</div></div>
+    <div><div class="v neuve">22</div><div class="l">écrans ajoutés par ce relevé</div></div>
+    <div><div class="v">5</div><div class="l">redirections, sans écran propre</div></div>
+  </div>
+  <a class="retour" href="index.html">← Retour au design retenu</a>
+</header>
+
+  <div class="chap" id="g1"><span class="num">1</span><h2>L'accueil et ce qu'on y fait</h2><span class="filet"></span></div>
+  <p class="chap-sub">Quatre routes : la une, les actions à faire, et les deux formulaires qu'on ouvre depuis le menu « Proposer ».</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/</code></span><span class="f"><code class="v">index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-1-decouverte.html">Pages 1 · 1 à 3</a> · <a href="brandkit/explorations/proposition-1-revisee.html">La gazette aérée · 1-2</a> · <a href="brandkit/explorations/bureau-1-accueil.html#retenu">Bureau 1 · D4 bis</a></span></div>
+    <div class="l"><span class="r"><code>/actions</code></span><span class="f"><code class="v">actions/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-1-decouverte.html">Pages 1 · 4</a> · <a href="brandkit/explorations/pages-1c-rdv-actions.html">Les trois formats</a> · <a href="brandkit/explorations/rendez-vous.html">Le fil du rendez-vous</a></span></div>
+    <div class="l"><span class="r"><code>/activities/create</code></span><span class="f"><code class="v">activities/create.vue</code></span><span class="p"><a href="brandkit/explorations/pages-5-echanges.html">Pages 5 · 3</a></span></div>
+    <div class="l"><span class="r"><code>/moments/create</code></span><span class="f"><code class="v">moments/create.vue</code></span><span class="p"><a href="brandkit/explorations/pages-5-echanges.html">Pages 5 · 4</a></span></div>
+  </div>
+  <div class="chap" id="g2"><span class="num">2</span><h2>Les annonces</h2><span class="filet"></span></div>
+  <p class="chap-sub">La liste, la fiche, le formulaire — et la modification, qui n'est pas le formulaire.</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/announcements</code></span><span class="f"><code class="v">announcements/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-2-recherche.html">Pages 2 · 2</a></span></div>
+    <div class="l"><span class="r"><code>/announcements/[id]</code></span><span class="f"><code class="v">announcements/[id]/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-3-annonces.html">Pages 3 · 1 et 3</a></span></div>
+    <div class="l"><span class="r"><code>/announcements/[id]/edit</code></span><span class="f"><code class="v">announcements/[id]/edit.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-3-annonces.html">Pages 3 · 4</a></span></div>
+    <div class="l"><span class="r"><code>/publish</code></span><span class="f"><code class="v">publish.vue</code></span><span class="p"><a href="brandkit/explorations/pages-3-annonces.html">Pages 3 · 2</a> · <a href="brandkit/explorations/bureau-3-pages.html">Bureau 3 · 6</a></span></div>
+    <div class="l"><span class="r"><span class="muet">—</span></span><span class="f"><code class="v">— l'annonce pourvue</code></span><span class="p"><a href="brandkit/explorations/pages-1d-pourvues.html">Pourvue, pas supprimée</a></span></div>
+  </div>
+  <div class="chap" id="g3"><span class="num">3</span><h2>Le fil du quartier</h2><span class="filet"></span></div>
+  <p class="chap-sub">Trois routes, plus la vue de ses propres publications, qui échappe à la fenêtre d'affichage.</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/posts</code></span><span class="f"><code class="v">posts/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-4-fil.html">Pages 4 · 1</a> · <a href="brandkit/explorations/bureau-3-pages.html">Bureau 3 · 1</a></span></div>
+    <div class="l"><span class="r"><code>/posts/[id]</code></span><span class="f"><code class="v">posts/[id].vue</code></span><span class="p"><a href="brandkit/explorations/pages-4-fil.html">Pages 4 · 2</a></span></div>
+    <div class="l"><span class="r"><code>/posts?publier=1</code></span><span class="f"><code class="v">posts/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-4-fil.html">Pages 4 · 3</a></span></div>
+    <div class="l"><span class="r"><code>/posts/mine</code></span><span class="f"><code class="v">posts/mine.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-4-fil.html">Pages 4 · 4</a></span></div>
+  </div>
+  <div class="chap" id="g4"><span class="num">4</span><h2>Les échanges et le temps</h2><span class="filet"></span></div>
+  <p class="chap-sub">Le carnet des échanges, le profil, le relevé.</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/exchanges</code></span><span class="f"><code class="v">exchanges/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-5-echanges.html">Pages 5 · 1 et 2</a></span></div>
+    <div class="l"><span class="r"><code>/profile</code></span><span class="f"><code class="v">profile/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-7-profil.html">Pages 7 · 1</a> · <a href="brandkit/explorations/bureau-3-pages.html">Bureau 3 · 5</a></span></div>
+    <div class="l"><span class="r"><code>/profile/[id]</code></span><span class="f"><code class="v">profile/[id].vue</code></span><span class="p"><a href="brandkit/explorations/pages-7-profil.html">Pages 7 · 2</a></span></div>
+    <div class="l"><span class="r"><code>/profile/time-history</code></span><span class="f"><code class="v">profile/time-history.vue</code></span><span class="p"><a href="brandkit/explorations/pages-7-profil.html">Pages 7 · 3</a> · <a href="brandkit/explorations/bureau-3-pages.html">Bureau 3 · 4</a></span></div>
+  </div>
+  <div class="chap" id="g5"><span class="num">5</span><h2>L'annuaire</h2><span class="filet"></span></div>
+  <p class="chap-sub">Une route utile et une redirection.</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/search</code></span><span class="f"><code class="v">search.vue</code></span><span class="p"><span class="redir">redirige vers le premier onglet</span></span></div>
+    <div class="l"><span class="r"><code>/search/users</code></span><span class="f"><code class="v">search/users.vue</code></span><span class="p"><a href="brandkit/explorations/pages-2-recherche.html">Pages 2 · 1 et 3</a> · <a href="brandkit/explorations/bureau-3-pages.html">Bureau 3 · 3</a></span></div>
+  </div>
+  <div class="chap" id="g6"><span class="num">6</span><h2>La messagerie et les avis</h2><span class="filet"></span></div>
+  <p class="chap-sub">Deux niveaux pour le courrier, jamais trois — et les avis, qui ne sont pas du courrier.</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/messages</code></span><span class="f"><code class="v">messages/index.vue</code></span><span class="p"><a href="brandkit/explorations/proposition-1-revisee.html">La gazette aérée · 3</a> · <a href="brandkit/explorations/bureau-2-messagerie.html#retenu">Bureau 2 · D4 bis</a></span></div>
+    <div class="l"><span class="r"><code>/messages/[threadId]</code></span><span class="f"><code class="v">messages/[threadId].vue</code></span><span class="p"><a href="brandkit/explorations/proposition-1-revisee.html">La gazette aérée · 4-5</a> · <a href="brandkit/explorations/bureau-2-messagerie.html#retenu">Bureau 2 · D4 bis</a></span></div>
+    <div class="l"><span class="r"><code>/notifications</code></span><span class="f"><code class="v">notifications.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-11-avis.html">Pages 11 · 1 et 2</a></span></div>
+  </div>
+  <div class="chap" id="g7"><span class="num">7</span><h2>L'entrée dans le quartier</h2><span class="filet"></span></div>
+  <p class="chap-sub">La connexion, l'embarquement en cinq étapes, la charte — et le parcours qu'un parrain remplit pour quelqu'un d'autre.</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/auth/login</code></span><span class="f"><code class="v">auth/login.vue</code></span><span class="p"><a href="brandkit/explorations/pages-8-entree.html">Pages 8 · 1</a> · <a href="brandkit/explorations/bureau-4-entree.html">Bureau 4 · 6</a></span></div>
+    <div class="l"><span class="r"><code>/auth/callback</code></span><span class="f"><code class="v">auth/callback.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-11-avis.html">Pages 11 · 4</a> · <a href="brandkit/explorations/chargement.html">Les temps de chargement</a></span></div>
+    <div class="l"><span class="r"><code>/auth/change-password</code></span><span class="f"><code class="v">auth/change-password.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-11-avis.html">Pages 11 · 3</a></span></div>
+    <div class="l"><span class="r"><code>/onboarding</code></span><span class="f"><code class="v">onboarding/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-8-entree.html">Pages 8 · 2, 3, 5 et 6</a> · <a href="brandkit/explorations/bureau-4-entree.html">Bureau 4 · 4</a></span></div>
+    <div class="l"><span class="r"><code>/onboarding-delegate</code></span><span class="f"><code class="v">onboarding-delegate.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-8-entree.html">Pages 8 · 7</a></span></div>
+    <div class="l"><span class="r"><code>/charte</code></span><span class="f"><code class="v">charte.vue</code></span><span class="p"><a href="brandkit/explorations/pages-8-entree.html">Pages 8 · 4</a> · <a href="brandkit/explorations/bureau-4-entree.html">Bureau 4 · 5</a></span></div>
+  </div>
+  <div class="chap" id="g8"><span class="num">8</span><h2>La réservation publique</h2><span class="filet"></span></div>
+  <p class="chap-sub">Les six écrans vus hors connexion, par quelqu'un qui ne connaît pas encore l'association.</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/book</code></span><span class="f"><code class="v">book/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-9-reservation.html">Pages 9 · 1 à 3</a> · <a href="brandkit/explorations/bureau-4-entree.html">Bureau 4 · 1 à 3</a></span></div>
+    <div class="l"><span class="r"><code>/book/telephonique</code></span><span class="f"><code class="v">book/telephonique.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-9-reservation.html">Pages 9 · 4</a></span></div>
+    <div class="l"><span class="r"><code>/book/physique</code></span><span class="f"><code class="v">book/physique.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-9-reservation.html">Pages 9 · 4</a></span></div>
+    <div class="l"><span class="r"><code>/book/cafe</code></span><span class="f"><code class="v">book/cafe.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-9-reservation.html">Pages 9 · 4</a></span></div>
+    <div class="l"><span class="r"><code>/book/cancel/[token]</code></span><span class="f"><code class="v">book/cancel/[token].vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-9-reservation.html">Pages 9 · 5</a></span></div>
+    <div class="l"><span class="r"><code>/book/[...slug]</code></span><span class="f"><code class="v">book/[...slug].vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-9-reservation.html">Pages 9 · 6</a></span></div>
+  </div>
+  <div class="chap" id="g9"><span class="num">9</span><h2>L'administration</h2><span class="filet"></span></div>
+  <p class="chap-sub">Seize écrans, quatre redirections. Toute la famille 10.</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/admin</code></span><span class="f"><code class="v">admin/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 1</a> · <a href="brandkit/explorations/bureau-3-pages.html">Bureau 3 · 7</a></span></div>
+    <div class="l"><span class="r"><code>/admin/acquisition</code></span><span class="f"><code class="v">admin/acquisition.vue</code></span><span class="p"><span class="redir">redirige vers le premier onglet</span></span></div>
+    <div class="l"><span class="r"><code>/admin/acquisition/bookings</code></span><span class="f"><code class="v">acquisition/bookings.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 7</a></span></div>
+    <div class="l"><span class="r"><code>/admin/acquisition/prospects</code></span><span class="f"><code class="v">acquisition/prospects/index.vue</code></span><span class="p"><a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 2</a></span></div>
+    <div class="l"><span class="r"><code>/admin/acquisition/prospects/[id]</code></span><span class="f"><code class="v">acquisition/prospects/[id].vue</code></span><span class="p"><a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 3</a></span></div>
+    <div class="l"><span class="r"><code>/admin/acquisition/availabilities</code></span><span class="f"><code class="v">acquisition/availabilities.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 8</a></span></div>
+    <div class="l"><span class="r"><code>/admin/users</code></span><span class="f"><code class="v">admin/users.vue</code></span><span class="p"><span class="redir">redirige vers le premier onglet</span></span></div>
+    <div class="l"><span class="r"><code>/admin/users/create</code></span><span class="f"><code class="v">users/create.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 9</a></span></div>
+    <div class="l"><span class="r"><code>/admin/users/delete</code></span><span class="f"><code class="v">users/delete.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 10</a></span></div>
+    <div class="l"><span class="r"><code>/admin/users/reset-password</code></span><span class="f"><code class="v">users/reset-password.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 11</a></span></div>
+    <div class="l"><span class="r"><code>/admin/users/charter</code></span><span class="f"><code class="v">users/charter.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 12</a></span></div>
+    <div class="l"><span class="r"><code>/admin/delegations</code></span><span class="f"><code class="v">admin/delegations.vue</code></span><span class="p"><span class="redir">redirige vers le premier onglet</span></span></div>
+    <div class="l"><span class="r"><code>/admin/delegations/delegates</code></span><span class="f"><code class="v">delegations/delegates.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 13</a></span></div>
+    <div class="l"><span class="r"><code>/admin/delegations/links</code></span><span class="f"><code class="v">delegations/links.vue</code></span><span class="p"><a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 6</a></span></div>
+    <div class="l"><span class="r"><code>/admin/delegations/audit</code></span><span class="f"><code class="v">delegations/audit.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 14</a></span></div>
+    <div class="l"><span class="r"><code>/admin/exchanges</code></span><span class="f"><code class="v">admin/exchanges.vue</code></span><span class="p"><span class="redir">redirige vers le premier onglet</span></span></div>
+    <div class="l"><span class="r"><code>/admin/exchanges/regularize</code></span><span class="f"><code class="v">exchanges/regularize.vue</code></span><span class="p"><a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 4</a></span></div>
+    <div class="l"><span class="r"><code>/admin/exchanges/history</code></span><span class="f"><code class="v">exchanges/history.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 15</a></span></div>
+    <div class="l"><span class="r"><code>/admin/moments</code></span><span class="f"><code class="v">admin/moments.vue</code></span><span class="p"><a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 5</a></span></div>
+    <div class="l"><span class="r"><code>/admin/moderation</code></span><span class="f"><code class="v">admin/moderation.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-10-administration.html">Pages 10 · 16</a></span></div>
+  </div>
+  <div class="chap" id="g10"><span class="num">10</span><h2>La coulisse</h2><span class="filet"></span></div>
+  <p class="chap-sub">L'écran qui n'est pas pour les voisins.</p>
+  <div class="table">
+    <div class="tete"><span class="r">Route</span><span class="f">Fichier</span><span class="p">Où elle est dessinée</span></div>
+    <div class="l"><span class="r"><code>/debug/deep-link</code></span><span class="f"><code class="v">debug/deep-link.vue</code></span><span class="p"><span class="neuf">neuf</span> <a href="brandkit/explorations/pages-11-avis.html">Pages 11 · 5</a></span></div>
+  </div>
+
+<div class="or" style="margin-top:46px">
+  <p class="k">Ce qui n'est pas une page</p>
+  <h2>Et les surfaces qui n'ont <span class="souligne">pas de route</span></h2>
+  <p>Une part du travail ne tient dans aucune ligne du tableau : ce sont les feuilles, les dialogues, les menus et les états qui se posent <b>par-dessus</b> une page. Ils ont leurs propres planches.</p>
+  <ul>
+    <li><b><a href="brandkit/explorations/fiches-modales.html">Les fiches en modale</a></b> — les sept fiches en modale, et la règle qui dit quand une feuille devient un dialogue.</li>
+    <li><b><a href="brandkit/explorations/surfaces.html">Les surfaces</a></b> et <b><a href="brandkit/explorations/surfaces-restantes.html">les surfaces restantes</a></b> — feuilles, dialogues, bandeaux, menus ancrés, états vides et d'erreur.</li>
+    <li><b><a href="brandkit/explorations/selecteur.html">Le sélecteur</a></b> — la règle du choix : jamais de panneau, des cases et un pied collant.</li>
+    <li><b><a href="brandkit/explorations/chargement.html">Les temps de chargement</a></b> — ce qu'on voit pendant que ça charge, écran par écran.</li>
+    <li><b><a href="brandkit/explorations/enveloppe-unique.html">L'enveloppe unique</a></b> — l'enveloppe unique : la barre du haut, celle du bas, et les zones utilisées.</li>
+    <li><b><a href="brandkit/bibliotheque.html">La bibliothèque de composants</a></b> — l'inventaire visuel de tous les composants, à jour.</li>
+  </ul>
+</div>
+
+<div class="pied">
+  TempsPourTemps — identité visuelle · Le relevé de couverture · Routes relevées dans <code>app/pages</code> du dépôt <code>tempspourtemps-stseb</code>.<br>
+  <a href="index.html">Le design retenu</a> · <a href="implementation.html">Les règles d'implémentation</a> · <a href="migration.html">Le protocole de migration</a> · <a href="decisions.html">Les décisions préalables</a> · <a href="brandkit/bibliotheque.html">La bibliothèque</a>
+</div>
+
+</div>
+</body>
+</html>

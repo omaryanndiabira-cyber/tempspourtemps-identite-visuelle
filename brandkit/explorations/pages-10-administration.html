@@ -22,6 +22,18 @@
   }
   .note-interne b{font-family:var(--titres);font-weight:800;color:var(--marine);}
   .note-interne .sign{display:block;margin-top:5px;font-size:10px;font-style:italic;color:var(--text-tertiary);}
+  /* les participants d'un moment : médaillons suivis du prénom */
+  .participants{display:flex;flex-wrap:wrap;align-items:center;gap:9px;}
+  .participants .p{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--text-secondary);white-space:nowrap;}
+  .participants .p .avatar{width:22px;height:22px;font-size:8px;border:1px solid var(--border);}
+  /* la semaine type : une heure ouverte tient sur une ligne */
+  .heure-ouverte{display:flex;align-items:center;gap:9px;padding:7px 0;border-top:1px dotted var(--border);}
+  .heure-ouverte:first-child{border-top:0;}
+  .heure-ouverte .qui{flex:1;min-width:0;font-size:12px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .heure-ouverte .qui b{font-family:var(--titres);font-weight:800;color:var(--marine);}
+  .heure-ouverte .quand{font-family:var(--titres);font-weight:800;font-size:12px;color:var(--marine);font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .heure-ouverte .oter{border:0;background:none;cursor:pointer;color:var(--danger);padding:2px;line-height:0;}
+  .heure-ouverte .oter svg{width:14px;height:14px;}
 </style>
 </head>
 <body>
@@ -30,11 +42,12 @@
   <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
   <p class="kicker">Pages · famille 10</p>
   <h1>Administration</h1>
-  <p>Les écrans de l'association ne sont pas ceux des voisins : ils se reconnaissent à un <b>bandeau marine foncé</b> et à un ruban « Administration » sous la barre. Le vocabulaire reste celui de la gazette — registres, fiches, grand livre — mais la densité augmente et les états prennent le pas sur la mise en scène.</p>
+  <p>Les écrans de l'association ne sont pas ceux des voisins : ils se reconnaissent à un <b>bandeau marine foncé</b> et à un ruban « Administration » sous la barre. Le vocabulaire reste celui de la gazette — registres, fiches, grand livre — mais la densité augmente et les états prennent le pas sur la mise en scène. <b>Les seize écrans de l'administration y sont, sans exception</b> : les six premiers ont été dessinés d'abord, les dix suivants complètent la famille.</p>
   <div class="traits">
     <span><b>Repère</b> ruban marine foncé</span>
     <span><b>Listes</b> registres à jauges</span>
-    <span><b>Écrans</b> 6 des 15 pages</span>
+    <span><b>Écrans</b> 16 sur 16</span>
+    <span><b>Routes</b> /admin/*</span>
   </div>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
 </header>
@@ -56,7 +69,7 @@
       <main class="feed feed--avec-barre">
         <section class="grand-titre">
           <h1>L'association</h1>
-          <p class="date">Mercredi 10 juin · <b>7 choses</b> demandent votre attention</p>
+          <p class="date">Mercredi 10 juin · <b>10 choses</b> demandent votre attention</p>
           <div class="regle"></div>
         </section>
 
@@ -64,6 +77,7 @@
           <div class="jauge-case jauge-case--alerte"><div class="v">3</div><div class="l">à qualifier</div></div>
           <div class="jauge-case jauge-case--attente"><div class="v">2</div><div class="l">à relancer</div></div>
           <div class="jauge-case"><div class="v">2</div><div class="l">à déclarer</div></div>
+          <div class="jauge-case jauge-case--alerte"><div class="v">3</div><div class="l">signalements</div></div>
           <div class="jauge-case"><div class="v">148</div><div class="l">membres</div></div>
         </div>
 
@@ -93,6 +107,11 @@
             <div class="c"><b>Les moments</b><p class="d">Saisir l'entraide qui se passe hors plateforme</p></div>
             <span class="compte">2</span><span class="chev">›</span>
           </a>
+          <a class="reglage" href="#">
+            <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4h11l-1.5 3L15 10H4"/><path d="M4 4v17"/></svg></span>
+            <div class="c"><b>La modération</b><p class="d">Publications et commentaires signalés</p></div>
+            <span class="compte">3</span><span class="chev">›</span>
+          </a>
         </div>
       </main>
 
@@ -103,7 +122,7 @@
       </div>
       <span class="home"></span>
     </div>
-    <p class="note">Le sommaire s'ouvre sur <b>quatre jauges</b> — ce qui attend vraiment — avant la liste des cinq registres. Les compteurs à droite de chaque ligne évitent d'ouvrir pour savoir s'il y a du travail. Le ruban marine foncé signale qu'on a quitté l'espace des voisins.</p>
+    <p class="note">Le sommaire s'ouvre sur <b>les jauges</b> — ce qui attend vraiment — avant la liste des six registres. Les compteurs à droite de chaque ligne évitent d'ouvrir pour savoir s'il y a du travail. Le ruban marine foncé signale qu'on a quitté l'espace des voisins.</p>
   </figure>
 
   <!-- ========== 2 · LES CANDIDATS ========== -->
@@ -513,10 +532,847 @@
     <p class="note">L'anomalie remonte <b>en tête d'écran</b> plutôt que de se cacher dans la liste : un filleul gelé bloque un compte, c'est la seule chose à traiter ici. Sa ligne porte l'action de réparation directement, en lien à filet, sans ouvrir une fiche.</p>
   </figure>
 
+
+  <!-- ========== 7 · L'AGENDA DES RENDEZ-VOUS ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">7</span><h2>L'agenda des rendez-vous</h2><span class="route">admin · agenda</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">L'agenda</span>
+        <button class="ibtn" aria-label="Ajouter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed feed--avec-barre">
+        <div class="onglets" style="margin-top:14px">
+          <a href="#">Les personnes</a>
+          <a class="on" href="#">L'agenda</a>
+          <a href="#">Les créneaux</a>
+        </div>
+
+        <div class="jauges">
+          <div class="jauge-case jauge-case--attente"><div class="v">4</div><div class="l">cette semaine</div></div>
+          <div class="jauge-case"><div class="v">2</div><div class="l">la suivante</div></div>
+          <div class="jauge-case"><div class="v">31</div><div class="l">depuis janvier</div></div>
+        </div>
+
+        <div class="filtres-ligne">
+          <a class="on" href="#">À venir</a>
+          <a href="#">Passés</a>
+          <a href="#">Tous</a>
+        </div>
+        <div class="duo" style="margin:0 18px 12px">
+          <div class="select"><span class="lab">Type</span><span>Tous</span><span class="chev">▾</span></div>
+          <div class="select"><span class="lab">Bénévole</span><span>Camille</span><span class="chev">▾</span></div>
+        </div>
+
+        <div class="jour" style="margin:0 18px">Jeudi 12 juin</div>
+        <div class="agenda">
+          <article class="agenda-ligne agenda-ligne--action">
+            <div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">14:00</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--marine">Téléphone</span><span class="jauge">15 min</span></div>
+              <h3>Claire Dubois</h3>
+              <p class="lieu">06 12 34 56 78 · reçue par Camille</p>
+              <div class="pied">
+                <a class="lien-cal" href="#">Ajouter à mon agenda</a>
+                <a class="lien-filet" href="#">Ouvrir sa fiche</a>
+              </div>
+            </div>
+          </article>
+          <article class="agenda-ligne agenda-ligne--action">
+            <div class="quand"><div class="j">12</div><div class="m">Juin</div><div class="h">17:30</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--marine">Café</span><span class="jauge">45 min</span></div>
+              <h3>Robert Maury</h3>
+              <p class="lieu">06 98 76 54 32 · reçu par Omar</p>
+              <div class="pied">
+                <a class="lien-cal" href="#">Ajouter à mon agenda</a>
+                <a class="lien-filet" href="#">Ouvrir sa fiche</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="jour" style="margin:14px 18px 0">Lundi 16 juin</div>
+        <div class="agenda">
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">16</div><div class="m">Juin</div><div class="h">10:00</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--marine">À domicile</span><span class="jauge">1 h</span></div>
+              <h3>Geneviève Hamon</h3>
+              <p class="lieu">12 rue Pasteur · reçue par Camille</p>
+              <div class="pied">
+                <a class="lien-cal" href="#">Ajouter à mon agenda</a>
+                <a class="lien-filet" href="#">Ouvrir sa fiche</a>
+              </div>
+            </div>
+          </article>
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">16</div><div class="m">Juin</div><div class="h">18:00</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--marine">Téléphone</span><span class="jauge">15 min</span></div>
+              <h3>Thomas Leroy</h3>
+              <p class="lieu">06 45 23 78 91 · reçu par Camille</p>
+              <div class="pied">
+                <a class="lien-cal" href="#">Ajouter à mon agenda</a>
+                <a class="lien-filet" href="#">Ouvrir sa fiche</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="encart encart--info" style="margin-top:16px">
+          <b>Trois jours sans rendez-vous.</b> Le prochain créneau libre est le 19 juin à 14 h. Les <a href="#" style="color:var(--orange);font-weight:700;text-decoration:none">créneaux de visite</a> règlent ce qui est proposé aux candidats.
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Le même agenda que « À l'affiche », avec les repères de l'administration : la date en gros à gauche, le <b>type de rendez-vous en pastille marine</b> plutôt qu'en couleur d'état — un café n'est ni un succès ni une alerte. Les rendez-vous du jour portent le filet orange ; les suivants restent gris. Chaque ligne mène à la fiche, et le lien d'agenda évite d'avoir à recopier l'heure ailleurs.</p>
+  </figure>
+
+  <!-- ========== 8 · LES CRÉNEAUX DE VISITE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">8</span><h2>Les créneaux de visite</h2><span class="route">admin · créneaux</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Les créneaux</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed feed--avec-barre">
+        <div class="onglets" style="margin-top:14px">
+          <a href="#">Les personnes</a>
+          <a href="#">L'agenda</a>
+          <a class="on" href="#">Les créneaux</a>
+        </div>
+
+        <div class="encart encart--info">
+          <b>Ce ne sont pas des rendez-vous</b>, mais les heures que vous laissez ouvertes chaque semaine — celles où un candidat pourra se poser lui-même.
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Ouvrir une heure</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="form" style="padding-top:0">
+          <div class="form-groupe">
+            <label>Qui reçoit</label>
+            <div class="duo">
+              <div class="select"><span class="lab">Bénévole</span><span>Camille</span><span class="chev">▾</span></div>
+              <div class="select"><span class="lab">Type</span><span>Téléphone</span><span class="chev">▾</span></div>
+            </div>
+          </div>
+          <div class="form-groupe">
+            <label>Quand, chaque semaine</label>
+            <div class="duo">
+              <div class="select"><span class="lab">Jour</span><span>Mardi</span><span class="chev">▾</span></div>
+              <div class="saisie saisie--rempli">09:00</div>
+              <div class="saisie saisie--rempli">12:00</div>
+            </div>
+          </div>
+          <button class="btn-plein btn-plein--orange" type="button">Ouvrir cette heure</button>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>La semaine type</h2><span class="badge-compte">6</span></span>
+          <span class="filet"></span>
+        </div>
+        <div class="jour-creneaux">
+          <div class="t">Lundi</div>
+            <div class="heure-ouverte"><span class="qui"><b>Camille</b> · Café de rencontre</span><span class="quand">17:00 — 19:00</span><button class="oter" aria-label="Retirer cette heure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+        </div>
+
+        <div class="jour-creneaux">
+          <div class="t">Mardi</div>
+            <div class="heure-ouverte"><span class="qui"><b>Camille</b> · Entretien téléphonique</span><span class="quand">09:00 — 12:00</span><button class="oter" aria-label="Retirer cette heure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            <div class="heure-ouverte"><span class="qui"><b>Omar</b> · Entretien téléphonique</span><span class="quand">14:00 — 16:00</span><button class="oter" aria-label="Retirer cette heure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+        </div>
+
+        <div class="jour-creneaux">
+          <div class="t">Jeudi</div>
+            <div class="heure-ouverte"><span class="qui"><b>Camille</b> · Entretien téléphonique</span><span class="quand">14:00 — 16:00</span><button class="oter" aria-label="Retirer cette heure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            <div class="heure-ouverte"><span class="qui"><b>Omar</b> · Visite à domicile</span><span class="quand">16:00 — 18:00</span><button class="oter" aria-label="Retirer cette heure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+        </div>
+
+        <div class="jour-creneaux">
+          <div class="t">Samedi</div>
+            <div class="heure-ouverte"><span class="qui"><b>Camille</b> · Café de rencontre</span><span class="quand">10:00 — 12:00</span><button class="oter" aria-label="Retirer cette heure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+        </div>
+
+        <div class="encart encart--attention" style="margin-top:4px">
+          <b>Mercredi, vendredi et dimanche sont fermés.</b> Un candidat qui ouvre la page de réservation ne verra donc jamais ces jours-là.
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">L'écran le plus abstrait de l'administration : des heures qui se répètent, pas des évènements. Il est donc dessiné en <b>semaine type</b>, jour par jour, plutôt qu'en liste à plat — on voit d'un coup d'œil que mercredi est fermé, ce qu'une liste de six lignes ne dit jamais. L'encart du haut lève la confusion avec l'agenda, et celui du bas énonce la conséquence côté candidat.</p>
+  </figure>
+
+  <!-- ========== 9 · CRÉER UN COMPTE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">9</span><h2>Créer un compte</h2><span class="route">admin · créer</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Les comptes</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed feed--avec-barre">
+        <div class="onglets" style="margin-top:14px">
+          <a class="on" href="#">Créer</a>
+          <a href="#">Supprimer</a>
+          <a href="#">Mot de passe</a>
+          <a href="#">La charte</a>
+        </div>
+
+        <div class="form" style="padding-top:2px">
+          <div class="form-groupe">
+            <label>Qui</label>
+            <div class="duo">
+              <div class="saisie saisie--rempli">Nadia</div>
+              <div class="saisie saisie--rempli">Fournier</div>
+            </div>
+          </div>
+          <div class="form-groupe">
+            <label>Courriel</label>
+            <div class="saisie saisie--rempli">nadia.fournier@exemple.fr</div>
+          </div>
+          <div class="form-groupe">
+            <label>Téléphone</label>
+            <div class="saisie saisie--rempli">06 24 51 90 38</div>
+            <p class="aide">Le courriel sert à créer le compte et à s'y connecter, le téléphone à vous joindre. <b style="color:var(--marine)">Ni l'un ni l'autre n'est visible par les autres membres.</b></p>
+          </div>
+          <div class="form-groupe">
+            <label>Mot de passe provisoire <span class="opt">facultatif</span></label>
+            <div class="saisie">tempspourtemps</div>
+            <p class="aide">Laissé vide, c'est « tempspourtemps » qui sera posé. Elle devra le changer à sa première connexion.</p>
+          </div>
+          <button class="btn-plein btn-plein--orange" type="button">Créer le compte</button>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Ce qu'il reste à faire</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div style="margin:0 18px;background:rgba(74,157,95,.08);border:1px solid rgba(74,157,95,.32);border-radius:12px;padding:13px 14px">
+          <div class="statut">Compte créé</div>
+          <p style="font-size:12.5px;line-height:1.55;color:var(--text-secondary)">
+            <b style="font-family:var(--titres);font-weight:800;color:var(--marine)">nadia.fournier@exemple.fr</b><br>
+            Mot de passe provisoire :
+          </p>
+          <div style="display:flex;align-items:center;gap:9px;margin-top:8px">
+            <code style="flex:1;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;letter-spacing:.04em;background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:9px 11px;color:var(--marine)">tempspourtemps</code>
+            <button class="action" type="button">Copier</button>
+          </div>
+          <p style="font-size:11px;color:var(--text-tertiary);margin-top:9px;line-height:1.45">Transmettez-le de la main à la main ou par téléphone. Cet écran est le <b style="font-family:var(--titres);font-weight:800;color:var(--marine)">seul endroit</b> où il s'affiche : il ne sera pas retrouvable ensuite.</p>
+        </div>
+
+        <div class="encart encart--info" style="margin-top:14px">
+          <b>Et après ?</b> Nadia reçoit son embarquement à la première connexion : profil, ce qu'elle sait faire, ce dont elle aurait besoin, puis la charte. Son compte n'apparaît dans l'annuaire qu'à la fin.
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Quatre champs et un bouton — mais le vrai sujet est <b>ce qui s'affiche après</b>. Le mot de passe provisoire ne se montre qu'une fois : il est donc posé en caractères de machine, avec un bouton pour le copier et la phrase qui dit qu'on ne le reverra pas. Le dernier encart raconte la suite côté membre, pour que le bénévole sache quoi annoncer au téléphone.</p>
+  </figure>
+
+  <!-- ========== 10 · SUPPRIMER UN COMPTE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">10</span><h2>Supprimer un compte</h2><span class="route">admin · supprimer</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Les comptes</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed">
+        <div class="onglets" style="margin-top:14px">
+          <a href="#">Créer</a>
+          <a class="on" href="#">Supprimer</a>
+          <a href="#">Mot de passe</a>
+          <a href="#">La charte</a>
+        </div>
+
+        <div class="encart encart--danger">
+          <b>Irréversible.</b> Les données personnelles sont anonymisées et le compte désactivé. Les heures déjà échangées restent au grand livre, sous un nom effacé.
+        </div>
+
+        <div class="champ" style="margin-top:0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span>Nom, prénom ou courriel…</span>
+        </div>
+
+        <div style="margin:14px 18px 0;display:flex;align-items:center;gap:13px;background:var(--paper);border:1px solid var(--marine);border-radius:12px;padding:13px 14px">
+          <span class="avatar av-creme" style="width:46px;height:46px;font-size:14px;border:1.5px solid var(--sable)">TL</span>
+          <div style="flex:1;min-width:0">
+            <b style="display:block;font-family:var(--titres);font-weight:800;font-size:15px">Thomas Leroy</b>
+            <p style="font-size:11px;color:var(--text-tertiary);margin-top:2px">thomas.leroy@exemple.fr · membre depuis mai 2025</p>
+          </div>
+          <button class="ibtn" aria-label="Désélectionner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+
+        <div style="padding:12px 18px 0">
+          <button class="btn-plein btn-plein--danger" type="button">Supprimer ce compte</button>
+        </div>
+
+        <div class="voile voile--centre">
+          <div class="dialogue">
+            <div class="tete">
+              <span class="pic pic--danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg></span>
+              <h3>Supprimer le compte de Thomas Leroy ?</h3>
+            </div>
+            <div class="corps">
+              Ses données personnelles seront anonymisées et son compte désactivé. <b>C'est définitif.</b>
+            </div>
+            <div class="regle"></div>
+            <div class="form" style="padding:12px 18px 4px">
+              <div class="form-groupe">
+                <label>Votre mot de passe</label>
+                <div class="saisie">••••••••</div>
+                <p class="aide">C'est vous qui signez l'opération : elle sera inscrite au journal sous votre nom.</p>
+              </div>
+            </div>
+            <div class="pied pied--empile">
+              <button class="btn-plein btn-plein--danger" type="button">Supprimer</button>
+              <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <span class="home"></span>
+    </div>
+    <p class="note">Le seul écran de l'application où l'on efface quelqu'un. Il est donc ralenti trois fois : l'encart rouge d'abord, la fiche de la personne ensuite — avec son visage, pour qu'on vérifie qu'on a le bon Thomas — et le dialogue qui redemande le mot de passe. Les boutons y sont <b>empilés, l'action en haut, l'issue sûre en bas</b> : c'est la règle des dialogues destructeurs.</p>
+  </figure>
+
+  <!-- ========== 11 · RÉINITIALISER UN MOT DE PASSE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">11</span><h2>Réinitialiser un mot de passe</h2><span class="route">admin · mot de passe</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Les comptes</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed feed--avec-barre">
+        <div class="onglets" style="margin-top:14px">
+          <a href="#">Créer</a>
+          <a href="#">Supprimer</a>
+          <a class="on" href="#">Mot de passe</a>
+          <a href="#">La charte</a>
+        </div>
+
+        <div style="margin:2px 18px 0;display:flex;align-items:center;gap:13px;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:13px 14px">
+          <span class="avatar av-vert" style="width:46px;height:46px;font-size:14px;border:1.5px solid var(--sable)">JM</span>
+          <div style="flex:1;min-width:0">
+            <b style="display:block;font-family:var(--titres);font-weight:800;font-size:15px">Jean Mercier</b>
+            <p style="font-size:11px;color:var(--text-tertiary);margin-top:2px">jean.mercier@exemple.fr</p>
+          </div>
+          <button class="ibtn" aria-label="Changer de personne"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Ce qui va se passer</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="etapes">
+          <div class="etape-ligne"><span class="rond">1</span><b>Un courriel part chez lui</b><span class="m">dans la minute</span></div>
+          <div class="etape-ligne"><span class="rond">2</span><b>Ses sessions se ferment</b><span class="m">toutes</span></div>
+          <div class="etape-ligne"><span class="rond">3</span><b>Il choisit son mot de passe</b><span class="m">lien valable 1 h</span></div>
+        </div>
+
+        <div class="form">
+          <div class="form-groupe">
+            <label>Votre mot de passe</label>
+            <div class="saisie">••••••••</div>
+            <p class="aide">Vous confirmez votre identité : l'envoi est inscrit au journal sous votre nom.</p>
+          </div>
+        </div>
+        <div class="form-pied">
+          <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+          <button class="btn-plein btn-plein--orange" type="button">Envoyer le lien</button>
+        </div>
+
+        <div class="encart encart--attention">
+          <b>Une personne parrainée n'a rien à réinitialiser.</b> Elle ne se connecte jamais : c'est son parrain ou sa marraine qui agit depuis son propre compte. L'écran le dit <b>avant</b> le champ de mot de passe, et propose de choisir quelqu'un d'autre — plutôt que de refuser après coup.
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Le geste est invisible — un courriel part — donc l'écran le rend visible : <b>trois étapes numérotées</b> disent ce que la personne va vivre, dans l'ordre, avant qu'on appuie. La déconnexion de toutes ses sessions est la conséquence qu'on oublie le plus souvent : elle est en deuxième ligne, pas en bas de page. L'encart sable couvre le seul cas où l'opération n'a pas de sens.</p>
+  </figure>
+
+  <!-- ========== 12 · LES SIGNATURES DE LA CHARTE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">12</span><h2>Les signatures de la charte</h2><span class="route">admin · charte</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Les comptes</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed feed--avec-barre">
+        <div class="onglets" style="margin-top:14px">
+          <a href="#">Créer</a>
+          <a href="#">Supprimer</a>
+          <a href="#">Mot de passe</a>
+          <a class="on" href="#">La charte</a>
+        </div>
+
+        <section class="grand-titre" style="padding-top:2px">
+          <h1>La charte</h1>
+          <p class="date">Version <b>2026-01</b> · 9 comptes sans signature à jour</p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="filtres-ligne">
+          <a class="on" href="#">À signer</a>
+          <a href="#">Signataires</a>
+          <a href="#">Tous</a>
+        </div>
+        <div class="compteurs">
+          <div><div class="v" style="color:var(--orange-hover)">9</div><div class="l">à signer</div></div>
+          <div><div class="v" style="color:var(--success)">139</div><div class="l">à jour</div></div>
+          <div><div class="v">148</div><div class="l">comptes</div></div>
+        </div>
+        <p class="compteurs-note">Une nouvelle version remet tout le monde à « à signer ».</p>
+
+        <div class="registre" style="margin-top:14px">
+          <div class="registre-tete"><span>9 comptes</span><span>du plus ancien</span></div>
+
+          <div class="registre-ligne">
+            <span class="avatar av-creme" style="border:1.5px solid var(--border)">TL</span>
+            <div class="c">
+              <b>Thomas Leroy</b>
+              <p class="m">thomas.leroy@exemple.fr · membre</p>
+            </div>
+            <span class="etat etat--attente">Jamais</span>
+          </div>
+
+          <div class="registre-ligne">
+            <span class="avatar av-bleu" style="border:1.5px solid var(--border)">SK</span>
+            <div class="c">
+              <b>Sonia Klein</b>
+              <p class="m">sonia.klein@exemple.fr · membre</p>
+              <p class="d">A signé la version 2025-06, le 4 juillet 2025</p>
+            </div>
+            <span class="etat etat--attente">Périmée</span>
+          </div>
+
+          <div class="registre-ligne">
+            <span class="avatar av-rose" style="border:1.5px solid var(--border)">GH</span>
+            <div class="c">
+              <b>Geneviève Hamon</b>
+              <p class="m">pas de courriel · personne parrainée</p>
+              <p class="d">Signée pour elle par Marie Morel, le 3 mars</p>
+            </div>
+            <span class="etat etat--marine">Par sa marraine</span>
+          </div>
+
+          <div class="registre-ligne">
+            <span class="avatar av-vert" style="border:1.5px solid var(--border)">NF</span>
+            <div class="c">
+              <b>Nadia Fournier</b>
+              <p class="m">nadia.fournier@exemple.fr · membre</p>
+              <p class="d">Embarquement en cours — signera à l'étape 4</p>
+            </div>
+            <span class="etat etat--neutre">En route</span>
+          </div>
+
+          <div class="registre-pied">9 comptes · page 1 sur 1</div>
+        </div>
+
+        <div class="encart encart--info" style="margin-top:14px">
+          <b>Rien à relancer d'ici.</b> Cet écran compte, il n'écrit pas : la charte se signe à l'embarquement, ou au premier écran qui suit une nouvelle version. On vient ici pour savoir où l'on en est avant une assemblée.
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Un suivi, pas une file de travail : trois compteurs en tête répondent à la question qu'on vient poser — <b>combien manquent</b> — avant toute liste. Les états distinguent quatre situations qu'une case à cocher confondrait : jamais signée, signée dans une version périmée, signée par un parrain au nom d'une personne parrainée, et embarquement encore en cours. L'encart ferme la porte aux relances depuis cet écran.</p>
+  </figure>
+
+  <!-- ========== 13 · LES PARRAINS ET LES MARRAINES ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">13</span><h2>Les parrains et les marraines</h2><span class="route">admin · parrains</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Le parrainage</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed feed--avec-barre">
+        <div class="onglets" style="margin-top:14px">
+          <a class="on" href="#">Parrains</a>
+          <a href="#">Filleuls</a>
+          <a href="#">Journal</a>
+        </div>
+
+        <div class="jauges">
+          <div class="jauge-case"><div class="v">8</div><div class="l">en exercice</div></div>
+          <div class="jauge-case jauge-case--attente"><div class="v">3</div><div class="l">disponibles</div></div>
+          <div class="jauge-case jauge-case--alerte"><div class="v">1</div><div class="l">filleul gelé</div></div>
+        </div>
+
+        <div class="registre">
+          <div class="registre-tete"><span>8 parrains et marraines</span><span>par nom</span></div>
+
+          <div class="registre-ligne">
+            <span class="avatar av-rose" style="border:1.5px solid var(--border)">MM</span>
+            <div class="c">
+              <b>Marie Morel</b>
+              <p class="d">Marraine de <b style="font-family:var(--corps);font-weight:600;display:inline">Geneviève Hamon</b></p>
+              <p class="m">depuis le 3 mars · 14 échanges menés pour elle</p>
+            </div>
+            <button class="action" type="button" style="color:var(--danger);border-color:rgba(196,69,54,.4)">Retirer</button>
+          </div>
+
+          <div class="registre-ligne">
+            <span class="avatar av-marine" style="border:1.5px solid var(--border)">OD</span>
+            <div class="c">
+              <b>Omar Diabira</b>
+              <p class="d">Parrain de <b style="font-family:var(--corps);font-weight:600;display:inline">Jean Mercier</b></p>
+              <p class="m">depuis le 14 avril · 6 échanges menés pour lui</p>
+            </div>
+            <button class="action" type="button" style="color:var(--danger);border-color:rgba(196,69,54,.4)">Retirer</button>
+          </div>
+
+          <div class="registre-ligne">
+            <span class="avatar av-vert" style="border:1.5px solid var(--border)">LG</span>
+            <div class="c">
+              <b>Lucie Garnier</b>
+              <p class="d" style="font-style:italic;color:var(--text-tertiary)">Disponible — personne à accompagner</p>
+              <p class="m">nommée le 2 juin</p>
+            </div>
+            <button class="action" type="button" style="color:var(--danger);border-color:rgba(196,69,54,.4)">Retirer</button>
+          </div>
+
+          <div class="registre-pied">8 parrains et marraines</div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Nommer quelqu'un</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="champ" style="margin-top:0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span>Chercher un membre…</span>
+        </div>
+        <p class="aide" style="margin:7px 18px 0">Les membres déjà parrains, marraines ou parrainés n'apparaissent pas dans cette recherche.</p>
+
+        <div class="encart encart--attention" style="margin-top:14px">
+          <b>Retirer le rôle n'est pas anodin.</b> Le parrainage en cours est suspendu, et le filleul se retrouve <b>gelé</b> — compte bloqué jusqu'à réaffectation. Le dialogue demande de recopier le nom avant d'accepter.
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Chaque ligne répond à la seule question utile : <b>qui cette personne accompagne-t-elle</b> ? Les parrains sans filleul le disent en italique gris — « disponible » est une information, pas un manque. La jauge rouge en tête relie cet écran au suivant : un filleul gelé est une conséquence de ce qui se décide ici. Le retrait passe par un dialogue à recopie de nom, dessiné dans la planche des dialogues bloquants.</p>
+  </figure>
+
+  <!-- ========== 14 · LE JOURNAL DU PARRAINAGE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">14</span><h2>Le journal du parrainage</h2><span class="route">admin · journal</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Le parrainage</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed feed--avec-barre">
+        <div class="onglets" style="margin-top:14px">
+          <a href="#">Parrains</a>
+          <a href="#">Filleuls</a>
+          <a class="on" href="#">Journal</a>
+        </div>
+
+        <div class="champ" style="margin-top:2px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span>Filtrer par parrain ou marraine…</span>
+        </div>
+
+        <div class="agenda" style="margin-top:14px">
+          <article class="agenda-ligne agenda-ligne--urgent">
+            <div class="quand"><div class="j">08</div><div class="m">Juin</div><div class="h">16:12</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--alerte">Suspendu</span></div>
+              <h3>Parrainage suspendu</h3>
+              <p class="lieu">Parrain : Paul Lemoine · Filleul : Robert Maury</p>
+              <p class="orga" style="margin-top:6px">Motif : rôle de parrain retiré · message joint</p>
+            </div>
+          </article>
+
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">02</div><div class="m">Juin</div><div class="h">11:40</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--marine">Réaffecté</span></div>
+              <h3>Réaffectation à une marraine</h3>
+              <p class="lieu">Marraine : Marie Morel · Filleule : Geneviève Hamon</p>
+            </div>
+          </article>
+
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">20</div><div class="m">Mai</div><div class="h">09:05</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--neutre">Sortie demandée</span></div>
+              <h3>Demande de sortie de rôle</h3>
+              <p class="lieu">Parrain : Paul Lemoine · Filleul : Robert Maury</p>
+              <p class="orga" style="margin-top:6px">message joint</p>
+            </div>
+          </article>
+
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">14</div><div class="m">Avr</div><div class="h">18:22</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--ok">Créé</span></div>
+              <h3>Création du filleul</h3>
+              <p class="lieu">Parrain : Omar Diabira · Filleul : Jean Mercier</p>
+            </div>
+          </article>
+
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">03</div><div class="m">Mar</div><div class="h">14:51</div></div>
+            <div class="c">
+              <div class="g"><span class="etat etat--ok">Créée</span></div>
+              <h3>Création de la filleule</h3>
+              <p class="lieu">Marraine : Marie Morel · Filleule : Geneviève Hamon</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="registre-pied" style="margin:0 18px;border-top:2px solid var(--marine)">37 écritures · page 1 sur 4</div>
+
+        <div class="encart encart--info" style="margin-top:14px">
+          <b>On n'efface rien ici.</b> Le journal est la mémoire du parrainage : il explique pourquoi un compte est bloqué, trois mois après. Aucune ligne ne porte d'action.
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Un journal se lit à l'envers du temps, donc il reprend l'agenda : la date à gauche, l'écriture à droite. L'<b>état en pastille</b> permet de balayer la colonne sans lire les phrases — c'est ce qu'on fait quand on cherche quand un parrainage a lâché. Les lignes rouges sont celles qui ont eu une conséquence sur un compte ; les autres restent grises. Rien n'est cliquable : un journal ne se répare pas.</p>
+  </figure>
+
+  <!-- ========== 15 · L'HISTORIQUE DES RÉGULARISATIONS ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">15</span><h2>L'historique des régularisations</h2><span class="route">admin · historique</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Les échanges</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed feed--avec-barre">
+        <div class="onglets" style="margin-top:14px">
+          <a href="#">Régulariser</a>
+          <a class="on" href="#">L'historique</a>
+        </div>
+
+        <section class="grand-titre" style="padding-top:2px">
+          <h1>Ce qui a été inscrit</h1>
+          <p class="date">Juin 2026 · <b>3 écritures</b> · 9 h 30 déplacées</p>
+          <div class="regle"></div>
+        </section>
+
+        <div style="margin:14px 18px 0;background:var(--paper);border:1px solid var(--marine);border-radius:12px;padding:12px 14px 2px">
+          <div style="display:flex;align-items:baseline;gap:9px">
+            <h3 style="flex:1;font-family:var(--titres);font-weight:800;font-size:14.5px">Atelier couture du jeudi</h3>
+            <span style="font-size:10px;color:var(--text-tertiary);white-space:nowrap">le 6 juin</span>
+          </div>
+          <p style="font-size:11px;color:var(--text-tertiary);margin-top:3px">Atelier du 5 juin · 2 h 30 · inscrit par <b style="color:var(--marine);font-weight:600">Camille</b></p>
+          <div style="margin-top:11px">
+            <div style="display:flex;padding:8px 0 7px;border-bottom:2px solid var(--marine);font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary)"><span style="flex:1">Membre</span><span style="width:62px;text-align:right">Mouvement</span></div>
+            <div style="display:flex;align-items:baseline;padding:9px 0;font-size:12.5px"><span style="flex:1"><b style="font-family:var(--titres);font-weight:800">Lucie Garnier</b><br><em style="font-style:normal;font-size:10.5px;color:var(--text-tertiary)">animatrice</em></span><span style="width:62px;text-align:right;font-family:var(--titres);font-weight:800;color:var(--success)">+ 2 h 30</span></div>
+            <div style="display:flex;align-items:baseline;padding:9px 0;border-top:1px dotted var(--border);font-size:12.5px"><span style="flex:1"><b style="font-family:var(--titres);font-weight:800">Alice Noël</b><br><em style="font-style:normal;font-size:10.5px;color:var(--text-tertiary)">participante</em></span><span style="width:62px;text-align:right;font-family:var(--titres);font-weight:800;color:var(--orange-hover)">− 2 h</span></div>
+            <div style="display:flex;align-items:baseline;padding:9px 0;border-top:1px dotted var(--border);font-size:12.5px"><span style="flex:1"><b style="font-family:var(--titres);font-weight:800">Sonia Klein</b><br><em style="font-style:normal;font-size:10.5px;color:var(--text-tertiary)">participante</em></span><span style="width:62px;text-align:right;font-family:var(--titres);font-weight:800;color:var(--orange-hover)">− 2 h</span></div>
+            <div style="display:flex;align-items:baseline;padding:9px 0;border-top:1px dotted var(--border);font-size:12.5px"><span style="flex:1"><b style="font-family:var(--titres);font-weight:800">Marie Morel</b><br><em style="font-style:normal;font-size:10.5px;color:var(--text-tertiary)">participante</em></span><span style="width:62px;text-align:right;font-family:var(--titres);font-weight:800;color:var(--orange-hover)">− 2 h</span></div>
+          </div>
+        </div>
+
+        <div style="margin:12px 18px 0;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:12px 14px 2px">
+          <div style="display:flex;align-items:baseline;gap:9px">
+            <h3 style="flex:1;font-family:var(--titres);font-weight:800;font-size:14.5px">Dépannage informatique</h3>
+            <span style="font-size:10px;color:var(--text-tertiary);white-space:nowrap">le 3 juin</span>
+          </div>
+          <p style="font-size:11px;color:var(--text-tertiary);margin-top:3px">Échange du 1er juin · 1 h · inscrit par <b style="color:var(--marine);font-weight:600">Omar</b></p>
+          <div style="margin-top:11px">
+            <div style="display:flex;padding:8px 0 7px;border-bottom:2px solid var(--marine);font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary)"><span style="flex:1">Membre</span><span style="width:62px;text-align:right">Mouvement</span></div>
+            <div style="display:flex;align-items:baseline;padding:9px 0;font-size:12.5px"><span style="flex:1"><b style="font-family:var(--titres);font-weight:800">Jean Mercier</b><br><em style="font-style:normal;font-size:10.5px;color:var(--text-tertiary)">a rendu service</em></span><span style="width:62px;text-align:right;font-family:var(--titres);font-weight:800;color:var(--success)">+ 1 h</span></div>
+            <div style="display:flex;align-items:baseline;padding:9px 0;border-top:1px dotted var(--border);font-size:12.5px"><span style="flex:1"><b style="font-family:var(--titres);font-weight:800">Geneviève Hamon</b><br><em style="font-style:normal;font-size:10.5px;color:var(--text-tertiary)">a reçu</em></span><span style="width:62px;text-align:right;font-family:var(--titres);font-weight:800;color:var(--orange-hover)">− 1 h</span></div>
+          </div>
+        </div>
+
+        <div class="registre-pied" style="margin:14px 18px 0;border-top:2px solid var(--marine)">24 écritures · page 1 sur 3</div>
+
+        <div class="encart encart--info" style="margin-top:14px">
+          <b>C'est le même bloc qu'à l'écriture.</b> Ce que l'écran « Régulariser » montre avant d'inscrire, celui-ci le montre après — à l'identique, en lecture seule, avec le nom de qui a signé.
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">La planche 4 montre un extrait de grand livre <b>avant</b> d'inscrire ; celle-ci montre le même extrait <b>après</b>, figé. C'est volontairement le même objet visuel : on vérifie une écriture en reconnaissant la forme qu'on avait validée. Le nom de qui a signé figure sous le titre, pas en bas — c'est ce qu'on cherche quand une heure est contestée.</p>
+  </figure>
+
+  <!-- ========== 16 · LA FILE DES SIGNALEMENTS ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">16</span><h2>La file des signalements</h2><span class="route">admin · modération</span></figcaption>
+    <div class="phone">
+      <div class="status" style="background:var(--marine-hover)"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--admin">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">La modération</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="ruban-admin">Réservé à l'association</div>
+
+      <main class="feed">
+        <section class="grand-titre">
+          <h1>Les signalements</h1>
+          <p class="date">Mercredi 10 juin · <b>3 en attente</b></p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="encart encart--info" style="margin-top:14px">
+          <b>La file dit ce qui est à regarder.</b> Elle n'agit pas à votre place : aucun contenu n'est masqué, aucun compte suspendu automatiquement.
+        </div>
+
+        <div class="filtres-ligne">
+          <a class="on" href="#">En attente</a>
+          <a href="#">Résolus</a>
+          <a href="#">Écartés</a>
+          <a href="#">Tous</a>
+        </div>
+        <div style="margin:0 18px;background:var(--paper);border:1px solid rgba(196,69,54,.3);border-radius:12px;padding:12px 14px">
+          <div style="display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap">
+            <b style="font-family:var(--titres);font-weight:800;font-size:13.5px;flex:1;min-width:0">Contenu inapproprié</b>
+            <span class="etat etat--marine">Publication</span>
+            <span class="etat etat--alerte">En attente</span>
+          </div>
+          <p style="font-size:10.5px;color:var(--text-tertiary);margin-top:4px">Signalé par Alice Noël · le 9 juin à 18:04</p>
+          <p style="font-size:12px;line-height:1.5;color:var(--text-secondary);margin-top:8px;padding-left:10px;border-left:2px solid var(--border)">« Le ton de la publication est agressif envers les nouveaux arrivants du quartier. »</p>
+          <div style="margin-top:10px"><a class="lien-filet" href="#">Voir la publication</a></div>
+          <div style="display:flex;gap:9px;margin-top:11px;padding-top:11px;border-top:1px dashed var(--border)">
+            <button class="action" type="button" style="flex:1;text-align:center;color:var(--success);border-color:rgba(74,157,95,.45)">Résolu</button>
+            <button class="action" type="button" style="flex:1;text-align:center;color:var(--danger);border-color:rgba(196,69,54,.4)">Écarté</button>
+          </div>
+        </div>
+
+        <div style="margin:11px 18px 0;background:var(--paper);border:1px solid rgba(196,69,54,.3);border-radius:12px;padding:12px 14px">
+          <div style="display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap">
+            <b style="font-family:var(--titres);font-weight:800;font-size:13.5px;flex:1;min-width:0">Spam ou publicité</b>
+            <span class="etat etat--marine">Commentaire</span>
+            <span class="etat etat--alerte">En attente</span>
+          </div>
+          <p style="font-size:10.5px;color:var(--text-tertiary);margin-top:4px">Signalé par Pierre Blanc · le 9 juin à 09:12</p>
+          <p style="font-size:11px;font-style:italic;color:var(--text-tertiary);margin-top:9px">Contenu supprimé depuis</p>
+          <div style="display:flex;gap:9px;margin-top:11px;padding-top:11px;border-top:1px dashed var(--border)">
+            <button class="action" type="button" style="flex:1;text-align:center;color:var(--success);border-color:rgba(74,157,95,.45)">Résolu</button>
+            <button class="action" type="button" style="flex:1;text-align:center;color:var(--danger);border-color:rgba(196,69,54,.4)">Écarté</button>
+          </div>
+        </div>
+
+        <div style="margin:11px 18px 0;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:12px 14px">
+          <div style="display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap">
+            <b style="font-family:var(--titres);font-weight:800;font-size:13.5px;flex:1;min-width:0">Hors sujet</b>
+            <span class="etat etat--marine">Publication</span>
+            <span class="etat etat--neutre">Écarté</span>
+          </div>
+          <p style="font-size:10.5px;color:var(--text-tertiary);margin-top:4px">Signalé par Sonia Klein · traité le 7 juin</p>
+          <div class="note-interne" style="margin:9px 0 0">
+            Vérifié, la publication parle bien du quartier. Rien à faire.
+            <span class="sign">— Note interne, jamais transmise au signaleur</span>
+          </div>
+        </div>
+
+        <div class="encart encart--attention" style="margin-top:14px">
+          <b>Classer n'est pas répondre.</b> Résolu et écarté rangent la ligne et n'envoient rien à la personne qui a signalé. Si elle attend une réponse, elle se donne dans la messagerie.
+        </div>
+      </main>
+
+      <div class="barre-bas barre-bas--mini">
+        <div class="pilule pilule--mini">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+    <p class="note">Chaque signalement est un papier à part, bordé de rouge tant qu'il attend. Le <b>motif en titre</b>, la cible en pastille marine, l'état à droite : trois informations avant le texte, parce qu'on trie avant de lire. Le mot du signaleur est en citation, retiré du bloc — c'est lui qu'on pèse. Les deux encarts bornent ce que l'écran ne fait pas : il n'agit pas tout seul, et classer n'écrit à personne.</p>
+  </figure>
 </div>
 
 <footer>
-  TempsPourTemps — identité visuelle · Pages 10 · Six des quinze écrans d'administration · Personnes fictives.<br>
+  TempsPourTemps — identité visuelle · Pages 10 · Les seize écrans d'administration, au complet · Personnes fictives.<br>
   <a href="../../index.html">Galerie</a>
 </footer>
 </body>

@@ -49,6 +49,7 @@
     <span><b>Fiche</b> entrefilet + encadré</span>
     <span><b>Publier</b> bascule de sens</span>
     <span><b>Auteur</b> vue de suivi</span>
+    <span><b>Modifier</b> bandeau d'édition</span>
   </div>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
 </header>
@@ -257,10 +258,99 @@
     <p class="note">Vue par son auteur, l'annonce devient un <b>tableau de bord discret</b> : les actions d'édition passent en liens à filet sous la manchette, un bandeau de chiffres résume ce qu'elle a produit, et les demandes reçues se lisent en carnet avec leur état. Aucun bouton plein — on est chez soi, pas en train de décider.</p>
   </figure>
 
+
+  <!-- ========== 4 · MODIFIER L'ANNONCE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">4</span><h2>Modifier l'annonce</h2><span class="route">annonce · modifier</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb tb--clair">
+        <button class="ibtn" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <span class="titre">Modifier l'annonce</span>
+        <span style="width:36px"></span>
+      </div>
+      <div class="filet-double"></div>
+
+      <main class="feed">
+        <div class="bandeau-edition" style="margin-top:0">
+          <span>En ligne depuis le 2 juin</span>
+          <span><b>142 lectures · 3 intéressés</b></span>
+        </div>
+
+        <div class="encart encart--attention" style="margin:12px 18px 0">
+          <b>Trois voisins l'ont déjà lue et se sont manifestés.</b> Changer le titre ou le service ne les prévient pas : si l'annonce devient autre chose, mieux vaut la retirer et en passer une neuve.
+        </div>
+
+        <div class="form">
+          <div class="form-groupe">
+            <label>Le sens de l'annonce</label>
+            <div class="bascule">
+              <span class="opt on">Je propose</span>
+              <span class="opt">Je recherche</span>
+            </div>
+            <p class="aide">Inverser le sens d'une annonce en ligne la vide de son histoire. Retirez-la plutôt.</p>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le service</label>
+            <div class="duo">
+              <div class="select"><b style="font-family:var(--titres)">Bricolage</b><span class="chev">▾</span></div>
+              <div class="select"><b style="font-family:var(--titres)">Montage</b><span class="chev">▾</span></div>
+            </div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le titre</label>
+            <div class="saisie saisie--rempli">Petites réparations et montage de meubles</div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le texte</label>
+            <div class="saisie saisie--zone saisie--rempli">Perceuse, visseuse, niveau : j'ai tout ce qu'il faut. Disponible en soirée et le week-end, plutôt dans le Vieux Bourg.</div>
+          </div>
+
+          <div class="form-groupe">
+            <label>La durée <span class="opt">— facultatif</span></label>
+            <div class="duo">
+              <div class="saisie saisie--rempli">1 h 00</div>
+              <div class="select"><span class="lab">par</span><b style="font-family:var(--titres)">intervention</b><span class="chev">▾</span></div>
+            </div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le lieu</label>
+            <div class="select"><b style="font-family:var(--titres)">Chez la personne aidée</b><span class="chev">▾</span></div>
+          </div>
+
+          <div class="form-groupe">
+            <label>Retirer l'annonce le <span class="opt">— facultatif</span></label>
+            <div class="saisie saisie--rempli">31 / 07 / 2026</div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Autre chose</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div style="padding:0 18px;display:flex;flex-direction:column;gap:9px">
+          <button class="action" type="button" style="text-align:left;padding:10px 13px">Marquer l'annonce comme <b style="font-family:var(--titres)">pourvue</b> — elle reste lisible</button>
+          <button class="action" type="button" style="text-align:left;padding:10px 13px;color:var(--danger);border-color:rgba(196,69,54,.4)">Retirer l'annonce du quartier</button>
+        </div>
+
+        <div class="form-pied">
+          <button class="btn-plein btn-plein--contour" type="button">Annuler</button>
+          <button class="btn-plein btn-plein--orange" type="button">Enregistrer</button>
+        </div>
+      </main>
+
+      <span class="home"></span>
+    </div>
+    <p class="note">Le même formulaire que « Passer une annonce », à trois différences près — et ce sont elles qui font l'écran. Un <b>bandeau d'édition</b> rappelle depuis quand l'annonce vit et ce qu'elle a produit ; un encart sable prévient que les lecteurs déjà venus ne seront pas rappelés ; et les deux sorties — <b>pourvue</b> et <b>retirée</b> — sont posées côte à côte en bas, parce qu'on les confond.</p>
+  </figure>
 </div>
 
 <footer>
-  TempsPourTemps — identité visuelle · Pages 3/9 · Personnes et annonces fictives.<br>
+  TempsPourTemps — identité visuelle · Pages 3 · Les quatre écrans d'annonce · Personnes et annonces fictives.<br>
   <a href="../../index.html">Galerie</a>
 </footer>
 </body>
