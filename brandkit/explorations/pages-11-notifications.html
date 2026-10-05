@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TempsPourTemps — Pages 11 · Les avis</title>
+<title>TempsPourTemps — Pages 11 · Les notifications</title>
 <link rel="icon" href="../../assets/logo/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../gazette.css">
 <style>
-  /* Les avis réutilisent le courrier de la messagerie : le médaillon porte
-     un genre d'avis au lieu d'un visage, donc une icône au lieu d'initiales. */
+  /* Les notifications réutilisent le courrier de la messagerie : le médaillon porte
+     un genre de notification au lieu d'un visage, donc une icône au lieu d'initiales. */
   .conv .av svg{width:18px;height:18px;}
-  /* un avis porte une phrase, pas un nom : elle se replie sur deux lignes
+  /* une notification porte une phrase, pas un nom : elle se replie sur deux lignes
      au lieu d'être coupée aux points de suspension comme dans le courrier. */
-  .avis-liste .conv .nom{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.3;}
+  .notif-liste .conv .nom{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.3;}
 </style>
 </head>
 <body>
@@ -23,12 +23,14 @@
 <header class="doc-head">
   <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
   <p class="kicker">Pages · famille 11</p>
-  <h1>Les avis</h1>
-  <p>On y arrive par la <b>cloche de la barre du haut</b>, celle qui porte la pastille des non-lus. L'écran ne réinvente rien : il reprend <b>le courrier de la messagerie</b> — les non-lus en section sable, les lus sur papier en dessous — parce qu'un avis et un message se trient de la même façon. Ce qui change tient en deux choses : le médaillon porte le genre de l'avis au lieu d'un visage, et l'on ne répond jamais depuis cet écran.</p>
+  <h1>Les notifications</h1>
+  <p>On y arrive par la <b>cloche de la barre du haut</b>, celle qui porte la pastille des non-lus. L'écran ne réinvente rien : il reprend <b>le courrier de la messagerie</b> — les non-lus en section sable, les lus sur papier en dessous — parce qu'une notification et un message se trient de la même façon. Ce qui change tient en deux choses : le médaillon porte le genre de la notification au lieu d'un visage, et l'on ne répond jamais depuis cet écran.</p>
+  <p style="margin-top:10px;font-size:.84rem"><b>Pourquoi pas « les avis »</b> — le mot est déjà pris deux fois : par le retour qu'on laisse après un échange (« Donner mon avis », dessiné en <a href="fiches-modales.html" style="color:var(--orange);font-weight:700">feuille facultative</a>) et par les billets « On attend un mot de vous ». On garde donc ici le mot de l'application.</p>
   <div class="traits">
     <span><b>Entrée</b> la cloche, pastille de non-lus</span>
     <span><b>Liste</b> le courrier réemployé</span>
     <span><b>Médaillon</b> le genre, pas le visage</span>
+    <span><b>Mot</b> celui de l'app, pas « avis »</span>
     <span><b>Écrans</b> 2 sur 2</span>
   </div>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
@@ -36,27 +38,27 @@
 
 <div class="planche">
 
-  <!-- ========== 1 · LES AVIS ========== -->
+  <!-- ========== 1 · LES NOTIFICATIONS ========== -->
   <figure class="ecran">
-    <figcaption><span class="n n--neuf">1</span><h2>Les avis</h2><span class="route">avis</span></figcaption>
+    <figcaption><span class="n n--neuf">1</span><h2>Les notifications</h2><span class="route">notifications</span></figcaption>
     <div class="phone">
       <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
       <div class="tb">
         <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
-        <span class="titre">Les avis</span>
+        <span class="titre">Les notifications</span>
         <button class="ibtn" aria-label="Tout marquer comme lu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 13 4 4 7-7"/><path d="m11 13 3 3 8-8"/></svg></button>
       </div>
 
       <main class="feed feed--avec-barre">
         <section class="grand-titre">
-          <h1>Les avis</h1>
-          <p class="date">Mercredi 10 juin · <b>4 non lus</b> · 23 en tout</p>
+          <h1>Les notifications</h1>
+          <p class="date">Mercredi 10 juin · <b>4 non lues</b> · 23 en tout</p>
           <div class="regle"></div>
         </section>
 
         <p class="sous-rubrique" style="margin-top:10px">Ce qui vous concerne — messages, échanges, annonces, publications.</p>
 
-        <div class="section-courrier section-courrier--nonlus avis-liste" style="margin-top:4px">
+        <div class="section-courrier section-courrier--nonlus notif-liste" style="margin-top:4px">
           <a class="conv nonlu" href="#">
             <span class="av av-bleu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg></span>
             <div class="corps">
@@ -91,9 +93,9 @@
           </a>
         </div>
 
-        <div class="jour" style="margin:14px 18px 2px">Déjà lus</div>
+        <div class="jour" style="margin:14px 18px 2px">Déjà lues</div>
 
-        <div class="section-courrier section-courrier--lus avis-liste">
+        <div class="section-courrier section-courrier--lus notif-liste">
           <a class="conv" href="#">
             <span class="av av-sable"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h7M7 13h10M7 17h5"/></svg></span>
             <div class="corps">
@@ -121,11 +123,11 @@
         </div>
 
         <p class="compteurs-note" style="margin-top:14px">
-          <button class="lien-filet lien-filet--muet" type="button">Voir les 16 avis plus anciens</button>
+          <button class="lien-filet lien-filet--muet" type="button">Voir les 16 plus anciennes</button>
         </p>
 
         <div class="encart encart--info" style="margin-top:14px">
-          <b>Un avis n'est pas un message.</b> Les avis signalent, la messagerie converse : on ne répond jamais depuis cet écran — on y est amené à l'endroit où la réponse se donne.
+          <b>Une notification n'est pas un message.</b> Elle signale, la messagerie converse : on ne répond jamais depuis cet écran — on y est amené à l'endroit où la réponse se donne.
         </div>
       </main>
 
@@ -140,23 +142,23 @@
       </div>
       <span class="home"></span>
     </div>
-    <p class="note">Les avis reprennent <b>exactement</b> le courrier de la messagerie : les non lus dans une section sable, les lus sur papier en dessous, sous un filet « déjà lus ». Le médaillon porte le genre de l'avis au lieu d'un visage, et sa couleur le redit — le vert pour le temps, le marine pour l'association. La ligne en capitales, elle, nomme le genre en toutes lettres : message, échange, annonce, fil, compte.</p>
+    <p class="note">L'écran reprend <b>exactement</b> le courrier de la messagerie : les non lues dans une section sable, les lues sur papier en dessous, sous un filet « déjà lues ». Le médaillon porte le genre de la notification au lieu d'un visage, et sa couleur le redit — le vert pour le temps, le marine pour l'association. La ligne en capitales, elle, nomme le genre en toutes lettres : message, échange, annonce, fil, compte.</p>
   </figure>
 
   <!-- ========== 2 · RIEN À LIRE ========== -->
   <figure class="ecran">
-    <figcaption><span class="n n--neuf">2</span><h2>Rien à lire</h2><span class="route">avis · vide</span></figcaption>
+    <figcaption><span class="n n--neuf">2</span><h2>Rien à lire</h2><span class="route">notifications · vide</span></figcaption>
     <div class="phone">
       <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
       <div class="tb">
         <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
-        <span class="titre">Les avis</span>
+        <span class="titre">Les notifications</span>
         <span style="width:36px"></span>
       </div>
 
       <main class="feed feed--avec-barre">
         <section class="grand-titre">
-          <h1>Les avis</h1>
+          <h1>Les notifications</h1>
           <p class="date">Mercredi 10 juin · <b>rien de neuf</b></p>
           <div class="regle"></div>
         </section>
@@ -169,7 +171,7 @@
         </div>
 
         <div class="encart encart--info" style="margin-top:34px">
-          <b>Pourquoi un écran plutôt qu'une page blanche ?</b> Un avis vide et un avis en panne se ressemblent. La phrase dit ce qui arrivera ici, et le bouton rend la visite utile quand même.
+          <b>Pourquoi un écran plutôt qu'une page blanche ?</b> Une liste vide et une liste en panne se ressemblent. La phrase dit ce qui arrivera ici, et le bouton rend la visite utile quand même.
         </div>
       </main>
 
@@ -184,13 +186,13 @@
       </div>
       <span class="home"></span>
     </div>
-    <p class="note">Le même écran sans rien dedans. Trois choses seulement : la cloche barrée du vide, <b>ce qui arrivera ici un jour</b>, et une porte de sortie vers le fil. La manchette garde la date et dit « rien de neuf » plutôt que « 0 avis » — un compteur à zéro se lit comme une panne.</p>
+    <p class="note">Le même écran sans rien dedans. Trois choses seulement : la cloche barrée du vide, <b>ce qui arrivera ici un jour</b>, et une porte de sortie vers le fil. La manchette garde la date et dit « rien de neuf » plutôt que « 0 notification » — un compteur à zéro se lit comme une panne.</p>
   </figure>
 
 </div>
 
 <footer>
-  TempsPourTemps — identité visuelle · Pages 11 · Les deux états de la page des avis · Personnes fictives.<br>
+  TempsPourTemps — identité visuelle · Pages 11 · Les deux états de la page des notifications · Personnes fictives.<br>
   <a href="../../index.html">Galerie</a>
 </footer>
 </body>
