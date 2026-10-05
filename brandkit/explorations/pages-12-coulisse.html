@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Pages 12 · La coulisse</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Pages · famille 12</p>
+  <h1>La coulisse</h1>
+  <p>Trois écrans qu'on ne choisit pas de voir : le mot de passe qu'il faut remplacer avant d'entrer, le retour d'un lien de courriel quand il a échoué, et le diagnostic — <b>le seul écran de l'application qui ne soit pas habillé</b>, et qui n'existe pas en production. Les deux premiers suivent la même règle : ne pas s'excuser, <b>réparer</b> — des étapes numérotées plutôt qu'un message d'erreur.</p>
+  <div class="traits">
+    <span><b>Mot de passe</b> règles cochées en vert</span>
+    <span><b>Échec</b> trois issues numérotées</span>
+    <span><b>Diagnostic</b> volontairement nu</span>
+    <span><b>Écrans</b> 3 sur 3</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <!-- ========== 1 · CHANGER LE MOT DE PASSE ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">1</span><h2>Changer le mot de passe</h2><span class="route">mot de passe</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+
+      <main class="feed feed--uni">
+        <section class="hero" style="padding-top:20px">
+          <div class="edition"><span>Votre première connexion</span><span><b>Une seule fois</b></span></div>
+          <h1>Choisissez votre <span class="souligne">mot de passe.</span></h1>
+          <p>Celui que l'association vous a donné était provisoire. Il faut le remplacer pour entrer.</p>
+        </section>
+
+        <div class="form" style="padding-top:16px">
+          <div class="form-groupe">
+            <label>Nouveau mot de passe</label>
+            <div class="saisie saisie--rempli" style="display:flex;align-items:center;gap:9px">
+              <span style="flex:1;letter-spacing:.14em">••••••••••</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;color:var(--text-tertiary)"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;margin-top:4px">
+          <li style="display:flex;align-items:center;gap:7px;color:var(--success);font-size:11.5px;font-weight:600"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="m4 12.5 5 5L20 6.5"/></svg>Au moins 8 caractères</li>
+          <li style="display:flex;align-items:center;gap:7px;color:var(--success);font-size:11.5px;font-weight:600"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="m4 12.5 5 5L20 6.5"/></svg>Une majuscule</li>
+          <li style="display:flex;align-items:center;gap:7px;color:var(--success);font-size:11.5px;font-weight:600"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="m4 12.5 5 5L20 6.5"/></svg>Un chiffre</li>
+          <li style="display:flex;align-items:center;gap:7px;color:var(--text-tertiary);font-size:11.5px;font-weight:600"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:13px;height:13px"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>Un caractère spécial</li>
+            </ul>
+          </div>
+
+          <div class="form-groupe">
+            <label>Le même, pour être sûr</label>
+            <div class="saisie saisie--rempli" style="display:flex;align-items:center;gap:9px">
+              <span style="flex:1;letter-spacing:.14em">••••••••••</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;color:var(--text-tertiary)"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <p style="display:flex;align-items:center;gap:7px;color:var(--success);font-size:11.5px;font-weight:600;margin-top:2px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="m4 12.5 5 5L20 6.5"/></svg>Les deux se ressemblent</p>
+          </div>
+
+          <button class="btn-plein btn-plein--orange" type="button">Entrer avec ce mot de passe</button>
+        </div>
+
+        <div class="encart encart--info" style="margin-top:4px">
+          <b>Personne ne le connaîtra, pas même l'association.</b> Si vous l'oubliez, un bénévole peut vous envoyer un lien pour en choisir un autre — il ne pourra jamais lire celui-ci.
+        </div>
+
+        <p class="compteurs-note" style="padding-bottom:18px">
+          <button class="lien-filet lien-filet--muet" type="button">Me déconnecter</button>
+        </p>
+      </main>
+
+      <span class="home"></span>
+    </div>
+    <p class="note">Un passage obligé, donc traité comme une étape d'embarquement et non comme un réglage : manchette de bienvenue, une seule colonne, pas de barre de navigation — on ne peut aller nulle part avant d'avoir choisi. Les quatre exigences se cochent <b>en vert à mesure qu'on tape</b> plutôt que d'apparaître en rouge après l'envoi, et la confirmation se répond d'elle-même. L'encart dit ce que personne ne demande mais que tout le monde se demande : qui pourra le lire.</p>
+  </figure>
+
+  <!-- ========== 2 · LE RETOUR DE CONNEXION ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">2</span><h2>Le retour de connexion</h2><span class="route">connexion · retour</span></figcaption>
+    <div class="phone">
+      <div class="status status--clair"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+
+      <main class="feed feed--uni">
+        <div class="erreur" style="margin:30px 18px 0">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg></span>
+          <h3>La connexion n'a pas abouti</h3>
+          <p>Le lien a peut-être déjà servi, ou il a plus d'une heure.</p>
+          <p class="detail">lien expiré · otp_expired</p>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Ce que vous pouvez faire</h2></span>
+          <span class="filet"></span>
+        </div>
+        <div class="etapes">
+          <div class="etape-ligne"><span class="rond">1</span><b>Redemander un lien</b><span class="m">30 s</span></div>
+          <div class="etape-ligne"><span class="rond">2</span><b>Entrer par mot de passe</b><span class="m">si vous l'avez</span></div>
+          <div class="etape-ligne"><span class="rond">3</span><b>Appeler le Centre</b><span class="m">02 40 33 18 00</span></div>
+        </div>
+
+        <div style="padding:18px 18px 8px">
+          <button class="btn-plein btn-plein--orange" type="button">Retour à la connexion</button>
+        </div>
+
+        <div class="encart encart--info" style="margin-top:8px">
+          <b>Votre compte n'a rien subi.</b> Un lien périmé ne bloque ni ne supprime rien : il a simplement cessé d'être valable.
+        </div>
+
+        <p class="compteurs-note" style="padding-bottom:18px">Le code technique en caractères de machine est là pour le bénévole qu'on appellera, pas pour vous.</p>
+      </main>
+
+      <span class="home"></span>
+    </div>
+    <p class="note">L'écran où l'on atterrit en revenant d'un lien de courriel. Dans le cas courant il ne dure qu'un instant — c'est la planche <b>« Les temps de chargement »</b> qui le dessine. Reste le cas qu'on lit vraiment : l'échec. Il ne s'excuse pas, il répare, et il porte le <b>code technique en caractères de machine</b> — inutile au voisin, précieux au bénévole qu'il va appeler.</p>
+  </figure>
+
+  <!-- ========== 3 · LA TRACE DES LIENS ========== -->
+  <figure class="ecran">
+    <figcaption><span class="n n--neuf">3</span><h2>La trace des liens</h2><span class="route">diagnostic</span></figcaption>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <button class="ibtn" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+        <span class="titre">Diagnostic</span>
+        <span style="width:36px"></span>
+      </div>
+
+      <main class="feed">
+        <section class="grand-titre">
+          <h1>Trace des liens</h1>
+          <p class="date">Diagnostic · <b>indisponible en production</b></p>
+          <div class="regle"></div>
+        </section>
+
+        <div class="encart encart--attention" style="margin-top:14px">
+          <b>Cet écran n'est pas pour les voisins.</b> Il montre ce que le service worker et l'application ont fait au dernier clic sur une notification. Il n'existe qu'en développement et en préproduction.
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Lien en attente</h2></span>
+          <span class="filet"></span>
+        </div>
+        <p style="margin:0 18px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--text-secondary);word-break:break-all;background:var(--bg-secondary);border:1px solid var(--border);border-radius:9px;padding:9px 11px">aucun</p>
+
+        <div style="display:flex;gap:9px;margin:12px 18px 0">
+          <button class="action" type="button">Rafraîchir</button>
+          <button class="action" type="button" style="color:var(--danger);border-color:rgba(196,69,54,.4)">Vider la trace</button>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Les étapes</h2><span class="badge-compte">5</span></span>
+          <span class="filet"></span>
+        </div>
+        <ol style="list-style:none;margin:0 18px;display:flex;flex-direction:column;gap:7px">
+          <li style="border:1px solid var(--border);background:var(--paper);border-radius:9px;padding:9px 11px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:9px">
+              <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;font-weight:700;color:var(--marine)">app · route:resolved</span>
+              <time style="font-size:10px;color:var(--text-tertiary);white-space:nowrap">9:41:02</time>
+            </div>
+            <p style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:var(--text-secondary);margin-top:4px;word-break:break-all">/messages/8f2c-41ab</p>
+          </li>
+          <li style="border:1px solid var(--border);background:var(--paper);border-radius:9px;padding:9px 11px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:9px">
+              <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;font-weight:700;color:var(--marine)">app · deeplink:consumed</span>
+              <time style="font-size:10px;color:var(--text-tertiary);white-space:nowrap">9:41:02</time>
+            </div>
+            <p style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:var(--text-secondary);margin-top:4px;word-break:break-all">pending cleared</p>
+          </li>
+          <li style="border:1px solid var(--border);background:var(--paper);border-radius:9px;padding:9px 11px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:9px">
+              <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;font-weight:700;color:var(--marine)">app · client:ready</span>
+              <time style="font-size:10px;color:var(--text-tertiary);white-space:nowrap">9:41:01</time>
+            </div>
+            <p style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:var(--text-secondary);margin-top:4px;word-break:break-all">session ok · user 3c1f</p>
+          </li>
+          <li style="border:1px solid var(--border);background:var(--paper);border-radius:9px;padding:9px 11px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:9px">
+              <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;font-weight:700;color:var(--orange-hover)">worker · notificationclick</span>
+              <time style="font-size:10px;color:var(--text-tertiary);white-space:nowrap">9:41:00</time>
+            </div>
+            <p style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:var(--text-secondary);margin-top:4px;word-break:break-all">url=/messages/8f2c-41ab · tag=msg</p>
+          </li>
+          <li style="border:1px solid var(--border);background:var(--paper);border-radius:9px;padding:9px 11px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:9px">
+              <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;font-weight:700;color:var(--orange-hover)">worker · push:received</span>
+              <time style="font-size:10px;color:var(--text-tertiary);white-space:nowrap">9:40:58</time>
+            </div>
+            <p style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:var(--text-secondary);margin-top:4px;word-break:break-all">type=message · thread=8f2c-41ab</p>
+          </li>
+        </ol>
+
+        <p class="compteurs-note" style="margin-top:12px;padding-bottom:18px">De la plus récente à la plus ancienne. Tapez une notification, puis revenez ici.</p>
+      </main>
+
+      <span class="home"></span>
+    </div>
+    <p class="note">Le seul écran de l'application qui n'est <b>pas habillé</b>, et c'est volontaire : caractères de machine, blocs gris, pas de papier crème. On doit voir au premier coup d'œil qu'on n'est plus dans la gazette mais dans un outil. Seuls l'en-tête et les étiquettes de rubrique restent de la charte, pour qu'il ne ressemble pas non plus à une page cassée. La ligne de date dit sa condition d'existence : indisponible en production.</p>
+  </figure>
+
+</div>
+
+<footer>
+  TempsPourTemps — identité visuelle · Pages 12 · Mot de passe, retour de connexion, diagnostic · Traces fictives.<br>
+  <a href="../../index.html">Galerie</a>
+</footer>
+</body>
+</html>
