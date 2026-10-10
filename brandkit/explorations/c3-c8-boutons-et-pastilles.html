@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — C3 & C8, les fiches manquantes</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+/* ============================================================
+   C3 & C8 — LES FICHES QUE LA CHARTE N'AVAIT PAS DESSINÉES
+   Le bouton fantôme, le bouton blanc sur marine, l'état
+   désactivé, et les pastilles de statut manquantes (C2).
+   Proposé le 11/10/2026 — à valider AVANT application (TPT-183).
+   ============================================================ */
+
+:root{ --received:#2f6f8f; } /* le bleu « reçu » de l'app (main.css) — absent de gazette.css à ce jour */
+
+body{background:var(--bg-main);padding:28px 16px 80px;}
+.q{max-width:760px;margin:0 auto 34px;text-align:center;}
+.q .kicker{font-family:var(--titres);font-weight:800;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.q h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.4rem,4vw,1.9rem);margin-top:7px;letter-spacing:-.4px;color:var(--marine);}
+.q p{color:var(--text-secondary);font-size:.92rem;line-height:1.65;margin-top:12px;}
+.q p b{color:var(--marine);}
+
+.fiche{max-width:760px;margin:0 auto 30px;background:var(--paper);border:1px solid var(--border);border-radius:16px;padding:22px 20px;}
+.fiche > .num{font-family:var(--titres);font-weight:800;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);}
+.fiche > h2{font-family:var(--titres);font-weight:800;font-size:1.22rem;color:var(--marine);margin:4px 0 10px;}
+.fiche p{font-size:.88rem;line-height:1.6;color:var(--text-secondary);margin-bottom:10px;}
+.fiche p b{color:var(--marine);}
+.mesure{display:inline-block;background:var(--bg-hover);border:1px solid #f1ddae;border-radius:999px;padding:3px 11px;font-size:.72rem;font-weight:700;color:var(--orange-hover);margin-bottom:12px;}
+.demo{background:var(--bg-main);border:1px dashed var(--border);border-radius:12px;padding:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:12px 0;}
+.demo--marine{background:var(--marine);border:0;}
+.demo--paper{background:var(--paper);border:1px dashed var(--border);}
+.legende{font-size:.72rem;color:var(--text-tertiary);margin-top:-6px;margin-bottom:12px;}
+.regle{background:var(--bg-secondary);border-radius:10px;padding:12px 14px;font-size:.78rem;line-height:1.55;color:var(--text-secondary);margin-top:12px;}
+.regle b{color:var(--marine);}
+.regle code{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;background:#fff;border:1px solid var(--border);border-radius:5px;padding:1px 5px;color:var(--marine);white-space:nowrap;}
+.question{border-left:3px solid var(--orange);background:var(--bg-hover);border-radius:0 10px 10px 0;padding:10px 14px;font-size:.82rem;color:var(--marine);margin-top:12px;}
+.question b{font-family:var(--titres);}
+
+/* ---- Les boutons : le socle de la charte (btn-plein) + les trois dessins proposés ---- */
+.b{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:12px 16px;font-family:var(--titres);font-weight:800;font-size:14.5px;cursor:pointer;}
+.b--orange{background:var(--orange);color:#fff9ec;box-shadow:0 2px 0 var(--orange-hover);}
+.b--marine{background:var(--marine);color:var(--sable);box-shadow:0 2px 0 var(--marine-hover);}
+.b--contour{background:var(--paper);color:var(--marine);border:1.5px solid var(--border);}
+.b--danger{background:transparent;color:var(--danger);border:1.5px solid rgba(196,69,54,.45);}
+.b--sm{padding:8px 12px;font-size:12.5px;border-radius:10px;}
+
+/* C3a — LE FANTÔME : encre marine seule, ni fond, ni filet, ni ombre.
+   Le survol pose un voile marine à 5 % — c'est le dessin que le code
+   porte déjà (hover:bg-primary/5) : le code gagne, la fiche l'acte. */
+.b--fantome{background:transparent;color:var(--marine);}
+.b--fantome:hover{background:rgba(24,62,87,.05);}
+
+/* C3b — LE BLANC SUR MARINE : du PAPIER, pas du blanc pur — tout ce qui
+   est « papier » dans la charte vaut #fffdf6. Encre marine, ombre portée
+   discrète ; le survol glisse vers le crème. */
+.b--papier-sur-marine{background:var(--paper);color:var(--marine);box-shadow:0 2px 8px rgba(0,0,0,.28);}
+.b--papier-sur-marine:hover{background:var(--bg-hover);}
+
+/* C8 — LE DÉSACTIVÉ : l'inaction CONFISQUE la couleur. Un seul dessin
+   pour toutes les variantes : fond gris, encre tertiaire, filet gris
+   pour celles qui avaient un contour, NI ombre NI marche. */
+.b[disabled]{background:var(--bg-secondary);color:var(--text-tertiary);box-shadow:none;cursor:not-allowed;}
+.b--contour[disabled],.b--danger[disabled]{border-color:#e9ebef;}
+
+/* ---- Les pastilles : le dessin de la charte (.statut), les ajouts ---- */
+.st{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--success);}
+.st::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(74,157,95,.18);}
+.st--propose{color:var(--marine);}      .st--propose::before{box-shadow:0 0 0 3px rgba(24,62,87,.14);}
+.st--annule{color:var(--danger);}       .st--annule::before{box-shadow:0 0 0 3px rgba(196,69,54,.16);}
+.st--termine{color:var(--text-tertiary);} .st--termine::before{box-shadow:0 0 0 3px rgba(113,113,130,.16);}
+/* — les ajouts proposés — */
+.st--declare{color:var(--received);}    .st--declare::before{box-shadow:0 0 0 3px rgba(47,111,143,.16);}
+.st--attente{color:var(--received);}    .st--attente::before{box-shadow:0 0 0 3px rgba(47,111,143,.16);}
+.st--refuse{color:var(--danger);}       .st--refuse::before{box-shadow:0 0 0 3px rgba(196,69,54,.16);}
+.st--expire{color:var(--text-tertiary);}
+.st--expire::before{background:transparent;border:2px solid currentColor;width:5px;height:5px;box-shadow:0 0 0 3px rgba(113,113,130,.12);}
+.st--sombre{color:var(--sable);}        .st--sombre::before{box-shadow:0 0 0 3px rgba(252,219,129,.22);}
+
+table.map{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:10px;}
+table.map th{font-family:var(--titres);font-weight:800;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);text-align:left;padding:6px 8px;border-bottom:2px solid var(--border);}
+table.map td{padding:7px 8px;border-bottom:1px solid #e9ebef;color:var(--text-secondary);vertical-align:middle;}
+table.map td b{color:var(--marine);}
+</style>
+</head>
+<body>
+
+<div class="q">
+  <div class="kicker">TPT-183 · Fiches C3 &amp; C8 (et les pastilles de C2)</div>
+  <h1>Ce que la charte n'avait jamais dessiné</h1>
+  <p>Quatre dessins manquaient : le <b>bouton fantôme</b> (32 usages mesurés dans 22 fichiers),
+  le <b>bouton blanc sur marine</b> (1 usage), l'<b>état désactivé</b> (112 occurrences dans l'app),
+  et <b>cinq pastilles de statut</b> plus leur variante sur fond sombre.
+  Tout part du socle existant — <code>btn-plein</code>, <code>.action</code>, <code>.statut</code> —
+  rien n'est réinventé. <b>À valider avant toute application dans l'app.</b></p>
+</div>
+
+<!-- ============ C3a — LE FANTÔME ============ -->
+<div class="fiche">
+  <div class="num">C3 · a</div>
+  <h2>Le bouton fantôme</h2>
+  <span class="mesure">Mesuré le 11/10 : 32 usages, 22 fichiers (la fiche C3 en comptait 10)</span>
+  <p>L'action qui ne doit <b>pas peser</b> : « Annuler », « Retour », « Plus tard ». Encre marine seule
+  — ni fond, ni filet, ni ombre. Le socle du bouton reste entier : Nunito 800, rayon 12&nbsp;px,
+  mêmes hauteurs. Le survol pose un <b>voile marine à 5&nbsp;%</b> — c'est le dessin que le code
+  porte déjà : la fiche l'<b>acte</b>, elle ne le change pas.</p>
+  <div class="demo">
+    <button class="b b--orange">Envoyer la proposition</button>
+    <button class="b b--fantome">Annuler</button>
+  </div>
+  <div class="legende">La hiérarchie type : l'action pleine décide, le fantôme s'efface à côté.</div>
+  <div class="demo">
+    <button class="b b--fantome">Retour</button>
+    <button class="b b--fantome b--sm">Plus tard</button>
+    <button class="b b--fantome" disabled>Annuler</button>
+  </div>
+  <div class="legende">Les deux tailles, et l'état désactivé (dessin C8, commun à toutes les variantes).</div>
+  <div class="regle"><b>Dans l'app :</b> la variante <code>ghost</code> d'AppButton porte déjà exactement
+  ce dessin (<code>text-primary bg-transparent hover:bg-primary/5</code>). L'application de cette fiche
+  est un <b>acte de naissance, pas un changement</b> : zéro pixel ne bouge.
+  Au passage, la décision C3 est confirmée : <b>les variantes mortes d'AppButton se suppriment après
+  la migration</b>, pas pendant.</div>
+</div>
+
+<!-- ============ C3b — LE BLANC SUR MARINE ============ -->
+<div class="fiche">
+  <div class="num">C3 · b</div>
+  <h2>Le bouton blanc sur marine</h2>
+  <span class="mesure">Mesuré le 11/10 : 1 usage (la visionneuse d'image, sur voile sombre)</span>
+  <p>Quand le fond est marine ou noir, le bouton s'inverse : <b>papier</b> — pas du blanc pur,
+  tout ce qui est « papier » dans la charte vaut <code>#fffdf6</code> — encre marine, ombre portée
+  discrète. Le survol glisse vers le crème (<code>--bg-hover</code>). Le focus prend
+  l'<b>anneau inversé</b> des aplats marine (halo sable).</p>
+  <div class="demo demo--marine">
+    <button class="b b--papier-sur-marine">Fermer</button>
+    <button class="b b--papier-sur-marine b--sm">Voir la photo</button>
+    <button class="b b--papier-sur-marine" disabled>Fermer</button>
+  </div>
+  <div class="legende">Sur l'aplat marine : le dessin, sa petite taille, et son désactivé.</div>
+  <div class="regle"><b>Dans l'app :</b> une ligne —
+  <code>white: 'bg-paper text-primary shadow-sm hover:bg-hover focus:ring-accent'</code>
+  (aujourd'hui : <code>bg-white … hover:bg-white/95 focus:ring-white</code>).
+  L'écart visible est imperceptible (#fff → #fffdf6) ; le survol gagne un vrai retour.</div>
+</div>
+
+<!-- ============ C8 — LE DÉSACTIVÉ ============ -->
+<div class="fiche">
+  <div class="num">C8</div>
+  <h2>L'état désactivé</h2>
+  <span class="mesure">Mesuré le 11/10 : AppButton = opacity 50 % aujourd'hui · 112 états désactivés dans l'app</span>
+  <p>Le voile d'opacité garde la <b>couleur de l'action</b> : un bouton orange à 50&nbsp;% reste un bouton
+  orange — délavé, il murmure « bientôt cliquable » et devient illisible au soleil. Le dessin proposé :
+  l'inaction <b>confisque la couleur</b>. Un seul dessin pour toutes les variantes : fond
+  <code>--bg-secondary</code>, encre <code>--text-tertiary</code>, filet gris clair pour celles qui
+  avaient un contour, <b>ni ombre ni marche</b>, curseur d'interdit.</p>
+  <div class="demo">
+    <button class="b b--orange">Publier</button>
+    <button class="b b--marine">Valider</button>
+    <button class="b b--contour">Modifier</button>
+    <button class="b b--danger">Supprimer</button>
+  </div>
+  <div class="legende">Les quatre variantes de la charte, actives…</div>
+  <div class="demo">
+    <button class="b b--orange" disabled>Publier</button>
+    <button class="b b--marine" disabled>Valider</button>
+    <button class="b b--contour" disabled>Modifier</button>
+    <button class="b b--danger" disabled>Supprimer</button>
+  </div>
+  <div class="legende">…et désactivées : un seul dessin d'inaction, quelle que soit la variante d'origine.</div>
+  <div class="regle"><b>Dans l'app :</b> dans le socle d'AppButton,
+  <code>disabled:opacity-50</code> devient
+  <code>disabled:bg-bg-secondary disabled:text-text-tertiary disabled:shadow-none disabled:border-border-main</code>.
+  Le <code>disabled:border-danger</code> que la variante rouge porte encore se retire (il
+  contredirait le dessin commun). L'encre mesure 4,3:1 sur son fond — WCAG exempte les contrôles
+  inactifs, et elle reste lisible. <b>À vérifier au build</b> : les variantes <code>disabled:*</code>
+  doivent gagner sur les couleurs de la variante (ordre des couches, comme la convergence des rayons).
+  <br><br>Le <b>bouton en chargement</b>, que C8 demandait aussi, est <b>déjà livré</b> (palier 3 :
+  tourniquet à la place du libellé). Les squelettes restent sortis du chantier (TPT-860).</div>
+  <div class="question"><b>Question 1 —</b> un seul dessin d'inaction pour toutes les variantes
+  (y compris le fantôme, qui gagne alors un fond gris) : tu valides ? L'alternative — le fantôme
+  désactivé reste sans fond, encre grise seule — se défend aussi.</div>
+</div>
+
+<!-- ============ C2 — LES PASTILLES ============ -->
+<div class="fiche">
+  <div class="num">C2</div>
+  <h2>Les pastilles de statut manquantes</h2>
+  <span class="mesure">Le code affiche 9 statuts · la charte en dessinait 4</span>
+  <p>Le dessin ne change pas : puce de 7&nbsp;px avec halo, étiquette en capitales 10,5&nbsp;px.
+  On <b>étend la famille</b>, on ne la redessine pas.</p>
+  <div class="demo demo--paper" style="gap:16px 22px;">
+    <span class="st st--propose">Proposé</span>
+    <span class="st">RDV accepté</span>
+    <span class="st">Confirmé</span>
+    <span class="st st--declare">Déclaré</span>
+    <span class="st st--attente">En attente de validation</span>
+    <span class="st st--termine">Terminé</span>
+    <span class="st st--refuse">RDV refusé</span>
+    <span class="st st--annule">RDV annulé</span>
+    <span class="st st--expire">Expiré</span>
+  </div>
+  <div class="legende">La famille complète — les neuf statuts que le code affiche réellement.</div>
+  <div class="demo demo--marine" style="gap:16px 22px;">
+    <span class="st st--sombre">RDV accepté</span>
+    <span class="st st--sombre">En attente de validation</span>
+    <span class="st st--sombre">Terminé</span>
+  </div>
+  <div class="legende">La variante sur fond sombre : encre sable, puce assortie — un seul dessin, quel que soit le statut (l'en-tête marine n'a pas à porter la sémantique de couleur, le libellé suffit).</div>
+
+  <table class="map">
+    <tr><th>Statut</th><th>Couleur</th><th>Pourquoi</th></tr>
+    <tr><td><b>Déclaré</b> · <b>En attente de validation</b></td><td>bleu « reçu » <code>#2f6f8f</code></td><td>« en attente » est bleu depuis le 30/09 (l'ambre est réservé aux alertes). <b>Amendement</b> : la pastille <code>.statut--attente</code> de gazette.css, encore ambre, est périmée face à cette décision — elle passe au bleu.</td></tr>
+    <tr><td><b>RDV refusé</b></td><td>rouge, même dessin qu'« annulé »</td><td>la reco C2 l'autorisait : confondre visuellement est défendable <b>si le libellé reste distinct</b> — il l'est.</td></tr>
+    <tr><td><b>Expiré</b></td><td>gris tertiaire, <b>puce creuse</b></td><td>même encre que « terminé », mais la puce vide dit « s'est éteint tout seul » là où la pleine dit « s'est accompli ».</td></tr>
+    <tr><td><b>Accepté</b> ≠ <b>Confirmé</b></td><td>le même vert</td><td>le code les confond déjà visuellement, libellés distincts — le statu quo gagne (règle des écarts). Acté, pas redessiné.</td></tr>
+    <tr><td><b>Fond sombre</b></td><td>encre sable, puce assortie</td><td>le code porte déjà cette variante (texte accent sur marine) ; la fiche la formalise.</td></tr>
+  </table>
+
+  <div class="regle"><b>Dans l'app :</b> les classes de <code>useExchangeStatus</code> sont déjà
+  sémantiques (<code>received</code>, <code>success</code>, <code>danger</code>, gris) — la seule
+  retouche candidate est la <b>puce creuse d'« expiré »</b> et l'alignement éventuel de la forme
+  (pilule à filet aujourd'hui, puce-étiquette dans la charte). <b>Rien ne bouge sans ton accord</b> :
+  la forme de la pastille app (pilule) contre celle de la charte (puce nue) est un écart consigné.</div>
+  <div class="question"><b>Question 2 —</b> l'amendement de <code>.statut--attente</code> (ambre → bleu
+  « reçu », conséquence de la décision du 30/09) et la puce creuse d'« expiré » : tu valides les deux ?
+  Et la pastille de l'app garde-t-elle sa forme <b>pilule</b> (statu quo), ou prend-elle la
+  puce-étiquette de la charte — chantier plus large, écran par écran ?</div>
+</div>
+
+<div class="q" style="margin-top:38px;">
+  <p><b>Après validation</b>, l'application tient en quelques lignes : les fiches entrent dans
+  <code>bibliotheque.html</code>, <code>gazette.css</code> gagne <code>--received</code> et les
+  modificateurs de <code>.statut</code>, et AppButton change deux lignes (<code>white</code>,
+  <code>disabled:*</code>) — <code>ghost</code> n'en change aucune.</p>
+</div>
+
+</body>
+</html>
