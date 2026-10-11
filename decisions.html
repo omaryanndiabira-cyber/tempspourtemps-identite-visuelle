@@ -300,15 +300,15 @@ footer a{color:var(--marine);font-weight:600;}
 </div>
 
 <div class="d d--charte">
-  <div class="tete"><span class="n">C2</span><h3>Les cinq statuts manquants</h3><span class="nature nature--charte">Charte · bloque le palier 5</span></div>
+  <div class="tete"><span class="n">C2</span><h3>Les cinq statuts manquants</h3><span class="nature nature--tranche">Produit le 11/10</span></div>
   <p>La charte dessine <b>quatre</b> pastilles d'état. Le code en affiche <b>neuf</b>. Manquent : <b>expiré</b>, <b>refusé</b>, <b>déclaré</b>, <b>partiellement terminé</b>, et la distinction entre <b>accepté</b> et <b>confirmé</b>. Manque aussi la variante sur fond sombre.</p>
-  <div class="reco"><span class="k">À produire —</span> les cinq pastilles, et une règle explicite pour la distinction accepté / confirmé — <b>ou la décision de les confondre visuellement</b>, ce qui est défendable si le libellé reste distinct.</div>
+  <div class="reco"><span class="k">Produit —</span> dessinées et validées le 11/10 sur <a href="brandkit/explorations/c3-c8-boutons-et-pastilles.html">la planche C3 · C8</a>, entrées dans <code>gazette.css</code> : déclaré et « en attente » en bleu reçu (l'ambre de <code>--attente</code> est <b>amendé</b>, conséquence du 30/09), refusé = le dessin d'annulé à libellé distinct, expiré à <b>puce creuse</b>, accepté ≡ confirmé (confondus, libellés distincts — le code gagnait), variante fond sombre en encre sable.</div>
 </div>
 
 <div class="d d--charte">
-  <div class="tete"><span class="n">C3</span><h3>Le bouton fantôme et le bouton blanc</h3><span class="nature nature--charte">Charte · bloque le palier 3</span></div>
-  <p>Le bouton du code expose douze variantes. Six sont mortes. Mais deux vivantes n'ont <b>aucun équivalent</b> : la variante <b>fantôme</b> (10 usages) et la variante <b>blanche sur marine</b>. Le lien à filet n'est pas un remplacement : il n'a pas la même zone de clic ni la même hauteur.</p>
-  <div class="reco"><span class="k">À produire —</span> deux fiches. Et au passage, acter que <b>les six variantes mortes se suppriment après la migration</b>, pas pendant.</div>
+  <div class="tete"><span class="n">C3</span><h3>Le bouton fantôme et le bouton blanc</h3><span class="nature nature--tranche">Produit le 11/10</span></div>
+  <p>Le bouton du code expose douze variantes. Six sont mortes. Mais deux vivantes n'ont <b>aucun équivalent</b> : la variante <b>fantôme</b> (32 usages mesurés le 11/10, pas 10) et la variante <b>blanche sur marine</b>. Le lien à filet n'est pas un remplacement : il n'a pas la même zone de clic ni la même hauteur.</p>
+  <div class="reco"><span class="k">Produit —</span> les deux fiches, dessinées et validées le 11/10 sur <a href="brandkit/explorations/c3-c8-boutons-et-pastilles.html">la planche C3 · C8</a>, entrées dans <code>gazette.css</code> (<code>.btn-plein--fantome</code>, <code>.btn-plein--papier</code> — du papier, pas du blanc pur) et appliquées dans l'app. La décision d'accompagnement reste actée : <b>les variantes mortes se suppriment après la migration</b>, pas pendant.</div>
 </div>
 
 <div class="d d--produit">
@@ -340,10 +340,10 @@ footer a{color:var(--marine);font-weight:600;}
 </div>
 
 <div class="d d--charte">
-  <div class="tete"><span class="n">C8</span><h3>Les états jamais dessinés</h3><span class="nature nature--charte">Charte · bloque le palier 3</span></div>
+  <div class="tete"><span class="n">C8</span><h3>Les états jamais dessinés</h3><span class="nature nature--tranche">Produit le 11/10 (désactivé ; chargement fait au palier 3 ; vides faits en #668)</span></div>
   <p>L'application contient <b>60 indicateurs de chargement</b>, <b>72 messages de vide</b>, <b>76 blocs d'erreur</b> et <b>112 états désactivés</b>. La charte dessine un squelette, un vide générique, une erreur générique, et <b>aucun état désactivé</b>. Elle ne montre pas non plus le bouton en cours de chargement — dix usages.</p>
   <p>Détail important : l'application ne contient <b>aucune animation de squelette</b>. Les six classes de squelette de la charte sont donc une <b>addition</b>, pas un remplacement — donc du comportement nouveau, à sortir de la migration.</p>
-  <div class="reco"><span class="k">Recommandation —</span> dessiner le <b>bouton en chargement</b> et l'<b>état désactivé</b> (obligatoires, ils existent partout), plus <b>un vide par grande liste</b> — boîte de messages, favoris, mes annonces, résultats filtrés, relevé de temps. Les squelettes attendent.</div>
+  <div class="reco"><span class="k">Produit —</span> le <b>bouton en chargement</b> est fait depuis le palier 3 (tourniquet à la place du libellé) ; les <b>vides par grande liste</b> depuis l'audit des divergences (#668, dix états vides). L'<b>état désactivé</b> est dessiné et validé le 11/10 sur <a href="brandkit/explorations/c3-c8-boutons-et-pastilles.html">la planche C3 · C8</a> : l'inaction <b>confisque la couleur</b> — fond gris, encre tertiaire, ni ombre ni marche, un seul dessin quelle que soit la variante (fantôme compris) ; le chargement (<code>aria-busy</code>) garde les couleurs de sa variante. Entré dans <code>gazette.css</code> et appliqué dans l'app. Les squelettes attendent (TPT-860).</div>
 </div>
 
 <div class="d d--charte">
@@ -441,13 +441,13 @@ footer a{color:var(--marine);font-weight:600;}
     <tr><td class="id">B2</td><td>Les e-mails suivent-ils la charte, et quand ?</td><td class="q">Technique</td><td>Après l'application</td><td><span class="e e--ouvert">À trancher</span></td></tr>
     <tr><td class="id">B3</td><td>Verrouille-t-on le mode clair ?</td><td class="q">Technique</td><td>Palier 1</td><td><span class="e e--ouvert">À trancher</span></td></tr>
     <tr><td class="id">C1</td><td>La table des dix verbes du billet</td><td class="q">Charte</td><td>Palier 5</td><td><span class="e e--ouvert">À produire</span></td></tr>
-    <tr><td class="id">C2</td><td>Les cinq pastilles de statut manquantes</td><td class="q">Charte</td><td>Palier 5</td><td><span class="e e--ouvert">À produire</span></td></tr>
-    <tr><td class="id">C3</td><td>Le bouton fantôme et le bouton blanc</td><td class="q">Charte</td><td>Palier 3</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr class="pris"><td class="id">C2</td><td>Les cinq pastilles de statut manquantes</td><td class="q">Charte</td><td>Palier 5</td><td><span class="e e--fait">✓ Produit</span></td></tr>
+    <tr class="pris"><td class="id">C3</td><td>Le bouton fantôme et le bouton blanc</td><td class="q">Charte</td><td>Palier 3</td><td><span class="e e--fait">✓ Produit</span></td></tr>
     <tr class="pris"><td class="id">C4</td><td><b>Jamais de fil infini</b> — pagination partout</td><td class="q">Produit</td><td>Palier 3</td><td><span class="e e--fait">✓ Tranché</span></td></tr>
     <tr><td class="id">C5</td><td>La cloche et le bandeau de délégation</td><td class="q">Charte</td><td>Palier 6 · chrome</td><td><span class="e e--ouvert">À produire</span></td></tr>
     <tr><td class="id">C6</td><td>Les dix-huit écrans sans maquette</td><td class="q">Charte</td><td>Palier 6</td><td><span class="e e--ouvert">À produire</span></td></tr>
     <tr><td class="id">C7</td><td>L'embarquement et la délégation, complets</td><td class="q">Charte</td><td>Palier 6</td><td><span class="e e--ouvert">À produire</span></td></tr>
-    <tr><td class="id">C8</td><td>Bouton en chargement, état désactivé, vides</td><td class="q">Charte</td><td>Palier 3</td><td><span class="e e--ouvert">À produire</span></td></tr>
+    <tr class="pris"><td class="id">C8</td><td>Bouton en chargement, état désactivé, vides</td><td class="q">Charte</td><td>Palier 3</td><td><span class="e e--fait">✓ Produit</span></td></tr>
     <tr><td class="id">C9</td><td>Un carrousel devient une grille au-delà de 980 px</td><td class="q">Charte</td><td>Palier 6</td><td><span class="e e--ouvert">À produire</span></td></tr>
     <tr><td class="id">D1</td><td>« Jamais trois surfaces » → trois <i>visibles</i></td><td class="q">Règle</td><td>Palier 4b</td><td><span class="e e--ouvert">À amender</span></td></tr>
     <tr><td class="id">D2</td><td>Une exception au dialogue à deux issues</td><td class="q">Règle</td><td>Palier 4</td><td><span class="e e--ouvert">À amender</span></td></tr>

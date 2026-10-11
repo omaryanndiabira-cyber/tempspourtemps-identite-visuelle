@@ -21,6 +21,7 @@
   --bg-main:#f7f6f3;       --bg-secondary:#f3f3f5; --bg-hover:#fdf1d7;
   --text-secondary:#4b5563;--text-tertiary:#717182;
   --border:#d6dbe2;        --paper:#fffdf6;        --ocre:#8a6b1f;
+  --received:#2f6f8f;      /* le bleu « reçu » de l'app — porte « en attente » depuis le 30/09 (l'ambre est réservé aux alertes) */
   --grad-hero:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
   --titres:'Nunito',sans-serif;
   --corps:'Inter',sans-serif;
@@ -180,6 +181,19 @@ footer a{color:var(--marine);font-weight:600;}
 .btn-plein--marine{background:var(--marine);color:var(--sable);box-shadow:0 2px 0 var(--marine-hover);}
 .btn-plein--contour{background:var(--paper);color:var(--marine);border:1.5px solid var(--border);}
 .btn-plein--danger{background:transparent;color:var(--danger);border:1.5px solid rgba(196,69,54,.45);}
+/* ——— fiches C3, dessinées et validées le 11/10 (brandkit/explorations/c3-c8-boutons-et-pastilles.html) ——— */
+/* le fantôme : l'action qui ne doit pas peser — encre marine seule, survol en voile marine à 5 % */
+.btn-plein--fantome{background:transparent;color:var(--marine);box-shadow:none;}
+.btn-plein--fantome:hover{background:rgba(24,62,87,.05);}
+/* le blanc sur marine : du PAPIER, pas du blanc pur ; survol crème, focus = anneau inversé des aplats marine */
+.btn-plein--papier{background:var(--paper);color:var(--marine);box-shadow:0 2px 8px rgba(0,0,0,.28);}
+.btn-plein--papier:hover{background:var(--bg-hover);}
+/* ——— fiche C8 : l'état désactivé, validé le 11/10. L'inaction CONFISQUE la couleur :
+   un seul dessin quelle que soit la variante (fantôme compris), ni ombre ni marche.
+   Exception : le bouton en CHARGEMENT (aria-busy) garde les couleurs de sa variante. ——— */
+.btn-plein:disabled:not([aria-busy='true']),
+.btn-cta:disabled:not([aria-busy='true']),
+.action:disabled:not([aria-busy='true']){background:var(--bg-secondary);color:var(--text-tertiary);border-color:#e9ebef;box-shadow:none;cursor:not-allowed;}
 .action{border:1px solid var(--border);background:var(--paper);border-radius:999px;padding:5px 12px;font-family:var(--corps);font-size:11.5px;font-weight:700;color:var(--marine);cursor:pointer;white-space:nowrap;}
 .action--fort{background:var(--bg-hover);border-color:#f1ddae;color:var(--orange-hover);}
 
@@ -266,8 +280,28 @@ footer a{color:var(--marine);font-weight:600;}
 .badge-admin{background:var(--marine);color:#fff9ec;font-family:var(--titres);font-weight:800;font-size:8.5px;text-transform:uppercase;letter-spacing:.12em;padding:3px 8px;border-radius:4px;white-space:nowrap;}
 .statut{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;color:var(--success);}
 .statut::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(74,157,95,.18);}
-.statut--attente{color:var(--warning);}
-.statut--attente::before{box-shadow:0 0 0 3px rgba(217,119,6,.16);}
+/* AMENDÉ le 11/10 (fiches C2, validées sur planche) : « en attente » était ambre, or
+   l'ambre est réservé aux alertes depuis le palier 3 de l'app (décision du 30/09).
+   Il passe au bleu « reçu », comme « déclaré ». */
+.statut--attente{color:var(--received);}
+.statut--attente::before{box-shadow:0 0 0 3px rgba(47,111,143,.16);}
+/* ——— les cinq pastilles manquantes (C2), dessinées et validées le 11/10 :
+   brandkit/explorations/c3-c8-boutons-et-pastilles.html ——— */
+.statut--declare{color:var(--received);}
+.statut--declare::before{box-shadow:0 0 0 3px rgba(47,111,143,.16);}
+/* refusé = le dessin d'annulé, libellé distinct (la reco C2 l'autorisait) */
+.statut--refuse{color:var(--danger);}
+.statut--refuse::before{box-shadow:0 0 0 3px rgba(196,69,54,.16);}
+/* expiré : même encre que terminé, mais la puce CREUSE dit « s'est éteint tout
+   seul » là où la pleine dit « s'est accompli » */
+.statut--expire{color:var(--text-tertiary);}
+.statut--expire::before{background:transparent;border:2px solid currentColor;width:5px;height:5px;box-shadow:0 0 0 3px rgba(113,113,130,.12);}
+/* la variante sur fond sombre : encre sable, un seul dessin quel que soit le
+   statut — l'aplat marine n'a pas à porter la sémantique de couleur, le libellé suffit */
+.statut--sombre{color:var(--sable);}
+.statut--sombre::before{box-shadow:0 0 0 3px rgba(252,219,129,.22);}
+/* accepté ≠ confirmé : CONFONDUS visuellement (le vert de base), libellés
+   distincts — le code de l'app fait déjà ça, le statu quo gagne. */
 .statut--propose{color:var(--marine);}
 .statut--propose::before{box-shadow:0 0 0 3px rgba(24,62,87,.14);}
 .statut--annule{color:var(--danger);}
