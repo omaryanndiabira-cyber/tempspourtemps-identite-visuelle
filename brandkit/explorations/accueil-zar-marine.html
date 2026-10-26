@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · la Zar, marine et double filet</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  /* ================================================================
+     OUTILLAGE DE PLANCHE — hors application
+     ================================================================ */
+  .etat-lab{font-size:.64rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase;color:var(--text-tertiary);
+    display:flex;align-items:baseline;gap:8px;}
+  .etat-lab b{color:var(--orange-hover);}
+  .etat-lab .px{margin-left:auto;letter-spacing:.04em;font-variant-numeric:tabular-nums;text-transform:none;white-space:nowrap;
+    background:var(--paper);border:1px solid var(--border);border-radius:999px;padding:2px 8px;color:var(--marine);}
+  .ecran .verdict{display:flex;gap:7px;flex-wrap:wrap;}
+  .ecran .verdict span{font-size:.68rem;font-weight:700;border-radius:999px;padding:3px 9px;
+    background:var(--paper);border:1px solid var(--border);color:var(--text-secondary);}
+  .ecran .verdict .tient{background:rgba(74,157,95,.12);border-color:rgba(74,157,95,.4);color:var(--success);}
+  .registre-ligne .geste{flex:none;align-self:center;}
+  .note code,.doc-head code{font-size:.85em;background:var(--bg-secondary);border-radius:4px;padding:0 4px;}
+  .cadre{width:390px;background:var(--grad-hero);border:1px solid var(--border);border-radius:16px;
+    padding:0 0 10px;overflow:hidden;position:relative;
+    box-shadow:0 1px 2px rgba(24,62,87,.06),0 14px 30px -22px rgba(24,62,87,.5);}
+  .cadre--feuille{padding:0;height:500px;}
+  .fantome{opacity:.34;pointer-events:none;}
+  .champ-compo{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:10px 12px;
+    font-size:13px;color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pli{position:absolute;left:0;right:0;top:667px;border-top:1.5px dashed rgba(214,94,28,.75);z-index:60;pointer-events:none;}
+  .pli span{position:absolute;left:12px;top:-19px;font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--orange-hover);background:var(--paper);border:1px solid rgba(214,94,28,.5);border-radius:999px;padding:2px 7px;}
+  .tableau-mesures{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:14px;text-align:left;}
+  .tableau-mesures th,.tableau-mesures td{padding:7px 9px;border-top:1px solid var(--border);}
+  .tableau-mesures thead th{border-top:0;border-bottom:2px solid var(--marine);font-family:var(--titres);font-weight:800;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
+  .tableau-mesures .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+  /* ================================================================
+     LE HAUT DE L'ACCUEIL — repris des planches du 9-10/10
+     ================================================================ */
+  .creneau{position:relative;margin:0 18px;padding:13px 0 0;min-height:57px;overflow:hidden;text-align:left;
+    border:0;background:none;border-radius:0;cursor:default;} /* gazette.css a un .creneau homonyme (RDV) : on l'annule */
+  .creneau p{margin:0;font-family:var(--titres);font-weight:800;font-size:17px;line-height:1.3;color:var(--marine);}
+  .creneau .question{position:absolute;left:0;right:0;top:13px;opacity:0;}
+  .creneau.bascule .salut{opacity:0;}
+  .creneau.bascule .question{opacity:1;}
+  .creneau .prenom{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+  .c1{position:relative;margin:0 18px;background:var(--paper);border:1px solid var(--border);
+      border-radius:12px;padding:10px 12px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+  .c1 .tete{display:flex;align-items:center;gap:9px;}
+  .c1 .plume{width:16px;height:16px;flex:none;color:var(--orange-hover);}
+  .c1 .inv{font-size:12px;color:var(--text-tertiary);line-height:1.4;}
+  .lab-section{display:flex;align-items:baseline;gap:8px;font-family:var(--titres);font-weight:800;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--orange-hover);padding:9px 0 2px;}
+  .lab-section .lien-filet{margin-left:auto;font-size:10.5px;letter-spacing:0;text-transform:none;font-family:var(--corps);}
+  .tl{flex:none;width:46px;height:36px;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+  .tl svg{width:13px;height:13px;}
+  .tl .mot{font-family:var(--titres);font-weight:800;font-size:6.5px;letter-spacing:.07em;text-transform:uppercase;line-height:1;}
+  .tl--annonce{background:#e8eef4;color:var(--marine);}
+  .tl--fil{background:rgba(184,78,23,.10);color:var(--orange-hover);}
+  .rt{margin:4px 18px 0;}
+  .rt-ligne{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+    padding:6px 0;border-top:1px solid var(--border);min-height:48px;}
+  .rt-corps{flex:1;min-width:0;}
+  .rt-corps > b{display:block;font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .rt-sub{display:block;font-size:10.5px;color:var(--text-tertiary);margin-top:2px;}
+
+  .ecran--zm{gap:10px;}
+  .cadre{padding-bottom:16px;}
+  .feuille-seule{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:846px;margin:0 auto;}
+
+  /* ================================================================
+     LA ZONE — un titre, un texte coupé à 3 lignes, « Voir tout »
+     Fond marine (la couleur de la coquille : barre du haut, bouton
+     principal) ; encre papier ; surtitre et « Voir tout » en sable.
+     ================================================================ */
+  .zm{position:relative;margin:20px 18px 0;}
+  .zb{background:var(--marine);color:#fff9ec;}
+  .zb h3{font-family:var(--titres);font-weight:800;font-size:15px;line-height:1.28;color:#fffdf6;margin-top:6px;}
+  .zb .zm-texte{font-size:12px;line-height:1.5;color:rgba(255,249,236,.84);margin-top:3px;}
+  .zm--coupe .zm-texte{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;}
+  .zm--coupe{cursor:pointer;}
+  .zm-voir{position:relative;display:block;margin:5px 0 0 auto;background:none;border:0;padding:0 0 1px;cursor:pointer;
+    font-family:var(--corps);font-size:11.5px;font-weight:700;color:var(--sable);border-bottom:1px dashed currentColor;}
+  .zm-voir::after{content:"";position:absolute;inset:-14px -10px;}
+  .zb :focus-visible{outline-color:var(--focus-halo);box-shadow:0 0 0 5px rgba(24,62,87,.55);}
+  .zb-k{display:flex;align-items:center;gap:6px;font-family:var(--titres);font-weight:800;font-size:9px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--sable);}
+  .zb-k svg{width:12px;height:12px;flex:none;}
+  .zb-k--centre{justify-content:center;gap:9px;letter-spacing:.24em;}
+  .zb-k--centre::before,.zb-k--centre::after{content:"";flex:1;height:1px;background:rgba(252,219,129,.45);}
+  .ruban{display:inline-flex;align-items:center;padding:5px 11px;font-family:var(--titres);font-weight:800;font-size:9.5px;
+    letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;transform:rotate(-1.2deg);
+    clip-path:polygon(2% 0, 98% 4%, 100% 30%, 99% 68%, 100% 100%, 3% 97%, 0 70%, 1% 26%);}
+  .ruban--sable{background:var(--sable);color:var(--marine);}
+  .ruban--coin{position:absolute;left:12px;top:-12px;z-index:1;}
+
+  /* 1 — le double filet décalé : le bord fait le premier filet, l'outline le second */
+  .m1{border-radius:10px;padding:11px 15px 11px;outline:1px solid var(--marine);outline-offset:3px;}
+
+  /* 2 — en réserve : deux filets sable dedans, à 4 et 7 px du bord */
+  .m2{border-radius:12px;padding:15px 19px 15px;
+    box-shadow:inset 0 0 0 4px var(--marine),inset 0 0 0 5px rgba(252,219,129,.7),
+               inset 0 0 0 7px var(--marine),inset 0 0 0 8px rgba(252,219,129,.32);}
+
+  /* 3 — entre les filets d'édition : gras + fin au-dessus, double au-dessous, coins carrés */
+  .m3{border-radius:0;padding:10px 15px 11px;margin-top:28px;margin-bottom:8px;}
+  .m3::before{content:"";position:absolute;left:0;right:0;top:-9px;height:5px;border-top:2px solid var(--marine);border-bottom:1px solid var(--marine);}
+  .m3::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:4px;border-bottom:3px double var(--marine);}
+  .m3 h3{margin-top:7px;}
+
+  /* 4 — la 1, plus le ruban sable en travers du coin */
+  .m4{border-radius:10px;padding:21px 15px 11px;margin-top:30px;outline:1px solid var(--marine);outline-offset:3px;}
+  .m4 h3{margin-top:0;}
+
+  /* 5 — la une en réserve : surtitre entre traits sable, filet double sable au pied */
+  .m5{border-radius:12px;padding:10px 15px 17px;}
+  .m5::after{content:"";position:absolute;left:15px;right:15px;bottom:7px;height:4px;border-bottom:3px double rgba(252,219,129,.55);}
+  .m5 h3{margin-top:7px;}
+
+  /* ================================================================
+     LA FEUILLE « VOIR TOUT » — AppModal size="xl", bandeau marine,
+     filet double dessous, renseignements en encadré à double filet.
+     ================================================================ */
+  .feuille--zb{padding:0 0 18px;overflow:hidden;max-height:92%;}
+  .zf-bandeau{background:var(--marine);padding-top:8px;flex:none;}
+  .zf-bandeau .poignee{background:rgba(255,253,246,.35);}
+  .zf-tete{display:flex;align-items:flex-start;gap:8px;padding:0 8px 14px 18px;}
+  .zf-titres{flex:1;min-width:0;padding-top:4px;}
+  .zf-titres h3{font-family:var(--titres);font-weight:800;font-size:18px;line-height:1.25;margin-top:6px;color:#fffdf6;}
+  .zf-x{flex:none;width:44px;height:44px;border:0;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .zf-x span{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;
+    background:rgba(255,253,246,.14);color:#fffdf6;font-size:15px;line-height:1;}
+  .zf-filets{flex:none;height:6px;margin:3px 0 0;border-top:1px solid var(--marine);border-bottom:2px solid var(--marine);opacity:.55;}
+  .zf-corps{padding:14px 18px 4px;overflow-y:auto;scrollbar-width:none;}
+  .zf-corps p{font-size:14px;line-height:1.6;color:var(--text-secondary);}
+  .zf-corps p + p{margin-top:10px;}
+  .df-fiche{margin:16px 3px 4px;padding:2px 14px;background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.22);outline-offset:2px;border-radius:10px;}
+  .df-fiche .l{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-top:1px dotted var(--border);}
+  .df-fiche .l:first-child{border-top:0;}
+  .df-fiche .k{flex:none;width:72px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);}
+  .df-fiche .v{flex:1;font-size:12.5px;color:var(--marine);font-weight:500;}
+  .df-fiche .v b{font-family:var(--titres);font-weight:800;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Accueil · la Zar, titre et texte</p>
+  <h1>Le fond marine, et le double filet du journal</h1>
+  <p>Les deux choses retenues des <a href="accueil-zar-dix.html" style="color:var(--orange);font-weight:700">dix dessins</a> : <b>le fond marine</b>, qui ne ressemble à rien d'autre sur l'accueil et dit que c'est l'équipe qui parle, et <b>le double contour</b> de l'encadré de la fiche annonce, qui rappelle le journal. Cinq façons de les marier — le double filet dehors, dedans, en filets d'édition, avec le ruban, en une. Même contrat : un titre, un texte coupé à trois lignes, « Voir tout » ouvre la feuille.</p>
+  <div class="traits">
+    <span><b>Fond</b> marine, encre papier, accents sable</span>
+    <span><b>Double filet</b> à chaque fois, jamais au même endroit</span>
+    <span><b>Hauteurs</b> mesurées à l'ouverture</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="planche">
+
+  <figure class="ecran ecran--zm" id="variante-1">
+    <figcaption><span class="n">1</span><h2>Le double filet décalé</h2><span class="route">la fiche annonce, passée au marine</span></figcaption>
+    <div class="verdict"><span class="tient">le trait exact de la fiche annonce</span><span class="tient">le plus simple des cinq</span><span>le second filet est fin</span></div>
+    <p class="etat-lab"><span>Texte long — <b>coupé</b></span><span class="px" data-mesure>…</span></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint Seb’</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau bascule">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rt">
+          <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+            <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+          </button>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+            <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+          </button>
+        </div>
+        <section class="zm zb m1 zm--coupe" aria-labelledby="z1">
+          <p class="zb-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Le mot de l'équipe</p>
+          <h3 id="z1">La permanence passe au jeudi</h3>
+          <p class="zm-texte">À partir du 19 juin, la permanence de Temps pour Temps se tient le jeudi de 17 h à 19 h, à la Maison des associations, salle 2. Venez avec vos questions sur l'application, pour une inscription, ou simplement pour un café : on est là pour ça. Le café des voisins du mardi ne change pas. Et si le jeudi ne vous va pas, écrivez-nous depuis la messagerie : on trouvera un autre moment.</p>
+          <button class="zm-voir" type="button" aria-haspopup="dialog">Voir tout</button>
+        </section>
+        <div class="rubrique rubrique--affiche">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
+          </div>
+        </div>
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+        </div>
+      </main>
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
+    </div>
+    <p class="etat-lab" style="margin-top:6px"><span>Texte court — <b>entier</b></span><span class="px" data-court>…</span></p>
+    <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
+          <section class="zm zb m1" aria-labelledby="z2">
+          <p class="zb-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Le mot de l'équipe</p>
+          <h3 id="z2">Une photo dans vos messages</h3>
+          <p class="zm-texte">Vous pouvez maintenant joindre une photo à vos messages : un objet à prêter, une haie à tailler.</p>
+        </section>
+          <div class="fantome"><div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div></div>
+    </div>
+    <p class="note"><b>La thèse : l'encadré de la fiche annonce, rempli de marine.</b> Le bord du bloc fait le premier filet, un second filet marine de 1 px court autour, décalé de 3 px : c'est la technique de la signalétique (un <code>outline</code> décalé), avec le fond que tu as aimé. Rien d'autre à apprendre. <b>Ce que ça coûte :</b> le second filet, seul trait fin autour d'un grand aplat, peut sembler une hésitation plutôt qu'un cadre ; il faut le voir sur téléphone.</p>
+  </figure>
+
+  <figure class="ecran ecran--zm" id="variante-2">
+    <figcaption><span class="n">2</span><h2>Le double filet en réserve</h2><span class="route">deux filets sable à l'intérieur, comme un encadré imprimé en négatif</span></figcaption>
+    <div class="verdict"><span class="tient">le plus « journal » des cinq</span><span class="tient">le cadre ne déborde pas</span><span>+ 4 px de marge intérieure</span></div>
+    <p class="etat-lab"><span>Texte long — <b>coupé</b></span><span class="px" data-mesure>…</span></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint Seb’</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau bascule">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rt">
+          <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+            <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+          </button>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+            <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+          </button>
+        </div>
+        <section class="zm zb m2 zm--coupe" aria-labelledby="z3">
+          <p class="zb-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Le mot de l'équipe</p>
+          <h3 id="z3">La permanence passe au jeudi</h3>
+          <p class="zm-texte">À partir du 19 juin, la permanence de Temps pour Temps se tient le jeudi de 17 h à 19 h, à la Maison des associations, salle 2. Venez avec vos questions sur l'application, pour une inscription, ou simplement pour un café : on est là pour ça. Le café des voisins du mardi ne change pas. Et si le jeudi ne vous va pas, écrivez-nous depuis la messagerie : on trouvera un autre moment.</p>
+          <button class="zm-voir" type="button" aria-haspopup="dialog">Voir tout</button>
+        </section>
+        <div class="rubrique rubrique--affiche">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
+          </div>
+        </div>
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+        </div>
+      </main>
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
+    </div>
+    <p class="etat-lab" style="margin-top:6px"><span>Texte court — <b>entier</b></span><span class="px" data-court>…</span></p>
+    <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
+          <section class="zm zb m2" aria-labelledby="z4">
+          <p class="zb-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Le mot de l'équipe</p>
+          <h3 id="z4">Une photo dans vos messages</h3>
+          <p class="zm-texte">Vous pouvez maintenant joindre une photo à vos messages : un objet à prêter, une haie à tailler.</p>
+        </section>
+          <div class="fantome"><div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div></div>
+    </div>
+    <p class="note"><b>La thèse : le cadre se dessine dedans, en sable.</b> Deux filets clairs — un franc, un léger — courent à l'intérieur du bloc, à 4 et 7 px du bord : un encadré de journal imprimé en réserve sur fond marine. Le bloc garde ses contours nets dans la page et ne prend aucune place autour de lui. <b>Ce que ça coûte :</b> le texte doit s'écarter des filets (4 px de marge en plus de chaque côté), donc coupe un peu plus tôt : 8 px de plus que la 1.</p>
+  </figure>
+
+  <figure class="ecran ecran--zm" id="variante-3">
+    <figcaption><span class="n">3</span><h2>Entre les filets d'édition</h2><span class="route">filet gras + fin au-dessus, filet double au-dessous, coins carrés</span></figcaption>
+    <div class="verdict"><span class="tient">la grammaire du bandeau d'édition</span><span class="tient">seul bloc carré de la page</span><span>les filets prennent 16 px</span></div>
+    <p class="etat-lab"><span>Texte long — <b>coupé</b></span><span class="px" data-mesure>…</span></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint Seb’</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau bascule">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rt">
+          <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+            <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+          </button>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+            <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+          </button>
+        </div>
+        <section class="zm zb m3 zm--coupe" aria-labelledby="z5">
+          <p class="zb-k zb-k--centre"><span>Le mot de l'équipe</span></p>
+          <h3 id="z5">La permanence passe au jeudi</h3>
+          <p class="zm-texte">À partir du 19 juin, la permanence de Temps pour Temps se tient le jeudi de 17 h à 19 h, à la Maison des associations, salle 2. Venez avec vos questions sur l'application, pour une inscription, ou simplement pour un café : on est là pour ça. Le café des voisins du mardi ne change pas. Et si le jeudi ne vous va pas, écrivez-nous depuis la messagerie : on trouvera un autre moment.</p>
+          <button class="zm-voir" type="button" aria-haspopup="dialog">Voir tout</button>
+        </section>
+        <div class="rubrique rubrique--affiche">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
+          </div>
+        </div>
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+        </div>
+      </main>
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
+    </div>
+    <p class="etat-lab" style="margin-top:6px"><span>Texte court — <b>entier</b></span><span class="px" data-court>…</span></p>
+    <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
+          <section class="zm zb m3" aria-labelledby="z6">
+          <p class="zb-k zb-k--centre"><span>Le mot de l'équipe</span></p>
+          <h3 id="z6">Une photo dans vos messages</h3>
+          <p class="zm-texte">Vous pouvez maintenant joindre une photo à vos messages : un objet à prêter, une haie à tailler.</p>
+        </section>
+          <div class="fantome"><div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div></div>
+    </div>
+    <p class="note"><b>La thèse : la zone est encadrée comme la une.</b> Au-dessus, le filet gras et le filet fin du bandeau d'édition (« Saint Seb’ — 13 h partagées ») ; au-dessous, le filet double du sommaire ; entre les deux, un aplat marine à coins carrés, le surtitre centré entre deux traits sable. C'est l'accueil qui se cite lui-même. <b>Ce que ça coûte :</b> les filets extérieurs ajoutent ~16 px, et deux surfaces carrées (le bandeau en haut de page, celle-ci) peuvent se répondre un peu trop.</p>
+  </figure>
+
+  <figure class="ecran ecran--zm" id="variante-4">
+    <figcaption><span class="n">4</span><h2>Le double filet et le ruban sable</h2><span class="route">la 1, avec le ruban des rubriques en travers du coin</span></figcaption>
+    <div class="verdict"><span class="tient">le nom se lit avant le titre</span><span class="tient">le ruban de la page, pas un nouveau</span><span>le plus orné des cinq</span></div>
+    <p class="etat-lab"><span>Texte long — <b>coupé</b></span><span class="px" data-mesure>…</span></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint Seb’</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau bascule">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rt">
+          <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+            <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+          </button>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+            <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+          </button>
+        </div>
+        <section class="zm zb m4 zm--coupe" aria-labelledby="z7">
+          <span class="ruban ruban--sable ruban--coin">Le mot de l'équipe</span>
+          <h3 id="z7">La permanence passe au jeudi</h3>
+          <p class="zm-texte">À partir du 19 juin, la permanence de Temps pour Temps se tient le jeudi de 17 h à 19 h, à la Maison des associations, salle 2. Venez avec vos questions sur l'application, pour une inscription, ou simplement pour un café : on est là pour ça. Le café des voisins du mardi ne change pas. Et si le jeudi ne vous va pas, écrivez-nous depuis la messagerie : on trouvera un autre moment.</p>
+          <button class="zm-voir" type="button" aria-haspopup="dialog">Voir tout</button>
+        </section>
+        <div class="rubrique rubrique--affiche">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
+          </div>
+        </div>
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+        </div>
+      </main>
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
+    </div>
+    <p class="etat-lab" style="margin-top:6px"><span>Texte court — <b>entier</b></span><span class="px" data-court>…</span></p>
+    <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
+          <section class="zm zb m4" aria-labelledby="z8">
+          <span class="ruban ruban--sable ruban--coin">Le mot de l'équipe</span>
+          <h3 id="z8">Une photo dans vos messages</h3>
+          <p class="zm-texte">Vous pouvez maintenant joindre une photo à vos messages : un objet à prêter, une haie à tailler.</p>
+        </section>
+          <div class="fantome"><div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div></div>
+    </div>
+    <p class="note"><b>La thèse : la 1, plus un nom.</b> Le ruban sable ordinaire — celui de « À l'affiche » — vient se poser en travers du coin, par-dessus les deux filets : le double contour dit « journal », l'aplat dit « l'équipe », le ruban le nomme. C'est la 9 de la planche précédente avec le cadre de la 7. <b>Ce que ça coûte :</b> trois signes sur un même bloc. Pas la hauteur : le ruban remplace le surtitre, la zone ne prend que 2 px de plus que la 1.</p>
+  </figure>
+
+  <figure class="ecran ecran--zm" id="variante-5">
+    <figcaption><span class="n">5</span><h2>La une en réserve</h2><span class="route">filet sable en tête, filet double sable au pied, dedans</span></figcaption>
+    <div class="verdict"><span class="tient">la une de la gazette, en négatif</span><span class="tient">le surtitre devient une manchette</span><span>pas de contour extérieur</span></div>
+    <p class="etat-lab"><span>Texte long — <b>coupé</b></span><span class="px" data-mesure>…</span></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint Seb’</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau bascule">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rt">
+          <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+            <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+          </button>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+            <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+          </button>
+        </div>
+        <section class="zm zb m5 zm--coupe" aria-labelledby="z9">
+          <p class="zb-k zb-k--centre"><span>Le mot de l'équipe</span></p>
+          <h3 id="z9">La permanence passe au jeudi</h3>
+          <p class="zm-texte">À partir du 19 juin, la permanence de Temps pour Temps se tient le jeudi de 17 h à 19 h, à la Maison des associations, salle 2. Venez avec vos questions sur l'application, pour une inscription, ou simplement pour un café : on est là pour ça. Le café des voisins du mardi ne change pas. Et si le jeudi ne vous va pas, écrivez-nous depuis la messagerie : on trouvera un autre moment.</p>
+          <button class="zm-voir" type="button" aria-haspopup="dialog">Voir tout</button>
+        </section>
+        <div class="rubrique rubrique--affiche">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
+          </div>
+        </div>
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+        </div>
+      </main>
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
+    </div>
+    <p class="etat-lab" style="margin-top:6px"><span>Texte court — <b>entier</b></span><span class="px" data-court>…</span></p>
+    <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
+          <section class="zm zb m5" aria-labelledby="z10">
+          <p class="zb-k zb-k--centre"><span>Le mot de l'équipe</span></p>
+          <h3 id="z10">Une photo dans vos messages</h3>
+          <p class="zm-texte">Vous pouvez maintenant joindre une photo à vos messages : un objet à prêter, une haie à tailler.</p>
+        </section>
+          <div class="fantome"><div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div></div>
+    </div>
+    <p class="note"><b>La thèse : la zone est une petite une.</b> Le surtitre est centré entre deux traits sable, et un filet double sable ferme le bloc au pied : la mise en page d'une une de gazette, imprimée en sable sur le marine. Le double contour est dans le bloc, pas autour. <b>Ce que ça coûte :</b> c'est la moins « encadrée » vue de loin ; le double filet du pied ne se voit qu'en lisant.</p>
+  </figure>
+
+  <figure class="ecran" id="la-feuille">
+    <figcaption><span class="n">↗</span><h2>« Voir tout » — la feuille, commune aux cinq</h2><span class="route">AppModal size="xl"</span></figcaption>
+    <div class="verdict"><span class="tient">feuille sur téléphone, dialogue dès 768 px</span><span class="tient">rien à créer</span></div>
+    <div class="cadre cadre--feuille">
+          <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
+          <div class="voile">
+            <div class="feuille feuille--zb" role="dialog" aria-modal="true" aria-labelledby="fzb">
+              <div class="zf-bandeau">
+                <div class="poignee"></div>
+                <div class="zf-tete">
+                  <div class="zf-titres"><p class="zb-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Le mot de l'équipe</p><h3 id="fzb">La permanence passe au jeudi</h3></div>
+                  <button class="zf-x" type="button" aria-label="Fermer"><span>×</span></button>
+                </div>
+              </div>
+              <div class="zf-filets" aria-hidden="true"></div>
+              <div class="zf-corps">
+                <p>À partir du 19 juin, la permanence de Temps pour Temps se tient le jeudi de 17 h à 19 h, à la Maison des associations, salle 2. Venez avec vos questions sur l'application, pour une inscription, ou simplement pour un café : on est là pour ça.</p>
+                <p>Le café des voisins du mardi ne change pas. Et si le jeudi ne vous va pas, écrivez-nous depuis la messagerie : on trouvera un autre moment.</p>
+                <div class="df-fiche"><div class="l"><span class="k">Publié</span><span class="v">le 10 juin</span></div><div class="l"><span class="k">Par</span><span class="v"><b>l'équipe Temps pour Temps</b></span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <p class="note">La feuille s'ouvre sur le <b>bandeau marine</b> que les fiches annonce portent déjà (l'emplacement <code>bandeau</code> d'<code>AppModal</code>), fermé par un filet double ; le texte se lit sur le papier de la feuille, et la date et l'auteur se rangent dans un <b>encadré à double filet</b>, comme les renseignements d'une annonce. Les deux signes de la zone, repris tels quels.</p>
+  </figure>
+</div>
+
+<footer class="doc-head" style="margin:56px auto 0;max-width:780px">
+  <p class="kicker">Ce qui se joue</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Les mesures</h2>
+  <table class="tableau-mesures" id="mesures">
+    <thead><tr><th>Variante</th><th class="num">Texte long, coupé</th><th class="num">Texte court</th><th class="num">« À l'affiche » à</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <p style="text-align:left;margin-top:10px;font-size:.8rem;color:var(--text-tertiary)">Hauteurs de la zone mesurées dans le navigateur à l'ouverture, marges comprises. « À l'affiche » : distance depuis le haut du téléphone, accueil à deux publications actives ; son ruban reste visible au-dessus de la barre du bas d'un écran de 667 px jusqu'à ~557 px.</p>
+  <p style="text-align:left;margin-top:16px"><b>Le constat.</b> Les cinq tiennent la place : de 157 à 173 px coupée, et « À l'affiche » reste visible au-dessus de la barre du bas, la 2 et la 3 tout juste (557 px). La place ne départage donc pas ; c'est le goût et le code qui le font.</p>
+  <p style="text-align:left;margin-top:10px"><b>Recommandation : la 1, le double filet décalé.</b> C'est littéralement le double contour de la fiche annonce que tu as aimé — et la même technique que le code emploie déjà pour elle (<code>AnnouncementDetailsModal.vue</code> : un filet marine plus un second filet décalé, <code>outline-offset</code>) —, posé sur le fond marine. La plus simple, la plus basse (157 px), rien de nouveau à apprendre ni à écrire. <b>Si tu la veux plus « imprimée »</b> : la 2, dont les deux filets sable intérieurs font le plus journal des cinq. <b>Si tu tiens au ruban</b> : la 4, qui ne coûte que 2 px de plus que la 1.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</footer>
+
+<script>
+  addEventListener('load', () => {
+    const corps = document.querySelector('#mesures tbody')
+    const lignes = []
+    const h = (el) => { const r = el.getBoundingClientRect(); const cs = getComputedStyle(el); return Math.round(r.height + parseFloat(cs.marginTop) + parseFloat(cs.marginBottom)) }
+    document.querySelectorAll('.ecran--zm').forEach((fig) => {
+      const ph = fig.querySelector('.phone')
+      const haut = ph.getBoundingClientRect().top
+      const long = h(ph.querySelector('.zm'))
+      const court = h(fig.querySelector('.cadre .zm'))
+      const aff = Math.round(ph.querySelector('.rubrique--affiche').getBoundingClientRect().top - haut)
+      fig.querySelector('[data-mesure]').textContent = 'zone ' + long + ' px · « À l’affiche » à ' + aff + ' px'
+      fig.querySelector('[data-court]').textContent = 'zone ' + court + ' px'
+      const nom = fig.querySelector('figcaption .n').textContent + ' · ' + fig.querySelector('figcaption h2').textContent
+      lignes.push({ nom, long, court, aff })
+      corps.insertAdjacentHTML('beforeend', '<tr><td><b>' + nom + '</b></td><td class="num">' + long + '</td><td class="num">' + court + '</td><td class="num">' + aff + '</td></tr>')
+    })
+    window.__mesures = lignes
+  })
+</script>
+
+</body>
+</html>
