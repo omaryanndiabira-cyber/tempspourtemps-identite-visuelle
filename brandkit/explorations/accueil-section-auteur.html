@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · la section de l'auteur (5 variantes)</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  /* ================================================================
+     OUTILS DE PLANCHE — hors application
+     Cette planche ne montre QU'UNE SECTION, jamais l'écran entier.
+     D'où un cadre de 375 px au fond du fil (`--grad-hero`), sans
+     barre d'état ni barre du bas. Ce qui est au-dessus (le composeur)
+     et au-dessous (« À l'affiche ») est dessiné en fantôme, pour que
+     la place volée se voie. Le liséré orange pointillé cerne la zone
+     mesurée : `outline` et non `border`, pour ne rien ajouter à la
+     hauteur, et `flow-root` pour que les marges des enfants soient
+     comptées dedans — elles sont consommées, elles aussi.
+     ================================================================ */
+  .duo-etats{display:flex;flex-direction:column;gap:14px;}
+  .cadre{
+    width:375px;background:var(--grad-hero);border:1px solid var(--border);
+    border-radius:16px;padding:0 0 4px;overflow:hidden;position:relative;
+    box-shadow:0 1px 2px rgba(24,62,87,.06),0 14px 30px -22px rgba(24,62,87,.5);
+  }
+  .etat-lab{
+    font-size:.64rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase;
+    color:var(--text-tertiary);margin-bottom:5px;display:flex;align-items:baseline;gap:8px;
+  }
+  .etat-lab b{color:var(--orange-hover);}
+  .etat-lab .px{
+    margin-left:auto;letter-spacing:.04em;font-variant-numeric:tabular-nums;
+    background:var(--paper);border:1px solid var(--border);border-radius:999px;padding:2px 8px;color:var(--marine);
+  }
+  .etat-lab .px--nul{color:var(--success);}
+  .zone{display:flow-root;outline:1px dashed rgba(214,94,28,.5);outline-offset:-1px;}
+  .fantome{opacity:.34;pointer-events:none;}
+  .ecran .verdict{display:flex;gap:7px;flex-wrap:wrap;margin-top:-4px;}
+  .ecran .verdict span{
+    font-size:.68rem;font-weight:700;border-radius:999px;padding:3px 9px;
+    background:var(--paper);border:1px solid var(--border);color:var(--text-secondary);
+  }
+  .ecran .verdict .tient{background:rgba(74,157,95,.12);border-color:rgba(74,157,95,.4);color:var(--success);}
+  .ecran .verdict .casse{background:rgba(196,69,54,.10);border-color:rgba(196,69,54,.4);color:var(--danger);}
+  .planche--large{max-width:846px;}
+  .tableau-mesures{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:14px;text-align:left;}
+  .tableau-mesures th,.tableau-mesures td{padding:7px 9px;border-top:1px solid var(--border);}
+  .tableau-mesures thead th{border-top:0;border-bottom:2px solid var(--marine);font-family:var(--titres);font-weight:800;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
+  .tableau-mesures td b{font-family:var(--titres);}
+  .tableau-mesures .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .tableau-mesures .ok{color:var(--success);font-weight:700;}
+  .tableau-mesures .ko{color:var(--danger);font-weight:700;}
+
+  /* ================================================================
+     CE QUE LES CINQ VARIANTES AJOUTENT À LA CHARTE
+     Quatre formes, toutes bâties sur des valeurs déjà en service ;
+     la cinquième n'ajoute rien du tout. Aucune couleur hors tokens.
+
+     · `.ligne-geste`  (1) — la ligne de `.registre-ligne`, dont la
+       deuxième ligne de texte n'est pas une description mais UNE
+       CONSÉQUENCE. Mêmes corps, même filet.
+     · `.tiroir`       (2) — un `<details>` à la facture de
+       `.journal > summary` (9 px, filet, chevron), remonté à 10,5 px
+       parce qu'il porte ici un titre de section, pas un replis.
+     · `.prose-auteur` (3) — ni carte ni bordure : du texte sur le
+       fond du fil. Chaque phrase est une cible de 44 px de haut.
+     · `.compo-talon`  (4) — un talon collé sous le champ du
+       composeur, qui partage sa bordure. Fond de `.rapide`
+       (`--bg-hover`) et filet `#efdcae` — seul hexadécimal non
+       tokenisé de la planche, et il n'est pas inventé : c'est le
+       filet que la charte emploie déjà pour `.section-courrier
+       --nonlus` et `.frise-action`. Il mériterait un token.
+     · la 5 est `.sommaire` de la charte, inchangé : seule la colonne
+       de droite accueille une `.action` au lieu d'un nombre.
+     ================================================================ */
+
+  /* 1 — LA CONSÉQUENCE EN CLAIR */
+  .gestes{margin:0 18px;}
+  .ligne-geste{
+    display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+    padding:11px 0;border-top:1px solid var(--border);background:none;border-left:0;border-right:0;border-bottom:0;cursor:pointer;
+  }
+  .ligne-geste:first-child{border-top:0;}
+  .ligne-geste .c{flex:1;min-width:0;}
+  .ligne-geste b{display:block;font-family:var(--titres);font-weight:800;font-size:13.5px;color:var(--marine);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ligne-geste .cons{font-size:11.5px;line-height:1.4;color:var(--text-secondary);margin-top:3px;}
+  .ligne-geste .cons .delai{font-weight:700;color:var(--danger);}
+  .ligne-geste .cons .delai--doux{color:var(--orange-hover);}
+  .ligne-geste .action{flex:none;}
+  .pied-calme{
+    display:flex;align-items:center;gap:9px;margin:0 18px;padding:10px 0 2px;
+    border-top:1px solid var(--marine);font-size:11.5px;color:var(--text-secondary);
+  }
+  .pied-calme .lien-filet{margin-left:auto;}
+
+  /* 2 — LES DEUX TIROIRS */
+  .tiroir{margin:0 18px;}
+  .tiroir > summary{
+    display:flex;align-items:center;gap:9px;padding:11px 0 9px;cursor:pointer;list-style:none;
+    border-bottom:2px solid var(--marine);
+    font-family:var(--titres);font-weight:800;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--marine);
+  }
+  .tiroir > summary::-webkit-details-marker{display:none;}
+  .tiroir > summary .chev{margin-left:auto;color:var(--text-tertiary);font-size:11px;}
+  .tiroir[open] > summary .chev{transform:rotate(180deg);}
+  .tiroir--calme > summary{border-bottom-width:1px;border-bottom-color:var(--border);color:var(--text-tertiary);}
+  .badge-compte--muet{background:var(--bg-secondary);color:var(--text-tertiary);}
+  .tiroir-ligne{
+    display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--border);
+  }
+  .tiroir-ligne:first-child{border-top:0;}
+  .tiroir-ligne .etat{flex:none;}
+  .tiroir-ligne .c{flex:1;min-width:0;}
+  .tiroir-ligne b{display:block;font-family:var(--titres);font-weight:800;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .tiroir-ligne .d{font-size:10.5px;color:var(--text-tertiary);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .tiroir-ligne .action{flex:none;}
+
+  /* 3 — LE BILLET EN PROSE */
+  .prose-auteur{margin:0 18px;}
+  .prose-auteur .kick{
+    font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--orange-hover);padding:12px 0 4px;
+  }
+  .prose-auteur .phrase{
+    display:block;width:100%;text-align:left;border:0;background:none;cursor:pointer;
+    font-family:var(--corps);font-size:12.5px;line-height:1.55;color:var(--text-secondary);
+    padding:7px 0;border-top:1px dashed var(--border);
+  }
+  .prose-auteur .phrase:first-of-type{border-top:0;}
+  .prose-auteur .phrase b{font-family:var(--titres);font-weight:800;color:var(--marine);}
+  .prose-auteur .phrase i{font-style:normal;font-weight:700;color:var(--danger);}
+  .prose-auteur .phrase i.doux{color:var(--orange-hover);}
+  .prose-auteur .phrase .lien-filet{margin-left:3px;}
+  .prose-auteur .muet{
+    font-size:11.5px;line-height:1.5;color:var(--text-tertiary);font-style:italic;
+    padding:8px 0 2px;border-top:1px dashed var(--border);
+  }
+  .prose-auteur .muet--seul{border-top:0;padding:12px 0 4px;}
+
+  /* 4 — LE TALON DU COMPOSEUR */
+  .compo-bloc{padding:12px 18px 2px;}
+  .champ-compo{
+    background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--sable);
+    border-radius:10px;padding:11px 13px;font-size:13px;color:var(--text-tertiary);
+    box-shadow:0 1px 2px rgba(24,62,87,.06);
+  }
+  .compo-bloc--talonne .champ-compo{border-radius:10px 10px 0 0;border-bottom:0;}
+  .compo-talon{
+    display:flex;align-items:center;gap:9px;
+    background:var(--bg-hover);border:1px solid #efdcae;border-left:3px solid var(--orange-vif);border-top:0;
+    padding:7px 10px 7px 11px;
+  }
+  .compo-talon:first-child{border-top:1px solid #efdcae;}
+  .compo-talon--dernier{border-radius:0 0 10px 10px;}
+  .compo-talon p{flex:1;min-width:0;font-size:11.5px;line-height:1.35;color:var(--text-secondary);}
+  .compo-talon p b{font-family:var(--titres);font-weight:800;color:var(--marine);}
+  .compo-talon p .delai{font-weight:700;color:var(--danger);}
+  .compo-talon .action{flex:none;}
+  .compo-talon--suite{justify-content:center;padding:14px 10px;}
+  .compo-talon--suite .lien-filet{font-size:11px;}
+
+  /* 5 — LE SOMMAIRE DE L'AUTEUR */
+  .sommaire--auteur{margin-top:12px;}
+  .sommaire--auteur .t{text-align:left;letter-spacing:.2em;color:var(--orange-hover);}
+  .sommaire--auteur li{min-height:21px;}
+  .sommaire--auteur li.agir{min-height:33px;}
+  .sommaire--auteur li .action{flex:none;margin-left:8px;}
+  .sommaire--auteur li .n--agir{color:var(--danger);}
+  .zone--nulle{height:0;}
+  .ghost-rub{display:flow-root;}
+  .ligne-geste .cons{display:block;}
+  .pied-calme--seul{border-top:0;}
+  .sommaire--auteur li{align-items:center;}
+  .sommaire--auteur li .pts{top:0;}
+  .sommaire--auteur li .zero{font-family:var(--titres);font-weight:800;font-size:13px;color:var(--text-tertiary);}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Accueil · la section de l'auteur</p>
+  <h1>Ce qui porte votre nom, et le geste qui va avec</h1>
+  <p>Cinq formes d'<b>une seule section</b>, posée sous le composeur, à 375 px. Elle doit faire trois choses à la fois : qu'<b>aucune publication ne s'oublie</b>, qu'on puisse <b>agir dessus sans aller la chercher</b>, et <b>ne presque rien coûter</b> — la place qu'elle prend est volée à « À l'affiche » et au fil. Les cinq ne se distinguent pas par leur goût : elles répondent chacune autrement à la seule question dure, qui est <b>comment ranger des états qui ne se comparent pas</b>.</p>
+  <div class="traits">
+    <span><b>6 objets</b> publiables, 3 à 4 états chacun</span>
+    <span><b>5 publications</b> dont 2 réclament un geste</span>
+    <span><b>Budget</b> 213 px avant que le fil tombe</span>
+    <span><b>L'état le plus fréquent</b> rien à faire</span>
+    <span><b>4 états dessinés</b> par variante</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<!-- ====================================================================
+     LE NŒUD — cinq façons de trier l'incomparable
+     ==================================================================== -->
+<section class="doc-head" style="margin-bottom:34px">
+  <p class="kicker">D'abord, le nœud</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Une date de péremption et un taux de remplissage ne se comparent pas</h2>
+  <p style="max-width:680px">« Périme dans 5 jours », « 2 inscrits sur 5 », « 3 réactions non lues », « une déclaration à faire » : il n'existe <b>aucun ordre évident</b> entre ces quatre états. Les mettre dans une liste unique exige donc un principe de tri qu'il faut <b>assumer et énoncer</b> — sous peine de laisser croire à un classement qui n'en est pas un. Les séparer par type coûte trois ou quatre titres de rubrique, et le ruban de la charte en pèse 60 px à lui seul. Les cinq variantes épuisent, je crois, les cinq sorties possibles :</p>
+  <div class="reglages" style="max-width:680px;margin:14px auto 0;text-align:left">
+    <div class="reglage"><span class="pic">1</span><div class="c"><b>Convertir</b><p class="d">Un seul scalaire, et on le nomme : <i>ce qui s'efface si vous ne faites rien</i>. Chaque état devient une perte et une date. L'ordre est alors indiscutable — au prix d'une traduction qu'on assume.</p></div></div>
+    <div class="reglage"><span class="pic">2</span><div class="c"><b>Partager en deux</b><p class="d">On vous attend / tout va bien. Aucun classement <i>à l'intérieur</i> d'un tiroir : l'ordre de publication, et rien d'autre. On ne prétend rien, donc on ne ment pas.</p></div></div>
+    <div class="reglage"><span class="pic">3</span><div class="c"><b>Raconter</b><p class="d">Pas de liste du tout : des phrases. Une phrase a un ordre mais ne porte <i>aucune prétention</i> de hiérarchie — personne ne compare deux phrases comme on compare deux lignes alignées.</p></div></div>
+    <div class="reglage"><span class="pic">4</span><div class="c"><b>Ne garder que le premier</b><p class="d">L'argmax du même scalaire que la 1, et un « + 1 autre » pour le reste. Le tri existe, il n'est simplement pas montré : on ne voit que son vainqueur.</p></div></div>
+    <div class="reglage"><span class="pic">5</span><div class="c"><b>Ne pas trier</b><p class="d">Quatre rubriques, toujours là, toujours à la même place, <i>même à zéro</i>. Pour des voisins peu à l'aise avec le numérique, une chose qui ne bouge jamais vaut mieux qu'une chose bien classée.</p></div></div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     LE BUDGET — ce que la commune ne cède pas
+     ==================================================================== -->
+<section class="doc-head" style="margin-bottom:34px">
+  <p class="kicker">Ensuite, le budget</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">213 px, et pas un de plus</h2>
+  <p style="max-width:680px">La planche « le composeur, en situation » a mesuré que, <b>sans cette section</b>, le ruban « À l'affiche » apparaît à <b>313 px</b> du haut de l'écran (variante 1, la plus discrète). Sur le plus petit écran encore servi — 375 × 667 — le pli est à <b>667 px</b>. Un ruban de rubrique suivi d'une seule ligne pèse <b>141 px</b>. D'où deux seuils, qui servent de verdict à chaque variante :</p>
+  <div class="reglages" style="max-width:680px;margin:14px auto 0;text-align:left">
+    <div class="reglage"><span class="pic">✓</span><div class="c"><b>213 px — « À l'affiche » garde son ruban et une ligne</b><p class="d">667 − 313 − 141. Au-delà, la commune n'a plus qu'un titre sous le pli, et le fil disparaît entièrement.</p></div></div>
+    <div class="reglage"><span class="pic">✓✓</span><div class="c"><b>153 px — le ruban du fil apparaît aussi</b><p class="d">60 px de plus, le prix d'un second ruban. Le vrai objectif : que l'accueil montre encore <i>deux</i> rubriques du quartier sous la section de l'auteur. <b>Une seule variante sur cinq y arrive.</b></p></div></div>
+  </div>
+  <p style="max-width:680px;margin-top:14px"><b>Trois conventions, valables pour les cinq.</b> D'abord, <b>une pastille n'apparaît que lorsqu'on attend quelque chose de vous</b> : afficher « Annuler » sur une rencontre qui se porte bien serait une invitation à la détruire. Ensuite, <b>la ligne entière est cliquable</b> et mène à la fiche, où vivent les autres gestes du même objet — un mot du fil en a quatre, une annonce trois ; la pastille ne montre que le principal. Enfin, <b>l'état vide de la charte est refusé par les cinq</b> : <code>.vide</code> fait 150 px avec son médaillon et son cadre pointillé, c'est-à-dire plus que la section pleine. Un état vide qui coûte plus cher que l'état plein, sur l'état le plus fréquent, est une faute.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</section>
+
+<!-- ====================================================================
+     LE JEU D'ESSAI — le même dans les cinq variantes
+     ==================================================================== -->
+<section class="doc-head" style="margin-bottom:34px">
+  <p class="kicker">Le jeu d'essai</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Mercredi 10 juin, cinq publications, deux gestes</h2>
+  <p style="max-width:680px">Les cinq variantes montrent <b>exactement les mêmes données</b>, pour qu'on les compare à autre chose qu'à leur charme. Les deux gestes attendus sont les deux seules échéances <b>irréversibles</b> du jeu.</p>
+  <div class="reglages" style="max-width:680px;margin:14px auto 0;text-align:left">
+    <div class="reglage"><span class="pic">1</span><div class="c"><b>« Petit bricolage » — annonce permanente, active</b><p class="d">Publiée le 1<sup>er</sup> mai. 40<sup>e</sup> jour : le rappel du 30<sup>e</sup> est passé, la péremption du 45<sup>e</sup> est <b>dans 5 jours</b>. <b>Geste : confirmer qu'elle est toujours valable.</b></p></div></div>
+    <div class="reglage"><span class="pic">2</span><div class="c"><b>« Réparer son vélo » — atelier, samedi 14 juin</b><p class="d">2 inscrits, minimum 5, maximum 8. Il sera <b>annulé à son démarrage</b> s'il n'atteint pas son minimum — pas avant. <b>Geste : relancer</b> (ou maintenir malgré tout, ou annuler, dans la fiche).</p></div></div>
+    <div class="reglage"><span class="pic">3</span><div class="c"><b>« Qui a une échelle à prêter ? » — mot du fil, pourvue</b><p class="d">Bernard T. a proposé la sienne, vous avez répondu. Rien ne vous attend ; le geste disponible est <i>marquer faite</i>, dans la fiche.</p></div></div>
+    <div class="reglage"><span class="pic">4</span><div class="c"><b>« Je donne des tomates » — mot du fil, ouverte</b><p class="d">Publié ce matin, 2 intéressés, tous deux salués. Geste disponible : <i>marquer pourvue</i>.</p></div></div>
+    <div class="reglage"><span class="pic">5</span><div class="c"><b>« Parler du compost » — rencontre, jeudi 19 juin</b><p class="d">6 inscrits, aucun temps échangé. Seul geste prévu par le modèle : <i>annuler</i>. Donc aucune pastille.</p></div></div>
+    <div class="reglage"><span class="pic">6</span><div class="c"><b>« Café des voisins » — moment ouvert, tenu mardi</b><p class="d">Réservé à l'animation, et <b>montré seulement dans le 4<sup>e</sup> état</b> de chaque variante. Il a eu lieu mais personne n'a dit combien de voisins sont passés : <b>il ne compte dans aucun total</b>. <b>Geste : déclarer.</b></p></div></div>
+  </div>
+  <p style="max-width:680px;margin-top:14px"><b>Quatre états par variante, et non deux.</b> Le prompt demandait le nominal et le vide ; mais « vide » recouvre deux jours très différents — <b>celui où vos cinq publications vont bien</b> (le plus fréquent, et il faut quand même pouvoir les atteindre) et <b>celui où vous n'avez jamais rien publié</b> (un nouveau membre, pour qui la section n'a aucun contenu à montrer). Les deux sont dessinés. Le quatrième état est une mise à l'épreuve : <b>trois gestes au lieu de deux</b>, sur un compte d'animation. C'est là que deux des cinq formes cassent, et il valait mieux le voir maintenant.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</section>
+
+<div class="planche planche--large">
+
+  <!-- ==================================================================
+       1 · LA CONSÉQUENCE EN CLAIR
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>La conséquence en clair</h2><span class="route">« Sous votre nom »</span></figcaption>
+    <div class="verdict"><span class="tient">un ordre indiscutable</span><span class="tient">la plus explicite des cinq</span><span class="casse">hors budget de 13 px</span><span class="casse">le ruban coûte 60 px</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>État nominal — <b>2 gestes sur 5</b></span><span class="px" id="px-1N">226 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone" id="z-1N">
+            <div class="rubrique">
+              <span class="tape"><h2>Sous votre nom</h2><span class="badge-compte">2</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <p class="sous-rubrique">Ce qui s'efface si vous ne faites rien, d'abord.</p>
+            <div class="gestes">
+              <button class="ligne-geste" type="button">
+                <span class="c">
+                  <b>Petit bricolage</b>
+                  <span class="cons"><span class="delai">Dans 5 jours</span>, votre annonce quitte l'annuaire.</span>
+                </span>
+                <span class="action action--fort">Confirmer</span>
+              </button>
+              <button class="ligne-geste" type="button">
+                <span class="c">
+                  <b>Réparer son vélo</b>
+                  <span class="cons">2 inscrits sur 5 : <span class="delai delai--doux">annulé samedi au démarrage</span>.</span>
+                </span>
+                <span class="action action--fort">Relancer</span>
+              </button>
+            </div>
+            <p class="pied-calme">Vos 3 autres publications vont bien.<a class="lien-filet lien-filet--muet" href="#">Les revoir</a></p>
+          </div>
+          <div class="fantome ghost-rub" id="rub-ref">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>rien à faire</b></span><span class="px" id="px-1B">86 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone" id="z-1B">
+            <div class="rubrique">
+              <span class="tape"><h2>Sous votre nom</h2></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <p class="pied-calme pied-calme--seul">Vos 5 publications vont bien. Rien ne vous attend.<a class="lien-filet lien-filet--muet" href="#">Les revoir</a></p>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Nouveau membre — <b>rien publié</b></span><span class="px px--nul" id="px-1C">0 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone zone--nulle" id="z-1C" aria-hidden="true"></div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>À l'épreuve — <b>3 gestes, compte d'animation</b></span><span class="px" id="px-1D">303 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-1D">
+            <div class="rubrique">
+              <span class="tape"><h2>Sous votre nom</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <p class="sous-rubrique">Ce qui s'efface si vous ne faites rien, d'abord.</p>
+            <div class="gestes">
+              <button class="ligne-geste" type="button">
+                <span class="c">
+                  <b>Café des voisins</b>
+                  <span class="cons">Tenu mardi, <span class="delai">jamais déclaré</span> : il ne compte nulle part.</span>
+                </span>
+                <span class="action action--fort">Déclarer</span>
+              </button>
+              <button class="ligne-geste" type="button">
+                <span class="c">
+                  <b>Petit bricolage</b>
+                  <span class="cons"><span class="delai">Dans 5 jours</span>, votre annonce quitte l'annuaire.</span>
+                </span>
+                <span class="action action--fort">Confirmer</span>
+              </button>
+              <button class="ligne-geste" type="button">
+                <span class="c">
+                  <b>Réparer son vélo</b>
+                  <span class="cons">2 inscrits sur 5 : <span class="delai delai--doux">annulé samedi au démarrage</span>.</span>
+                </span>
+                <span class="action action--fort">Relancer</span>
+              </button>
+            </div>
+            <p class="pied-calme">Vos 3 autres publications vont bien.<a class="lien-filet lien-filet--muet" href="#">Les revoir</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : ces états ne se comparent pas, donc on les traduit tous dans la même monnaie</b> — ce que vous perdez, et quand. « Périme dans 5 jours » devient <i>« dans 5 jours, votre annonce quitte l'annuaire »</i> ; « 2 inscrits sur 5 » devient <i>« annulé samedi au démarrage »</i> ; un moment non déclaré devient <i>« il ne compte nulle part »</i>. La deuxième ligne de chaque entrée n'est pas une description, c'est <b>une conséquence</b> — et une conséquence, ça se date. <b>Le principe de tri : l'irréversible d'abord, puis l'imminent</b> ; il est écrit en clair sous le ruban, parce qu'un tri non énoncé se lit comme un classement d'importance. <b>Hauteur : 226 px</b> en nominal, <b>86 px</b> le jour ordinaire, <b>0 px</b> pour un nouveau membre — la section ne se dessine pas du tout, il n'y a rien sous son nom. <b>Ce qu'elle coûte : c'est la seule des cinq qui sort du budget</b> — 226 px contre 213 px autorisés, soit 13 px de trop, et la ligne de « À l'affiche » passe sous le pli. Le coupable est identifié : le ruban à ruban-adhésif de la charte pèse 60 px à lui seul, <b>plus des deux tiers de la section le jour ordinaire</b> (60 px sur 86), pour un titre de trois mots. Remplacé par le label centré du sommaire (20 px, cf. variante 5), le même contenu tombe à <b>186 px</b> et rentre. C'est donc la variante qui paie le plus cher le simple fait d'<i>avoir</i> un titre, et le correctif ne coûte rien d'autre qu'un ruban en moins. Et la traduction en conséquences est une prise de position éditoriale : elle est juste pour l'annonce et l'atelier, elle devient dramatisante si on l'applique à des états bénins — raison pour laquelle les trois publications calmes sont comptées, pas racontées.</p>
+  </figure>
+
+  <!-- ==================================================================
+       2 · LES DEUX TIROIRS
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>Les deux tiroirs</h2><span class="route">aucun nom de collection</span></figcaption>
+    <div class="verdict"><span class="tient">ne prétend aucun classement</span><span class="tient">états montrés tels quels</span><span class="casse">l'urgent peut finir en bas</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>État nominal — <b>2 gestes sur 5</b></span><span class="px" id="px-2N">189 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone" id="z-2N">
+            <details class="tiroir" open>
+              <summary><span>On vous attend</span><span class="badge-compte">2</span><span class="chev">⌄</span></summary>
+              <div class="tiroir-ligne">
+                <span class="etat etat--alerte">5 jours</span>
+                <div class="c"><b>Petit bricolage</b><p class="d">Annonce permanente · active</p></div>
+                <button class="action action--fort" type="button">Confirmer</button>
+              </div>
+              <div class="tiroir-ligne">
+                <span class="etat etat--attente">2 / 5</span>
+                <div class="c"><b>Réparer son vélo</b><p class="d">Atelier · samedi 14 juin</p></div>
+                <button class="action action--fort" type="button">Relancer</button>
+              </div>
+            </details>
+            <details class="tiroir tiroir--calme">
+              <summary><span>Tout va bien</span><span class="badge-compte badge-compte--muet">3</span><span class="chev">⌄</span></summary>
+              <div class="tiroir-ligne">
+                <span class="etat etat--ok">Pourvue</span>
+                <div class="c"><b>Qui a une échelle ?</b><p class="d">Mot du fil · Bernard T. vous prête la sienne</p></div>
+              </div>
+              <div class="tiroir-ligne">
+                <span class="etat etat--marine">Ouverte</span>
+                <div class="c"><b>Je donne des tomates</b><p class="d">Mot du fil · 2 intéressés</p></div>
+              </div>
+              <div class="tiroir-ligne">
+                <span class="etat etat--marine">6 inscrits</span>
+                <div class="c"><b>Parler du compost</b><p class="d">Rencontre · jeudi 19 juin</p></div>
+              </div>
+            </details>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>un seul tiroir, fermé</b></span><span class="px" id="px-2B">41 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone" id="z-2B">
+            <details class="tiroir tiroir--calme">
+              <summary><span>Tout va bien</span><span class="badge-compte badge-compte--muet">5</span><span class="chev">⌄</span></summary>
+              <div class="tiroir-ligne">
+                <span class="etat etat--ok">Pourvue</span>
+                <div class="c"><b>Qui a une échelle ?</b><p class="d">Mot du fil · Bernard T. vous prête la sienne</p></div>
+              </div>
+            </details>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Nouveau membre — <b>rien publié</b></span><span class="px px--nul" id="px-2C">0 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone zone--nulle" id="z-2C" aria-hidden="true"></div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>À l'épreuve — <b>3 gestes, compte d'animation</b></span><span class="px" id="px-2D">242 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-2D">
+            <details class="tiroir" open>
+              <summary><span>On vous attend</span><span class="badge-compte">3</span><span class="chev">⌄</span></summary>
+              <div class="tiroir-ligne">
+                <span class="etat etat--alerte">5 jours</span>
+                <div class="c"><b>Petit bricolage</b><p class="d">Annonce permanente · active</p></div>
+                <button class="action action--fort" type="button">Confirmer</button>
+              </div>
+              <div class="tiroir-ligne">
+                <span class="etat etat--attente">2 / 5</span>
+                <div class="c"><b>Réparer son vélo</b><p class="d">Atelier · samedi 14 juin</p></div>
+                <button class="action action--fort" type="button">Relancer</button>
+              </div>
+              <div class="tiroir-ligne">
+                <span class="etat etat--attente">Tenu</span>
+                <div class="c"><b>Café des voisins</b><p class="d">Moment ouvert · mardi 9 juin</p></div>
+                <button class="action action--fort" type="button">Déclarer</button>
+              </div>
+            </details>
+            <details class="tiroir tiroir--calme">
+              <summary><span>Tout va bien</span><span class="badge-compte badge-compte--muet">3</span><span class="chev">⌄</span></summary>
+              <div class="tiroir-ligne">
+                <span class="etat etat--ok">Pourvue</span>
+                <div class="c"><b>Qui a une échelle ?</b><p class="d">Mot du fil · Bernard T. vous prête la sienne</p></div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : on refuse de classer l'incomparable, on se contente de partager en deux.</b> Il n'y a pas de nom de collection — donc pas de problème de nom : les deux titres de tiroir <i>sont</i> le titre, et ils disent un état, pas une taxonomie. « On vous attend » est ouvert par défaut ; « Tout va bien » est fermé et ne pèse qu'une ligne. <b>Le principe de tri : aucun à l'intérieur d'un tiroir</b> — l'ordre de publication, et c'est tout. C'est la seule des cinq qui ne prétend rien, et la seule qui montre <b>les états tels qu'ils sont</b> (« 5 jours », « 2 / 5 », « Pourvue ») sans les traduire : un voisin qui a déjà vu « 2 / 5 » sur la fiche de son atelier retrouve ici le même mot. <b>Hauteur : 189 px</b> en nominal, <b>41 px</b> le jour ordinaire — le meilleur jour ordinaire des variantes qui gardent un titre. <b>Ce qu'elle coûte :</b> le refus de trier se paie cash. À trois entrées dans le tiroir du haut, l'annonce qui périme dans 5 jours peut se retrouver <b>sous</b> un moment à déclarer qui, lui, n'a aucune échéance — et rien dans la forme ne corrige cette injustice. Le <code>&lt;details&gt;</code> ajoute par ailleurs un geste avant le geste : il faut déplier pour atteindre les publications calmes, ce qui contredit à moitié la promesse d'agir sans aller chercher.</p>
+  </figure>
+
+  <!-- ==================================================================
+       3 · LE BILLET EN PROSE
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Le billet en prose</h2><span class="route">« De votre côté »</span></figcaption>
+    <div class="verdict"><span class="tient">excellente à ne rien dire</span><span class="tient">dans le budget</span><span class="casse">lourde dès qu'elle parle</span><span class="casse">casse au troisième geste</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>État nominal — <b>2 gestes sur 5</b></span><span class="px" id="px-3N">205 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone" id="z-3N">
+            <div class="prose-auteur">
+              <p class="kick">De votre côté</p>
+              <button class="phrase" type="button">Votre annonce <b>Petit bricolage</b> quitte l'annuaire du quartier <i>dans cinq jours</i>, sauf si vous dites qu'elle tient toujours. <span class="lien-filet">La confirmer</span></button>
+              <button class="phrase" type="button">Votre atelier <b>Réparer son vélo</b> n'a que <i class="doux">deux inscrits sur cinq</i> : samedi, il s'annulera de lui-même. <span class="lien-filet">Relancer</span></button>
+              <p class="muet">Vos trois autres publications vont bien : une échelle trouvée, des tomates données, le compost jeudi. <a class="lien-filet lien-filet--muet" href="#">Les revoir</a></p>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>une phrase, pas de titre</b></span><span class="px" id="px-3B">53 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone" id="z-3B">
+            <div class="prose-auteur">
+              <p class="muet muet--seul">Vos cinq publications vont bien ; aucune ne vous attend aujourd'hui. <a class="lien-filet lien-filet--muet" href="#">Les revoir</a></p>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Nouveau membre — <b>rien publié</b></span><span class="px px--nul" id="px-3C">0 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone zone--nulle" id="z-3C" aria-hidden="true"></div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>À l'épreuve — <b>3 gestes, le mur de texte</b></span><span class="px" id="px-3D">263 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-3D">
+            <div class="prose-auteur">
+              <p class="kick">De votre côté</p>
+              <button class="phrase" type="button">Le <b>Café des voisins</b> a eu lieu mardi, mais <i>personne n'a dit combien de voisins sont passés</i> : il ne compte dans aucun total. <span class="lien-filet">Déclarer</span></button>
+              <button class="phrase" type="button">Votre annonce <b>Petit bricolage</b> quitte l'annuaire du quartier <i>dans cinq jours</i>, sauf si vous dites qu'elle tient toujours. <span class="lien-filet">La confirmer</span></button>
+              <button class="phrase" type="button">Votre atelier <b>Réparer son vélo</b> n'a que <i class="doux">deux inscrits sur cinq</i> : samedi, il s'annulera de lui-même. <span class="lien-filet">Relancer</span></button>
+              <p class="muet">Vos trois autres publications vont bien. <a class="lien-filet lien-filet--muet" href="#">Les revoir</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : une liste force à comparer, une phrase se contente de dire.</b> Deux lignes alignées avec chacune un chiffre à droite appellent la question « laquelle est la plus grave ? » — question sans réponse, puisque les états sont incommensurables. Deux phrases, non : on les lit l'une après l'autre et le problème de l'ordre disparaît dans la syntaxe. D'où le parti pris d'écrire <b>les nombres en lettres</b> (« deux inscrits sur cinq ») : un chiffre se scanne et se compare, un mot se lit. <b>Le principe de tri : l'ordre du récit</b> — ce qui s'arrête le plus tôt se dit d'abord — et il n'est pas énoncé, parce qu'une phrase n'a pas à justifier sa place dans un paragraphe. <b>Hauteur : 205 px</b> en nominal, <b>53 px</b> le jour ordinaire. <b>Et là la mesure contredit l'intuition :</b> la prose est très économe quand elle n'a rien à dire — 53 px, juste derrière le tiroir fermé de la 2 à 41 px — et <b>la plus dispendieuse de toutes dès qu'elle a quelque chose à dire</b> — 205 px contre 178 px pour le sommaire et 189 px pour les tiroirs. Une phrase qui explique une conséquence prend trois lignes là où une ligne de registre en prend deux. Ce qu'elle gagne, c'est que son état ordinaire tient en une phrase sans titre ni cadre : l'état vide n'est pas une variante dégradée, c'est la forme nue. <b>Ce qu'elle coûte :</b> elle ne passe pas l'épreuve du troisième geste, où le paragraphe devient un mur de 263 px qu'on ne lit plus. Et la cible tactile est honnête mais contre-intuitive : <b>la phrase entière est cliquable</b> sur 44 px de haut, le lien à filet n'étant que la cible <i>visible</i> — pour des voisins peu à l'aise avec le numérique, un petit lien souligné au bout d'une phrase reste moins évident qu'une pastille posée à droite. C'est la variante la plus belle et la moins sûre.</p>
+  </figure>
+
+  <!-- ==================================================================
+       4 · LE TALON DU COMPOSEUR
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">4</span><h2>Le talon du composeur</h2><span class="route">pas de section du tout</span></figcaption>
+    <div class="verdict"><span class="tient">0 px quand il n'y a rien</span><span class="tient">aucune rubrique ajoutée</span><span class="casse">le reste est invisible</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>État nominal — <b>2 gestes, collés au champ</b></span><span class="px" id="px-4N">93 px</span></p>
+        <div class="cadre">
+          <div class="compo-bloc compo-bloc--talonne">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+            <div class="zone" id="z-4N">
+              <div class="compo-talon">
+                <p>Votre annonce <b>Petit bricolage</b> quitte l'annuaire <span class="delai">dans 5 jours</span>.</p>
+                <button class="action action--fort" type="button">Confirmer</button>
+              </div>
+              <div class="compo-talon compo-talon--dernier">
+                <p><b>Réparer son vélo</b> : 2 inscrits sur 5, annulé samedi.</p>
+                <button class="action action--fort" type="button">Relancer</button>
+              </div>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>le talon n'existe pas</b></span><span class="px px--nul" id="px-4B">0 px</span></p>
+        <div class="cadre">
+          <div class="compo-bloc">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+            <div class="zone zone--nulle" id="z-4B" aria-hidden="true"></div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Nouveau membre — <b>le même dessin, exactement</b></span><span class="px px--nul" id="px-4C">0 px</span></p>
+        <div class="cadre">
+          <div class="compo-bloc">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+            <div class="zone zone--nulle" id="z-4C" aria-hidden="true"></div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>À l'épreuve — <b>3 gestes : le 3<sup>e</sup> derrière un lien</b></span><span class="px" id="px-4D">137 px</span></p>
+        <div class="cadre">
+          <div class="compo-bloc compo-bloc--talonne">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+            <div class="zone" id="z-4D">
+              <div class="compo-talon">
+                <p>Votre annonce <b>Petit bricolage</b> quitte l'annuaire <span class="delai">dans 5 jours</span>.</p>
+                <button class="action action--fort" type="button">Confirmer</button>
+              </div>
+              <div class="compo-talon">
+                <p><b>Réparer son vélo</b> : 2 inscrits sur 5, annulé samedi.</p>
+                <button class="action action--fort" type="button">Relancer</button>
+              </div>
+              <div class="compo-talon compo-talon--suite compo-talon--dernier">
+                <button class="lien-filet" type="button">+ 1 autre chose vous attend</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : cette section ne devrait pas exister.</b> Ce n'est pas une rubrique de l'accueil, c'est une <i>propriété du composeur</i> — le talon d'un carnet à souches : vous écrivez en haut, et ce qui est encore en suspens pend juste dessous, dans la même bordure. Il n'y a donc <b>aucun ruban, aucun titre, aucun nom à trouver</b>, et surtout rien du tout les jours où rien n'attend : le talon se décolle et l'accueil redevient exactement celui d'aujourd'hui. <b>Le principe de tri : le même scalaire que la variante 1, mais réduit à son vainqueur</b> — on montre les deux premiers, jamais plus, et le reste passe derrière un « + 1 autre ». <b>Hauteur : 93 px</b> en nominal, et <b>0 px</b> le jour ordinaire comme pour un nouveau membre : c'est la seule des cinq qui ne coûte <i>rien</i> dans l'état le plus fréquent, et celle qui répond le plus franchement à « la place volée à la commune ». <b>Ce qu'elle coûte :</b> la promesse « aucune publication ne s'oublie » n'est tenue que pour les deux qui crient le plus fort. Vos trois publications calmes ne sont nulle part sur l'accueil — on retombe sur le profil et ses trois rubriques repliées, c'est-à-dire sur le problème de départ. Et le plafond à deux lignes est arbitraire : il est tenable parce que les gestes sont rares, il devient un mensonge le jour où une animation en a cinq. Enfin, coller un avertissement sous le champ de saisie <b>charge le composeur</b> : on vient pour écrire, on tombe d'abord sur ce qu'on a oublié de faire.</p>
+  </figure>
+
+  <!-- ==================================================================
+       5 · LE SOMMAIRE DE L'AUTEUR
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">5</span><h2>Le sommaire de l'auteur</h2><span class="route">« Ce que vous avez lancé »</span></figcaption>
+    <div class="verdict"><span class="tient">tout est toujours à la même place</span><span class="tient">titre à 20 px</span><span class="casse">coûte autant à vide qu'à plein</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>État nominal — <b>2 gestes sur 5</b></span><span class="px" id="px-5N">178 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone" id="z-5N">
+            <div class="sommaire sommaire--auteur">
+              <p class="t">Ce que vous avez lancé</p>
+              <ul>
+                <li class="agir"><span class="lab">Annonces</span><span class="pts"></span><span class="n n--agir">1</span><button class="action action--fort" type="button">Confirmer</button></li>
+                <li><span class="lab">Mots dans le fil</span><span class="pts"></span><span class="n">2</span></li>
+                <li class="agir"><span class="lab">Ateliers</span><span class="pts"></span><span class="n">1</span><button class="action action--fort" type="button">Relancer</button></li>
+                <li><span class="lab">Rencontres</span><span class="pts"></span><span class="n">1</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>les mêmes quatre lignes</b></span><span class="px" id="px-5B">154 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone" id="z-5B">
+            <div class="sommaire sommaire--auteur">
+              <p class="t">Ce que vous avez lancé</p>
+              <ul>
+                <li><span class="lab">Annonces</span><span class="pts"></span><span class="n">1</span></li>
+                <li><span class="lab">Mots dans le fil</span><span class="pts"></span><span class="n">2</span></li>
+                <li><span class="lab">Ateliers</span><span class="pts"></span><span class="n">1</span></li>
+                <li><span class="lab">Rencontres</span><span class="pts"></span><span class="n">1</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Nouveau membre — <b>quatre tirets</b></span><span class="px" id="px-5C">154 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px">
+            <div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div>
+          </div>
+          <div class="zone" id="z-5C">
+            <div class="sommaire sommaire--auteur">
+              <p class="t">Ce que vous avez lancé</p>
+              <ul>
+                <li><span class="lab">Annonces</span><span class="pts"></span><span class="zero">—</span></li>
+                <li><span class="lab">Mots dans le fil</span><span class="pts"></span><span class="zero">—</span></li>
+                <li><span class="lab">Ateliers</span><span class="pts"></span><span class="zero">—</span></li>
+                <li><span class="lab">Rencontres</span><span class="pts"></span><span class="zero">—</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique">
+              <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+              <span class="filet"></span>
+              <a class="lien" href="#">Tout voir</a>
+            </div>
+            <div class="registre">
+              <div class="registre-ligne">
+                <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+                <button class="action action--fort" type="button">S'inscrire</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>À l'épreuve — <b>compte d'animation : six rubriques</b></span><span class="px" id="px-5D">242 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-5D">
+            <div class="sommaire sommaire--auteur">
+              <p class="t">Ce que vous avez lancé</p>
+              <ul>
+                <li class="agir"><span class="lab">Annonces</span><span class="pts"></span><span class="n n--agir">1</span><button class="action action--fort" type="button">Confirmer</button></li>
+                <li><span class="lab">Mots dans le fil</span><span class="pts"></span><span class="n">2</span></li>
+                <li class="agir"><span class="lab">Ateliers</span><span class="pts"></span><span class="n">1</span><button class="action action--fort" type="button">Relancer</button></li>
+                <li><span class="lab">Rencontres</span><span class="pts"></span><span class="n">1</span></li>
+                <li class="agir"><span class="lab">Moments ouverts</span><span class="pts"></span><span class="n">1</span><button class="action action--fort" type="button">Déclarer</button></li>
+                <li><span class="lab">Évènements</span><span class="pts"></span><span class="zero">—</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : pour des voisins peu à l'aise avec le numérique, une chose qui ne bouge jamais vaut mieux qu'une chose bien classée.</b> Les quatre rubriques sont toujours là, dans le même ordre, à la même place, <b>même à zéro</b> — on apprend une fois où regarder, et on n'a plus à réapprendre. La forme n'est pas inventée : c'est <code>.sommaire</code> de la charte, à points de conduite, celui-là même que la planche du composeur chassait de l'accueil ; il y revient, mais il est devenu <b>le vôtre</b>. Son label centré fait office de titre pour 20 px, contre 60 px pour un ruban : c'est le titre le moins cher de la planche. <b>Le principe de tri : aucun, et c'est le propos</b> — l'ordre est celui des types, décidé une fois pour toutes ; le geste, quand il y en a un, prend simplement la place du nombre. <b>Hauteur : 178 px</b> en nominal, <b>154 px</b> le jour ordinaire, <b>154 px</b> pour un nouveau membre. <b>Ce qu'elle coûte :</b> elle est la seule qui coûte presque autant à vide qu'à plein — 154 px de tirets pendant les semaines où un nouveau membre n'a rien publié, c'est le contraire de ce que demande l'état vide majoritaire. Elle écrase par ailleurs la multiplicité : deux annonces dont une seule périme donnent une ligne « Annonces · 2 » et une pastille qui ne dit pas laquelle — il faut ouvrir. Et sur un compte d'animation, les six types se dessinent tous : le prix de la stabilité, c'est de payer aussi pour les rubriques vides.</p>
+  </figure>
+
+</div>
+
+<!-- ====================================================================
+     CE QUI SE JOUE
+     ==================================================================== -->
+<footer class="doc-head" style="margin:48px auto 0;max-width:780px">
+  <p class="kicker">Ce qui se joue</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Les mesures, et le seul arbitrage qui compte</h2>
+  <table class="tableau-mesures">
+    <thead>
+      <tr><th>Variante</th><th class="num">Nominal</th><th class="num">Jour ordinaire</th><th class="num">Nouveau membre</th><th class="num">3 gestes</th><th class="num">« À l'affiche » à</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>1</b> La conséquence en clair</td><td class="num">226</td><td class="num">86</td><td class="num ok">0</td><td class="num">303</td><td class="num">539</td></tr>
+      <tr><td><b>2</b> Les deux tiroirs</td><td class="num">189</td><td class="num">41</td><td class="num ok">0</td><td class="num">242</td><td class="num">502</td></tr>
+      <tr><td><b>3</b> Le billet en prose</td><td class="num">205</td><td class="num">53</td><td class="num ok">0</td><td class="num">263</td><td class="num">518</td></tr>
+      <tr><td><b>4</b> Le talon du composeur</td><td class="num">93</td><td class="num ok">0</td><td class="num ok">0</td><td class="num">137</td><td class="num">406</td></tr>
+      <tr><td><b>5</b> Le sommaire de l'auteur</td><td class="num">178</td><td class="num">154</td><td class="num ko">154</td><td class="num">242</td><td class="num">491</td></tr>
+    </tbody>
+  </table>
+  <p style="text-align:left;margin-top:12px;font-size:.8rem;color:var(--text-tertiary)">Hauteurs mesurées dans le navigateur, en pixels, section seule — marges comprises, puisqu'elles sont consommées. Dernière colonne : hauteur à laquelle apparaît le ruban « À l'affiche » en état nominal, en partant de <b>313 px</b> mesurés sur la planche « le composeur, en situation ». Rappel des deux seuils : <b>213 px</b> pour que « À l'affiche » garde son ruban et une ligne au-dessus du pli, <b>153 px</b> pour que le ruban du fil apparaisse aussi.</p>
+
+  <p style="text-align:left;margin-top:18px"><b>Le nom.</b> « Vos publications » est faux et il faut le changer <i>aussi sur le profil</i> : un atelier et une rencontre ne sont pas des publications, ce sont des rendez-vous, et un moment ouvert tenu la semaine dernière n'est plus rien d'autre qu'une déclaration en retard. Quatre sorties se présentent. <b>« Sous votre nom »</b> — trois mots, tient dans le ruban, couvre les six objets sans jamais nommer un type, se lit encore à zéro (« rien sous votre nom »), et c'est l'idée que la gazette porte déjà : la signature. <b>« Ce que vous avez lancé »</b> — plus simple à comprendre, mais le passé composé convient mal à une annonce permanente, qui n'est pas lancée, elle <i>tient</i>. <b>« De votre côté »</b> — juste de ton, trop vague pour un titre de rubrique qu'on doit retrouver. Et <b>ne pas nommer du tout</b> : les variantes 2 et 4 montrent que c'est possible, la 2 en nommant les deux <i>états</i> plutôt que la collection, la 4 en n'ayant pas de section à nommer. <b>Je retiens « Sous votre nom »</b> partout où un titre est nécessaire.</p>
+
+  <p style="text-align:left;margin-top:14px"><b>L'arbitrage n'est pas graphique, il est de doctrine :</b> est-ce que cette section sert <b>à ne rien oublier</b>, ou <b>à faire ce qui presse</b> ? Si c'est à ne rien oublier, il faut que les cinq publications soient atteignables depuis l'accueil, et les variantes 4 et 3 sont disqualifiées — elles ne montrent que ce qui crie. Si c'est à faire ce qui presse, la 4 gagne sans discussion : elle ne coûte rien les jours où rien ne presse, c'est-à-dire presque tous, et le profil continue de faire son travail d'inventaire. <b>La question n'est donc pas « laquelle est la plus belle » mais « à quoi sert le profil ».</b></p>
+
+  <p style="text-align:left;margin-top:14px"><b>Si je dois trancher :</b> la <b>4</b> pour la V1, la <b>1</b> dès que le profil ne suffit plus. Le rappel de péremption part aujourd'hui par courriel vers une page signée hors application — c'est le seul vrai trou, et il se bouche avec un talon de 93 px qui ne se montre que lorsqu'il a quelque chose à dire. Tout le reste — l'inventaire des cinq publications calmes — est un besoin de profil, pas d'accueil. La variante 1 reste la bonne réponse le jour où l'on admet qu'un accueil doit aussi faire l'inventaire : elle est la seule à énoncer son tri, et donc la seule qu'on puisse défendre devant un voisin qui demande pourquoi <i>son</i> atelier est en bas. <b>À une condition, que la mesure impose :</b> lui retirer le ruban à ruban-adhésif, qui la met hors budget à lui seul. Avec le label centré de la variante 5 en guise de titre, elle passe de 226 à 186 px et rentre dans les 213 px.</p>
+
+  <p style="text-align:left;margin-top:14px"><b>Ce que la planche ne tranche pas, et qu'il faudra trancher :</b> les réactions. Une publication du fil porte des coups de main proposés, des intéressés, des commentaires — donc « répondre » et « ouvrir la discussion de groupe ». Aucune des cinq variantes ne montre un compteur de réactions non lues, parce qu'un compteur non lu est <b>du courrier</b>, et que le courrier a déjà sa rubrique et sa pastille sur la barre du bas. Si l'on décide que les réactions à <i>vos</i> publications doivent remonter ici, c'est un sixième état à faire entrer dans le tri — et seules les variantes 1 et 2 l'absorbent sans se déformer.</p>
+
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</footer>
+
+</body>
+</html>

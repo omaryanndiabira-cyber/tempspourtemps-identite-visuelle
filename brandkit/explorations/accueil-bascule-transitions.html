@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Six transitions pour la bascule</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  .atelier{max-width:846px;margin:0 auto;}
+  .pupitre{
+    position:sticky;top:12px;z-index:40;
+    display:flex;flex-wrap:wrap;align-items:center;gap:9px;justify-content:center;
+    background:var(--paper);border:1px solid var(--border);border-radius:14px;
+    padding:9px 12px;margin:0 auto 26px;max-width:880px;
+    box-shadow:0 1px 2px rgba(24,62,87,.06),0 10px 26px -18px rgba(24,62,87,.5);
+  }
+  .pupitre .lab{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--text-tertiary);margin-right:2px;}
+  .pupitre .sep{width:1px;height:22px;background:var(--border);margin:0 3px;}
+  .pupitre button{
+    font-family:var(--titres);font-weight:800;font-size:12px;cursor:pointer;
+    border:1px solid var(--border);background:var(--bg-main);color:var(--marine);
+    border-radius:999px;padding:5px 11px;white-space:nowrap;
+  }
+  .pupitre button.on{background:var(--marine);border-color:var(--marine);color:var(--sable);}
+  .pupitre button.primaire{background:var(--orange);border-color:var(--orange);color:#fff9ec;
+    box-shadow:0 2px 0 var(--orange-hover);}
+
+  .planche-essais{scroll-margin-top:96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,max-content));
+    gap:34px 26px;justify-content:center;}
+  .essai{display:flex;flex-direction:column;gap:11px;max-width:390px;scroll-margin-top:96px;}
+  .essai figcaption{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;}
+  .essai figcaption .n{font-family:var(--titres);font-weight:800;font-size:.74rem;background:var(--sable);
+    color:var(--marine);border-radius:7px;padding:2px 8px;flex:none;}
+  .essai h2{font-family:var(--titres);font-weight:800;font-size:.95rem;}
+  .essai .route{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;
+    color:var(--text-tertiary);background:rgba(24,62,87,.06);border-radius:5px;padding:1px 7px;}
+  .essai .note{font-size:.78rem;color:var(--text-secondary);line-height:1.45;text-align:left;}
+  .essai .note b{color:var(--marine);}
+
+  /* Le hublot : le haut du telephone seulement. La transition est un
+     evenement local — montrer 812 px de page six fois n'apprend rien de
+     plus et empeche de comparer. */
+  .hublot{
+    position:relative;width:390px;height:342px;overflow:hidden;
+    background:var(--bg-main);border-radius:34px 34px 10px 10px;
+    display:flex;flex-direction:column;
+    box-shadow:0 2px 6px rgba(24,62,87,.10),0 18px 40px -20px rgba(24,62,87,.38),
+               0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
+  }
+  .hublot .dessus{flex:1;background:var(--grad-hero);padding-top:14px;overflow:hidden;}
+  .hublot .voile-bas{position:absolute;left:0;right:0;bottom:0;height:34px;pointer-events:none;
+    background:linear-gradient(transparent, rgba(243,247,251,.92));}
+
+  /* ----------------------------------------------------------------
+     LE CRENEAU — proposition A : les deux textes en 17 px, hauteur
+     fixe de 57 px. `overflow:hidden` est indispensable aux glissements
+     lateraux, sinon le texte passe par-dessus le bandeau.
+     ---------------------------------------------------------------- */
+  .creneau{
+    position:relative;margin:0 18px;padding-top:13px;text-align:left;
+    min-height:57px;overflow:hidden;
+    --duree:420ms; --retard:120ms; --courbe:cubic-bezier(.2,.7,.2,1);
+  }
+  .creneau p{margin:0;}
+  .creneau .salut,.creneau .question{
+    font-family:var(--titres);font-weight:800;font-size:17px;line-height:1.3;color:var(--marine);
+    transition:opacity var(--duree) var(--courbe), transform var(--duree) var(--courbe);
+  }
+  .creneau .question{position:absolute;left:0;right:0;top:13px;opacity:0;}
+  .creneau.bascule .question{transition-delay:var(--retard);}
+  .creneau .prenom{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+  .creneau.bascule .salut{opacity:0;}
+  .creneau.bascule .question{opacity:1;transform:none;}
+
+  /* 1 · le salut sort a droite, la question entre par la gauche */
+  .trans--lat-d .question{transform:translateX(-26px);}
+  .trans--lat-d.bascule .salut{transform:translateX(26px);}
+  /* 2 · l'inverse */
+  .trans--lat-g .question{transform:translateX(26px);}
+  .trans--lat-g.bascule .salut{transform:translateX(-26px);}
+  /* 3 · tout monte */
+  .trans--mont .question{transform:translateY(14px);}
+  .trans--mont.bascule .salut{transform:translateY(-14px);}
+  /* 4 · tout descend */
+  .trans--desc .question{transform:translateY(-14px);}
+  .trans--desc.bascule .salut{transform:translateY(14px);}
+  /* 5 · fondu seul */
+  .trans--fondu .question{transform:none;}
+  /* 6 · seule la question bouge */
+  .trans--relais .question{transform:translateY(10px);}
+
+  .c1{position:relative;margin:12px 18px 0;background:var(--paper);border:1px solid var(--border);
+      border-radius:12px;padding:10px 12px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+  .c1 .tete{display:flex;align-items:flex-start;gap:9px;}
+  .c1 .plume{width:16px;height:16px;flex:none;color:var(--orange-hover);margin-top:2px;}
+  .c1 .inv{font-size:12.5px;color:var(--text-tertiary);line-height:1.45;}
+
+  /* Le ralenti ne change QUE la duree : la courbe reste la meme, donc ce
+     qu'on juge au ralenti est bien ce qu'on verra a vitesse reelle. */
+  body.ralenti .creneau{--duree:1700ms;--retard:450ms;}
+
+  @media (prefers-reduced-motion:reduce){
+    .creneau .salut,.creneau .question{transition-duration:1ms;}
+    .creneau .question,.creneau.bascule .salut{transform:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Accueil · la bascule, le mouvement</p>
+  <h1>Six façons de passer du salut à la question</h1>
+  <p>Proposition <b>A</b> retenue : les deux textes en 17 px, dans un créneau de hauteur fixe. Reste le mouvement. Les six s'animent ensemble pour être comparables — <b>passez au ralenti</b> pour juger la courbe, elle est identique aux deux vitesses.</p>
+  <div class="traits">
+    <span><b>420 ms</b> durée réelle</span>
+    <span><b>120 ms</b> de retard à l'entrée</span>
+    <span><b>cubic-bezier(.2,.7,.2,1)</b></span>
+    <span><b>overflow caché</b> sur le créneau</span>
+  </div>
+  <a class="retour" href="accueil-bascule-salut.html">← La planche A contre B</a>
+</header>
+
+<div class="atelier">
+
+  <div class="pupitre">
+    <span class="lab">Délai</span>
+    <button type="button" data-attente class="on" onclick="attendre(5000, this)">5 s</button>
+    <button type="button" data-attente onclick="attendre(1200, this)">1,2 s</button>
+    <span class="sep"></span>
+    <button type="button" onclick="ralenti(this)">Ralenti ×4</button>
+    <span class="sep"></span>
+    <span class="lab">Prénom</span>
+    <button type="button" data-prenom onclick="prenom('Bonjour Léa !', this)">Léa</button>
+    <button type="button" data-prenom class="on" onclick="prenom('Bonjour Omar !', this)">Omar</button>
+    <button type="button" data-prenom onclick="prenom('Bonjour Jean-Christophe !', this)">J.-Christophe</button>
+    <span class="sep"></span>
+    <button type="button" class="primaire" onclick="jouer()">↻ Rejouer</button>
+  </div>
+
+  <div class="planche-essais">
+  <figure class="essai">
+    <figcaption><span class="n">1</span><h2>Le salut sort par la droite</h2><span class="route">la question vient de la gauche</span></figcaption>
+    <div class="hublot">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb"><img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps"><div class="spacer"></div><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></div>
+      <div class="dessus">
+        <div class="bandeau-edition">
+          <span>Saint Seb'</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau trans--lat-d">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rubrique" style="margin-top:16px">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+      </div>
+      <span class="voile-bas"></span>
+    </div>
+    <p class="note">C'est votre proposition. Le salut part dans le sens de la lecture, la question arrive à sa suite — comme une ligne de texte qui défile. <b>Le mouvement raconte un relais.</b> Attention toutefois : sortir par la droite va <i>contre</i> le sens de lecture occidental, ce qui donne une impression de marche arrière à certains lecteurs.</p>
+  </figure>
+  <figure class="essai">
+    <figcaption><span class="n">2</span><h2>Le salut sort par la gauche</h2><span class="route">la question vient de la droite</span></figcaption>
+    <div class="hublot">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb"><img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps"><div class="spacer"></div><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></div>
+      <div class="dessus">
+        <div class="bandeau-edition">
+          <span>Saint Seb'</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau trans--lat-g">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rubrique" style="margin-top:16px">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+      </div>
+      <span class="voile-bas"></span>
+    </div>
+    <p class="note">Le même mouvement, dans l'autre sens : le salut s'en va comme une page qu'on tourne, la question entre là où l'œil attend la suite. <b>C'est le sens naturel d'un carrousel</b>, et à l'usage il se lit plus souvent comme « on avance » que comme « on recule ».</p>
+  </figure>
+  <figure class="essai">
+    <figcaption><span class="n">3</span><h2>Le salut monte et sort par le haut</h2><span class="route">la question remonte depuis le bas</span></figcaption>
+    <div class="hublot">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb"><img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps"><div class="spacer"></div><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></div>
+      <div class="dessus">
+        <div class="bandeau-edition">
+          <span>Saint Seb'</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau trans--mont">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rubrique" style="margin-top:16px">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+      </div>
+      <span class="voile-bas"></span>
+    </div>
+    <p class="note">Tout le bloc monte d'un cran. C'est le mouvement d'un panneau d'affichage de gare, ou d'un compteur. <b>Le plus discret des mouvements dirigés</b> : l'amplitude verticale nécessaire est deux fois moindre que l'horizontale, donc ça attire moins l'œil.</p>
+  </figure>
+  <figure class="essai">
+    <figcaption><span class="n">4</span><h2>Le salut descend et sort par le bas</h2><span class="route">la question descend depuis le haut</span></figcaption>
+    <div class="hublot">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb"><img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps"><div class="spacer"></div><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></div>
+      <div class="dessus">
+        <div class="bandeau-edition">
+          <span>Saint Seb'</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau trans--desc">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rubrique" style="margin-top:16px">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+      </div>
+      <span class="voile-bas"></span>
+    </div>
+    <p class="note">L'inverse. La question « tombe » à sa place. <b>Le plus doux des quatre dirigés</b>, parce que le mouvement va dans le sens du regard qui descend vers le champ — il accompagne au lieu d'interrompre.</p>
+  </figure>
+  <figure class="essai">
+    <figcaption><span class="n">5</span><h2>Fondu simple, sans déplacement</h2><span class="route">la référence</span></figcaption>
+    <div class="hublot">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb"><img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps"><div class="spacer"></div><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></div>
+      <div class="dessus">
+        <div class="bandeau-edition">
+          <span>Saint Seb'</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau trans--fondu">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rubrique" style="margin-top:16px">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+      </div>
+      <span class="voile-bas"></span>
+    </div>
+    <p class="note">Aucun mouvement, juste un croisement d'opacités. <b>La référence à battre :</b> c'est le moins coûteux, le plus sûr sur les vieux téléphones, et le seul qui ne pose aucune question d'accessibilité. Si les autres ne font pas nettement mieux, c'est celui-là qu'il faut garder.</p>
+  </figure>
+  <figure class="essai">
+    <figcaption><span class="n">6</span><h2>Le salut s'efface, la question se lève</h2><span class="route">mouvement asymétrique</span></figcaption>
+    <div class="hublot">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb"><img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps"><div class="spacer"></div><span class="credit-pill">⏰ 8 h 30</span><span class="avatar avatar--me">OD</span></div>
+      <div class="dessus">
+        <div class="bandeau-edition">
+          <span>Saint Seb'</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau trans--relais">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rubrique" style="margin-top:16px">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+        </div>
+      </div>
+      <span class="voile-bas"></span>
+    </div>
+    <p class="note">Le salut ne bouge pas, il s'efface sur place ; seule la question monte de quelques pixels en apparaissant. <b>Une seule chose bouge, donc l'œil sait où regarder</b> — et c'est la nouvelle, pas celle qui part. Souvent le meilleur compromis entre le fondu et un vrai déplacement.</p>
+  </figure>
+  </div>
+
+</div>
+
+<footer class="doc-head" style="margin:48px auto 0">
+  <p class="kicker">Ce qu'il faut regarder</p>
+  <p style="text-align:left"><b>L'amplitude n'est pas comparable d'un axe à l'autre.</b> Les glissements horizontaux déplacent de 26 px, les verticaux de 14 px seulement — et pourtant les verticaux se voient autant. C'est normal : sur une ligne de texte, l'œil est bien plus sensible au décalage vertical qu'au décalage latéral. Un mouvement horizontal discret passe inaperçu ; un mouvement vertical discret suffit.</p>
+  <p style="text-align:left"><b>Le retard de 120 ms à l'entrée fait tout le travail.</b> Sans lui, les deux textes se croisent au milieu et on lit une bouillie pendant 200 ms. Avec, le salut a le temps de partir avant que la question n'arrive : on lit un remplacement, pas une superposition. C'est le réglage à conserver quelle que soit la direction retenue.</p>
+  <p style="text-align:left"><b>Et n'oubliez pas que ça ne se voit qu'une fois par jour.</b> Un mouvement qu'on trouve élégant au dixième visionnage peut être simplement illisible la première fois — et la première fois est la seule qui compte ici.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</footer>
+
+<script>
+  const tous = () => [...document.querySelectorAll('.creneau')]
+  let attente = 5000
+  function jouer(){
+    tous().forEach(c => c.classList.remove('bascule'))
+    clearTimeout(window._t)
+    window._t = setTimeout(() => tous().forEach(c => c.classList.add('bascule')), attente)
+  }
+  function attendre(ms, btn){
+    attente = ms
+    document.querySelectorAll('[data-attente]').forEach(b => b.classList.toggle('on', b === btn))
+    jouer()
+  }
+  function ralenti(btn){
+    btn.classList.toggle('on', document.body.classList.toggle('ralenti'))
+    jouer()
+  }
+  function prenom(txt, btn){
+    document.querySelectorAll('.prenom').forEach(p => p.textContent = txt)
+    document.querySelectorAll('[data-prenom]').forEach(b => b.classList.toggle('on', b === btn))
+  }
+  window.addEventListener('load', jouer)
+</script>
+</body>
+</html>

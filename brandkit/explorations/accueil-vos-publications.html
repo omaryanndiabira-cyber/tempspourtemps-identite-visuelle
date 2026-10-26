@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · « Vos publications », deuxième passe (5 variantes)</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  /* ================================================================
+     OUTILLAGE DE PLANCHE — hors application (repris de la 1re passe)
+     Cadre de 375 px au fond du fil ; composeur et « À l'affiche »
+     en fantôme pour que la place volée se voie ; liséré orange
+     pointillé = la zone mesurée (outline, donc 0 px ajouté ;
+     flow-root, donc marges des enfants comprises).
+     ================================================================ */
+  .duo-etats{display:flex;flex-direction:column;gap:14px;}
+  .cadre{
+    width:375px;background:var(--grad-hero);border:1px solid var(--border);
+    border-radius:16px;padding:0 0 4px;overflow:hidden;position:relative;
+    box-shadow:0 1px 2px rgba(24,62,87,.06),0 14px 30px -22px rgba(24,62,87,.5);
+  }
+  .cadre--feuille{padding-bottom:0;}
+  .etat-lab{
+    font-size:.64rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase;
+    color:var(--text-tertiary);margin-bottom:5px;display:flex;align-items:baseline;gap:8px;
+  }
+  .etat-lab b{color:var(--orange-hover);}
+  .etat-lab .px{
+    margin-left:auto;letter-spacing:.04em;font-variant-numeric:tabular-nums;
+    background:var(--paper);border:1px solid var(--border);border-radius:999px;padding:2px 8px;color:var(--marine);
+  }
+  .etat-lab .px--nul{color:var(--success);}
+  .zone{display:flow-root;outline:1px dashed rgba(214,94,28,.5);outline-offset:-1px;}
+  .zone--nulle{height:0;}
+  .fantome{opacity:.34;pointer-events:none;}
+  .ghost-rub{display:flow-root;}
+  .champ-compo{
+    background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--sable);
+    border-radius:10px;padding:11px 13px;font-size:13px;color:var(--text-tertiary);
+    box-shadow:0 1px 2px rgba(24,62,87,.06);
+  }
+  .ecran .verdict{display:flex;gap:7px;flex-wrap:wrap;margin-top:-4px;}
+  .ecran .verdict span{
+    font-size:.68rem;font-weight:700;border-radius:999px;padding:3px 9px;
+    background:var(--paper);border:1px solid var(--border);color:var(--text-secondary);
+  }
+  .ecran .verdict .tient{background:rgba(74,157,95,.12);border-color:rgba(74,157,95,.4);color:var(--success);}
+  .ecran .verdict .casse{background:rgba(196,69,54,.10);border-color:rgba(196,69,54,.4);color:var(--danger);}
+  .planche--large{max-width:846px;}
+  .tableau-mesures{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:14px;text-align:left;}
+  .tableau-mesures th,.tableau-mesures td{padding:7px 9px;border-top:1px solid var(--border);}
+  .tableau-mesures thead th{border-top:0;border-bottom:2px solid var(--marine);font-family:var(--titres);font-weight:800;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
+  .tableau-mesures td b{font-family:var(--titres);}
+  .tableau-mesures .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .tableau-mesures .ok{color:var(--success);font-weight:700;}
+  .tableau-mesures .ko{color:var(--danger);font-weight:700;}
+
+  /* ================================================================
+     PROPOSITIONS D'AJOUT À LA CHARTE — rien d'autre n'est inventé
+     · les deux genres manquants, mêmes valeurs que dans les planches
+       « saisie et publications » et « composeur » ;
+     · la pastille de contour danger, calquée sur .btn-plein--danger —
+       « Supprimer » ne peut pas se dessiner comme « Maintenir ».
+     ================================================================ */
+  .genre--annonce{background:#e8eef4;color:var(--marine);}
+  .genre--fil{background:rgba(184,78,23,.11);color:var(--orange-hover);}
+  .action--danger{color:var(--danger);border-color:rgba(196,69,54,.45);}
+
+  /* ================================================================
+     COMMUN AUX CINQ — le label, la rangée-titre, la question
+     La leçon mesurée de la première passe est appliquée d'office :
+     le ruban à ruban-adhésif (60 px) reste aux rubriques de la
+     commune ; la section de l'auteur prend un label de 20 px.
+     ================================================================ */
+  .marge{margin:0 18px;}
+  .lab-section{
+    display:flex;align-items:baseline;gap:8px;
+    font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--orange-hover);padding:9px 0 2px;
+  }
+  .lab-section .lien-filet{margin-left:auto;font-size:10.5px;letter-spacing:0;text-transform:none;font-family:var(--corps);}
+  .pub-t1{display:flex;align-items:center;gap:8px;min-width:0;}
+  .pub-t1 .genre{flex:none;}
+  .pub-t1 b{
+    font-family:var(--titres);font-weight:800;font-size:13.5px;color:var(--marine);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
+  }
+  .pub-t1 .m{margin-left:auto;flex:none;font-size:10.5px;color:var(--text-tertiary);}
+  .pub-q{display:block;font-size:12px;line-height:1.45;color:var(--text-secondary);margin-top:5px;}
+  .pub-q b{color:var(--marine);}
+  .pub-q .delai{font-weight:700;color:var(--danger);}
+  .pub-gestes{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;}
+
+  /* ================================================================
+     A — LA LISTE À QUESTIONS
+     Une seule liste filetée. Une ligne questionnée déplie sa
+     question en toutes lettres et TOUS ses gestes réels ; une ligne
+     calme tient sur une rangée. L'ordre n'est plus éditorial :
+     questions datées (échéance croissante), questions sans date,
+     puis les calmes — rien n'est caché, l'ordre ne fait que placer.
+     ================================================================ */
+  .lq{margin:0 18px;}
+  .lq-ligne{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+    padding:9px 0 10px;border-top:1px solid var(--border);}
+  .lq-ligne--calme{padding:12px 0;min-height:44px;}
+  .lq-ligne--calme .pub-t1 b{font-family:var(--corps);font-weight:600;font-size:12.5px;color:var(--text-secondary);}
+  .lq-suite{display:flex;align-items:center;gap:8px;padding:12px 0 6px;min-height:44px;border-top:1px solid var(--border);
+    font-size:11.5px;color:var(--text-tertiary);}
+  .lq-suite .lien-filet,.tp-suite .lien-filet{margin-left:auto;}
+  .synthese b{font-family:var(--titres);font-weight:800;color:var(--marine);}
+
+  /* ================================================================
+     B — À VÉRIFIER, PUIS LE RESTE
+     Le partage se fait par la couleur, pas par un classement : un
+     bloc jaune pâle (le fond des choses qui attendent, déjà en
+     service dans .frise-action et .section-courrier--nonlus) porte
+     les questions ; dessous, les lignes calmes sur fond nu.
+     Pas de question → pas de bloc : il n'existe que s'il parle.
+     ================================================================ */
+  .bv{margin:4px 18px 0;background:var(--bg-hover);border:1px solid #efdcae;border-radius:12px;padding:0 12px 3px;}
+  .bv-titre{
+    font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--orange-hover);padding:9px 0 2px;
+    display:flex;align-items:baseline;gap:7px;
+  }
+  .bv-item{padding:8px 0 11px;border-top:1px dashed #efdcae;}
+  .bv .pub-gestes{gap:5px;}
+  .bv .action{padding:5px 10px;}
+  .bv-item:first-of-type{border-top:0;}
+  .ec{margin:0 18px;}
+  .ec-ligne{display:flex;align-items:center;gap:8px;padding:12px 0;min-height:44px;border-top:1px solid var(--border);
+    font-size:12.5px;color:var(--text-secondary);}
+  .ec-ligne:first-of-type{border-top:0;}
+  .ec-ligne b{font-family:var(--corps);font-weight:600;color:var(--text-secondary);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
+  .ec-ligne .m{margin-left:auto;flex:none;font-size:10.5px;color:var(--text-tertiary);}
+
+  /* ================================================================
+     C — LE TALON DES TYPES
+     Réponse frontale à « on ne distingue pas les types » : le type
+     est la première colonne, en médaillon de carte — picto + mot,
+     fonds des genres. Une carte questionnée passe son talon à
+     l'orange et déplie ses gestes.
+     ================================================================ */
+  .tp{margin:4px 18px 0;display:flex;flex-direction:column;gap:7px;}
+  .tp-carte{display:flex;align-items:stretch;min-height:46px;background:var(--paper);border:1px solid var(--border);
+    border-radius:11px;overflow:hidden;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+  .tp-talon{flex:none;width:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:4px;padding:8px 4px;border-right:1px solid var(--border);}
+  .tp-talon svg{width:16px;height:16px;}
+  .tp-talon .mot{font-family:var(--titres);font-weight:800;font-size:7.5px;letter-spacing:.09em;text-transform:uppercase;}
+  .tp-talon--annonce{background:#e8eef4;color:var(--marine);}
+  .tp-talon--fil{background:rgba(184,78,23,.08);color:var(--orange-hover);}
+  .tp-talon--atelier{background:var(--sable);color:var(--marine);}
+  .tp-carte--q .tp-talon{border-right:2px solid var(--orange-vif);}
+  .tp-corps{flex:1;min-width:0;padding:8px 11px 9px;display:flex;flex-direction:column;justify-content:center;}
+  .tp-corps .pub-t1 b{font-size:13px;}
+  .tp-suite{display:flex;align-items:center;gap:8px;padding:10px 2px 2px;font-size:11.5px;color:var(--text-tertiary);}
+
+  /* ================================================================
+     D — LA LIGNE CONSTANTE, ET LA FEUILLE
+     Toutes les lignes ont la même facture : titre, sous-ligne, et
+     au plus UNE pastille — qui porte la question et ouvre la
+     feuille du choix complet. La hauteur ne bouge presque pas
+     entre un jour calme et un jour à questions.
+     ================================================================ */
+  .lc{margin:0 18px;}
+  .lc-ligne{display:flex;align-items:center;gap:9px;padding:8px 0;border-top:1px solid var(--border);}
+  .lc-corps{flex:1;min-width:0;}
+  .lc-corps .pub-t1 b{font-size:13px;}
+  .lc-sub{font-size:11px;color:var(--text-tertiary);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .lc-sub--q{color:var(--orange-hover);font-weight:600;}
+  .lc-ligne .action{flex:none;}
+
+  /* ================================================================
+     E — LA BORNE BASSE
+     Les questions comme en B ; tout le calme compressé en UNE ligne
+     de synthèse. Dessinée pour borner la comparaison : c'est le
+     minimum de pixels qui tient encore la promesse des questions —
+     en sacrifiant l'inventaire nominatif.
+     ================================================================ */
+  .synthese{margin:0 18px;display:flex;align-items:center;gap:8px;padding:13px 0 6px;min-height:44px;
+    font-size:12px;color:var(--text-secondary);}
+  .synthese .lien-filet{margin-left:auto;flex:none;}
+  .synthese--seule{border-top:0;padding:15px 0 7px;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Accueil · vos publications — deuxième passe</p>
+  <h1>Tout afficher, et poser la bonne question</h1>
+  <p>Cinq formes d'une section dont le moteur est maintenant tranché : <b>on affiche toutes les publications vivantes</b> — pas de top 3 scoré — et c'est <b>chaque ligne qui décide seule</b> si elle porte une question. La première passe avait buté sur le classement d'états incomparables ; ce moteur dissout le nœud : rien n'est sélectionné, donc rien n'est classé — l'ordre ne fait que placer. Les cinq variantes ne se battent plus que sur deux terrains : <b>la lisibilité des types</b>, et <b>le prix du jour ordinaire</b>, où la liste est là mais muette.</p>
+  <div class="traits">
+    <span><b>Nom</b> Vos publications — acté</span>
+    <span><b>Moteur</b> tout afficher, questions par ligne</span>
+    <span><b>Budget</b> 213 px, 153 pour deux rubans</span>
+    <span><b>Plafond</b> 4 lignes, puis « et n en cours »</span>
+    <span><b>Nouveau membre</b> 0 px</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<!-- ====================================================================
+     LE MOTEUR — ce qu'on jette du top 3, ce qu'on en garde
+     ==================================================================== -->
+<section class="doc-head" style="margin-bottom:34px">
+  <p class="kicker">D'abord, le moteur</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Pas de top 3 : tout afficher, et des questions par ligne</h2>
+  <p style="max-width:680px">L'idée du top 3 scoré visait juste — <i>ne pas laisser une annonce périmer ni un mot pourvu traîner sans que l'auteur l'ait vu dans l'app</i> — mais elle résout un problème qu'on n'a probablement pas : une liste trop longue. Un voisin a typiquement <b>0 à 3 publications vivantes</b>. À cette échelle, sélectionner ne gagne rien, et coûte la prévisibilité : une ligne qui apparaît et disparaît au gré d'un score, pour un public peu à l'aise, c'est une app qui bouge toute seule. D'où le partage suivant :</p>
+  <div class="reglages" style="max-width:680px;margin:14px auto 0;text-align:left">
+    <div class="reglage"><span class="pic">✂</span><div class="c"><b>Jeté : le score entre types, et le cooldown de ligne</b><p class="d">Plus rien ne compare une péremption à un taux de réactions. Tout s'affiche, toujours, tant que c'est vivant (annonce active ou en pause, mot ouvert). Garde-fou si la liste enfle : un plafond bête à 4 lignes, puis « et n en cours » — pas un barème.</p></div></div>
+    <div class="reglage"><span class="pic">✓</span><div class="c"><b>Gardé : les deux signaux, devenus règles de ligne</b><p class="d">Un mot au fil qui a reçu des réactions et plus rien depuis ~1 semaine demande « <b>c'est réglé ?</b> ». Sans aucune réaction depuis ~3 semaines : « <b>toujours d'actualité ?</b> ». L'annonce à J+30 : « <b>toujours valable ?</b> ». Chaque ligne décide seule — aucun tri inter-types à assumer.</p></div></div>
+    <div class="reglage"><span class="pic">✓</span><div class="c"><b>Gardé : le cooldown, en micro</b><p class="d">Une question répondue se tait : « toujours d'actualité » pour ~3 semaines, l'annonce maintenue repart pour un cycle. C'est un champ de date par publication, pas une file. Et « forcer » ne bloque rien : la question <i>reste posée</i> tant qu'on n'a pas répondu — c'est sa persistance qui force.</p></div></div>
+    <div class="reglage"><span class="pic">€</span><div class="c"><b>Le prix, dit d'avance</b><p class="d">Le jour ordinaire n'est plus gratuit : la liste muette se paie. C'est la contrepartie de l'inventaire — « aucune publication ne s'oublie » — et la raison d'être de la variante 5, qui borne le bas. Si les données montrent un jour des voisins à 6+ publications vivantes, on ressortira le top 3 ; pas avant.</p></div></div>
+  </div>
+  <p style="max-width:680px;margin-top:14px">Hors périmètre, à cadrer dans une note à part : <b>quelles questions méritent une notification</b> (poussée, courriel) en plus de leur ligne — le rappel J+30 de l'annonce ne doit plus dépendre du seul courriel, c'est le trou d'origine ; et les <b>constantes</b> (1 semaine, 3 semaines, J-2/J-3, plafond à 4) qui sont ici des valeurs de travail, pas des décisions.</p>
+</section>
+
+<!-- ====================================================================
+     LE PÉRIMÈTRE — qui entre, qui n'entre pas, et avec quels gestes
+     ==================================================================== -->
+<section class="doc-head" style="margin-bottom:34px">
+  <p class="kicker">Ensuite, le périmètre — et les gestes réels</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Des publications au sens strict, et rien d'autre</h2>
+  <p style="max-width:680px">La section ne contient que <b>les annonces et les mots au fil</b> — ce qui rend le nom « Vos publications » exact, lui qui était fautif tant qu'on y rangeait les rendez-vous. Les ateliers et rencontres sont des rendez-vous : ils vivent dans « À l'affiche », l'agenda et leurs rappels. Deux exceptions réglées : <b>le moment tenu à déclarer reste dans « Actions à faire »</b>, qui le porte déjà — cette section ne le double pas ; et <b>l'atelier n'entre qu'en visite</b>, à J-2/J-3 de son démarrage s'il est sous son minimum, parce que c'est le seul moment où une décision existe. Les gestes, tels que l'app les permet — rien d'autre ne se dessine :</p>
+  <div class="reglages" style="max-width:680px;margin:14px auto 0;text-align:left">
+    <div class="reglage"><span class="pic">1</span><div class="c"><b>Mot au fil</b><p class="d">« C'est réglé ? » ou « Toujours d'actualité ? » → <b>Pourvu</b> / <b>Toujours d'actualité</b>. Pas de relance : sans réponse, il n'y a rien d'autre à faire, et la ligne reste simplement calme.</p></div></div>
+    <div class="reglage"><span class="pic">2</span><div class="c"><b>Annonce permanente, à J+30</b><p class="d">« Toujours valable ? » → <b>Maintenir</b> / <b>Mettre en pause</b> / <b>Supprimer</b>. Trois gestes, pas un « confirmer » : c'est le choix complet qui doit être à portée. Avant J+30 : aucun bouton.</p></div></div>
+    <div class="reglage"><span class="pic">3</span><div class="c"><b>Atelier sous son minimum, à J-2/J-3</b><p class="d">« 2 inscrits sur 5 — il démarre demain. » → <b>Maintenir malgré tout</b> / <b>Annuler</b>. Pas de relance : elle n'existe pas et n'existera pas. Avant la fenêtre : rien, la décision n'existe pas encore.</p></div></div>
+    <div class="reglage"><span class="pic">4</span><div class="c"><b>Rencontre — jamais ici</b><p class="d">Son seul geste est « annuler » : le poser sur l'accueil serait une invitation à détruire. Elle se gère sur sa fiche.</p></div></div>
+    <div class="reglage"><span class="pic">5</span><div class="c"><b>Mot pourvu, annonce supprimée</b><p class="d">Sortent de la section (et restent dans « Tout voir »). La section ne montre que le vivant.</p></div></div>
+  </div>
+  <div style="max-width:680px;margin:18px auto 0;text-align:left">
+    <p class="etat-lab"><span>L'état que les cinq partagent — <b>nouveau membre, rien publié</b></span><span class="px px--nul" id="px-nm">0 px</span></p>
+    <div class="cadre" style="margin:0 auto">
+      <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+      <div class="zone zone--nulle" id="z-nm" aria-hidden="true"></div>
+      <div class="fantome ghost-rub">
+        <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+        <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:var(--text-secondary);margin-top:10px">Acté en première passe, valable pour les cinq : rien publié, pas de section — l'accueil est exactement celui d'aujourd'hui. Il n'est donc dessiné qu'une fois, ici.</p>
+  </div>
+</section>
+
+<!-- ====================================================================
+     LES TROIS JOURS JOUÉS — le même jeu d'essai pour les cinq
+     ==================================================================== -->
+<section class="doc-head" style="margin-bottom:34px">
+  <p class="kicker">Le jeu d'essai</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Trois jours, les mêmes pour les cinq variantes</h2>
+  <div class="reglages" style="max-width:680px;margin:14px auto 0;text-align:left">
+    <div class="reglage"><span class="pic">N</span><div class="c"><b>Mercredi 10 juin — l'état nominal : 3 publications, 2 questions</b><p class="d">« Petit bricolage » (annonce, publiée le 1<sup>er</sup> mai, J+40 → <i>toujours valable ?</i>) · « Je donne des tomates » (fil, 2 intéressés et 3 commentaires, sans suite depuis 6 jours → <i>c'est réglé ?</i>) · « Qui a une échelle à prêter ? » (fil, avant-hier, 1 réponse — calme).</p></div></div>
+    <div class="reglage"><span class="pic">O</span><div class="c"><b>Un mardi sans histoire — le jour ordinaire : les mêmes, aucune question</b><p class="d">L'annonce a trois semaines, les tomates ont été confirmées lundi, l'échelle date d'avant-hier. C'est l'état le plus fréquent : la liste est là, muette. C'est ici que les variantes se départagent vraiment.</p></div></div>
+    <div class="reglage"><span class="pic">É</span><div class="c"><b>Vendredi 13 — l'épreuve : 3 questions, 5 publications, le plafond s'exerce</b><p class="d">« Réparer son vélo » (atelier, demain 10 h, 2 inscrits sur 5 → <i>maintenir ou annuler</i>) entre en visite · l'annonce est à J+43 (<i>quitte l'annuaire dimanche</i>) · les tomates attendent toujours · l'échelle et « Garde de chat cet été » vont bien → « et 2 en cours ». L'ordre : questions datées par échéance, puis les non datées.</p></div></div>
+  </div>
+</section>
+
+<div class="planche planche--large">
+
+  <!-- ==================================================================
+       1 · LA LISTE À QUESTIONS
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>La liste à questions</h2><span class="route">une liste, la question en toutes lettres</span></figcaption>
+    <div class="verdict"><span class="tient">tous les gestes réels, à plat</span><span class="tient">la conséquence est écrite</span><span>chaque calme coûte sa cible : 44 px</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>2 questions sur 3</b></span><span class="px" id="px-1N">294 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-1N">
+            <div class="lq">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="lq-ligne" type="button">
+                <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b><span class="m">1<sup>er</sup> mai</span></span>
+                <span class="pub-q">En ligne depuis 40 jours — <b>toujours valable ?</b> Sans réponse, elle quitte l'annuaire le <span class="delai">15 juin</span>.</span>
+                <span class="pub-gestes"><span class="action action--fort">Maintenir</span><span class="action">Mettre en pause</span><span class="action action--danger">Supprimer</span></span>
+              </button>
+              <button class="lq-ligne" type="button">
+                <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b><span class="m">31 mai</span></span>
+                <span class="pub-q">2 intéressés, 3 commentaires, sans suite depuis 6 jours — <b>c'est réglé ?</b></span>
+                <span class="pub-gestes"><span class="action action--fort">Pourvu</span><span class="action">Toujours d'actualité</span></span>
+              </button>
+              <button class="lq-ligne lq-ligne--calme" type="button">
+                <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Qui a une échelle à prêter ?</b><span class="m">avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>la liste, muette</b></span><span class="px" id="px-1O">158 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-1O">
+            <div class="lq">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="lq-ligne lq-ligne--calme" type="button">
+                <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b><span class="m">3 semaines</span></span>
+              </button>
+              <button class="lq-ligne lq-ligne--calme" type="button">
+                <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b><span class="m">confirmé lundi</span></span>
+              </button>
+              <button class="lq-ligne lq-ligne--calme" type="button">
+                <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Qui a une échelle à prêter ?</b><span class="m">avant-hier</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>3 questions, 5 publications</b></span><span class="px" id="px-1E">406 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-1E">
+            <div class="lq">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="lq-ligne" type="button">
+                <span class="pub-t1"><span class="genre genre--atelier">Atelier</span><b>Réparer son vélo</b><span class="m">demain · 10 h</span></span>
+                <span class="pub-q"><b>2 inscrits sur 5</b> — il démarre demain. Sous son minimum, il s'annulera au départ.</span>
+                <span class="pub-gestes"><span class="action action--fort">Maintenir malgré tout</span><span class="action action--danger">Annuler</span></span>
+              </button>
+              <button class="lq-ligne" type="button">
+                <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b><span class="m">1<sup>er</sup> mai</span></span>
+                <span class="pub-q">En ligne depuis 43 jours — <b>toujours valable ?</b> Sans réponse, elle quitte l'annuaire <span class="delai">dimanche</span>.</span>
+                <span class="pub-gestes"><span class="action action--fort">Maintenir</span><span class="action">Mettre en pause</span><span class="action action--danger">Supprimer</span></span>
+              </button>
+              <button class="lq-ligne" type="button">
+                <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b><span class="m">31 mai</span></span>
+                <span class="pub-q">2 intéressés, 3 commentaires, sans suite depuis 8 jours — <b>c'est réglé ?</b></span>
+                <span class="pub-gestes"><span class="action action--fort">Pourvu</span><span class="action">Toujours d'actualité</span></span>
+              </button>
+              <div class="lq-suite">Et 2 publications en cours, qui vont bien<a class="lien-filet lien-filet--muet" href="#">Les voir</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : la question se pose en français, et tous les gestes réels sont à plat.</b> Une ligne questionnée dit l'état, la question en gras, la conséquence datée quand il y en a une — et ses deux ou trois gestes, tous, sans en cacher derrière une feuille : c'est la forme la plus proche de « forcer une action », puisque le choix complet est sous le pouce. Une ligne calme retombe à une rangée : timbre du type, titre, fraîcheur. <b>L'ordre, qui n'est plus un tri :</b> questions datées par échéance croissante, questions sans date ensuite, calmes par fraîcheur — rien n'étant caché, l'ordre ne décide de rien, il place. <b>Hauteur : 294 px</b> le mercredi, <b>158 px</b> le jour ordinaire, <b>406 px</b> à l'épreuve. <b>Ce qu'elle coûte :</b> la rangée des trois gestes de l'annonce pèse ~36 px par question et « Supprimer » est en permanence sous le pouce — contour danger, mais présent ; et la mesure est sans appel sur le budget : le jour ordinaire tient le premier seuil très au large (158 px pour 213 autorisés) mais manque le second de 5 px — des lignes nominatives à cible pleine (44 px) ne descendent pas sous 153 px à trois publications ; à deux publications, elles y passent (113 px). Le jour à <i>une</i> question flirte avec le budget (219 à 233 px selon la question) ; à <i>deux</i>, il le crève franchement (294 px) — et c'est accepté : deux échéances réelles le même jour sont exactement le cas où la commune peut attendre. Un levier reste en réserve, à trancher sur pièce : la conséquence courte (« Sinon retirée le 15 juin ») rend ~17 px par question datée et ramène le jour à une question dans les clous.</p>
+  </figure>
+
+  <!-- ==================================================================
+       2 · À VÉRIFIER, PUIS LE RESTE
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>À vérifier, puis le reste</h2><span class="route">le partage par la couleur, pas par un classement</span></figcaption>
+    <div class="verdict"><span class="tient">le bloc jaune n'existe que s'il parle</span><span class="tient">titres littéraux</span><span>double la hauteur des questions ?</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>2 questions sur 3</b></span><span class="px" id="px-2N">316 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-2N">
+            <div class="marge">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+            </div>
+            <div class="bv">
+              <p class="bv-titre">À vérifier<span class="badge-compte">2</span></p>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b><span class="m">J+40</span></span>
+                <span class="pub-q"><b>Toujours valable ?</b> Sans réponse, elle quitte l'annuaire le <span class="delai">15 juin</span>.</span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Maintenir</button><button class="action" type="button">Mettre en pause</button><button class="action action--danger" type="button">Supprimer</button></span>
+              </div>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b><span class="m">2 intéressés</span></span>
+                <span class="pub-q">Sans suite depuis 6 jours — <b>c'est réglé ?</b></span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Pourvu</button><button class="action" type="button">Toujours d'actualité</button></span>
+              </div>
+            </div>
+            <div class="ec">
+              <div class="ec-ligne"><span class="genre genre--fil">Fil</span><b>Qui a une échelle à prêter ?</b><span class="m">avant-hier · 1 réponse</span></div>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>pas de bloc : il n'a rien à dire</b></span><span class="px" id="px-2O">158 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-2O">
+            <div class="marge">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+            </div>
+            <div class="ec">
+              <div class="ec-ligne"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b><span class="m">3 semaines</span></div>
+              <div class="ec-ligne"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b><span class="m">confirmé lundi</span></div>
+              <div class="ec-ligne"><span class="genre genre--fil">Fil</span><b>Qui a une échelle à prêter ?</b><span class="m">avant-hier</span></div>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>3 questions dans le bloc</b></span><span class="px" id="px-2E">428 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-2E">
+            <div class="marge">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+            </div>
+            <div class="bv">
+              <p class="bv-titre">À vérifier<span class="badge-compte">3</span></p>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--atelier">Atelier</span><b>Réparer son vélo</b><span class="m">demain · 10 h</span></span>
+                <span class="pub-q"><b>2 inscrits sur 5</b> — sous son minimum, il s'annulera au départ.</span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Maintenir malgré tout</button><button class="action action--danger" type="button">Annuler</button></span>
+              </div>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b><span class="m">J+43</span></span>
+                <span class="pub-q"><b>Toujours valable ?</b> Sans réponse, elle quitte l'annuaire <span class="delai">dimanche</span>.</span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Maintenir</button><button class="action" type="button">Mettre en pause</button><button class="action action--danger" type="button">Supprimer</button></span>
+              </div>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b><span class="m">2 intéressés</span></span>
+                <span class="pub-q">Sans suite depuis 8 jours — <b>c'est réglé ?</b></span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Pourvu</button><button class="action" type="button">Toujours d'actualité</button></span>
+              </div>
+            </div>
+            <div class="ec">
+              <div class="ec-ligne">Et 2 publications en cours, qui vont bien<a class="lien-filet lien-filet--muet" style="margin-left:auto" href="#">Les voir</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : on ne classe pas, on colore.</b> Le fond jaune pâle est déjà, partout dans la charte, celui des choses qui attendent (courrier non lu, bandeau d'action d'une fiche) : le réemployer ici fait reconnaître « on m'attend » sans un mot de plus, et les deux titres sont littéraux — « À vérifier », compté ; le reste en lignes nues. <b>Le bloc n'existe que s'il parle :</b> le jour ordinaire, il ne reste que le label et les lignes calmes — pas de cadre vide, pas de « rien à signaler » cérémonieux. <b>Hauteur : 316 px</b> le mercredi, <b>158 px</b> le jour ordinaire, <b>428 px</b> à l'épreuve. <b>Ce qu'elle coûte :</b> le cadre, ses marges et son titre ajoutent 22 px par rapport à la variante 1 à contenu égal le mercredi — le prix de la couleur, qui disparaît d'ailleurs le jour ordinaire (158 px, au pixel près la variante 1, puisque le bloc n'est plus là) ; et un deuxième aplat jaune pâle à l'écran concurrence le ruban sable de la commune juste en dessous : deux « jaunes » qui ne disent pas la même chose, c'est une nuance que la charte devra assumer ou refuser.</p>
+  </figure>
+
+  <!-- ==================================================================
+       3 · LE TALON DES TYPES
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>Le talon des types</h2><span class="route">le type est la première colonne</span></figcaption>
+    <div class="verdict"><span class="tient">le type se lit sans lire</span><span class="tient">même facture que les billets</span><span>la plus chère le jour ordinaire ?</span><span class="casse">le talon fait plier le trio de gestes</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>2 questions sur 3</b></span><span class="px" id="px-3N">328 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-3N">
+            <div class="marge">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+            </div>
+            <div class="tp">
+              <div class="tp-carte tp-carte--q">
+                <div class="tp-talon tp-talon--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></div>
+                <div class="tp-corps">
+                  <span class="pub-t1"><b>Petit bricolage</b><span class="m">J+40</span></span>
+                  <span class="pub-q"><b>Toujours valable ?</b> Sinon elle quitte l'annuaire le <span class="delai">15 juin</span>.</span>
+                  <span class="pub-gestes"><button class="action action--fort" type="button">Maintenir</button><button class="action" type="button">Mettre en pause</button><button class="action action--danger" type="button">Supprimer</button></span>
+                </div>
+              </div>
+              <div class="tp-carte tp-carte--q">
+                <div class="tp-talon tp-talon--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></div>
+                <div class="tp-corps">
+                  <span class="pub-t1"><b>Je donne des tomates</b><span class="m">2 intéressés</span></span>
+                  <span class="pub-q">Sans suite depuis 6 jours — <b>c'est réglé ?</b></span>
+                  <span class="pub-gestes"><button class="action action--fort" type="button">Pourvu</button><button class="action" type="button">Toujours d'actualité</button></span>
+                </div>
+              </div>
+              <div class="tp-carte">
+                <div class="tp-talon tp-talon--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></div>
+                <div class="tp-corps">
+                  <span class="pub-t1"><b>Qui a une échelle à prêter ?</b><span class="m">avant-hier</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>trois cartes muettes</b></span><span class="px" id="px-3O">188 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-3O">
+            <div class="marge">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+            </div>
+            <div class="tp">
+              <div class="tp-carte">
+                <div class="tp-talon tp-talon--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></div>
+                <div class="tp-corps"><span class="pub-t1"><b>Petit bricolage</b><span class="m">3 semaines</span></span></div>
+              </div>
+              <div class="tp-carte">
+                <div class="tp-talon tp-talon--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></div>
+                <div class="tp-corps"><span class="pub-t1"><b>Je donne des tomates</b><span class="m">confirmé lundi</span></span></div>
+              </div>
+              <div class="tp-carte">
+                <div class="tp-talon tp-talon--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></div>
+                <div class="tp-corps"><span class="pub-t1"><b>Qui a une échelle à prêter ?</b><span class="m">avant-hier</span></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>3 questions, 3 talons</b></span><span class="px" id="px-3E">408 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-3E">
+            <div class="marge">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+            </div>
+            <div class="tp">
+              <div class="tp-carte tp-carte--q">
+                <div class="tp-talon tp-talon--atelier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 11a3 3 0 1 0 0-6M18 20a6 6 0 0 0-3-5.2"/></svg><span class="mot">Atelier</span></div>
+                <div class="tp-corps">
+                  <span class="pub-t1"><b>Réparer son vélo</b><span class="m">demain · 10 h</span></span>
+                  <span class="pub-q"><b>2 inscrits sur 5</b> — il s'annulera au départ.</span>
+                  <span class="pub-gestes"><button class="action action--fort" type="button">Maintenir malgré tout</button><button class="action action--danger" type="button">Annuler</button></span>
+                </div>
+              </div>
+              <div class="tp-carte tp-carte--q">
+                <div class="tp-talon tp-talon--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></div>
+                <div class="tp-corps">
+                  <span class="pub-t1"><b>Petit bricolage</b><span class="m">J+43</span></span>
+                  <span class="pub-q"><b>Toujours valable ?</b> Sinon elle quitte l'annuaire <span class="delai">dimanche</span>.</span>
+                  <span class="pub-gestes"><button class="action action--fort" type="button">Maintenir</button><button class="action" type="button">Mettre en pause</button><button class="action action--danger" type="button">Supprimer</button></span>
+                </div>
+              </div>
+              <div class="tp-carte tp-carte--q">
+                <div class="tp-talon tp-talon--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></div>
+                <div class="tp-corps">
+                  <span class="pub-t1"><b>Je donne des tomates</b><span class="m">2 intéressés</span></span>
+                  <span class="pub-q">Sans suite depuis 8 jours — <b>c'est réglé ?</b></span>
+                  <span class="pub-gestes"><button class="action action--fort" type="button">Pourvu</button><button class="action" type="button">Toujours d'actualité</button></span>
+                </div>
+              </div>
+              <div class="tp-suite">Et 2 publications en cours, qui vont bien<a class="lien-filet lien-filet--muet" href="#">Les voir</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : le type se lit avant les mots.</b> Picto + mot + fond de genre dans un talon de 56 px, à la facture des billets de la charte : on scanne la colonne de gauche et on sait ce qu'on possède — c'est la réponse maximale au reproche « on ne distingue pas les types », et la seule des cinq où le type reste lisible du coin de l'œil, sans lire une ligne. Une carte questionnée passe son talon à l'orange. <b>Hauteur : 328 px</b> le mercredi, <b>188 px</b> le jour ordinaire, <b>408 px</b> à l'épreuve. <b>Ce qu'elle coûte :</b> les cartes bordées paient leur relief — 30 px de plus que la variante 1 le jour ordinaire, pour les mêmes trois lignes muettes ; c'est le prix du talon, et il se paie surtout l'état le plus fréquent. Et le talon a un coût caché que la mesure a débusqué : il ne laisse que 257 px au corps de carte, où le trio « Maintenir · Mettre en pause · Supprimer » (296 px) ne tient pas — la rangée plie sur deux lignes, et « Supprimer » se retrouve seul en dessous, détaché de ses alternatives. Enfin le talon répète ce que le titre dit déjà souvent (« Qui a une échelle à prêter ? » ne peut être qu'un mot au fil) : la colonne gagne les cas ambigus, elle alourdit tous les autres.</p>
+  </figure>
+
+  <!-- ==================================================================
+       4 · LA LIGNE CONSTANTE, ET LA FEUILLE
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">4</span><h2>La ligne constante, et la feuille</h2><span class="route">une pastille par ligne, le choix complet au tap</span></figcaption>
+    <div class="verdict"><span class="tient">la hauteur ne bouge presque pas</span><span class="tient">« Supprimer » jamais sous le pouce</span><span class="casse">le choix complet est à deux gestes</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>2 questions sur 3</b></span><span class="px" id="px-4N">174 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-4N">
+            <div class="lc">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <div class="lc-ligne">
+                <div class="lc-corps">
+                  <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b></span>
+                  <p class="lc-sub lc-sub--q">J+40 — retirée le 15 juin</p>
+                </div>
+                <button class="action action--fort" type="button">Toujours valable ?</button>
+              </div>
+              <div class="lc-ligne">
+                <div class="lc-corps">
+                  <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b></span>
+                  <p class="lc-sub lc-sub--q">2 intéressés · sans suite 6 j</p>
+                </div>
+                <button class="action action--fort" type="button">C'est réglé ?</button>
+              </div>
+              <div class="lc-ligne">
+                <div class="lc-corps">
+                  <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Qui a une échelle à prêter ?</b></span>
+                  <p class="lc-sub">Avant-hier · 1 réponse</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Au tap sur « Toujours valable ? » — <b>la feuille du choix complet</b></span><span class="px">hors budget</span></p>
+        <div class="cadre cadre--feuille" style="min-height:420px">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="voile">
+            <div class="feuille">
+              <div class="poignee"></div>
+              <div class="tete"><h3>Petit bricolage — toujours valable ?</h3><button class="x" type="button" aria-label="Fermer">×</button></div>
+              <div class="corps">
+                <p class="aide" style="padding:0 18px 4px">Votre annonce est en ligne depuis le 1<sup>er</sup> mai. Sans réponse avant le <b style="color:var(--danger)">15 juin</b>, elle quitte l'annuaire du quartier.</p>
+                <div style="display:flex;flex-direction:column;gap:9px;padding:10px 18px 18px">
+                  <button class="btn-plein btn-plein--orange" type="button">Oui, maintenir — elle repart pour 45 jours</button>
+                  <button class="btn-plein btn-plein--contour" type="button">Mettre en pause</button>
+                  <button class="btn-plein btn-plein--danger" type="button">Supprimer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>les mêmes lignes, sans pastille</b></span><span class="px" id="px-4O">174 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-4O">
+            <div class="lc">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <div class="lc-ligne">
+                <div class="lc-corps">
+                  <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b></span>
+                  <p class="lc-sub">En ligne · 3 semaines</p>
+                </div>
+              </div>
+              <div class="lc-ligne">
+                <div class="lc-corps">
+                  <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b></span>
+                  <p class="lc-sub">Confirmé lundi</p>
+                </div>
+              </div>
+              <div class="lc-ligne">
+                <div class="lc-corps">
+                  <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Qui a une échelle à prêter ?</b></span>
+                  <p class="lc-sub">Avant-hier · 1 réponse</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>3 pastilles-questions</b></span><span class="px" id="px-4E">218 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-4E">
+            <div class="lc">
+              <p class="lab-section">Vos publications<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <div class="lc-ligne">
+                <div class="lc-corps">
+                  <span class="pub-t1"><span class="genre genre--atelier">Atelier</span><b>Réparer son vélo</b></span>
+                  <p class="lc-sub lc-sub--q">2 inscrits sur 5 — demain 10 h</p>
+                </div>
+                <button class="action action--fort" type="button">Maintenir ?</button>
+              </div>
+              <div class="lc-ligne">
+                <div class="lc-corps">
+                  <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b></span>
+                  <p class="lc-sub lc-sub--q">J+43 — retirée dimanche</p>
+                </div>
+                <button class="action action--fort" type="button">Toujours valable ?</button>
+              </div>
+              <div class="lc-ligne">
+                <div class="lc-corps">
+                  <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b></span>
+                  <p class="lc-sub lc-sub--q">2 intéressés · sans suite 8 j</p>
+                </div>
+                <button class="action action--fort" type="button">C'est réglé ?</button>
+              </div>
+              <div class="lq-suite">Et 2 publications en cours, qui vont bien<a class="lien-filet lien-filet--muet" href="#">Les voir</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : la section ne tranche pas, elle convoque.</b> Toutes les lignes ont la même facture — timbre, titre, sous-ligne — et au plus une pastille, qui pose la question et ouvre <b>la feuille du choix complet</b> : c'est là, au calme, à pleine largeur, que « Maintenir » se distingue de « Mettre en pause » et de « Supprimer », avec la conséquence écrite en toutes lettres. « Supprimer » n'est donc jamais posé sur l'accueil. <b>Hauteur : 174 px</b> le mercredi, <b>174 px</b> le jour ordinaire, <b>218 px</b> à l'épreuve — l'écart jour calme / jour à deux questions est de 0 px — rigoureusement la même hauteur, la pastille se loge dans la ligne — et même l'épreuve tient presque le budget (218 px pour 213). C'est la seule des cinq qui ne fait jamais sauter la page. <b>Ce qu'elle coûte :</b> le choix complet est à deux gestes (la pastille, puis la feuille), et c'est une vraie entorse à « forcer une action » — on peut fermer la feuille sans choisir, et la sous-ligne, coincée entre le timbre et la pastille, n'a plus que ~180 px : la conséquence s'y écrit en télégramme (« J+40 — retirée le 15 juin ») là où la variante 1 l'écrit en français. Pour l'atelier, « Maintenir ? » à côté d'« Annuler » absent est trompeur : la feuille doit impérativement porter les deux.</p>
+  </figure>
+
+  <!-- ==================================================================
+       5 · LA BORNE BASSE
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">5</span><h2>La borne basse</h2><span class="route">les questions, et une ligne pour tout le reste</span></figcaption>
+    <div class="verdict"><span class="tient">le jour ordinaire le moins cher</span><span class="casse">l'inventaire perd les noms</span><span>dessinée pour borner la comparaison</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>2 questions sur 3</b></span><span class="px" id="px-5N">298 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-5N">
+            <div class="bv" style="margin-top:12px">
+              <p class="bv-titre">À vérifier<span class="badge-compte">2</span></p>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b><span class="m">J+40</span></span>
+                <span class="pub-q"><b>Toujours valable ?</b> Sans réponse, elle quitte l'annuaire le <span class="delai">15 juin</span>.</span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Maintenir</button><button class="action" type="button">Mettre en pause</button><button class="action action--danger" type="button">Supprimer</button></span>
+              </div>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b><span class="m">2 intéressés</span></span>
+                <span class="pub-q">Sans suite depuis 6 jours — <b>c'est réglé ?</b></span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Pourvu</button><button class="action" type="button">Toujours d'actualité</button></span>
+              </div>
+            </div>
+            <p class="synthese">Et 1 mot au fil, qui va bien.<a class="lien-filet lien-filet--muet" href="#">Vos publications</a></p>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>une seule ligne</b></span><span class="px" id="px-5O">53 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-5O">
+            <p class="synthese synthese--seule"><span style="flex:1;min-width:0"><b>Vos publications</b> — 1 annonce, 2 mots au fil · rien à vérifier.</span><a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>3 questions, le reste en une ligne</b></span><span class="px" id="px-5E">410 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-5E">
+            <div class="bv" style="margin-top:12px">
+              <p class="bv-titre">À vérifier<span class="badge-compte">3</span></p>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--atelier">Atelier</span><b>Réparer son vélo</b><span class="m">demain · 10 h</span></span>
+                <span class="pub-q"><b>2 inscrits sur 5</b> — sous son minimum, il s'annulera au départ.</span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Maintenir malgré tout</button><button class="action action--danger" type="button">Annuler</button></span>
+              </div>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--annonce">Annonce</span><b>Petit bricolage</b><span class="m">J+43</span></span>
+                <span class="pub-q"><b>Toujours valable ?</b> Sans réponse, elle quitte l'annuaire <span class="delai">dimanche</span>.</span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Maintenir</button><button class="action" type="button">Mettre en pause</button><button class="action action--danger" type="button">Supprimer</button></span>
+              </div>
+              <div class="bv-item">
+                <span class="pub-t1"><span class="genre genre--fil">Fil</span><b>Je donne des tomates</b><span class="m">2 intéressés</span></span>
+                <span class="pub-q">Sans suite depuis 8 jours — <b>c'est réglé ?</b></span>
+                <span class="pub-gestes"><button class="action action--fort" type="button">Pourvu</button><button class="action" type="button">Toujours d'actualité</button></span>
+              </div>
+            </div>
+            <p class="synthese">Et 2 publications en cours, qui vont bien.<a class="lien-filet lien-filet--muet" href="#">Les voir</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : l'accueil porte les questions, le profil garde l'inventaire.</b> Les questions s'affichent comme en 2 — bloc jaune, gestes à plat — mais tout le calme est compressé en une phrase : « 1 annonce, 2 mots au fil · rien à vérifier ». <b>Hauteur : 298 px</b> le mercredi, <b>53 px</b> le jour ordinaire — la borne basse de la comparaison : c'est le minimum qui tient encore la promesse des questions. <b>Ce qu'elle coûte, et pourquoi elle est là :</b> l'inventaire perd les noms — « 2 mots au fil » ne dit pas lesquels, et c'est précisément le reproche fait au sommaire agrégé de la première passe. Elle n'est pas dessinée pour gagner : elle chiffre ce que les variantes 1 à 4 achètent avec leurs lignes nominatives, pour que ce choix-là se fasse en connaissance de cause — 105 px d'écart avec la variante 1 le jour ordinaire, pour savoir <i>ce que</i> vous avez en ligne sans avoir à cliquer.</p>
+  </figure>
+
+</div>
+
+<!-- ====================================================================
+     CE QUI SE JOUE
+     ==================================================================== -->
+<footer class="doc-head" style="margin:48px auto 0;max-width:780px">
+  <p class="kicker">Ce qui se joue</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Les mesures, et les deux vrais écarts</h2>
+  <table class="tableau-mesures">
+    <thead>
+      <tr><th>Variante</th><th class="num">Mercredi (2 q.)</th><th class="num">Jour ordinaire</th><th class="num">Épreuve (3 q.)</th><th class="num">« À l'affiche » à</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>1</b> La liste à questions</td><td class="num">294</td><td class="num">158</td><td class="num">406</td><td class="num">607</td></tr>
+      <tr><td><b>2</b> À vérifier, puis le reste</td><td class="num">316</td><td class="num">158</td><td class="num">428</td><td class="num">629</td></tr>
+      <tr><td><b>3</b> Le talon des types</td><td class="num">328</td><td class="num">188</td><td class="num">408</td><td class="num">641</td></tr>
+      <tr><td><b>4</b> La ligne constante</td><td class="num">174</td><td class="num">174</td><td class="num">218</td><td class="num">487</td></tr>
+      <tr><td><b>5</b> La borne basse</td><td class="num">298</td><td class="num ok">53</td><td class="num">410</td><td class="num">611</td></tr>
+    </tbody>
+  </table>
+  <p style="text-align:left;margin-top:12px;font-size:.8rem;color:var(--text-tertiary)">Hauteurs mesurées dans le navigateur, marges comprises. Dernière colonne : hauteur d'apparition du ruban « À l'affiche » l'état du mercredi, depuis 313 px (mesure de la planche « le composeur, en situation »). Seuils : <b>213 px</b> pour que « À l'affiche » garde son ruban et une ligne au-dessus du pli de 667 px, <b>153 px</b> pour que le ruban du fil apparaisse aussi. Ce que les seuils tranchent : le jour ordinaire, 1 et 2 tiennent le premier seuil au large et manquent le second de 5 px (158 contre 153 — des cibles tactiles pleines ne font pas mieux à trois publications ; à deux, 113 px, elles passent) ; la 5 le pulvérise (53) ; la 3 ne le passe jamais (188). Le jour à deux questions, seule la 4 reste dans le budget (174) — 1, 2, 3 et 5 le crèvent, et c'est assumé : deux échéances réelles le même jour sont précisément le cas où la commune peut attendre. L'épreuve à trois questions pousse tout sous le pli, sauf la 4 (218).</p>
+
+  <p style="text-align:left;margin-top:18px"><b>Les deux vrais écarts entre les cinq.</b> D'abord <b>où vit le choix complet</b> : à plat sur la ligne (1, 2, 3 — trois pastilles, « Supprimer » compris) ou dans une feuille au tap (4 — l'accueil ne porte jamais « Supprimer », mais le choix est à deux gestes et la feuille peut se refermer sans réponse). C'est l'arbitrage « forcer une action » contre « ne jamais inviter à détruire » ; il est de doctrine, pas de goût. Ensuite <b>ce que vaut l'inventaire nominatif le jour ordinaire</b> : 158 px pour des lignes qui portent les noms (1), 53 px pour une phrase qui les compte (5). Entre les deux, le jour le plus fréquent de l'app.</p>
+
+  <p style="text-align:left;margin-top:14px"><b>Si je dois trancher :</b> la <b>2</b>. Le bloc jaune réutilise un sens que la charte a déjà installé (ce fond-là veut dire « on vous attend » dans le courrier comme sur les fiches), ses titres sont littéraux, les gestes sont à plat, et le jour ordinaire elle retombe à 158 px — au pixel près la variante 1, le bloc n'étant plus là. La <b>1</b> est sa jumelle sans la couleur : si le deuxième aplat jaune jure avec le ruban sable de la commune, elle est le repli immédiat. La <b>3</b> gagne le concours de lisibilité des types mais le paie l'état le plus fréquent (188 px muets) et son talon fait plier le trio de gestes. La <b>4</b> est l'inverse exact : elle gagne tous les concours de hauteur (174 px constants, 218 à l'épreuve — seule dans le budget quel que soit le jour) et perd celui de la question, diluée dans une pastille interrogative et une feuille refermable ; si l'usage montre des jours à deux questions plus fréquents que prévu, c'est elle qui reprend la main. La <b>5</b> est la borne, pas une candidate.</p>
+
+  <p style="text-align:left;margin-top:14px"><b>Reste à trancher ailleurs, et c'est volontaire :</b> les constantes (1 semaine, 3 semaines, J-2/J-3, plafond à 4 — valeurs de travail à confronter à l'usage) ; la destination de « Tout voir » (le profil et ses trois rubriques, ou une page dédiée) ; quelles questions méritent une notification poussée ou courriel en plus de leur ligne — le rappel J+30 ne doit plus dépendre du seul courriel, c'était le trou d'origine ; et le libellé exact des gestes dans la feuille de la 4. Tout ça tient dans la note de cadrage du moteur, à écrire quand tu veux.</p>
+
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</footer>
+
+</body>
+</html>

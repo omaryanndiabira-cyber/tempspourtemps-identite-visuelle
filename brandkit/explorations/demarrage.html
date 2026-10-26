@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dix écrans de démarrage</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TEMPSPOURTEMPS — DIX ÉCRANS DE DÉMARRAGE
+   Le tout premier pixel : ce qu'on voit avant l'accueil.
+
+   Cette planche est VOLONTAIREMENT autonome — elle ne charge pas
+   gazette.css. Son sujet même est un écran qui s'affiche AVANT la
+   feuille de style de l'application et ne peut lire aucun jeton :
+   tout ce qu'elle montre doit tenir en valeurs écrites en dur.
+   ============================================================ */
+
+:root{
+  --marine:#183e57;        --marine-hover:#0f2f44;
+  --orange:#b84e17;        --orange-hover:#a34413;   --orange-vif:#d65e1c;
+  --sable:#fcdb81;         --sable-hover:#f5cb5c;
+  --success:#2f7a44;       --danger:#c44536;         --warning:#b45309;
+  --bg-main:#f7f6f3;       --bg-secondary:#f3f3f5;   --bg-hover:#fdf1d7;
+  --text-secondary:#4b5563;--text-tertiary:#717182;
+  --border:#d6dbe2;        --paper:#fffdf6;
+  --grad-hero:linear-gradient(180deg,#fff9ec 0%,#fff3e0 32%,#f3f7fb 100%);
+  --titres:'Nunito',system-ui,sans-serif;
+  --corps:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:where(a,button,summary,[tabindex]):focus-visible{
+  outline:2px solid var(--marine);outline-offset:2px;
+  box-shadow:0 0 0 5px var(--sable);border-radius:4px;
+}
+
+body{
+  font-family:var(--corps);color:var(--marine);background:#e7e4dc;
+  background-image:radial-gradient(circle at 15% 8%, rgba(252,219,129,.22), transparent 40%),
+                   radial-gradient(circle at 88% 92%, rgba(24,62,87,.10), transparent 45%);
+  background-attachment:fixed;
+  min-height:100vh;padding:38px 20px 70px;-webkit-font-smoothing:antialiased;
+}
+
+/* ------------------------------------------------------------
+   L'EN-TÊTE
+   ------------------------------------------------------------ */
+.q{max-width:720px;margin:0 auto;text-align:center;}
+.q .kicker{font-family:var(--titres);font-weight:800;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);}
+.q h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.7rem,5vw,2.5rem);letter-spacing:-.5px;margin-top:8px;text-wrap:balance;}
+.q > p{color:var(--text-secondary);font-size:.95rem;line-height:1.7;margin-top:16px;}
+.q > p b{color:var(--marine);}
+.q .retour{display:inline-block;margin-top:20px;color:var(--marine);font-weight:600;font-size:.86rem;text-decoration:none;}
+.q .retour:hover{text-decoration:underline;}
+
+/* ------------------------------------------------------------
+   LE SOMMAIRE COLLANT
+   ------------------------------------------------------------ */
+.somm{
+  position:sticky;top:0;z-index:40;margin:30px -20px 34px;padding:9px 20px;
+  background:rgba(231,228,220,.94);backdrop-filter:blur(10px);
+  border-top:1px solid var(--marine);border-bottom:3px double var(--marine);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:3px;
+}
+@supports not (backdrop-filter:blur(2px)){.somm{background:#e7e4dc;}}
+.somm a{
+  padding:5px 10px;border-radius:7px;text-decoration:none;
+  font-family:var(--titres);font-weight:800;font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);
+}
+.somm a:hover{background:var(--sable);color:var(--marine);}
+.somm a b{color:var(--marine);}
+
+/* ------------------------------------------------------------
+   LES SECTIONS
+   ------------------------------------------------------------ */
+.sec{display:flex;align-items:center;gap:14px;max-width:1080px;margin:52px auto 8px;scroll-margin-top:70px;}
+.sec .num{font-family:var(--titres);font-weight:800;font-size:.76rem;background:var(--sable);color:var(--marine);border-radius:8px;padding:3px 10px;flex:none;}
+.sec h2{font-family:var(--titres);font-weight:800;font-size:1.26rem;}
+.sec .filet{flex:1;height:5px;border-top:1px solid var(--marine);border-bottom:1px solid var(--marine);opacity:.45;}
+.sec-sub{max-width:1080px;margin:0 auto 24px;color:var(--text-secondary);font-size:.89rem;line-height:1.7;}
+.sec-sub b{color:var(--marine);}
+.sec-sub code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+
+/* ------------------------------------------------------------
+   LES DEUX INSTANTS
+   ------------------------------------------------------------ */
+.instants{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;}
+.inst{background:var(--paper);border:1px solid var(--border);border-radius:13px;padding:15px 18px 16px;border-left:3px solid var(--orange-vif);}
+.inst:nth-child(2){border-left-color:var(--marine);}
+.inst .t{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;}
+.inst .t .ord{font-family:var(--titres);font-weight:800;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;background:var(--bg-hover);color:var(--orange-hover);border-radius:5px;padding:2px 8px;}
+.inst:nth-child(2) .t .ord{background:rgba(24,62,87,.1);color:var(--marine);}
+.inst h3{font-family:var(--titres);font-weight:800;font-size:1rem;}
+.inst p{font-size:.84rem;line-height:1.65;color:var(--text-secondary);margin-top:9px;}
+.inst p b{color:var(--marine);}
+.inst code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.74rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+
+.contraintes{max-width:1080px;margin:16px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:12px;}
+.ct{background:rgba(255,253,246,.72);border:1px dashed var(--border);border-radius:11px;padding:12px 15px;}
+.ct .k{font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--danger);}
+.ct--cle{border-style:solid;border-color:var(--sable);background:rgba(252,219,129,.16);}
+.ct--cle .k{color:var(--orange-hover);}
+.ct p{font-size:.8rem;line-height:1.6;color:var(--text-secondary);margin-top:6px;}
+.ct p b{color:var(--marine);}
+
+/* ------------------------------------------------------------
+   LA PLANCHE DES DIX
+   ------------------------------------------------------------ */
+.planche{display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,max-content));gap:34px 26px;justify-content:center;max-width:846px;margin:0 auto;}
+.ecran{display:flex;flex-direction:column;gap:11px;scroll-margin-top:78px;}
+.ecran figcaption{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;}
+.ecran figcaption .n{font-family:var(--titres);font-weight:800;font-size:.74rem;background:var(--sable);color:var(--marine);border-radius:7px;padding:2px 8px;flex:none;}
+.ecran figcaption h3{font-family:var(--titres);font-weight:800;font-size:1.02rem;}
+.fam{font-size:.6rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-radius:5px;padding:2px 8px;}
+.fam--echange{background:var(--sable);color:var(--marine);}
+.fam--marque{background:rgba(24,62,87,.1);color:var(--marine);}
+.fam--gazette{background:var(--bg-hover);color:var(--orange-hover);}
+.fam--produit{background:rgba(47,122,68,.14);color:var(--success);}
+.ecran .note{font-size:.8rem;line-height:1.6;color:var(--text-secondary);max-width:390px;}
+.ecran .note b{color:var(--marine);}
+.ecran .cout{font-size:.74rem;line-height:1.55;color:var(--text-tertiary);max-width:390px;padding-top:7px;border-top:1px dotted var(--border);}
+.ecran .cout b{color:var(--danger);font-weight:600;}
+.ecran .cout .ok{color:var(--success);font-weight:600;}
+
+/* ------------------------------------------------------------
+   LE TÉLÉPHONE
+   ------------------------------------------------------------ */
+.phone{
+  width:390px;height:812px;background:var(--bg-main);border-radius:34px;overflow:hidden;
+  display:flex;flex-direction:column;position:relative;
+  box-shadow:0 2px 6px rgba(24,62,87,.10),0 24px 60px -18px rgba(24,62,87,.38),0 0 0 10px #1b1c1f,0 0 0 12px #3a3c40;
+}
+.phone::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:70;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
+.phone--grad{background:#fff9ec;}
+.phone--papier{background:var(--paper);}
+.phone--marine{background:var(--marine);}
+
+.status{height:44px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;font-family:var(--titres);font-weight:800;font-size:15px;color:#fff;background:var(--marine);flex:none;position:relative;z-index:6;}
+.status--clair{background:transparent;color:var(--marine);position:absolute;top:0;left:0;right:0;}
+.status svg{display:block;height:11px;width:auto;fill:currentColor;}
+
+/* la scène : tout l'écran sous la barre d'état */
+.scene{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.scene--grad{background:var(--grad-hero);}
+.scene--papier{background:var(--paper);}
+.scene--marine{background:var(--marine);}
+
+/* le mot d'attente, en pied de scène */
+.mot{
+  position:absolute;bottom:64px;left:0;right:0;text-align:center;
+  font-family:var(--titres);font-weight:800;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--text-tertiary);
+}
+.mot--clair{color:rgba(252,219,129,.72);}
+/* la signature discrète sous une scène : le monogramme immobile */
+.sign{position:absolute;bottom:92px;left:0;right:0;display:flex;justify-content:center;}
+.sign svg{width:78px;height:auto;color:var(--marine);opacity:.6;}
+
+/* ============================================================
+   1 · TEMPS POUR TEMPS
+   Deux heures font le tour l'une de l'autre et changent de main.
+   Le nom de l'application, dessiné.
+   ============================================================ */
+.l1{width:216px;height:216px;position:relative;display:flex;align-items:center;justify-content:center;}
+.l1 .route{position:absolute;inset:36px;border-radius:50%;border:1.5px dashed rgba(24,62,87,.26);}
+.l1 .manege{position:absolute;inset:0;animation:l1-troc 4.2s cubic-bezier(.65,0,.35,1) infinite;}
+/* le poste porte la POSITION, la pastille porte la CONTRE-ROTATION.
+   Les deux sur le même élément se composeraient dans le mauvais ordre
+   et feraient voyager la pastille au lieu de la redresser. */
+.l1 .poste{position:absolute;top:50%;left:50%;width:68px;height:68px;margin:-34px 0 0 -34px;}
+.l1 .poste--g{transform:translateX(-72px);}
+.l1 .poste--d{transform:translateX(72px);}
+.l1 .heure{
+  width:100%;height:100%;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  animation:l1-droit 4.2s cubic-bezier(.65,0,.35,1) infinite;
+}
+.l1 .heure--a{background:var(--sable);box-shadow:inset 0 -4px 0 rgba(24,62,87,.18);color:var(--marine);}
+.l1 .heure--b{background:var(--marine);box-shadow:inset 0 -4px 0 rgba(0,0,0,.22);color:var(--sable);}
+.l1 .heure svg{width:34px;height:34px;display:block;}
+@keyframes l1-troc{
+  0%,14%{transform:rotate(0deg);}
+  46%,60%{transform:rotate(180deg);}
+  92%,100%{transform:rotate(360deg);}
+}
+@keyframes l1-droit{ /* contre-rotation : les cadrans restent droits */
+  0%,14%{transform:rotate(0deg);}
+  46%,60%{transform:rotate(-180deg);}
+  92%,100%{transform:rotate(-360deg);}
+}
+
+/* ============================================================
+   2 · L'HEURE QUI PASSE
+   Sur la ligne à points de conduite de la gazette, une heure va
+   d'un voisin à l'autre — puis une autre revient. La réciprocité.
+   ============================================================ */
+.l2{width:286px;display:flex;flex-direction:column;align-items:center;gap:0;}
+.l2 .piste{position:relative;width:100%;display:flex;align-items:center;justify-content:space-between;}
+.l2 .bout{
+  width:46px;height:46px;border-radius:50%;flex:none;position:relative;z-index:2;
+  background:var(--bg-secondary);border:2px solid var(--marine);
+  display:flex;align-items:center;justify-content:center;
+}
+.l2 .bout svg{width:22px;height:22px;color:var(--marine);}
+.l2 .bout--g{animation:l2-recoit 4.4s linear infinite;animation-delay:2.2s;}
+.l2 .bout--d{animation:l2-recoit 4.4s linear infinite;}
+.l2 .voie{
+  position:absolute;left:46px;right:46px;top:50%;height:0;
+  border-top:2px dotted rgba(24,62,87,.3);
+}
+.l2 .jeton{
+  position:absolute;top:50%;left:46px;width:36px;height:36px;margin-top:-18px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:3;
+}
+.l2 .jeton svg{width:20px;height:20px;display:block;}
+.l2 .jeton--aller{background:var(--sable);color:var(--marine);box-shadow:inset 0 -3px 0 rgba(24,62,87,.18);animation:l2-aller 4.4s cubic-bezier(.5,0,.5,1) infinite;}
+.l2 .jeton--retour{background:var(--marine);color:var(--sable);box-shadow:inset 0 -3px 0 rgba(0,0,0,.22);animation:l2-retour 4.4s cubic-bezier(.5,0,.5,1) infinite;}
+@keyframes l2-aller{
+  0%{opacity:0;transform:translateX(0) scale(.6);}
+  6%{opacity:1;transform:translateX(0) scale(1);}
+  42%{opacity:1;transform:translateX(158px) scale(1);}
+  48%,100%{opacity:0;transform:translateX(158px) scale(.6);}
+}
+@keyframes l2-retour{
+  0%,50%{opacity:0;transform:translateX(158px) scale(.6);}
+  56%{opacity:1;transform:translateX(158px) scale(1);}
+  92%{opacity:1;transform:translateX(0) scale(1);}
+  98%,100%{opacity:0;transform:translateX(0) scale(.6);}
+}
+@keyframes l2-recoit{
+  0%,40%{background:var(--bg-secondary);transform:scale(1);}
+  46%{background:var(--sable);transform:scale(1.1);}
+  58%,100%{background:var(--bg-secondary);transform:scale(1);}
+}
+
+/* ============================================================
+   3 · LE SABLIER
+   Le sable s'écoule, le verre se retourne.
+   ============================================================ */
+.l3{width:96px;height:134px;animation:l3-bascule 3.4s steps(1) infinite;}
+.l3 svg{width:100%;height:100%;display:block;}
+.l3 .haut{transform-box:fill-box;transform-origin:center top;animation:l3-vide 1.7s linear infinite;}
+.l3 .bas2{transform-box:fill-box;transform-origin:center bottom;animation:l3-plein 1.7s linear infinite;}
+.l3 .grain{animation:l3-grain .5s linear infinite;}
+@keyframes l3-vide{0%{transform:scaleY(1);}100%{transform:scaleY(0);}}
+@keyframes l3-plein{0%{transform:scaleY(0);}100%{transform:scaleY(1);}}
+@keyframes l3-grain{0%{opacity:.2;}50%{opacity:1;}100%{opacity:.2;}}
+@keyframes l3-bascule{0%,50%{transform:rotate(0deg);}50.01%,100%{transform:rotate(180deg);}}
+
+/* ============================================================
+   4 · LA PASTILLE
+   La gélule de solde de la barre du haut, agrandie — et honnête :
+   le solde n'est pas encore connu, donc elle ne l'affiche pas.
+   ============================================================ */
+.l4{
+  display:inline-flex;align-items:center;gap:14px;
+  background:var(--sable);color:var(--marine);border-radius:999px;
+  padding:16px 30px 16px 22px;box-shadow:inset 0 -4px 0 rgba(24,62,87,.18);
+}
+.l4 .cadran{width:40px;height:40px;flex:none;}
+.l4 .cadran svg{width:100%;height:100%;display:block;}
+.l4 .aig{transform-origin:center;animation:l4-tourne 2.2s cubic-bezier(.5,0,.5,1) infinite;}
+.l4 .pts{display:flex;align-items:center;gap:8px;}
+.l4 .pts i{width:9px;height:9px;border-radius:50%;background:var(--marine);opacity:.2;animation:l4-onde 1.5s ease-in-out infinite;}
+.l4 .pts i:nth-child(2){animation-delay:.18s;}
+.l4 .pts i:nth-child(3){animation-delay:.36s;}
+@keyframes l4-tourne{100%{transform:rotate(360deg);}}
+@keyframes l4-onde{0%,68%,100%{opacity:.2;transform:scale(1);}30%{opacity:1;transform:scale(1.32);}}
+
+/* ============================================================
+   5 · LA COMPOSITION
+   Les trois lettres se posent l'une après l'autre, le contre-poinçon
+   se perce en dernier. Les paths sont écrits ici en clair : une
+   animation ne traverse pas la frontière d'un <use>.
+   ============================================================ */
+.l5{width:188px;height:auto;color:var(--sable);}
+.l5 .ltr{opacity:1;transform-box:fill-box;transform-origin:center bottom;animation:l5-pose 3.4s cubic-bezier(.2,.8,.3,1) infinite;}
+.l5 .ltr--2{animation-delay:.16s;}
+.l5 .ltr--3{animation-delay:.32s;}
+.l5 .cp{opacity:1;transform-box:fill-box;transform-origin:center;animation:l5-perce 3.4s cubic-bezier(.3,1.5,.5,1) infinite;animation-delay:.52s;}
+@keyframes l5-pose{
+  0%,4%{opacity:0;transform:translateY(16%) scaleY(.82);}
+  16%,82%{opacity:1;transform:translateY(0) scaleY(1);}
+  96%,100%{opacity:0;transform:translateY(-6%) scaleY(1);}
+}
+@keyframes l5-perce{
+  0%,10%{opacity:0;transform:scale(2.1);}
+  22%,82%{opacity:1;transform:scale(1);}
+  96%,100%{opacity:0;transform:scale(1);}
+}
+
+/* ============================================================
+   6 · LE SCEAU
+   Le tampon oscille et diffuse son encre.
+   ============================================================ */
+.l6{width:168px;height:168px;position:relative;animation:l6-pivot 5s ease-in-out infinite;}
+.l6 .anneau{
+  position:absolute;inset:0;border-radius:50%;border:4px solid var(--marine);
+  box-shadow:inset 0 0 0 7px #fff9ec, inset 0 0 0 9px var(--marine);
+}
+.l6 .halo{position:absolute;inset:0;border-radius:50%;border:3px solid var(--orange-vif);animation:l6-onde 2.4s ease-out infinite;}
+.l6 .halo--b{animation-delay:1.2s;}
+.l6 .mk{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.l6 .mk svg{width:86px;height:auto;color:var(--marine);}
+@keyframes l6-onde{0%{transform:scale(1);opacity:.65;}100%{transform:scale(1.55);opacity:0;}}
+@keyframes l6-pivot{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
+
+/* ============================================================
+   7 · L'ENCRE QUI MONTE
+   Le monogramme se remplit d'encre marine de bas en haut, puis
+   l'encre poursuit sa course et sort par le haut. Jamais de fin.
+   ============================================================ */
+.l7{position:relative;width:206px;}
+.l7 svg{width:100%;height:auto;display:block;}
+.l7 .creux{color:rgba(24,62,87,.13);}
+.l7 .plein{position:absolute;top:0;left:0;right:0;color:var(--marine);clip-path:inset(42% 0 0 0);animation:l7-monte 3.2s cubic-bezier(.45,0,.55,1) infinite;}
+@keyframes l7-monte{
+  0%{clip-path:inset(100% 0 0 0);}
+  58%{clip-path:inset(0 0 0 0);}
+  100%{clip-path:inset(0 0 100% 0);}
+}
+
+/* ============================================================
+   8 · LA MANCHETTE QUI S'IMPRIME
+   Le bandeau de l'accueil s'imprime de gauche à droite.
+   ============================================================ */
+.l8{width:296px;}
+.l8 .ligne{display:flex;align-items:baseline;justify-content:space-between;gap:12px;clip-path:inset(0 0 0 0);animation:l8-impr 3.6s cubic-bezier(.4,0,.2,1) infinite;}
+.l8 .ligne span{font-family:var(--titres);font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;}
+.l8 .ligne .d{color:var(--text-tertiary);}
+.l8 .filet{height:7px;border-top:1px solid var(--marine);border-bottom:3px double var(--marine);opacity:.62;margin-top:7px;clip-path:inset(0 0 0 0);animation:l8-impr 3.6s cubic-bezier(.4,0,.2,1) infinite;animation-delay:.18s;}
+.l8 .titre{margin-top:20px;display:flex;flex-direction:column;gap:9px;}
+.l8 .barre{height:16px;border-radius:3px;background:var(--sable);clip-path:inset(0 0 0 0);animation:l8-impr 3.6s cubic-bezier(.4,0,.2,1) infinite;}
+.l8 .barre--1{width:100%;animation-delay:.42s;}
+.l8 .barre--2{width:56%;animation-delay:.56s;}
+@keyframes l8-impr{
+  0%,5%{clip-path:inset(0 100% 0 0);}
+  26%,84%{clip-path:inset(0 0 0 0);}
+  97%,100%{clip-path:inset(0 100% 0 0);}
+}
+
+/* ============================================================
+   9 · LE FILET QUI COURT
+   L'intervention minimale : la marque immobile, la rotative qui
+   tourne sur 4 px en haut de l'écran.
+   ============================================================ */
+.l9-bandeau{position:absolute;top:0;left:0;right:0;height:4px;overflow:hidden;background:rgba(24,62,87,.08);z-index:7;}
+.l9-bandeau i{
+  display:block;height:100%;width:100%;
+  background:repeating-linear-gradient(-45deg,var(--orange-vif) 0 8px,var(--orange-hover) 8px 16px);
+  background-size:22.7px 100%;animation:l9-roule .7s linear infinite;
+}
+.l9-mark{width:146px;height:auto;color:var(--marine);}
+.l9-devise{
+  margin-top:18px;font-family:var(--titres);font-weight:800;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--text-tertiary);text-align:center;
+}
+@keyframes l9-roule{100%{background-position:22.7px 0;}}
+
+/* ============================================================
+   10 · LE SQUELETTE DE L'ACCUEIL
+   Tout ce qui est connu d'avance s'affiche pour de vrai. Seules les
+   DONNÉES attendent. Un seul scintillement traverse la zone.
+   ============================================================ */
+.sq-tb{background:var(--marine);display:flex;align-items:center;gap:8px;padding:2px 10px 11px 16px;flex:none;}
+.sq-tb .mk{height:30px;width:auto;color:var(--sable);}
+.sq-tb .sp{flex:1;}
+.sq-tb .loupe{width:21px;height:21px;color:rgba(255,255,255,.85);}
+.sq-tb .pill{width:96px;height:31px;border-radius:999px;background:var(--sable);opacity:.42;}
+.sq-tb .av{width:33px;height:33px;border-radius:50%;background:var(--sable);opacity:.42;border:2px solid rgba(255,255,255,.4);}
+
+.sq-zone{flex:1;background:var(--bg-main);padding:16px 14px 0;position:relative;overflow:hidden;}
+.sq-zone::after{
+  content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:linear-gradient(100deg,transparent 28%,rgba(255,255,255,.72) 50%,transparent 72%);
+  animation:sq-scintille 1.9s ease-in-out infinite;
+}
+@keyframes sq-scintille{0%{transform:translateX(-110%);}60%,100%{transform:translateX(110%);}}
+
+.sq-zone .manch{display:flex;justify-content:space-between;align-items:center;}
+.sq-zone .filet{height:7px;border-top:1px solid var(--marine);border-bottom:3px double var(--marine);opacity:.62;margin:7px 0 16px;}
+.sq-zone .cta{
+  height:58px;border-radius:18px;background:var(--orange);margin:16px 0 14px;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--titres);font-weight:800;font-size:16px;color:#fff9ec;
+}
+.sq-zone .rub{display:flex;align-items:center;gap:9px;margin:18px 0 11px;}
+.sq-zone .rub .flag{
+  font-family:var(--titres);font-weight:800;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--sable);color:var(--marine);padding:4px 12px;border-radius:4px;
+}
+.sq-zone .rub .trait{flex:1;height:1px;background:var(--border);}
+.sq-zone .carte{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.sq-zone .carte .sep{height:1px;border-top:1px dashed var(--border);}
+.os{background:rgba(24,62,87,.1);border-radius:5px;height:11px;display:block;}
+.os--t{height:15px;}
+.os--sable{background:rgba(252,219,129,.75);}
+
+.sq-nav{
+  height:66px;background:var(--paper);border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-around;padding:0 10px 8px;flex:none;
+}
+.sq-nav i{width:22px;height:22px;border-radius:6px;background:rgba(24,62,87,.22);display:block;}
+.sq-nav .actif{width:52px;height:30px;border-radius:999px;background:var(--sable);display:flex;align-items:center;justify-content:center;}
+.sq-nav .actif i{background:var(--marine);width:19px;height:19px;}
+
+/* ============================================================
+   LES DEUX PISTES ÉCARTÉES
+   ============================================================ */
+.ecartees{max-width:1080px;margin:28px auto 0;background:rgba(255,253,246,.7);border:1px dashed var(--border);border-radius:13px;padding:15px 19px 17px;}
+.ecartees .k{font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
+.ecartees p{font-size:.84rem;line-height:1.66;color:var(--text-secondary);margin-top:8px;}
+.ecartees p b{color:var(--marine);}
+
+/* ============================================================
+   LE TABLEAU DE CONFRONTATION
+   ============================================================ */
+.tbl-wrap{max-width:1080px;margin:0 auto;overflow-x:auto;}
+.tbl{width:100%;border-collapse:collapse;font-size:.82rem;min-width:840px;}
+.tbl th{text-align:left;font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);padding:0 12px 9px 0;border-bottom:2px solid var(--marine);vertical-align:bottom;}
+.tbl td{padding:9px 12px 9px 0;border-top:1px dotted var(--border);color:var(--text-secondary);vertical-align:top;}
+.tbl tbody tr:first-child td{border-top:0;}
+.tbl .nom{font-family:var(--titres);font-weight:800;color:var(--marine);white-space:nowrap;}
+.tbl .nom .n{font-size:.72rem;color:var(--text-tertiary);margin-right:5px;}
+.tbl .oui{color:var(--success);font-weight:600;}
+.tbl .non{color:var(--danger);font-weight:600;}
+.tbl .mid{color:var(--warning);font-weight:600;}
+.tbl tr.retenu td{background:rgba(47,122,68,.07);}
+.tbl .po{font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+/* ============================================================
+   LE VERDICT
+   ============================================================ */
+.verdict{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px;}
+.vd{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--success);border-radius:13px;padding:16px 19px 17px;}
+.vd .ord{font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--success);}
+.vd h3{font-family:var(--titres);font-weight:800;font-size:1.04rem;margin-top:6px;}
+.vd p{font-size:.85rem;line-height:1.68;color:var(--text-secondary);margin-top:10px;}
+.vd p b{color:var(--marine);}
+.vd code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.74rem;color:var(--marine);background:rgba(24,62,87,.07);border-radius:4px;padding:1px 5px;}
+
+.cloture{max-width:760px;margin:46px auto 0;text-align:center;}
+.cloture h2{font-family:var(--titres);font-weight:800;font-size:clamp(1.2rem,3.2vw,1.6rem);line-height:1.4;text-wrap:balance;}
+.cloture .souligne{background:linear-gradient(transparent 62%,var(--sable) 62%);padding:0 3px;}
+.cloture p{color:var(--text-secondary);font-size:.89rem;line-height:1.7;margin-top:14px;}
+
+footer{margin-top:54px;text-align:center;color:var(--text-tertiary);font-size:.8rem;line-height:1.7;}
+footer a{color:var(--marine);font-weight:600;}
+
+/* ------------------------------------------------------------
+   MOUVEMENT RÉDUIT — on arrête tout, on ne cache rien.
+   Chaque proposition a son état au repos lisible : les jetons sont
+   posés, les lettres sont composées, l'encre est à mi-hauteur.
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce){
+  .l1 .manege,.l1 .heure,
+  .l2 .jeton,.l2 .bout,
+  .l3,.l3 .haut,.l3 .bas2,.l3 .grain,
+  .l4 .aig,.l4 .pts i,
+  .l5 .ltr,.l5 .cp,
+  .l6,.l6 .halo,
+  .l7 .plein,
+  .l8 .ligne,.l8 .filet,.l8 .barre,
+  .l9-bandeau i,
+  .sq-zone::after{animation:none !important;}
+  .sq-zone::after{display:none;}
+  .l4 .pts i{opacity:.5;}
+  .l2 .jeton--retour{opacity:0;}
+  .l2 .jeton--aller{opacity:1;transform:translateX(79px);}
+}
+
+/* ------------------------------------------------------------
+   PETITS ÉCRANS — le téléphone se réduit, la page ne déborde pas.
+   ------------------------------------------------------------ */
+@media (max-width:460px){
+  body{padding:28px 14px 56px;}
+  .planche{gap:28px 0;}
+  .phone{zoom:.80;}
+  .ecran .note,.ecran .cout{max-width:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- Le monogramme, défini une fois, repris par quatre propositions.
+     Les lettres prennent currentColor ; le contre-poinçon prend --cp.
+     Rappel : une animation CSS ne traverse PAS la frontière d'un <use>,
+     donc « La composition » réécrit ses paths en clair. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <g id="tpt-lettres">
+    <path transform="translate(868,893)" fill="currentColor" d="m0 0h35l16 3 10 4 9 7 8 9 3 6 5-2 13-8 19-10 15-5 15-3 11-1h30l17 2 20 5 21 9 23 13 13 10 11 9 15 15 11 14 7 10 12 20 9 20 8 24 4 19 1 10v48l-3 18-4 16-8 21-8 16-8 14-12 17-14 15-10 10-17 13-18 11-19 9-23 7-25 5h-35l-24-5-24-8-17-9-10-7v160l-4 17-6 11-7 6-12 6-10 3-15 2h-20l-17-3-12-5-9-7-6-7-5-14-1-12v-488l2-11 6-11 10-10 10-5z"/>
+    <path transform="translate(572,758)" fill="currentColor" d="m0 0h40l14 3 12 6 7 7 7 14 2 8 1 12 1 88h62l15 1 13 4 6 4 8 7 7 14 3 16 1 8v18l-4 22-6 12-9 9-10 5-15 4-27 1h-45l1 128 3 15 5 10 6 4 11 3 27 1 17 3 12 5 8 8 5 10 2 7 1 8v33l-3 15-6 12-8 8-12 6-20 4-6 1h-20l-12-2-16-1-26-6-17-5-15-7-12-7-13-11-10-12-8-13-7-16-5-16-5-26-1-8v-152h-29l-18-5-11-7-6-9-4-11-2-15v-33l3-12 6-12 8-9 10-6 10-2 32-1 1-100 3-13 6-10 4-5 8-6 14-5z"/>
+    <path transform="translate(1376,758)" fill="currentColor" d="m0 0h41l16 4 10 6 7 7 7 14 2 11 1 96h63l14 1 13 4 9 6 7 8 5 10 4 20 1 17-3 22-5 13-6 9-9 7-10 4-12 3-21 1h-50v122l3 21 5 10 6 4 11 3 27 1 18 3 12 6 8 8 4 8 3 11 1 14v14l-1 15-4 14-7 11-9 7-12 5-25 4h-19l-12-2-15-1-29-7-21-7-15-8-12-9-12-12-10-15-8-17-6-20-5-30-1-21v-134l-6 1h-21l-17-4-10-5-7-7-5-10-3-13-1-28 1-17 4-12 6-10 8-8 9-5 11-2 30-1 1-93 2-14 4-11 7-9 7-6 12-5z"/>
+  </g>
+  <path id="tpt-cp" transform="translate(1020,1016)" fill="var(--cp,#183e57)" d="m0 0h13l14 2 13 5 12 7 10 9 8 9 8 14 4 10 4 18-1 17-4 15-6 13-9 13-10 10-13 9-14 6-7 2-16 1-16-2-12-4-14-8-10-9-9-10-8-14-6-18-1-5v-20l4-16 5-12 7-11 11-12 13-9 12-6 10-3z"/>
+  <g id="tpt-plein"><use href="#tpt-lettres"/><use href="#tpt-cp"/></g>
+  <g id="st-sig"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></g>
+  <g id="ic-horloge"><circle cx="20" cy="20" r="16.5" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M20 10.5V20l6.5 4.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g id="ic-voisin"><circle cx="12" cy="8.4" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.8 20.4a8.2 8.2 0 0 1 16.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></g>
+</svg>
+
+<section class="q">
+  <p class="kicker">Ce que la charte ne dessine pas encore</p>
+  <h1>Dix écrans de démarrage</h1>
+  <p>Les <b>cinq tourniquets</b> répondent aux attentes <i>dans</i> l'application. Il reste un écran qui n'est pas une attente comme les autres : celui qu'on voit <b>avant l'accueil</b>, au lancement. C'est le <b>tout premier pixel</b> de la marque, et la seule occasion de dire, avant toute donnée, ce que fait cette application — <b>échanger du temps entre voisins</b>. Elle y affiche aujourd'hui un cercle gris qui ne vient de nulle part, et elle en affiche même deux à la suite.</p>
+  <a class="retour" href="chargement.html">← Les temps de chargement</a>
+</section>
+
+<nav class="somm" aria-label="Les dix propositions">
+  <a href="#p1"><b>1</b> Temps pour temps</a>
+  <a href="#p2"><b>2</b> L'heure qui passe</a>
+  <a href="#p3"><b>3</b> Sablier</a>
+  <a href="#p4"><b>4</b> Pastille</a>
+  <a href="#p5"><b>5</b> Composition</a>
+  <a href="#p6"><b>6</b> Sceau</a>
+  <a href="#p7"><b>7</b> Encre</a>
+  <a href="#p8"><b>8</b> Manchette</a>
+  <a href="#p9"><b>9</b> Rotative</a>
+  <a href="#p10"><b>10</b> Squelette</a>
+  <a href="#verdict">Verdict</a>
+</nav>
+
+<!-- ============ 1 · CE QUI DÉPARTAGE ============ -->
+<div class="sec" id="instants"><span class="num">1</span><h2>Deux instants, quatre contraintes</h2><span class="filet"></span></div>
+<p class="sec-sub">Au lancement, l'application montre <b>deux écrans d'attente à la suite</b>, et ils n'ont pas les mêmes moyens. C'est ce qui départage les dix propositions — pas le goût.</p>
+
+<div class="instants">
+  <div class="inst">
+    <div class="t"><span class="ord">Instant A</span><h3>Le premier pixel</h3></div>
+    <p><code>app/spa-loading-template.html</code> — il s'affiche <b>avant la feuille de style</b>. Il ne peut lire aucun jeton (ses deux couleurs sont recopiées en dur, un test unitaire les surveille) et <b>la typographie de la marque n'est pas encore montée</b> : tout texte y tombe en Arial. Il dure de 150 ms à plusieurs secondes selon le réseau.</p>
+  </div>
+  <div class="inst">
+    <div class="t"><span class="ord">Instant B</span><h3>L'ouverture de session</h3></div>
+    <p><code>layouts/default.vue</code>, pendant <code>initializing</code> — la feuille de style et les polices sont là, le dégradé est posé, mais on ne sait pas encore <b>qui</b> se connecte, donc ni le solde ni l'avatar. C'est l'instant le plus long des deux, et le seul où un squelette a du sens.</p>
+  </div>
+</div>
+
+<div class="contraintes">
+  <div class="ct ct--cle">
+    <p class="k">Contrainte 1 · la vocation</p>
+    <p>L'écran doit dire <b>ce que fait l'application</b>, pas seulement de quelle marque il relève. Une horloge dit « ça charge ». <b>Deux heures qui changent de main</b> disent « temps pour temps ».</p>
+  </div>
+  <div class="ct">
+    <p class="k">Contrainte 2 · la police</p>
+    <p>Une proposition qui repose sur du <b>texte</b> s'affiche en Arial à l'instant A. Les propositions tracées en vectoriel sont identiques partout.</p>
+  </div>
+  <div class="ct">
+    <p class="k">Contrainte 3 · la durée</p>
+    <p>Une animation <b>séquentielle</b> montre un état incomplet si l'application arrive en 300 ms. Une boucle continue n'a pas ce défaut.</p>
+  </div>
+  <div class="ct">
+    <p class="k">Contrainte 4 · la succession</p>
+    <p>A et B se suivent. Deux <b>animations différentes</b> d'affilée se voient comme un bégaiement : il faut soit la même, soit deux moments d'une même phrase.</p>
+  </div>
+</div>
+
+<!-- ============ 2 · LA PLANCHE ============ -->
+<div class="sec" id="dix"><span class="num">2</span><h2>Les dix, en situation</h2><span class="filet"></span></div>
+<p class="sec-sub">Chacune occupe un écran entier de 390 × 812, barre d'état comprise. Elles sont rangées par <b>ce qu'elles racontent</b> : d'abord l'échange de temps, qui est la vocation ; puis la marque ; puis la gazette, qui n'est que la peau. Toutes s'arrêtent net si le système demande <code>prefers-reduced-motion</code>, et leur état au repos reste lisible.</p>
+
+<div class="planche">
+
+  <!-- ---------- 1 · TEMPS POUR TEMPS ---------- -->
+  <figure class="ecran" id="p1">
+    <figcaption><span class="n">1</span><h3>Temps pour temps</h3><span class="fam fam--echange">L'échange</span></figcaption>
+    <div class="phone phone--grad">
+      <div class="scene scene--grad">
+        <div class="status status--clair"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+        <div class="l1" role="img" aria-label="TempsPourTemps démarre">
+          <span class="route"></span>
+          <span class="manege">
+            <span class="poste poste--g"><span class="heure heure--a"><svg viewBox="0 0 40 40"><use href="#ic-horloge"/></svg></span></span>
+            <span class="poste poste--d"><span class="heure heure--b"><svg viewBox="0 0 40 40"><use href="#ic-horloge"/></svg></span></span>
+          </span>
+        </div>
+        <div class="sign"><svg viewBox="421 718 1195 791" style="--cp:#fff6e4"><use href="#tpt-plein"/></svg></div>
+      </div>
+    </div>
+    <p class="note">Deux heures — <b>l'une donnée, l'une reçue</b> — font le tour l'une de l'autre et <b>changent de main</b>, en marquant le temps à chaque passage. C'est le nom de l'application, dessiné : pas une horloge qui tourne, mais deux heures qui s'échangent. Le monogramme reste immobile dessous.</p>
+    <p class="cout">Vectoriel + CSS, <span class="ok">aucune dépendance à la police</span> · ~1,4 ko · <span class="ok">boucle continue, juste à toute durée</span> · la seule des dix qui dise le <b>nom</b> et la <b>vocation</b> en un seul geste.</p>
+  </figure>
+
+  <!-- ---------- 2 · L'HEURE QUI PASSE ---------- -->
+  <figure class="ecran" id="p2">
+    <figcaption><span class="n">2</span><h3>L'heure qui passe</h3><span class="fam fam--echange">L'échange</span></figcaption>
+    <div class="phone phone--papier">
+      <div class="scene scene--papier">
+        <div class="status status--clair"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+        <div class="l2" role="img" aria-label="TempsPourTemps démarre">
+          <div class="piste">
+            <span class="bout bout--g"><svg viewBox="0 0 24 24"><use href="#ic-voisin"/></svg></span>
+            <span class="voie"></span>
+            <span class="jeton jeton--aller"><svg viewBox="0 0 40 40"><use href="#ic-horloge"/></svg></span>
+            <span class="jeton jeton--retour"><svg viewBox="0 0 40 40"><use href="#ic-horloge"/></svg></span>
+            <span class="bout bout--d"><svg viewBox="0 0 24 24"><use href="#ic-voisin"/></svg></span>
+          </div>
+        </div>
+        <div class="sign"><svg viewBox="421 718 1195 791" style="--cp:#fffdf6"><use href="#tpt-plein"/></svg></div>
+      </div>
+    </div>
+    <p class="note">Une heure part d'un voisin, <b>parcourt la ligne à points de conduite</b> de la gazette, arrive — le destinataire s'allume — et une autre repart en sens inverse. La <b>réciprocité</b> en deux temps, sur le seul motif typographique que la charte possède déjà.</p>
+    <p class="cout">Vectoriel + CSS, <span class="ok">pas de police</span> · ~1,3 ko · <span class="ok">boucle continue</span> · composition horizontale : elle se replie telle quelle en <b>bandeau de 40 px</b> dans une liste.</p>
+  </figure>
+
+  <!-- ---------- 3 · LE SABLIER ---------- -->
+  <figure class="ecran" id="p3">
+    <figcaption><span class="n">3</span><h3>Le sablier</h3><span class="fam fam--echange">L'échange</span></figcaption>
+    <div class="phone phone--grad">
+      <div class="scene scene--grad">
+        <div class="status status--clair"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+        <span class="l3" role="img" aria-label="Chargement en cours">
+          <svg viewBox="0 0 24 36">
+            <path d="M4.5 2.5h15M4.5 33.5h15" stroke="#183e57" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M6 4h12L12 18 6 4Z" fill="#fcdb81" class="haut"/>
+            <path d="M6 32h12L12 18 6 32Z" fill="#fcdb81" class="bas2"/>
+            <path d="M6 4h12L12 18 6 4ZM6 32h12L12 18 6 32Z" fill="none" stroke="#183e57" stroke-width="1.9" stroke-linejoin="round"/>
+            <line x1="12" y1="19" x2="12" y2="27" stroke="#b84e17" stroke-width="1.6" stroke-linecap="round" class="grain"/>
+          </svg>
+        </span>
+        <p class="mot">Le quartier se réveille</p>
+      </div>
+    </div>
+    <p class="note">Le sable s'écoule, le verre <b>se retourne</b> — et c'est le retournement qui porte le sens : ce qui s'est vidé d'un côté se remplit de l'autre. Le sable est déjà l'une des trois encres de la marque. Le mot du bas est optionnel : il tombe en Arial à l'instant A.</p>
+    <p class="cout">Vectoriel · ~0,9 ko · <span class="ok">boucle continue</span> · <b>ne porte aucun signe de la marque</b> : montré seul, ce pourrait être n'importe quelle application.</p>
+  </figure>
+
+  <!-- ---------- 4 · LA PASTILLE ---------- -->
+  <figure class="ecran" id="p4">
+    <figcaption><span class="n">4</span><h3>La pastille</h3><span class="fam fam--echange">L'échange</span></figcaption>
+    <div class="phone phone--marine">
+      <div class="status"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+      <div class="scene scene--marine">
+        <span class="l4" role="img" aria-label="Votre solde de temps arrive">
+          <span class="cadran">
+            <svg viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="17" fill="none" stroke="#183e57" stroke-width="2.6"/>
+              <g class="aig"><line x1="20" y1="20" x2="20" y2="8" stroke="#183e57" stroke-width="2.8" stroke-linecap="round"/></g>
+              <circle cx="20" cy="20" r="2.4" fill="#183e57"/>
+            </svg>
+          </span>
+          <span class="pts"><i></i><i></i><i></i></span>
+        </span>
+        <p class="mot mot--clair">Votre temps arrive</p>
+      </div>
+    </div>
+    <p class="note">La <b>gélule de solde</b> de la barre du haut, agrandie au centre. Elle ne ment pas : à cet instant le solde n'est pas connu, donc elle affiche trois points à sa place plutôt qu'un faux « 0 h 00 ». Quand l'accueil s'ouvre, elle <b>rejoint sa place</b> en haut à droite.</p>
+    <p class="cout">CSS + vectoriel · ~0,7 ko · <span class="ok">boucle continue</span> · la seule qui ouvre une <b>transition vers l'accueil</b> — et la seule qui demande du code côté application pour la jouer.</p>
+  </figure>
+
+  <!-- ---------- 5 · LA COMPOSITION ---------- -->
+  <figure class="ecran" id="p5">
+    <figcaption><span class="n">5</span><h3>La composition</h3><span class="fam fam--marque">La marque</span></figcaption>
+    <div class="phone phone--marine">
+      <div class="status"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+      <div class="scene scene--marine">
+        <svg class="l5" viewBox="421 718 1195 791" role="img" aria-label="TempsPourTemps démarre">
+          <path class="ltr" transform="translate(572,758)" fill="currentColor" d="m0 0h40l14 3 12 6 7 7 7 14 2 8 1 12 1 88h62l15 1 13 4 6 4 8 7 7 14 3 16 1 8v18l-4 22-6 12-9 9-10 5-15 4-27 1h-45l1 128 3 15 5 10 6 4 11 3 27 1 17 3 12 5 8 8 5 10 2 7 1 8v33l-3 15-6 12-8 8-12 6-20 4-6 1h-20l-12-2-16-1-26-6-17-5-15-7-12-7-13-11-10-12-8-13-7-16-5-16-5-26-1-8v-152h-29l-18-5-11-7-6-9-4-11-2-15v-33l3-12 6-12 8-9 10-6 10-2 32-1 1-100 3-13 6-10 4-5 8-6 14-5z"/>
+          <path class="ltr ltr--2" transform="translate(868,893)" fill="currentColor" d="m0 0h35l16 3 10 4 9 7 8 9 3 6 5-2 13-8 19-10 15-5 15-3 11-1h30l17 2 20 5 21 9 23 13 13 10 11 9 15 15 11 14 7 10 12 20 9 20 8 24 4 19 1 10v48l-3 18-4 16-8 21-8 16-8 14-12 17-14 15-10 10-17 13-18 11-19 9-23 7-25 5h-35l-24-5-24-8-17-9-10-7v160l-4 17-6 11-7 6-12 6-10 3-15 2h-20l-17-3-12-5-9-7-6-7-5-14-1-12v-488l2-11 6-11 10-10 10-5z"/>
+          <path class="ltr ltr--3" transform="translate(1376,758)" fill="currentColor" d="m0 0h41l16 4 10 6 7 7 7 14 2 11 1 96h63l14 1 13 4 9 6 7 8 5 10 4 20 1 17-3 22-5 13-6 9-9 7-10 4-12 3-21 1h-50v122l3 21 5 10 6 4 11 3 27 1 18 3 12 6 8 8 4 8 3 11 1 14v14l-1 15-4 14-7 11-9 7-12 5-25 4h-19l-12-2-15-1-29-7-21-7-15-8-12-9-12-12-10-15-8-17-6-20-5-30-1-21v-134l-6 1h-21l-17-4-10-5-7-7-5-10-3-13-1-28 1-17 4-12 6-10 8-8 9-5 11-2 30-1 1-93 2-14 4-11 7-9 7-6 12-5z"/>
+          <path class="cp" transform="translate(1020,1016)" fill="#183e57" d="m0 0h13l14 2 13 5 12 7 10 9 8 9 8 14 4 10 4 18-1 17-4 15-6 13-9 13-10 10-13 9-14 6-7 2-16 1-16-2-12-4-14-8-10-9-9-10-8-14-6-18-1-5v-20l4-16 5-12 7-11 11-12 13-9 12-6 10-3z"/>
+        </svg>
+      </div>
+    </div>
+    <p class="note">Les trois lettres se <b>posent l'une après l'autre</b>, puis le contre-poinçon du <b>p</b> se perce en dernier — le détail qui rend le logo reconnaissable en 16 px obtient son temps fort. Le geste du typographe qui compose un nom, sur le fond marine de la barre du haut.</p>
+    <p class="cout">Vectoriel, <span class="ok">pas de police</span> · ~1,6 ko · <b>séquentielle</b> : à 300 ms on voit un logo incomplet, ce qui ressemble à un bug.</p>
+  </figure>
+
+  <!-- ---------- 6 · LE SCEAU ---------- -->
+  <figure class="ecran" id="p6">
+    <figcaption><span class="n">6</span><h3>Le sceau</h3><span class="fam fam--marque">La marque</span></figcaption>
+    <div class="phone phone--grad">
+      <div class="scene scene--grad">
+        <div class="status status--clair"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+        <span class="l6" role="img" aria-label="Chargement en cours">
+          <span class="halo"></span><span class="halo halo--b"></span>
+          <span class="anneau"></span>
+          <span class="mk"><svg viewBox="421 718 1195 791" style="--cp:#fff9ec"><use href="#tpt-plein"/></svg></span>
+        </span>
+      </div>
+    </div>
+    <p class="note">Le tampon oscille et <b>diffuse son encre</b> en deux ondes. Déjà dessiné parmi les cinq tourniquets, où il avait été jugé « le plus chargé de marque, donc le bon pour le premier chargement, et le mauvais partout ailleurs ». Le voici à sa place.</p>
+    <p class="cout">Vectoriel + CSS, <span class="ok">pas de police, boucle continue</span> · ~1,8 ko · ne dit rien de l'échange de temps : <b>c'est un cachet, pas une promesse</b>.</p>
+  </figure>
+
+  <!-- ---------- 7 · L'ENCRE QUI MONTE ---------- -->
+  <figure class="ecran" id="p7">
+    <figcaption><span class="n">7</span><h3>L'encre qui monte</h3><span class="fam fam--marque">La marque</span></figcaption>
+    <div class="phone phone--papier">
+      <div class="scene scene--papier">
+        <div class="status status--clair"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+        <span class="l7" role="img" aria-label="Chargement en cours">
+          <svg class="creux" viewBox="421 718 1195 791" style="--cp:#fffdf6"><use href="#tpt-plein"/></svg>
+          <svg class="plein" viewBox="421 718 1195 791" style="--cp:#fffdf6"><use href="#tpt-plein"/></svg>
+        </span>
+      </div>
+    </div>
+    <p class="note">Le monogramme est creux, et l'<b>encre marine le remplit de bas en haut</b> — puis poursuit sa course et sort par le haut. Elle ne s'arrête jamais, ne recommence jamais : coupée à n'importe quel instant, l'image est juste.</p>
+    <p class="cout">Vectoriel, <span class="ok">pas de police, lisible à toute durée</span> · ~1,7 ko · le contre-poinçon doit porter la <b>couleur exacte du fond</b>, donc elle impose un fond plat.</p>
+  </figure>
+
+  <!-- ---------- 8 · LA MANCHETTE ---------- -->
+  <figure class="ecran" id="p8">
+    <figcaption><span class="n">8</span><h3>La manchette qui s'imprime</h3><span class="fam fam--gazette">La gazette</span></figcaption>
+    <div class="phone phone--papier">
+      <div class="scene scene--papier">
+        <div class="status status--clair"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+        <div class="l8" role="img" aria-label="Chargement en cours">
+          <div class="ligne"><span>La gazette du quartier</span><span class="d">Mercredi 10 juin</span></div>
+          <div class="filet"></div>
+          <div class="titre">
+            <span class="barre barre--1"></span>
+            <span class="barre barre--2"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Le bandeau de l'accueil <b>s'imprime de gauche à droite</b>, le filet double suit, puis les deux surlignages sable du titre passent à leur tour. Ce n'est pas un écran posé devant la page : c'est <b>la page qui commence</b>.</p>
+    <p class="cout">Texte + CSS · ~0,5 ko · <b>tombe en Arial à l'instant A</b> et <b>séquentielle</b> : deux fois disqualifiée pour le premier pixel. Excellente à l'instant B.</p>
+  </figure>
+
+  <!-- ---------- 9 · LE FILET QUI COURT ---------- -->
+  <figure class="ecran" id="p9">
+    <figcaption><span class="n">9</span><h3>Le filet qui court</h3><span class="fam fam--gazette">La gazette</span></figcaption>
+    <div class="phone phone--papier">
+      <div class="scene scene--papier">
+        <div class="l9-bandeau" role="progressbar" aria-label="Chargement en cours"><i></i></div>
+        <div class="status status--clair"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+        <svg class="l9-mark" viewBox="421 718 1195 791" style="--cp:#fffdf6"><use href="#tpt-plein"/></svg>
+        <p class="l9-devise">Échangez du temps,<br>pas de l'argent</p>
+      </div>
+    </div>
+    <p class="note">L'intervention minimale, et une position défendable : <b>à 300 ms, toute animation est du bruit</b>. La marque reste immobile sous la devise, et seule la rotative tourne sur 4 px en haut de l'écran — les rayures de la marque, comme un rouleau d'imprimerie.</p>
+    <p class="cout">CSS + vectoriel · ~1,5 ko · <span class="ok">boucle continue, aucun état partiel</span> · la devise tombe en Arial à l'instant A · le bandeau se repose <b>tel quel</b> en haut de toute page qui rafraîchit.</p>
+  </figure>
+
+  <!-- ---------- 10 · LE SQUELETTE ---------- -->
+  <figure class="ecran" id="p10">
+    <figcaption><span class="n">10</span><h3>Le squelette de l'accueil</h3><span class="fam fam--produit">Produit</span></figcaption>
+    <div class="phone phone--marine">
+      <div class="status"><span>9:41</span><span><svg viewBox="0 0 18 12" width="18" height="12"><use href="#st-sig"/></svg></span></div>
+      <div class="sq-tb">
+        <svg class="mk" viewBox="421 718 1195 791" style="--cp:#183e57"><use href="#tpt-plein"/></svg>
+        <span class="sp"></span>
+        <svg class="loupe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.2" y1="16.2" x2="21" y2="21"/></svg>
+        <span class="pill"></span>
+        <span class="av"></span>
+      </div>
+      <div class="sq-zone">
+        <div class="manch"><span class="os" style="width:118px"></span><span class="os" style="width:84px"></span></div>
+        <div class="filet"></div>
+        <span class="os os--t" style="width:92%"></span>
+        <span class="os os--t os--sable" style="width:58%;margin-top:11px"></span>
+        <span class="os" style="width:70%;margin-top:14px"></span>
+        <div class="cta">Publier une annonce</div>
+        <div class="rub"><span class="flag">Rendez-vous</span><span class="trait"></span></div>
+        <div class="carte">
+          <span class="os" style="width:46%"></span>
+          <span class="os os--t" style="width:88%"></span>
+          <div class="sep"></div>
+          <span class="os" style="width:64%"></span>
+          <span class="os" style="width:40%"></span>
+        </div>
+        <div class="rub"><span class="flag">Le fil du quartier</span><span class="trait"></span></div>
+        <div class="carte">
+          <span class="os" style="width:52%"></span>
+          <span class="os os--t" style="width:80%"></span>
+        </div>
+      </div>
+      <div class="sq-nav">
+        <span class="actif"><i></i></span><i></i><i></i><i></i><i></i>
+      </div>
+    </div>
+    <p class="note">Tout ce qui est <b>connu d'avance</b> s'affiche pour de vrai : la barre du haut, le bouton « Publier une annonce », les rubriques, la barre du bas. Seules les <b>données</b> attendent. Un seul scintillement traverse la zone — pas un par trait, sinon l'écran grouille.</p>
+    <p class="cout">HTML + CSS, <span class="ok">lisible à toute durée</span> · ~1,2 ko · <b>demande la feuille de style</b> : impossible à l'instant A, naturel à l'instant B.</p>
+  </figure>
+
+</div>
+
+<div class="ecartees">
+  <p class="k">Deux pistes dessinées puis écartées</p>
+  <p><b>Le cadran</b> (aiguille lente, arc orange rapide) et <b>les filets qui se posent</b> (des traits de gazette qui tombent en cadence) tenaient toutes les contraintes techniques. Elles sautent sur la première : un cadran dit « ça charge », des filets ne disent rien du tout. Ni l'un ni l'autre ne nomme l'échange de temps, et aucun ne porte la marque — ce sont de bons <b>tourniquets</b>, pas des écrans de démarrage. Le cadran garde d'ailleurs sa place parmi les cinq, à 16 px dans un bouton.</p>
+</div>
+
+<!-- ============ 3 · LA CONFRONTATION ============ -->
+<div class="sec" id="confrontation"><span class="num">3</span><h2>Ce que chacune coûte</h2><span class="filet"></span></div>
+<p class="sec-sub">Quatre colonnes décident : dire la vocation, tenir sans la police, tenir à 300 ms, tenir à l'instant A. Les lignes vertes passent les quatre.</p>
+
+<div class="tbl-wrap">
+<table class="tbl">
+  <thead>
+    <tr>
+      <th>Proposition</th>
+      <th>Famille</th>
+      <th>Dit la<br>vocation</th>
+      <th>Tient sans<br>la police</th>
+      <th>Tient à<br>300 ms</th>
+      <th>Instant A<br>possible</th>
+      <th>Poids</th>
+      <th>Se réutilise ailleurs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="retenu"><td class="nom"><span class="n">1</span>Temps pour temps</td><td>L'échange</td><td class="oui">pleinement</td><td class="oui">oui</td><td class="oui">oui</td><td class="oui">oui</td><td class="po">~1,4 ko</td><td>Écran d'installation, carte de partage, favicon animé</td></tr>
+    <tr class="retenu"><td class="nom"><span class="n">2</span>L'heure qui passe</td><td>L'échange</td><td class="oui">pleinement</td><td class="oui">oui</td><td class="oui">oui</td><td class="oui">oui</td><td class="po">~1,3 ko</td><td>Bandeau d'attente d'un échange, validation en cours</td></tr>
+    <tr><td class="nom"><span class="n">3</span>Le sablier</td><td>L'échange</td><td class="mid">le temps seul</td><td class="oui">oui</td><td class="oui">oui</td><td class="oui">oui</td><td class="po">~0,9 ko</td><td>Proposition qui expire, compte à rebours</td></tr>
+    <tr><td class="nom"><span class="n">4</span>La pastille</td><td>L'échange</td><td class="oui">le solde</td><td class="oui">oui</td><td class="oui">oui</td><td class="mid">oui, mais</td><td class="po">~0,7 ko</td><td>Rafraîchissement du solde, relevé de temps</td></tr>
+    <tr><td class="nom"><span class="n">5</span>La composition</td><td>La marque</td><td class="non">non</td><td class="oui">oui</td><td class="non">non</td><td class="mid">oui, mais</td><td class="po">~1,6 ko</td><td>Écran d'installation, générique de fin</td></tr>
+    <tr><td class="nom"><span class="n">6</span>Le sceau</td><td>La marque</td><td class="non">non</td><td class="oui">oui</td><td class="oui">oui</td><td class="oui">oui</td><td class="po">~1,8 ko</td><td>Déjà retenu comme tourniquet de marque</td></tr>
+    <tr><td class="nom"><span class="n">7</span>L'encre qui monte</td><td>La marque</td><td class="non">non</td><td class="oui">oui</td><td class="oui">oui</td><td class="oui">oui</td><td class="po">~1,7 ko</td><td>Écran d'installation, envoi en cours</td></tr>
+    <tr><td class="nom"><span class="n">8</span>La manchette</td><td>La gazette</td><td class="mid">le quartier</td><td class="non">non</td><td class="non">non</td><td class="non">non</td><td class="po">~0,5 ko</td><td>Tête de l'accueil pendant un rafraîchissement</td></tr>
+    <tr><td class="nom"><span class="n">9</span>Le filet qui court</td><td>La gazette</td><td class="mid">par la devise</td><td class="mid">sauf la devise</td><td class="oui">oui</td><td class="oui">oui</td><td class="po">~1,5 ko</td><td>Bandeau de navigation sur toute page</td></tr>
+    <tr class="retenu"><td class="nom"><span class="n">10</span>Le squelette</td><td>Produit</td><td class="oui">par la page</td><td class="mid">chrome seul</td><td class="oui">oui</td><td class="non">non</td><td class="po">~1,2 ko</td><td>Toutes les grandes listes de l'application</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============ 4 · LE VERDICT ============ -->
+<div class="sec" id="verdict"><span class="num">4</span><h2>Ce que je retiendrais</h2><span class="filet"></span></div>
+<p class="sec-sub">Un seul écran pour les deux instants serait un contresens : ils n'ont pas les mêmes moyens. La bonne réponse est <b>une phrase en deux temps</b> — l'échange d'abord, la page ensuite — et non deux animations qui se bousculent.</p>
+
+<div class="verdict">
+  <div class="vd">
+    <p class="ord">Instant A · le premier pixel</p>
+    <h3>1 · Temps pour temps</h3>
+    <p>C'est la seule qui, <b>avant la moindre donnée et sans une seule lettre</b>, dit à la fois le nom de l'application et ce qu'on y fait : deux heures qui changent de main. Vectorielle, donc identique sans la police. En boucle continue, donc juste à 300 ms comme à 4 s. Elle remplace les douze lignes de <code>spa-loading-template.html</code>, et le test qui surveille les couleurs en dur reste valable.</p>
+  </div>
+  <div class="vd">
+    <p class="ord">Instant B · l'ouverture de session</p>
+    <h3>10 · Le squelette de l'accueil</h3>
+    <p>La feuille de style est là : plus aucune raison d'afficher un tourniquet pendant qu'on sait déjà <b>à quoi la page va ressembler</b>. Il remplace le <code>AppLoader</code> de <code>layouts/default.vue</code>, et le même squelette ressert dans toutes les listes — c'est la dette que la charte signalait déjà.</p>
+  </div>
+  <div class="vd" style="border-left-color:var(--warning)">
+    <p class="ord" style="color:var(--warning)">Si une seule doit être faite</p>
+    <h3>2 · L'heure qui passe</h3>
+    <p>Horizontale, elle tient aux <b>deux instants sans modification</b> : plein écran au démarrage, puis repliée en bandeau de 40 px partout où l'application attend une validation ou un envoi. Même geste, même sens, une seule pièce à maintenir — et la réciprocité racontée plutôt qu'un cercle qui tourne.</p>
+  </div>
+</div>
+
+<section class="cloture">
+  <h2>Le premier pixel n'est pas une attente.<br>C'est <span class="souligne">la première phrase</span>.</h2>
+  <p>Les dix tiennent la charte. Quatre tiennent les contraintes techniques. <b>Deux</b> seulement disent, avant toute donnée et sans une lettre, que cette application sert à échanger du temps entre voisins.</p>
+</section>
+
+<footer>
+  <p>TempsPourTemps — planche d'exploration · <a href="chargement.html">Les temps de chargement</a> · <a href="../../decisions.html">Les décisions préalables</a></p>
+</footer>
+
+</body>
+</html>

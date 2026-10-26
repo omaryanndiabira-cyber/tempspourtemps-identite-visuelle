@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — La bascule du salut</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  .atelier{max-width:900px;margin:0 auto;}
+  .pupitre{
+    display:flex;flex-wrap:wrap;align-items:center;gap:9px;justify-content:center;
+    background:var(--paper);border:1px solid var(--border);border-radius:14px;
+    padding:12px 14px;margin:0 auto 26px;max-width:720px;
+    box-shadow:0 1px 2px rgba(24,62,87,.06);
+  }
+  .pupitre .lab{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--text-tertiary);margin-right:2px;}
+  .pupitre .sep{width:1px;height:22px;background:var(--border);margin:0 4px;}
+  .pupitre button{
+    font-family:var(--titres);font-weight:800;font-size:12.5px;cursor:pointer;
+    border:1px solid var(--border);background:var(--bg-main);color:var(--marine);
+    border-radius:999px;padding:6px 13px;
+  }
+  .pupitre button.on{background:var(--marine);border-color:var(--marine);color:var(--sable);}
+  .pupitre button.primaire{background:var(--orange);border-color:var(--orange);color:#fff9ec;
+    box-shadow:0 2px 0 var(--orange-hover);}
+  .duo-phones{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;}
+  .duo-phones .col{display:flex;flex-direction:column;gap:18px;max-width:390px;}
+  .etat-lab{font-size:.64rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase;
+    color:var(--text-tertiary);}
+  .etat-lab b{color:var(--orange-hover);}
+  .registre-ligne .geste{flex:none;align-self:center;}
+
+  /* ----------------------------------------------------------------
+     LE CRENEAU — un seul emplacement, deux textes superposes.
+     Sa hauteur est FIXE et calee sur le pire cas (deux lignes du plus
+     grand des deux textes) : c'est la seule facon qu'un prenom long ne
+     fasse pas sauter la page. Les deux textes sont dans le DOM des le
+     depart, le second simplement transparent.
+     ---------------------------------------------------------------- */
+  .creneau{position:relative;margin:0 18px;padding-top:13px;text-align:left;}
+  .creneau p{margin:0;transition:opacity .5s ease;}
+  .creneau .question{position:absolute;left:0;right:0;top:13px;opacity:0;}
+  .creneau.bascule .salut{opacity:0;}
+  .creneau.bascule .question{opacity:1;}
+  .creneau .salut{font-family:var(--titres);font-weight:800;color:var(--marine);}
+  .creneau .question{font-family:var(--titres);font-weight:800;color:var(--marine);}
+  .creneau .prenom{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+
+  /* A — meme taille pour les deux. Le creneau tient deux lignes de 17 px. */
+  .creneau--a .salut,
+  .creneau--a .question{font-size:17px;line-height:1.3;}
+  .creneau--a{min-height:57px;}
+
+  /* B — le salut garde la manchette de la charte, la question est plus
+         petite. Le creneau doit alors tenir deux lignes de 24 px, donc il
+         reste de l'air sous la question. C'est le prix de B. */
+  .creneau--b .salut{font-size:24px;line-height:1.15;}
+  .creneau--b .question{font-size:17px;line-height:1.3;}
+  .creneau--b{min-height:69px;}
+
+  /* Le temoin de hauteur : un liseré qui montre l'emprise reelle du
+     creneau, pour qu'on voie l'air perdu plutot que de le deviner. */
+  .temoins .creneau{outline:1px dashed var(--orange-vif);outline-offset:0;}
+  .temoins .creneau::after{
+    content:attr(data-h);position:absolute;right:0;top:-2px;
+    font-family:ui-monospace,Menlo,monospace;font-size:9px;color:var(--orange-hover);
+    background:var(--paper);padding:0 3px;border-radius:3px;
+  }
+
+  /* le composeur, inchange d'une proposition a l'autre */
+  .c1{position:relative;margin:12px 18px 0;background:var(--paper);border:1px solid var(--border);
+      border-radius:12px;padding:10px 12px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+  .c1 .tete{display:flex;align-items:flex-start;gap:9px;}
+  .c1 .plume{width:16px;height:16px;flex:none;color:var(--orange-hover);margin-top:2px;}
+  .c1 .inv{font-size:12.5px;color:var(--text-tertiary);line-height:1.45;}
+
+  @media (prefers-reduced-motion:reduce){
+    .creneau p{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Accueil · la bascule du salut</p>
+  <h1>Le salut laisse la place à la question</h1>
+  <p>Un seul emplacement, deux textes qui se succèdent : <b>« Bonjour Omar ! »</b> pendant cinq secondes une fois par jour, puis <b>la question qui reste</b>, juste au-dessus du champ. Les deux propositions ne diffèrent que par la taille du salut. Changez le prénom pour voir ce qui arrive à la hauteur du bloc — c'est là que tout se joue.</p>
+  <div class="traits">
+    <span><b>5 s</b> comme en production</span>
+    <span><b>1 fois par jour</b> localStorage</span>
+    <span><b>Hauteur fixe</b> calée sur le pire cas</span>
+    <span><b>Le chiffre</b> est monté dans le bandeau</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<div class="atelier">
+
+  <div class="pupitre">
+    <span class="lab">Prénom</span>
+    <button type="button" data-prenom="court" onclick="prenom('court', this)">Léa</button>
+    <button type="button" data-prenom="moyen" onclick="prenom('moyen', this)">Omar</button>
+    <button type="button" data-prenom="long" onclick="prenom('long', this)">Jean-Christophe</button>
+    <span class="sep"></span>
+    <span class="lab">Attente</span>
+    <button type="button" data-vitesse class="on" onclick="vitesse(5000, this)">5 s (réel)</button>
+    <button type="button" data-vitesse onclick="vitesse(1200, this)">1,2 s</button>
+    <span class="sep"></span>
+    <button type="button" onclick="temoins(this)">Voir les hauteurs</button>
+    <button type="button" class="primaire" onclick="jouer()">↻ Rejouer</button>
+  </div>
+
+  <div class="duo-phones">
+    <div class="col">
+      <p class="etat-lab">A — <b>même taille</b> · salut et question en 17 px</p>
+      <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint Seb'</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+
+        <div class="creneau creneau--a" data-v="a">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+      <p class="note"><b>Le bloc ne bouge jamais d'un pixel</b>, et c'est la page la plus légère des deux : l'accueil n'a plus de gros titre du tout, il commence par une question. <b>Ce que ça coûte :</b> le salut quotidien perd son statut de manchette — il ne reste que le surlignage sable pour le distinguer de la question qui le remplace.</p>
+    </div>
+    <div class="col">
+      <p class="etat-lab">B — <b>la manchette conservée</b> · salut en 24 px, question en 17 px</p>
+      <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint Seb'</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+
+        <div class="creneau creneau--b" data-v="b">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div>
+      <p class="note">Le salut garde la manchette de la charte, celle de toutes les planches. <b>Ce que ça coûte :</b> le créneau doit tenir deux lignes de 24 px, donc une fois la question affichée il reste de l'air en dessous — visible avec « Voir les hauteurs ». Sur un prénom court, cet air est encore plus grand.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer class="doc-head" style="margin:46px auto 0">
+  <p class="kicker">Ce que la maquette sert à voir</p>
+  <p style="text-align:left"><b>Votre objection était la bonne :</b> même taille ne veut pas dire même hauteur. « Bonjour Jean-Christophe ! » passe à deux lignes là où « Bonjour Léa ! » en tient une, et la question fait de même selon la largeur. Un créneau qui s'adapte à son contenu sauterait donc à chaque bascule, et pas toujours de la même façon selon l'utilisateur.</p>
+  <p style="text-align:left"><b>D'où le parti pris des deux propositions :</b> la hauteur du créneau est <b>fixe</b>, calée sur le pire cas — deux lignes du plus grand des deux textes. Plus aucun saut, quel que soit le prénom. Le prix est de l'air perdu quand le texte est court, et c'est précisément ce que le bouton « Voir les hauteurs » permet de juger.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</footer>
+
+<script>
+  const creneaux = () => [...document.querySelectorAll('.creneau')]
+  const PRENOMS = { court:'Bonjour Léa !', moyen:'Bonjour Omar !', long:'Bonjour Jean-Christophe !' }
+  let delai = 5000
+
+  function mesurer(){
+    creneaux().forEach(c => {
+      c.setAttribute('data-h', Math.round(c.getBoundingClientRect().height) + ' px')
+    })
+  }
+
+  function jouer(){
+    creneaux().forEach(c => c.classList.remove('bascule'))
+    mesurer()
+    clearTimeout(window._t)
+    window._t = setTimeout(() => {
+      creneaux().forEach(c => c.classList.add('bascule'))
+    }, delai)
+  }
+
+  function prenom(cle, btn){
+    document.querySelectorAll('.prenom').forEach(p => { p.textContent = PRENOMS[cle] })
+    document.querySelectorAll('[data-prenom]').forEach(b => b.classList.toggle('on', b === btn))
+    mesurer()
+  }
+
+  function vitesse(ms, btn){
+    delai = ms
+    document.querySelectorAll('[data-vitesse]').forEach(b => b.classList.toggle('on', b === btn))
+    jouer()
+  }
+
+  function temoins(btn){
+    const on = document.body.classList.toggle('temoins')
+    btn.classList.toggle('on', on)
+    mesurer()
+  }
+
+  window.addEventListener('load', () => { prenom('moyen', document.querySelector('[data-prenom="moyen"]')); jouer() })
+  window.addEventListener('resize', mesurer)
+</script>
+</body>
+</html>

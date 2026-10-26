@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Le composeur, en situation</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  /* ----------------------------------------------------------------
+     Cette planche ne redessine pas l'accueil : elle le garde identique
+     d'une variante a l'autre (meme manchette, memes rubriques, meme
+     barre) et ne fait varier QUE le composeur. C'est la seule facon de
+     juger son poids sur la page.
+     ---------------------------------------------------------------- */
+  .planche--duos{display:flex;flex-direction:column;gap:44px;max-width:846px;margin:0 auto;}
+  .ecran--duo{gap:12px;}
+  .duo-phones{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;}
+  .duo-phones .col{display:flex;flex-direction:column;gap:20px;}
+  .etat-lab{font-size:.64rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase;color:var(--text-tertiary);}
+  .etat-lab b{color:var(--orange-hover);}
+  .ecran .verdict{display:flex;gap:7px;flex-wrap:wrap;}
+  .ecran .verdict span{font-size:.68rem;font-weight:700;border-radius:999px;padding:3px 9px;
+    background:var(--paper);border:1px solid var(--border);color:var(--text-secondary);}
+  .ecran .verdict span:first-child{background:rgba(74,157,95,.12);border-color:rgba(74,157,95,.4);color:var(--success);}
+  .registre-ligne .geste{flex:none;align-self:center;}
+  .curseur{display:inline-block;width:1.5px;height:15px;background:var(--orange-hover);
+    vertical-align:-3px;margin-left:1px;animation:clignote 1.1s steps(2) infinite;}
+  @keyframes clignote{50%{opacity:0}}
+  @media (prefers-reduced-motion:reduce){.curseur{animation:none}}
+
+  /* ---- 1 · la plume dans le champ : le .champ de la charte, mais reel.
+         Au repos il est strictement identique a celui d'aujourd'hui. ---- */
+  .c1{position:relative;margin:13px 18px 0;background:var(--paper);border:1px solid var(--border);
+      border-radius:12px;padding:10px 12px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+  .c1 .tete{display:flex;align-items:center;gap:9px;}
+  .c1 .plume{width:16px;height:16px;flex:none;color:var(--orange-hover);}
+  .c1 .inv{font-size:13px;color:var(--text-tertiary);line-height:1.4;}
+  .c1--ecrit{padding-bottom:48px;box-shadow:0 1px 2px rgba(24,62,87,.06),0 12px 26px -18px rgba(24,62,87,.45);}
+  .c1 .txt{font-size:13.5px;line-height:1.5;color:var(--marine);font-weight:500;}
+  .c1 .rond{position:absolute;right:9px;bottom:9px;width:36px;height:36px;border-radius:50%;border:0;
+    background:var(--orange);color:#fff9ec;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 0 var(--orange-hover),0 8px 18px -9px rgba(214,94,28,.6);cursor:pointer;}
+  .c1 .rond svg{width:17px;height:17px;}
+  .c1 .cpt{position:absolute;right:56px;bottom:20px;font-size:10.5px;color:var(--text-tertiary);
+    font-variant-numeric:tabular-nums;}
+
+  /* ---- 2 · le cahier a filets : les reglures sont un fond, pas des
+         elements — le texte retombe donc toujours dessus. ---- */
+  .c2{margin:13px 18px 0;}
+  .c2 .page{min-height:81px;line-height:27px;font-size:13.5px;
+    background-image:repeating-linear-gradient(to bottom,transparent 0 26px,var(--border) 26px 27px);}
+  .c2 .inv{font-style:italic;color:var(--text-tertiary);}
+  .c2 .txt{color:var(--marine);font-weight:500;}
+  .c2 .pied{display:flex;align-items:center;gap:10px;margin-top:9px;}
+  .c2 .aide2{font-size:10.5px;font-style:italic;color:var(--text-tertiary);}
+  .c2 .suite{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:none;border:0;
+    font-family:var(--titres);font-weight:800;font-size:12px;color:var(--orange);cursor:pointer;padding:0;}
+
+  /* ---- 3 · l'encart : l'etiquette sable des rubriques, reprise telle
+         quelle, donc aucun composant nouveau. ---- */
+  .c3{margin:0 18px;background:var(--paper);border:1px solid var(--border);border-radius:14px;
+      padding:12px 14px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+  .c3 .inv{font-size:13px;color:var(--text-tertiary);line-height:1.5;min-height:40px;}
+  .c3 .txt{font-size:13.5px;color:var(--marine);font-weight:500;line-height:1.5;}
+  .c3 .pied{display:flex;align-items:center;gap:9px;margin-top:11px;padding-top:9px;
+    border-top:1px solid var(--border);}
+  .c3 .cpt{font-size:10.5px;color:var(--text-tertiary);}
+  .c3 .action{margin-left:auto;}
+
+  /* ---- 4 · le timbre : flottant a droite, le texte l'habille comme sur
+         une enveloppe. ---- */
+  .c4{margin:13px 18px 0;background:var(--paper);border:1px solid var(--border);border-radius:12px;
+      padding:12px 13px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
+  .c4 .timbre{float:right;width:52px;height:58px;margin:0 0 8px 12px;border:1.5px dashed var(--border);
+    border-radius:3px;background:none;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:4px;font-family:var(--titres);font-weight:800;font-size:8px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);cursor:default;}
+  .c4 .timbre svg{width:16px;height:16px;opacity:.45;}
+  .c4 .timbre--pret{border:1.5px solid var(--sable-hover);background:var(--sable);color:var(--marine);
+    transform:rotate(-2.2deg);box-shadow:0 1px 3px rgba(24,62,87,.18);cursor:pointer;}
+  .c4 .timbre--pret svg{opacity:1;}
+  .c4 .inv{font-size:13px;color:var(--text-tertiary);line-height:1.5;}
+  .c4 .txt{font-size:13.5px;color:var(--marine);font-weight:500;line-height:1.5;}
+  .c4 .pied{clear:both;display:flex;align-items:center;margin-top:10px;padding-top:8px;
+    border-top:1px dashed var(--border);font-size:10.5px;color:var(--text-tertiary);}
+  .c4 .pied .pousse{margin-left:auto;font-style:italic;color:var(--orange-hover);font-weight:600;}
+
+  /* ---- 5 · la une parlante : le salut et le champ dans un seul bloc,
+         ferme par le filet double de la charte. ---- */
+  .c5{padding:14px 18px 15px;background:rgba(252,219,129,.30);
+      border-top:1px solid var(--marine);border-bottom:3px double var(--marine);margin-top:12px;}
+  .c5 h1{font-family:var(--titres);font-weight:800;font-size:23px;line-height:1.15;margin-bottom:12px;}
+  .c5 .rangee{display:flex;align-items:flex-end;gap:10px;}
+  .c5 .boite{flex:1;min-width:0;background:var(--paper);border:1px solid var(--marine);
+    border-radius:10px;padding:9px 11px;}
+  .c5 .inv{font-size:12.5px;color:var(--text-tertiary);line-height:1.45;}
+  .c5 .txt{font-size:13px;color:var(--marine);font-weight:500;line-height:1.45;}
+  .c5 .rond{flex:none;width:42px;height:42px;border-radius:50%;border:0;background:var(--marine);
+    color:var(--sable);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 0 var(--marine-hover);cursor:pointer;}
+  .c5 .rond svg{width:18px;height:18px;}
+  .c5 .rond--mou{background:var(--bg-secondary);color:var(--text-tertiary);box-shadow:none;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Accueil · le composeur, en situation</p>
+  <h1>Cinq façons de demander la suite sans un gros bouton</h1>
+  <p>La mécanique est tranchée : <b>on écrit, puis on choisit le format</b> dans la feuille qui reprend le menu « Proposer ». Reste à savoir à quoi ressemble l'appel à cette deuxième étape sur une une de gazette. Le bouton orange pleine largeur a été écarté : il crie plus fort que la manchette. Voici cinq remplaçants, <b>chacun dans un accueil complet</b>, au repos et pendant la saisie.</p>
+  <div class="traits">
+    <span><b>Même page partout</b> seul le composeur change</span>
+    <span><b>390 px</b> écran entier, barre comprise</span>
+    <span><b>Invite</b> la formulation 2, retenue</span>
+    <span><b>Suite</b> la feuille du menu « Proposer »</span>
+  </div>
+  <a class="retour" href="accueil-composeur.html">← La planche du composant seul</a>
+</header>
+
+<div class="planche planche--duos">
+
+  <figure class="ecran ecran--duo">
+    <figcaption><span class="n">1</span><h2>La plume dans le champ</h2><span class="route">membre · le champ de la charte, devenu réel</span></figcaption>
+    <div class="verdict"><span>rien n'est ajouté au repos</span><span>l'action naît dans le champ</span></div>
+    <div class="duo-phones">
+      <div class="col"><p class="etat-lab">Au repos</p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">Un besoin, un savoir-faire, une envie de faire ensemble…</span></div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+      <div class="col"><p class="etat-lab">Pendant la saisie — <b>l'action paraît</b></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="c1 c1--ecrit">
+          <p class="txt">J'aurais besoin d'un coup de main pour tailler ma haie, elle dépasse sur le trottoir<span class="curseur"></span></p>
+          <span class="cpt">84</span>
+          <button class="rond" type="button" aria-label="Choisir le format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg></button>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+    </div>
+    <p class="note"><b>La thèse : ne rien ajouter à la page.</b> Au repos, l'accueil est <b>exactement celui d'aujourd'hui</b> — le champ d'une ligne de la charte, sa plume, son invite grise. Rien n'annonce un deuxième geste, donc rien ne pèse. Dès la première frappe le champ grandit et <b>un bouton rond paraît à l'intérieur</b>, là où le pouce est déjà : la flèche dit « la suite », pas « publier ». <b>Le coût :</b> ce rond ressemble à un envoi de message, et quelqu'un le prendra pour « publier tout de suite ». Le compteur à sa gauche aide, mais ne suffit pas — à tester avec le libellé complet si la largeur le permet.</p>
+  </figure>
+
+  <figure class="ecran ecran--duo">
+    <figcaption><span class="n">2</span><h2>Le cahier à filets</h2><span class="route">membre · aucun cadre, que des réglures</span></figcaption>
+    <div class="verdict"><span>le plus léger des cinq</span><span>peut se lire comme un texte</span></div>
+    <div class="duo-phones">
+      <div class="col"><p class="etat-lab">Au repos</p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="c2">
+          <p class="page"><span class="inv">Un besoin, un savoir-faire, une envie de faire ensemble…</span></p>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+      <div class="col"><p class="etat-lab">Pendant la saisie — <b>l'action paraît</b></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="c2">
+          <p class="page"><span class="txt">J'aurais besoin d'un coup de main pour tailler ma haie, elle dépasse sur le trottoir</span><span class="curseur"></span></p>
+          <div class="pied">
+            <span class="aide2">Écrivez-le comme vous le diriez à un voisin.</span>
+            <button class="suite" type="button">Choisir le format <span>›</span></button>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+    </div>
+    <p class="note"><b>La thèse : du papier réglé, pas un formulaire.</b> Pas de boîte, pas de bordure, pas de bouton : trois réglures pointées sous la manchette, et l'invite en italique posée sur la première. C'est la version la plus proche de l'idée de gazette — on écrit dans le journal, on ne remplit pas un champ. L'action n'apparaît qu'à l'écriture, en orange, alignée à droite sous la dernière ligne, comme une suite d'article. <b>Le coût, et il est sérieux :</b> sans cadre, <b>rien ne dit que c'est cliquable</b>. Pour un voisin peu à l'aise avec le numérique, trois lignes vides se lisent comme une séparation, pas comme une invitation.</p>
+  </figure>
+
+  <figure class="ecran ecran--duo">
+    <figcaption><span class="n">3</span><h2>L'encart « À vous la parole »</h2><span class="route">membre · le composeur devient une rubrique</span></figcaption>
+    <div class="verdict"><span>statut sans poids</span><span>coûte une rubrique de haut de page</span></div>
+    <div class="duo-phones">
+      <div class="col"><p class="etat-lab">Au repos</p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="rubrique" style="margin-top:16px">
+          <span class="tape"><h2>À vous la parole</h2></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="c3">
+          <p class="inv">Un besoin, un savoir-faire, une envie de faire ensemble…</p>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+      <div class="col"><p class="etat-lab">Pendant la saisie — <b>l'action paraît</b></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="rubrique" style="margin-top:16px">
+          <span class="tape"><h2>À vous la parole</h2></span>
+          <span class="filet"></span>
+        </div>
+
+        <div class="c3">
+          <p class="txt">J'aurais besoin d'un coup de main pour tailler ma haie, elle dépasse sur le trottoir<span class="curseur"></span></p>
+          <div class="pied">
+            <span class="cpt">84 signes</span>
+            <button class="action action--fort" type="button">Choisir le format ›</button>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+    </div>
+    <p class="note"><b>La thèse : lui donner un titre, comme aux autres.</b> Le composeur prend l'étiquette sable des rubriques — la même que « À l'affiche » et « Le fil du quartier » — et devient une section de la une au lieu d'un objet flottant. On sait ce que c'est avant d'avoir lu l'invite, et l'action tient dans une <b>pastille</b> au pied de l'encart, pas dans un bouton pleine largeur. <b>Le coût, mesuré :</b> une rubrique de plus avant le premier contenu de la commune. « À l'affiche » tombe à <b>361 px</b> du haut de l'écran, contre 313 px pour la variante 1 — soit <b>48 px de contenu du quartier en moins</b> au premier coup d'œil.</p>
+  </figure>
+
+  <figure class="ecran ecran--duo">
+    <figcaption><span class="n">4</span><h2>Le timbre à poster</h2><span class="route">membre · le format est un timbre à coller</span></figcaption>
+    <div class="verdict"><span>la métaphore porte la règle</span><span>demande d'être appris une fois</span></div>
+    <div class="duo-phones">
+      <div class="col"><p class="etat-lab">Au repos</p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="c4">
+          <span class="timbre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20h14"/><path d="M8 17v-2.5a3 3 0 0 0-.8-2L6 11a4 4 0 0 1 3-6.6h6A4 4 0 0 1 18 11l-1.2 1.5a3 3 0 0 0-.8 2V17Z"/></svg>Format</span>
+          <p class="inv">Un besoin, un savoir-faire, une envie de faire ensemble…</p>
+          <div class="pied">Le format se choisit après, sur le timbre.</div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+      <div class="col"><p class="etat-lab">Pendant la saisie — <b>l'action paraît</b></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="hero" style="padding-top:12px">
+          <h1>Bonjour Omar ! Le quartier <span class="souligne">a besoin de vous.</span></h1>
+        </section>
+
+        <div class="c4">
+          <button class="timbre timbre--pret" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20h14"/><path d="M8 17v-2.5a3 3 0 0 0-.8-2L6 11a4 4 0 0 1 3-6.6h6A4 4 0 0 1 18 11l-1.2 1.5a3 3 0 0 0-.8 2V17Z"/></svg>Choisir</button>
+          <p class="txt">J'aurais besoin d'un coup de main pour tailler ma haie, elle dépasse sur le trottoir<span class="curseur"></span></p>
+          <div class="pied">84 signes<span class="pousse">Posez le timbre pour publier</span></div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+    </div>
+    <p class="note"><b>La thèse : faire porter l'ordre des gestes par l'objet.</b> On écrit un mot, puis on <b>colle le timbre</b> — et un timbre, par définition, se pose en dernier. L'emplacement vide et pointillé existe dès le repos : il annonce qu'il manquera quelque chose, sans rien demander. Dès qu'il y a du texte il devient sable, légèrement de travers, et appelle la tape. C'est <b>la seule des cinq où la forme explique la règle</b> au lieu de la subir. <b>Le coût :</b> une métaphore s'apprend. Au tout premier usage, l'emplacement pointillé peut être lu comme une image à ajouter — le mot « Format » dessous est donc obligatoire, pas décoratif. <b>Et c'est la plus encombrante des cinq :</b> 114 px de composeur, « À l'affiche » repoussée à <b>368 px</b> — le pire score de la planche.</p>
+  </figure>
+
+  <figure class="ecran ecran--duo">
+    <figcaption><span class="n">5</span><h2>La une parlante</h2><span class="route">membre · le composeur <i>est</i> la manchette</span></figcaption>
+    <div class="verdict"><span>impossible à manquer</span><span>ne coûte pas la place qu’on croit</span></div>
+    <div class="duo-phones">
+      <div class="col"><p class="etat-lab">Au repos</p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="c5">
+          <h1>Bonjour Omar ! Le quartier a besoin de vous.</h1>
+          <div class="rangee">
+            <div class="boite"><p class="inv">Un besoin, un savoir-faire, une envie de faire ensemble…</p></div>
+            <button class="rond rond--mou" type="button" aria-label="Choisir le format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg></button>
+          </div>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+      <div class="col"><p class="etat-lab">Pendant la saisie — <b>l'action paraît</b></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint-Sébastien-sur-Loire</span>
+          <span><b>Mercredi 10 juin</b></span>
+        </div>
+
+        <section class="c5">
+          <h1>Bonjour Omar ! Le quartier a besoin de vous.</h1>
+          <div class="rangee">
+            <div class="boite"><p class="txt">J'aurais besoin d'un coup de main pour tailler ma haie, elle dépasse sur le trottoir<span class="curseur"></span></p></div>
+            <button class="rond" type="button" aria-label="Choisir le format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg></button>
+          </div>
+        </section>
+
+        <div class="rubrique">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, sans inscription.</p></div>
+          </div>
+        </div>
+
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
+          </div>
+        </div>
+      </main>
+
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+    </div></div>
+    </div>
+    <p class="note"><b>La thèse : le salut et l'appel ne font qu'un.</b> Plutôt que de poser le composeur <i>sous</i> la manchette, on les fond dans un seul bloc sur fond sable, fermé par le filet double de la charte. La page s'ouvre donc sur une adresse directe : on vous salue, et dans le même souffle on vous tend le stylo. C'est <b>la version qu'on ne peut pas ne pas voir</b>, et la plus belle des cinq sur la première impression. <b>Et contre toute attente, elle ne coûte presque rien à la page :</b> le bloc fait 166 px, mais il <b>remplace</b> la manchette au lieu de s'y ajouter — « À l'affiche » tombe à <b>335 px</b>, soit plus haut que dans les variantes 3 et 4. C'est la mesure qui corrige l'intuition. <b>Ce qu'elle coûte vraiment :</b> le surlignage sable de « a besoin de vous » s'annule sur un fond sable, il faut donc le retirer et la manchette perd son accent ; et le rond marine est un vrai appel à l'action, qui dit « déposez quelque chose » avant que la page ait dit « voici ce qui se passe ».</p>
+  </figure>
+
+</div>
+
+<footer class="doc-head" style="margin:48px auto 0">
+  <p class="kicker">Ce qui se joue</p>
+  <p style="text-align:left">Les cinq tiennent la même mécanique ; ils ne se distinguent que par <b>ce qu'ils coûtent à la page</b> — et la mesure contredit l'intuition. Hauteur à laquelle « À l'affiche » apparaît, écran au repos : <b>1 · plume 313 px</b> · <b>2 · cahier 335 px</b> · <b>5 · une parlante 335 px</b> · <b>3 · encart 361 px</b> · <b>4 · timbre 368 px</b>. La <b>5</b>, qu'on croirait la plus encombrante, est à égalité avec la plus discrète : elle <b>remplace</b> la manchette au lieu de s'y ajouter. Les deux qui coûtent vraiment sont la <b>3</b>, qui achète sa lisibilité avec une rubrique de plus, et la <b>4</b>, dont le timbre prend 58 px de haut.</p>
+  <p style="text-align:left"><b>Le vrai arbitrage n'est pas graphique :</b> c'est de savoir si l'accueil sert d'abord à <b>lire ce que fait le quartier</b> ou à <b>y déposer quelque chose</b>. Les variantes 1 et 2 répondent « lire », la 5 répond « déposer » — non par la place qu'elle prend, mais par le ton qu'elle donne — et les 3 et 4 tiennent le milieu en le payant en pixels.</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</footer>
+
+</body>
+</html>

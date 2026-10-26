@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Accueil · « Publications actives », troisième passe (5 variantes)</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+  /* ================================================================
+     OUTILLAGE DE PLANCHE — hors application (repris des passes 1-2)
+     ================================================================ */
+  .duo-etats{display:flex;flex-direction:column;gap:14px;}
+  .cadre{
+    width:375px;background:var(--grad-hero);border:1px solid var(--border);
+    border-radius:16px;padding:0 0 4px;overflow:hidden;position:relative;
+    box-shadow:0 1px 2px rgba(24,62,87,.06),0 14px 30px -22px rgba(24,62,87,.5);
+  }
+  .cadre--feuille{padding-bottom:0;}
+  .etat-lab{
+    font-size:.64rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase;
+    color:var(--text-tertiary);margin-bottom:5px;display:flex;align-items:baseline;gap:8px;
+  }
+  .etat-lab b{color:var(--orange-hover);}
+  .etat-lab .px{
+    margin-left:auto;letter-spacing:.04em;font-variant-numeric:tabular-nums;
+    background:var(--paper);border:1px solid var(--border);border-radius:999px;padding:2px 8px;color:var(--marine);
+  }
+  .zone{display:flow-root;outline:1px dashed rgba(214,94,28,.5);outline-offset:-1px;}
+  .fantome{opacity:.34;pointer-events:none;}
+  .ghost-rub{display:flow-root;}
+  .champ-compo{
+    background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--sable);
+    border-radius:10px;padding:11px 13px;font-size:13px;color:var(--text-tertiary);
+    box-shadow:0 1px 2px rgba(24,62,87,.06);
+  }
+  .ecran .verdict{display:flex;gap:7px;flex-wrap:wrap;margin-top:-4px;}
+  .ecran .verdict span{
+    font-size:.68rem;font-weight:700;border-radius:999px;padding:3px 9px;
+    background:var(--paper);border:1px solid var(--border);color:var(--text-secondary);
+  }
+  .ecran .verdict .tient{background:rgba(74,157,95,.12);border-color:rgba(74,157,95,.4);color:var(--success);}
+  .ecran .verdict .casse{background:rgba(196,69,54,.10);border-color:rgba(196,69,54,.4);color:var(--danger);}
+  .planche--large{max-width:846px;}
+  .tableau-mesures{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:14px;text-align:left;}
+  .tableau-mesures th,.tableau-mesures td{padding:7px 9px;border-top:1px solid var(--border);}
+  .tableau-mesures thead th{border-top:0;border-bottom:2px solid var(--marine);font-family:var(--titres);font-weight:800;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
+  .tableau-mesures td b{font-family:var(--titres);}
+  .tableau-mesures .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .tableau-mesures .ok{color:var(--success);font-weight:700;}
+  .tableau-mesures .ko{color:var(--danger);font-weight:700;}
+  .marge{margin:0 18px;}
+
+  /* propositions d'ajout à la charte, inchangées depuis les passes 1-2 */
+  .genre--annonce{background:#e8eef4;color:var(--marine);}
+  .genre--fil{background:rgba(184,78,23,.11);color:var(--orange-hover);}
+
+  /* le label de section à 20 px — acquis de la première passe */
+  .lab-section{
+    display:flex;align-items:baseline;gap:8px;
+    font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--orange-hover);padding:9px 0 2px;
+  }
+  .lab-section .lien-filet{margin-left:auto;font-size:10.5px;letter-spacing:0;text-transform:none;font-family:var(--corps);}
+
+  /* ================================================================
+     LE TALON COMPACT — l'apport de cette passe
+     Le talon de la deuxième passe vivait dans une carte bordée, qui
+     coûtait 188 px muets. Ici il descend dans une ligne filetée :
+     un médaillon de 46 × 36, picto + mot, fonds de genre. La CIBLE
+     reste la ligne entière (≥ 44 px) ; le talon n'est qu'un dessin.
+     Déclinaison « état » (variante 2) : le talon porte le fait —
+     J+40, 2 sur 5 — à la façon du talon de date de `.billet2`, qui
+     a déjà théorisé ce basculement (la date est le sujet d'un
+     rendez-vous, le geste celui d'une action).
+     ================================================================ */
+  .tl{flex:none;width:46px;height:36px;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+  .tl svg{width:13px;height:13px;}
+  .tl .mot{font-family:var(--titres);font-weight:800;font-size:6.5px;letter-spacing:.07em;text-transform:uppercase;line-height:1;}
+  .tl--annonce{background:#e8eef4;color:var(--marine);}
+  .tl--fil{background:rgba(184,78,23,.10);color:var(--orange-hover);}
+  .tl--atelier{background:var(--sable);color:var(--marine);}
+  .tl--etat{background:var(--bg-hover);color:var(--orange-hover);border:1px solid #efdcae;}
+  .tl--etat .n{font-family:var(--titres);font-weight:800;font-size:11.5px;line-height:1;font-variant-numeric:tabular-nums;}
+  .tl--etat.danger{background:rgba(196,69,54,.08);color:var(--danger);border-color:rgba(196,69,54,.3);}
+
+  /* ================================================================
+     LA LIGNE DU REGISTRE À TALON — commune aux variantes 1, 2, 5
+     et aux lignes calmes de 3 et 4. Un bouton au plus, jamais deux.
+     ================================================================ */
+  .rt{margin:0 18px;}
+  .rt-ligne{
+    display:flex;align-items:center;gap:9px;width:100%;text-align:left;
+    background:none;border:0;cursor:pointer;
+    padding:6px 0;border-top:1px solid var(--border);min-height:48px;
+  }
+  .rt-corps{flex:1;min-width:0;}
+  .rt-corps > b{display:block;font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .rt-sub{display:block;font-size:10.5px;color:var(--text-tertiary);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .rt-sub--q{color:var(--orange-hover);font-weight:600;}
+  .rt-sub--q .delai{color:var(--danger);font-weight:700;}
+  .rt-ligne .action{flex:none;}
+  .rt-ligne .chev{flex:none;color:var(--text-tertiary);font-size:13px;}
+  .rt-suite{display:flex;align-items:center;gap:8px;padding:12px 0 6px;border-top:1px solid var(--border);min-height:44px;font-size:11.5px;color:var(--text-tertiary);}
+  .rt-suite .lien-filet{margin-left:auto;}
+
+  /* ================================================================
+     3 — LE BLOC « À VÉRIFIER », RESSERRÉ
+     Le bloc jaune de la deuxième passe, mais ses entrées sont des
+     lignes à talon avec UN bouton — plus de trio, plus de wrap.
+     ================================================================ */
+  .bv{margin:4px 18px 0;background:var(--bg-hover);border:1px solid #efdcae;border-radius:12px;padding:0 12px 3px;}
+  .bv-titre{
+    font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--orange-hover);padding:9px 0 2px;
+    display:flex;align-items:baseline;gap:7px;
+  }
+  .bvt-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-top:1px dashed #efdcae;min-height:50px;}
+  .bvt-item:first-of-type{border-top:0;}
+  .bvt-item .rt-corps b{font-size:13px;}
+
+  /* ================================================================
+     4 — LA CARTE QUAND ÇA COMPTE
+     Pas de bloc groupant : chaque question devient SA carte, talon
+     plein et filet orange, insérée à sa place dans la liste ; les
+     calmes restent des lignes nues. La carte n'existe que le temps
+     de la question.
+     ================================================================ */
+  .cq{
+    display:flex;align-items:stretch;background:var(--paper);border:1px solid var(--border);
+    border-radius:11px;overflow:hidden;margin:7px 0;
+    box-shadow:0 1px 2px rgba(24,62,87,.06),0 8px 20px -16px rgba(24,62,87,.3);
+  }
+  .cq-talon{flex:none;width:46px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 3px;border-right:2px solid var(--orange-vif);}
+  .cq-talon svg{width:14px;height:14px;}
+  .cq-talon .mot{font-family:var(--titres);font-weight:800;font-size:6.5px;letter-spacing:.07em;text-transform:uppercase;line-height:1;}
+  .cq-talon.t-annonce{background:#e8eef4;color:var(--marine);}
+  .cq-talon.t-fil{background:rgba(184,78,23,.08);color:var(--orange-hover);}
+  .cq-talon.t-atelier{background:var(--sable);color:var(--marine);}
+  .cq-corps{flex:1;min-width:0;padding:9px 11px 10px;}
+  .cq-corps .t1{display:flex;align-items:baseline;gap:8px;}
+  .cq-corps .t1 b{font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
+  .cq-corps .t1 .m{margin-left:auto;flex:none;font-size:10.5px;color:var(--text-tertiary);}
+  .cq-q{font-size:12px;line-height:1.45;color:var(--text-secondary);margin-top:3px;}
+  .cq-q b{color:var(--marine);}
+  .cq-q .delai{font-weight:700;color:var(--danger);}
+  .cq-corps .action{margin-top:7px;}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+  <p class="kicker">Accueil · vos publications — troisième passe</p>
+  <h1>Le talon, le bouton, la feuille</h1>
+  <p>Cinq assemblages des trois morceaux retenus de la deuxième passe : <b>le talon de type</b> (variante 3), <b>les lignes compactes du jour ordinaire</b> (variantes 1-2) et <b>le bouton unique qui ouvre la feuille du choix complet</b> (variante 4). L'assemblage a une conséquence mesurable qu'aucune passe n'avait obtenue : <b>sans le trio de pastilles, le jour à deux questions rentre dans le budget</b> — et le talon, débarrassé de la carte qui l'enfermait, ne coûte plus qu'une poignée de pixels. Moteur, périmètre et gestes : inchangés depuis la deuxième passe. Le nom, lui, bouge : <b>« Publications actives »</b> — la section ne montre que le vivant, autant que le titre le dise.</p>
+  <div class="traits">
+    <span><b>Un bouton au plus</b> par ligne, jamais deux</span>
+    <span><b>La feuille</b> porte le choix complet</span>
+    <span><b>Le talon</b> descend dans la ligne filetée</span>
+    <span><b>Budget</b> 213 px, 153 pour deux rubans</span>
+    <span><b>Jeu d'essai</b> celui de la deuxième passe</span>
+  </div>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</header>
+
+<!-- ====================================================================
+     LA FEUILLE — commune aux cinq, dessinée une fois
+     ==================================================================== -->
+<section class="doc-head" style="margin-bottom:34px">
+  <p class="kicker">D'abord, la feuille — commune aux cinq</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Le bouton pose la question, la feuille porte les réponses</h2>
+  <p style="max-width:680px">Toutes les variantes partagent le même contrat, hérité de ce qui marchait dans la 4 : <b>la ligne ne porte qu'un bouton</b>, libellé comme la question (« Valable ? », « Réglé ? », « Maintenir ? ») ; le tap ouvre une feuille qui <b>redit l'enjeu en français</b> puis aligne <b>tous les gestes réels</b> — « Supprimer » n'est jamais posé sur l'accueil, et « Maintenir » n'est jamais séparé de ses alternatives. La feuille se referme sans choisir : la question reste alors posée sur la ligne, c'est sa persistance qui force. L'état vide du nouveau membre reste 0 px — acquis des passes précédentes, non redessiné.</p>
+  <div style="display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:18px">
+    <div>
+      <p class="etat-lab"><span>L'annonce — <b>trois réponses</b></span></p>
+      <div class="cadre cadre--feuille" style="min-height:400px">
+        <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+        <div class="voile">
+          <div class="feuille">
+            <div class="poignee"></div>
+            <div class="tete"><h3>Petit bricolage — toujours valable ?</h3><button class="x" type="button" aria-label="Fermer">×</button></div>
+            <div class="corps">
+              <p class="aide" style="padding:0 18px 4px;text-align:left">Votre annonce est en ligne depuis le 1<sup>er</sup> mai. Sans réponse avant le <b style="color:var(--danger)">15 juin</b>, elle quitte l'annuaire du quartier.</p>
+              <div style="display:flex;flex-direction:column;gap:9px;padding:10px 18px 18px">
+                <button class="btn-plein btn-plein--orange" type="button">Maintenir — elle repart pour 45 jours</button>
+                <button class="btn-plein btn-plein--contour" type="button">Mettre en pause</button>
+                <button class="btn-plein btn-plein--danger" type="button">Supprimer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="etat-lab"><span>Le mot au fil — <b>deux réponses</b></span></p>
+      <div class="cadre cadre--feuille" style="min-height:400px">
+        <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+        <div class="voile">
+          <div class="feuille">
+            <div class="poignee"></div>
+            <div class="tete"><h3>Je donne des tomates — c'est réglé ?</h3><button class="x" type="button" aria-label="Fermer">×</button></div>
+            <div class="corps">
+              <p class="aide" style="padding:0 18px 4px;text-align:left">2 intéressés et 3 commentaires, sans suite depuis 6 jours. Un mot pourvu quitte le fil — vous pourrez le rouvrir depuis « Tout voir ».</p>
+              <div style="display:flex;flex-direction:column;gap:9px;padding:10px 18px 18px">
+                <button class="btn-plein btn-plein--orange" type="button">Oui, c'est pourvu</button>
+                <button class="btn-plein btn-plein--contour" type="button">Non, toujours d'actualité</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="max-width:680px;margin-top:14px">La feuille de l'atelier suit le même moule — « Réparer son vélo — 2 inscrits sur 5, il démarre demain » puis <b>Maintenir malgré tout</b> / <b>Annuler</b> — elle n'est pas redessinée. Trois jours joués, les mêmes qu'en deuxième passe : <b>mercredi 10</b> (3 publications, 2 questions), <b>un mardi sans histoire</b> (les mêmes, muettes), <b>vendredi 13</b> (l'atelier entre en visite : 3 questions, 5 publications, le plafond s'exerce).</p>
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</section>
+
+<div class="planche planche--large">
+
+  <!-- ==================================================================
+       1 · LE REGISTRE À TALON
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">1</span><h2>Le registre à talon</h2><span class="route">l'assemblage canonique des trois morceaux</span></figcaption>
+    <div class="verdict"><span class="tient">talon + bouton + feuille, à plat</span><span class="tient">le type se lit sans lire</span><span>la conséquence en télégramme</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>2 questions sur 3</b></span><span class="px" id="px-1N">173 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-1N">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub rt-sub--q">En ligne 40 j — <span class="delai">retirée le 15 juin</span></span></span>
+                <span class="action action--fort">Valable ?</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub rt-sub--q">2 intéressés, sans suite depuis 6 j</span></span>
+                <span class="action action--fort">Réglé ?</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>la liste, muette</b></span><span class="px" id="px-1O">173 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-1O">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>3 questions, 5 publications</b></span><span class="px" id="px-1E">217 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-1E">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--atelier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 11a3 3 0 1 0 0-6M18 20a6 6 0 0 0-3-5.2"/></svg><span class="mot">Atelier</span></span>
+                <span class="rt-corps"><b>Réparer son vélo</b><span class="rt-sub rt-sub--q">2 inscrits sur 5 — <span class="delai">demain 10 h</span></span></span>
+                <span class="action action--fort">Maintenir ?</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub rt-sub--q">En ligne 43 j — <span class="delai">retirée dimanche</span></span></span>
+                <span class="action action--fort">Valable ?</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub rt-sub--q">2 intéressés, sans suite depuis 8 j</span></span>
+                <span class="action action--fort">Réglé ?</span>
+              </button>
+              <div class="rt-suite">Et 2 publications en cours, qui vont bien<a class="lien-filet lien-filet--muet" href="#">Les voir</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : l'assemblage sans reste.</b> Le talon dit le type, la sous-ligne dit le fait et sa conséquence, le bouton pose la question en un mot (« Valable ? », « Réglé ? », « Maintenir ? »), la feuille porte les réponses. Chaque morceau fait une seule chose. <b>Hauteur : 173 px le mercredi comme le jour ordinaire — delta zéro :</b> la question, son télégramme et sa pastille se logent dans la hauteur que la cible tactile de 44 px payait déjà. Le bouton unique rend <b>121 px</b> sur la liste à questions de la deuxième passe (294 px, mêmes données), et le budget est tenu partout — l'épreuve à trois questions s'arrête à <b>217 px</b>, à 4 px du seuil. <b>Ce qu'elle coûte :</b> la conséquence s'écrit en télégramme de 10,5 px (« En ligne 40 j — retirée le 15 juin ») là où la deuxième passe l'écrivait en français de 12 px — c'est lisible mais ça ne s'impose pas ; et le talon ajoute 15 px au jour ordinaire par rapport aux lignes nues de la passe précédente. C'est le prix des deux goûts assemblés, et il est petit.</p>
+  </figure>
+
+  <!-- ==================================================================
+       2 · LE TALON QUI RACONTE
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">2</span><h2>Le talon qui raconte</h2><span class="route">type au calme, état à la question — l'esprit .billet2</span></figcaption>
+    <div class="verdict"><span class="tient">le fait saute aux yeux avant les mots</span><span class="tient">même coût que la 1</span><span class="casse">deux grammaires de talon</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>les talons des questions basculent</b></span><span class="px" id="px-2N">173 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-2N">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--etat"><span class="n">40 j</span><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub rt-sub--q"><span class="delai">Retirée le 15 juin</span> sans réponse</span></span>
+                <span class="action action--fort">Valable ?</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--etat"><span class="n">6 j</span><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub rt-sub--q">2 intéressés, sans suite</span></span>
+                <span class="action action--fort">Réglé ?</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>identique à la variante 1</b></span><span class="px" id="px-2O">173 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-2O">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>deux talons en rouge</b></span><span class="px" id="px-2E">217 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-2E">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--etat danger"><span class="n">2/5</span><span class="mot">Atelier</span></span>
+                <span class="rt-corps"><b>Réparer son vélo</b><span class="rt-sub rt-sub--q"><span class="delai">Demain 10 h</span> — sous son minimum</span></span>
+                <span class="action action--fort">Maintenir ?</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--etat danger"><span class="n">43 j</span><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub rt-sub--q"><span class="delai">Retirée dimanche</span> sans réponse</span></span>
+                <span class="action action--fort">Valable ?</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--etat"><span class="n">8 j</span><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub rt-sub--q">2 intéressés, sans suite</span></span>
+                <span class="action action--fort">Réglé ?</span>
+              </button>
+              <div class="rt-suite">Et 2 publications en cours, qui vont bien<a class="lien-filet lien-filet--muet" href="#">Les voir</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : le talon raconte — le type au calme, le fait à la question.</b> C'est la grammaire que la charte a déjà théorisée pour <code>.billet2</code> : « pour un rendez-vous, la date est le sujet ; pour une action, le geste est le sujet ». Ici, une publication calme montre son type ; une publication questionnée montre <b>son fait</b> — « 40 j », « 2/5», « 6 j » — en chiffres qu'on lit du coin de l'œil, le type passant en légende du même talon. L'imminence colore : orange pâle d'abord, rouge quand c'est pour demain. <b>Hauteur : 173 px / 173 px / 217 px</b> — identique à la 1 au pixel près, la bascule ne coûte rien. <b>Ce qu'elle coûte :</b> deux grammaires de talon à apprendre, et des chiffres qui exigent leur légende — « 6 j » seul ne dit pas « sans suite depuis 6 jours », il faut lire la sous-ligne pour comprendre ce que le nombre compte. La 1 est plus bête et plus sûre ; la 2 est plus parlante une fois apprise. Pour un public peu à l'aise, c'est la 1 d'abord — la 2 est la direction d'évolution si l'usage montre que les talons sont lus.</p>
+  </figure>
+
+  <!-- ==================================================================
+       3 · À VÉRIFIER, RESSERRÉE
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">3</span><h2>À vérifier, resserrée</h2><span class="route">le bloc jaune, sans trio donc sans pli</span></figcaption>
+    <div class="verdict"><span class="tient">la couleur sépare, le bouton décide</span><span class="tient">un libellé unique : Vérifier</span><span>le cadre se paie toujours</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>2 questions dans le bloc</b></span><span class="px" id="px-3N">215 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-3N">
+            <div class="marge">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+            </div>
+            <div class="bv">
+              <p class="bv-titre">À vérifier<span class="badge-compte">2</span></p>
+              <div class="bvt-item">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub rt-sub--q">En ligne 40 j — <span class="delai">retirée le 15 juin</span></span></span>
+                <button class="action action--fort" type="button">Vérifier</button>
+              </div>
+              <div class="bvt-item">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub rt-sub--q">2 intéressés, sans suite depuis 6 j</span></span>
+                <button class="action action--fort" type="button">Vérifier</button>
+              </div>
+            </div>
+            <div class="rt">
+              <button class="rt-ligne" type="button" style="border-top:0">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>pas de bloc, mêmes lignes que la 1</b></span><span class="px" id="px-3O">173 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-3O">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>3 questions dans le bloc</b></span><span class="px" id="px-3E">262 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-3E">
+            <div class="marge">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+            </div>
+            <div class="bv">
+              <p class="bv-titre">À vérifier<span class="badge-compte">3</span></p>
+              <div class="bvt-item">
+                <span class="tl tl--atelier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 11a3 3 0 1 0 0-6M18 20a6 6 0 0 0-3-5.2"/></svg><span class="mot">Atelier</span></span>
+                <span class="rt-corps"><b>Réparer son vélo</b><span class="rt-sub rt-sub--q">2 inscrits sur 5 — <span class="delai">demain 10 h</span></span></span>
+                <button class="action action--fort" type="button">Vérifier</button>
+              </div>
+              <div class="bvt-item">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub rt-sub--q">En ligne 43 j — <span class="delai">retirée dimanche</span></span></span>
+                <button class="action action--fort" type="button">Vérifier</button>
+              </div>
+              <div class="bvt-item">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub rt-sub--q">2 intéressés, sans suite depuis 8 j</span></span>
+                <button class="action action--fort" type="button">Vérifier</button>
+              </div>
+            </div>
+            <div class="rt">
+              <div class="rt-suite" style="border-top:0">Et 2 publications en cours, qui vont bien<a class="lien-filet lien-filet--muet" href="#">Les voir</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : la couleur sépare, le bouton décide — et un seul verbe suffit.</b> Le bloc jaune garde ce qu'il avait de juste en deuxième passe (le fond « on vous attend » que la charte emploie déjà, le titre littéral, l'inexistence les jours calmes) et perd ce qui le condamnait : le trio. Du coup le libellé du bouton peut devenir <b>unique — « Vérifier »</b> — le même mot partout, qu'on apprend une fois ; la question précise attend dans la feuille. <b>Hauteur : 215 px / 173 px / 262 px.</b> <b>Ce qu'elle coûte :</b> le cadre et son titre ajoutent 42 px au mercredi par rapport à la 1 pour les mêmes données — le prix de la couleur, encore, et il n'achète plus grand-chose : quand toutes les questions tiennent dans un bouton, le fond jaune et la pastille disent deux fois la même chose. Et « Vérifier » est moins engageant que « Valable ? » — le mot générique fait gagner l'apprentissage et perdre l'adresse.</p>
+  </figure>
+
+  <!-- ==================================================================
+       4 · LA CARTE QUAND ÇA COMPTE
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">4</span><h2>La carte quand ça compte</h2><span class="route">la question en français, sur sa propre carte</span></figcaption>
+    <div class="verdict"><span class="tient">la question garde ses mots</span><span class="tient">la carte n'existe que questionnée</span><span>la plus haute des cinq</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>2 cartes, 1 ligne</b></span><span class="px" id="px-4N">313 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-4N">
+            <div class="marge">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <div class="cq">
+                <div class="cq-talon t-annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></div>
+                <div class="cq-corps">
+                  <span class="t1"><b>Petit bricolage</b><span class="m">1<sup>er</sup> mai</span></span>
+                  <p class="cq-q"><b>Toujours valable ?</b> Sans réponse, elle quitte l'annuaire le <span class="delai">15 juin</span>.</p>
+                  <button class="action action--fort" type="button">Répondre</button>
+                </div>
+              </div>
+              <div class="cq">
+                <div class="cq-talon t-fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></div>
+                <div class="cq-corps">
+                  <span class="t1"><b>Je donne des tomates</b><span class="m">31 mai</span></span>
+                  <p class="cq-q">2 intéressés, 3 commentaires, sans suite depuis 6 jours — <b>c'est réglé ?</b></p>
+                  <button class="action action--fort" type="button">Répondre</button>
+                </div>
+              </div>
+            </div>
+            <div class="rt">
+              <button class="rt-ligne" type="button" style="border-top:0">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>aucune carte, les lignes de la 1</b></span><span class="px" id="px-4O">173 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-4O">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>3 cartes empilées</b></span><span class="px" id="px-4E">408 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-4E">
+            <div class="marge">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <div class="cq">
+                <div class="cq-talon t-atelier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 11a3 3 0 1 0 0-6M18 20a6 6 0 0 0-3-5.2"/></svg><span class="mot">Atelier</span></div>
+                <div class="cq-corps">
+                  <span class="t1"><b>Réparer son vélo</b><span class="m">demain · 10 h</span></span>
+                  <p class="cq-q"><b>2 inscrits sur 5</b> — sous son minimum, il s'annulera au départ.</p>
+                  <button class="action action--fort" type="button">Répondre</button>
+                </div>
+              </div>
+              <div class="cq">
+                <div class="cq-talon t-annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></div>
+                <div class="cq-corps">
+                  <span class="t1"><b>Petit bricolage</b><span class="m">J+43</span></span>
+                  <p class="cq-q"><b>Toujours valable ?</b> Sans réponse, elle quitte l'annuaire <span class="delai">dimanche</span>.</p>
+                  <button class="action action--fort" type="button">Répondre</button>
+                </div>
+              </div>
+              <div class="cq">
+                <div class="cq-talon t-fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></div>
+                <div class="cq-corps">
+                  <span class="t1"><b>Je donne des tomates</b><span class="m">31 mai</span></span>
+                  <p class="cq-q">Sans suite depuis 8 jours — <b>c'est réglé ?</b></p>
+                  <button class="action action--fort" type="button">Répondre</button>
+                </div>
+              </div>
+            </div>
+            <div class="rt">
+              <div class="rt-suite" style="border-top:0">Et 2 publications en cours, qui vont bien<a class="lien-filet lien-filet--muet" href="#">Les voir</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : quand on a une question à vous poser, on vous la pose en français.</b> La carte reprend à la deuxième passe ce que le télégramme des variantes 1-3 abandonne : la question complète, avec ses mots (« Toujours valable ? Sans réponse, elle quitte l'annuaire le 15 juin. ») — mais contrairement au talon des types de la deuxième passe, <b>la carte n'existe que le temps de la question</b> : le jour ordinaire retombe exactement sur les lignes de la 1. Le bouton redevient générique (« Répondre ») parce que la question est déjà écrite juste au-dessus. <b>Hauteur : 313 px</b> le mercredi — la plus haute de cette passe, 100 px au-dessus du budget — <b>173 px</b> le jour ordinaire, <b>408 px</b> à l'épreuve. <b>Ce qu'elle coûte :</b> ce que coûtent les mots. C'est l'arbitrage exact avec la 1 : mêmes données, même mécanique, 140 px de plus le mercredi pour que la question soit une phrase plutôt qu'un télégramme. Pour un public peu à l'aise, c'est la version qui se comprend sans apprentissage — et c'est la seule raison valable de payer.</p>
+  </figure>
+
+  <!-- ==================================================================
+       5 · LA LIGNE MUETTE
+       ================================================================== -->
+  <figure class="ecran">
+    <figcaption><span class="n">5</span><h2>La ligne muette</h2><span class="route">zéro pastille — la ligne entière ouvre la feuille</span></figcaption>
+    <div class="verdict"><span class="casse">n'économise rien : 173 px, comme la 1</span><span class="casse">rien ne dit « tapez ici »</span><span>dessinée pour borner — et démentie</span></div>
+    <div class="duo-etats">
+
+      <div>
+        <p class="etat-lab"><span>Mercredi 10 — <b>2 questions, aucun bouton</b></span><span class="px" id="px-5N">173 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-5N">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub rt-sub--q"><b>Toujours valable ?</b> — <span class="delai">retirée le 15 juin</span></span></span>
+                <span class="chev">›</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub rt-sub--q"><b>C'est réglé ?</b> — sans suite depuis 6 j</span></span>
+                <span class="chev">›</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Le jour ordinaire — <b>identique à la 1, sans chevrons</b></span><span class="px" id="px-5O">173 px</span></p>
+        <div class="cadre">
+          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">Un besoin, un savoir-faire, une envie de faire ensemble…</div></div>
+          <div class="zone" id="z-5O">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="fantome ghost-rub">
+            <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div>
+            <div class="registre"><div class="registre-ligne"><div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div><button class="action action--fort" type="button">S'inscrire</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="etat-lab"><span>Vendredi 13, l'épreuve — <b>3 chevrons</b></span><span class="px" id="px-5E">217 px</span></p>
+        <div class="cadre">
+          <div class="zone" id="z-5E">
+            <div class="rt">
+              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--atelier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 11a3 3 0 1 0 0-6M18 20a6 6 0 0 0-3-5.2"/></svg><span class="mot">Atelier</span></span>
+                <span class="rt-corps"><b>Réparer son vélo</b><span class="rt-sub rt-sub--q"><b>2 sur 5</b> — <span class="delai">demain 10 h</span> : maintenir ou annuler ?</span></span>
+                <span class="chev">›</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub rt-sub--q"><b>Toujours valable ?</b> — <span class="delai">retirée dimanche</span></span></span>
+                <span class="chev">›</span>
+              </button>
+              <button class="rt-ligne" type="button">
+                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub rt-sub--q"><b>C'est réglé ?</b> — sans suite depuis 8 j</span></span>
+                <span class="chev">›</span>
+              </button>
+              <div class="rt-suite">Et 2 publications en cours, qui vont bien<a class="lien-filet lien-filet--muet" href="#">Les voir</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note"><b>La thèse : la question est dans le texte, le geste est dans la feuille, et rien d'autre ne se dessine.</b> Pas de pastille : la sous-ligne porte la question en gras, un chevron dit « ça s'ouvre », la ligne entière est la cible. C'est la radicalisation du « un seul bouton » — zéro bouton — et la mesure l'a démentie : <b>173 px le mercredi, exactement la variante 1</b>. La pastille ne coûtait rien — la cible de 44 px payait déjà toute la hauteur — donc la muette n'économise rien : elle garde le prix et rend la saillance. <b>173 px</b> le jour ordinaire, <b>217 px</b> à l'épreuve, l'égalité est parfaite sur les trois jours. <b>Pourquoi elle ne doit pas gagner, chiffres en main :</b> rien n'affirme « on attend une réponse de vous » — un chevron est une invitation, pas une demande ; pour un public peu à l'aise, une pastille orange qui dit « Valable ? » est un appel qu'on comprend, un chevron gris est un détail qu'on ignore. Elle était dessinée pour borner le bas ; il n'y a pas de bas à borner. Elle reste sur la planche comme preuve : <b>la saillance du bouton est gratuite</b>, et il n'y a aucune raison de s'en priver.</p>
+  </figure>
+
+</div>
+
+<!-- ====================================================================
+     CE QUI SE JOUE
+     ==================================================================== -->
+<footer class="doc-head" style="margin:48px auto 0;max-width:780px">
+  <p class="kicker">Ce qui se joue</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Les mesures, et ce que l'assemblage a changé</h2>
+  <table class="tableau-mesures">
+    <thead>
+      <tr><th>Variante</th><th class="num">Mercredi (2 q.)</th><th class="num">Jour ordinaire</th><th class="num">Épreuve (3 q.)</th><th class="num">« À l'affiche » à</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>1</b> Le registre à talon</td><td class="num">173</td><td class="num">173</td><td class="num">217</td><td class="num">486</td></tr>
+      <tr><td><b>2</b> Le talon qui raconte</td><td class="num">173</td><td class="num">173</td><td class="num">217</td><td class="num">486</td></tr>
+      <tr><td><b>3</b> À vérifier, resserrée</td><td class="num">215</td><td class="num">173</td><td class="num">262</td><td class="num">528</td></tr>
+      <tr><td><b>4</b> La carte quand ça compte</td><td class="num">313</td><td class="num">173</td><td class="num">408</td><td class="num">626</td></tr>
+      <tr><td><b>5</b> La ligne muette</td><td class="num">173</td><td class="num">173</td><td class="num">217</td><td class="num">486</td></tr>
+    </tbody>
+  </table>
+  <p style="text-align:left;margin-top:12px;font-size:.8rem;color:var(--text-tertiary)">Hauteurs mesurées dans le navigateur, marges comprises. Seuils inchangés : <b>213 px</b> (« À l'affiche » garde son ruban et une ligne au-dessus du pli de 667 px), <b>153 px</b> (le ruban du fil apparaît aussi). Rappel de la deuxième passe, mêmes données : liste à questions 294 / 158 / 406 · bloc jaune à trio 316 / 158 / 428 · cartes à talon 328 / 188 / 408.</p>
+
+  <p style="text-align:left;margin-top:18px"><b>Ce que l'assemblage a changé, en chiffres.</b> Le bouton unique fait ce que le trio interdisait : <b>le jour à deux questions tient désormais dans le budget</b> pour les variantes en lignes (173 px contre 294 en deuxième passe, à données égales) — la feuille a absorbé ce que l'accueil n'arrivait pas à loger. Mieux : le jour à questions coûte le prix du jour calme — 173 px dans les deux cas, la question se logeant dans la hauteur de la cible tactile — et même l'épreuve frôle le seuil (217 px pour 213). Et le talon, descendu de sa carte dans une ligne filetée, ne coûte plus que 15 px le jour ordinaire là où la carte en coûtait 30. Les cinq variantes n'arbitrent plus le budget : elles arbitrent <b>la saillance de la question</b> — un mot sur une pastille (1-2), un verbe unique sur fond jaune (3), une phrase complète sur carte (4), un chevron (5).</p>
+
+  <p style="text-align:left;margin-top:14px"><b>Tranché (10 octobre) : la 1</b> — avec « Maintenir ? » sur l'atelier et le titre « Publications actives ». Elle est l'assemblage le plus bête des trois morceaux demandés, et tout y fait une seule chose — le talon dit le type, la sous-ligne dit le fait, la pastille pose la question, la feuille porte le choix. La <b>2</b> est son évolution quand les talons seront lus (le fait en chiffres, à la façon du talon de date des billets — mais deux grammaires à apprendre, et « 6 j » exige sa légende). La <b>4</b> est le choix inverse et défendable : payer 140 px pour que la question reste une phrase française — si les tests utilisateurs montrent que « Valable ? » sur une pastille ne se comprend pas, c'est elle qui a raison. La <b>3</b> n'achète plus grand-chose : quand le trio a disparu, le fond jaune et la pastille disent deux fois la même chose. La <b>5</b> devait borner le bas ; la mesure a montré qu'il n'y a pas de bas — 173 px, comme la 1 — elle n'a donc plus d'argument : un chevron n'est pas une demande, et il ne fait même pas gagner un pixel.</p>
+
+  <p style="text-align:left;margin-top:14px"><b>Inchangé et toujours à cadrer ailleurs :</b> les constantes (1 sem / 3 sem / J-2-3 / plafond 4), la destination de « Tout voir », les notifications (quelles questions méritent push ou courriel — le rappel J+30 ne doit plus dépendre du seul courriel), le libellé définitif des boutons de la feuille — et deux frictions du titre « Publications actives » à surveiller en test : sans possessif, il peut se lire comme les publications <i>du quartier</i> (« Vos publications actives » tient aussi dans le label) ; et une annonce <i>mise en pause</i> reste affichée alors que son état s'appelle précisément « inactive » — si ça grince, « Publications en cours » est le repli. La note de cadrage du moteur reste à écrire, quand tu veux.</p>
+
+  <a class="retour" href="../../index.html">← Retour à la galerie</a>
+</footer>
+
+</body>
+</html>
