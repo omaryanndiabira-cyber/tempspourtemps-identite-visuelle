@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TempsPourTemps — Accueil · la Zar en cinq genres</title>
+<title>TempsPourTemps — Accueil · la Zar</title>
 <link rel="icon" href="../../assets/logo/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,61 +13,34 @@
   /* ================================================================
      OUTILLAGE DE PLANCHE — hors application
      ================================================================ */
-  .planche--zar{display:flex;flex-direction:column;gap:60px;max-width:846px;margin:0 auto;}
-  .duo-zar{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;align-items:flex-start;}
-  .duo-zar .col{display:flex;flex-direction:column;gap:14px;width:390px;}
   .etat-lab{font-size:.64rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase;color:var(--text-tertiary);
     display:flex;align-items:baseline;gap:8px;}
   .etat-lab b{color:var(--orange-hover);}
-  .etat-lab .px{margin-left:auto;letter-spacing:.04em;font-variant-numeric:tabular-nums;text-transform:none;
+  .etat-lab .px{margin-left:auto;letter-spacing:.04em;font-variant-numeric:tabular-nums;text-transform:none;white-space:nowrap;
     background:var(--paper);border:1px solid var(--border);border-radius:999px;padding:2px 8px;color:var(--marine);}
-  .etat-lab .px.ko{border-color:rgba(196,69,54,.45);color:var(--danger);}
   .ecran .verdict{display:flex;gap:7px;flex-wrap:wrap;}
   .ecran .verdict span{font-size:.68rem;font-weight:700;border-radius:999px;padding:3px 9px;
     background:var(--paper);border:1px solid var(--border);color:var(--text-secondary);}
   .ecran .verdict .tient{background:rgba(74,157,95,.12);border-color:rgba(74,157,95,.4);color:var(--success);}
   .registre-ligne .geste{flex:none;align-self:center;}
-  .note code{font-size:.85em;background:var(--bg-secondary);border-radius:4px;padding:0 4px;}
-
+  .note code,.doc-head code{font-size:.85em;background:var(--bg-secondary);border-radius:4px;padding:0 4px;}
   .cadre{width:390px;background:var(--grad-hero);border:1px solid var(--border);border-radius:16px;
     padding:0 0 10px;overflow:hidden;position:relative;
     box-shadow:0 1px 2px rgba(24,62,87,.06),0 14px 30px -22px rgba(24,62,87,.5);}
-  .cadre--feuille{padding:0;min-height:372px;}
+  .cadre--feuille{padding:0;height:500px;}
   .fantome{opacity:.34;pointer-events:none;}
   .champ-compo{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:10px 12px;
-    font-size:13px;color:var(--text-tertiary);box-shadow:0 1px 2px rgba(24,62,87,.06);
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-  /* le pli : la hauteur d'un écran de 375 × 667, barre comprise */
+    font-size:13px;color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .pli{position:absolute;left:0;right:0;top:667px;border-top:1.5px dashed rgba(214,94,28,.75);z-index:60;pointer-events:none;}
   .pli span{position:absolute;left:12px;top:-19px;font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
     color:var(--orange-hover);background:var(--paper);border:1px solid rgba(214,94,28,.5);border-radius:999px;padding:2px 7px;}
-
-  .fiche{width:100%;border-collapse:collapse;font-size:.76rem;line-height:1.45;background:var(--paper);
-    border:1px solid var(--border);border-radius:12px;overflow:hidden;}
-  .fiche th,.fiche td{padding:7px 10px;border-top:1px solid var(--border);vertical-align:top;text-align:left;}
-  .fiche tr:first-child th,.fiche tr:first-child td{border-top:0;}
-  .fiche th{width:108px;font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--text-tertiary);padding-top:9px;}
-  .fiche td{color:var(--text-secondary);}
-  .fiche .oui{color:var(--success);} .fiche .non{color:var(--text-tertiary);} .fiche .tranche{color:var(--orange-hover);}
-
-  .anatomie{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;align-items:flex-start;margin-top:20px;text-align:left;}
-  .anatomie ol{max-width:400px;padding-left:20px;display:flex;flex-direction:column;gap:9px;font-size:.86rem;line-height:1.5;color:var(--text-secondary);}
-  .anatomie ol b{color:var(--marine);}
   .tableau-mesures{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:14px;text-align:left;}
   .tableau-mesures th,.tableau-mesures td{padding:7px 9px;border-top:1px solid var(--border);}
   .tableau-mesures thead th{border-top:0;border-bottom:2px solid var(--marine);font-family:var(--titres);font-weight:800;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
   .tableau-mesures .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
-  .tableau-mesures .ok{color:var(--success);font-weight:700;}
-  .tableau-mesures .ko{color:var(--danger);font-weight:700;}
-  .liste-doc{text-align:left;max-width:680px;margin:10px auto 0;padding-left:20px;display:flex;flex-direction:column;gap:7px;
-    font-size:.88rem;line-height:1.55;color:var(--text-secondary);}
-  .liste-doc b{color:var(--marine);}
 
   /* ================================================================
-     LE HAUT DE L'ACCUEIL — repris tel quel des planches du 9-10/10
-     (accueil-bascule-salut.html, variante A ; accueil-composeur-en-situation.html, variante 1)
+     LE HAUT DE L'ACCUEIL — repris des planches du 9-10/10
      ================================================================ */
   .creneau{position:relative;margin:0 18px;padding:13px 0 0;min-height:57px;overflow:hidden;text-align:left;
     border:0;background:none;border-radius:0;cursor:default;} /* gazette.css a un .creneau homonyme (RDV) : on l'annule */
@@ -81,8 +54,6 @@
   .c1 .tete{display:flex;align-items:center;gap:9px;}
   .c1 .plume{width:16px;height:16px;flex:none;color:var(--orange-hover);}
   .c1 .inv{font-size:12px;color:var(--text-tertiary);line-height:1.4;}
-
-  /* « Publications actives » — variante 1 de la troisième passe, tranchée le 10/10 */
   .lab-section{display:flex;align-items:baseline;gap:8px;font-family:var(--titres);font-weight:800;font-size:10px;
     letter-spacing:.2em;text-transform:uppercase;color:var(--orange-hover);padding:9px 0 2px;}
   .lab-section .lien-filet{margin-left:auto;font-size:10.5px;letter-spacing:0;text-transform:none;font-family:var(--corps);}
@@ -96,766 +67,235 @@
     padding:6px 0;border-top:1px solid var(--border);min-height:48px;}
   .rt-corps{flex:1;min-width:0;}
   .rt-corps > b{display:block;font-family:var(--titres);font-weight:800;font-size:13px;color:var(--marine);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .rt-sub{display:block;font-size:10.5px;color:var(--text-tertiary);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .rt-sub--q{color:var(--orange-hover);font-weight:600;}
-  .rt-sub--q .delai{color:var(--danger);font-weight:700;}
-  .rt-ligne .action{flex:none;}
+  .rt-sub{display:block;font-size:10.5px;color:var(--text-tertiary);margin-top:2px;}
+
+  .planche--zar{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;align-items:flex-start;max-width:846px;margin:0 auto;}
+  .planche--zar .col{display:flex;flex-direction:column;gap:12px;width:390px;}
+  .planche--zar .col .etat-lab:not(:first-child){margin-top:12px;}
+  .cadre{padding-bottom:16px;}
+  .regles{text-align:left;max-width:700px;margin:14px auto 0;padding-left:20px;display:flex;flex-direction:column;gap:8px;
+    font-size:.88rem;line-height:1.55;color:var(--text-secondary);}
+  .regles b{color:var(--marine);}
+  .spec{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:14px;text-align:left;background:var(--paper);
+    border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .spec th,.spec td{padding:8px 11px;border-top:1px solid var(--border);vertical-align:top;}
+  .spec tr:first-child th,.spec tr:first-child td{border-top:0;}
+  .spec th{width:150px;font-family:var(--titres);font-weight:800;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);}
+  .spec td{color:var(--text-secondary);}
+  .spec code{font-size:.9em;background:var(--bg-secondary);border-radius:4px;padding:0 4px;color:var(--marine);}
 
   /* ================================================================
-     LA ZAR — un cadre, cinq genres
-     Le cadre est le communiqué de la charte (.avis) : papier, filet de
-     1 px, rayon 13, filet de gauche de 3 px. Ce qui change d'un genre à
-     l'autre tient en trois variables — fond d'étiquette, encre, filet —
-     toutes prises dans la palette : crème, vert, quartier, terracotta,
-     rose. Une teinte vive ne porte jamais de texte.
-     Un geste au plus, en pastille ou en lien à filet : JAMAIS de bouton
-     plein — l'accueil n'en a qu'un, celui du composeur quand on écrit.
+     LA ZAR — « Le mot de l'équipe », retenue le 26/10/2026
+     Fond marine (la couleur de la coquille) ; le bord du bloc fait le
+     premier filet, un second filet marine de 1 px court autour, décalé
+     de 3 px — la technique de l'encadré de la fiche annonce
+     (AnnouncementDetailsModal.vue : border + outline-offset).
+     Un titre, un texte coupé à 3 lignes, « Voir tout » si ça déborde.
      ================================================================ */
-  .zar{--g-fond:#fff3d6;--g-encre:var(--orange-hover);--g-filet:var(--sable-hover);
-    position:relative;margin:14px 18px 0;background:var(--paper);border:1px solid var(--border);border-radius:13px;
-    padding:10px 14px 11px 15px;box-shadow:0 1px 2px rgba(24,62,87,.06);}
-  .zar::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:0 3px 3px 0;background:var(--g-filet);}
-  .zar--bienvenue{--g-fond:rgba(74,157,95,.14);--g-encre:var(--success);--g-filet:var(--success-vif);}
-  .zar--recit{--g-fond:#e8eef4;--g-encre:var(--marine);--g-filet:rgba(24,62,87,.55);}
-  .zar--appel{--g-fond:rgba(184,78,23,.10);--g-encre:var(--orange-hover);--g-filet:var(--orange-vif);}
-  .zar--avis{--g-fond:#f7e3e0;--g-encre:#a33d30;--g-filet:rgba(163,61,48,.6);}
+  .zar{position:relative;margin:20px 18px 0;background:var(--marine);border-radius:10px;padding:11px 15px 11px;
+    outline:1px solid var(--marine);outline-offset:3px;color:#fffdf6;}
+  .zar-sur{display:flex;align-items:center;gap:6px;font-family:var(--titres);font-weight:800;font-size:9px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--sable);}
+  .zar-sur svg{width:12px;height:12px;flex:none;}
+  .zar h3{font-family:var(--titres);font-weight:800;font-size:15px;line-height:1.28;color:#fffdf6;margin-top:6px;}
+  .zar-texte{font-size:12px;line-height:1.5;color:rgba(255,253,246,.85);margin-top:3px;}
+  .zar--coupe{cursor:pointer;}
+  .zar--coupe .zar-texte{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;}
+  .zar-voir{position:relative;display:block;margin:5px 0 0 auto;background:none;border:0;padding:0 0 1px;cursor:pointer;
+    font-family:var(--corps);font-size:11.5px;font-weight:700;color:var(--sable);border-bottom:1px dashed currentColor;}
+  .zar-voir::after{content:"";position:absolute;inset:-14px -10px;}
+  .zar :focus-visible{outline-color:var(--focus-halo);box-shadow:0 0 0 5px rgba(24,62,87,.55);}
 
-  .zar-tete{display:flex;align-items:center;gap:8px;padding-right:26px;min-height:20px;}
-  .zar-genre{display:inline-flex;align-items:center;gap:5px;flex:none;background:var(--g-fond);color:var(--g-encre);
-    border-radius:5px;padding:3px 7px 3px 6px;font-family:var(--titres);font-weight:800;font-size:8.5px;
-    letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;}
-  .zar-genre svg{width:11px;height:11px;}
-  .zar-de{font-size:10px;color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  /* masquer : 44 × 44 de cible, 14 px de dessin */
-  .zar-x{position:absolute;top:0;right:0;width:44px;height:44px;border:0;background:none;cursor:pointer;
-    color:var(--text-tertiary);display:flex;align-items:center;justify-content:center;border-radius:0 13px 0 13px;}
-  .zar-x svg{width:14px;height:14px;}
-  .zar-x:hover{color:var(--marine);}
-  .zar h3{font-family:var(--titres);font-weight:800;font-size:14px;line-height:1.3;margin-top:6px;color:var(--marine);}
-  .zar .corps{font-size:11.5px;line-height:1.5;color:var(--text-secondary);margin-top:2px;}
-  .zar .corps .lien-filet{margin-left:2px;}
-  .zar-pied{display:flex;align-items:center;gap:10px;margin-top:8px;min-height:28px;}
-  .zar-pied .pousse{margin-left:auto;}
-  .zar-meta{font-size:10.5px;color:var(--text-tertiary);font-style:italic;}
-  .zar-meta--bas{margin-top:8px;font-style:normal;}
-  /* une pastille garde son dessin de 26 px ; sa zone sensible s'étend à 44 */
-  .action.cible{position:relative;}
-  .action.cible::after{content:"";position:absolute;inset:-9px -6px;}
-  .zar .etat{display:inline-flex;align-items:center;gap:4px;}
-  .zar .etat svg{width:10px;height:10px;}
-
-  /* Bienvenue — la pile d'avatars */
-  .zar-voisins{display:flex;align-items:center;gap:10px;margin-top:7px;}
-  .zar-voisins .pousse{margin-left:auto;flex:none;}
-  .zar-voisins .pile{display:flex;flex:none;}
-  .zar-voisins .avatar{width:30px;height:30px;font-size:10px;border:2px solid var(--paper);}
-  .zar-voisins .avatar + .avatar{margin-left:-8px;}
-  .zar-voisins .noms{display:flex;flex-direction:column;align-items:flex-start;min-width:0;flex:1;}
-  .zar-voisins .noms b{font-family:var(--titres);font-weight:800;font-size:12.5px;color:var(--marine);}
-  .zar-voisins .noms span{font-size:10px;color:var(--text-tertiary);margin-top:1px;line-height:1.35;}
-
-  /* Récit — la citation, guillemet de sable en ornement */
-  .zar-cit{position:relative;margin-top:7px;padding-left:14px;}
-  .zar-cit .pied{display:flex;align-items:baseline;gap:10px;margin-top:4px;}
-  .zar-cit .pied .lien-filet{margin-left:auto;}
-  .zar-cit::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:2px;background:var(--sable);border-radius:2px;}
-  .zar-cit p{font-size:12px;line-height:1.5;font-style:italic;color:var(--marine);}
-  /* pas de <footer> ici : gazette.css lui donne 52 px de marge (pied de document) */
-  .zar-cit .auteur{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--text-tertiary);}
-  .zar-cit .auteur::before{content:"— ";}
-
-  /* Appel — la jauge en pastilles */
-  .zar-jauge{display:inline-flex;align-items:center;gap:4px;}
-  .zar-jauge i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--orange-vif);}
-  .zar-jauge i.plein{background:var(--orange-vif);}
-  .zar-jauge b{font-family:var(--titres);font-weight:800;font-size:11px;color:var(--orange-hover);margin-left:4px;}
-
-  /* Votre avis — les réponses sont des CHOIX : le dessin de la bascule de la charte */
-  .zar-choix{display:flex;gap:6px;margin-top:9px;}
-  .zar-choix button{flex:1;min-height:44px;border:1.5px solid var(--border);background:var(--paper);border-radius:11px;padding:6px 4px;
-    font-family:var(--titres);font-weight:800;font-size:12px;color:var(--marine);cursor:pointer;}
-  .zar-choix button:hover{border-color:var(--orange-vif);background:var(--bg-hover);}
-  .zar-res{display:flex;flex-direction:column;gap:7px;margin-top:9px;}
-  .zar-res .r{display:grid;grid-template-columns:96px 1fr 34px;align-items:center;gap:8px;font-size:11px;color:var(--text-secondary);}
-  .zar-res .l{display:flex;flex-direction:column;line-height:1.2;}
-  .zar-res .l em{font-style:normal;font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#a33d30;}
-  .zar-res .b{height:8px;border-radius:999px;background:var(--bg-secondary);overflow:hidden;}
-  .zar-res .b i{display:block;height:100%;background:rgba(24,62,87,.35);border-radius:999px;}
-  .zar-res .moi .b i{background:var(--marine);}
-  .zar-res .moi .l{font-weight:700;color:var(--marine);}
-  .zar-res .p{text-align:right;font-family:var(--titres);font-weight:800;font-variant-numeric:tabular-nums;color:var(--marine);}
+  /* la feuille « Voir tout » : AppModal size="xl" (feuille sur téléphone, dialogue dès 768 px) */
+  .feuille--zar{padding:0 0 18px;overflow:hidden;max-height:92%;}
+  .zf-bandeau{background:var(--marine);padding-top:8px;flex:none;}
+  .zf-bandeau .poignee{background:rgba(255,253,246,.35);}
+  .zf-tete{display:flex;align-items:flex-start;gap:8px;padding:0 8px 14px 18px;}
+  .zf-titres{flex:1;min-width:0;padding-top:4px;}
+  .zf-titres h3{font-family:var(--titres);font-weight:800;font-size:18px;line-height:1.25;margin-top:6px;color:#fffdf6;}
+  .zf-x{flex:none;width:44px;height:44px;border:0;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .zf-x span{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;
+    background:rgba(255,253,246,.14);color:#fffdf6;font-size:15px;line-height:1;}
+  .zf-filets{flex:none;height:6px;margin:3px 0 0;border-top:1px solid var(--marine);border-bottom:2px solid var(--marine);opacity:.55;}
+  .zf-corps{padding:14px 18px 4px;overflow-y:auto;scrollbar-width:none;}
+  .zf-corps p{font-size:14px;line-height:1.6;color:var(--text-secondary);}
+  .zf-corps p + p{margin-top:10px;}
+  .df-fiche{margin:16px 3px 4px;padding:2px 14px;background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.22);outline-offset:2px;border-radius:10px;}
+  .df-fiche .l{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-top:1px dotted var(--border);}
+  .df-fiche .l:first-child{border-top:0;}
+  .df-fiche .k{flex:none;width:72px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);}
+  .df-fiche .v{flex:1;font-size:12.5px;color:var(--marine);font-weight:500;}
+  .df-fiche .v b{font-family:var(--titres);font-weight:800;}
 </style>
 </head>
 <body>
 
 <header class="doc-head">
   <img src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-  <p class="kicker">Accueil · le composeur et la Zar</p>
-  <h1>La voix de l'association, en cinq genres</h1>
-  <p>La <b>Zar</b> — zone d'animation relationnelle (TPT-899) — est l'endroit où l'association parle aux voisins depuis l'accueil. Elle prend la place que la refonte de l'accueil lui a réservée (TPT-950, cadrage v3) : <b>sous le composeur et « Publications actives », au-dessus de « À l'affiche »</b>. Le haut de page est celui des planches du 9-10 octobre, inchangé : bandeau chiffré, question, composeur. Cinq genres, <b>un seul cadre</b> : chacun est montré dans un accueil complet au repos, puis après son geste, avec sa fiche.</p>
+  <p class="kicker">Accueil · la Zar — retenue le 26 octobre 2026</p>
+  <h1>« Le mot de l'équipe » : fond marine, double filet</h1>
+  <p>La zone d'animation relationnelle (TPT-899), dans sa première forme : <b>l'équipe saisit un titre et un texte</b>, et le message paraît sur l'accueil, <b>sous le composeur et « Publications actives », au-dessus de « À l'affiche »</b>. Elle se distingue du reste par deux signes : le <b>fond marine</b>, que rien d'autre ne porte dans le flux, et le <b>double filet</b> de l'encadré de la fiche annonce, qui rappelle le journal. Choisie parmi une vingtaine de dessins (cinq genres, trois puis dix puis cinq variantes).</p>
   <div class="traits">
-    <span><b>Même page partout</b> seule la Zar change</span>
-    <span><b>390 px</b> et le pli d'un écran de 667 px tracé</span>
-    <span><b>Un cadre</b> le communiqué de la charte</span>
-    <span><b>Jamais de bouton plein</b> l'appel fort reste le composeur</span>
-    <span><b>Une Zar à la fois</b></span>
+    <span><b>Saisie</b> un titre, un texte</span>
+    <span><b>3 lignes</b> puis « Voir tout »</span>
+    <span><b>Voir tout</b> feuille sur téléphone, dialogue sur ordinateur</span>
+    <span><b>157 px</b> coupée · 118 px texte court</span>
   </div>
   <a class="retour" href="../../index.html">← Retour à la galerie</a>
 </header>
 
-<section class="doc-head" style="margin-bottom:40px">
-  <p class="kicker">D'abord, le cadre — commun aux cinq</p>
-  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 4px">Le communiqué de la charte, devenu générique</h2>
-  <p style="max-width:680px">La charte avait déjà dessiné la zone relationnelle : le <i>communiqué</i> (<code style="font-size:.85em">.avis</code> dans <code style="font-size:.85em">gazette.css</code>), papier, filet de gauche, « Communiqué · 1/2 », une croix. Il devient le cadre des cinq genres ; ce qui change d'un genre à l'autre tient en trois couleurs et en un contenu.</p>
-  <div class="anatomie">
-    <div class="cadre" style="padding:4px 0 16px"><section class="zar zar--nouveau" aria-label="Le mot de l'association : nouveauté">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l1.8 4.9 4.9 1.8-4.9 1.8L12 16.9l-1.8-4.9-4.9-1.8 4.9-1.8z"/><path d="M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg>Nouveau</span><span class="zar-de">l'équipe Temps pour Temps · 1/2</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>Une photo dans vos messages</h3>
-          <p class="corps">Une haie à tailler, un objet à prêter : montrez-le, c'est plus simple. <a class="lien-filet" href="#">Voir comment</a></p>
-        </section></div>
-    <ol>
-      <li><b>Le genre, en étiquette</b> : picto et mot, une teinte par genre — crème, vert, quartier, terracotta, rose, toutes dans la palette.</li>
-      <li><b>La signature</b> : « l'équipe Temps pour Temps ». C'est l'association qui parle, pas un voisin : c'est ce qui sépare la Zar du fil.</li>
-      <li><b>Un titre</b> en Nunito 14 px, deux lignes au plus, et <b>un corps</b> de deux lignes visées.</li>
-      <li><b>Un geste au plus</b>, en pastille ou en lien à filet. <b>Jamais de bouton plein</b> : l'accueil n'en a qu'un, celui du composeur quand on écrit.</li>
-      <li><b>Masquer</b> : une cible de 44 px. Masquée, elle ne revient pas. S'il en attend une autre, « 1/2 » le dit, et la suivante paraît.</li>
-      <li><b>Rendue côté client</b>, comme tout le contenu personnalisé : <code style="font-size:.85em">/</code> reste la seule route en ISR.</li>
-    </ol>
+<div class="planche--zar">
+  <div class="col">
+    <p class="etat-lab"><span>L'accueil — <b>texte long, coupé</b></span><span class="px" data-mesure>…</span></p>
+    <div class="phone">
+      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
+      <div class="tb">
+        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
+        <div class="spacer"></div>
+        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+        <span class="credit-pill">⏰ 8 h 30</span>
+        <span class="avatar avatar--me">OD</span>
+      </div>
+      <main class="feed feed--avec-barre">
+        <div class="bandeau-edition" style="margin-top:14px">
+          <span>Saint Seb’</span>
+          <span><b>13 h partagées cette semaine</b></span>
+        </div>
+        <div class="creneau bascule">
+          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
+          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
+        </div>
+        <div class="c1">
+          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
+        </div>
+        <div class="rt">
+          <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
+            <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
+          </button>
+          <button class="rt-ligne" type="button">
+            <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
+            <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
+          </button>
+        </div>
+        <section class="zar zar--coupe" aria-labelledby="z1">
+          <p class="zar-sur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Le mot de l'équipe</p>
+          <h3 id="z1">La permanence passe au jeudi</h3>
+          <p class="zar-texte">À partir du 19 juin, la permanence de Temps pour Temps se tient le jeudi de 17 h à 19 h, à la Maison des associations, salle 2. Venez avec vos questions sur l'application, pour une inscription, ou simplement pour un café : on est là pour ça. Le café des voisins du mardi ne change pas. Et si le jeudi ne vous va pas, écrivez-nous depuis la messagerie : on trouvera un autre moment.</p>
+          <button class="zar-voir" type="button" aria-haspopup="dialog">Voir tout</button>
+        </section>
+        <div class="rubrique rubrique--affiche">
+          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
+            <button class="action action--fort geste" type="button">S'inscrire</button>
+          </div>
+          <div class="registre-ligne">
+            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
+          </div>
+        </div>
+        <div class="rubrique">
+          <span class="tape"><h2>Le fil du quartier</h2></span>
+          <span class="filet"></span>
+          <a class="lien" href="#">Tout voir</a>
+        </div>
+        <div class="registre">
+          <div class="registre-ligne">
+            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
+            <button class="action geste" type="button">Aider</button>
+          </div>
+        </div>
+      </main>
+      <div class="barre-bas">
+        <div class="pilule">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
+          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
+        </div>
+      </div>
+      <span class="home"></span>
+      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
+    </div>
   </div>
-</section>
-
-<div class="planche planche--zar">
-
-  <!-- ==================================================================
-       1 · NOUVEAU — LE COMMUNIQUÉ
-       ================================================================== -->
-  <figure class="ecran ecran--zar" id="genre-nouveau">
-    <figcaption><span class="n">1</span><h2>Nouveau — le communiqué</h2><span class="route">l'équipe écrit · on lit, on masque</span></figcaption>
-    <div class="verdict"><span class="tient">le communiqué de la charte, presque tel quel</span><span class="tient">le socle du MVP</span><span>ne fait rien faire</span></div>
-    <div class="duo-zar">
-      <div class="col">
-        <p class="etat-lab"><span>L'accueil, au repos</span><span class="px" data-mesure>…</span></p>
-    <div class="phone">
-      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
-      <div class="tb">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <div class="spacer"></div>
-        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
-        <span class="credit-pill">⏰ 8 h 30</span>
-        <span class="avatar avatar--me">OD</span>
-      </div>
-      <main class="feed feed--avec-barre">
-        <div class="bandeau-edition" style="margin-top:14px">
-          <span>Saint Seb’</span>
-          <span><b>13 h partagées cette semaine</b></span>
-        </div>
-        <div class="creneau bascule">
-          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
-          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
-        </div>
-        <div class="c1">
-          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
-        </div>
-        <div class="rt">
-              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
-              <button class="rt-ligne" type="button">
-                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
-                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
-              </button>
-              <button class="rt-ligne" type="button">
-                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
-                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
-              </button>
-            </div>
-        <section class="zar zar--nouveau" aria-label="Le mot de l'association : nouveauté">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l1.8 4.9 4.9 1.8-4.9 1.8L12 16.9l-1.8-4.9-4.9-1.8 4.9-1.8z"/><path d="M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg>Nouveau</span><span class="zar-de">l'équipe Temps pour Temps · 1/2</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>Une photo dans vos messages</h3>
-          <p class="corps">Une haie à tailler, un objet à prêter : montrez-le, c'est plus simple. <a class="lien-filet" href="#">Voir comment</a></p>
-        </section>
-        <div class="rubrique rubrique--affiche">
-          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
-            <button class="action action--fort geste" type="button">S'inscrire</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
-          </div>
-        </div>
-        <div class="rubrique">
-          <span class="tape"><h2>Le fil du quartier</h2></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
-            <button class="action geste" type="button">Aider</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
-          </div>
-        </div>
-      </main>
-      <div class="barre-bas">
-        <div class="pilule">
-          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
-          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
-        </div>
-      </div>
-      <span class="home"></span>
-      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
-    </div>
-      </div>
-      <div class="col">
-        <p class="etat-lab"><span>Masqué — <b>le suivant paraît</b></span></p>
-        <div class="cadre">
+  <div class="col">
+    <p class="etat-lab"><span>Texte court — <b>entier, sans « Voir tout »</b></span><span class="px" data-court>…</span></p>
+    <div class="cadre">
           <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
-          <section class="zar zar--nouveau" aria-label="Le mot de l'association : nouveauté">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l1.8 4.9 4.9 1.8-4.9 1.8L12 16.9l-1.8-4.9-4.9-1.8 4.9-1.8z"/><path d="M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg>Nouveau</span><span class="zar-de">l'équipe Temps pour Temps · 2/2</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>La permanence passe au jeudi</h3>
-          <p class="corps">De 17 h à 19 h, à la Maison des associations : une question, un café. <a class="lien-filet" href="#">L'adresse</a></p>
+          <section class="zar" aria-labelledby="z2">
+          <p class="zar-sur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Le mot de l'équipe</p>
+          <h3 id="z2">Une photo dans vos messages</h3>
+          <p class="zar-texte">Vous pouvez maintenant joindre une photo à vos messages : un objet à prêter, une haie à tailler.</p>
         </section>
           <div class="fantome"><div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div></div>
-        </div>
-        <table class="fiche">
-          <tbody>
-            <tr><th scope="row">Qui l'écrit</th><td>L'équipe, depuis l'admin : un titre, deux lignes, un lien facultatif.</td></tr>
-            <tr><th scope="row">Ce qu'il fait faire</th><td>Rien : il informe. Au plus un lien « Voir comment ».</td></tr>
-            <tr><th scope="row">Durée de vie</th><td>Jusqu'à ce qu'on le masque, ou sa date de fin (3 semaines par défaut).</td></tr>
-            <tr><th scope="row">Ciblage</th><td>Tout le monde. Plus tard : par rôle (délégants, comptes d'animation).</td></tr>
-            <tr><th scope="row">Ce qu'il remplace</th><td>L'ancien « push hebdo des nouveautés » (TPT-899) : l'app et le dispositif.</td></tr>
-            <tr><th scope="row">MVP</th><td><b class="oui">Oui</b> — c'est le socle : les quatre autres en sont des variantes.</td></tr>
-          </tbody>
-        </table>
-      </div>
     </div>
-    <p class="note"><b>La thèse : le communiqué que la charte avait déjà dessiné</b> (<code>.avis</code>, « Communiqué · 1/2 ») devient le cadre commun des cinq genres. Il parle de l'app <b>et</b> du dispositif (permanence, horaires, fermeture d'été) : l'astuce d'usage n'a donc pas de genre à elle. Quand deux messages attendent, « 1/2 » le dit et le second paraît quand le premier est masqué. <b>Ce que ça coûte :</b> c'est le genre le moins relationnel — il informe, il ne relie personne. Seul, il ferait de la Zar un panneau d'affichage.</p>
-  </figure>
-
-  <!-- ==================================================================
-       2 · BIENVENUE — LES NOUVEAUX VOISINS
-       ================================================================== -->
-  <figure class="ecran ecran--zar" id="genre-bienvenue">
-    <figcaption><span class="n">2</span><h2>Bienvenue — les nouveaux voisins</h2><span class="route">calculée chaque lundi · on dit bonjour</span></figcaption>
-    <div class="verdict"><span class="tient">le plus relationnel des cinq</span><span class="tient">zéro rédaction</span><span>demande un geste nouveau</span></div>
-    <div class="duo-zar">
-      <div class="col">
-        <p class="etat-lab"><span>L'accueil, au repos</span><span class="px" data-mesure>…</span></p>
-    <div class="phone">
-      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
-      <div class="tb">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <div class="spacer"></div>
-        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
-        <span class="credit-pill">⏰ 8 h 30</span>
-        <span class="avatar avatar--me">OD</span>
-      </div>
-      <main class="feed feed--avec-barre">
-        <div class="bandeau-edition" style="margin-top:14px">
-          <span>Saint Seb’</span>
-          <span><b>13 h partagées cette semaine</b></span>
-        </div>
-        <div class="creneau bascule">
-          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
-          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
-        </div>
-        <div class="c1">
-          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
-        </div>
-        <div class="rt">
-              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
-              <button class="rt-ligne" type="button">
-                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
-                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub rt-sub--q">En ligne 40 j — <span class="delai">retirée le 15 juin</span></span></span>
-                <span class="action action--fort">Valable ?</span>
-              </button>
-              <button class="rt-ligne" type="button">
-                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
-                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
-              </button>
-            </div>
-        <section class="zar zar--bienvenue" aria-label="Le mot de l'association : nouveaux voisins">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>Bienvenue</span><span class="zar-de">l'équipe Temps pour Temps</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>Trois voisins nous ont rejoints cette semaine</h3>
-          <div class="zar-voisins"><span class="pile"><span class="avatar av-vert">IR</span><span class="avatar av-creme">KB</span><span class="avatar av-bleu">HD</span></span><span class="noms"><b>Inès, Karim et Hugo</b><span>6 voisins leur ont dit bonjour</span></span><button class="action action--fort cible pousse" type="button">Dire bonjour</button></div>
-        </section>
-        <div class="rubrique rubrique--affiche">
-          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
-            <button class="action action--fort geste" type="button">S'inscrire</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
-          </div>
-        </div>
-        <div class="rubrique">
-          <span class="tape"><h2>Le fil du quartier</h2></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
-            <button class="action geste" type="button">Aider</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
-          </div>
-        </div>
-      </main>
-      <div class="barre-bas">
-        <div class="pilule">
-          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
-          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
-        </div>
-      </div>
-      <span class="home"></span>
-      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
-    </div>
-      </div>
-      <div class="col">
-        <p class="etat-lab"><span>Après « Dire bonjour » — <b>le geste se voit</b></span></p>
-        <div class="cadre">
+    <p class="etat-lab"><span>« Voir tout » — <b>la feuille</b></span></p>
+    <div class="cadre cadre--feuille">
           <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
-          <section class="zar zar--bienvenue" aria-label="Le mot de l'association : nouveaux voisins">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>Bienvenue</span><span class="zar-de">l'équipe Temps pour Temps</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>Trois voisins nous ont rejoints cette semaine</h3>
-          <div class="zar-voisins"><span class="pile"><span class="avatar av-vert">IR</span><span class="avatar av-creme">KB</span><span class="avatar av-bleu">HD</span></span><span class="noms"><b>Inès, Karim et Hugo</b><span>Avec vous, 7 voisins leur ont dit bonjour</span></span><span class="etat etat--ok pousse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Envoyé</span></div>
-        </section>
-          <div class="fantome"><div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div></div>
-        </div>
-        <table class="fiche">
-          <tbody>
-            <tr><th scope="row">Qui l'écrit</th><td>Personne : calculée chaque lundi depuis les inscriptions de la semaine (onboarding terminé).</td></tr>
-            <tr><th scope="row">Ce qu'il fait faire</th><td>« Dire bonjour » : un salut en un geste, que chaque nouveau reçoit en notification (« Omar vous souhaite la bienvenue »).</td></tr>
-            <tr><th scope="row">Durée de vie</th><td>7 jours. Absente les semaines sans inscription.</td></tr>
-            <tr><th scope="row">Ciblage</th><td>Par quartier : les nouveaux du mien d'abord.</td></tr>
-            <tr><th scope="row">Ce qu'il demande</th><td>Un type de notification nouveau, et la règle de visibilité des profils déjà en place.</td></tr>
-            <tr><th scope="row">MVP</th><td><b class="non">Non</b> — premier genre <i>calculé</i> : il sort du « bloc de messages éditoriaux » de TPT-899.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p class="note"><b>La thèse : c'est le seul genre qui crée un lien sans que personne ait rien à écrire.</b> Le nouveau membre reçoit, la première semaine, des bonjours de voisins qu'il ne connaît pas — c'est exactement l'accueil qui, d'après le rapport de fin d'expérimentation, faisait tenir les gens. Le compteur (« 6 voisins leur ont dit bonjour ») donne la norme sans la crier. Cet écran montre aussi le jour où « Publications actives » pose une question : la Zar reste à sa place, sous elle. <b>Ce que ça coûte :</b> un geste qui n'existe pas, une notification de plus, et une règle à fixer pour ceux qui ne veulent pas être annoncés.</p>
-  </figure>
-
-  <!-- ==================================================================
-       3 · RÉCIT — ÇA S'EST PASSÉ ICI
-       ================================================================== -->
-  <figure class="ecran ecran--zar" id="genre-recit">
-    <figcaption><span class="n">3</span><h2>Récit — ça s'est passé ici</h2><span class="route">l'équipe écrit, avec l'accord des deux · on raconte le sien</span></figcaption>
-    <div class="verdict"><span class="tient">donne envie de publier</span><span class="tient">aucun geste nouveau</span><span>vit de la plume de l'équipe</span></div>
-    <div class="duo-zar">
-      <div class="col">
-        <p class="etat-lab"><span>L'accueil, au repos</span><span class="px" data-mesure>…</span></p>
-    <div class="phone">
-      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
-      <div class="tb">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <div class="spacer"></div>
-        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
-        <span class="credit-pill">⏰ 8 h 30</span>
-        <span class="avatar avatar--me">OD</span>
-      </div>
-      <main class="feed feed--avec-barre">
-        <div class="bandeau-edition" style="margin-top:14px">
-          <span>Saint Seb’</span>
-          <span><b>13 h partagées cette semaine</b></span>
-        </div>
-        <div class="creneau bascule">
-          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
-          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
-        </div>
-        <div class="c1">
-          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
-        </div>
-        
-        <section class="zar zar--recit" aria-label="Le mot de l'association : récit d'échange">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Récit</span><span class="zar-de">l'équipe Temps pour Temps</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>Un ourlet, puis une promenade</h3>
-          <blockquote class="zar-cit"><p>« Paul m'a appris à reprendre un ourlet. La semaine d'après, c'est moi qui ai promené son chien. »</p><div class="pied"><span class="auteur">Josiane, Douet</span><a class="lien-filet" href="#">Raconter le vôtre</a></div></blockquote>
-        </section>
-        <div class="rubrique rubrique--affiche">
-          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
-            <button class="action action--fort geste" type="button">S'inscrire</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
-          </div>
-        </div>
-        <div class="rubrique">
-          <span class="tape"><h2>Le fil du quartier</h2></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
-            <button class="action geste" type="button">Aider</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
-          </div>
-        </div>
-      </main>
-      <div class="barre-bas">
-        <div class="pilule">
-          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
-          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
-        </div>
-      </div>
-      <span class="home"></span>
-      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
-    </div>
-      </div>
-      <div class="col">
-        <p class="etat-lab"><span>Après « Raconter le vôtre » — <b>la feuille</b></span></p>
-        <div class="cadre cadre--feuille">
-          <div class="fantome" style="padding:12px 18px 2px"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
           <div class="voile">
-            <div class="feuille">
-              <div class="poignee"></div>
-              <div class="tete"><h3>Racontez un échange</h3><button class="x" type="button" aria-label="Fermer">×</button></div>
-              <div class="corps">
-                <p class="aide" style="padding:0 18px 10px">Deux voisins, un service, ce qu'il a changé. L'équipe vous rappelle avant toute parution : rien ne paraît sans l'accord des deux.</p>
-                <div class="form" style="padding-top:0">
-                  <div class="form-groupe"><label for="recit-txt">Votre récit</label><div id="recit-txt" class="saisie saisie--zone">Avec qui, quoi, et ce que ça a changé…</div></div>
+            <div class="feuille feuille--zar" role="dialog" aria-modal="true" aria-labelledby="fz">
+              <div class="zf-bandeau">
+                <div class="poignee"></div>
+                <div class="zf-tete">
+                  <div class="zf-titres"><p class="zar-sur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Le mot de l'équipe</p><h3 id="fz">La permanence passe au jeudi</h3></div>
+                  <button class="zf-x" type="button" aria-label="Fermer"><span>×</span></button>
                 </div>
-                <div class="form-pied"><button class="btn-plein btn-plein--orange" type="button">Envoyer à l'équipe</button></div>
+              </div>
+              <div class="zf-filets" aria-hidden="true"></div>
+              <div class="zf-corps">
+                <p>À partir du 19 juin, la permanence de Temps pour Temps se tient le jeudi de 17 h à 19 h, à la Maison des associations, salle 2. Venez avec vos questions sur l'application, pour une inscription, ou simplement pour un café : on est là pour ça.</p>
+                <p>Le café des voisins du mardi ne change pas. Et si le jeudi ne vous va pas, écrivez-nous depuis la messagerie : on trouvera un autre moment.</p>
+                <div class="df-fiche"><div class="l"><span class="k">Publié</span><span class="v">le 10 juin</span></div><div class="l"><span class="k">Par</span><span class="v"><b>l'équipe Temps pour Temps</b></span></div></div>
               </div>
             </div>
           </div>
         </div>
-        <table class="fiche">
-          <tbody>
-            <tr><th scope="row">Qui l'écrit</th><td>L'équipe, à partir d'un échange réel, avec l'accord écrit des deux voisins.</td></tr>
-            <tr><th scope="row">Ce qu'il fait faire</th><td>« Raconter le vôtre » : une feuille, le texte part en message au compte d'animation (messagerie existante).</td></tr>
-            <tr><th scope="row">Durée de vie</th><td>2 semaines, puis il rejoint les archives des récits (à créer, ou non).</td></tr>
-            <tr><th scope="row">Ciblage</th><td>Tout le monde.</td></tr>
-            <tr><th scope="row">Ce qu'il demande</th><td>Rien au-delà du socle : un communiqué dont le corps est une citation.</td></tr>
-            <tr><th scope="row">MVP</th><td><b class="oui">Oui</b> — éditorial pur, même cadre que « Nouveau ».</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p class="note"><b>La thèse : le meilleur argument pour publier, c'est un voisin qui l'a fait.</b> Le récit montre ce que le composeur juste au-dessus propose — demander, proposer — avec des prénoms et un quartier. Il répond à la peur de mal écrire mieux qu'une invite : voilà le ton, voilà la longueur. Cet écran montre aussi le jour sans publication : « Publications actives » ne se rend pas (0 px) et la Zar remonte sous le composeur. <b>Ce que ça coûte :</b> c'est le seul genre qui ne vit que si l'équipe écrit — un récit par quinzaine, c'est une habitude à prendre, et l'accord des deux voisins à recueillir à chaque fois.</p>
-  </figure>
-
-  <!-- ==================================================================
-       4 · APPEL — LE QUARTIER CHERCHE
-       ================================================================== -->
-  <figure class="ecran ecran--zar" id="genre-appel">
-    <figcaption><span class="n">4</span><h2>Appel — le quartier cherche</h2><span class="route">l'équipe écrit · on s'inscrit en un geste</span></figcaption>
-    <div class="verdict"><span class="tient">un geste, une jauge</span><span>frôle le « coup de main »</span><span>demande une inscription</span></div>
-    <div class="duo-zar">
-      <div class="col">
-        <p class="etat-lab"><span>L'accueil, au repos</span><span class="px" data-mesure>…</span></p>
-    <div class="phone">
-      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
-      <div class="tb">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <div class="spacer"></div>
-        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
-        <span class="credit-pill">⏰ 8 h 30</span>
-        <span class="avatar avatar--me">OD</span>
-      </div>
-      <main class="feed feed--avec-barre">
-        <div class="bandeau-edition" style="margin-top:14px">
-          <span>Saint Seb’</span>
-          <span><b>13 h partagées cette semaine</b></span>
-        </div>
-        <div class="creneau bascule">
-          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
-          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
-        </div>
-        <div class="c1">
-          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
-        </div>
-        <div class="rt">
-              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
-              <button class="rt-ligne" type="button">
-                <span class="tl tl--annonce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2.5"/><path d="M7 10h10M7 14h6"/></svg><span class="mot">Annonce</span></span>
-                <span class="rt-corps"><b>Petit bricolage</b><span class="rt-sub">En ligne · 3 semaines</span></span>
-              </button>
-              <button class="rt-ligne" type="button">
-                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
-                <span class="rt-corps"><b>Qui a une échelle à prêter ?</b><span class="rt-sub">Avant-hier · 1 réponse</span></span>
-              </button>
-            </div>
-        <section class="zar zar--appel" aria-label="Le mot de l'association : appel à volontaires">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Appel</span><span class="zar-de">l'équipe Temps pour Temps</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>On cherche trois voisins pour tenir le stand</h3>
-          <p class="corps">Fête de quartier, samedi 20 juin, de 10 h à 12 h, au Douet.</p>
-          <div class="zar-pied"><span class="zar-jauge" aria-label="1 sur 3"><i class="plein"></i><i></i><i></i><b>1 sur 3</b></span><button class="action action--fort cible pousse" type="button">J'en suis</button></div>
-        </section>
-        <div class="rubrique rubrique--affiche">
-          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
-            <button class="action action--fort geste" type="button">S'inscrire</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
-          </div>
-        </div>
-        <div class="rubrique">
-          <span class="tape"><h2>Le fil du quartier</h2></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
-            <button class="action geste" type="button">Aider</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
-          </div>
-        </div>
-      </main>
-      <div class="barre-bas">
-        <div class="pilule">
-          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
-          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
-        </div>
-      </div>
-      <span class="home"></span>
-      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
-    </div>
-      </div>
-      <div class="col">
-        <p class="etat-lab"><span>Après « J'en suis » — <b>la jauge avance</b></span></p>
-        <div class="cadre">
-          <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
-          <section class="zar zar--appel" aria-label="Le mot de l'association : appel à volontaires">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Appel</span><span class="zar-de">l'équipe Temps pour Temps</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>On cherche trois voisins pour tenir le stand</h3>
-          <p class="corps">C'est noté, Omar. L'équipe vous écrit d'ici jeudi.</p>
-          <div class="zar-pied"><span class="zar-jauge" aria-label="2 sur 3"><i class="plein"></i><i class="plein"></i><i></i><b>2 sur 3</b></span><a class="lien-filet lien-filet--muet pousse" href="#">Me retirer</a></div>
-        </section>
-          <div class="fantome"><div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div></div>
-        </div>
-        <table class="fiche">
-          <tbody>
-            <tr><th scope="row">Qui l'écrit</th><td>L'équipe : un besoin de l'association (stand, distribution, accueil d'une rencontre).</td></tr>
-            <tr><th scope="row">Ce qu'il fait faire</th><td>« J'en suis » : une inscription, la jauge se remplit, l'équipe recontacte.</td></tr>
-            <tr><th scope="row">Durée de vie</th><td>Jusqu'à la date, ou jusqu'à ce que la jauge soit pleine.</td></tr>
-            <tr><th scope="row">Ciblage</th><td>Par quartier, ou par compétence (« vous savez bricoler »).</td></tr>
-            <tr><th scope="row">Ce qu'il demande</th><td>Une inscription et une jauge — c'est presque le « coup de main » (N→1), désactivé en V1.</td></tr>
-            <tr><th scope="row">MVP</th><td><b class="tranche">À trancher</b> — genre éditorial à part, ou futur « coup de main » publié par le compte d'animation ?</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p class="note"><b>La thèse : l'association a des besoins, et les dire est déjà de l'animation.</b> Un appel transforme le lecteur en participant en un seul geste, et la jauge montre qu'il ne sera pas seul. La pastille « J'en suis » reste une pastille : l'accueil ne gagne pas de deuxième bouton plein. <b>Ce que ça coûte :</b> c'est le genre qui chevauche le plus l'existant. Une inscription avec jauge, c'est le « coup de main » que le menu Proposer désactive en V1 ; et un appel daté ressemble à une entrée d'« À l'affiche ». Si le coup de main revient, l'appel devrait en être un, publié par le compte d'animation — pas un deuxième mécanisme.</p>
-  </figure>
-
-  <!-- ==================================================================
-       5 · VOTRE AVIS — LA QUESTION AU QUARTIER
-       ================================================================== -->
-  <figure class="ecran ecran--zar" id="genre-avis">
-    <figcaption><span class="n">5</span><h2>Votre avis — la question au quartier</h2><span class="route">l'équipe pose la question · on répond sans écrire</span></figcaption>
-    <div class="verdict"><span class="tient">on répond en un tap</span><span class="tient">le résultat se voit tout de suite</span><span>le plus haut des cinq</span></div>
-    <div class="duo-zar">
-      <div class="col">
-        <p class="etat-lab"><span>L'accueil, au repos</span><span class="px" data-mesure>…</span></p>
-    <div class="phone">
-      <div class="status"><span>9:41</span><span class="ico"><svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5" width="3" height="7" rx=".6"/><rect x="10" y="2" width="3" height="10" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x=".5" y=".5" width="22" height="11" rx="3"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor" stroke="none"/><path d="M24 4v4" stroke-width="1.5"/></svg></span></div>
-      <div class="tb">
-        <img class="logo" src="../../assets/logo/logo-tpt-transparent.png" alt="TempsPourTemps">
-        <div class="spacer"></div>
-        <button class="ibtn" aria-label="Rechercher"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
-        <span class="credit-pill">⏰ 8 h 30</span>
-        <span class="avatar avatar--me">OD</span>
-      </div>
-      <main class="feed feed--avec-barre">
-        <div class="bandeau-edition" style="margin-top:14px">
-          <span>Saint Seb’</span>
-          <span><b>13 h partagées cette semaine</b></span>
-        </div>
-        <div class="creneau bascule">
-          <p class="salut"><span class="prenom">Bonjour Omar !</span></p>
-          <p class="question">Qu'avez-vous à demander, ou à proposer ?</p>
-        </div>
-        <div class="c1">
-          <div class="tete"><svg class="plume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="inv">« Quelqu'un pour garder mon chat ? » · « Je sais coudre » · « Un café samedi ? »</span></div>
-        </div>
-        <div class="rt">
-              <p class="lab-section">Publications actives<a class="lien-filet lien-filet--muet" href="#">Tout voir</a></p>
-              <button class="rt-ligne" type="button">
-                <span class="tl tl--fil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><span class="mot">Fil</span></span>
-                <span class="rt-corps"><b>Je donne des tomates</b><span class="rt-sub">Confirmé lundi</span></span>
-              </button>
-            </div>
-        <section class="zar zar--avis" aria-label="Le mot de l'association : question au quartier">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-9"/></svg>Votre avis</span><span class="zar-de">l'équipe Temps pour Temps</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>Le café des voisins : quel créneau vous va ?</h3>
-          <div class="zar-choix" role="radiogroup" aria-label="Créneau du café des voisins"><button type="button" role="radio" aria-checked="false">Mardi soir</button><button type="button" role="radio" aria-checked="false">Samedi matin</button><button type="button" role="radio" aria-checked="false">Les deux</button></div><p class="zar-meta zar-meta--bas">27 réponses · jusqu'au 15 juin</p>
-        </section>
-        <div class="rubrique rubrique--affiche">
-          <span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Réparation de vélo</b><p class="d">Samedi 14 juin, 10 h — 2 places restantes.</p></div>
-            <button class="action action--fort geste" type="button">S'inscrire</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Café des voisins</b><p class="d">Mardi 17 juin, 18 h 30, sans inscription.</p></div>
-          </div>
-        </div>
-        <div class="rubrique">
-          <span class="tape"><h2>Le fil du quartier</h2></span>
-          <span class="filet"></span>
-          <a class="lien" href="#">Tout voir</a>
-        </div>
-        <div class="registre">
-          <div class="registre-ligne">
-            <div class="c"><b>Qui a une échelle à prêter ?</b><p class="d">Claire M. — il y a 2 h, 1 réponse.</p></div>
-            <button class="action geste" type="button">Aider</button>
-          </div>
-          <div class="registre-ligne">
-            <div class="c"><b>Je donne des tomates</b><p class="d">Bernard T. — ce matin.</p></div>
-          </div>
-        </div>
-      </main>
-      <div class="barre-bas">
-        <div class="pilule">
-          <a class="tab on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Accueil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Le fil</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Proposer</a>
-          <a class="tab" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>Rechercher</a>
-          <a class="tab" href="#"><span class="badge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12Z"/></svg>Messages</a>
-        </div>
-      </div>
-      <span class="home"></span>
-      <div class="pli" aria-hidden="true"><span>pli d'un écran de 667 px</span></div>
-    </div>
-      </div>
-      <div class="col">
-        <p class="etat-lab"><span>Après le vote — <b>le résultat, aussitôt</b></span></p>
-        <div class="cadre">
-          <div class="fantome" style="padding:12px 18px 0"><div class="champ-compo">« Quelqu'un pour garder mon chat ? » · « Je sais coudre »…</div></div>
-          <section class="zar zar--avis" aria-label="Le mot de l'association : question au quartier">
-          <div class="zar-tete"><span class="zar-genre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-9"/></svg>Votre avis</span><span class="zar-de">l'équipe Temps pour Temps</span></div>
-          <button class="zar-x" type="button" aria-label="Masquer ce message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-          <h3>Le café des voisins : quel créneau vous va ?</h3>
-          <div class="zar-res"><div class="r moi"><span class="l">Samedi matin<em>votre choix</em></span><span class="b"><i style="width:52%"></i></span><span class="p">52 %</span></div><div class="r"><span class="l">Mardi soir</span><span class="b"><i style="width:33%"></i></span><span class="p">33 %</span></div><div class="r"><span class="l">Les deux</span><span class="b"><i style="width:15%"></i></span><span class="p">15 %</span></div></div><p class="zar-meta zar-meta--bas">28 réponses · résultat arrêté le 15 juin</p>
-        </section>
-          <div class="fantome"><div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Tout voir</a></div></div>
-        </div>
-        <table class="fiche">
-          <tbody>
-            <tr><th scope="row">Qui l'écrit</th><td>L'équipe : une question fermée, 2 à 4 réponses.</td></tr>
-            <tr><th scope="row">Ce qu'il fait faire</th><td>Un tap sur une réponse. Le résultat paraît aussitôt, on peut changer d'avis jusqu'à la clôture.</td></tr>
-            <tr><th scope="row">Durée de vie</th><td>Jusqu'à la date de clôture, puis le résultat reste 3 jours.</td></tr>
-            <tr><th scope="row">Ciblage</th><td>Tout le monde, ou les participants d'un moment (« vous étiez au café »).</td></tr>
-            <tr><th scope="row">Ce qu'il demande</th><td>Stocker un vote par membre et par question.</td></tr>
-            <tr><th scope="row">MVP</th><td><b class="non">Non</b> — v2, une fois le socle en place.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p class="note"><b>La thèse : on anime aussi en demandant l'avis.</b> Le sondage est la forme la plus basse de la participation — un tap, sans écrire — et donc la plus large : il touche ceux que le composeur n'atteindra jamais. Les trois réponses sont des choix, pas des actions : elles empruntent le dessin de la bascule de la charte, pas celui d'un bouton. <b>Ce que ça coûte :</b> c'est le plus haut des cinq (trois cibles de 44 px côte à côte), et une question posée appelle une réponse de l'équipe : un sondage dont on ne voit jamais la suite décourage le suivant.</p>
-  </figure>
+  </div>
 </div>
 
-<footer class="doc-head" style="margin:56px auto 0;max-width:780px">
-  <p class="kicker">Ce qui se joue</p>
-  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 10px">Les mesures, ce qui est écarté, ce qui reste à trancher</h2>
-  <table class="tableau-mesures" id="mesures">
-    <thead><tr><th>Genre</th><th class="num">Zar</th><th class="num">« Publications actives »</th><th class="num">« À l'affiche » à</th><th class="num">Ruban caché ?</th></tr></thead>
-    <tbody></tbody>
+<section class="doc-head" style="margin-top:46px">
+  <p class="kicker">Le contrat</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 4px">Ce que l'équipe saisit, ce que le membre voit</h2>
+  <ul class="regles">
+    <li><b>La saisie</b> : un titre (80 caractères au plus, deux lignes à l'écran) et un texte (retours à la ligne gardés). Ni lien, ni image, ni bouton.</li>
+    <li><b>Le surtitre « Le mot de l'équipe »</b> et son mégaphone sont fixes : ils disent qui parle, ils ne se saisissent pas.</li>
+    <li><b>Au-delà de trois lignes</b>, le texte est coupé et « Voir tout » paraît. La coupe se mesure à l'écran (le texte déborde-t-il ?), pas en caractères. Coupée, <b>toute la zone</b> ouvre la feuille.</li>
+    <li><b>« Voir tout »</b> ouvre <code>AppModal size="xl"</code> : feuille qui monte du bas sur téléphone, dialogue centré dès 768 px — la pose des fiches annonce, publication et rendez-vous. Bandeau marine en tête, filet double dessous, date et auteur dans un encadré à double filet.</li>
+    <li><b>Un message à la fois</b>, le dernier publié. <b>Pas de croix</b> : il vit tant qu'il est publié.</li>
+    <li><b>Rendu côté client</b>, comme tout le contenu personnalisé de <code>/</code> (seule route en ISR).</li>
+  </ul>
+</section>
+
+<section class="doc-head" style="margin-top:34px">
+  <p class="kicker">Pour qui code</p>
+  <h2 style="font-family:var(--titres);font-weight:800;font-size:1.35rem;color:var(--marine);margin:6px 0 4px">Le dessin, en jetons</h2>
+  <table class="spec">
+    <tr><th>Fond</th><td><code>bg-primary</code> (marine), coins de 10 px</td></tr>
+    <tr><th>Double filet</th><td>le bord du bloc + <code>outline: 1px solid</code> marine, <code>outline-offset: 3px</code> — la technique de l'encadré de <code>AnnouncementDetailsModal.vue</code></td></tr>
+    <tr><th>Surtitre</th><td>Nunito 800, 9 px, capitales, interlettrage 0,16 em, <code>text-accent</code> (sable) ; icône Lucide <code>megaphone</code> 12 px</td></tr>
+    <tr><th>Titre</th><td>Nunito 800, 15 px, interligne 1,28, papier</td></tr>
+    <tr><th>Texte</th><td>Inter 12 px, interligne 1,5, papier à 85 % ; coupé à 3 lignes (<code>line-clamp-3</code>). <code>paper</code> est déclaré hors <code>@theme</code> : il n'accepte pas <code>/85</code> — soit papier plein, soit déplacer <code>paper</code> dans <code>@theme</code></td></tr>
+    <tr><th>« Voir tout »</th><td>lien à filet pointillé, Inter 700, 11,5 px, <code>text-accent</code>, aligné à droite ; zone sensible étendue à 44 px</td></tr>
+    <tr><th>Focus</th><td>sur aplat marine, le halo sable devient l'anneau (règle de la charte)</td></tr>
+    <tr><th>Place</th><td>marge 20 px au-dessus, 18 px de gouttière ; 157 px coupée, 118 px texte court (marges comprises)</td></tr>
   </table>
-  <p style="text-align:left;margin-top:10px;font-size:.8rem;color:var(--text-tertiary)">Hauteurs mesurées dans le navigateur à l'ouverture de la page, marges comprises, depuis le haut du téléphone. Le pli est celui d'un écran de 667 px ; la barre du bas flottante en masque encore ~80 px : « caché » veut dire que le ruban de « À l'affiche » passe sous 587 px.</p>
-  <p style="text-align:left;margin-top:16px"><b>Le constat.</b> Les cinq tiennent la règle du cadrage v3 — tout ce qui précède « À l'affiche » reste au-dessus du pli : la Zar coûte <b>de 122 à 157 px</b>, et le ruban de « À l'affiche » reste visible sur les cinq écrans. <b>Mais la marge est mince</b> : ces accueils n'ont qu'une ou deux publications actives (79 à 128 px). Le jour de l'épreuve de la troisième passe — trois questions, 217 px — « À l'affiche » descend d'environ 90 px et passe sous la barre du bas. Il faut donc une règle pour ce jour-là.</p>
-  <p style="text-align:left;margin-top:10px"><b>Proposition : la Zar cède.</b> Quand « Publications actives » pose plus d'une question, la Zar ne s'affiche pas ce jour-là : elle attend, sans rien perdre — ce qu'on attend <i>de vous</i> passe avant ce que l'association a à dire <i>à tous</i>. L'alternative, la descendre sous « À l'affiche », la rendrait invisible tous les jours.</p>
-
-  <p class="kicker" style="margin-top:30px">Écartés, et pourquoi</p>
-  <ul class="liste-doc">
-    <li><b>Le chiffre de la semaine</b> — il est déjà dans le bandeau d'édition (« 13 h partagées cette semaine », cadrage v4).</li>
-    <li><b>L'agenda de l'association</b> — c'est « À l'affiche », juste en dessous.</li>
-    <li><b>Ce qu'on attend de vous</b> (valider, répondre, renouveler) — c'est « Publications actives », « Actions à faire » et les notifications. <b>La Zar ne parle jamais de vous seul</b> : elle parle au quartier.</li>
-    <li><b>L'astuce d'usage</b> — un communiqué « Nouveau » comme un autre.</li>
-  </ul>
-
-  <p class="kicker" style="margin-top:30px">À trancher</p>
-  <ul class="liste-doc">
-    <li><b>Le MVP</b> : proposition — <b>« Nouveau » et « Récit »</b>, les deux genres purement éditoriaux, sans geste nouveau ni donnée nouvelle. C'est le « bloc de messages éditoriaux » de TPT-899.</li>
-    <li><b>« Bienvenue »</b> : calculée et publiée seule, ou validée par l'équipe avant parution ? Et que fait-on de ceux qui ne veulent pas être annoncés ?</li>
-    <li><b>« Appel »</b> : genre à part, ou futur « coup de main » (désactivé en V1) publié par le compte d'animation ?</li>
-    <li><b>Les relais</b> : un communiqué part-il aussi en push ou en e-mail, ou reste-t-il sur l'accueil ?</li>
-    <li><b>La place</b> : la Zar cède-t-elle les jours où « Publications actives » pose plus d'une question (proposition ci-dessus) ?</li>
-  </ul>
-  <a class="retour" href="../../index.html">← Retour à la galerie</a>
-</footer>
+</section>
 
 <script>
-  /* Mesure, à l'ouverture, de ce que chaque Zar coûte à l'accueil. */
   addEventListener('load', () => {
-    const PLI = 667
-    const corps = document.querySelector('#mesures tbody')
-    const lignes = []
-    document.querySelectorAll('.ecran--zar').forEach((fig) => {
-      const ph = fig.querySelector('.phone')
-      const top = ph.getBoundingClientRect().top
-      const z = ph.querySelector('.zar').getBoundingClientRect()
-      const zar = Math.round(z.height + 16)
-      const rt = ph.querySelector('.rt')
-      const pubs = rt ? Math.round(rt.getBoundingClientRect().height + 4) : 0
-      const aff = Math.round(ph.querySelector('.rubrique--affiche').getBoundingClientRect().top - top)
-      const sous = aff + 30 > PLI - 80
-      const chip = fig.querySelector('[data-mesure]')
-      chip.textContent = 'Zar ' + zar + ' px · « À l’affiche » à ' + aff + ' px'
-      chip.classList.toggle('ko', sous)
-      const nom = fig.querySelector('figcaption h2').textContent.split(' — ')[0]
-      lignes.push({ nom, zar, pubs, aff, sous })
-      corps.insertAdjacentHTML('beforeend', '<tr><td><b>' + nom + '</b></td><td class="num">' + zar + '</td><td class="num">' + pubs + '</td><td class="num">' + aff + '</td><td class="num ' + (sous ? 'ko">oui' : 'ok">non') + '</td></tr>')
-    })
-    window.__mesures = lignes
+    const h = (el) => { const r = el.getBoundingClientRect(); return Math.round(r.height + parseFloat(getComputedStyle(el).marginTop)) }
+    const ph = document.querySelector('.phone')
+    const aff = Math.round(ph.querySelector('.rubrique--affiche').getBoundingClientRect().top - ph.getBoundingClientRect().top)
+    const long = h(ph.querySelector('.zar')), court = h(document.querySelector('.cadre .zar'))
+    document.querySelector('[data-mesure]').textContent = 'zone ' + long + ' px · « À l’affiche » à ' + aff + ' px'
+    document.querySelector('[data-court]').textContent = 'zone ' + court + ' px'
+    window.__mesures = { long, court, aff }
   })
 </script>
 
