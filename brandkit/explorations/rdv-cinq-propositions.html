@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempsPourTemps — Le rendez-vous, cinq façons</title>
+<link rel="icon" href="../../assets/logo/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../gazette.css">
+<style>
+/* ============================================================
+   LE RENDEZ-VOUS, CINQ FAÇONS (TPT-945)
+   Cinq refontes légères du billet de rendez-vous, « calendrier /
+   gazette un peu à l'ancienne », qui doivent rester distinctes
+   d'une ligne d'agenda (« À l'affiche »).
+   Structure reprise d'affiche-deux-facons.html : en-tête .q,
+   cadre .tel, blocs .pc, conclusion .verdict.
+   ============================================================ */
+
+/* ---------- le document ---------- */
+.q{max-width:900px;margin:0 auto 30px;text-align:center;}
+.q .kicker{font-family:var(--titres);font-weight:800;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.q h1{font-family:var(--titres);font-weight:800;font-size:clamp(1.5rem,4vw,2.05rem);margin-top:7px;letter-spacing:-.4px;}
+.q p{color:var(--text-secondary);font-size:.92rem;line-height:1.65;margin-top:13px;}
+.q p b{color:var(--marine);}
+.q blockquote{max-width:680px;margin:16px auto 0;font-size:.95rem;line-height:1.6;font-style:italic;color:var(--marine);border-top:1px solid var(--marine);border-bottom:3px double var(--marine);padding:11px 6px;}
+.q blockquote cite{display:block;margin-top:5px;font-style:normal;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);}
+.q .retour{display:inline-block;margin-top:16px;color:var(--marine);font-weight:600;font-size:.85rem;text-decoration:none;}
+
+.leve{max-width:1000px;margin:0 auto 48px;background:var(--paper);border:1px solid var(--marine);border-radius:15px;padding:18px 22px 20px;}
+.leve .t{font-family:var(--titres);font-weight:800;font-size:1.02rem;margin-bottom:9px;}
+.leve p{font-size:.87rem;line-height:1.62;color:var(--text-secondary);}
+.leve p + p{margin-top:9px;}
+.leve b{color:var(--marine);}
+.leve .deux{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:14px 0;border:1px solid var(--border);border-radius:11px;overflow:hidden;}
+.leve .deux > div{padding:13px 16px 15px;font-size:.8rem;line-height:1.55;color:var(--text-secondary);background:var(--bg-main);}
+.leve .deux > div:first-child{border-right:1px solid var(--border);}
+.leve .deux .k{display:block;font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:9px;}
+.leve .deux .exemple{max-width:343px;margin:0 0 10px;}
+.leve .deux .agenda{margin:0;max-width:343px;}
+.leve .deux .exemple,.leve .deux .agenda{color:var(--marine);}
+@media (max-width:760px){ .leve .deux{grid-template-columns:1fr;} .leve .deux > div:first-child{border-right:0;border-bottom:1px solid var(--border);} }
+.leve ul.conventions{list-style:none;margin-top:10px;display:grid;gap:6px;}
+.leve ul.conventions li{font-size:.82rem;line-height:1.5;color:var(--text-secondary);padding-left:14px;position:relative;}
+.leve ul.conventions li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--orange-vif);}
+
+/* ---------- une proposition ---------- */
+.prop{max-width:1000px;margin:0 auto 64px;}
+.prop-tete{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-top:2px solid var(--marine);border-bottom:1px solid var(--marine);padding:9px 2px 8px;margin-bottom:8px;}
+.prop-tete .n{font-family:var(--titres);font-weight:800;font-size:.8rem;background:var(--sable);color:var(--marine);border-radius:7px;padding:2px 9px;flex:none;}
+.prop-tete h2{font-family:var(--titres);font-weight:800;font-size:1.25rem;line-height:1.25;}
+.prop-tete .tag{font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-radius:5px;padding:3px 8px;background:rgba(47,122,68,.14);color:var(--success);}
+.prop-tete .signal{margin-left:auto;font-size:.72rem;font-style:italic;color:var(--text-tertiary);}
+.prop-chapo{font-size:.88rem;line-height:1.6;color:var(--text-secondary);margin:0 2px 20px;max-width:760px;}
+.prop-chapo b{color:var(--marine);}
+.prop-corps{display:grid;grid-template-columns:393px minmax(0,1fr);gap:26px 36px;align-items:start;}
+.prop-gauche{display:flex;flex-direction:column;gap:18px;min-width:0;}
+.prop-droite{display:flex;flex-direction:column;gap:14px;min-width:0;}
+@media (max-width:900px){
+  .prop-corps{grid-template-columns:minmax(0,1fr);justify-items:center;}
+  .prop-gauche,.prop-droite{width:100%;max-width:560px;align-items:center;}
+}
+
+.distingue{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--orange-vif);border-radius:0 10px 10px 0;padding:10px 13px;font-size:.8rem;line-height:1.55;color:var(--text-secondary);}
+.distingue .k{display:block;font-family:var(--titres);font-weight:800;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:var(--orange-hover);margin-bottom:3px;}
+.distingue b{color:var(--marine);}
+
+/* les deux blocs, empilés dans la colonne de droite */
+.pc{display:grid;grid-template-columns:1fr;border:1px solid var(--border);border-radius:11px;overflow:hidden;}
+.pc > div{padding:11px 14px 12px;font-size:.8rem;line-height:1.56;color:var(--text-secondary);}
+.pc > div:first-child{background:rgba(47,122,68,.06);border-bottom:1px solid var(--border);}
+.pc > div:last-child{background:rgba(196,69,54,.05);}
+.pc .k{display:block;font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:5px;}
+.pc > div:first-child .k{color:var(--success);}
+.pc > div:last-child .k{color:var(--danger);}
+.pc b{color:var(--marine);}
+.pc code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.74rem;background:rgba(24,62,87,.07);border-radius:4px;padding:0 4px;color:var(--marine);}
+.pc ul{list-style:none;display:grid;gap:6px;}
+.pc li{padding-left:13px;position:relative;}
+.pc li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:1px;background:currentColor;opacity:.45;}
+.pc li .lab{font-family:var(--titres);font-weight:800;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--marine);margin-right:4px;}
+
+/* ---------- le téléphone (repris d'affiche-deux-facons.html) ----------
+   Seule retouche : 393 px au lieu de 390, pour que l'écran, bordure de
+   9 px déduite, fasse exactement les 375 px du mobile de référence. */
+.tel{width:393px;max-width:100%;background:var(--bg-main);border:9px solid #14222c;border-radius:34px;overflow:hidden;box-shadow:0 20px 48px -24px rgba(15,47,68,.6);}
+.tel-tb{height:30px;background:var(--marine);display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:var(--sable);font-size:10.5px;font-weight:700;}
+.tel-nav{display:flex;align-items:center;gap:11px;padding:8px 14px;background:var(--marine);color:var(--sable);}
+.tel-nav .lg{font-family:var(--titres);font-weight:800;font-size:13px;}
+.tel-nav .pill{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:var(--sable);color:var(--marine);border-radius:999px;padding:3px 9px;font-family:var(--titres);font-weight:800;font-size:11px;}
+.tel-corps{padding:2px 0 18px;}
+/* la gouttière de l'app est de 16 px (px-4), pas les 18 de la charte papier */
+.tel .rubrique,.rares .rubrique{margin:16px 16px 10px;}
+.tel .agenda{margin:0 16px;}
+.entre{margin:16px 16px 0;padding:7px 0;border-top:1px dashed var(--border);border-bottom:1px dashed var(--border);text-align:center;font-size:9.5px;font-style:italic;color:var(--text-tertiary);}
+
+/* la bande des états rares, sous le téléphone, à la même échelle */
+.rares{width:393px;max-width:100%;background:var(--bg-main);border:1px dashed rgba(24,62,87,.3);border-radius:16px;padding:12px 9px 16px;}
+.rares-t{margin:0 16px 2px;display:flex;align-items:baseline;gap:8px;}
+.rares-t b{font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--marine);}
+.rares-t span{font-size:10.5px;color:var(--text-tertiary);font-style:italic;}
+.rares-l{margin:4px 16px 10px;font-size:10px;line-height:1.45;color:var(--text-tertiary);}
+
+/* ============================================================
+   LE CONTENU COMMUN D'UN RENDEZ-VOUS
+   Les mêmes informations qu'aujourd'hui (ExchangeItemCompact),
+   dans les cinq dessins. Le titre est un lien ÉTIRÉ sur toute la
+   ligne (::after) : la cible tactile est l'entrée entière, et
+   « Ajouter au calendrier » passe au-dessus (z-index 1) sans
+   imbriquer un bouton dans un bouton.
+   ============================================================ */
+.rdvs{margin:0 16px;display:flex;flex-direction:column;gap:12px;}
+.rdv{position:relative;}
+.r-titre{font-family:var(--titres);font-weight:800;font-size:13.5px;line-height:1.25;color:var(--marine);display:flex;align-items:center;gap:6px;min-width:0;}
+.r-titre a{color:inherit;text-decoration:none;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.r-titre a::after{content:"";position:absolute;inset:0;border-radius:inherit;}
+.r-titre a:focus-visible{outline:none;box-shadow:none;}
+.rdv:has(.r-titre a:focus-visible){outline:2px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 5px var(--focus-halo);}
+.r-groupe{flex:none;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:5px;background:rgba(24,62,87,.08);color:var(--marine);}
+.r-groupe svg{width:11px;height:11px;}
+.r-l{font-size:11px;line-height:1.35;color:var(--text-secondary);display:flex;align-items:center;flex-wrap:wrap;column-gap:5px;row-gap:2px;min-width:0;}
+.r-l em{font-style:italic;}
+.r-l b{font-weight:600;color:var(--marine);}
+.r-l .h{font-weight:700;color:var(--marine);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.r-l .sep{color:var(--text-tertiary);}
+.r-l .att{font-style:italic;color:var(--text-tertiary);}
+.rdv .statut{margin:0;font-size:9.5px;letter-spacing:.08em;gap:5px;white-space:nowrap;}
+.rdv .statut::before{width:6px;height:6px;}
+.r-cal{position:relative;z-index:1;align-self:flex-start;font-size:11px;}
+.r-decompte{font-size:11px;line-height:1.35;font-weight:600;color:var(--received);}
+.r-diff{font-size:11px;line-height:1.35;display:flex;align-items:center;gap:5px;color:var(--text-tertiary);}
+.r-diff s{text-decoration-thickness:1px;}
+.r-diff b{font-weight:600;color:var(--marine);}
+.r-complet{flex:none;font-family:var(--corps);font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 7px;background:rgba(196,69,54,.10);color:var(--danger);}
+.r-redef{font-weight:600;color:var(--orange-hover);white-space:nowrap;}
+/* une liste « a · b · c » : le séparateur de tête de chaque ligne tombe dans une marge
+   négative et se fait couper — jamais de « · » pendant en bout de ligne */
+.r-liste{display:block;overflow:hidden;}
+.r-liste .r-in{display:flex;flex-wrap:wrap;margin-left:-14px;}
+.r-liste .r-in > span{white-space:nowrap;}
+.r-liste .r-in > span::before{content:"·";display:inline-block;width:14px;text-align:center;color:var(--text-tertiary);font-weight:400;}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+
+/* ============================================================
+   1 · L'ÉPHÉMÉRIDE
+   Le talon devient une feuille de calendrier à effeuiller :
+   coiffe du mois, perforation, gros chiffre, jour en lettres,
+   et le feuillet suivant qui dépasse dessous.
+   ============================================================ */
+.eph{display:flex;align-items:flex-start;background:var(--paper);border:1px solid var(--border);border-radius:11px;padding:9px 12px 10px 9px;}
+.eph .eph-f{flex:none;width:56px;margin-right:12px;position:relative;background:var(--paper);border:1px solid rgba(24,62,87,.34);border-radius:3px;text-align:center;}
+/* le feuillet du dessous : un filet, pas une ombre */
+.eph .eph-f::after{content:"";position:absolute;left:3px;right:3px;bottom:-5px;height:4px;background:var(--paper);border:1px solid rgba(24,62,87,.24);border-top:0;border-radius:0 0 2px 2px;}
+.eph .mois{display:block;background:var(--marine);color:var(--sable);font-family:var(--titres);font-weight:800;font-size:9px;line-height:1;letter-spacing:.16em;text-transform:uppercase;padding:4px 0 3px .16em;border-radius:2px 2px 0 0;}
+.eph .perfo{display:block;height:5px;background:radial-gradient(circle, rgba(24,62,87,.4) 0 .9px, transparent 1.3px) center / 5px 5px repeat-x;}
+.eph .j{display:block;font-family:var(--titres);font-weight:800;font-size:27px;line-height:1;color:var(--marine);margin-top:1px;font-variant-numeric:tabular-nums;}
+.eph .js{display:block;font-size:8px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-tertiary);margin:3px 0 6px;}
+/* une proposition : la coiffe est creuse — la date n'est pas encore arrêtée */
+.eph--a-confirmer .mois{background:transparent;color:var(--marine);border-bottom:1px dashed rgba(24,62,87,.55);padding-bottom:3px;}
+.eph--a-confirmer .eph-f{border-style:dashed;}
+.eph--a-confirmer .eph-f::after{border-style:dashed;}
+.eph .c{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;padding-top:1px;}
+/* — la version grand écran : le corps se range en deux colonnes — */
+.eph--large{padding:11px 16px 12px 11px;}
+.eph--large .eph-f{width:60px;margin-right:16px;}
+.eph--large .j{font-size:29px;}
+.eph--large .c{flex-direction:row;align-items:center;gap:24px;align-self:center;}
+.eph--large .g{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;}
+.eph--large .d{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right;}
+.eph--large .r-titre{font-size:15px;}
+.eph--large .r-l{font-size:12px;}
+.eph--large .d .r-cal{align-self:flex-end;}
+
+/* ============================================================
+   2 · L'AGENDA DE PAPIER
+   Une seule feuille réglée ; les jours en tête de groupe, l'heure
+   dans une marge à double filet orange, comme un carnet de
+   rendez-vous. TOUT le texte tient sur une trame de 20 px.
+   ============================================================ */
+.cahier{position:relative;margin:0 16px;background-color:var(--paper);
+  background-image:repeating-linear-gradient(to bottom, transparent 0 19px, rgba(24,62,87,.09) 19px 20px);
+  background-position:0 10px;border:1px solid var(--border);border-radius:11px;padding:10px 12px 10px 0;overflow:hidden;}
+.cahier::before{content:"";position:absolute;top:0;bottom:0;left:60px;width:4px;border-left:1px solid var(--orange-vif);border-right:1px solid var(--orange-vif);opacity:.85;}
+.cahier .jour-c{display:flex;align-items:baseline;gap:8px;padding-left:76px;height:20px;line-height:20px;font-family:var(--titres);font-weight:800;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--marine);}
+.cahier .jour-c i{margin-left:auto;font-family:var(--corps);font-weight:500;font-style:italic;letter-spacing:0;text-transform:none;font-size:10.5px;color:var(--text-tertiary);}
+.cahier .rdv + .jour-c{margin-top:20px;}
+.cahier .rdv{display:flex;}
+.cahier .marge{flex:none;width:60px;padding-right:9px;text-align:right;}
+.cahier .marge b{display:block;height:20px;line-height:20px;font-family:var(--titres);font-weight:800;font-size:15px;color:var(--marine);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.cahier .marge span{display:block;height:20px;line-height:20px;font-size:10px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.cahier .rdv .c{flex:1;min-width:0;padding-left:16px;display:flex;flex-direction:column;}
+.cahier .rdv .c > *{min-height:20px;line-height:20px;}
+.cahier .r-l{line-height:20px;row-gap:0;}
+.cahier .r-cal{align-self:flex-start;line-height:16px;margin-top:1px;height:19px;}
+
+/* ============================================================
+   3 · LE CARNET DU JOUR (GAZETTE)
+   La rubrique d'un journal ancien : date et heure en capitales
+   reliées par des points de conduite, entre deux filets doubles.
+   ============================================================ */
+.carnet-j{margin:0 16px;background:var(--paper);border-top:1px solid var(--marine);border-bottom:3px double var(--marine);padding:0 12px;}
+.carnet-j .rdv{padding:11px 0 11px;border-top:1px solid rgba(24,62,87,.2);display:flex;flex-direction:column;gap:4px;}
+.carnet-j .rdv:first-child{border-top:0;}
+.cj-quand{display:flex;align-items:baseline;gap:6px;font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--marine);line-height:1.2;}
+.cj-quand .pts{flex:1;min-width:14px;border-bottom:1.5px dotted rgba(24,62,87,.45);position:relative;top:-3px;}
+.cj-quand .h{color:var(--orange-hover);white-space:nowrap;font-variant-numeric:tabular-nums;}
+.carnet-j .r-titre{font-size:15px;margin-top:1px;}
+.carnet-j .r-titre .statut{margin-left:auto;}
+.carnet-j .r-l em{color:var(--text-secondary);}
+
+/* ============================================================
+   4 · LE TAMPON DATEUR
+   La date est imprimée d'un coup de tampon : double cadre, encre
+   orange, légère inclinaison. Tant que c'est une proposition, le
+   tampon n'est pas apposé : un cadre en pointillé, gris, droit.
+   Le double filet intérieur est celui du .sceau de la charte.
+   ============================================================ */
+.tp{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--border);border-radius:11px;padding:10px 12px 10px 13px;min-height:86px;}
+.tp .c{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+.tampon{flex:none;width:84px;text-align:center;color:var(--orange);border:2px solid currentColor;border-radius:5px;
+  box-shadow:inset 0 0 0 2px var(--paper), inset 0 0 0 3px currentColor;padding:7px 2px 6px;transform:rotate(-4deg);
+  /* l'encre qui n'a pas pris partout : un dégradé de masque, aucune image */
+  -webkit-mask-image:linear-gradient(112deg,#000 0 48%,rgba(0,0,0,.74) 64%,#000 82%);mask-image:linear-gradient(112deg,#000 0 48%,rgba(0,0,0,.74) 64%,#000 82%);}
+.tampon b{display:block;font-family:var(--titres);font-weight:800;font-size:18px;line-height:1.05;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;}
+.tampon span{display:block;font-family:var(--titres);font-weight:800;font-size:9.5px;line-height:1.1;letter-spacing:.1em;text-transform:uppercase;margin-top:3px;white-space:nowrap;}
+.tampon--attente{color:var(--text-tertiary);border-style:dashed;box-shadow:none;transform:none;-webkit-mask-image:none;mask-image:none;}
+.tampon--attente span{letter-spacing:.06em;}
+
+/* ============================================================
+   5 · L'INDICATEUR HORAIRE (LA FRISE)
+   Un rail continu, un arrêt par rendez-vous ; l'écart entre deux
+   arrêts dit le temps qui les sépare (8 px par jour, plafonné).
+   Le rail est peint par chaque rangée (fond à 2 px), pour qu'il
+   commence et finisse exactement sur une puce.
+   ============================================================ */
+.frise-rdv{margin:0 16px;list-style:none;background:var(--paper);border:1px solid var(--border);border-radius:11px;padding:12px 12px 12px 4px;}
+.frise-rdv > li{position:relative;display:flex;align-items:flex-start;
+  background:linear-gradient(var(--marine),var(--marine)) 73px 0 / 2px 100% no-repeat;}
+.frise-rdv > li:first-child{background-position:73px 9px;}
+.frise-rdv > li:last-child{background-size:2px 9px;}
+.frise-rdv > li.passe{background-image:linear-gradient(var(--border),var(--border));}
+.frise-rdv .h{flex:none;width:62px;margin-right:3px;text-align:right;}
+.frise-rdv .h b{display:block;font-family:var(--titres);font-weight:800;font-size:15px;line-height:18px;color:var(--marine);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.frise-rdv .h span{display:block;font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);margin-top:1px;white-space:nowrap;}
+.frise-rdv .h i{display:block;font-size:10px;font-style:italic;color:var(--orange-hover);margin-top:2px;white-space:nowrap;}
+.frise-rdv .passe .h i{color:var(--text-tertiary);}
+.frise-rdv .puce{flex:none;width:22px;height:18px;position:relative;}
+.frise-rdv .puce::before{content:"";position:absolute;left:3px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--success);box-shadow:0 0 0 3px var(--paper);}
+.frise-rdv .puce--propose::before{background:var(--marine);}
+.frise-rdv .puce--attente::before{background:var(--received);}
+.frise-rdv .puce--auj::before{background:var(--paper);border:2.5px solid var(--orange-vif);width:12px;height:12px;left:3px;top:3px;box-sizing:border-box;}
+.frise-rdv .c{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;padding-left:8px;}
+.frise-rdv .auj{min-height:0;}
+.frise-rdv .auj .c{flex-direction:row;align-items:baseline;gap:6px;}
+.frise-rdv .auj .c b{font-family:var(--titres);font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-hover);line-height:18px;}
+.frise-rdv .auj .c span{font-size:10.5px;color:var(--text-tertiary);}
+
+/* ============================================================
+   LA VUE GRAND ÉCRAN
+   ============================================================ */
+.bureau-vue{max-width:1000px;margin:0 auto 64px;}
+.defile{overflow-x:auto;padding:4px 2px 18px;}
+.ecran-pc{width:880px;margin:0 auto;background:var(--bg-main);border:1px solid rgba(24,62,87,.2);border-radius:14px;overflow:hidden;box-shadow:0 4px 12px rgba(24,62,87,.08), 0 40px 70px -50px rgba(24,62,87,.6);}
+.ecran-pc .chassis{height:30px;background:#e7e3d9;border-bottom:1px solid rgba(24,62,87,.13);display:flex;align-items:center;gap:7px;padding:0 13px;}
+.ecran-pc .chassis i{width:10px;height:10px;border-radius:50%;background:#cdc6b7;}
+.ecran-pc .chassis span{margin-left:12px;font-size:10.5px;color:var(--text-tertiary);}
+.ecran-pc .tb{height:52px;background:var(--marine);color:#fff9ec;display:flex;align-items:center;gap:14px;padding:0 24px;}
+.ecran-pc .tb .lg{font-family:var(--titres);font-weight:800;font-size:16px;color:var(--sable);}
+.ecran-pc .tb nav{display:flex;gap:18px;margin-left:18px;}
+.ecran-pc .tb nav a{font-family:var(--titres);font-weight:800;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,249,236,.75);text-decoration:none;}
+.ecran-pc .tb nav a.on{color:var(--sable);border-bottom:2px solid var(--orange-vif);padding-bottom:3px;}
+.ecran-pc .tb .pill{margin-left:auto;background:var(--sable);color:var(--marine);border-radius:999px;padding:4px 11px;font-family:var(--titres);font-weight:800;font-size:12px;}
+.ecran-pc .zone{max-width:720px;margin:0 auto;padding:8px 0 30px;}
+.ecran-pc .zone .rubrique{margin:22px 0 12px;}
+.ecran-pc .zone .rdvs,.ecran-pc .zone .agenda{margin:0;}
+.ecran-pc .zone .entre{margin:22px 0 0;}
+.legende-pc{max-width:880px;margin:12px auto 0;font-size:.8rem;line-height:1.55;color:var(--text-secondary);}
+.legende-pc b{color:var(--marine);}
+
+/* ============================================================
+   EN UN COUP D'ŒIL
+   ============================================================ */
+.tableau{max-width:1000px;margin:0 auto;background:var(--paper);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.tableau .t{font-family:var(--titres);font-weight:800;font-size:1.02rem;padding:15px 18px 10px;}
+.tableau .ligne{display:grid;grid-template-columns:170px 1.2fr 1fr 110px 1.2fr;gap:12px;padding:10px 18px;border-top:1px solid var(--border);font-size:.8rem;line-height:1.45;color:var(--text-secondary);}
+.tableau .ligne--tete{font-family:var(--titres);font-weight:800;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);background:var(--bg-main);}
+.tableau .ligne b{color:var(--marine);font-family:var(--titres);font-weight:800;}
+.tableau .ligne--reco{background:rgba(47,122,68,.06);}
+.tableau .num{font-variant-numeric:tabular-nums;}
+.tableau .fort{color:var(--success);font-weight:700;}
+.tableau .moyen{color:var(--received);font-weight:700;}
+.tableau .faible{color:var(--danger);font-weight:700;}
+@media (max-width:820px){
+  .tableau .ligne--tete{display:none;}
+  .tableau .ligne{grid-template-columns:1fr;gap:3px;}
+  .tableau .ligne > span[data-k]::before{content:attr(data-k) " : ";font-weight:700;color:var(--text-tertiary);}
+}
+
+.verdict{max-width:1000px;margin:46px auto 0;background:var(--paper);border:1px solid var(--marine);outline:1px solid rgba(24,62,87,.18);outline-offset:3px;border-radius:15px;padding:20px 24px 22px;}
+.verdict .k{font-family:var(--titres);font-weight:800;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.verdict h2{font-family:var(--titres);font-weight:800;font-size:1.18rem;margin-top:8px;line-height:1.35;}
+.verdict p{font-size:.88rem;line-height:1.65;color:var(--text-secondary);margin-top:11px;}
+.verdict p b{color:var(--marine);}
+.verdict .souligne{background-image:linear-gradient(transparent 62%, var(--sable) 62%, var(--sable) 94%, transparent 94%);}
+.verdict .distinction{margin-top:16px;padding:11px 14px;border-top:1px solid var(--marine);border-bottom:3px double var(--marine);font-size:.88rem;line-height:1.6;color:var(--marine);}
+.verdict .distinction b{font-family:var(--titres);font-weight:800;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-hover);margin-right:6px;}
+.verdict h3{font-family:var(--titres);font-weight:800;font-size:.95rem;margin-top:20px;}
+.verdict ul{list-style:none;margin-top:8px;display:grid;gap:7px;}
+.verdict li{font-size:.84rem;line-height:1.55;color:var(--text-secondary);padding-left:15px;position:relative;}
+.verdict li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--orange-vif);}
+.verdict li b{color:var(--marine);}
+.verdict code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;background:rgba(24,62,87,.07);border-radius:4px;padding:0 4px;color:var(--marine);}
+
+@media (max-width:460px){
+  .leve,.verdict{padding:16px 15px 18px;}
+  .prop-tete .signal{margin-left:0;}
+}
+</style>
+</head>
+<body>
+
+<section class="q">
+  <p class="kicker">TPT-945 · cinq refontes légères à comparer</p>
+  <h1>Le rendez-vous, à l'ancienne</h1>
+  <blockquote>«&nbsp;Pour les RDV, je voudrais leur donner un aspect plus RDV, ce qu'ont effectivement les activités proposées. […] J'aimerais que tu me fasses 5 propositions de refonte graphique légère qui font vraiment un aspect calendrier / gazette un peu à l'ancienne.&nbsp;»<cite>Omar, le 29 octobre</cite></blockquote>
+  <p>Cinq dessins du <b>même</b> rendez-vous, avec les <b>mêmes informations</b> qu'aujourd'hui et à peu près la même hauteur. Chacun montre l'accueil à 375 px, la bande des <b>états rares</b>, et l'affiche actuelle juste dessous — parce que la tâche existe pour que les deux <b>ne se confondent plus</b>.</p>
+  <a class="retour" href="../index.html">← Le brandkit</a>
+</section>
+
+<section class="leve">
+  <p class="t">Le point de départ : deux formes qui disent déjà la même chose</p>
+  <p>Le talon du billet et la colonne de l'agenda portent <b>le même chiffre et le même mois</b>, l'un à 19 px, l'autre à 23. Aujourd'hui, seule la carte les sépare — «&nbsp;ce qui m'attend est une carte, ce que le quartier propose est une liste&nbsp;». Dès que le rendez-vous prend l'allure d'un agenda, cette frontière ne suffit plus : <b>chaque proposition doit trouver un autre signal</b>, visible sans lire.</p>
+  <div class="deux">
+    <div>
+      <span class="k">Aujourd'hui · le billet à talon (ExchangeItemCompact)</span>
+      <article class="billet2 billet2--large exemple">
+        <div class="talon"><span class="n">12</span><span class="m">nov</span></div>
+        <div class="c">
+          <h3>Aide aux devoirs</h3>
+          <p class="m2"><span style="color:var(--success);font-weight:600">■ RDV accepté</span><span class="sep">·</span>14:00</p>
+          <p class="m2"><i>Vous donnez à</i> <b style="font-weight:600;color:var(--marine)">Camille M.</b> · 1 h 30</p>
+          <p class="m2"><span class="lien-filet" style="font-size:10.5px">Ajouter au calendrier</span></p>
+        </div>
+      </article>
+      Un bout de papier posé, talon de date à gauche. Le jour de la semaine n'y figure pas, l'heure de fin non plus.
+    </div>
+    <div>
+      <span class="k">Aujourd'hui · la ligne d'agenda (LigneAgenda)</span>
+      <div class="agenda">
+        <article class="agenda-ligne" style="padding-top:2px">
+          <div class="quand"><div class="j">15</div><div class="m">nov</div><div class="h">10:00</div></div>
+          <div class="c">
+            <div class="g"><span class="genre genre--collectif">Activité proposée</span><span class="jauge">3/8</span></div>
+            <h3>Réparation de vélos</h3>
+            <p class="lieu">Local associatif, Vieux Bourg</p>
+            <div class="pied"><span class="orga">Organisé par Pierre B. · 2 h</span></div>
+          </div>
+        </article>
+      </div>
+      Ni papier, ni ombre, ni rayon : une entrée de registre sur le fond de page, colonne de chiffres nus à filet gris.
+    </div>
+  </div>
+  <p><b>Conventions de la planche.</b></p>
+  <ul class="conventions">
+    <li>Données fictives. Dans toutes les maquettes, <b>aujourd'hui est le mercredi 11 novembre</b>.</li>
+    <li>Les trois rendez-vous : <b>Aide aux devoirs</b> (accepté, demain), <b>Installer une étagère</b> (proposé, en attente), <b>Atelier couture</b> (activité de groupe où vous êtes inscrit). Les quatre états rares viennent d'<code style="font-size:.74rem">ExchangeItemCompact.vue</code>.</li>
+    <li>Les heures s'écrivent «&nbsp;14 h – 15 h 30&nbsp;», comme le demande la tâche ; l'app écrit aujourd'hui «&nbsp;14:00&nbsp;» et ne montre pas l'heure de fin. L'affiche, elle, est dessinée telle quelle («&nbsp;10:00&nbsp;»).</li>
+    <li>Le mot de l'équipe, qui s'intercale dans l'app entre les deux sections, est réduit à un repère. Le ruban de l'affiche s'intitule encore «&nbsp;Activités proposées&nbsp;» dans l'app.</li>
+  </ul>
+</section>
+
+<!-- ======================================================================
+     1 · L'ÉPHÉMÉRIDE
+     ====================================================================== -->
+<section class="prop" id="p1">
+  <div class="prop-tete"><span class="n">1</span><h2>L'éphéméride</h2><span class="tag">Recommandée</span><span class="signal">signal : la feuille coiffée de marine</span></div>
+  <p class="prop-chapo">Le talon devient une <b>feuille de calendrier à effeuiller</b> : la coiffe du mois, une ligne de perforation, le gros chiffre du jour, le jour de la semaine en toutes lettres, et le feuillet suivant qui dépasse dessous. Une proposition encore ouverte a une <b>coiffe creuse, en pointillé</b> : la feuille n'est pas encore arrêtée.</p>
+  <div class="prop-corps">
+    <div class="prop-gauche">
+      <div class="tel">
+        <div class="tel-tb"><span>9:41</span><span>▮▮▮ ▮</span></div>
+        <div class="tel-nav"><span class="lg">tpt</span><span class="pill">8 h 30</span></div>
+        <div class="tel-corps">
+          <div class="rubrique"><span class="tape"><h2>Rendez-vous à venir</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Voir tout</a></div>
+          <div class="rdvs">
+            <article class="rdv eph">
+              <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">12</span><span class="js">jeudi</span></div>
+              <div class="c">
+                <h3 class="r-titre"><a href="#">Aide aux devoirs</a></h3>
+                <p class="r-l"><span class="statut">Accepté</span><span class="sep">·</span><span class="h">14&nbsp;h – 15&nbsp;h&nbsp;30</span><span class="sr">jeudi 12 novembre</span></p>
+                <p class="r-l"><em>Vous donnez à</em> <b>Camille M.</b><span class="sep">·</span>1&nbsp;h&nbsp;30</p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+            </article>
+            <article class="rdv eph eph--a-confirmer">
+              <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">14</span><span class="js">samedi</span></div>
+              <div class="c">
+                <h3 class="r-titre"><a href="#">Installer une étagère</a></h3>
+                <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="sep">·</span><span class="h">10&nbsp;h – 11&nbsp;h</span><span class="sr">samedi 14 novembre</span></p>
+                <p class="r-l"><em>Vous recevez de</em> <b>Paul D.</b><span class="sep">·</span>1&nbsp;h</p>
+                <p class="r-l"><span class="att">attend une réponse</span></p>
+              </div>
+            </article>
+            <article class="rdv eph">
+              <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">16</span><span class="js">lundi</span></div>
+              <div class="c">
+                <h3 class="r-titre"><a href="#">Atelier couture</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></h3>
+                <p class="r-l"><span class="statut">Confirmé</span><span class="sep">·</span><span class="h">18&nbsp;h – 20&nbsp;h</span><span class="sr">lundi 16 novembre</span></p>
+                <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Lucie G.</b></span><span>2&nbsp;h</span><span>6/10 participants</span></span></p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+            </article>
+          </div>
+          <p class="entre">le mot de l'équipe</p>
+          <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">2</span></span><span class="filet"></span></div>
+          <div class="agenda">
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">15</div><div class="m">nov</div><div class="h">10:00</div></div>
+              <div class="c"><div class="g"><span class="genre genre--collectif">Activité proposée</span><span class="jauge">3/8</span></div><h3>Réparation de vélos</h3><p class="lieu">Local associatif, Vieux Bourg</p><div class="pied"><span class="orga">Organisé par Pierre B. · 2 h</span></div></div>
+            </article>
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">18</div><div class="m">nov</div><div class="h">18:30</div></div>
+              <div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span></div><h3>Café des voisins</h3><p class="lieu">Square de la Baugerie</p><div class="pied"><span class="orga">Ouvert à tous, sans inscription — passez quand vous voulez.</span></div></div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="rares">
+        <p class="rares-t"><b>États rares</b><span>même dessin</span></p>
+        <p class="rares-l">Validation automatique, contre-proposition, complet, lieu à redéfinir.</p>
+        <div class="rdvs">
+          <article class="rdv eph">
+            <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">9</span><span class="js">lundi</span></div>
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Réparer une lampe</a></h3>
+              <p class="r-l"><span class="statut statut--attente">En attente de validation</span></p>
+              <p class="r-l"><em>Vous recevez de</em> <b>Marc T.</b><span class="sep">·</span>1&nbsp;h</p>
+              <p class="r-decompte">Validé automatiquement dans 2 jours</p>
+            </div>
+          </article>
+          <article class="rdv eph eph--a-confirmer">
+            <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">13</span><span class="js">vendredi</span></div>
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Courses au marché</a></h3>
+              <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="sep">·</span><span class="h">10&nbsp;h – 11&nbsp;h</span></p>
+              <p class="r-l"><em>Vous donnez à</em> <b>Jeanne R.</b><span class="sep">·</span>1&nbsp;h</p>
+              <p class="r-diff"><s>jeu. 12</s><span aria-hidden="true">→</span><span class="sr">devient</span><b>ven. 13</b></p>
+            </div>
+          </article>
+          <article class="rdv eph">
+            <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">17</span><span class="js">mardi</span></div>
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Atelier tricot</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="r-complet">Complet</span></h3>
+              <p class="r-l"><span class="statut">Confirmé</span><span class="sep">·</span><span class="h">14&nbsp;h – 16&nbsp;h</span></p>
+              <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Martine L.</b></span><span>2&nbsp;h</span><span>8/8 participants</span></span></p>
+            </div>
+          </article>
+          <article class="rdv eph">
+            <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">21</span><span class="js">samedi</span></div>
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Goûter partagé</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></h3>
+              <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="sep">·</span><span class="h">16&nbsp;h</span><span class="r-redef">· Lieu à redéfinir</span></p>
+              <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Henri P.</b></span><span>1&nbsp;h&nbsp;30</span><span>5/12 participants</span></span></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-droite">
+      <div class="distingue"><span class="k">Ce qui la distingue de l'affiche</span><b>Forte.</b> La date devient un objet — une feuille sur un billet de papier — là où l'affiche n'a que des chiffres nus sur le fond de page. La coiffe marine se repère en vision périphérique : on sait, sans lire, quelle section est la sienne.</div>
+      <div class="pc">
+        <div><span class="k">Ce que ça donne</span>La date se <b>reconnaît de loin</b> : tout le monde a eu une éphéméride au mur de la cuisine. Le <b>jour de la semaine</b> s'écrit en toutes lettres — le talon actuel ne le dit pas, alors que c'est ainsi qu'on parle d'un rendez-vous («&nbsp;c'est jeudi&nbsp;»). Le chiffre passe de 19 à <b>27 px</b>. La hauteur ne bouge pas (≈ 90 px). La coiffe creuse d'une proposition dit, sans un mot de plus, que <b>rien n'est encore arrêté</b>.</div>
+        <div><span class="k">Ce que ça coûte</span>
+          <ul>
+            <li><span class="lab">Tailwind</span>La feuille est un <code>flex-col</code> à filet, coiffe <code>bg-primary text-accent</code>, chiffre <code>font-titres text-[27px]</code>. Aucune police, aucune image.</li>
+            <li><span class="lab">Pseudo-éléments</span>Deux : la perforation (un <code>radial-gradient</code> répété) et le feuillet du dessous (<code>::after</code> à filet). À écrire en classe dans <code>main.css</code> plutôt qu'en <code>bg-[…]</code> arbitraire.</li>
+            <li><span class="lab">Code</span>Une variante du talon de <code>BilletPapier</code> (<code>type: 'ephemeride'</code>) : <b>un composant, trois surfaces</b> (accueil, <code>/exchanges</code>, profil) sans toucher aux pages. Le jour de la semaine se lit avec <code>timeZone: 'Europe/Paris'</code> explicite.</li>
+            <li><span class="lab">Accès</span>La feuille est <code>aria-hidden</code> ; une phrase masquée dit «&nbsp;jeudi 12 novembre&nbsp;». Sable sur marine 8,36:1, chiffre marine 11:1. Toute la ligne est la cible (lien étiré, ≥ 86 px de haut) ; «&nbsp;Ajouter au calendrier&nbsp;» passe au-dessus.</li>
+            <li><span class="lab">À trancher</span>Trois coiffes marine sur l'accueil, alors que <code>DESIGN.md</code> fait du mot de l'équipe le <b>seul aplat marine</b> du flux. À 14 px de haut je ne crois pas la règle visée, mais c'est un arbitrage.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     2 · L'AGENDA DE PAPIER
+     ====================================================================== -->
+<section class="prop" id="p2">
+  <div class="prop-tete"><span class="n">2</span><h2>L'agenda de papier</h2><span class="signal">signal : la marge orange et la feuille réglée</span></div>
+  <p class="prop-chapo">Les rendez-vous sont <b>écrits sur une seule feuille réglée</b>, groupés par jour («&nbsp;Jeudi 12 novembre&nbsp;» en tête), l'heure dans une <b>marge à double filet orange</b>, comme un carnet de rendez-vous ou un cahier d'écolier. Tout le texte tient sur une trame de 20 px, pour que les mots se posent sur les lignes.</p>
+  <div class="prop-corps">
+    <div class="prop-gauche">
+      <div class="tel">
+        <div class="tel-tb"><span>9:41</span><span>▮▮▮ ▮</span></div>
+        <div class="tel-nav"><span class="lg">tpt</span><span class="pill">8 h 30</span></div>
+        <div class="tel-corps">
+          <div class="rubrique"><span class="tape"><h2>Rendez-vous à venir</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Voir tout</a></div>
+          <div class="cahier">
+            <h3 class="jour-c">Jeudi 12 novembre<i>demain</i></h3>
+            <article class="rdv">
+              <div class="marge" aria-hidden="true"><b>14&nbsp;h</b><span>15&nbsp;h&nbsp;30</span></div>
+              <div class="c">
+                <p class="r-titre"><a href="#">Aide aux devoirs</a></p>
+                <p class="r-l"><span class="statut">Accepté</span><span class="sr">de 14 h à 15 h 30</span></p>
+                <p class="r-l"><em>Vous donnez à</em> <b>Camille M.</b><span class="sep">·</span>1&nbsp;h&nbsp;30</p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+            </article>
+            <h3 class="jour-c">Samedi 14 novembre<i>dans 3 jours</i></h3>
+            <article class="rdv">
+              <div class="marge" aria-hidden="true"><b>10&nbsp;h</b><span>11&nbsp;h</span></div>
+              <div class="c">
+                <p class="r-titre"><a href="#">Installer une étagère</a></p>
+                <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="sep">·</span><span class="att">attend une réponse</span></p>
+                <p class="r-l"><em>Vous recevez de</em> <b>Paul D.</b><span class="sep">·</span>1&nbsp;h</p>
+              </div>
+            </article>
+            <h3 class="jour-c">Lundi 16 novembre<i>dans 5 jours</i></h3>
+            <article class="rdv">
+              <div class="marge" aria-hidden="true"><b>18&nbsp;h</b><span>20&nbsp;h</span></div>
+              <div class="c">
+                <p class="r-titre"><a href="#">Atelier couture</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></p>
+                <p class="r-l"><span class="statut">Confirmé</span></p>
+                <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Lucie G.</b></span><span>2&nbsp;h</span><span>6/10 participants</span></span></p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+            </article>
+          </div>
+          <p class="entre">le mot de l'équipe</p>
+          <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">2</span></span><span class="filet"></span></div>
+          <div class="agenda">
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">15</div><div class="m">nov</div><div class="h">10:00</div></div>
+              <div class="c"><div class="g"><span class="genre genre--collectif">Activité proposée</span><span class="jauge">3/8</span></div><h3>Réparation de vélos</h3><p class="lieu">Local associatif, Vieux Bourg</p><div class="pied"><span class="orga">Organisé par Pierre B. · 2 h</span></div></div>
+            </article>
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">18</div><div class="m">nov</div><div class="h">18:30</div></div>
+              <div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span></div><h3>Café des voisins</h3><p class="lieu">Square de la Baugerie</p><div class="pied"><span class="orga">Ouvert à tous, sans inscription — passez quand vous voulez.</span></div></div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="rares">
+        <p class="rares-t"><b>États rares</b><span>même dessin</span></p>
+        <p class="rares-l">Chaque état rare prend une ligne de la trame, ni plus ni moins.</p>
+        <div class="cahier">
+          <h3 class="jour-c">Lundi 9 novembre<i>passé</i></h3>
+          <article class="rdv">
+            <div class="marge" aria-hidden="true"><b>17&nbsp;h</b><span>18&nbsp;h</span></div>
+            <div class="c">
+              <p class="r-titre"><a href="#">Réparer une lampe</a></p>
+              <p class="r-l"><span class="statut statut--attente">En attente de validation</span></p>
+              <p class="r-l"><em>Vous recevez de</em> <b>Marc T.</b><span class="sep">·</span>1&nbsp;h</p>
+              <p class="r-decompte">Validé automatiquement dans 2 jours</p>
+            </div>
+          </article>
+          <h3 class="jour-c">Vendredi 13 novembre<i>dans 2 jours</i></h3>
+          <article class="rdv">
+            <div class="marge" aria-hidden="true"><b>10&nbsp;h</b><span>11&nbsp;h</span></div>
+            <div class="c">
+              <p class="r-titre"><a href="#">Courses au marché</a></p>
+              <p class="r-l"><span class="statut statut--propose">Proposé</span></p>
+              <p class="r-l"><em>Vous donnez à</em> <b>Jeanne R.</b><span class="sep">·</span>1&nbsp;h</p>
+              <p class="r-diff"><s>jeu. 12</s><span aria-hidden="true">→</span><span class="sr">devient</span><b>ven. 13</b></p>
+            </div>
+          </article>
+          <h3 class="jour-c">Mardi 17 novembre<i>dans 6 jours</i></h3>
+          <article class="rdv">
+            <div class="marge" aria-hidden="true"><b>14&nbsp;h</b><span>16&nbsp;h</span></div>
+            <div class="c">
+              <p class="r-titre"><a href="#">Atelier tricot</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="r-complet">Complet</span></p>
+              <p class="r-l"><span class="statut">Confirmé</span></p>
+              <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Martine L.</b></span><span>2&nbsp;h</span><span>8/8 participants</span></span></p>
+            </div>
+          </article>
+          <h3 class="jour-c">Samedi 21 novembre<i>dans 10 jours</i></h3>
+          <article class="rdv">
+            <div class="marge" aria-hidden="true"><b>16&nbsp;h</b><span>17&nbsp;h&nbsp;30</span></div>
+            <div class="c">
+              <p class="r-titre"><a href="#">Goûter partagé</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></p>
+              <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="r-redef">· Lieu à redéfinir</span></p>
+              <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Henri P.</b></span><span>1&nbsp;h&nbsp;30</span><span>5/12 participants</span></span></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-droite">
+      <div class="distingue"><span class="k">Ce qui la distingue de l'affiche</span><b>Moyenne à forte.</b> Une seule feuille réglée au lieu d'entrées sur le fond, une marge orange continue, et c'est <b>l'heure</b> (pas le jour) qui tient la colonne de gauche. Mais une colonne à gauche reste une colonne à gauche : vu de loin, la silhouette ressemble encore à l'agenda.</div>
+      <div class="pc">
+        <div><span class="k">Ce que ça donne</span>Le plus «&nbsp;<b>carnet de rendez-vous</b>&nbsp;» des cinq : on lit sa semaine comme dans l'agenda de papier qu'on tenait près du téléphone, un jour après l'autre, l'heure dans la marge. Deux rendez-vous le même jour <b>se regroupent d'eux-mêmes</b> sous un seul titre. «&nbsp;Demain&nbsp;», «&nbsp;dans 3 jours&nbsp;» se posent en tête de jour, là où on les cherche.</div>
+        <div><span class="k">Ce que ça coûte</span>
+          <ul>
+            <li><span class="lab">Tailwind</span>La marge est simple (un <code>::before</code> à deux filets <code>border-brand-vif</code>), les heures aussi.</li>
+            <li><span class="lab">Fragile</span>Les lignes réglées sont un <code>repeating-linear-gradient</code> calé sur une <b>trame de 20 px</b> : un titre qui passe à la ligne, un libellé trop long, et les mots tombent entre deux lignes. Il faut <code>truncate</code> partout et une hauteur de ligne fixe.</li>
+            <li><span class="lab">Code</span>Le vrai coût n'est pas le dessin : <b>regrouper par jour</b> (jour civil à Paris) se fait dans la page qui liste — accueil, <code>/exchanges</code>, profil, trois fois. Et <code>/exchanges</code> groupe déjà par échéance. Le billet n'est plus une carte autonome : une feuille et des lignes.</li>
+            <li><span class="lab">Accès</span>La meilleure des cinq : chaque jour est un <b>titre</b> (<code>h3</code>), on saute d'un jour à l'autre au lecteur d'écran. Chaque ligne fait 60 px au moins. Orange vif réservé au filet (3,77:1, jamais de texte).</li>
+            <li><span class="lab">Hauteur</span>+ 20 px par jour : à trois rendez-vous sur trois jours, la section grandit d'environ 15 %.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     3 · LE CARNET DU JOUR
+     ====================================================================== -->
+<section class="prop" id="p3">
+  <div class="prop-tete"><span class="n">3</span><h2>Le carnet du jour</h2><span class="signal">signal : pas de colonne, des filets doubles</span></div>
+  <p class="prop-chapo">La rubrique d'un <b>journal ancien</b> : la date et l'heure en capitales, reliées par des <b>points de conduite</b> («&nbsp;Jeudi 12 novembre ········ 14 h&nbsp;»), le titre en gras dessous, la relation en italique, le tout entre deux filets dont le dernier est double.</p>
+  <div class="prop-corps">
+    <div class="prop-gauche">
+      <div class="tel">
+        <div class="tel-tb"><span>9:41</span><span>▮▮▮ ▮</span></div>
+        <div class="tel-nav"><span class="lg">tpt</span><span class="pill">8 h 30</span></div>
+        <div class="tel-corps">
+          <div class="rubrique"><span class="tape"><h2>Rendez-vous à venir</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Voir tout</a></div>
+          <div class="carnet-j">
+            <article class="rdv">
+              <p class="cj-quand"><time datetime="2026-11-12T14:00">Jeudi 12 novembre</time><span class="pts" aria-hidden="true"></span><span class="h">14&nbsp;h – 15&nbsp;h&nbsp;30</span></p>
+              <h3 class="r-titre"><a href="#">Aide aux devoirs</a><span class="statut">Accepté</span></h3>
+              <p class="r-l"><em>Vous donnez à</em> <b>Camille M.</b><span class="sep">·</span>1&nbsp;h&nbsp;30</p>
+              <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+            </article>
+            <article class="rdv">
+              <p class="cj-quand"><time datetime="2026-11-14T10:00">Samedi 14 novembre</time><span class="pts" aria-hidden="true"></span><span class="h">10&nbsp;h – 11&nbsp;h</span></p>
+              <h3 class="r-titre"><a href="#">Installer une étagère</a><span class="statut statut--propose">Proposé</span></h3>
+              <p class="r-l"><em>Vous recevez de</em> <b>Paul D.</b><span class="sep">·</span>1&nbsp;h<span class="sep">·</span><span class="att">attend une réponse</span></p>
+            </article>
+            <article class="rdv">
+              <p class="cj-quand"><time datetime="2026-11-16T18:00">Lundi 16 novembre</time><span class="pts" aria-hidden="true"></span><span class="h">18&nbsp;h – 20&nbsp;h</span></p>
+              <h3 class="r-titre"><a href="#">Atelier couture</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="statut">Confirmé</span></h3>
+              <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Lucie G.</b></span><span>2&nbsp;h</span><span>6/10 participants</span></span></p>
+              <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+            </article>
+          </div>
+          <p class="entre">le mot de l'équipe</p>
+          <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">2</span></span><span class="filet"></span></div>
+          <div class="agenda">
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">15</div><div class="m">nov</div><div class="h">10:00</div></div>
+              <div class="c"><div class="g"><span class="genre genre--collectif">Activité proposée</span><span class="jauge">3/8</span></div><h3>Réparation de vélos</h3><p class="lieu">Local associatif, Vieux Bourg</p><div class="pied"><span class="orga">Organisé par Pierre B. · 2 h</span></div></div>
+            </article>
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">18</div><div class="m">nov</div><div class="h">18:30</div></div>
+              <div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span></div><h3>Café des voisins</h3><p class="lieu">Square de la Baugerie</p><div class="pied"><span class="orga">Ouvert à tous, sans inscription — passez quand vous voulez.</span></div></div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="rares">
+        <p class="rares-t"><b>États rares</b><span>même dessin</span></p>
+        <p class="rares-l">L'état rare s'ajoute en dernière ligne, sous la relation.</p>
+        <div class="carnet-j">
+          <article class="rdv">
+            <p class="cj-quand"><time datetime="2026-11-09T17:00">Lundi 9 novembre</time><span class="pts" aria-hidden="true"></span><span class="h">17&nbsp;h – 18&nbsp;h</span></p>
+            <h3 class="r-titre"><a href="#">Réparer une lampe</a><span class="statut statut--attente">À valider</span></h3>
+            <p class="r-l"><em>Vous recevez de</em> <b>Marc T.</b><span class="sep">·</span>1&nbsp;h</p>
+            <p class="r-decompte">Validé automatiquement dans 2 jours</p>
+          </article>
+          <article class="rdv">
+            <p class="cj-quand"><time datetime="2026-11-13T10:00">Vendredi 13 novembre</time><span class="pts" aria-hidden="true"></span><span class="h">10&nbsp;h – 11&nbsp;h</span></p>
+            <h3 class="r-titre"><a href="#">Courses au marché</a><span class="statut statut--propose">Proposé</span></h3>
+            <p class="r-l"><em>Vous donnez à</em> <b>Jeanne R.</b><span class="sep">·</span>1&nbsp;h</p>
+            <p class="r-diff"><s>jeu. 12</s><span aria-hidden="true">→</span><span class="sr">devient</span><b>ven. 13</b></p>
+          </article>
+          <article class="rdv">
+            <p class="cj-quand"><time datetime="2026-11-17T14:00">Mardi 17 novembre</time><span class="pts" aria-hidden="true"></span><span class="h">14&nbsp;h – 16&nbsp;h</span></p>
+            <h3 class="r-titre"><a href="#">Atelier tricot</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="r-complet">Complet</span><span class="statut">Confirmé</span></h3>
+            <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Martine L.</b></span><span>2&nbsp;h</span><span>8/8 participants</span></span></p>
+          </article>
+          <article class="rdv">
+            <p class="cj-quand"><time datetime="2026-11-21T16:00">Samedi 21 novembre</time><span class="pts" aria-hidden="true"></span><span class="h">16&nbsp;h – 17&nbsp;h&nbsp;30</span></p>
+            <h3 class="r-titre"><a href="#">Goûter partagé</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="statut statut--propose">Proposé</span></h3>
+            <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Henri P.</b></span><span>1&nbsp;h&nbsp;30</span><span>5/12</span><span class="r-redef">Lieu à redéfinir</span></span></p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-droite">
+      <div class="distingue"><span class="k">Ce qui la distingue de l'affiche</span><b>Moyenne.</b> Aucune colonne : la date court sur toute la largeur, au-dessus du titre, et le bloc est fermé par un filet double. Mais c'est encore une <b>liste à filets</b>, comme l'affiche : l'écart se lit, il ne se voit pas d'aussi loin que les autres.</div>
+      <div class="pc">
+        <div><span class="k">Ce que ça donne</span>Le plus <b>gazette</b>, et le plus sobre : la rubrique «&nbsp;carnet&nbsp;» d'un journal de 1950, que la charte a déjà dans son sommaire. Tout se lit dans l'ordre naturel — <b>quand, quoi, avec qui</b>. La date dite en entier («&nbsp;Jeudi 12 novembre&nbsp;») ne demande aucun décodage, et l'heure à l'encre orange se trouve au bout des points.</div>
+        <div><span class="k">Ce que ça coûte</span>
+          <ul>
+            <li><span class="lab">Tailwind</span>La moins chère : les points de conduite sont un <code>flex-1</code> à <code>border-b border-dotted</code> (le motif du <code>.sommaire</code>), les filets doubles un <code>border-b-[3px] border-double</code>. Ni pseudo-élément, ni <code>clip-path</code>.</li>
+            <li><span class="lab">Lisibilité</span>Le coût est là : la date passe en <b>capitales de 10 px</b>. Le gros chiffre qu'on trouvait d'un coup d'œil disparaît — pour Micheline, la plus faible des cinq. Et la pastille de statut doit tenir sur la ligne du titre : «&nbsp;En attente de validation&nbsp;» n'y tient pas, il faut un libellé court («&nbsp;À valider&nbsp;»).</li>
+            <li><span class="lab">Accès</span>Les points sont <code>aria-hidden</code>, la date est un <code>&lt;time&gt;</code> ; l'ordre de lecture est le bon. Capitales marine 11:1, heure orange foncé ≈ 6:1.</li>
+            <li><span class="lab">Hauteur</span>La plus basse (≈ 90 px par rendez-vous).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     4 · LE TAMPON DATEUR
+     ====================================================================== -->
+<section class="prop" id="p4">
+  <div class="prop-tete"><span class="n">4</span><h2>Le tampon dateur</h2><span class="signal">signal : la date à droite, de travers, à l'encre</span></div>
+  <p class="prop-chapo">La date est <b>imprimée d'un coup de tampon</b> : double cadre, encre orange, quatre degrés d'inclinaison, «&nbsp;12 NOV. — JEU. · 14 H&nbsp;». Un rendez-vous convenu est tamponné ; une proposition <b>ne l'est pas encore</b> : son cadre est en pointillé, gris, et droit.</p>
+  <div class="prop-corps">
+    <div class="prop-gauche">
+      <div class="tel">
+        <div class="tel-tb"><span>9:41</span><span>▮▮▮ ▮</span></div>
+        <div class="tel-nav"><span class="lg">tpt</span><span class="pill">8 h 30</span></div>
+        <div class="tel-corps">
+          <div class="rubrique"><span class="tape"><h2>Rendez-vous à venir</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Voir tout</a></div>
+          <div class="rdvs">
+            <article class="rdv tp">
+              <div class="c">
+                <h3 class="r-titre"><a href="#">Aide aux devoirs</a></h3>
+                <p class="r-l"><span class="statut">Accepté</span><span class="sep">·</span><span>jusqu'à <span class="h">15&nbsp;h&nbsp;30</span></span><span class="sr">jeudi 12 novembre à 14 h</span></p>
+                <p class="r-l"><em>Vous donnez à</em> <b>Camille M.</b><span class="sep">·</span>1&nbsp;h&nbsp;30</p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+              <div class="tampon" aria-hidden="true"><b>12 nov.</b><span>jeu. · 14&nbsp;h</span></div>
+            </article>
+            <article class="rdv tp">
+              <div class="c">
+                <h3 class="r-titre"><a href="#">Installer une étagère</a></h3>
+                <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="sep">·</span><span>jusqu'à <span class="h">11&nbsp;h</span></span><span class="sr">samedi 14 novembre à 10 h</span></p>
+                <p class="r-l"><em>Vous recevez de</em> <b>Paul D.</b><span class="sep">·</span>1&nbsp;h</p>
+                <p class="r-l"><span class="att">attend une réponse</span></p>
+              </div>
+              <div class="tampon tampon--attente" aria-hidden="true"><b>14 nov.</b><span>sam. · 10&nbsp;h</span></div>
+            </article>
+            <article class="rdv tp">
+              <div class="c">
+                <h3 class="r-titre"><a href="#">Atelier couture</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></h3>
+                <p class="r-l"><span class="statut">Confirmé</span><span class="sep">·</span><span>jusqu'à <span class="h">20&nbsp;h</span></span><span class="sr">lundi 16 novembre à 18 h</span></p>
+                <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Lucie G.</b></span><span>2&nbsp;h</span><span>6/10 participants</span></span></p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+              <div class="tampon" aria-hidden="true"><b>16 nov.</b><span>lun. · 18&nbsp;h</span></div>
+            </article>
+          </div>
+          <p class="entre">le mot de l'équipe</p>
+          <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">2</span></span><span class="filet"></span></div>
+          <div class="agenda">
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">15</div><div class="m">nov</div><div class="h">10:00</div></div>
+              <div class="c"><div class="g"><span class="genre genre--collectif">Activité proposée</span><span class="jauge">3/8</span></div><h3>Réparation de vélos</h3><p class="lieu">Local associatif, Vieux Bourg</p><div class="pied"><span class="orga">Organisé par Pierre B. · 2 h</span></div></div>
+            </article>
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">18</div><div class="m">nov</div><div class="h">18:30</div></div>
+              <div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span></div><h3>Café des voisins</h3><p class="lieu">Square de la Baugerie</p><div class="pied"><span class="orga">Ouvert à tous, sans inscription — passez quand vous voulez.</span></div></div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="rares">
+        <p class="rares-t"><b>États rares</b><span>même dessin</span></p>
+        <p class="rares-l">Le tampon porte la date retenue ; l'ancienne, barrée, reste dans le corps.</p>
+        <div class="rdvs">
+          <article class="rdv tp">
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Réparer une lampe</a></h3>
+              <p class="r-l"><span class="statut statut--attente">En attente de validation</span></p>
+              <p class="r-l"><em>Vous recevez de</em> <b>Marc T.</b><span class="sep">·</span>1&nbsp;h</p>
+              <p class="r-decompte">Validé automatiquement dans 2 jours</p>
+            </div>
+            <div class="tampon" aria-hidden="true"><b>9 nov.</b><span>lun. · 17&nbsp;h</span></div>
+          </article>
+          <article class="rdv tp">
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Courses au marché</a></h3>
+              <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="sep">·</span><span>jusqu'à <span class="h">11&nbsp;h</span></span></p>
+              <p class="r-l"><em>Vous donnez à</em> <b>Jeanne R.</b><span class="sep">·</span>1&nbsp;h</p>
+              <p class="r-diff"><s>jeu. 12</s><span aria-hidden="true">→</span><span class="sr">devient</span><b>ven. 13</b></p>
+            </div>
+            <div class="tampon tampon--attente" aria-hidden="true"><b>13 nov.</b><span>ven. · 10&nbsp;h</span></div>
+          </article>
+          <article class="rdv tp">
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Atelier tricot</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="r-complet">Complet</span></h3>
+              <p class="r-l"><span class="statut">Confirmé</span><span class="sep">·</span><span>jusqu'à <span class="h">16&nbsp;h</span></span></p>
+              <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Martine L.</b></span><span>2&nbsp;h</span><span>8/8 participants</span></span></p>
+            </div>
+            <div class="tampon" aria-hidden="true"><b>17 nov.</b><span>mar. · 14&nbsp;h</span></div>
+          </article>
+          <article class="rdv tp">
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Goûter partagé</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></h3>
+              <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="r-redef">· Lieu à redéfinir</span></p>
+              <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Henri P.</b></span><span>1&nbsp;h&nbsp;30</span><span>5/12 participants</span></span></p>
+            </div>
+            <div class="tampon tampon--attente" aria-hidden="true"><b>21 nov.</b><span>sam. · 16&nbsp;h</span></div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-droite">
+      <div class="distingue"><span class="k">Ce qui la distingue de l'affiche</span><b>Forte.</b> La date passe <b>à droite</b>, de travers, dans un cadre d'encre : la silhouette est l'inverse d'une ligne d'agenda, qui a ses chiffres droits, à gauche, sans cadre. On ne peut pas confondre les deux, même sans lunettes.</div>
+      <div class="pc">
+        <div><span class="k">Ce que ça donne</span>Le plus <b>ludique</b> : le tampon dateur de la poste ou de la mairie, que tout le monde a vu claquer sur un guichet. Et il porte un sens qu'aucune autre proposition n'a : <b>tamponné quand c'est convenu, en pointillé tant que c'est proposé</b>. Micheline voit d'un coup d'œil quels rendez-vous sont sûrs.</div>
+        <div><span class="k">Ce que ça coûte</span>
+          <ul>
+            <li><span class="lab">Tailwind</span>Simple : <code>-rotate-3</code> (ou 4° en classe), <code>border-2</code>, et le double filet intérieur par <code>box-shadow</code> inset — la technique du <code>.sceau</code> de la charte. L'usure de l'encre est un <code>mask-image</code> en dégradé, sans image, et facultative.</li>
+            <li><span class="lab">Couleur</span>L'orange est la couleur de <b>l'action</b> (bouton, lien à filet). Trois tampons orange sur l'accueil usent ce signal. Un tampon marine le garderait, au prix d'un peu de gaieté.</li>
+            <li><span class="lab">Lisibilité</span>La rotation adoucit le texte fin : rien sous 9,5 px dans le tampon. La date à droite, c'est le titre que l'œil lit d'abord — or le billet disait «&nbsp;pour un rendez-vous, la date est le sujet&nbsp;».</li>
+            <li><span class="lab">Accès</span>Tampon <code>aria-hidden</code> + phrase masquée. Encre orange 4,98:1, gris du pointillé ≈ 4,7:1 (AA). Le pointillé ne dit «&nbsp;proposé&nbsp;» qu'en plus de la pastille, jamais seul.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     5 · L'INDICATEUR HORAIRE
+     ====================================================================== -->
+<section class="prop" id="p5">
+  <div class="prop-tete"><span class="n">5</span><h2>L'indicateur horaire</h2><span class="signal">signal : le rail continu</span></div>
+  <p class="prop-chapo">Comme l'<b>horaire d'une ligne de train ancienne</b> : un rail vertical qui part d'aujourd'hui, un arrêt par rendez-vous, l'heure en face. La puce prend la couleur du statut, et <b>l'écart entre deux arrêts dit le temps qui les sépare</b> (8 px par jour, plafonné), «&nbsp;demain&nbsp;» et «&nbsp;dans 5 jours&nbsp;» écrits sous l'heure.</p>
+  <div class="prop-corps">
+    <div class="prop-gauche">
+      <div class="tel">
+        <div class="tel-tb"><span>9:41</span><span>▮▮▮ ▮</span></div>
+        <div class="tel-nav"><span class="lg">tpt</span><span class="pill">8 h 30</span></div>
+        <div class="tel-corps">
+          <div class="rubrique"><span class="tape"><h2>Rendez-vous à venir</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Voir tout</a></div>
+          <ol class="frise-rdv">
+            <li class="auj" style="padding-bottom:14px"><span class="h"></span><span class="puce puce--auj" aria-hidden="true"></span><span class="c"><b>Aujourd'hui</b><span>mercredi 11 novembre</span></span></li>
+            <li class="rdv" style="padding-bottom:28px">
+              <div class="h" aria-hidden="true"><b>14&nbsp;h</b><span>jeu. 12</span><i>demain</i></div>
+              <span class="puce" aria-hidden="true"></span>
+              <div class="c">
+                <h3 class="r-titre"><a href="#">Aide aux devoirs</a></h3>
+                <p class="r-l"><span class="statut">Accepté</span><span class="sep">·</span><span>jusqu'à <span class="h">15&nbsp;h&nbsp;30</span></span><span class="sr">demain, jeudi 12 novembre à 14 h</span></p>
+                <p class="r-l"><em>Vous donnez à</em> <b>Camille M.</b><span class="sep">·</span>1&nbsp;h&nbsp;30</p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+            </li>
+            <li class="rdv" style="padding-bottom:28px">
+              <div class="h" aria-hidden="true"><b>10&nbsp;h</b><span>sam. 14</span><i>dans 3 jours</i></div>
+              <span class="puce puce--propose" aria-hidden="true"></span>
+              <div class="c">
+                <h3 class="r-titre"><a href="#">Installer une étagère</a></h3>
+                <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="sep">·</span><span class="att">attend une réponse</span><span class="sr">samedi 14 novembre à 10 h</span></p>
+                <p class="r-l"><em>Vous recevez de</em> <b>Paul D.</b><span class="sep">·</span>1&nbsp;h</p>
+              </div>
+            </li>
+            <li class="rdv">
+              <div class="h" aria-hidden="true"><b>18&nbsp;h</b><span>lun. 16</span><i>dans 5 jours</i></div>
+              <span class="puce" aria-hidden="true"></span>
+              <div class="c">
+                <h3 class="r-titre"><a href="#">Atelier couture</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></h3>
+                <p class="r-l"><span class="statut">Confirmé</span><span class="sep">·</span><span>jusqu'à <span class="h">20&nbsp;h</span></span><span class="sr">lundi 16 novembre à 18 h</span></p>
+                <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Lucie G.</b></span><span>2&nbsp;h</span><span>6/10 participants</span></span></p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+            </li>
+          </ol>
+          <p class="entre">le mot de l'équipe</p>
+          <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">2</span></span><span class="filet"></span></div>
+          <div class="agenda">
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">15</div><div class="m">nov</div><div class="h">10:00</div></div>
+              <div class="c"><div class="g"><span class="genre genre--collectif">Activité proposée</span><span class="jauge">3/8</span></div><h3>Réparation de vélos</h3><p class="lieu">Local associatif, Vieux Bourg</p><div class="pied"><span class="orga">Organisé par Pierre B. · 2 h</span></div></div>
+            </article>
+            <article class="agenda-ligne">
+              <div class="quand"><div class="j">18</div><div class="m">nov</div><div class="h">18:30</div></div>
+              <div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span></div><h3>Café des voisins</h3><p class="lieu">Square de la Baugerie</p><div class="pied"><span class="orga">Ouvert à tous, sans inscription — passez quand vous voulez.</span></div></div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="rares">
+        <p class="rares-t"><b>États rares</b><span>même dessin</span></p>
+        <p class="rares-l">Le rendez-vous passé qui attend sa validation se range au-dessus d'aujourd'hui, sur le rail déjà parcouru.</p>
+        <ol class="frise-rdv">
+          <li class="rdv passe" style="padding-bottom:12px">
+            <div class="h" aria-hidden="true"><b>17&nbsp;h</b><span>lun. 9</span><i>il y a 2 jours</i></div>
+            <span class="puce puce--attente" aria-hidden="true"></span>
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Réparer une lampe</a></h3>
+              <p class="r-l"><span class="statut statut--attente">En attente de validation</span></p>
+              <p class="r-l"><em>Vous recevez de</em> <b>Marc T.</b><span class="sep">·</span>1&nbsp;h</p>
+              <p class="r-decompte">Validé automatiquement dans 2 jours</p>
+            </div>
+          </li>
+          <li class="auj" style="padding-bottom:20px"><span class="h"></span><span class="puce puce--auj" aria-hidden="true"></span><span class="c"><b>Aujourd'hui</b><span>mercredi 11 novembre</span></span></li>
+          <li class="rdv" style="padding-bottom:44px">
+            <div class="h" aria-hidden="true"><b>10&nbsp;h</b><span>ven. 13</span><i>dans 2 jours</i></div>
+            <span class="puce puce--propose" aria-hidden="true"></span>
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Courses au marché</a></h3>
+              <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="sep">·</span><span>jusqu'à <span class="h">11&nbsp;h</span></span></p>
+              <p class="r-l"><em>Vous donnez à</em> <b>Jeanne R.</b><span class="sep">·</span>1&nbsp;h</p>
+              <p class="r-diff"><s>jeu. 12</s><span aria-hidden="true">→</span><span class="sr">devient</span><b>ven. 13</b></p>
+            </div>
+          </li>
+          <li class="rdv" style="padding-bottom:44px">
+            <div class="h" aria-hidden="true"><b>14&nbsp;h</b><span>mar. 17</span><i>dans 6 jours</i></div>
+            <span class="puce" aria-hidden="true"></span>
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Atelier tricot</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="r-complet">Complet</span></h3>
+              <p class="r-l"><span class="statut">Confirmé</span><span class="sep">·</span><span>jusqu'à <span class="h">16&nbsp;h</span></span></p>
+              <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Martine L.</b></span><span>2&nbsp;h</span><span>8/8 participants</span></span></p>
+            </div>
+          </li>
+          <li class="rdv">
+            <div class="h" aria-hidden="true"><b>16&nbsp;h</b><span>sam. 21</span><i>dans 10 jours</i></div>
+            <span class="puce puce--propose" aria-hidden="true"></span>
+            <div class="c">
+              <h3 class="r-titre"><a href="#">Goûter partagé</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></h3>
+              <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="r-redef">· Lieu à redéfinir</span></p>
+              <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Henri P.</b></span><span>1&nbsp;h&nbsp;30</span><span>5/12 participants</span></span></p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="prop-droite">
+      <div class="distingue"><span class="k">Ce qui la distingue de l'affiche</span><b>Forte.</b> Le rail continu et ses puces de couleur n'existent nulle part ailleurs sur l'accueil. Mais il existe <b>dans la fiche</b> d'un rendez-vous : le fil (<code style="font-size:.74rem">.fil-rdv</code>) y raconte les étapes d'un seul RDV avec le même dessin.</div>
+      <div class="pc">
+        <div><span class="k">Ce que ça donne</span>Le seul qui réponde à <b>«&nbsp;c'est dans combien de temps ?&nbsp;»</b> sans calcul : le rail part d'aujourd'hui, chaque arrêt s'éloigne à proportion, et «&nbsp;demain&nbsp;» s'écrit en toutes lettres. Le rendez-vous passé qui attend sa validation <b>se place au-dessus d'aujourd'hui</b>, là où il est dans le temps — l'état le plus mystérieux pour Micheline devient le plus clair.</div>
+        <div><span class="k">Ce que ça coûte</span>
+          <ul>
+            <li><span class="lab">Tailwind</span>Le rail est un fond de 2 px peint par chaque rangée, les puces des <code>span</code> à <code>::before</code> : simple.</li>
+            <li><span class="lab">Code</span>L'écart proportionnel demande un <b>compte de jours</b> (jour civil à Paris — <code>useBillet</code> en a déjà un) et un plafond, sinon <code>/exchanges</code> s'étire sur des mois. Le repère «&nbsp;Aujourd'hui&nbsp;» et le tri strict se font dans la page qui liste : trois pages à reprendre.</li>
+            <li><span class="lab">Collision</span>Même dessin que le fil du rendez-vous dans sa fiche, pour dire autre chose (des jours entre plusieurs RDV, et non des étapes d'un seul). Cohérent ou trompeur : à trancher.</li>
+            <li><span class="lab">Accès</span>Une <code>&lt;ol&gt;</code> : l'ordre est dans la structure, «&nbsp;demain&nbsp;» est lu. La puce de couleur n'est jamais seule, le libellé du statut l'accompagne. Hauteur un peu plus grande (+ 30 px pour trois).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     LA RECOMMANDÉE SUR GRAND ÉCRAN
+     ====================================================================== -->
+<section class="bureau-vue">
+  <div class="prop-tete"><span class="n">1</span><h2>L'éphéméride sur grand écran</h2><span class="signal">colonne de 720 px, centrée comme dans l'app</span></div>
+  <p class="prop-chapo">Sur une colonne large, la feuille ne change pas ; c'est le corps qui se range en deux : <b>ce qui se passe et avec qui</b> à gauche, <b>le statut, l'heure et le geste</b> calés à droite. La ligne reste une seule cible.</p>
+  <div class="defile">
+    <div class="ecran-pc">
+      <div class="chassis"><i></i><i></i><i></i><span>Accueil</span></div>
+      <div class="tb"><span class="lg">tpt</span><nav><a class="on" href="#">Accueil</a><a href="#">Annonces</a><a href="#">Rendez-vous</a><a href="#">Messages</a></nav><span class="pill">8 h 30</span></div>
+      <div class="zone">
+        <div class="rubrique"><span class="tape"><h2>Rendez-vous à venir</h2><span class="badge-compte">3</span></span><span class="filet"></span><a class="lien" href="#">Voir tout</a></div>
+        <div class="rdvs">
+          <article class="rdv eph eph--large">
+            <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">12</span><span class="js">jeudi</span></div>
+            <div class="c">
+              <div class="g">
+                <h3 class="r-titre"><a href="#">Aide aux devoirs</a></h3>
+                <p class="r-l"><em>Vous donnez à</em> <b>Camille M.</b><span class="sep">·</span>1&nbsp;h&nbsp;30</p>
+              </div>
+              <div class="d">
+                <p class="r-l"><span class="statut">Accepté</span><span class="sep">·</span><span class="h">14&nbsp;h – 15&nbsp;h&nbsp;30</span></p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+            </div>
+          </article>
+          <article class="rdv eph eph--large eph--a-confirmer">
+            <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">14</span><span class="js">samedi</span></div>
+            <div class="c">
+              <div class="g">
+                <h3 class="r-titre"><a href="#">Installer une étagère</a></h3>
+                <p class="r-l"><em>Vous recevez de</em> <b>Paul D.</b><span class="sep">·</span>1&nbsp;h</p>
+              </div>
+              <div class="d">
+                <p class="r-l"><span class="statut statut--propose">Proposé</span><span class="sep">·</span><span class="h">10&nbsp;h – 11&nbsp;h</span></p>
+                <p class="r-l"><span class="att">attend une réponse</span></p>
+              </div>
+            </div>
+          </article>
+          <article class="rdv eph eph--large">
+            <div class="eph-f" aria-hidden="true"><span class="mois">nov.</span><span class="perfo"></span><span class="j">16</span><span class="js">lundi</span></div>
+            <div class="c">
+              <div class="g">
+                <h3 class="r-titre"><a href="#">Atelier couture</a><span class="r-groupe" role="img" aria-label="Activité de groupe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></h3>
+                <p class="r-l r-liste"><span class="r-in"><span>Organisé par <b>Lucie G.</b></span><span>2&nbsp;h</span><span>6/10 participants</span></span></p>
+              </div>
+              <div class="d">
+                <p class="r-l"><span class="statut">Confirmé</span><span class="sep">·</span><span class="h">18&nbsp;h – 20&nbsp;h</span></p>
+                <a class="lien-filet r-cal" href="#">Ajouter au calendrier</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="entre">le mot de l'équipe</p>
+        <div class="rubrique"><span class="tape"><h2>À l'affiche</h2><span class="badge-compte">2</span></span><span class="filet"></span></div>
+        <div class="agenda">
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">15</div><div class="m">nov</div><div class="h">10:00</div></div>
+            <div class="c"><div class="g"><span class="genre genre--collectif">Activité proposée</span><span class="jauge">3/8</span></div><h3>Réparation de vélos</h3><p class="lieu">Local associatif, Vieux Bourg</p><div class="pied"><span class="orga">Organisé par Pierre B. · 2 h</span></div></div>
+          </article>
+          <article class="agenda-ligne">
+            <div class="quand"><div class="j">18</div><div class="m">nov</div><div class="h">18:30</div></div>
+            <div class="c"><div class="g"><span class="genre genre--moment">Moment ouvert</span></div><h3>Café des voisins</h3><p class="lieu">Square de la Baugerie</p><div class="pied"><span class="orga">Ouvert à tous, sans inscription — passez quand vous voulez.</span></div></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="legende-pc">À 720 px, la distinction se renforce : les trois feuilles forment une <b>colonne de calendriers posés</b>, l'affiche une <b>colonne de chiffres</b> sur le fond. La future bande de jours de l'affiche viendra au-dessus de ses lignes — elle devra rester typographique, sans coiffe.</p>
+</section>
+
+<!-- ======================================================================
+     EN UN COUP D'ŒIL
+     ====================================================================== -->
+<section class="tableau">
+  <p class="t">En un coup d'œil</p>
+  <div class="ligne ligne--tete"><span>Proposition</span><span>Ce qui la distingue de l'affiche</span><span>La date, lue de loin</span><span>Trois RDV (auj. ≈ 295)</span><span>Ce que ça demande</span></div>
+  <div class="ligne ligne--reco"><span><b>1 · L'éphéméride</b></span><span data-k="Distinction"><span class="fort">Forte</span> — une feuille coiffée de marine, sur papier</span><span data-k="Date">chiffre de 27 px, jour en toutes lettres</span><span data-k="Hauteur" class="num" id="h-p1">≈ 305 px</span><span data-k="Coût">une variante du talon ; un composant, trois surfaces</span></div>
+  <div class="ligne"><span><b>2 · L'agenda de papier</b></span><span data-k="Distinction"><span class="moyen">Moyenne à forte</span> — marge orange, feuille réglée</span><span data-k="Date">l'heure en gros, le jour en tête de groupe</span><span data-k="Hauteur" class="num" id="h-p2">≈ 345 px</span><span data-k="Coût">regrouper par jour dans trois pages ; trame fragile</span></div>
+  <div class="ligne"><span><b>3 · Le carnet du jour</b></span><span data-k="Distinction"><span class="moyen">Moyenne</span> — pas de colonne, filets doubles</span><span data-k="Date"><span class="faible">capitales de 10 px</span></span><span data-k="Hauteur" class="num" id="h-p3">≈ 275 px</span><span data-k="Coût">du CSS seul, le moins cher</span></div>
+  <div class="ligne"><span><b>4 · Le tampon dateur</b></span><span data-k="Distinction"><span class="fort">Forte</span> — la date à droite, de travers</span><span data-k="Date">18 px, inclinée, à droite</span><span data-k="Hauteur" class="num" id="h-p4">≈ 320 px</span><span data-k="Coût">du CSS seul ; arbitrage sur l'orange</span></div>
+  <div class="ligne"><span><b>5 · L'indicateur horaire</b></span><span data-k="Distinction"><span class="fort">Forte</span> — le rail, mais celui de la fiche</span><span data-k="Date">l'heure, le jour, «&nbsp;demain&nbsp;»</span><span data-k="Hauteur" class="num" id="h-p5">≈ 325 px</span><span data-k="Coût">tri, repère, compte de jours dans trois pages</span></div>
+</section>
+
+<!-- ======================================================================
+     CE QUE J'EN TIRE
+     ====================================================================== -->
+<section class="verdict">
+  <p class="k">Ce que j'en tire</p>
+  <h2>Pour que le rendez-vous ait l'air d'un rendez-vous, la date doit devenir <span class="souligne">un objet</span>, pas une colonne.</h2>
+  <p>Les cinq tiennent dans la hauteur du billet et ne changent aucune donnée. Ce qui les départage, c'est la demande — que les rendez-vous <b>ne ressemblent plus à l'affiche</b> — et Micheline, qui lit lentement, avec ses lunettes, et pense en jours de la semaine.</p>
+  <p>Le <b>carnet du jour</b> (3) est le plus gazette et le moins cher, mais il range la date dans une ligne de 10 px : on perd le gros chiffre qu'on trouve sans chercher. L'<b>agenda de papier</b> (2) et l'<b>indicateur horaire</b> (5) sont les plus «&nbsp;agenda&nbsp;», mais ils déplacent le travail dans les pages qui listent — grouper par jour, compter les jours, insérer «&nbsp;aujourd'hui&nbsp;» —, soit trois pages à reprendre au lieu d'un composant ; et l'indicateur réemploie le rail du fil d'un rendez-vous pour dire autre chose. Le <b>tampon</b> (4) est le plus drôle, et son idée «&nbsp;pas encore tamponné&nbsp;» est la meilleure trouvaille de la planche ; mais l'orange est la couleur de l'action, et trois tampons orange sur l'accueil l'useraient.</p>
+  <p><b>Ma recommandation : l'éphéméride (1)</b>, avec la trouvaille du tampon — une proposition non confirmée a sa feuille en pointillé, coiffe creuse. Parce que la date y devient un objet qu'aucune ligne de l'affiche ne porte ; parce que le <b>jour de la semaine</b> arrive enfin, en toutes lettres ; parce que le chiffre passe de 19 à 27 px ; et parce que c'est <b>une variante du talon de <code>BilletPapier</code></b> : un seul composant change, l'accueil, le carnet <code>/exchanges</code> et les blocs du profil suivent d'un coup, sans toucher aux pages ni aux tests qui cherchent <code>exchange-card</code>.</p>
+  <p class="distinction"><b>Distinction</b>L'affiche garde ses chiffres nus sur le fond de page ; le rendez-vous a sa feuille de calendrier sur papier. Une condition pour que ça tienne : la future bande de jours au-dessus d'«&nbsp;À l'affiche&nbsp;» ne devra <b style="font-family:inherit;font-size:inherit;letter-spacing:0;text-transform:none;color:inherit;margin:0">pas</b> reprendre la coiffe marine.</p>
+  <h3>À trancher avant d'implémenter</h3>
+  <ul>
+    <li><b>L'aplat marine.</b> <code>DESIGN.md</code> fait du mot de l'équipe le seul aplat marine du flux de l'accueil ; l'éphéméride en pose trois petits (14 px de haut). Repli si la règle doit tenir : une coiffe à double filet marine, sans aplat — un peu moins éphéméride.</li>
+    <li><b>Le format de l'heure.</b> L'app écrit «&nbsp;14:00&nbsp;» partout, la demande dit «&nbsp;14 h&nbsp;» ; la charte ne fixe rien. À décider une fois, pour un seul formateur — sinon le rendez-vous dira «&nbsp;14 h&nbsp;» et l'affiche «&nbsp;10:00&nbsp;» sur le même écran.</li>
+    <li><b>L'heure de fin.</b> Le billet actuel ne la montre pas ; «&nbsp;14 h – 15 h 30&nbsp;» se calcule depuis la durée, mais c'est une donnée de plus à l'écran.</li>
+  </ul>
+  <h3>Ce qui m'a manqué dans la charte</h3>
+  <ul>
+    <li><b>Aucun jeton pour les lignes réglées</b> (2) : j'ai pris le marine à 9 %, comme les filets de <code>gazette.css</code> ; et aucun rôle nommé pour une «&nbsp;marge&nbsp;» — j'ai pris <code>--orange-vif</code>, autorisé en filet.</li>
+    <li><b>Aucune encre de tampon</b> (4) : <code>--orange</code> fait l'affaire, mais il porte déjà l'action.</li>
+    <li><b>Aucune règle pour le jour de la semaine</b> («&nbsp;jeudi&nbsp;», «&nbsp;jeu.&nbsp;», «&nbsp;JEU&nbsp;») ni pour l'abréviation du mois : le talon écrit «&nbsp;nov&nbsp;», la contre-proposition «&nbsp;jeu. 12&nbsp;».</li>
+    <li><b>Aucun libellé court de statut</b> pour une ligne étroite : «&nbsp;En attente de validation&nbsp;» ne tient pas sur la ligne du titre (3) ; «&nbsp;À valider&nbsp;» n'existe pas dans <code>exchangeStatus.ts</code>.</li>
+  </ul>
+</section>
+
+<footer>Planche d'exploration — données fictives. Socle : <a href="../gazette.css">gazette.css</a> · structure reprise de <a href="affiche-deux-facons.html">«&nbsp;À l'affiche&nbsp;», deux façons</a>.</footer>
+
+</body>
+</html>
